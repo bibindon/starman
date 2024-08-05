@@ -23,8 +23,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
     return DefWindowProc(hWnd, mes, wParam, lParam);
 }
 
-
-int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
+int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance,
+    _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
     // アプリケーションの初期化
     MSG msg;
@@ -92,7 +92,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     ID3DXBuffer* pMaterials;
     DWORD NumMaterials;
     ID3DXMesh* pMesh;
-    if (FAILED(D3DXLoadMeshFromX(_T("Cube2.x"), D3DXMESH_MANAGED, g_pD3DDev, NULL, &pMaterials, NULL, &NumMaterials, &pMesh))) {
+    if (FAILED(D3DXLoadMeshFromX(_T("Cube2.x"), D3DXMESH_MANAGED, g_pD3DDev, NULL, &pMaterials, NULL, &NumMaterials, &pMesh)))
+    {
         g_pD3DDev->Release(); g_pD3D->Release(); return 0;
     }
 
@@ -100,7 +101,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
     ID3DXBuffer* pAX_Materials;
     DWORD AX_NumMaterials;
     ID3DXMesh* pAX_Mesh;
-    if (FAILED(D3DXLoadMeshFromX(_T("Axis.x"), D3DXMESH_MANAGED, g_pD3DDev, NULL, &pAX_Materials, NULL, &AX_NumMaterials, &pAX_Mesh))) {
+    if (FAILED(D3DXLoadMeshFromX(_T("Axis.x"), D3DXMESH_MANAGED, g_pD3DDev, NULL, &pAX_Materials, NULL, &AX_NumMaterials, &pAX_Mesh)))
+    {
         pMesh->Release(); g_pD3DDev->Release(); g_pD3D->Release(); return 0;
     }
 
