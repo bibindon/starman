@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+/starman/.vs/starman/v16
+/starman/Debug
+/starman/starman/Debug
+*.user
+*.filters
