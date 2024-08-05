@@ -31,6 +31,7 @@ void KeyBoard::Update()
 
 bool KeyBoard::IsDown(int keyCode)
 {
+    // TODO previous key
     if (m_key[keyCode] & 0x80)
     {
         return true;

@@ -3,6 +3,7 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include "KeyBoard.h"
+#include "BGM.h"
 
 _TCHAR gName[100] = _T("3Dオブジェクト描画サンプルプログラム");
 
@@ -115,6 +116,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&m_directInput, NULL);
 
     KeyBoard::Init(m_directInput, hWnd);
+    BGM::initialize(hWnd);
 
     // ウィンドウ表示
     ShowWindow(hWnd, SW_SHOW);
@@ -157,6 +159,12 @@ int MainWindow::MainLoop()
         }
         if (KeyBoard::IsDown(DIK_Q))
         {
+            BGM::get_ton()->load("res\\sound\\title.wav");
+            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+        }
+        if (KeyBoard::IsDown(DIK_E))
+        {
+            BGM::get_ton()->play();
             MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
         }
 
