@@ -32,5 +32,7 @@ public:
         const std::string& model_name, const std::string& texture_name);
     static std::vector<char> get_sound_resource(
         const std::string& filename);
+    static constexpr int KEY_DEQUE_MAX_SIZE { 300 };
+    static constexpr int SIMULTANEOUS_ALLOW_FRAME { 3 };
 };
 
