@@ -5,3 +5,8 @@ std::vector<char> Common::get_model_texture_resource(
 {
     return std::vector<char>();
 }
+
+std::vector<char> Common::get_sound_resource(const std::string& filename)
+{
+    return std::vector<char>();
+}

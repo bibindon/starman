@@ -30,5 +30,7 @@ class Common
 public:
     static std::vector<char> get_model_texture_resource(
         const std::string& model_name, const std::string& texture_name);
+    static std::vector<char> get_sound_resource(
+        const std::string& filename);
 };
 
