@@ -110,7 +110,6 @@ bool BGM::open_wave(
 
     HMMIO _hmmio { nullptr };
 
-    vector<char> bgm_raw = Common::get_sound_resource(filepath);
     char* Name = new char[filepath.length() + 1];
     strcpy_s(Name, filepath.length() + 1, filepath.c_str());
     _hmmio = mmioOpen(Name, nullptr, MMIO_READ);

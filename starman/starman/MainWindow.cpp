@@ -4,6 +4,7 @@
 #include <dinput.h>
 #include "KeyBoard.h"
 #include "BGM.h"
+#include "SoundEffect.h"
 
 _TCHAR gName[100] = _T("3Dオブジェクト描画サンプルプログラム");
 
@@ -117,6 +118,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     KeyBoard::Init(m_directInput, hWnd);
     BGM::initialize(hWnd);
+    SoundEffect::initialize(hWnd);
 
     // ウィンドウ表示
     ShowWindow(hWnd, SW_SHOW);
@@ -124,6 +126,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
 MainWindow::~MainWindow()
 {
+    BGM::finalize();
+    SoundEffect::finalize();
     pMesh->Release();
     pAX_Mesh->Release();
     g_pD3DDev->Release();
@@ -159,12 +163,14 @@ int MainWindow::MainLoop()
         }
         if (KeyBoard::IsDown(DIK_Q))
         {
-            BGM::get_ton()->load("res\\sound\\title.wav");
+            //BGM::get_ton()->load("res\\sound\\title.wav");
+            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
             MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
         }
         if (KeyBoard::IsDown(DIK_E))
         {
-            BGM::get_ton()->play();
+            //BGM::get_ton()->play();
+            SoundEffect::get_ton()->play("res\\sound\\damage01.wav");
             MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
         }
 
