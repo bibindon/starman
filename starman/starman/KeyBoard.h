@@ -1,4 +1,7 @@
 #pragma once
+
+// directinput‚ðŽg‚¤‚×‚µ
+
 class KeyBoard
 {
 };

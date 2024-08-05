@@ -3,7 +3,6 @@
 
 _TCHAR gName[100] = _T("3Dオブジェクト描画サンプルプログラム");
 
-
 // ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -144,7 +143,7 @@ int MainWindow::MainLoop()
         g_pD3DDev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80), 1.0f, 0);
         g_pD3DDev->BeginScene();
 
-        Ang += 1;
+//        Ang += 1;
 
         ///////////////////////////
         // ライト
@@ -166,7 +165,7 @@ int MainWindow::MainLoop()
         D3DXMatrixMultiply(&World, &World, &Rot_X);    // X軸回転後
         D3DXMatrixMultiply(&World, &World, &Rot_Y);    // Y軸回転させます。
 
-    // ビュー変換
+        // ビュー変換
         // 視点は原点固定ですが、カメラの位置は適当です
         D3DXVECTOR3 a = D3DXVECTOR3(47.5f * cosf(D3DXToRadian(Ang * 0.7f)), 70.2f * cosf(D3DXToRadian(Ang * 0.2f)), 56.7f * sinf(D3DXToRadian(Ang * 1.2f)));
         D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
