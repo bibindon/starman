@@ -1,15 +1,13 @@
 #pragma once
 
 #include <dsound.h>
-#include <memory>
 #include <string>
 #include <vector>
 
 class BGM
 {
 public:
-    static std::shared_ptr<BGM> single_ton_;
-    static std::shared_ptr<BGM> get_ton();
+    static BGM* get_ton();
     static void initialize(HWND hwnd);
     static void finalize(); // For memory leak check.
 
@@ -17,6 +15,7 @@ public:
     void play(const int a_volume = 100);
     void stop();
 private:
+    static BGM* single_ton_;
     // hide ctor
     BGM(HWND hwnd);
     BGM(const BGM&) { }

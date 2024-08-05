@@ -9,23 +9,18 @@
 
 using std::vector;
 using std::string;
-using std::shared_ptr;
 
-std::shared_ptr<BGM> BGM::single_ton_;
-std::shared_ptr<BGM> BGM::get_ton()
+BGM* BGM::single_ton_;
+BGM* BGM::get_ton()
 {
-    if (single_ton_.get() != nullptr)
-    {
-        return single_ton_;
-    }
-    return nullptr;
+    return single_ton_;
 }
 
 void BGM::initialize(HWND hwnd)
 {
-    if (single_ton_.get() == nullptr)
+    if (single_ton_ == nullptr)
     {
-        single_ton_.reset(new BGM { hwnd });
+        single_ton_ = new BGM { hwnd };
     }
 }
 
@@ -33,7 +28,7 @@ void BGM::finalize()
 {
     SAFE_RELEASE(single_ton_->dx8sound_);
     SAFE_RELEASE(single_ton_->dx8sound_buffer_);
-    single_ton_ = nullptr;
+    SAFE_DELETE(single_ton_);
 }
 
 // Reference
