@@ -1,5 +1,8 @@
 #include "MainWindow.h"
 #include <exception>
+#define DIRECTINPUT_VERSION 0x0800
+#include <dinput.h>
+#include "KeyBoard.h"
 
 _TCHAR gName[100] = _T("3Dオブジェクト描画サンプルプログラム");
 
@@ -108,6 +111,11 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     g_pD3DDev->SetRenderState(D3DRS_LIGHTING, TRUE);
     g_pD3DDev->SetRenderState(D3DRS_AMBIENT, 0x00808080);   // アンビエントライト
 
+    // directinput
+    HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&m_directInput, NULL);
+
+    KeyBoard::Init(m_directInput, hWnd);
+
     // ウィンドウ表示
     ShowWindow(hWnd, SW_SHOW);
 }
@@ -140,6 +148,18 @@ int MainWindow::MainLoop()
         {
             DispatchMessage(&msg);
         }
+
+        KeyBoard::Update();
+
+        if (KeyBoard::IsDown(DIK_ESCAPE))
+        {
+            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+        }
+        if (KeyBoard::IsDown(DIK_Q))
+        {
+            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+        }
+
         g_pD3DDev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80), 1.0f, 0);
         g_pD3DDev->BeginScene();
 
@@ -210,6 +230,8 @@ int MainWindow::MainLoop()
 
         g_pD3DDev->EndScene();
         g_pD3DDev->Present(NULL, NULL, NULL, NULL);
+
+
     } while (msg.message != WM_QUIT);
     return 0;
 }

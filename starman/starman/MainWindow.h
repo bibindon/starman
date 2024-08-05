@@ -4,6 +4,8 @@
 #include <tchar.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#define DIRECTINPUT_VERSION 0x0800
+#include <dinput.h>
 
 class MainWindow
 {
@@ -24,5 +26,7 @@ private:
     ID3DXBuffer* pAX_Materials;
     DWORD AX_NumMaterials;
     ID3DXMesh* pAX_Mesh;
+
+    LPDIRECTINPUT8 m_directInput = NULL;
 };
 
