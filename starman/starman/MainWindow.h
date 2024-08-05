@@ -6,6 +6,7 @@
 #include <d3dx9.h>
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+#include "Mesh.h"
 
 class MainWindow
 {
@@ -27,6 +28,7 @@ private:
     DWORD AX_NumMaterials;
     ID3DXMesh* pAX_Mesh;
 
+    Mesh* m_Mesh1;
     LPDIRECTINPUT8 m_directInput = NULL;
 };
 

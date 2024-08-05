@@ -120,6 +120,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     BGM::initialize(hWnd);
     SoundEffect::initialize(hWnd);
 
+    D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
+    m_Mesh1 = new Mesh(g_pD3DDev, "tiger.x", b, b, 1.0f);
+
     // ウィンドウ表示
     ShowWindow(hWnd, SW_SHOW);
 }
@@ -241,6 +244,9 @@ int MainWindow::MainLoop()
             g_pD3DDev->SetMaterial(&mtrl->MatD3D);
             pAX_Mesh->DrawSubset(i);
         };
+
+        // TODO
+//        m_Mesh1->re
 
         g_pD3DDev->EndScene();
         g_pD3DDev->Present(NULL, NULL, NULL, NULL);
