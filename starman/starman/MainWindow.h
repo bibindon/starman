@@ -6,8 +6,8 @@
 #include <d3dx9.h>
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
-#include "Mesh.h"
 #include  <string>
+#include "Mesh.h"
 
 class MainWindow
 {
@@ -17,8 +17,8 @@ public:
     int MainLoop();
 
 private:
-    MSG msg;
-    HWND hWnd;
+    MSG m_msg;
+    HWND m_hWnd;
     LPDIRECT3D9 m_D3D;
     LPDIRECT3DDEVICE9 m_D3DDevice;
     D3DLIGHT9 light;

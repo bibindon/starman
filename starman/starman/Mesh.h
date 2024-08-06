@@ -18,31 +18,31 @@ public:
         const float&);
     ~Mesh();
 
-    void render(const D3DXMATRIX&, const D3DXMATRIX&);
+    void Render(const D3DXMATRIX&, const D3DXMATRIX&);
 
 private:
-    const static std::string SHADER_FILENAME;
-    LPD3DXMESH d3dx_mesh_ { };
-    DWORD materials_count_ { 0 };
-    D3DXHANDLE world_view_proj_handle_ { nullptr };
-    std::vector<D3DCOLORVALUE> colors_ { };
-    std::vector<LPDIRECT3DTEXTURE9> textures_ { };
-    D3DXVECTOR3 center_coodinate_ { 0.0f, 0.0f, 0.0f };
-    float radius_ { 0.0f };
-    float scale_ { 0.0f };
-    std::string mesh_name_ { };
+    const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
+    LPD3DXMESH m_D3DMesh { };
+    DWORD m_MaterialCount { 0 };
+    D3DXHANDLE m_WorldViewProj { nullptr };
+    std::vector<D3DCOLORVALUE> m_vecColor { };
+    std::vector<LPDIRECT3DTEXTURE9> m_vecTexture { };
+    D3DXVECTOR3 m_CenterCoord { 0.0f, 0.0f, 0.0f };
+    float m_Radius { 0.0f };
+    float m_Scale { 0.0f };
+    std::string m_MeshName { };
 
-    LPDIRECT3DDEVICE9 d3d_device_;
-    LPD3DXEFFECT effect_;
+    LPDIRECT3DDEVICE9 m_D3DDevice;
+    LPD3DXEFFECT m_Effect;
 
-    D3DXVECTOR3 position_;
-    D3DXVECTOR3 rotation_;
+    D3DXVECTOR3 m_Pos;
+    D3DXVECTOR3 m_Rotate;
 
-    D3DXHANDLE mesh_texture_handle_;
-    D3DXHANDLE diffuse_handle_;
+    D3DXHANDLE m_MeshTexture;
+    D3DXHANDLE m_Diffuse;
 
-    D3DXHANDLE light_normal_handle_;
-    D3DXHANDLE brightness_handle_;
+    D3DXHANDLE m_LightNormal;
+    D3DXHANDLE m_Brightness;
 
 };
 

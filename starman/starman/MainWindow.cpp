@@ -37,7 +37,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         throw std::exception("");
     }
 
-    if (!(hWnd = CreateWindow(TITLE.c_str(), TITLE.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
+    if (!(m_hWnd = CreateWindow(TITLE.c_str(), TITLE.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
         CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL)))
     {
         throw std::exception("");
@@ -66,10 +66,10 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         D3DPRESENT_INTERVAL_DEFAULT
     };
 
-    if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+    if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
         D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &m_D3DDevice)))
     {
-        if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+        if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
             D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &m_D3DDevice)))
         {
             m_D3D->Release();
@@ -114,23 +114,21 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
         (LPVOID*)&m_directInput, NULL);
 
-    KeyBoard::Init(m_directInput, hWnd);
-    BGM::initialize(hWnd);
-    SoundEffect::initialize(hWnd);
+    KeyBoard::Init(m_directInput, m_hWnd);
+    BGM::initialize(m_hWnd);
+    SoundEffect::initialize(m_hWnd);
 
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
     m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 10.0f);
 
     // ウィンドウ表示
-    ShowWindow(hWnd, SW_SHOW);
+    ShowWindow(m_hWnd, SW_SHOW);
 }
 
 MainWindow::~MainWindow()
 {
     BGM::finalize();
     SoundEffect::finalize();
-    pMesh->Release();
-    pAX_Mesh->Release();
     m_D3DDevice->Release();
     m_D3D->Release();
 }
@@ -150,9 +148,9 @@ int MainWindow::MainLoop()
     unsigned int i;
     do {
         Sleep(1);
-        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
         {
-            DispatchMessage(&msg);
+            DispatchMessage(&m_msg);
         }
 
         KeyBoard::Update();
@@ -244,12 +242,12 @@ int MainWindow::MainLoop()
             pAX_Mesh->DrawSubset(i);
         };
 
-        m_Mesh1->render(View, Persp);
+        m_Mesh1->Render(View, Persp);
 
         m_D3DDevice->EndScene();
         m_D3DDevice->Present(NULL, NULL, NULL, NULL);
 
 
-    } while (msg.message != WM_QUIT);
+    } while (m_msg.message != WM_QUIT);
     return 0;
 }
