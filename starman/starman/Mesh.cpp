@@ -1,5 +1,6 @@
 #include "Mesh.h"
 #include "Light.h"
+#include "Common.h"
 
 using std::string;
 using std::vector;
@@ -10,8 +11,9 @@ Mesh::Mesh(
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
     const float& scale)
+    : m_D3DDevice { D3DDevice }
+    , m_MeshName { xFilename }
 {
-    m_D3DDevice = D3DDevice;
 
     HRESULT result { 0 };
     D3DXCreateEffectFromFile(
@@ -117,15 +119,21 @@ Mesh::Mesh(
 
     D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
 
+    std::string xFileDir = m_MeshName;
+    std::size_t lastPos = xFileDir.find_last_of("\\");
+    xFileDir = xFileDir.substr(0, lastPos + 1);
+
     for (DWORD i = 0; i < m_MaterialCount; ++i)
     {
         m_vecColor.at(i) = materials[i].MatD3D.Diffuse;
         if (materials[i].pTextureFilename != nullptr)
         {
+            std::string texPath = xFileDir;
+            texPath += materials[i].pTextureFilename;
             LPDIRECT3DTEXTURE9 tempTexture { };
             if (FAILED(D3DXCreateTextureFromFile(
                 m_D3DDevice,
-                "res\\model\\tiger\\tiger.bmp", /* TODO */
+                texPath.c_str(),
                 &tempTexture)))
             {
                 throw std::exception("texture file is not found.");
@@ -185,7 +193,6 @@ void Mesh::Render(const D3DXMATRIX& viewMatrix, const D3DXMATRIX& projMatrix)
 
     for (DWORD i = 0; i < m_MaterialCount; ++i)
     {
-        // TODO : remove redundant set****.
         D3DXVECTOR4 vec4Color {
             m_vecColor.at(i).r,
             m_vecColor.at(i).g,

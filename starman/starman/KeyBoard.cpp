@@ -13,7 +13,7 @@ void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
     ret = m_keyboard->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
 
     // “®ìŠJŽn
-    m_keyboard->Acquire();
+    ret = m_keyboard->Acquire();
 }
 
 void KeyBoard::Update()

@@ -5,6 +5,7 @@
 #include "KeyBoard.h"
 #include "BGM.h"
 #include "SoundEffect.h"
+#include "Mouse.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -115,6 +116,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         (LPVOID*)&m_directInput, NULL);
 
     KeyBoard::Init(m_directInput, m_hWnd);
+    Mouse::Init(m_directInput, m_hWnd);
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
 
@@ -154,6 +156,7 @@ int MainWindow::MainLoop()
         }
 
         KeyBoard::Update();
+        Mouse::Update();
 
         if (KeyBoard::IsDown(DIK_ESCAPE))
         {
@@ -170,6 +173,10 @@ int MainWindow::MainLoop()
             //BGM::get_ton()->play();
             SoundEffect::get_ton()->play("res\\sound\\damage01.wav");
             MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+        }
+        if (Mouse::IsDownLeft())
+        {
+            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
         }
 
         m_D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
