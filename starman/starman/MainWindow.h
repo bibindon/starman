@@ -7,6 +7,7 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include "Mesh.h"
+#include  <string>
 
 class MainWindow
 {
@@ -18,8 +19,8 @@ public:
 private:
     MSG msg;
     HWND hWnd;
-    LPDIRECT3D9 g_pD3D;
-    LPDIRECT3DDEVICE9 g_pD3DDev;
+    LPDIRECT3D9 m_D3D;
+    LPDIRECT3DDEVICE9 m_D3DDevice;
     D3DLIGHT9 light;
     ID3DXBuffer* pMaterials;
     DWORD NumMaterials;
@@ -28,7 +29,9 @@ private:
     DWORD AX_NumMaterials;
     ID3DXMesh* pAX_Mesh;
 
-    Mesh* m_Mesh1;
-    LPDIRECTINPUT8 m_directInput = NULL;
+    Mesh* m_Mesh1 { nullptr };
+    LPDIRECTINPUT8 m_directInput { nullptr };
+
+    const std::string TITLE = "ƒzƒVƒ}ƒ“";
 };
 

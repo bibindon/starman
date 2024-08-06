@@ -6,7 +6,7 @@ using std::string;
 using std::unique_ptr;
 using std::vector;
 
-const string Mesh::SHADER_FILENAME = "mesh_shader.fx";
+const string Mesh::SHADER_FILENAME = "res\\shader\\mesh_shader.fx";
 
 Mesh::Mesh(
     const LPDIRECT3DDEVICE9 d3d_device,
@@ -15,10 +15,30 @@ Mesh::Mesh(
     const D3DXVECTOR3& rotation,
     const float& scale)
 {
-    animation_strategy_.reset(new no_animation { });
+    d3d_device_ = d3d_device;
 
     HRESULT result { 0 };
+    D3DXCreateEffectFromFile(
+        d3d_device,
+        SHADER_FILENAME.c_str(),
+        nullptr,
+        nullptr,
+        0,
+        nullptr,
+        &effect_,
+        nullptr);
+    if (FAILED(result))
+    {
+        throw std::exception("Failed to create an effect file.");
+    }
+
     world_view_proj_handle_ = effect_->GetParameterByName(nullptr, "g_world_view_projection");
+    light_normal_handle_ = effect_->GetParameterByName(nullptr, "g_light_normal");
+    brightness_handle_ = effect_->GetParameterByName(nullptr, "g_light_brightness");
+    mesh_texture_handle_ = effect_->GetParameterByName(nullptr, "g_mesh_texture");
+    diffuse_handle_ = effect_->GetParameterByName(nullptr, "g_diffuse");
+
+
 
     LPD3DXBUFFER adjacency_buffer { nullptr };
     LPD3DXBUFFER material_buffer { nullptr };
@@ -117,7 +137,7 @@ Mesh::Mesh(
             LPDIRECT3DTEXTURE9 temp_texture { };
             if (FAILED(D3DXCreateTextureFromFile(
                 d3d_device_,
-                x_filename.c_str(),
+                "res\\model\\tiger\\tiger.bmp",
                 &temp_texture)))
             {
                 throw std::exception("texture file is not found.");
@@ -138,7 +158,7 @@ Mesh::~Mesh()
 {
 }
 
-void Mesh::render_impl(const D3DXMATRIX& view_matrix, const D3DXMATRIX& projection_matrix)
+void Mesh::render(const D3DXMATRIX& view_matrix, const D3DXMATRIX& projection_matrix)
 {
     D3DXMATRIX world_view_projection_matrix { };
     D3DXMatrixIdentity(&world_view_projection_matrix);

@@ -6,9 +6,6 @@
 #include "BGM.h"
 #include "SoundEffect.h"
 
-_TCHAR gName[100] = _T("3Dオブジェクト描画サンプルプログラム");
-
-// ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
     if (mes == WM_DESTROY)
@@ -21,7 +18,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 
 MainWindow::MainWindow(const HINSTANCE& hInstance)
 {
-    // アプリケーションの初期化
     WNDCLASSEX wcex = {
         sizeof(WNDCLASSEX),
         CS_HREDRAW | CS_VREDRAW,
@@ -33,7 +29,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         NULL,
         (HBRUSH)(COLOR_WINDOW + 1),
         NULL,
-        (_TCHAR*)gName, NULL
+        TITLE.c_str(), NULL
     };
 
     if (!RegisterClassEx(&wcex))
@@ -41,14 +37,14 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         throw std::exception("");
     }
 
-    if (!(hWnd = CreateWindow(gName, gName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0,
-        NULL, NULL, hInstance, NULL)))
+    if (!(hWnd = CreateWindow(TITLE.c_str(), TITLE.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
+        CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL)))
     {
         throw std::exception("");
     }
 
     // Direct3Dの初期化
-    if (!(g_pD3D = Direct3DCreate9(D3D_SDK_VERSION)))
+    if (!(m_D3D = Direct3DCreate9(D3D_SDK_VERSION)))
     {
         throw std::exception("");
     }
@@ -70,33 +66,34 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         D3DPRESENT_INTERVAL_DEFAULT
     };
 
-    if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &g_pD3DDev)))
+    if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+        D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &m_D3DDevice)))
     {
-        if (FAILED(g_pD3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &g_pD3DDev)))
+        if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+            D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &m_D3DDevice)))
         {
-            g_pD3D->Release();
+            m_D3D->Release();
             throw std::exception("");
         }
     }
 
-    // 立方体オブジェクト生成
-    if (FAILED(D3DXLoadMeshFromX(_T("Cube2.x"), D3DXMESH_MANAGED, g_pD3DDev, NULL, &pMaterials, NULL, &NumMaterials, &pMesh)))
-    {
-        g_pD3DDev->Release();
-        g_pD3D->Release();
-        throw std::exception("");
-    }
+//    // 立方体オブジェクト生成
+//    if (FAILED(D3DXLoadMeshFromX(_T("Cube2.x"), D3DXMESH_MANAGED, m_D3DDevice, NULL, &pMaterials, NULL, &NumMaterials, &pMesh)))
+//    {
+//        m_D3DDevice->Release();
+//        m_D3D->Release();
+//        throw std::exception("");
+//    }
+//
+//    // 軸オブジェクト生成
+//    if (FAILED(D3DXLoadMeshFromX(_T("Axis.x"), D3DXMESH_MANAGED, m_D3DDevice, NULL, &pAX_Materials, NULL, &AX_NumMaterials, &pAX_Mesh)))
+//    {
+//        pMesh->Release();
+//        m_D3DDevice->Release();
+//        m_D3D->Release();
+//        throw std::exception("");
+//    }
 
-    // 軸オブジェクト生成
-    if (FAILED(D3DXLoadMeshFromX(_T("Axis.x"), D3DXMESH_MANAGED, g_pD3DDev, NULL, &pAX_Materials, NULL, &AX_NumMaterials, &pAX_Mesh)))
-    {
-        pMesh->Release();
-        g_pD3DDev->Release();
-        g_pD3D->Release();
-        throw std::exception("");
-    }
-
-    // ライト
     ZeroMemory(&light, sizeof(D3DLIGHT9));
     light.Direction = D3DXVECTOR3(-1, -20, 0);
     light.Type = D3DLIGHT_DIRECTIONAL;
@@ -108,20 +105,21 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     light.Ambient.b = 0.5f;
     light.Range = 1000;
 
-    g_pD3DDev->SetLight(0, &light);
-    g_pD3DDev->LightEnable(0, true);
-    g_pD3DDev->SetRenderState(D3DRS_LIGHTING, TRUE);
-    g_pD3DDev->SetRenderState(D3DRS_AMBIENT, 0x00808080);   // アンビエントライト
+    m_D3DDevice->SetLight(0, &light);
+    m_D3DDevice->LightEnable(0, true);
+    m_D3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+    m_D3DDevice->SetRenderState(D3DRS_AMBIENT, 0x00808080);   // アンビエントライト
 
     // directinput
-    HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&m_directInput, NULL);
+    HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
+        (LPVOID*)&m_directInput, NULL);
 
     KeyBoard::Init(m_directInput, hWnd);
     BGM::initialize(hWnd);
     SoundEffect::initialize(hWnd);
 
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-    m_Mesh1 = new Mesh(g_pD3DDev, "tiger.x", b, b, 1.0f);
+    m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 10.0f);
 
     // ウィンドウ表示
     ShowWindow(hWnd, SW_SHOW);
@@ -133,13 +131,12 @@ MainWindow::~MainWindow()
     SoundEffect::finalize();
     pMesh->Release();
     pAX_Mesh->Release();
-    g_pD3DDev->Release();
-    g_pD3D->Release();
+    m_D3DDevice->Release();
+    m_D3D->Release();
 }
 
 int MainWindow::MainLoop()
 {
-    // メッセージループ
     D3DXMATRIX World;          // 立方体ワールド変換行列
     D3DXMATRIX Rot_X, Rot_Y;   // 立方体回転行列
     D3DXMATRIX Offset;         // 立方体オフセット行列
@@ -177,8 +174,9 @@ int MainWindow::MainLoop()
             MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
         }
 
-        g_pD3DDev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80), 1.0f, 0);
-        g_pD3DDev->BeginScene();
+        m_D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
+            1.0f, 0);
+        m_D3DDevice->BeginScene();
 
 //        Ang += 1;
 
@@ -188,7 +186,7 @@ int MainWindow::MainLoop()
             // ライトの方向回転
         light.Direction.x = 20 * sinf(D3DXToRadian(Ang));
         light.Direction.z = 20 * cosf(D3DXToRadian(Ang));
-        g_pD3DDev->SetLight(0, &light);
+        m_D3DDevice->SetLight(0, &light);
 
         ///////////////////////////
         // 立方体
@@ -218,15 +216,16 @@ int MainWindow::MainLoop()
         D3DXMatrixPerspectiveFovLH(&Persp, D3DXToRadian(45), 640.0f / 480.0f, 1.0f, 10000.0f);
 
         // 行列登録
-        g_pD3DDev->SetTransform(D3DTS_WORLD, &World);
-        g_pD3DDev->SetTransform(D3DTS_VIEW, &View);
-        g_pD3DDev->SetTransform(D3DTS_PROJECTION, &Persp);
+        m_D3DDevice->SetTransform(D3DTS_WORLD, &World);
+        m_D3DDevice->SetTransform(D3DTS_VIEW, &View);
+        m_D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
         // 立方体描画
-        for (i = 0; i < NumMaterials; i++) {
+        for (i = 0; i < NumMaterials; i++)
+        {
             D3DXMATERIAL* mtrl = (D3DXMATERIAL*)(pMaterials->GetBufferPointer());
             mtrl->MatD3D.Ambient = MAmbient;
-            g_pD3DDev->SetMaterial(&mtrl->MatD3D);
+            m_D3DDevice->SetMaterial(&mtrl->MatD3D);
             pMesh->DrawSubset(i);
         };
 
@@ -234,22 +233,21 @@ int MainWindow::MainLoop()
         // 軸
         ////////
         // ワールド変換（単位行列のみ）
-        g_pD3DDev->SetTransform(D3DTS_WORLD, &AXWorld);
+        m_D3DDevice->SetTransform(D3DTS_WORLD, &AXWorld);
 
         for (i = 0; i < AX_NumMaterials; i++)
         {
             // 軸描画
             D3DXMATERIAL* mtrl = ((D3DXMATERIAL*)(pAX_Materials->GetBufferPointer()) + i);
             mtrl->MatD3D.Ambient = MAmbient;
-            g_pD3DDev->SetMaterial(&mtrl->MatD3D);
+            m_D3DDevice->SetMaterial(&mtrl->MatD3D);
             pAX_Mesh->DrawSubset(i);
         };
 
-        // TODO
-//        m_Mesh1->re
+        m_Mesh1->render(View, Persp);
 
-        g_pD3DDev->EndScene();
-        g_pD3DDev->Present(NULL, NULL, NULL, NULL);
+        m_D3DDevice->EndScene();
+        m_D3DDevice->Present(NULL, NULL, NULL, NULL);
 
 
     } while (msg.message != WM_QUIT);

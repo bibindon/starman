@@ -18,6 +18,8 @@ public:
         const float&);
     ~Mesh();
 
+    void render(const D3DXMATRIX&, const D3DXMATRIX&);
+
 private:
     const static std::string SHADER_FILENAME;
     LPD3DXMESH d3dx_mesh_ { };
@@ -30,8 +32,6 @@ private:
     float scale_ { 0.0f };
     std::string mesh_name_ { };
 
-    void render_impl(const D3DXMATRIX&, const D3DXMATRIX&);
-
     LPDIRECT3DDEVICE9 d3d_device_;
     LPD3DXEFFECT effect_;
 
@@ -40,7 +40,10 @@ private:
 
     D3DXHANDLE mesh_texture_handle_;
     D3DXHANDLE diffuse_handle_;
-    std::unique_ptr<animation_strategy> animation_strategy_;
+
+    D3DXHANDLE light_normal_handle_;
+    D3DXHANDLE brightness_handle_;
+
 };
 
 
