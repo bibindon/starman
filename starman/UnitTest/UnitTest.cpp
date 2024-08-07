@@ -28,6 +28,19 @@ namespace UnitTest
         }
         TEST_METHOD(TestMethod2)
         {
+            D3DXMATRIX mat { };
+            float viewAngle { D3DX_PI / 4 };
+            D3DXMatrixPerspectiveFovLH(
+                &mat,
+                viewAngle,
+                static_cast<float>(1920) / 1080,
+                0.1f,
+                500.0f);
+            D3DXMATRIX projMat = Camera::GetProjMatrix();
+            Assert::AreEqual((mat == projMat), TRUE);
+        }
+        TEST_METHOD(TestMethod3)
+        {
             D3DXVECTOR3 eyePos { 0.0f, 2.0f, -2.0f };
             D3DXVECTOR3 lookAtPos { 0.0f, 0.0f, 0.0f };
             float viewAngle { D3DX_PI / 4 };

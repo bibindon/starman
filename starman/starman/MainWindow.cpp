@@ -230,9 +230,9 @@ int MainWindow::MainLoop()
 
         // ビュー変換
         // 視点は原点固定ですが、カメラの位置は適当です
-        D3DXVECTOR3 a = D3DXVECTOR3(47.5f * cosf(D3DXToRadian(Ang * 0.7f)), 70.2f * cosf(D3DXToRadian(Ang * 0.2f)), 56.7f * sinf(D3DXToRadian(Ang * 1.2f)));
-        D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-        D3DXVECTOR3 c = D3DXVECTOR3(sinf(D3DXToRadian(Ang * 0.4f)), 1, 0);
+        D3DXVECTOR3 a = D3DXVECTOR3(0.f, 2.f, -4.f);
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 1.f, 0.f);
         D3DXMatrixLookAtLH(
             &View,
             &a,
@@ -248,8 +248,8 @@ int MainWindow::MainLoop()
         D3DDevice->SetTransform(D3DTS_VIEW, &View);
         D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
-        Camera::SetViewMatrix(View);
-        Camera::SetProjMatrix(Persp);
+        float viewAngle { D3DX_PI / 4 };
+        Camera::SetPos(a, b, viewAngle);
 
         if (m_sequence == eSequence::TITLE)
         {
