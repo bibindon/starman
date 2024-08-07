@@ -69,3 +69,12 @@ bool Mouse::IsDownLeft()
     }
     return false;
 }
+
+bool Mouse::IsDownRight()
+{
+    if (m_DIMouseState.rgbButtons[1] & 0x80)
+    {
+        return true;
+    }
+    return false;
+}

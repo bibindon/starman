@@ -8,6 +8,7 @@
 #include <dinput.h>
 #include  <string>
 #include "Mesh.h"
+#include "Sprite.h"
 
 class MainWindow
 {
@@ -17,6 +18,7 @@ public:
     int MainLoop();
 
 private:
+    const std::string TITLE = "ホシマン";
     MSG m_msg;
     HWND m_hWnd;
     LPDIRECT3D9 m_D3D;
@@ -31,7 +33,7 @@ private:
 
     Mesh* m_Mesh1 { nullptr };
     LPDIRECTINPUT8 m_directInput { nullptr };
+    Sprite* m_sprite { nullptr };
 
-    const std::string TITLE = "ホシマン";
 };
 

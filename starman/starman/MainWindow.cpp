@@ -7,6 +7,7 @@
 #include "JoyStick.h"
 #include "BGM.h"
 #include "SoundEffect.h"
+#include "Common.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -133,6 +134,7 @@ MainWindow::~MainWindow()
 {
     BGM::finalize();
     SoundEffect::finalize();
+    SAFE_DELETE(m_sprite);
     m_D3DDevice->Release();
     m_D3D->Release();
 }
@@ -179,7 +181,8 @@ int MainWindow::MainLoop()
         }
         if (Mouse::IsDownLeft())
         {
-            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
+//            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
+            m_sprite = new Sprite(m_D3DDevice, "res\\image\\board.png");
         }
 
         m_D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
@@ -253,6 +256,12 @@ int MainWindow::MainLoop()
         };
 
         m_Mesh1->Render(View, Persp);
+
+        if (m_sprite != nullptr)
+        {
+            D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
+            m_sprite->Render(pos);
+        }
 
         m_D3DDevice->EndScene();
         m_D3DDevice->Present(NULL, NULL, NULL, NULL);

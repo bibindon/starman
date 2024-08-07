@@ -12,6 +12,7 @@ public:
     static void Init(LPDIRECTINPUT8 directInput, HWND hWnd);
     static void Update();
     static bool IsDownLeft();
+    static bool IsDownRight();
 
 private:
     static LPDIRECTINPUTDEVICE8 m_DIMouse;
