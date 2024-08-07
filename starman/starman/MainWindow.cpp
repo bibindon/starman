@@ -139,6 +139,7 @@ MainWindow::~MainWindow()
     BGM::finalize();
     SoundEffect::finalize();
     SAFE_DELETE(m_sprite);
+    SharedObj::Finalize();
     m_D3D->Release();
 }
 
