@@ -127,6 +127,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 10.0f);
     m_AnimMesh1 = new AnimMesh(m_D3DDevice, "res\\model\\RobotArm\\RobotArm.x", b, b, 10.0f);
 
+    m_seqTitle = new SeqTitle(m_D3DDevice);
+
     // ウィンドウ表示
     ShowWindow(m_hWnd, SW_SHOW);
 }
@@ -184,6 +186,11 @@ int MainWindow::MainLoop()
         {
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
             m_sprite = new Sprite(m_D3DDevice, "res\\image\\board.png");
+        }
+
+        if (m_sequence == eSequence::TITLE)
+        {
+            m_seqTitle->Update();
         }
 
         m_D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
@@ -256,6 +263,10 @@ int MainWindow::MainLoop()
         //    pAX_Mesh->DrawSubset(i);
         //};
 
+        if (m_sequence == eSequence::TITLE)
+        {
+            m_seqTitle->Render();
+        }
         m_Mesh1->Render(View, Persp);
         m_AnimMesh1->Render(View, Persp);
 

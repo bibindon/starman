@@ -10,6 +10,7 @@
 #include "Mesh.h"
 #include "Sprite.h"
 #include "AnimMesh.h"
+#include "SeqTitle.h"
 
 class MainWindow
 {
@@ -37,5 +38,14 @@ private:
     LPDIRECTINPUT8 m_directInput { nullptr };
     Sprite* m_sprite { nullptr };
 
+    enum class eSequence
+    {
+        TITLE,
+        OPENING,
+        BATTLE,
+        ENDING
+    };
+    eSequence m_sequence { eSequence::TITLE };
+    SeqTitle* m_seqTitle { nullptr };
 };
 
