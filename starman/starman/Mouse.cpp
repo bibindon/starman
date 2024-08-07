@@ -61,6 +61,16 @@ void Mouse::Update()
     }
 }
 
+LONG Mouse::GetX()
+{
+    return m_DIMouseState.lX;
+}
+
+LONG Mouse::GetY()
+{
+    return m_DIMouseState.lY;
+}
+
 bool Mouse::IsDownLeft()
 {
     if (m_DIMouseState.rgbButtons[0] & 0x80)

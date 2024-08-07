@@ -1,4 +1,6 @@
 #include "Camera.h"
+#include <cmath>
+#include "Mouse.h"
 
 const D3DXVECTOR3 Camera::UPWARD { 0.0f, 1.0f, 0.0f };
 D3DXVECTOR3 Camera::m_eyePos { 0.0f, 2.0f, -2.0f };
@@ -33,4 +35,11 @@ void Camera::SetPos(
     m_eyePos = eyePos;
     m_lookAtPos = lookAtPos;
     m_viewAngle = viewAngle;
+}
+
+void Camera::Update()
+{
+    LONG x = Mouse::GetX();
+    m_eyePos.x = m_eyePos.x+std::sin((x)/10.f);
+//    m_eyePos.z = std::cos((m_eyePos.z+x)/10.f);
 }

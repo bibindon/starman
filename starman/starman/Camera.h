@@ -7,6 +7,7 @@ public:
     static D3DXMATRIX GetProjMatrix();
     static void SetPos(
         const D3DXVECTOR3& eyePos, const D3DXVECTOR3& lookAtPos, const float viewAngle);
+    static void Update();
 
 private:
 

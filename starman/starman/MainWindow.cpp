@@ -152,6 +152,20 @@ int MainWindow::MainLoop()
     D3DXMATRIX View;   // ビュー変換行列
     D3DXMATRIX Persp;   // 射影変換行列
 
+        // ビュー変換
+        // 視点は原点固定ですが、カメラの位置は適当です
+        D3DXVECTOR3 a = D3DXVECTOR3(0.f, 2.f, -4.f);
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 1.f, 0.f);
+        D3DXMatrixLookAtLH(
+            &View,
+            &a,
+            &b,
+            &c
+        );
+        float viewAngle { D3DX_PI / 4 };
+        Camera::SetPos(a, b, viewAngle);
+
     FLOAT Ang = 0.0f;   // 回転角度
 //    unsigned int i;
     do {
@@ -164,6 +178,7 @@ int MainWindow::MainLoop()
         KeyBoard::Update();
         Mouse::Update();
         JoyStick::Update();
+        Camera::Update();
 
         if (KeyBoard::IsDown(DIK_ESCAPE))
         {
@@ -233,18 +248,6 @@ int MainWindow::MainLoop()
         D3DXMatrixMultiply(&World, &World, &Rot_X);    // X軸回転後
         D3DXMatrixMultiply(&World, &World, &Rot_Y);    // Y軸回転させます。
 
-        // ビュー変換
-        // 視点は原点固定ですが、カメラの位置は適当です
-        D3DXVECTOR3 a = D3DXVECTOR3(0.f, 2.f, -4.f);
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 1.f, 0.f);
-        D3DXMatrixLookAtLH(
-            &View,
-            &a,
-            &b,
-            &c
-        );
-
         // 射影変換
         D3DXMatrixPerspectiveFovLH(&Persp, D3DXToRadian(45), 640.0f / 480.0f, 1.0f, 10000.0f);
 
@@ -253,8 +256,6 @@ int MainWindow::MainLoop()
         D3DDevice->SetTransform(D3DTS_VIEW, &View);
         D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
-        float viewAngle { D3DX_PI / 4 };
-        Camera::SetPos(a, b, viewAngle);
 
         if (m_sequence == eSequence::TITLE)
         {

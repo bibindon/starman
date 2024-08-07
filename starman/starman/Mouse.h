@@ -13,6 +13,8 @@ class Mouse
 public:
     static void Init(LPDIRECTINPUT8 directInput, HWND hWnd);
     static void Update();
+    static LONG GetX();
+    static LONG GetY();
     static bool IsDownLeft();
     static bool IsDownRight();
 

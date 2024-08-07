@@ -26,7 +26,6 @@ void SeqBattle::Update(eSequence* sequence)
     if (KeyBoard::IsHold(DIK_W))
     {
         pos.z += 0.02f;
-        m_player->SetPos(pos);
     }
     else if (KeyBoard::IsHold(DIK_A))
     {
