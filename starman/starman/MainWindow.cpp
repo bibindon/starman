@@ -131,8 +131,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
 
-    D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-    m_Mesh1 = new Mesh("res\\model\\tiger\\tiger.x", b, b, 1.0f);
+    D3DXVECTOR3 b = D3DXVECTOR3(0, 1, 0);
+    D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
+    m_Mesh1 = new Mesh("res\\model\\tiger\\tiger.x", b, c, 1.0f);
 
     m_seqTitle = new SeqTitle();
 
@@ -174,7 +175,8 @@ int MainWindow::MainLoop()
 
     FLOAT Ang = 0.0f;   // ‰ñ“]Šp“x
 //    unsigned int i;
-    do {
+    do
+    {
         Sleep(1);
         if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
         {
@@ -193,8 +195,9 @@ int MainWindow::MainLoop()
         if (KeyBoard::IsDown(DIK_Q))
         {
             //BGM::get_ton()->load("res\\sound\\title.wav");
-            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
-            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+//            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
+//            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+            PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         }
         if (KeyBoard::IsDown(DIK_E))
         {

@@ -9,11 +9,10 @@
 
 SeqBattle::SeqBattle()
 {
-    D3DXVECTOR3 b = D3DXVECTOR3(0, -1, 0);
+    D3DXVECTOR3 b = D3DXVECTOR3(0, -10, 0);
     D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
-    m_mesh1 = new Mesh("res\\model\\cube2\\cube2.x", b, c, 1.0f);
+    m_mesh1 = new Mesh("res\\model\\cube2\\cube2.x", b, c, 10.0f);
     b.y = 0.f;
-//    m_AnimMesh1 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, c, 1.0f);
     m_player = new Player();
 }
 
