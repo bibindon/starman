@@ -5,6 +5,7 @@
 #endif
 #include <dinput.h>
 #include "KeyBoard.h"
+#include "Camera.h"
 
 SeqBattle::SeqBattle()
 {
@@ -23,28 +24,33 @@ SeqBattle::~SeqBattle()
 void SeqBattle::Update(eSequence* sequence)
 {
     D3DXVECTOR3 pos = m_player->GetPos();
+    float radian = Camera::GetRadian();
     if (KeyBoard::IsHold(DIK_W))
     {
-        pos.z += 0.02f;
+        pos.x -= std::sin(radian)/10;
+        pos.z -= std::cos(radian)/10;
     }
-    else if (KeyBoard::IsHold(DIK_A))
+    if (KeyBoard::IsHold(DIK_A))
     {
-        pos.x -= 0.02f;
+        pos.x -= std::sin(radian)/10;
+        pos.z += std::cos(radian)/10;
     }
-    else if (KeyBoard::IsHold(DIK_S))
+    if (KeyBoard::IsHold(DIK_S))
     {
-        pos.z -= 0.02f;
+        pos.x += std::sin(radian)/10;
+        pos.z += std::cos(radian)/10;
     }
-    else if (KeyBoard::IsHold(DIK_D))
+    if (KeyBoard::IsHold(DIK_D))
     {
-        pos.x += 0.02f;
+        pos.x += std::sin(radian)/10;
+        pos.z -= std::cos(radian)/10;
     }
     m_player->SetPos(pos);
+    Camera::SetPos(pos);
 }
 
 void SeqBattle::Render()
 {
     m_mesh1->Render();
-//    m_AnimMesh1->Render();
     m_player->Render();
 }

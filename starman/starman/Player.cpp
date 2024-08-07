@@ -3,7 +3,7 @@
 Player::Player()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-    m_AnimMesh2 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, b, 1.0f);
+    m_AnimMesh2 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, b, 0.3f);
 }
 
 Player::~Player()

@@ -16,6 +16,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
         PostQuitMessage(0);
         return 0;
     }
+    else if (mes == WM_SETCURSOR)
+    {
+        ShowCursor(false);
+        return 0;
+    }
+
     return DefWindowProc(hWnd, mes, wParam, lParam);
 }
 
@@ -164,7 +170,7 @@ int MainWindow::MainLoop()
             &c
         );
         float viewAngle { D3DX_PI / 4 };
-        Camera::SetPos(a, b, viewAngle);
+        Camera::SetPos(b);
 
     FLOAT Ang = 0.0f;   // ‰ñ“]Šp“x
 //    unsigned int i;
