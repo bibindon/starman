@@ -1,13 +1,12 @@
 #include "MainWindow.h"
 #include <exception>
-#define DIRECTINPUT_VERSION 0x0800
-#include <dinput.h>
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "JoyStick.h"
 #include "BGM.h"
 #include "SoundEffect.h"
 #include "Common.h"
+#include "Camera.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -125,8 +124,6 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
     m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 1.0f);
-    m_AnimMesh1 = new AnimMesh(m_D3DDevice, "res\\model\\RobotArm\\RobotArm.x", b, b, 1.0f);
-//    m_AnimMesh2 = new AnimMesh(m_D3DDevice, "res\\model\\wolf\\wolf.x", b, b, 50.0f);
 
     m_seqTitle = new SeqTitle(m_D3DDevice);
 
@@ -148,11 +145,8 @@ int MainWindow::MainLoop()
     D3DXMATRIX World;          // 立方体ワールド変換行列
     D3DXMATRIX Rot_X, Rot_Y;   // 立方体回転行列
     D3DXMATRIX Offset;         // 立方体オフセット行列
-    D3DXMATRIX AXWorld;   // 軸ワールド変換行列
-    D3DXMatrixIdentity(&AXWorld);   // 軸は原点に位置するので単位行列
     D3DXMATRIX View;   // ビュー変換行列
     D3DXMATRIX Persp;   // 射影変換行列
-    D3DCOLORVALUE MAmbient = { 0.2f, 0.2f, 0.2f, 1.0f };   // マテリアルのアンビエント反射率
 
     FLOAT Ang = 0.0f;   // 回転角度
 //    unsigned int i;
@@ -250,29 +244,8 @@ int MainWindow::MainLoop()
         m_D3DDevice->SetTransform(D3DTS_VIEW, &View);
         m_D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
-        // 立方体描画
-        //for (i = 0; i < NumMaterials; i++)
-        //{
-        //    D3DXMATERIAL* mtrl = (D3DXMATERIAL*)(pMaterials->GetBufferPointer());
-        //    mtrl->MatD3D.Ambient = MAmbient;
-        //    m_D3DDevice->SetMaterial(&mtrl->MatD3D);
-        //    pMesh->DrawSubset(i);
-        //};
-
-        ///////////////////////////
-        // 軸
-        ////////
-        // ワールド変換（単位行列のみ）
-        m_D3DDevice->SetTransform(D3DTS_WORLD, &AXWorld);
-
-        //for (i = 0; i < AX_NumMaterials; i++)
-        //{
-        //    // 軸描画
-        //    D3DXMATERIAL* mtrl = ((D3DXMATERIAL*)(pAX_Materials->GetBufferPointer()) + i);
-        //    mtrl->MatD3D.Ambient = MAmbient;
-        //    m_D3DDevice->SetMaterial(&mtrl->MatD3D);
-        //    pAX_Mesh->DrawSubset(i);
-        //};
+        Camera::SetViewMatrix(View);
+        Camera::SetProjMatrix(Persp);
 
         if (m_sequence == eSequence::TITLE)
         {
@@ -280,11 +253,9 @@ int MainWindow::MainLoop()
         }
         else if (m_sequence == eSequence::BATTLE)
         {
-            m_seqBattle->Render(View, Persp);
+            m_seqBattle->Render();
         }
-        m_Mesh1->Render(View, Persp);
-        m_AnimMesh1->Render(View, Persp);
-//        m_AnimMesh2->Render(View, Persp);
+        m_Mesh1->Render();
 
         if (m_sprite != nullptr)
         {

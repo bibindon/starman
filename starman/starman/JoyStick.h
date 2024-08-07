@@ -1,7 +1,9 @@
 #pragma once
 
+#ifndef DIRECTINPUT_VERSION
 // constexpr‚É•ÏŠ·‚Å‚«‚éA‚Æ‚¢‚¤Œx‚ª•\¦‚³‚ê‚é‚ª•ÏŠ·‚µ‚Ä‚Í‚¢‚¯‚È‚¢B
 #define DIRECTINPUT_VERSION 0x0800
+#endif
 
 #include <dinput.h>
 #include <unordered_map>

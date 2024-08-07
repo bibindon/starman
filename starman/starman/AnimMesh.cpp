@@ -5,6 +5,7 @@
 #include "Common.h"
 #include "AnimationStrategy.h"
 #include "Light.h"
+#include "Camera.h"
 
 using std::vector;
 using std::string;
@@ -92,14 +93,14 @@ AnimMesh::~AnimMesh()
 {
 }
 
-void AnimMesh::Render(const D3DXMATRIX& viewMatrix, const D3DXMATRIX& projMatrix)
+void AnimMesh::Render()
 {
     D3DXVECTOR4 normal = Light::GetLightNormal();
     m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
     m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
 
-    m_viewMatrix = viewMatrix;
-    m_projMatrix = projMatrix;
+    m_viewMatrix = Camera::GetViewMatrix();
+    m_projMatrix = Camera::GetProjMatrix();
 
     m_animationStrategy->update();
 

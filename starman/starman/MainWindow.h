@@ -4,7 +4,9 @@
 #include <tchar.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#ifndef DIRECTINPUT_VERSION
 #define DIRECTINPUT_VERSION 0x0800
+#endif
 #include <dinput.h>
 #include  <string>
 #include "Mesh.h"
@@ -35,8 +37,6 @@ private:
     ID3DXMesh* pAX_Mesh;
 
     Mesh* m_Mesh1 { nullptr };
-    AnimMesh* m_AnimMesh1 { nullptr };
-    AnimMesh* m_AnimMesh2 { nullptr };
     LPDIRECTINPUT8 m_directInput { nullptr };
     Sprite* m_sprite { nullptr };
 

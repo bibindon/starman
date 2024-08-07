@@ -21,7 +21,7 @@ public:
     ~AnimMesh();
 
     // TODO remove arg
-    void Render(const D3DXMATRIX&, const D3DXMATRIX&);
+    void Render();
 private:
 
     struct frame_root_deleter_object
