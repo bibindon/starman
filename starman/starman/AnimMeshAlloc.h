@@ -8,13 +8,13 @@
 
 struct AnimMeshFrame : public D3DXFRAME
 {
-    D3DXMATRIX combined_matrix_;
+    D3DXMATRIX m_combinedMatrix;
     explicit AnimMeshFrame(const std::string&);
 };
 
 struct AnimMeshContainer : public D3DXMESHCONTAINER
 {
-    std::vector<LPDIRECT3DTEXTURE9> textures_;
+    std::vector<LPDIRECT3DTEXTURE9> m_vecTexture;
     AnimMeshContainer(
         const std::string&,
         const std::string&,
@@ -41,6 +41,6 @@ public:
     STDMETHOD(DestroyFrame)(THIS_ LPD3DXFRAME);
     STDMETHOD(DestroyMeshContainer)(THIS_ LPD3DXMESHCONTAINER);
 private:
-    std::string x_filename_;
+    std::string m_xFilename;
 };
 

@@ -12,7 +12,7 @@ Mesh::Mesh(
     const D3DXVECTOR3& rotation,
     const float& scale)
     : m_D3DDevice { D3DDevice }
-    , m_MeshName { xFilename }
+    , m_meshName { xFilename }
 {
 
     HRESULT result { 0 };
@@ -23,18 +23,18 @@ Mesh::Mesh(
         nullptr,
         0,
         nullptr,
-        &m_Effect,
+        &m_D3DEffect,
         nullptr);
     if (FAILED(result))
     {
         throw std::exception("Failed to create an effect file.");
     }
 
-    m_WorldViewProj = m_Effect->GetParameterByName(nullptr, "g_world_view_projection");
-    m_LightNormal = m_Effect->GetParameterByName(nullptr, "g_light_normal");
-    m_Brightness = m_Effect->GetParameterByName(nullptr, "g_light_brightness");
-    m_MeshTexture = m_Effect->GetParameterByName(nullptr, "g_mesh_texture");
-    m_Diffuse = m_Effect->GetParameterByName(nullptr, "g_diffuse");
+    m_worldViewProjHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world_view_projection");
+    m_lightNormalHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_normal");
+    m_brightnessHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_brightness");
+    m_meshTextureHandle = m_D3DEffect->GetParameterByName(nullptr, "g_mesh_texture");
+    m_diffuseHandle = m_D3DEffect->GetParameterByName(nullptr, "g_diffuse");
 
     LPD3DXBUFFER adjacencyBuffer { nullptr };
     LPD3DXBUFFER materialBuffer { nullptr };
@@ -46,7 +46,7 @@ Mesh::Mesh(
         &adjacencyBuffer,
         &materialBuffer,
         nullptr,
-        &m_MaterialCount,
+        &m_materialCount,
         &m_D3DMesh);
 
     if (FAILED(result))
@@ -113,24 +113,24 @@ Mesh::Mesh(
         throw std::exception("Failed 'OptimizeInplace' function.");
     }
 
-    m_vecColor.insert(begin(m_vecColor), m_MaterialCount, D3DCOLORVALUE { });
-    vector<LPDIRECT3DTEXTURE9> tempVecTexture { m_MaterialCount };
+    m_vecColor.insert(begin(m_vecColor), m_materialCount, D3DCOLORVALUE { });
+    vector<LPDIRECT3DTEXTURE9> tempVecTexture { m_materialCount };
     m_vecTexture.swap(tempVecTexture);
 
     D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
 
-    std::string xFileDir = m_MeshName;
+    std::string xFileDir = m_meshName;
     std::size_t lastPos = xFileDir.find_last_of("\\");
     xFileDir = xFileDir.substr(0, lastPos + 1);
 
-    for (DWORD i = 0; i < m_MaterialCount; ++i)
+    for (DWORD i = 0; i < m_materialCount; ++i)
     {
         m_vecColor.at(i) = materials[i].MatD3D.Diffuse;
         if (materials[i].pTextureFilename != nullptr)
         {
             std::string texPath = xFileDir;
             texPath += materials[i].pTextureFilename;
-            LPDIRECT3DTEXTURE9 tempTexture { };
+            LPDIRECT3DTEXTURE9 tempTexture { nullptr };
             if (FAILED(D3DXCreateTextureFromFile(
                 m_D3DDevice,
                 texPath.c_str(),
@@ -147,64 +147,66 @@ Mesh::Mesh(
     }
     SAFE_RELEASE(materialBuffer);
 
-    m_Scale = scale;
+    m_scale = scale;
 }
 
 Mesh::~Mesh()
 {
+    for (std::size_t i = 0; i < m_vecTexture.size(); ++i)
+    {
+        SAFE_RELEASE(m_vecTexture.at(i));
+    }
+    SAFE_RELEASE(m_D3DMesh);
+    SAFE_RELEASE(m_D3DEffect);
 }
 
 void Mesh::Render(const D3DXMATRIX& viewMatrix, const D3DXMATRIX& projMatrix)
 {
     D3DXVECTOR4 normal = Light::GetLightNormal();
-    m_Effect->SetVector(m_LightNormal, &normal);
-    m_Effect->SetFloat(m_Brightness, Light::GetBrightness());
+    m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
+    m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
 
     D3DXMATRIX worldViewProjMatrix { };
     D3DXMatrixIdentity(&worldViewProjMatrix);
     {
         D3DXMATRIX mat { };
 
-        D3DXMatrixTranslation(&mat, -m_CenterCoord.x, -m_CenterCoord.y, -m_CenterCoord.z);
+        D3DXMatrixTranslation(&mat, -m_centerPos.x, -m_centerPos.y, -m_centerPos.z);
         worldViewProjMatrix *= mat;
 
-        D3DXMatrixScaling(&mat, m_Scale, m_Scale, m_Scale);
+        D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
         worldViewProjMatrix *= mat;
 
-        D3DXMatrixRotationYawPitchRoll(&mat, m_Rotate.x, m_Rotate.y, m_Rotate.z);
+        D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.x, m_rotate.y, m_rotate.z);
         worldViewProjMatrix *= mat;
 
-        D3DXMatrixTranslation(&mat, m_Pos.x, m_Pos.y, m_Pos.z);
+        D3DXMatrixTranslation(&mat, m_pos.x, m_pos.y, m_pos.z);
         worldViewProjMatrix *= mat;
     }
     worldViewProjMatrix *= viewMatrix;
     worldViewProjMatrix *= projMatrix;
 
-    m_Effect->SetMatrix(m_WorldViewProj, &worldViewProjMatrix);
+    m_D3DEffect->SetMatrix(m_worldViewProjHandle, &worldViewProjMatrix);
 
-    m_Effect->Begin(nullptr, 0);
+    m_D3DEffect->Begin(nullptr, 0);
 
     HRESULT result { S_FALSE };
-    if (FAILED(result = m_Effect->BeginPass(0)))
+    if (FAILED(result = m_D3DEffect->BeginPass(0)))
     {
-        m_Effect->End();
+        m_D3DEffect->End();
         throw std::exception("Failed 'BeginPass' function.");
     }
 
-    for (DWORD i = 0; i < m_MaterialCount; ++i)
+    for (DWORD i = 0; i < m_materialCount; ++i)
     {
         D3DXVECTOR4 vec4Color {
-            m_vecColor.at(i).r,
-            m_vecColor.at(i).g,
-            m_vecColor.at(i).b,
-            m_vecColor.at(i).a
-        };
-        m_Effect->SetVector(m_Diffuse, &vec4Color);
-        m_Effect->SetTexture(m_MeshTexture, m_vecTexture.at(i));
-        m_Effect->CommitChanges();
+            m_vecColor.at(i).r, m_vecColor.at(i).g, m_vecColor.at(i).b, m_vecColor.at(i).a};
+        m_D3DEffect->SetVector(m_diffuseHandle, &vec4Color);
+        m_D3DEffect->SetTexture(m_meshTextureHandle, m_vecTexture.at(i));
+        m_D3DEffect->CommitChanges();
         m_D3DMesh->DrawSubset(i);
     }
-    m_Effect->EndPass();
-    m_Effect->End();
+    m_D3DEffect->EndPass();
+    m_D3DEffect->End();
 }
 

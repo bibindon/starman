@@ -3,9 +3,10 @@
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 #include "KeyBoard.h"
+#include "Mouse.h"
+#include "JoyStick.h"
 #include "BGM.h"
 #include "SoundEffect.h"
-#include "Mouse.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -117,6 +118,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     KeyBoard::Init(m_directInput, m_hWnd);
     Mouse::Init(m_directInput, m_hWnd);
+    JoyStick::Init(m_directInput, m_hWnd);
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
 
@@ -157,6 +159,7 @@ int MainWindow::MainLoop()
 
         KeyBoard::Update();
         Mouse::Update();
+        JoyStick::Update();
 
         if (KeyBoard::IsDown(DIK_ESCAPE))
         {

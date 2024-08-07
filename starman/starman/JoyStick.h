@@ -34,25 +34,25 @@ class JoyStick
 {
 public:
 
-    static bool initialize(HWND hwnd);
-    static void finalize();
-    static void update();
-    static bool is_hold(eJoyStickButtonType button);
-    static bool is_up(eJoyStickButtonType button);
-    static bool is_down(eJoyStickButtonType button);
-    static bool check_simultaneous(eJoyStickButtonType button);
+    static bool Init(LPDIRECTINPUT8 DI, HWND hwnd);
+    static void Finalize();
+    static void Update();
+    static bool IsHold(eJoyStickButtonType button);
+    static bool IsUp(eJoyStickButtonType button);
+    static bool IsDown(eJoyStickButtonType button);
+    static bool CheckSimultaneous(eJoyStickButtonType button);
 
-    static LPDIRECTINPUT8 direct_input8_;
-    static LPDIRECTINPUTDEVICE8 input_device8_;
+    static LPDIRECTINPUT8 m_DI;
+    static LPDIRECTINPUTDEVICE8 m_DIDevice;
     struct JoyStickInfo
     {
-        std::unordered_map<eJoyStickButtonType, eJoyStickButtonState> button_states_;
+        std::unordered_map<eJoyStickButtonType, eJoyStickButtonState> m_buttonStatusMap;
     };
-    static std::deque<JoyStickInfo> button_deque_;
+    static std::deque<JoyStickInfo> m_deqButton;
 
 private:
-    static bool create_device(HWND hwnd);
-    static BOOL start_game_pad_control();
+    static bool CreateDevice(HWND hwnd);
+    static BOOL StartGamePadControl();
 
 };
 

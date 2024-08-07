@@ -24,24 +24,24 @@ private:
     LPD3DXMESH m_D3DMesh { nullptr };
 
     LPDIRECT3DDEVICE9 m_D3DDevice { nullptr };
-    LPD3DXEFFECT m_Effect { nullptr };
+    LPD3DXEFFECT m_D3DEffect { nullptr };
 
-    D3DXVECTOR3 m_Pos { };
-    D3DXVECTOR3 m_Rotate { };
+    D3DXVECTOR3 m_pos { };
+    D3DXVECTOR3 m_rotate { };
 
-    D3DXHANDLE m_MeshTexture { nullptr };
-    D3DXHANDLE m_Diffuse { nullptr };
-    D3DXHANDLE m_LightNormal { nullptr };
-    D3DXHANDLE m_Brightness { nullptr };
+    D3DXHANDLE m_meshTextureHandle { nullptr };
+    D3DXHANDLE m_diffuseHandle { nullptr };
+    D3DXHANDLE m_lightNormalHandle { nullptr };
+    D3DXHANDLE m_brightnessHandle { nullptr };
 
-    DWORD m_MaterialCount { 0 };
-    D3DXHANDLE m_WorldViewProj { nullptr };
+    DWORD m_materialCount { 0 };
+    D3DXHANDLE m_worldViewProjHandle { nullptr };
     std::vector<D3DCOLORVALUE> m_vecColor { };
     std::vector<LPDIRECT3DTEXTURE9> m_vecTexture { };
-    D3DXVECTOR3 m_CenterCoord { 0.0f, 0.0f, 0.0f };
-    float m_Radius { 0.0f };
-    float m_Scale { 0.0f };
-    std::string m_MeshName { "" };
+    D3DXVECTOR3 m_centerPos { 0.0f, 0.0f, 0.0f };
+    float m_radius { 0.0f };
+    float m_scale { 0.0f };
+    std::string m_meshName { "" };
 };
 
 

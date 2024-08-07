@@ -2,6 +2,7 @@
 
 LPDIRECTINPUTDEVICE8 KeyBoard::m_keyboard;
 BYTE KeyBoard::m_key[256];
+BYTE KeyBoard::m_keyPrev[256];
 
 void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {
@@ -19,6 +20,7 @@ void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 void KeyBoard::Update()
 {
     // ƒL[‚Ì“ü—Í
+    memcpy(m_keyPrev, m_key, 256);
     ZeroMemory(m_key, sizeof(m_key));
     HRESULT ret = m_keyboard->GetDeviceState(sizeof(m_key), m_key);
     if (FAILED(ret))
@@ -31,7 +33,18 @@ void KeyBoard::Update()
 
 bool KeyBoard::IsDown(int keyCode)
 {
-    // TODO previous key
+    if (m_key[keyCode] & 0x80)
+    {
+        if ((m_keyPrev[keyCode] & 0x80) == 0)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool KeyBoard::IsHold(int keyCode)
+{
     if (m_key[keyCode] & 0x80)
     {
         return true;

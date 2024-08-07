@@ -13,15 +13,16 @@ class AnimMesh
 {
 public:
     AnimMesh(
-        const std::shared_ptr<IDirect3DDevice9>&,
+        const LPDIRECT3DDEVICE9,
         const std::string&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
         const float&);
     ~AnimMesh();
 
+    // TODO remove arg
+    void Render(const D3DXMATRIX&, const D3DXMATRIX&);
 private:
-    void render_impl(const D3DXMATRIX&, const D3DXMATRIX&);
 
     struct frame_root_deleter_object
     {
@@ -31,36 +32,34 @@ private:
         void release_mesh_allocator(const LPD3DXFRAME);
     };
 
-    const static std::string SHADER_FILENAME;
-    std::shared_ptr<IDirect3DDevice9> d3d_device_;
-    std::shared_ptr<AnimMeshAllocator> allocator_;
-    std::unique_ptr<D3DXFRAME, frame_root_deleter_object> frame_root_;
-    D3DXMATRIX rotation_matrix_;
-    D3DXMATRIX view_matrix_;
-    D3DXMATRIX projection_matrix_;
+    const std::string SHADER_FILENAME { "animation_mesh_shader.fx" };
+    LPDIRECT3DDEVICE9 m_D3DDevice { nullptr };
+    std::shared_ptr<AnimMeshAllocator> m_allocator;
+    std::unique_ptr<D3DXFRAME, frame_root_deleter_object> m_frameRoot;
+    D3DXMATRIX m_rotationMatrix;
+    D3DXMATRIX m_viewMatrix;
+    D3DXMATRIX m_projMatrix;
 
-    D3DXVECTOR3 center_coodinate_;
+    D3DXVECTOR3 m_centerPos;
 
-    // For effect.
+    LPD3DXEFFECT m_D3DEffect;
 
-    LPD3DXEFFECT effect_;
+    D3DXHANDLE m_worldHandle;
+    D3DXHANDLE m_worldViewProjHandle;
 
-    D3DXHANDLE world_handle_;
-    D3DXHANDLE world_view_proj_handle_;
-
-    void update_frame_matrix(const LPD3DXFRAME, const LPD3DXMATRIX);
-    void render_frame(const LPD3DXFRAME);
-    void render_mesh_container(const LPD3DXMESHCONTAINER, const LPD3DXFRAME);
+    void UpdateFrameMatrix(const LPD3DXFRAME, const LPD3DXMATRIX);
+    void RenderFrame(const LPD3DXFRAME);
+    void RenderMeshContainer(const LPD3DXMESHCONTAINER, const LPD3DXFRAME);
 
 
-    D3DXVECTOR3 position_;
-    D3DXVECTOR3 rotation_;
-    float scale_;
-    std::string mesh_name_;
+    D3DXVECTOR3 m_position;
+    D3DXVECTOR3 m_rotation;
+    float m_scale;
+    std::string m_meshName;
 
-    D3DXHANDLE mesh_texture_handle_;
-    D3DXHANDLE diffuse_handle_;
+    D3DXHANDLE m_meshTextureHandle;
+    D3DXHANDLE m_diffuseHandle;
 
-    std::unique_ptr<animation_strategy> animation_strategy_;
+    std::unique_ptr<animation_strategy> m_animationStrategy;
 };
 

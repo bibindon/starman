@@ -182,6 +182,10 @@
     <ClInclude Include="Stage.h" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="res\shader\animation_mesh_shader.fx">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="res\shader\mesh_shader.fx">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">2.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">2.0</ShaderModel>

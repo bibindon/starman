@@ -8,65 +8,56 @@
 using std::vector;
 using std::string;
 
-const string AnimMesh::SHADER_FILENAME = "AnimMesh_shader.fx";
-// A custom deleter. 
-void AnimMesh::frame_root_deleter_object::operator()(const LPD3DXFRAME frame_root)
+void AnimMesh::frame_root_deleter_object::operator()(const LPD3DXFRAME frameRoot)
 {
-    // Call the recursive release function. 
-    release_mesh_allocator(frame_root);
+    release_mesh_allocator(frameRoot);
 }
 
-// Releases recursively mesh containers owned by the 'AnimMesh_frame' inheriting 'D3DXFRAME'.
 void AnimMesh::frame_root_deleter_object::release_mesh_allocator(const LPD3DXFRAME frame)
 {
-    // Release the 'pMeshContainer' of the member variable. 
     if (frame->pMeshContainer != nullptr)
     {
         allocator_->DestroyMeshContainer(frame->pMeshContainer);
     }
-    // Call oneself. 
     if (frame->pFrameSibling != nullptr)
     {
         release_mesh_allocator(frame->pFrameSibling);
     }
-    // Call oneself. 
     if (frame->pFrameFirstChild != nullptr)
     {
         release_mesh_allocator(frame->pFrameFirstChild);
     }
-    // Release oneself. 
     allocator_->DestroyFrame(frame);
 }
 
-// Reads a mesh file, and sets the frame and the animation controller given to member variables.
 AnimMesh::AnimMesh(
-    const std::shared_ptr<IDirect3DDevice9>& d3d_device,
-    const string& x_filename,
+    const LPDIRECT3DDEVICE9 D3DDevice,
+    const string& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
     const float& scale)
-    : d3d_device_ { d3d_device },
-    allocator_ { new AnimMeshAllocator { x_filename } },
-    frame_root_ { nullptr, frame_root_deleter_object { allocator_ } },
-    rotation_matrix_ { D3DMATRIX { } },
-    center_coodinate_ { 0.0f, 0.0f, 0.0f },
-    world_handle_ { },
-    world_view_proj_handle_ { }
+    : m_D3DDevice { D3DDevice }
+    , m_allocator { new AnimMeshAllocator { xFilename } }
+    , m_frameRoot { nullptr, frame_root_deleter_object { m_allocator } }
+    , m_rotationMatrix { D3DMATRIX { } }
+    , m_centerPos { 0.0f, 0.0f, 0.0f }
+    , m_worldHandle { }
+    , m_worldViewProjHandle { }
 {
-    world_handle_ = effect_->GetParameterByName(nullptr, "g_world");
-    world_view_proj_handle_ = effect_->GetParameterByName(nullptr, "g_world_view_projection");
+    m_worldHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world");
+    m_worldViewProjHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world_view_projection");
 
     LPD3DXFRAME temp_root_frame { nullptr };
     LPD3DXANIMATIONCONTROLLER temp_animation_controller { nullptr };
 
-    vector<char> buffer = Common::get_model_resource(x_filename);
+    vector<char> buffer = Common::get_model_resource(xFilename);
 
     HRESULT result { D3DXLoadMeshHierarchyFromXInMemory(
         &buffer[0],
         static_cast<DWORD>(buffer.size()),
         D3DXMESH_MANAGED,
-        d3d_device_.get(),
-        allocator_.get(),
+        m_D3DDevice,
+        m_allocator.get(),
         nullptr,
         &temp_root_frame,
         &temp_animation_controller) };
@@ -76,141 +67,125 @@ AnimMesh::AnimMesh(
         throw std::exception("Failed to load a x-file.");
     }
     // lazy initialization 
-    frame_root_.reset(temp_root_frame);
-    animation_strategy_.reset(new normal_animation { temp_animation_controller });
+    m_frameRoot.reset(temp_root_frame);
+    m_animationStrategy.reset(new normal_animation { temp_animation_controller });
 
-    scale_ = scale;
+    m_scale = scale;
 }
 
 AnimMesh::~AnimMesh()
 {
 }
 
-// Renders its own animation mesh. 
-void AnimMesh::render_impl(
-    const D3DXMATRIX& view_matrix, const D3DXMATRIX& projection_matrix)
+void AnimMesh::Render(const D3DXMATRIX& viewMatrix, const D3DXMATRIX& projMatrix)
 {
-    view_matrix_ = view_matrix;
-    projection_matrix_ = projection_matrix;
+    m_viewMatrix = viewMatrix;
+    m_projMatrix = projMatrix;
 
-    animation_strategy_->update();
+    m_animationStrategy->update();
 
-    D3DXMATRIX world_matrix { };
-    D3DXMatrixIdentity(&world_matrix);
+    D3DXMATRIX worldMatrix { };
+    D3DXMatrixIdentity(&worldMatrix);
     {
         D3DXMATRIX mat { };
-        D3DXMatrixTranslation(&mat,
-            -center_coodinate_.x, -center_coodinate_.y, -center_coodinate_.z);
-        world_matrix *= mat;
+        D3DXMatrixTranslation(&mat, -m_centerPos.x, -m_centerPos.y, -m_centerPos.z);
+        worldMatrix *= mat;
 
-        D3DXMatrixScaling(&mat, scale_, scale_, scale_);
-        world_matrix *= mat;
+        D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
+        worldMatrix *= mat;
 
-        D3DXMatrixRotationYawPitchRoll(&mat, rotation_.x, rotation_.y, rotation_.z);
-        world_matrix *= mat;
+        D3DXMatrixRotationYawPitchRoll(&mat, m_rotation.x, m_rotation.y, m_rotation.z);
+        worldMatrix *= mat;
 
-        D3DXMatrixTranslation(&mat, position_.x, position_.y, position_.z);
-        world_matrix *= mat;
+        D3DXMatrixTranslation(&mat, m_position.x, m_position.y, m_position.z);
+        worldMatrix *= mat;
     }
-
-    update_frame_matrix(frame_root_.get(), &world_matrix);
-    render_frame(frame_root_.get());
+    UpdateFrameMatrix(m_frameRoot.get(), &worldMatrix);
+    RenderFrame(m_frameRoot.get());
 }
 
-// Updates a world-transformation-matrix each the mesh in the frame. Also, this is a recursive
-// function.
-void AnimMesh::update_frame_matrix(
-    const LPD3DXFRAME frame_base, const LPD3DXMATRIX parent_matrix)
+void AnimMesh::UpdateFrameMatrix(const LPD3DXFRAME frameBase, const LPD3DXMATRIX parentMatrix)
 {
-    AnimMeshFrame* frame { static_cast<AnimMeshFrame*>(frame_base) };
-    // Multiply its own transformation matrix by the parent transformation matrix.
-    if (parent_matrix != nullptr)
+    AnimMeshFrame* frame { static_cast<AnimMeshFrame*>(frameBase) };
+    if (parentMatrix != nullptr)
     {
-        frame->combined_matrix_ = frame->TransformationMatrix * (*parent_matrix);
+        frame->m_combinedMatrix = frame->TransformationMatrix * (*parentMatrix);
     }
     else
     {
-        frame->combined_matrix_ = frame->TransformationMatrix;
+        frame->m_combinedMatrix = frame->TransformationMatrix;
     }
 
-    // Call oneself. 
     if (frame->pFrameSibling != nullptr)
     {
-        update_frame_matrix(frame->pFrameSibling, parent_matrix);
+        UpdateFrameMatrix(frame->pFrameSibling, parentMatrix);
     }
-    // Call oneself. 
     if (frame->pFrameFirstChild != nullptr)
     {
-        update_frame_matrix(frame->pFrameFirstChild, &frame->combined_matrix_);
+        UpdateFrameMatrix(frame->pFrameFirstChild, &frame->m_combinedMatrix);
     }
 }
 
-// Calls the 'render_mesh_container' function recursively. 
-void AnimMesh::render_frame(const LPD3DXFRAME frame)
+void AnimMesh::RenderFrame(const LPD3DXFRAME frame)
 {
     {
         LPD3DXMESHCONTAINER mesh_container { frame->pMeshContainer };
         while (mesh_container != nullptr)
         {
-            render_mesh_container(mesh_container, frame);
+            RenderMeshContainer(mesh_container, frame);
             mesh_container = mesh_container->pNextMeshContainer;
         }
     }
 
-    // Call oneself. 
     if (frame->pFrameSibling != nullptr)
     {
-        render_frame(frame->pFrameSibling);
+        RenderFrame(frame->pFrameSibling);
     }
-    // Call oneself. 
     if (frame->pFrameFirstChild != nullptr)
     {
-        render_frame(frame->pFrameFirstChild);
+        RenderFrame(frame->pFrameFirstChild);
     }
 }
 
-void AnimMesh::render_mesh_container(
-    const LPD3DXMESHCONTAINER mesh_container_base,
-    const LPD3DXFRAME frame_base)
+void AnimMesh::RenderMeshContainer(
+    const LPD3DXMESHCONTAINER meshContainerBase, const LPD3DXFRAME frameBase)
 {
-    // Cast for making child class' function callable. 
-    AnimMeshFrame* frame { static_cast<AnimMeshFrame*>(frame_base) };
+    AnimMeshFrame* frame { static_cast<AnimMeshFrame*>(frameBase) };
 
-    D3DXMATRIX world_view_projection_matrix { frame->combined_matrix_ };
+    D3DXMATRIX worldViewProjMatrix { frame->m_combinedMatrix };
 
-    effect_->SetMatrix(world_handle_, &world_view_projection_matrix);
+    m_D3DEffect->SetMatrix(m_worldHandle, &worldViewProjMatrix);
 
-    world_view_projection_matrix *= view_matrix_;
-    world_view_projection_matrix *= projection_matrix_;
+    worldViewProjMatrix *= m_viewMatrix;
+    worldViewProjMatrix *= m_projMatrix;
 
-    effect_->SetMatrix(world_view_proj_handle_, &world_view_projection_matrix);
+    m_D3DEffect->SetMatrix(m_worldViewProjHandle, &worldViewProjMatrix);
 
-    effect_->Begin(nullptr, 0);
+    m_D3DEffect->Begin(nullptr, 0);
 
-    if (FAILED(effect_->BeginPass(0)))
+    if (FAILED(m_D3DEffect->BeginPass(0)))
     {
-        effect_->End();
+        m_D3DEffect->End();
         //THROW_WITH_TRACE("Failed 'BeginPass' function.");
         // TODO return false;
     }
 
-    AnimMeshContainer* mesh_container {
-        static_cast<AnimMeshContainer*>(mesh_container_base) };
+    AnimMeshContainer* meshContainer { static_cast<AnimMeshContainer*>(meshContainerBase) };
 
-    for (DWORD i { 0 }; i < mesh_container->NumMaterials; ++i)
+    for (DWORD i = 0; i < meshContainer->NumMaterials; ++i)
     {
         D3DXVECTOR4 color {
-            mesh_container->pMaterials[i].MatD3D.Diffuse.r,
-            mesh_container->pMaterials[i].MatD3D.Diffuse.g,
-            mesh_container->pMaterials[i].MatD3D.Diffuse.b,
-            mesh_container->pMaterials[i].MatD3D.Diffuse.a };
-        effect_->SetVector(diffuse_handle_, &color);
-        effect_->SetTexture(mesh_texture_handle_, mesh_container->textures_.at(i));
+            meshContainer->pMaterials[i].MatD3D.Diffuse.r,
+            meshContainer->pMaterials[i].MatD3D.Diffuse.g,
+            meshContainer->pMaterials[i].MatD3D.Diffuse.b,
+            meshContainer->pMaterials[i].MatD3D.Diffuse.a };
+        m_D3DEffect->SetVector(m_diffuseHandle, &color);
+        m_D3DEffect->SetTexture(m_meshTextureHandle, meshContainer->m_vecTexture.at(i));
 
-        effect_->CommitChanges();
-        mesh_container->MeshData.pMesh->DrawSubset(i);
+        m_D3DEffect->CommitChanges();
+        meshContainer->MeshData.pMesh->DrawSubset(i);
     }
-    effect_->EndPass();
-    effect_->End();
+    m_D3DEffect->EndPass();
+    m_D3DEffect->End();
 }
 

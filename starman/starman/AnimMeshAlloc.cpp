@@ -8,93 +8,96 @@ using std::vector;
 
 AnimMeshFrame::AnimMeshFrame(const string& name)
     : D3DXFRAME { },
-    combined_matrix_ { }
+    m_combinedMatrix { }
 {
     Name = new char[name.length() + 1];
     strcpy_s(Name, name.length() + 1, name.c_str());
 
     D3DXMatrixIdentity(&TransformationMatrix);
-    D3DXMatrixIdentity(&combined_matrix_);
+    D3DXMatrixIdentity(&m_combinedMatrix);
 }
 
 AnimMeshContainer::AnimMeshContainer(
-    const string& x_filename,
-    const string& mesh_name,
-    LPD3DXMESH mesh,
+    const string& xFilename,
+    const string& meshName,
+    LPD3DXMESH d3dMesh,
     const D3DXMATERIAL* materials,
-    const DWORD materials_count,
+    const DWORD materialsCount,
     const DWORD* adjacency)
     : D3DXMESHCONTAINER { }
 {
-    Name = new char[mesh_name.length() + 1];
-    strcpy_s(Name, mesh_name.length() + 1, mesh_name.c_str());
+    Name = new char[meshName.length() + 1];
+    strcpy_s(Name, meshName.length() + 1, meshName.c_str());
 
-    LPDIRECT3DDEVICE9 temp_d3d_device { nullptr };
-    mesh->GetDevice(&temp_d3d_device);
+    LPDIRECT3DDEVICE9 d3dDevice { nullptr };
+    d3dMesh->GetDevice(&d3dDevice);
 
-    if (!(mesh->GetFVF() & D3DFVF_NORMAL))
+    if (!(d3dMesh->GetFVF() & D3DFVF_NORMAL))
     {
         MeshData.Type = D3DXMESHTYPE_MESH;
-        HRESULT result { mesh->CloneMeshFVF(
-            mesh->GetOptions(),
-            mesh->GetFVF() | D3DFVF_NORMAL,
-            temp_d3d_device,
+        HRESULT result { d3dMesh->CloneMeshFVF(
+            d3dMesh->GetOptions(),
+            d3dMesh->GetFVF() | D3DFVF_NORMAL,
+            d3dDevice,
             &MeshData.pMesh) };
         if (FAILED(result))
         {
             throw std::exception("Failed 'CloneMeshFVF' function.");
         }
-        mesh = MeshData.pMesh;
-        D3DXComputeNormals(mesh, nullptr);
+        d3dMesh = MeshData.pMesh;
+        D3DXComputeNormals(d3dMesh, nullptr);
     }
     else
     {
-        MeshData.pMesh = mesh;
+        MeshData.pMesh = d3dMesh;
         MeshData.Type = D3DXMESHTYPE_MESH;
-        mesh->AddRef();
+        d3dMesh->AddRef();
     }
 
-    NumMaterials = (std::max)(1UL, materials_count);
+    NumMaterials = (std::max)(1UL, materialsCount);
     pMaterials = new D3DXMATERIAL[NumMaterials];
-    vector<LPDIRECT3DTEXTURE9> temp_texture(NumMaterials);
-    textures_.swap(temp_texture);
+    vector<LPDIRECT3DTEXTURE9> tempTexture(NumMaterials);
+    m_vecTexture.swap(tempTexture);
 
-    DWORD adjacency_count { mesh->GetNumFaces() * 3 };
-    pAdjacency = new DWORD[adjacency_count];
+    DWORD adjacencyCount { d3dMesh->GetNumFaces() * 3 };
+    pAdjacency = new DWORD[adjacencyCount];
 
-    for (DWORD i { 0 }; i < adjacency_count; ++i)
+    for (DWORD i { 0 }; i < adjacencyCount; ++i)
     {
         pAdjacency[i] = adjacency[i];
     }
 
-    if (materials_count > 0)
+    if (materialsCount > 0)
     {
-        for (DWORD i { 0 }; i < materials_count; ++i)
+        for (DWORD i { 0 }; i < materialsCount; ++i)
         {
             pMaterials[i] = materials[i];
         }
 
-        for (DWORD i { 0 }; i < materials_count; ++i)
+        std::string xFileDir = xFilename;
+        std::size_t lastPos = xFileDir.find_last_of("\\");
+        xFileDir = xFileDir.substr(0, lastPos + 1);
+
+        for (DWORD i { 0 }; i < materialsCount; ++i)
         {
             pMaterials[i].MatD3D.Ambient = D3DCOLORVALUE { 0.2f, 0.2f, 0.2f, 0 };
             if (pMaterials[i].pTextureFilename != nullptr)
             {
-                vector<char> buffer =
-                   Common::get_model_texture_resource(x_filename, pMaterials[i].pTextureFilename);
+                std::string texPath = xFileDir;
+                texPath += materials[i].pTextureFilename;
+                LPDIRECT3DTEXTURE9 tempTexture { nullptr };
 
-                LPDIRECT3DTEXTURE9 temp_texture { };
-                if (FAILED(D3DXCreateTextureFromFileInMemory(
-                    temp_d3d_device,
-                    &buffer[0],
-                    static_cast<UINT>(buffer.size()),
-                    &temp_texture)))
+                if (FAILED(D3DXCreateTextureFromFile(
+                    d3dDevice,
+                    texPath.c_str(),
+                    &tempTexture)))
                 {
                     throw std::exception("texture file is not found.");
                 }
                 else
                 {
-                    textures_.at(i)->Release();
-                    textures_.at(i) = temp_texture;
+                    SAFE_RELEASE(m_vecTexture.at(i));
+                    m_vecTexture.at(i) = tempTexture;
                 }
             }
         }
@@ -103,41 +106,41 @@ AnimMeshContainer::AnimMeshContainer(
     {
         pMaterials[0].MatD3D.Diffuse = D3DCOLORVALUE { 0.5f, 0.5f, 0.5f, 0 };
         pMaterials[0].MatD3D.Ambient = D3DCOLORVALUE { 0.5f, 0.5f, 0.5f, 0 };
-        pMaterials[0].MatD3D.Specular = pMaterials[0].MatD3D.Diffuse;
+        pMaterials[0].MatD3D.Specular = D3DCOLORVALUE { 0.5f, 0.5f, 0.5f, 0 };
     }
 }
 
-AnimMeshAllocator::AnimMeshAllocator(const string& x_filename)
+AnimMeshAllocator::AnimMeshAllocator(const string& xFilename)
     : ID3DXAllocateHierarchy { },
-    x_filename_(x_filename)
+    m_xFilename(xFilename)
 {
     // do nothing
 }
 
-STDMETHODIMP AnimMeshAllocator::CreateFrame(LPCTSTR name, LPD3DXFRAME* new_frame)
+STDMETHODIMP AnimMeshAllocator::CreateFrame(LPCTSTR name, LPD3DXFRAME* newFrame)
 {
-    *new_frame = new AnimMeshFrame { name };
+    *newFrame = new AnimMeshFrame { name };
     return S_OK;
 }
 
 STDMETHODIMP AnimMeshAllocator::CreateMeshContainer(
-    LPCSTR mesh_name,
-    CONST D3DXMESHDATA* mesh_data,
+    LPCSTR meshName,
+    CONST D3DXMESHDATA* meshData,
     CONST D3DXMATERIAL* materials,
     CONST D3DXEFFECTINSTANCE*,
-    DWORD materials_count,
+    DWORD materialCount,
     CONST DWORD* adjacency,
     LPD3DXSKININFO,
-    LPD3DXMESHCONTAINER* mesh_container)
+    LPD3DXMESHCONTAINER* meshContainer)
 {
     try
     {
-        *mesh_container = new AnimMeshContainer {
-            x_filename_,
-            mesh_name,
-            mesh_data->pMesh,
+        *meshContainer = new AnimMeshContainer {
+            m_xFilename,
+            meshName,
+            meshData->pMesh,
             materials,
-            materials_count,
+            materialCount,
             adjacency };
     }
     catch (...)
@@ -157,17 +160,16 @@ STDMETHODIMP AnimMeshAllocator::DestroyFrame(LPD3DXFRAME frame)
 }
 
 STDMETHODIMP AnimMeshAllocator::DestroyMeshContainer(
-    LPD3DXMESHCONTAINER mesh_container_base)
+    LPD3DXMESHCONTAINER meshContainerBase)
 {
-    AnimMeshContainer* mesh_container {
-        static_cast<AnimMeshContainer*>(mesh_container_base) };
+    AnimMeshContainer* meshContainer { static_cast<AnimMeshContainer*>(meshContainerBase) };
 
-    SAFE_RELEASE(mesh_container->pSkinInfo);
-    SAFE_DELETE_ARRAY(mesh_container->Name);
-    SAFE_DELETE_ARRAY(mesh_container->pAdjacency);
-    SAFE_DELETE_ARRAY(mesh_container->pMaterials);
-    SAFE_RELEASE(mesh_container->MeshData.pMesh);
-    SAFE_DELETE(mesh_container);
+    SAFE_RELEASE(meshContainer->pSkinInfo);
+    SAFE_DELETE_ARRAY(meshContainer->Name);
+    SAFE_DELETE_ARRAY(meshContainer->pAdjacency);
+    SAFE_DELETE_ARRAY(meshContainer->pMaterials);
+    SAFE_RELEASE(meshContainer->MeshData.pMesh);
+    SAFE_DELETE(meshContainer);
 
     return S_OK;
 }
