@@ -9,6 +9,7 @@
 #include  <string>
 #include "Mesh.h"
 #include "Sprite.h"
+#include "AnimMesh.h"
 
 class MainWindow
 {
@@ -32,6 +33,7 @@ private:
     ID3DXMesh* pAX_Mesh;
 
     Mesh* m_Mesh1 { nullptr };
+    AnimMesh* m_AnimMesh1 { nullptr };
     LPDIRECTINPUT8 m_directInput { nullptr };
     Sprite* m_sprite { nullptr };
 

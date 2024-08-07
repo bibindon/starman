@@ -125,6 +125,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
     m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 10.0f);
+    m_AnimMesh1 = new AnimMesh(m_D3DDevice, "res\\model\\RobotArm\\RobotArm.x", b, b, 10.0f);
 
     // ウィンドウ表示
     ShowWindow(m_hWnd, SW_SHOW);
@@ -151,7 +152,7 @@ int MainWindow::MainLoop()
     D3DCOLORVALUE MAmbient = { 0.2f, 0.2f, 0.2f, 1.0f };   // マテリアルのアンビエント反射率
 
     FLOAT Ang = 0.0f;   // 回転角度
-    unsigned int i;
+//    unsigned int i;
     do {
         Sleep(1);
         if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
@@ -232,13 +233,13 @@ int MainWindow::MainLoop()
         m_D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
         // 立方体描画
-        for (i = 0; i < NumMaterials; i++)
-        {
-            D3DXMATERIAL* mtrl = (D3DXMATERIAL*)(pMaterials->GetBufferPointer());
-            mtrl->MatD3D.Ambient = MAmbient;
-            m_D3DDevice->SetMaterial(&mtrl->MatD3D);
-            pMesh->DrawSubset(i);
-        };
+        //for (i = 0; i < NumMaterials; i++)
+        //{
+        //    D3DXMATERIAL* mtrl = (D3DXMATERIAL*)(pMaterials->GetBufferPointer());
+        //    mtrl->MatD3D.Ambient = MAmbient;
+        //    m_D3DDevice->SetMaterial(&mtrl->MatD3D);
+        //    pMesh->DrawSubset(i);
+        //};
 
         ///////////////////////////
         // 軸
@@ -246,16 +247,17 @@ int MainWindow::MainLoop()
         // ワールド変換（単位行列のみ）
         m_D3DDevice->SetTransform(D3DTS_WORLD, &AXWorld);
 
-        for (i = 0; i < AX_NumMaterials; i++)
-        {
-            // 軸描画
-            D3DXMATERIAL* mtrl = ((D3DXMATERIAL*)(pAX_Materials->GetBufferPointer()) + i);
-            mtrl->MatD3D.Ambient = MAmbient;
-            m_D3DDevice->SetMaterial(&mtrl->MatD3D);
-            pAX_Mesh->DrawSubset(i);
-        };
+        //for (i = 0; i < AX_NumMaterials; i++)
+        //{
+        //    // 軸描画
+        //    D3DXMATERIAL* mtrl = ((D3DXMATERIAL*)(pAX_Materials->GetBufferPointer()) + i);
+        //    mtrl->MatD3D.Ambient = MAmbient;
+        //    m_D3DDevice->SetMaterial(&mtrl->MatD3D);
+        //    pAX_Mesh->DrawSubset(i);
+        //};
 
         m_Mesh1->Render(View, Persp);
+        m_AnimMesh1->Render(View, Persp);
 
         if (m_sprite != nullptr)
         {

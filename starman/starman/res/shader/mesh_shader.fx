@@ -4,6 +4,7 @@ float4 g_light_normal;
 float g_light_brightness;
 float4 g_diffuse;
 float4 g_ambient = { 0.2f, 0.2f, 0.2f, 0.0f };
+texture g_mesh_texture;
 
 void vertex_shader(
     in  float4 in_position  : POSITION,
@@ -23,7 +24,6 @@ void vertex_shader(
     out_texcood = in_texcood;
 }
 
-texture g_mesh_texture;
 sampler mesh_texture_sampler = sampler_state {
     Texture   = (g_mesh_texture);
     MipFilter = LINEAR;

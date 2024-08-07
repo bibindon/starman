@@ -32,7 +32,7 @@ private:
         void release_mesh_allocator(const LPD3DXFRAME);
     };
 
-    const std::string SHADER_FILENAME { "animation_mesh_shader.fx" };
+    const std::string SHADER_FILENAME { "res\\shader\\animation_mesh_shader.fx" };
     LPDIRECT3DDEVICE9 m_D3DDevice { nullptr };
     std::shared_ptr<AnimMeshAllocator> m_allocator;
     std::unique_ptr<D3DXFRAME, frame_root_deleter_object> m_frameRoot;
@@ -42,10 +42,10 @@ private:
 
     D3DXVECTOR3 m_centerPos;
 
-    LPD3DXEFFECT m_D3DEffect;
+    LPD3DXEFFECT m_D3DEffect { nullptr };
 
-    D3DXHANDLE m_worldHandle;
-    D3DXHANDLE m_worldViewProjHandle;
+    D3DXHANDLE m_worldHandle { nullptr };
+    D3DXHANDLE m_worldViewProjHandle { nullptr };
 
     void UpdateFrameMatrix(const LPD3DXFRAME, const LPD3DXMATRIX);
     void RenderFrame(const LPD3DXFRAME);
@@ -54,11 +54,13 @@ private:
 
     D3DXVECTOR3 m_position;
     D3DXVECTOR3 m_rotation;
-    float m_scale;
+    float m_scale { 1.0f };
     std::string m_meshName;
 
-    D3DXHANDLE m_meshTextureHandle;
-    D3DXHANDLE m_diffuseHandle;
+    D3DXHANDLE m_meshTextureHandle { nullptr };
+    D3DXHANDLE m_diffuseHandle { nullptr };
+    D3DXHANDLE m_lightNormalHandle { nullptr };
+    D3DXHANDLE m_brightnessHandle { nullptr };
 
     std::unique_ptr<animation_strategy> m_animationStrategy;
 };

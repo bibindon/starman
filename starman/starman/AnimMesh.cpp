@@ -4,6 +4,7 @@
 #include "MainWindow.h"
 #include "Common.h"
 #include "AnimationStrategy.h"
+#include "Light.h"
 
 using std::vector;
 using std::string;
@@ -41,26 +42,40 @@ AnimMesh::AnimMesh(
     , m_frameRoot { nullptr, frame_root_deleter_object { m_allocator } }
     , m_rotationMatrix { D3DMATRIX { } }
     , m_centerPos { 0.0f, 0.0f, 0.0f }
-    , m_worldHandle { }
-    , m_worldViewProjHandle { }
 {
+    HRESULT result { 0 };
+    D3DXCreateEffectFromFile(
+        D3DDevice,
+        SHADER_FILENAME.c_str(),
+        nullptr,
+        nullptr,
+        0,
+        nullptr,
+        &m_D3DEffect,
+        nullptr);
+    if (FAILED(result))
+    {
+        throw std::exception("Failed to create an effect file.");
+    }
+
     m_worldHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world");
     m_worldViewProjHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world_view_projection");
+    m_lightNormalHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_normal");
+    m_brightnessHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_brightness");
+    m_meshTextureHandle = m_D3DEffect->GetParameterByName(nullptr, "g_mesh_texture");
+    m_diffuseHandle = m_D3DEffect->GetParameterByName(nullptr, "g_diffuse");
 
     LPD3DXFRAME temp_root_frame { nullptr };
     LPD3DXANIMATIONCONTROLLER temp_animation_controller { nullptr };
 
-    vector<char> buffer = Common::get_model_resource(xFilename);
-
-    HRESULT result { D3DXLoadMeshHierarchyFromXInMemory(
-        &buffer[0],
-        static_cast<DWORD>(buffer.size()),
+    result = D3DXLoadMeshHierarchyFromX(
+        xFilename.c_str(),
         D3DXMESH_MANAGED,
         m_D3DDevice,
         m_allocator.get(),
         nullptr,
         &temp_root_frame,
-        &temp_animation_controller) };
+        &temp_animation_controller);
 
     if (FAILED(result))
     {
@@ -79,6 +94,10 @@ AnimMesh::~AnimMesh()
 
 void AnimMesh::Render(const D3DXMATRIX& viewMatrix, const D3DXMATRIX& projMatrix)
 {
+    D3DXVECTOR4 normal = Light::GetLightNormal();
+    m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
+    m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
+
     m_viewMatrix = viewMatrix;
     m_projMatrix = projMatrix;
 
