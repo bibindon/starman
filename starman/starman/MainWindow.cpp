@@ -124,8 +124,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     SoundEffect::initialize(m_hWnd);
 
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-    m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 10.0f);
-    m_AnimMesh1 = new AnimMesh(m_D3DDevice, "res\\model\\RobotArm\\RobotArm.x", b, b, 10.0f);
+    m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 1.0f);
+    m_AnimMesh1 = new AnimMesh(m_D3DDevice, "res\\model\\RobotArm\\RobotArm.x", b, b, 1.0f);
+//    m_AnimMesh2 = new AnimMesh(m_D3DDevice, "res\\model\\wolf\\wolf.x", b, b, 50.0f);
 
     m_seqTitle = new SeqTitle(m_D3DDevice);
 
@@ -190,7 +191,17 @@ int MainWindow::MainLoop()
 
         if (m_sequence == eSequence::TITLE)
         {
-            m_seqTitle->Update();
+            m_seqTitle->Update(&m_sequence);
+            if (m_sequence == eSequence::BATTLE)
+            {
+                SAFE_DELETE(m_seqTitle);
+                m_seqBattle = new SeqBattle(m_D3DDevice);
+                m_seqBattle->Update(&m_sequence);
+            }
+        }
+        else if (m_sequence == eSequence::BATTLE)
+        {
+            m_seqBattle->Update(&m_sequence);
         }
 
         m_D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
@@ -267,8 +278,13 @@ int MainWindow::MainLoop()
         {
             m_seqTitle->Render();
         }
+        else if (m_sequence == eSequence::BATTLE)
+        {
+            m_seqBattle->Render(View, Persp);
+        }
         m_Mesh1->Render(View, Persp);
         m_AnimMesh1->Render(View, Persp);
+//        m_AnimMesh2->Render(View, Persp);
 
         if (m_sprite != nullptr)
         {

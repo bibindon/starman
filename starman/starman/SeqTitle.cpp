@@ -19,7 +19,7 @@ SeqTitle::~SeqTitle()
     SAFE_DELETE(m_spriteCursor);
 }
 
-void SeqTitle::Update()
+void SeqTitle::Update(eSequence* sequence)
 {
     if (KeyBoard::IsDown(DIK_UP))
     {
@@ -31,7 +31,7 @@ void SeqTitle::Update()
     }
     else if (KeyBoard::IsDown(DIK_RETURN))
     {
-
+        *sequence = eSequence::BATTLE;
     }
     if (JoyStick::IsDown(eJoyStickButtonType::UP))
     {

@@ -11,6 +11,7 @@
 #include "Sprite.h"
 #include "AnimMesh.h"
 #include "SeqTitle.h"
+#include "SeqBattle.h"
 
 class MainWindow
 {
@@ -35,17 +36,12 @@ private:
 
     Mesh* m_Mesh1 { nullptr };
     AnimMesh* m_AnimMesh1 { nullptr };
+    AnimMesh* m_AnimMesh2 { nullptr };
     LPDIRECTINPUT8 m_directInput { nullptr };
     Sprite* m_sprite { nullptr };
 
-    enum class eSequence
-    {
-        TITLE,
-        OPENING,
-        BATTLE,
-        ENDING
-    };
     eSequence m_sequence { eSequence::TITLE };
     SeqTitle* m_seqTitle { nullptr };
+    SeqBattle* m_seqBattle { nullptr };
 };
 

@@ -1,11 +1,14 @@
 #pragma once
+
+#include "Common.h"
 #include "Sprite.h"
+
 class SeqTitle
 {
 public:
     SeqTitle(LPDIRECT3DDEVICE9 D3DDevice);
     ~SeqTitle();
-    void Update();
+    void Update(eSequence* sequence);
     void Render();
 private:
     LPDIRECT3DDEVICE9 m_D3DDevice;
