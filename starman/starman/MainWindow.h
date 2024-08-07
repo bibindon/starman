@@ -27,7 +27,6 @@ private:
     MSG m_msg;
     HWND m_hWnd;
     LPDIRECT3D9 m_D3D;
-    LPDIRECT3DDEVICE9 m_D3DDevice;
     D3DLIGHT9 light;
     ID3DXBuffer* pMaterials;
     DWORD NumMaterials;

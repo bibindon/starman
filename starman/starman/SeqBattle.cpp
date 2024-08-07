@@ -6,12 +6,11 @@
 #include <dinput.h>
 #include "KeyBoard.h"
 
-SeqBattle::SeqBattle(LPDIRECT3DDEVICE9 D3DDevice)
-    : m_D3DDevice { D3DDevice }
+SeqBattle::SeqBattle()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-    m_mesh1 = new Mesh(m_D3DDevice, "res\\model\\cube2\\cube2.x", b, b, 5.0f);
-    m_AnimMesh1 = new AnimMesh(m_D3DDevice, "res\\model\\RobotArm\\RobotArm.x", b, b, 10.0f);
+    m_mesh1 = new Mesh("res\\model\\cube2\\cube2.x", b, b, 5.0f);
+    m_AnimMesh1 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, b, 10.0f);
 }
 
 SeqBattle::~SeqBattle()

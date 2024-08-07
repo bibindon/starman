@@ -1,23 +1,24 @@
 #include "Sprite.h"
 
 #include <vector>
+#include "SharedObj.h"
 
 using std::string;
 using std::vector;
 
-Sprite::Sprite(const LPDIRECT3DDEVICE9 D3DDevice, string filename)
-    : m_D3DDevice { D3DDevice }
+Sprite::Sprite(string filename)
 {
+    LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
     // sprite setup
     LPD3DXSPRITE tempSprite { nullptr };
-    if (FAILED(D3DXCreateSprite(m_D3DDevice, &m_D3DSprite)))
+    if (FAILED(D3DXCreateSprite(D3DDevice, &m_D3DSprite)))
     {
         throw std::exception("Failed to create a sprite.");
     }
 
     // texture setup
     if (FAILED(D3DXCreateTextureFromFile(
-        m_D3DDevice,
+        D3DDevice,
         filename.c_str(),
         &m_D3DTexture)))
     {

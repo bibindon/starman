@@ -2,23 +2,22 @@
 #include "Light.h"
 #include "Common.h"
 #include "Camera.h"
+#include "SharedObj.h"
 
 using std::string;
 using std::vector;
 
 Mesh::Mesh(
-    const LPDIRECT3DDEVICE9 D3DDevice,
     const string& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
     const float& scale)
-    : m_D3DDevice { D3DDevice }
-    , m_meshName { xFilename }
+    : m_meshName { xFilename }
 {
 
     HRESULT result { 0 };
     D3DXCreateEffectFromFile(
-        D3DDevice,
+        SharedObj::GetD3DDevice(),
         SHADER_FILENAME.c_str(),
         nullptr,
         nullptr,
@@ -43,7 +42,7 @@ Mesh::Mesh(
     result = D3DXLoadMeshFromX(
         xFilename.c_str(),
         D3DXMESH_SYSTEMMEM,
-        m_D3DDevice,
+        SharedObj::GetD3DDevice(),
         &adjacencyBuffer,
         &materialBuffer,
         nullptr,
@@ -83,7 +82,7 @@ Mesh::Mesh(
     };
 
     LPD3DXMESH tempMesh { nullptr };
-    result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED, decl, m_D3DDevice, &tempMesh);
+    result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh);
 
     if (FAILED(result))
     {
@@ -133,7 +132,7 @@ Mesh::Mesh(
             texPath += materials[i].pTextureFilename;
             LPDIRECT3DTEXTURE9 tempTexture { nullptr };
             if (FAILED(D3DXCreateTextureFromFile(
-                m_D3DDevice,
+                SharedObj::GetD3DDevice(),
                 texPath.c_str(),
                 &tempTexture)))
             {

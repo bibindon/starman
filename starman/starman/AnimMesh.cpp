@@ -6,6 +6,7 @@
 #include "AnimationStrategy.h"
 #include "Light.h"
 #include "Camera.h"
+#include "SharedObj.h"
 
 using std::vector;
 using std::string;
@@ -33,20 +34,18 @@ void AnimMesh::frame_root_deleter_object::release_mesh_allocator(const LPD3DXFRA
 }
 
 AnimMesh::AnimMesh(
-    const LPDIRECT3DDEVICE9 D3DDevice,
     const string& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
     const float& scale)
-    : m_D3DDevice { D3DDevice }
-    , m_allocator { new AnimMeshAllocator { xFilename } }
+    : m_allocator { new AnimMeshAllocator { xFilename } }
     , m_frameRoot { nullptr, frame_root_deleter_object { m_allocator } }
     , m_rotationMatrix { D3DMATRIX { } }
     , m_centerPos { 0.0f, 0.0f, 0.0f }
 {
     HRESULT result { 0 };
     D3DXCreateEffectFromFile(
-        D3DDevice,
+        SharedObj::GetD3DDevice(),
         SHADER_FILENAME.c_str(),
         nullptr,
         nullptr,
@@ -72,7 +71,7 @@ AnimMesh::AnimMesh(
     result = D3DXLoadMeshHierarchyFromX(
         xFilename.c_str(),
         D3DXMESH_MANAGED,
-        m_D3DDevice,
+        SharedObj::GetD3DDevice(),
         m_allocator.get(),
         nullptr,
         &temp_root_frame,
@@ -122,6 +121,16 @@ void AnimMesh::Render()
     }
     UpdateFrameMatrix(m_frameRoot.get(), &worldMatrix);
     RenderFrame(m_frameRoot.get());
+}
+
+void AnimMesh::SetPos(const D3DXVECTOR3& pos)
+{
+    m_position = pos;
+}
+
+void AnimMesh::SetRotate(const D3DXVECTOR3& rotate)
+{
+    m_rotation = rotate;
 }
 
 void AnimMesh::UpdateFrameMatrix(const LPD3DXFRAME frameBase, const LPD3DXMATRIX parentMatrix)

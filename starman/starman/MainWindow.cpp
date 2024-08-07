@@ -7,6 +7,7 @@
 #include "SoundEffect.h"
 #include "Common.h"
 #include "Camera.h"
+#include "SharedObj.h"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -68,11 +69,12 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         D3DPRESENT_INTERVAL_DEFAULT
     };
 
+    LPDIRECT3DDEVICE9 D3DDevice;
     if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
-        D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &m_D3DDevice)))
+        D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &D3DDevice)))
     {
         if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
-            D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &m_D3DDevice)))
+            D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &D3DDevice)))
         {
             m_D3D->Release();
             throw std::exception("");
@@ -95,6 +97,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 //        m_D3D->Release();
 //        throw std::exception("");
 //    }
+    SharedObj::SetD3DDevice(D3DDevice);
 
     ZeroMemory(&light, sizeof(D3DLIGHT9));
     light.Direction = D3DXVECTOR3(-1, -20, 0);
@@ -107,10 +110,10 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     light.Ambient.b = 0.5f;
     light.Range = 1000;
 
-    m_D3DDevice->SetLight(0, &light);
-    m_D3DDevice->LightEnable(0, true);
-    m_D3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
-    m_D3DDevice->SetRenderState(D3DRS_AMBIENT, 0x00808080);   // アンビエントライト
+    D3DDevice->SetLight(0, &light);
+    D3DDevice->LightEnable(0, true);
+    D3DDevice->SetRenderState(D3DRS_LIGHTING, TRUE);
+    D3DDevice->SetRenderState(D3DRS_AMBIENT, 0x00808080);   // アンビエントライト
 
     // directinput
     HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
@@ -123,9 +126,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     SoundEffect::initialize(m_hWnd);
 
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-    m_Mesh1 = new Mesh(m_D3DDevice, "res\\model\\tiger\\tiger.x", b, b, 1.0f);
+    m_Mesh1 = new Mesh("res\\model\\tiger\\tiger.x", b, b, 1.0f);
 
-    m_seqTitle = new SeqTitle(m_D3DDevice);
+    m_seqTitle = new SeqTitle();
 
     // ウィンドウ表示
     ShowWindow(m_hWnd, SW_SHOW);
@@ -136,12 +139,12 @@ MainWindow::~MainWindow()
     BGM::finalize();
     SoundEffect::finalize();
     SAFE_DELETE(m_sprite);
-    m_D3DDevice->Release();
     m_D3D->Release();
 }
 
 int MainWindow::MainLoop()
 {
+    LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
     D3DXMATRIX World;          // 立方体ワールド変換行列
     D3DXMATRIX Rot_X, Rot_Y;   // 立方体回転行列
     D3DXMATRIX Offset;         // 立方体オフセット行列
@@ -180,7 +183,7 @@ int MainWindow::MainLoop()
         if (Mouse::IsDownLeft())
         {
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
-            m_sprite = new Sprite(m_D3DDevice, "res\\image\\board.png");
+            m_sprite = new Sprite("res\\image\\board.png");
         }
 
         if (m_sequence == eSequence::TITLE)
@@ -189,7 +192,7 @@ int MainWindow::MainLoop()
             if (m_sequence == eSequence::BATTLE)
             {
                 SAFE_DELETE(m_seqTitle);
-                m_seqBattle = new SeqBattle(m_D3DDevice);
+                m_seqBattle = new SeqBattle();
                 m_seqBattle->Update(&m_sequence);
             }
         }
@@ -198,9 +201,9 @@ int MainWindow::MainLoop()
             m_seqBattle->Update(&m_sequence);
         }
 
-        m_D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
+        D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
             1.0f, 0);
-        m_D3DDevice->BeginScene();
+        D3DDevice->BeginScene();
 
 //        Ang += 1;
 
@@ -210,7 +213,7 @@ int MainWindow::MainLoop()
             // ライトの方向回転
         light.Direction.x = 20 * sinf(D3DXToRadian(Ang));
         light.Direction.z = 20 * cosf(D3DXToRadian(Ang));
-        m_D3DDevice->SetLight(0, &light);
+        D3DDevice->SetLight(0, &light);
 
         ///////////////////////////
         // 立方体
@@ -240,9 +243,9 @@ int MainWindow::MainLoop()
         D3DXMatrixPerspectiveFovLH(&Persp, D3DXToRadian(45), 640.0f / 480.0f, 1.0f, 10000.0f);
 
         // 行列登録
-        m_D3DDevice->SetTransform(D3DTS_WORLD, &World);
-        m_D3DDevice->SetTransform(D3DTS_VIEW, &View);
-        m_D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
+        D3DDevice->SetTransform(D3DTS_WORLD, &World);
+        D3DDevice->SetTransform(D3DTS_VIEW, &View);
+        D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
         Camera::SetViewMatrix(View);
         Camera::SetProjMatrix(Persp);
@@ -263,8 +266,8 @@ int MainWindow::MainLoop()
             m_sprite->Render(pos);
         }
 
-        m_D3DDevice->EndScene();
-        m_D3DDevice->Present(NULL, NULL, NULL, NULL);
+        D3DDevice->EndScene();
+        D3DDevice->Present(NULL, NULL, NULL, NULL);
 
 
     } while (m_msg.message != WM_QUIT);

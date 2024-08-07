@@ -10,7 +10,6 @@ class Mesh
 {
 public:
     Mesh(
-        const LPDIRECT3DDEVICE9,
         const std::string&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
@@ -23,7 +22,6 @@ private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
     LPD3DXMESH m_D3DMesh { nullptr };
 
-    LPDIRECT3DDEVICE9 m_D3DDevice { nullptr };
     LPD3DXEFFECT m_D3DEffect { nullptr };
 
     D3DXVECTOR3 m_pos { };

@@ -3,13 +3,13 @@
 #include "Mouse.h"
 #include "JoyStick.h"
 #include "Common.h"
+#include "SharedObj.h"
 
-SeqTitle::SeqTitle(LPDIRECT3DDEVICE9 D3DDevice)
+SeqTitle::SeqTitle()
 {
-    m_D3DDevice = D3DDevice;
-    m_sprite1 = new Sprite(m_D3DDevice, "res\\image\\title01.png");
-    m_sprite2 = new Sprite(m_D3DDevice, "res\\image\\title02.png");
-    m_spriteCursor = new Sprite(m_D3DDevice, "res\\image\\cursor.png");
+    m_sprite1 = new Sprite("res\\image\\title01.png");
+    m_sprite2 = new Sprite("res\\image\\title02.png");
+    m_spriteCursor = new Sprite("res\\image\\cursor.png");
 }
 
 SeqTitle::~SeqTitle()

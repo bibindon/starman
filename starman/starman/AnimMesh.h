@@ -13,15 +13,15 @@ class AnimMesh
 {
 public:
     AnimMesh(
-        const LPDIRECT3DDEVICE9,
         const std::string&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
         const float&);
     ~AnimMesh();
 
-    // TODO remove arg
     void Render();
+    void SetPos(const D3DXVECTOR3& pos);
+    void SetRotate(const D3DXVECTOR3& rotate);
 private:
 
     struct frame_root_deleter_object
@@ -33,7 +33,6 @@ private:
     };
 
     const std::string SHADER_FILENAME { "res\\shader\\animation_mesh_shader.fx" };
-    LPDIRECT3DDEVICE9 m_D3DDevice { nullptr };
     std::shared_ptr<AnimMeshAllocator> m_allocator;
     std::unique_ptr<D3DXFRAME, frame_root_deleter_object> m_frameRoot;
     D3DXMATRIX m_rotationMatrix;
