@@ -41,6 +41,8 @@ AnimMesh::AnimMesh(
     : m_allocator { new AnimMeshAllocator { xFilename } }
     , m_frameRoot { nullptr, frame_root_deleter_object { m_allocator } }
     , m_rotationMatrix { D3DMATRIX { } }
+    , m_position { position }
+    , m_rotation { rotation }
     , m_centerPos { 0.0f, 0.0f, 0.0f }
 {
     HRESULT result { 0 };

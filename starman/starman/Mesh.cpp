@@ -13,6 +13,9 @@ Mesh::Mesh(
     const D3DXVECTOR3& rotation,
     const float& scale)
     : m_meshName { xFilename }
+    , m_pos { position }
+    , m_rotate { rotation }
+    , m_scale { scale }
 {
 
     HRESULT result { 0 };

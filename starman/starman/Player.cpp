@@ -3,7 +3,7 @@
 Player::Player()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-    m_AnimMesh2 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, b, 10.0f);
+    m_AnimMesh2 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, b, 1.0f);
 }
 
 Player::~Player()
@@ -22,7 +22,17 @@ void Player::SetPos(const D3DXVECTOR3& pos)
     m_pos = pos;
 }
 
+D3DXVECTOR3 Player::GetPos()
+{
+    return m_pos;
+}
+
 void Player::SetRotate(const D3DXVECTOR3& rotate)
 {
     m_rotate = rotate;
+}
+
+D3DXVECTOR3 Player::GetRotate()
+{
+    return m_rotate;
 }

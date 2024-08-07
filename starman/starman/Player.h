@@ -9,7 +9,9 @@ public:
     ~Player();
     void Render();
     void SetPos(const D3DXVECTOR3& pos);
+    D3DXVECTOR3 GetPos();
     void SetRotate(const D3DXVECTOR3& rotate);
+    D3DXVECTOR3 GetRotate();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
 
