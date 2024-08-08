@@ -6,6 +6,7 @@
 #include <dinput.h>
 #include "KeyBoard.h"
 #include "Camera.h"
+#include "JoyStick.h"
 
 SeqBattle::SeqBattle()
 {
@@ -26,23 +27,44 @@ void SeqBattle::Update(eSequence* sequence)
     float radian = Camera::GetRadian();
     if (KeyBoard::IsHold(DIK_W))
     {
-        pos.x -= std::sin(radian)/10;
-        pos.z -= std::cos(radian)/10;
+        pos.x += std::sin(radian+D3DX_PI)/10;
+        pos.z += std::sin(radian+D3DX_PI*3/2)/10;
     }
     if (KeyBoard::IsHold(DIK_A))
     {
-        pos.x -= std::sin(radian)/10;
-        pos.z += std::cos(radian)/10;
+        pos.x += std::sin(radian+D3DX_PI/2)/10;
+        pos.z += std::sin(radian+D3DX_PI)/10;
     }
     if (KeyBoard::IsHold(DIK_S))
     {
         pos.x += std::sin(radian)/10;
-        pos.z += std::cos(radian)/10;
+        pos.z += std::sin(radian+D3DX_PI/2)/10;
     }
     if (KeyBoard::IsHold(DIK_D))
     {
+        pos.x += std::sin(radian+D3DX_PI*3/2)/10;
+        pos.z += std::sin(radian)/10;
+    }
+
+    if (JoyStick::IsHold(eJoyStickButtonType::UP))
+    {
+        pos.x += std::sin(radian+D3DX_PI)/10;
+        pos.z += std::sin(radian+D3DX_PI*3/2)/10;
+    }
+    if (JoyStick::IsHold(eJoyStickButtonType::LEFT))
+    {
+        pos.x += std::sin(radian+D3DX_PI/2)/10;
+        pos.z += std::sin(radian+D3DX_PI)/10;
+    }
+    if (JoyStick::IsHold(eJoyStickButtonType::DOWN))
+    {
         pos.x += std::sin(radian)/10;
-        pos.z -= std::cos(radian)/10;
+        pos.z += std::sin(radian+D3DX_PI/2)/10;
+    }
+    if (JoyStick::IsHold(eJoyStickButtonType::RIGHT))
+    {
+        pos.x += std::sin(radian+D3DX_PI*3/2)/10;
+        pos.z += std::sin(radian)/10;
     }
     m_player->SetPos(pos);
     Camera::SetPos(pos);

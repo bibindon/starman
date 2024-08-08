@@ -28,6 +28,8 @@ bool JoyStick::Init(LPDIRECTINPUT8 DI, HWND hwnd)
     temp.m_buttonStatusMap.insert({ eJoyStickButtonType::Y, eJoyStickButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eJoyStickButtonType::A, eJoyStickButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eJoyStickButtonType::B, eJoyStickButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eJoyStickButtonType::Z_LEFT, eJoyStickButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eJoyStickButtonType::Z_RIGHT, eJoyStickButtonState::NONE });
     m_deqButton.push_back(temp);
     m_deqButton.push_back(temp);
     m_deqButton.push_back(temp);
@@ -168,6 +170,8 @@ void JoyStick::Update()
     temp.m_buttonStatusMap.insert({ eJoyStickButtonType::Y, eJoyStickButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eJoyStickButtonType::A, eJoyStickButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eJoyStickButtonType::B, eJoyStickButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eJoyStickButtonType::Z_LEFT, eJoyStickButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eJoyStickButtonType::Z_RIGHT, eJoyStickButtonState::NONE });
     m_deqButton.push_front(temp);
 
     if (m_deqButton.size() > Common::KEY_DEQUE_MAX_SIZE)
@@ -185,6 +189,8 @@ void JoyStick::Update()
         { eJoyStickButtonType::Y, false },
         { eJoyStickButtonType::A, false },
         { eJoyStickButtonType::B, false },
+        { eJoyStickButtonType::Z_LEFT, false },
+        { eJoyStickButtonType::Z_RIGHT, false },
     };
 
     // Check stick.
@@ -207,12 +213,23 @@ void JoyStick::Update()
         is_push_map.at(eJoyStickButtonType::DOWN) = true;
     }
 
+    if (padData.lZ < -unresponsiveRange)
+    {
+        is_push_map.at(eJoyStickButtonType::Z_LEFT) = true;
+    }
+    else if (padData.lZ > unresponsiveRange)
+    {
+        is_push_map.at(eJoyStickButtonType::Z_RIGHT) = true;
+    }
+
     // Check D-pad
     if (padData.rgdwPOV[0] != 0xFFFFFFFF)
     {
         float rad { D3DXToRadian(padData.rgdwPOV[0] / 100.0f) };
         float x { sinf(rad) };
         float y { cosf(rad) };
+        float zrad { D3DXToRadian(padData.rgdwPOV[1] / 100.0f) };
+        float z { sinf(zrad) };
 
         if (x < -0.01f)
         {
@@ -230,6 +247,14 @@ void JoyStick::Update()
         else if (y < -0.01f)
         {
             is_push_map.at(eJoyStickButtonType::DOWN) = true;
+        }
+        if (z > 0.01f)
+        {
+            is_push_map.at(eJoyStickButtonType::Z_LEFT) = true;
+        }
+        else if (z < -0.01f)
+        {
+            is_push_map.at(eJoyStickButtonType::Z_RIGHT) = true;
         }
     }
 
@@ -405,6 +430,13 @@ BOOL SetupGamePadProperty(LPDIRECTINPUTDEVICE8 device)
 
     // Set Y ranges.
     diprg.diph.dwObj = DIJOFS_Y;
+    if (FAILED(device->SetProperty(DIPROP_RANGE, &diprg.diph)))
+    {
+        return false;
+    }
+
+    // Set Z ranges.
+    diprg.diph.dwObj = DIJOFS_Z;
     if (FAILED(device->SetProperty(DIPROP_RANGE, &diprg.diph)))
     {
         return false;

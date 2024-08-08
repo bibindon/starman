@@ -43,14 +43,13 @@ void SeqTitle::Update(eSequence* sequence)
     }
     else if (JoyStick::IsDown(eJoyStickButtonType::A))
     {
-
+        *sequence = eSequence::BATTLE;
     }
 }
 
 void SeqTitle::Render()
 {
     D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
-//    m_sprite1->Render(pos);
     m_sprite2->Render(pos);
     m_spriteCursor->Render(pos);
 }
