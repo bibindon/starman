@@ -228,8 +228,6 @@ void JoyStick::Update()
         float rad { D3DXToRadian(padData.rgdwPOV[0] / 100.0f) };
         float x { sinf(rad) };
         float y { cosf(rad) };
-        float zrad { D3DXToRadian(padData.rgdwPOV[1] / 100.0f) };
-        float z { sinf(zrad) };
 
         if (x < -0.01f)
         {
@@ -247,14 +245,6 @@ void JoyStick::Update()
         else if (y < -0.01f)
         {
             is_push_map.at(eJoyStickButtonType::DOWN) = true;
-        }
-        if (z > 0.01f)
-        {
-            is_push_map.at(eJoyStickButtonType::Z_LEFT) = true;
-        }
-        else if (z < -0.01f)
-        {
-            is_push_map.at(eJoyStickButtonType::Z_RIGHT) = true;
         }
     }
 
