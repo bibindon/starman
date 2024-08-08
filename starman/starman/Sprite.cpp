@@ -42,13 +42,30 @@ void Sprite::Render(const D3DXVECTOR3& pos, const BYTE transparency)
         static_cast<LONG>(m_width),
         static_cast<LONG>(m_height) };
     D3DXVECTOR3 center { 0, 0, 0 };
-    m_D3DSprite->Draw(
-        m_D3DTexture,
-        &rect,
-        &center,
-        &pos,
-        D3DCOLOR_ARGB(transparency, 255, 255, 255));
+    if (m_isFill)
+    {
+        m_D3DSprite->Draw(
+            m_D3DTexture,
+            nullptr,
+            &center,
+            &pos,
+            D3DCOLOR_ARGB(transparency, 255, 255, 255));
+    }
+    else
+    {
+        m_D3DSprite->Draw(
+            m_D3DTexture,
+            &rect,
+            &center,
+            &pos,
+            D3DCOLOR_ARGB(transparency, 255, 255, 255));
+    }
     m_D3DSprite->End();
+}
+
+void Sprite::SetFill(const bool isFill)
+{
+    m_isFill = isFill;
 }
 
 

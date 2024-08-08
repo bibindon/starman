@@ -13,6 +13,7 @@ public:
 private:
     Sprite* m_sprite1 { nullptr };
     Sprite* m_sprite2 { nullptr };
+    Sprite* m_sprite3 { nullptr };
     Sprite* m_spriteCursor { nullptr };
 };
 
