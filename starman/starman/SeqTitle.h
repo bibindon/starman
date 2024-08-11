@@ -22,5 +22,7 @@ private:
         EXIT,
     };
     eMenu m_eMenu { eMenu::START };
+    bool m_bFadeIn { true };
+    bool m_bFadeOut { false };
 };
 

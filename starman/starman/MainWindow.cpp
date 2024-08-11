@@ -1,5 +1,8 @@
 #include "MainWindow.h"
+
 #include <exception>
+#include <chrono>
+
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "JoyStick.h"
@@ -8,6 +11,7 @@
 #include "Common.h"
 #include "Camera.h"
 #include "SharedObj.h"
+using std::chrono::system_clock;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -45,9 +49,19 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     {
         throw std::exception("");
     }
-
-    if (!(m_hWnd = CreateWindow(TITLE.c_str(), TITLE.c_str(), WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
-        CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL)))
+    m_hWnd = CreateWindow(
+        TITLE.c_str(),
+        TITLE.c_str(),
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT,
+        CW_USEDEFAULT,
+        1600,
+        900,
+        NULL,
+        NULL,
+        hInstance,
+        NULL);
+    if (!m_hWnd)
     {
         throw std::exception("");
     }
@@ -121,6 +135,22 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     m_seqTitle = new SeqTitle();
 
+    ret = D3DXCreateFont(
+        D3DDevice,
+        40,
+        0,
+        FW_HEAVY,
+        1,
+        false,
+        SHIFTJIS_CHARSET,
+        OUT_TT_ONLY_PRECIS,
+        ANTIALIASED_QUALITY,
+        FF_DONTCARE,
+        "ＭＳ ゴシック",
+        &m_D3DFont);
+
+    timeBeginPeriod(1);
+
     // ウィンドウ表示
     ShowWindow(m_hWnd, SW_SHOW);
 }
@@ -132,6 +162,7 @@ MainWindow::~MainWindow()
     SAFE_DELETE(m_sprite);
     SharedObj::Finalize();
     m_D3D->Release();
+    timeEndPeriod(1);
 }
 
 int MainWindow::MainLoop()
@@ -143,29 +174,56 @@ int MainWindow::MainLoop()
     D3DXMATRIX View;   // ビュー変換行列
     D3DXMATRIX Persp;   // 射影変換行列
 
-        // ビュー変換
-        // 視点は原点固定ですが、カメラの位置は適当です
-        D3DXVECTOR3 a = D3DXVECTOR3(0.f, 2.f, -4.f);
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 1.f, 0.f);
-        D3DXMatrixLookAtLH(
-            &View,
-            &a,
-            &b,
-            &c
-        );
-        float viewAngle { D3DX_PI / 4 };
-        Camera::SetPos(b);
+    // ビュー変換
+    // 視点は原点固定ですが、カメラの位置は適当です
+    D3DXVECTOR3 a = D3DXVECTOR3(0.f, 2.f, -4.f);
+    D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 1.f, 0.f);
+    D3DXMatrixLookAtLH(
+        &View,
+        &a,
+        &b,
+        &c
+    );
+    float viewAngle { D3DX_PI / 4 };
+    Camera::SetPos(b);
 
     FLOAT Ang = 0.0f;   // 回転角度
 //    unsigned int i;
     do
     {
-        Sleep(1);
+        Sleep(15);
         if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
         {
             DispatchMessage(&m_msg);
         }
+
+        system_clock::time_point tempTime { system_clock::now() };
+
+        m_vecTime.push_back(tempTime);
+        const int removeCnt = m_vecTime.size() - 100;
+        if (removeCnt >= 1)
+        {
+            m_vecTime.erase(m_vecTime.begin(), m_vecTime.begin() + removeCnt);
+        }
+
+        tempTime = tempTime - std::chrono::seconds { 1 };
+
+        int fps { 0 };
+        for (int i = 0; i < 100; ++i)
+        {
+            if (m_vecTime.size() == 100)
+            {
+                if (tempTime < m_vecTime.at(i))
+                {
+                    fps = 100 - i;
+                    break;
+                }
+            }
+        }
+
+        RECT rect;
+        SetRect(&rect, 0, 0, 50, 50);
 
         KeyBoard::Update();
         Mouse::Update();
@@ -285,6 +343,14 @@ int MainWindow::MainLoop()
             D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
             m_sprite->Render(pos);
         }
+
+        m_D3DFont->DrawText(
+            NULL,
+            std::to_string(fps).c_str(),
+            -1,
+            &rect,
+            DT_LEFT | DT_NOCLIP,
+            D3DCOLOR_ARGB(255, 0, 0, 0));
 
         D3DDevice->EndScene();
         D3DDevice->Present(NULL, NULL, NULL, NULL);

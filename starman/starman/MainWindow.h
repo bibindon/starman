@@ -8,7 +8,10 @@
 #define DIRECTINPUT_VERSION 0x0800
 #endif
 #include <dinput.h>
-#include  <string>
+#include <string>
+#include <chrono>
+#include <deque>
+
 #include "Mesh.h"
 #include "Sprite.h"
 #include "AnimMesh.h"
@@ -44,5 +47,8 @@ private:
     SeqTitle* m_seqTitle { nullptr };
     SeqOpening* m_seqOpening { nullptr };
     SeqBattle* m_seqBattle { nullptr };
+
+    LPD3DXFONT m_D3DFont { nullptr };
+    std::vector<std::chrono::system_clock::time_point> m_vecTime;
 };
 
