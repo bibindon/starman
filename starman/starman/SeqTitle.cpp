@@ -37,69 +37,72 @@ SeqTitle::~SeqTitle()
 
 void SeqTitle::Update(eSequence* sequence)
 {
-    if (KeyBoard::IsDown(DIK_UP))
+    if (m_bFadeIn == false && m_bFadeOut == false)
     {
-        switch (m_eMenu)
+        if (KeyBoard::IsDown(DIK_UP))
         {
-        case eMenu::START:
-        {
-            // do nothing
-            break;
+            switch (m_eMenu)
+            {
+            case eMenu::START:
+            {
+                // do nothing
+                break;
+            }
+            case eMenu::CONTINUE:
+            {
+                m_eMenu = eMenu::START;
+                SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
+                break;
+            }
+            case eMenu::EXIT:
+            {
+                m_eMenu = eMenu::CONTINUE;
+                SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
+                break;
+            }
+            }
         }
-        case eMenu::CONTINUE:
+        else if (KeyBoard::IsDown(DIK_DOWN))
         {
-            m_eMenu = eMenu::START;
+            switch (m_eMenu)
+            {
+            case eMenu::START:
+            {
+                m_eMenu = eMenu::CONTINUE;
+                SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
+                break;
+            }
+            case eMenu::CONTINUE:
+            {
+                m_eMenu = eMenu::EXIT;
+                SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
+                break;
+            }
+            case eMenu::EXIT:
+            {
+                // do nothing
+                break;
+            }
+            }
+        }
+        else if (KeyBoard::IsDown(DIK_RETURN))
+        {
+            m_bFadeOut = true;
+            SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
+        }
+        if (JoyStick::IsDown(eJoyStickButtonType::UP))
+        {
             SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
-            break;
         }
-        case eMenu::EXIT:
+        else if (JoyStick::IsDown(eJoyStickButtonType::DOWN))
         {
-            m_eMenu = eMenu::CONTINUE;
             SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
-            break;
         }
-        }
-    }
-    else if (KeyBoard::IsDown(DIK_DOWN))
-    {
-        switch (m_eMenu)
+        else if (JoyStick::IsDown(eJoyStickButtonType::A))
         {
-        case eMenu::START:
-        {
-            m_eMenu = eMenu::CONTINUE;
-            SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
-            break;
+            m_bFadeOut = true;
+            SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
         }
-        case eMenu::CONTINUE:
-        {
-            m_eMenu = eMenu::EXIT;
-            SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
-            break;
-        }
-        case eMenu::EXIT:
-        {
-            // do nothing
-            break;
-        }
-        }
-    }
-    else if (KeyBoard::IsDown(DIK_RETURN))
-    {
-        m_bFadeOut = true;
-        SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
-    }
-    if (JoyStick::IsDown(eJoyStickButtonType::UP))
-    {
-        SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
-    }
-    else if (JoyStick::IsDown(eJoyStickButtonType::DOWN))
-    {
-        SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
-    }
-    else if (JoyStick::IsDown(eJoyStickButtonType::A))
-    {
-        m_bFadeOut = true;
-        SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
     }
     if (m_bFadeIn)
     {
