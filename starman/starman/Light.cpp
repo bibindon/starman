@@ -1,6 +1,6 @@
 #include "Light.h"
 
-D3DXVECTOR4 Light::m_lightNormal { 1.0f, 0.0f, 0.0f, 0.0f };
+D3DXVECTOR4 Light::m_lightNormal { 1.0f, 1.0f, 0.0f, 0.0f };
 float Light::m_Brightness = 1.0f;
 
 D3DXVECTOR4 Light::GetLightNormal()
