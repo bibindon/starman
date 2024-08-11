@@ -4,6 +4,8 @@
 #include "JoyStick.h"
 #include "Common.h"
 #include "SharedObj.h"
+#include "SoundEffect.h"
+#include "BGM.h"
 
 SeqTitle::SeqTitle()
 {
@@ -12,6 +14,11 @@ SeqTitle::SeqTitle()
     m_sprite3 = new Sprite("res\\image\\title03.png");
     m_sprite3->SetFill(true);
     m_spriteCursor = new Sprite("res\\image\\cursor.png");
+
+    SoundEffect::get_ton()->load("res\\sound\\cursor_move.wav");
+    SoundEffect::get_ton()->load("res\\sound\\cursor_confirm.wav");
+    BGM::get_ton()->load("res\\sound\\title.wav");
+    BGM::get_ton()->play(10);
 }
 
 SeqTitle::~SeqTitle()
@@ -36,11 +43,13 @@ void SeqTitle::Update(eSequence* sequence)
         case eMenu::CONTINUE:
         {
             m_eMenu = eMenu::START;
+            SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
             break;
         }
         case eMenu::EXIT:
         {
             m_eMenu = eMenu::CONTINUE;
+            SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
             break;
         }
         }
@@ -52,11 +61,13 @@ void SeqTitle::Update(eSequence* sequence)
         case eMenu::START:
         {
             m_eMenu = eMenu::CONTINUE;
+            SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
             break;
         }
         case eMenu::CONTINUE:
         {
             m_eMenu = eMenu::EXIT;
+            SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
             break;
         }
         case eMenu::EXIT:
@@ -86,14 +97,15 @@ void SeqTitle::Update(eSequence* sequence)
             break;
         }
         }
+        SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
     }
     if (JoyStick::IsDown(eJoyStickButtonType::UP))
     {
-
+        SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
     }
     else if (JoyStick::IsDown(eJoyStickButtonType::DOWN))
     {
-
+        SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav", 90);
     }
     else if (JoyStick::IsDown(eJoyStickButtonType::A))
     {
@@ -115,6 +127,7 @@ void SeqTitle::Update(eSequence* sequence)
             break;
         }
         }
+        SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
     }
 }
 

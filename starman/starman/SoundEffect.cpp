@@ -26,11 +26,11 @@ void SoundEffect::initialize(HWND hwnd)
 
 void SoundEffect::finalize()
 {
-    SAFE_RELEASE(single_ton_->dx8sound_);
     for (auto pair : single_ton_->dx8sound_buffers_)
     {
         SAFE_RELEASE(pair.second);
     }
+    SAFE_RELEASE(single_ton_->dx8sound_);
     SAFE_DELETE(single_ton_);
 }
 
