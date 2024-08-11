@@ -30,7 +30,8 @@ enum class eSequence
     TITLE,
     OPENING,
     BATTLE,
-    ENDING
+    ENDING,
+    EXIT
 };
 
 class Common

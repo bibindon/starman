@@ -87,22 +87,6 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         }
     }
 
-//    // 立方体オブジェクト生成
-//    if (FAILED(D3DXLoadMeshFromX(_T("Cube2.x"), D3DXMESH_MANAGED, m_D3DDevice, NULL, &pMaterials, NULL, &NumMaterials, &pMesh)))
-//    {
-//        m_D3DDevice->Release();
-//        m_D3D->Release();
-//        throw std::exception("");
-//    }
-//
-//    // 軸オブジェクト生成
-//    if (FAILED(D3DXLoadMeshFromX(_T("Axis.x"), D3DXMESH_MANAGED, m_D3DDevice, NULL, &pAX_Materials, NULL, &AX_NumMaterials, &pAX_Mesh)))
-//    {
-//        pMesh->Release();
-//        m_D3DDevice->Release();
-//        m_D3D->Release();
-//        throw std::exception("");
-//    }
     SharedObj::SetD3DDevice(D3DDevice);
 
     ZeroMemory(&light, sizeof(D3DLIGHT9));
@@ -190,7 +174,7 @@ int MainWindow::MainLoop()
 
         if (KeyBoard::IsDown(DIK_ESCAPE))
         {
-            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+            PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         }
         if (KeyBoard::IsDown(DIK_Q))
         {
@@ -219,11 +203,24 @@ int MainWindow::MainLoop()
         if (m_sequence == eSequence::TITLE)
         {
             m_seqTitle->Update(&m_sequence);
-            if (m_sequence == eSequence::BATTLE)
+            if (m_sequence == eSequence::OPENING)
+            {
+                SAFE_DELETE(m_seqTitle);
+                m_seqOpening = new SeqOpening();
+            }
+            else if (m_sequence == eSequence::BATTLE)
             {
                 SAFE_DELETE(m_seqTitle);
                 m_seqBattle = new SeqBattle();
-                m_seqBattle->Update(&m_sequence);
+            }
+        }
+        else if (m_sequence == eSequence::OPENING)
+        {
+            m_seqOpening->Update(&m_sequence);
+            if (m_sequence == eSequence::BATTLE)
+            {
+                SAFE_DELETE(m_seqOpening);
+                m_seqBattle = new SeqBattle();
             }
         }
         else if (m_sequence == eSequence::BATTLE)
@@ -235,7 +232,6 @@ int MainWindow::MainLoop()
             1.0f, 0);
         D3DDevice->BeginScene();
 
-//        Ang += 1;
 
         ///////////////////////////
         // ライト
@@ -270,9 +266,17 @@ int MainWindow::MainLoop()
         {
             m_seqTitle->Render();
         }
+        else if (m_sequence == eSequence::OPENING)
+        {
+            m_seqOpening->Render();
+        }
         else if (m_sequence == eSequence::BATTLE)
         {
             m_seqBattle->Render();
+        }
+        else if (m_sequence == eSequence::EXIT)
+        {
+            PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         }
         m_Mesh1->Render();
 

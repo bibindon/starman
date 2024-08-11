@@ -14,6 +14,7 @@
 #include "AnimMesh.h"
 #include "SeqTitle.h"
 #include "SeqBattle.h"
+#include "SeqOpening.h"
 
 class MainWindow
 {
@@ -41,6 +42,7 @@ private:
 
     eSequence m_sequence { eSequence::TITLE };
     SeqTitle* m_seqTitle { nullptr };
+    SeqOpening* m_seqOpening { nullptr };
     SeqBattle* m_seqBattle { nullptr };
 };
 

@@ -26,15 +26,66 @@ void SeqTitle::Update(eSequence* sequence)
 {
     if (KeyBoard::IsDown(DIK_UP))
     {
-
+        switch (m_eMenu)
+        {
+        case eMenu::START:
+        {
+            // do nothing
+            break;
+        }
+        case eMenu::CONTINUE:
+        {
+            m_eMenu = eMenu::START;
+            break;
+        }
+        case eMenu::EXIT:
+        {
+            m_eMenu = eMenu::CONTINUE;
+            break;
+        }
+        }
     }
     else if (KeyBoard::IsDown(DIK_DOWN))
     {
-
+        switch (m_eMenu)
+        {
+        case eMenu::START:
+        {
+            m_eMenu = eMenu::CONTINUE;
+            break;
+        }
+        case eMenu::CONTINUE:
+        {
+            m_eMenu = eMenu::EXIT;
+            break;
+        }
+        case eMenu::EXIT:
+        {
+            // do nothing
+            break;
+        }
+        }
     }
     else if (KeyBoard::IsDown(DIK_RETURN))
     {
-        *sequence = eSequence::BATTLE;
+        switch (m_eMenu)
+        {
+        case eMenu::START:
+        {
+            *sequence = eSequence::OPENING;
+            break;
+        }
+        case eMenu::CONTINUE:
+        {
+            *sequence = eSequence::BATTLE;
+            break;
+        }
+        case eMenu::EXIT:
+        {
+            *sequence = eSequence::EXIT;
+            break;
+        }
+        }
     }
     if (JoyStick::IsDown(eJoyStickButtonType::UP))
     {
@@ -46,7 +97,24 @@ void SeqTitle::Update(eSequence* sequence)
     }
     else if (JoyStick::IsDown(eJoyStickButtonType::A))
     {
-        *sequence = eSequence::BATTLE;
+        switch (m_eMenu)
+        {
+        case eMenu::START:
+        {
+            *sequence = eSequence::OPENING;
+            break;
+        }
+        case eMenu::CONTINUE:
+        {
+            *sequence = eSequence::BATTLE;
+            break;
+        }
+        case eMenu::EXIT:
+        {
+            *sequence = eSequence::EXIT;
+            break;
+        }
+        }
     }
 }
 
@@ -62,5 +130,23 @@ void SeqTitle::Render()
     m_sprite2->Render(pos2);
 
     D3DXVECTOR3 pos3 { 900.0f, 220.0f, 0.0f };
+    switch (m_eMenu)
+    {
+    case eMenu::START:
+    {
+        pos3.y = 220.f;
+        break;
+    }
+    case eMenu::CONTINUE:
+    {
+        pos3.y = 280.f;
+        break;
+    }
+    case eMenu::EXIT:
+    {
+        pos3.y = 340.f;
+        break;
+    }
+    }
     m_spriteCursor->Render(pos3);
 }

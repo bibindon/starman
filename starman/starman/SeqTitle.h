@@ -15,5 +15,12 @@ private:
     Sprite* m_sprite2 { nullptr };
     Sprite* m_sprite3 { nullptr };
     Sprite* m_spriteCursor { nullptr };
+    enum class eMenu
+    {
+        START,
+        CONTINUE,
+        EXIT,
+    };
+    eMenu m_eMenu { eMenu::START };
 };
 
