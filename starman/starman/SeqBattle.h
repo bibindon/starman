@@ -19,6 +19,7 @@ private:
     Mesh* m_mesh1 { nullptr };
     Mesh* m_meshSky { nullptr };
     Mesh* m_meshSky2 { nullptr };
-//    AnimMesh* m_AnimMesh1 { nullptr };
+    Mesh* m_test { nullptr };
+    AnimMesh* m_test2 { nullptr };
 };
 

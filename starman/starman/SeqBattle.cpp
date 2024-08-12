@@ -20,6 +20,18 @@ SeqBattle::SeqBattle()
     c.y = D3DX_PI;
     m_meshSky2 = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 100.0f);
     b.y = 0.f;
+
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(10, 0, 0);
+        D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
+        m_test = new Mesh("res\\model\\hoshiman\\hoshiman.x", b, c, 1.0f);
+    }
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(5, 0, 0);
+        D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
+        m_test2 = new AnimMesh("res\\model\\cube4\\cube4.x", b, c, 0.5f);
+    }
+
     m_player = new Player();
 }
 
@@ -81,11 +93,15 @@ void SeqBattle::Render()
     m_mesh1->Render();
     D3DXVECTOR4 norm = Light::GetLightNormal();
     D3DXVECTOR4 norm2 { norm };
+    // “V‹…—p‚É‰º‚©‚çŒõ‚ğ“–‚Ä‚Ä‚¢‚é‚±‚Æ‚É‚·‚é
+    // ³‚µ‚­‚È‚¢‚â‚è•ûB
     norm2.x = 0.f;
     norm2.y = -1.f;
     Light::SetLightNormal(norm2);
     m_meshSky->Render();
     m_meshSky2->Render();
     Light::SetLightNormal(norm);
+    m_test->Render();
+    m_test2->Render();
     m_player->Render();
 }
