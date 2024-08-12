@@ -5,6 +5,7 @@
 #endif
 #include <dinput.h>
 #include "KeyBoard.h"
+#include "Mouse.h"
 #include "Camera.h"
 #include "JoyStick.h"
 #include "Light.h"
@@ -75,6 +76,11 @@ void SeqBattle::Update(eSequence* sequence)
 
         D3DXVECTOR3 rotate {radian+D3DX_PI, 0.f, 0.f};
         m_player->SetRotate(rotate);
+    }
+
+    if (Mouse::IsDownLeft())
+    {
+        m_player->SetAttack();
     }
 
     if (JoyStick::IsHold(eJoyStickButtonType::UP))

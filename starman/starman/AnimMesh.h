@@ -22,6 +22,7 @@ public:
     void Render();
     void SetPos(const D3DXVECTOR3& pos);
     void SetRotate(const D3DXVECTOR3& rotate);
+    void SetAnim(const std::string& animName);
 private:
 
     struct frame_root_deleter_object

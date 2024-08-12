@@ -5,6 +5,7 @@ Player::Player()
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
 //    m_AnimMesh2 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, b, 0.5f);
     m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, b, 0.5f);
+    m_AnimMesh2->SetAnim("Walk");
 }
 
 Player::~Player()
@@ -36,4 +37,9 @@ void Player::SetRotate(const D3DXVECTOR3& rotate)
 D3DXVECTOR3 Player::GetRotate()
 {
     return m_rotate;
+}
+
+void Player::SetAttack()
+{
+    m_AnimMesh2->SetAnim("Attack");
 }

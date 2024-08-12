@@ -14,6 +14,7 @@ public:
     D3DXVECTOR3 GetPos();
     void SetRotate(const D3DXVECTOR3& rotate);
     D3DXVECTOR3 GetRotate();
+    void SetAttack();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
 
