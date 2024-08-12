@@ -15,10 +15,14 @@ public:
     void SetRotate(const D3DXVECTOR3& rotate);
     D3DXVECTOR3 GetRotate();
     void SetAttack();
+    void Update();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
 
     D3DXVECTOR3 m_pos { 0.f, 0.f, 0.f };
     D3DXVECTOR3 m_rotate { 0.f, 0.f, 0.f };
+
+    bool m_bAttack { false };
+    int m_attackTimeCounter { 0 };
 };
 

@@ -3,7 +3,7 @@ float4x4 g_world_view_projection;
 float4 g_light_normal;
 float g_light_brightness;
 float4 g_diffuse;
-float4 g_ambient = { 0.5f, 0.5f, 0.5f, 0.0f };
+float4 g_ambient = { 0.3f, 0.3f, 0.2f, 0.0f };
 texture g_mesh_texture;
 
 void vertex_shader(
@@ -39,6 +39,10 @@ void pixel_shader(
     float4 color_result = (float4)0;
     color_result = tex2D(mesh_texture_sampler, in_texcood);
     out_diffuse = (in_diffuse * color_result);
+    if (out_diffuse.r == 0.0f && out_diffuse.r == 0.0f && out_diffuse.r == 0.0f)
+    {
+        out_diffuse = in_diffuse;
+    }
 }
 
 technique technique_

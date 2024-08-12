@@ -14,6 +14,20 @@ Player::~Player()
 {
 }
 
+void Player::Update()
+{
+    if (m_bAttack)
+    {
+        ++m_attackTimeCounter;
+    }
+    if (m_attackTimeCounter >= 30)
+    {
+        m_attackTimeCounter = 0;
+        m_bAttack = false;
+        m_AnimMesh2->SetAnim("Walk");
+    }
+}
+
 void Player::Render()
 {
     m_AnimMesh2->SetPos(m_pos);
@@ -43,6 +57,10 @@ D3DXVECTOR3 Player::GetRotate()
 
 void Player::SetAttack()
 {
-    SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
-    m_AnimMesh2->SetAnim("Attack");
+    if (!m_bAttack)
+    {
+        SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
+        m_AnimMesh2->SetAnim("Attack");
+        m_bAttack = true;
+    }
 }

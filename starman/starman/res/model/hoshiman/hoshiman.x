@@ -829,7 +829,7 @@ Frame Root {
   } // End of Cylinder
 } // End of Root
 AnimTicksPerSecond {
-  24;
+  60;
 }
 AnimationSet Walk {
   Animation {

@@ -16,6 +16,7 @@ public:
         const float&);
     ~Mesh();
 
+    void SetPos(const D3DXVECTOR3& pos);
     void Render();
 
 private:

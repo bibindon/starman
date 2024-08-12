@@ -13,14 +13,14 @@
 
 SeqBattle::SeqBattle()
 {
-    D3DXVECTOR3 b = D3DXVECTOR3(0, -10, 0);
+    D3DXVECTOR3 b = D3DXVECTOR3(0, -9.f, 0);
     D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
-    m_mesh1 = new Mesh("res\\model\\cube2\\cube2.x", b, c, 10.0f);
+    m_mesh1 = new Mesh("res\\model\\dessert\\dessert.x", b, c, 100.0f);
     b.x = 15.f;
     b.y = -80.f;
-    m_meshSky = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 100.0f);
+    m_meshSky = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
     c.y = D3DX_PI;
-    m_meshSky2 = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 100.0f);
+    m_meshSky2 = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
     b.y = 0.f;
 
     {
@@ -125,6 +125,7 @@ void SeqBattle::Update(eSequence* sequence)
     }
     m_player->SetPos(pos);
     Camera::SetPos(pos);
+    m_player->Update();
 }
 
 void SeqBattle::Render()

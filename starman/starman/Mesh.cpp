@@ -163,6 +163,11 @@ Mesh::~Mesh()
     SAFE_RELEASE(m_D3DEffect);
 }
 
+void Mesh::SetPos(const D3DXVECTOR3& pos)
+{
+    m_pos = pos;
+}
+
 void Mesh::Render()
 {
     D3DXVECTOR4 normal = Light::GetLightNormal();
