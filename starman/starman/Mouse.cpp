@@ -9,7 +9,7 @@ void Mouse::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
     HRESULT ret = directInput->CreateDevice(GUID_SysMouse, &m_DIMouse, NULL);
 
     ret = m_DIMouse->SetDataFormat(&c_dfDIMouse);
-    ret = m_DIMouse->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+    ret = m_DIMouse->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_EXCLUSIVE);
 
     // デバイスの設定
     DIPROPDWORD diprop;

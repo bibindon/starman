@@ -8,6 +8,7 @@ D3DXVECTOR3 Camera::m_eyePos { 0.0f, 3.0f, -2.0f };
 D3DXVECTOR3 Camera::m_lookAtPos { 0.0f, 0.0f, 0.0f };
 float Camera::m_viewAngle { D3DX_PI / 4 };
 float Camera::m_radian { D3DX_PI*3 / 4 };
+float Camera::m_y { 3.f };
 
 D3DXMATRIX Camera::GetViewMatrix()
 {
@@ -44,6 +45,7 @@ float Camera::GetRadian()
 void Camera::Update()
 {
     LONG x = Mouse::GetX();
+    LONG y = Mouse::GetY();
     float joyX { 0.0f };
     if (JoyStick::IsHold(eJoyStickButtonType::Z_LEFT))
     {
@@ -53,8 +55,31 @@ void Camera::Update()
     {
         joyX = -0.1f;
     }
-    m_radian += x/100.f;
+    m_radian += x/300.f;
     m_radian += joyX;
-    m_eyePos.x = m_lookAtPos.x + std::sin(m_radian)*10;
-    m_eyePos.z = m_lookAtPos.z + std::cos(m_radian)*10;
+    //m_eyePos.x = m_lookAtPos.x + std::sin(m_radian)*10;
+    //m_eyePos.z = m_lookAtPos.z + std::cos(m_radian)*10;
+    //m_eyePos.y = m_lookAtPos.y + y/100.f;
+    m_y += y / 100.f;
+    m_eyePos.y = m_lookAtPos.y + m_y;
+    if (m_eyePos.y <= -9.f)
+    {
+        m_eyePos.y = -9.f;
+        m_y = -9.f;
+    }
+    else if (9.f <= m_eyePos.y)
+    {
+        m_eyePos.y = 9.f;
+        m_y = 9.f;
+    }
+    if (0.f <= m_eyePos.y)
+    {
+        m_eyePos.x = m_lookAtPos.x + std::sin(m_radian)*(10-((m_y/3)*(m_y/3)));
+        m_eyePos.z = m_lookAtPos.z + std::cos(m_radian)*(10-((m_y/3)*(m_y/3)));
+    }
+    else
+    {
+        m_eyePos.x = m_lookAtPos.x + std::sin(m_radian)*(10-((m_y/3)*(m_y/3)));
+        m_eyePos.z = m_lookAtPos.z + std::cos(m_radian)*(10-((m_y/3)*(m_y/3)));
+    }
 }

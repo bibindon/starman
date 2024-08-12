@@ -16,5 +16,6 @@ private:
     static D3DXVECTOR3 m_lookAtPos;
     static float m_viewAngle;
     static float m_radian;
+    static float m_y;
 };
 
