@@ -42,6 +42,7 @@ void normal_animation::set_animation(const std::string& animation_set)
     {
         // TODO return error
     //    THROW_WITH_TRACE("An illegal animation set was sent.: " + animation_set);
+        return;
     }
 
     animation_controller_->SetTrackAnimationSet(0, *kit);

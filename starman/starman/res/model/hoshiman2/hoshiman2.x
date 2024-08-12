@@ -1027,6 +1027,8 @@ AnimationSet CubeAction {
       59;3; 0.000000, 0.000000, 2.056086;;;
     }
   }
+} // End of AnimationSet CubeAction
+AnimationSet Cube_001Action {
   Animation {
     {Cube_001}
     AnimationKey { // Rotation
@@ -1222,6 +1224,8 @@ AnimationSet CubeAction {
       59;3; 0.000000, 0.643621, 2.275109;;;
     }
   }
+} // End of AnimationSet Cube_001Action
+AnimationSet Cube_002Action {
   Animation {
     {Cube_002}
     AnimationKey { // Rotation
@@ -1417,6 +1421,8 @@ AnimationSet CubeAction {
       59;3; 0.022943, 0.805948, 1.674803;;;
     }
   }
+} // End of AnimationSet Cube_002Action
+AnimationSet Cube_003Action {
   Animation {
     {Cube_003}
     AnimationKey { // Rotation
@@ -1612,6 +1618,8 @@ AnimationSet CubeAction {
       59;3; 0.022943,-0.805948, 1.674803;;;
     }
   }
+} // End of AnimationSet Cube_003Action
+AnimationSet Cube_004Action {
   Animation {
     {Cube_004}
     AnimationKey { // Rotation
@@ -1807,6 +1815,8 @@ AnimationSet CubeAction {
       59;3; 0.000000,-0.643619, 2.275110;;;
     }
   }
+} // End of AnimationSet Cube_004Action
+AnimationSet Cube_005Action {
   Animation {
     {Cube_005}
     AnimationKey { // Rotation
@@ -2002,6 +2012,8 @@ AnimationSet CubeAction {
       59;3; 0.040736, 0.324295, 0.405119;;;
     }
   }
+} // End of AnimationSet Cube_005Action
+AnimationSet Cube_006Action {
   Animation {
     {Cube_006}
     AnimationKey { // Rotation
@@ -2197,6 +2209,8 @@ AnimationSet CubeAction {
       59;3;-0.020302,-0.324295, 0.989479;;;
     }
   }
+} // End of AnimationSet Cube_006Action
+AnimationSet Cube_007Action {
   Animation {
     {Cube_007}
     AnimationKey { // Rotation
@@ -2392,6 +2406,8 @@ AnimationSet CubeAction {
       59;3; 0.066476, 0.324295, 0.989479;;;
     }
   }
+} // End of AnimationSet Cube_007Action
+AnimationSet Cube_008Action {
   Animation {
     {Cube_008}
     AnimationKey { // Rotation
@@ -2587,6 +2603,8 @@ AnimationSet CubeAction {
       59;3;-0.030396,-0.324295, 0.432385;;;
     }
   }
+} // End of AnimationSet Cube_008Action
+AnimationSet CylinderAction {
   Animation {
     {Cylinder}
     AnimationKey { // Rotation
