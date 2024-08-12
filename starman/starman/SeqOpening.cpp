@@ -9,14 +9,8 @@
 SeqOpening::SeqOpening()
 {
     m_sprite1 = new Sprite("res\\image\\opening01.png");
-//    m_sprite1->SetFill(true);
-
     m_sprite2 = new Sprite("res\\image\\opening02.png");
-//    m_sprite2->SetFill(true);
-
     m_sprite3 = new Sprite("res\\image\\opening03.png");
-//    m_sprite3->SetFill(true);
-
     m_spriteBlack = new Sprite("res\\image\\black.png");
 
     BGM::get_ton()->load("res\\sound\\novel.wav");
@@ -61,6 +55,10 @@ void SeqOpening::Update(eSequence* sequence)
             }
         }
     }
+    if (m_bFadeIn || m_bFadeOut)
+    {
+        return;
+    }
     if (KeyBoard::IsDown(DIK_RETURN))
     {
         if (m_nIndex == 0)
@@ -79,7 +77,24 @@ void SeqOpening::Update(eSequence* sequence)
             m_fadeOutCount = 0;
         }
     }
-
+    if (JoyStick::IsDown(eJoyStickButtonType::A))
+    {
+        if (m_nIndex == 0)
+        {
+            m_bFadeOut = true;
+            m_fadeOutCount = 0;
+        }
+        else if (m_nIndex == 1)
+        {
+            m_bFadeOut = true;
+            m_fadeOutCount = 0;
+        }
+        else if (m_nIndex == 2)
+        {
+            m_bFadeOut = true;
+            m_fadeOutCount = 0;
+        }
+    }
 }
 
 void SeqOpening::Render()

@@ -49,11 +49,19 @@ void Camera::Update()
     float joyX { 0.0f };
     if (JoyStick::IsHold(eJoyStickButtonType::Z_LEFT))
     {
-        joyX = 0.1f;
+        joyX = 0.05f;
     }
     else if (JoyStick::IsHold(eJoyStickButtonType::Z_RIGHT))
     {
-        joyX = -0.1f;
+        joyX = -0.05f;
+    }
+    if (JoyStick::IsHold(eJoyStickButtonType::Z_UP))
+    {
+        y = -10.f;
+    }
+    else if (JoyStick::IsHold(eJoyStickButtonType::Z_DOWN))
+    {
+        y = 10.f;
     }
     m_radian += x/300.f;
     m_radian += joyX;

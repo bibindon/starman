@@ -250,12 +250,12 @@ int MainWindow::MainLoop()
         if (Mouse::IsDownLeft())
         {
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
-            m_sprite = new Sprite("res\\image\\board.png");
+        //    m_sprite = new Sprite("res\\image\\board.png");
         }
         if (JoyStick::IsDown(eJoyStickButtonType::A))
         {
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
-            m_sprite = new Sprite("res\\image\\board.png");
+         //   m_sprite = new Sprite("res\\image\\board.png");
         }
 
         if (m_sequence == eSequence::TITLE)

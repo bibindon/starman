@@ -22,6 +22,9 @@ enum class eJoyStickButtonType
     B,
     Z_LEFT,
     Z_RIGHT,
+    Z_UP,
+    Z_DOWN,
+    R1,
     UNKNOWN,
 };
 static constexpr int BUTTON_KIND_MAX { 8 };

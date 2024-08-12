@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "JoyStick.h"
 #include "Light.h"
+#include "BGM.h"
 
 SeqBattle::SeqBattle()
 {
@@ -34,6 +35,9 @@ SeqBattle::SeqBattle()
     }
 
     m_player = new Player();
+
+    BGM::get_ton()->load("res\\sound\\letsgo.wav");
+    BGM::get_ton()->play(10);
 }
 
 SeqBattle::~SeqBattle()
@@ -87,21 +91,37 @@ void SeqBattle::Update(eSequence* sequence)
     {
         pos.x += std::sin(radian+D3DX_PI)/10;
         pos.z += std::sin(radian+D3DX_PI*3/2)/10;
+
+        D3DXVECTOR3 rotate {radian+D3DX_PI/2, 0.f, 0.f};
+        m_player->SetRotate(rotate);
     }
     if (JoyStick::IsHold(eJoyStickButtonType::LEFT))
     {
         pos.x += std::sin(radian+D3DX_PI/2)/10;
         pos.z += std::sin(radian+D3DX_PI)/10;
+
+        D3DXVECTOR3 rotate {radian, 0.f, 0.f};
+        m_player->SetRotate(rotate);
     }
     if (JoyStick::IsHold(eJoyStickButtonType::DOWN))
     {
         pos.x += std::sin(radian)/10;
         pos.z += std::sin(radian+D3DX_PI/2)/10;
+
+        D3DXVECTOR3 rotate {radian+D3DX_PI, 0.f, 0.f};
+        m_player->SetRotate(rotate);
     }
     if (JoyStick::IsHold(eJoyStickButtonType::RIGHT))
     {
         pos.x += std::sin(radian+D3DX_PI*3/2)/10;
         pos.z += std::sin(radian)/10;
+
+        D3DXVECTOR3 rotate {radian+D3DX_PI*3/2, 0.f, 0.f};
+        m_player->SetRotate(rotate);
+    }
+    if (JoyStick::IsDown(eJoyStickButtonType::R1))
+    {
+        m_player->SetAttack();
     }
     m_player->SetPos(pos);
     Camera::SetPos(pos);
