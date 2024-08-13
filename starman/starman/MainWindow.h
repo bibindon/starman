@@ -18,6 +18,7 @@
 #include "SeqTitle.h"
 #include "SeqBattle.h"
 #include "SeqOpening.h"
+#include "SeqEnding.h"
 
 class MainWindow
 {
@@ -47,6 +48,7 @@ private:
     SeqTitle* m_seqTitle { nullptr };
     SeqOpening* m_seqOpening { nullptr };
     SeqBattle* m_seqBattle { nullptr };
+    SeqEnding* m_seqEnding { nullptr };
 
     LPD3DXFONT m_D3DFont { nullptr };
     std::vector<std::chrono::system_clock::time_point> m_vecTime;

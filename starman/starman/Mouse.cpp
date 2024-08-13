@@ -3,6 +3,7 @@
 
 LPDIRECTINPUTDEVICE8 Mouse::m_DIMouse;
 DIMOUSESTATE Mouse::m_DIMouseState;
+DIMOUSESTATE Mouse::m_DIMouseStatePrev;
 
 void Mouse::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {

@@ -6,6 +6,7 @@
 #include "Mesh.h"
 #include "AnimMesh.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class SeqBattle
 {
@@ -16,6 +17,7 @@ public:
     void Render();
 private:
     Player* m_player { nullptr };
+    Enemy* m_enemy { nullptr };
     Mesh* m_mesh1 { nullptr };
     Mesh* m_meshSky { nullptr };
     Mesh* m_meshSky2 { nullptr };

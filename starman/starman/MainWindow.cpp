@@ -284,6 +284,20 @@ int MainWindow::MainLoop()
         else if (m_sequence == eSequence::BATTLE)
         {
             m_seqBattle->Update(&m_sequence);
+            if (m_sequence == eSequence::ENDING)
+            {
+                SAFE_DELETE(m_seqBattle);
+                m_seqEnding = new SeqEnding();
+            }
+        }
+        else if (m_sequence == eSequence::ENDING)
+        {
+            m_seqEnding->Update(&m_sequence);
+            if (m_sequence == eSequence::TITLE)
+            {
+                SAFE_DELETE(m_seqEnding);
+                m_seqTitle = new SeqTitle();
+            }
         }
 
         D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
@@ -331,6 +345,10 @@ int MainWindow::MainLoop()
         else if (m_sequence == eSequence::BATTLE)
         {
             m_seqBattle->Render();
+        }
+        else if (m_sequence == eSequence::ENDING)
+        {
+            m_seqEnding->Render();
         }
         else if (m_sequence == eSequence::EXIT)
         {

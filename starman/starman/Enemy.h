@@ -1,5 +1,40 @@
 #pragma once
+
+#include <d3d9.h>
+#include "AnimMesh.h"
+
+enum class eState
+{
+    IDLE,
+    DAMAGED,
+    DEAD,
+};
 class Enemy
 {
+public:
+    Enemy();
+    ~Enemy();
+    void Init();
+    void Render();
+    void Update();
+    void SetPos(const D3DXVECTOR3& pos);
+    D3DXVECTOR3 GetPos();
+    void SetRotate(const D3DXVECTOR3& rotate);
+    D3DXVECTOR3 GetRotate();
+    void SetAttack();
+    void SetHP(const int hp);
+    int GetHP();
+    void SetState(const eState state);
+    eState GetState();
+private:
+    AnimMesh* m_AnimMesh { nullptr };
+
+    D3DXVECTOR3 m_pos { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 m_rotate { 0.f, 0.f, 0.f };
+
+    bool m_bAttack { false };
+    int m_attackTimeCounter { 0 };
+    int m_HP { 100 };
+    eState m_state { eState::IDLE };
 };
 

@@ -4,7 +4,6 @@
 Player::Player()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
-//    m_AnimMesh2 = new AnimMesh("res\\model\\RobotArm\\RobotArm.x", b, b, 0.5f);
     m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, b, 0.5f);
     m_AnimMesh2->SetAnim("Walk");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");

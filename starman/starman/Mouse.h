@@ -21,5 +21,6 @@ public:
 private:
     static LPDIRECTINPUTDEVICE8 m_DIMouse;
     static DIMOUSESTATE m_DIMouseState;
+    static DIMOUSESTATE m_DIMouseStatePrev;
 };
 

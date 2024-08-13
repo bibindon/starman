@@ -35,6 +35,8 @@ SeqBattle::SeqBattle()
     }
 
     m_player = new Player();
+    m_enemy = new Enemy();
+    m_enemy->Init();
 
     BGM::get_ton()->load("res\\sound\\letsgo.wav");
     BGM::get_ton()->play(10);
@@ -85,6 +87,10 @@ void SeqBattle::Update(eSequence* sequence)
     if (Mouse::IsDownLeft())
     {
         m_player->SetAttack();
+        m_enemy->SetState(eState::DAMAGED);
+        OutputDebugString("aaaaaaaaaaaaaaaaaaaaa\n");
+        int hp = m_enemy->GetHP();
+        m_enemy->SetHP(hp - 10);
     }
 
     if (JoyStick::IsHold(eJoyStickButtonType::UP))
@@ -126,6 +132,10 @@ void SeqBattle::Update(eSequence* sequence)
     m_player->SetPos(pos);
     Camera::SetPos(pos);
     m_player->Update();
+    if (m_enemy->GetHP() <= 0)
+    {
+        *sequence = eSequence::ENDING;
+    }
 }
 
 void SeqBattle::Render()
@@ -144,4 +154,5 @@ void SeqBattle::Render()
     m_test->Render();
     m_test2->Render();
     m_player->Render();
+    m_enemy->Render();
 }

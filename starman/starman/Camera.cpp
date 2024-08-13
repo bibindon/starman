@@ -57,13 +57,13 @@ void Camera::Update()
     }
     if (JoyStick::IsHold(eJoyStickButtonType::Z_UP))
     {
-        y = -10.f;
+        y = -1;
     }
     else if (JoyStick::IsHold(eJoyStickButtonType::Z_DOWN))
     {
-        y = 10.f;
+        y = 1;
     }
-    m_radian += x/300.f;
+    m_radian += x/500.f;
     m_radian += joyX;
     //m_eyePos.x = m_lookAtPos.x + std::sin(m_radian)*10;
     //m_eyePos.z = m_lookAtPos.z + std::cos(m_radian)*10;

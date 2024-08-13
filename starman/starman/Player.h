@@ -1,7 +1,6 @@
 #pragma once
 
 #include <d3d9.h>
-
 #include "AnimMesh.h"
 
 class Player
@@ -10,12 +9,12 @@ public:
     Player();
     ~Player();
     void Render();
+    void Update();
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos();
     void SetRotate(const D3DXVECTOR3& rotate);
     D3DXVECTOR3 GetRotate();
     void SetAttack();
-    void Update();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
 
