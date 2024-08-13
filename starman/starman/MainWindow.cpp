@@ -363,7 +363,7 @@ int MainWindow::MainLoop()
             -1,
             &rect,
             DT_LEFT | DT_NOCLIP,
-            D3DCOLOR_ARGB(255, 0, 0, 0));
+            D3DCOLOR_ARGB(255, 0, 127, 0));
 
         D3DDevice->EndScene();
         D3DDevice->Present(NULL, NULL, NULL, NULL);

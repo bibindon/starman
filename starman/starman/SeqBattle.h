@@ -15,6 +15,7 @@ public:
     ~SeqBattle();
     void Update(eSequence* sequence);
     void Render();
+    void InputR1();
 private:
     Player* m_player { nullptr };
     Enemy* m_enemy { nullptr };
@@ -22,6 +23,5 @@ private:
     Mesh* m_meshSky { nullptr };
     Mesh* m_meshSky2 { nullptr };
     Mesh* m_test { nullptr };
-    AnimMesh* m_test2 { nullptr };
 };
 

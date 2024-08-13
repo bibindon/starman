@@ -119,7 +119,7 @@ void AnimMesh::Render()
         D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
         worldMatrix *= mat;
 
-        D3DXMatrixRotationYawPitchRoll(&mat, m_rotation.x, m_rotation.y, m_rotation.z);
+        D3DXMatrixRotationYawPitchRoll(&mat, m_rotation.y, m_rotation.x, m_rotation.z);
         worldMatrix *= mat;
 
         D3DXMatrixTranslation(&mat, m_position.x, m_position.y, m_position.z);

@@ -63,3 +63,13 @@ void Player::SetAttack()
         m_bAttack = true;
     }
 }
+
+D3DXVECTOR3 Player::GetAttackPos()
+{
+    D3DXVECTOR3 pos { m_pos };
+    D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
+    norm.x = std::sin(m_rotate.y + (D3DX_PI / 2));
+    norm.z = std::sin(m_rotate.y + D3DX_PI);
+    pos += norm*2;
+    return pos;
+}
