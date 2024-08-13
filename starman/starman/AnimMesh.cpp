@@ -144,6 +144,11 @@ void AnimMesh::SetAnim(const std::string& animName)
     m_animationStrategy->set_animation(animName);
 }
 
+void AnimMesh::SetTrackPos(const DOUBLE& pos)
+{
+    m_animationStrategy->SetTrackPos(pos);
+}
+
 void AnimMesh::UpdateFrameMatrix(const LPD3DXFRAME frameBase, const LPD3DXMATRIX parentMatrix)
 {
     AnimMeshFrame* frame { static_cast<AnimMeshFrame*>(frameBase) };

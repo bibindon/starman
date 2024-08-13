@@ -91,3 +91,8 @@ bool normal_animation::is_playing()
     return is_playing_;
 }
 
+void normal_animation::SetTrackPos(const DOUBLE& pos)
+{
+    animation_time_ = pos;
+}
+

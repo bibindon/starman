@@ -23,6 +23,7 @@ public:
     void SetPos(const D3DXVECTOR3& pos);
     void SetRotate(const D3DXVECTOR3& rotate);
     void SetAnim(const std::string& animName);
+    void SetTrackPos(const DOUBLE& pos);
 private:
 
     struct frame_root_deleter_object
@@ -62,6 +63,6 @@ private:
     D3DXHANDLE m_lightNormalHandle { nullptr };
     D3DXHANDLE m_brightnessHandle { nullptr };
 
-    std::unique_ptr<animation_strategy> m_animationStrategy;
+    std::unique_ptr<normal_animation> m_animationStrategy;
 };
 

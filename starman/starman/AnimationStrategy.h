@@ -42,6 +42,7 @@ public:
         const bool& loop,
         const float& duration) override;
     virtual bool is_playing() override;
+    void SetTrackPos(const DOUBLE& pos);
 
 private:
     std::string default_animation_;
