@@ -8,6 +8,7 @@ public:
     static void SetPos(const D3DXVECTOR3& lookAtPos);
     static float GetRadian();
     static void Update();
+    static POINT GetScreenPos(const D3DXVECTOR3& world);
 
 private:
 

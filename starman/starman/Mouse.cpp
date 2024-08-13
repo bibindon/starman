@@ -31,34 +31,14 @@ void Mouse::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 
 void Mouse::Update()
 {
-    HRESULT ret = m_DIMouse->Acquire();
+    m_DIMouse->Acquire();
+    memcpy(&m_DIMouseStatePrev, &m_DIMouseState, sizeof(m_DIMouseStatePrev));
 
-    // 読取前の値を保持します
-    DIMOUSESTATE g_zdiMouseState_bak;	// マウス情報(変化検知用)
-    memcpy(&g_zdiMouseState_bak, &m_DIMouseState, sizeof(g_zdiMouseState_bak));
-
-    // ここから、DirectInputで必要なコード -->
-        // マウスの状態を取得します
     HRESULT	hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_DIMouseState);
     if (hr == DIERR_INPUTLOST)
     {
         m_DIMouse->Acquire();
         hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_DIMouseState);
-    }
-    // --> ここまで、DirectInputで必要なコード
-
-    if (memcmp(&g_zdiMouseState_bak, &m_DIMouseState, sizeof(g_zdiMouseState_bak)) != 0)
-    {
-        // 確認用の処理、ここから -->
-                // 値が変わったら表示します
-        char buf[128];
-        wsprintf(buf, "(%5d, %5d, %5d) %s %s %s\n",
-            m_DIMouseState.lX, m_DIMouseState.lY, m_DIMouseState.lZ,
-            (m_DIMouseState.rgbButtons[0] & 0x80) ? "Left" : "--",
-            (m_DIMouseState.rgbButtons[1] & 0x80) ? "Right" : "--",
-            (m_DIMouseState.rgbButtons[2] & 0x80) ? "Center" : "--");
-        OutputDebugString(buf);
-        // --> ここまで、確認用の処理
     }
 }
 
@@ -76,12 +56,36 @@ bool Mouse::IsDownLeft()
 {
     if (m_DIMouseState.rgbButtons[0] & 0x80)
     {
+        if ((m_DIMouseStatePrev.rgbButtons[0] & 0x80) == 0x00)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Mouse::IsHoldLeft()
+{
+    if (m_DIMouseState.rgbButtons[0] & 0x80)
+    {
         return true;
     }
     return false;
 }
 
 bool Mouse::IsDownRight()
+{
+    if (m_DIMouseState.rgbButtons[1] & 0x80)
+    {
+        if ((m_DIMouseStatePrev.rgbButtons[1] & 0x80) == 0x00)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Mouse::IsHoldRight()
 {
     if (m_DIMouseState.rgbButtons[1] & 0x80)
     {

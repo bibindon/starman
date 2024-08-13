@@ -91,3 +91,20 @@ void Camera::Update()
         m_eyePos.z = m_lookAtPos.z + std::cos(m_radian)*(10-((m_y/3)*(m_y/3)));
     }
 }
+
+POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
+{
+    const D3DXMATRIX view_matrix { GetViewMatrix() };
+    const D3DXMATRIX projection_matrix { GetProjMatrix() };
+    static const D3DXMATRIX viewport_matrix {
+        1600 / 2.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, -900 / 2.0f, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        1600 / 2.0f, 900 / 2.0f, 0.0f, 1.0f };
+    D3DXMATRIX matrix { };
+    D3DXMatrixTranslation(&matrix, world.x, world.y, world.z);
+    matrix = matrix * view_matrix * projection_matrix * viewport_matrix;
+    return POINT {
+        static_cast<int>(matrix._41 / matrix._44),
+        static_cast<int>(matrix._42 / matrix._44) };
+}

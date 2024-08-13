@@ -2,6 +2,7 @@
 
 #include <d3d9.h>
 #include "AnimMesh.h"
+#include "Sprite.h"
 
 enum class eState
 {
@@ -14,7 +15,7 @@ class Enemy
 public:
     Enemy();
     ~Enemy();
-    void Init();
+    bool Init();
     void Render();
     void Update();
     void SetPos(const D3DXVECTOR3& pos);
@@ -35,6 +36,8 @@ private:
     bool m_bAttack { false };
     int m_attackTimeCounter { 0 };
     int m_HP { 100 };
+    Sprite* m_spriteHP { nullptr };
+    Sprite* m_spriteHPBack { nullptr };
     eState m_state { eState::IDLE };
 };
 

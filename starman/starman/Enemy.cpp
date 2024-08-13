@@ -1,5 +1,8 @@
 #include "Enemy.h"
 #include "SoundEffect.h"
+#include "SharedObj.h"
+#include "Sprite.h"
+#include "Camera.h"
 
 Enemy::Enemy()
 {
@@ -9,11 +12,15 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::Init()
+bool Enemy::Init()
 {
     m_pos.x = -10.f;
     m_AnimMesh = new AnimMesh("res\\model\\cube4\\cube4.x", m_pos, m_rotate, 0.5f);
     SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
+    
+    m_spriteHP = new Sprite("res\\image\\hp_green.png");
+    m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
+    return true;
 }
 
 void Enemy::Update()
@@ -25,6 +32,13 @@ void Enemy::Render()
     m_AnimMesh->SetPos(m_pos);
     m_AnimMesh->SetRotate(m_rotate);
     m_AnimMesh->Render();
+    POINT screenPos = Camera::GetScreenPos(m_pos);
+    m_spriteHPBack->Render(
+        D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
+    m_spriteHP->Render(
+        D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
+        255,
+        (m_HP*128/100));
 }
 
 void Enemy::SetPos(const D3DXVECTOR3& pos)

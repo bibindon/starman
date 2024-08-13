@@ -16,7 +16,9 @@ public:
     static LONG GetX();
     static LONG GetY();
     static bool IsDownLeft();
+    static bool IsHoldLeft();
     static bool IsDownRight();
+    static bool IsHoldRight();
 
 private:
     static LPDIRECTINPUTDEVICE8 m_DIMouse;

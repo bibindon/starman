@@ -132,6 +132,7 @@ void SeqBattle::Update(eSequence* sequence)
     m_player->SetPos(pos);
     Camera::SetPos(pos);
     m_player->Update();
+    m_enemy->Update();
     if (m_enemy->GetHP() <= 0)
     {
         *sequence = eSequence::ENDING;
@@ -152,7 +153,7 @@ void SeqBattle::Render()
     m_meshSky2->Render();
     Light::SetLightNormal(norm);
     m_test->Render();
-    m_test2->Render();
+    //m_test2->Render();
     m_player->Render();
     m_enemy->Render();
 }

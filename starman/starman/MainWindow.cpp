@@ -53,8 +53,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         TITLE.c_str(),
         TITLE.c_str(),
         WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT,
-        CW_USEDEFAULT,
+        100,
+        100,
         1600,
         900,
         NULL,
@@ -128,10 +128,6 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     JoyStick::Init(m_directInput, m_hWnd);
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
-
-    D3DXVECTOR3 b = D3DXVECTOR3(0, 1, 0);
-    D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
-    m_Mesh1 = new Mesh("res\\model\\tiger\\tiger.x", b, c, 1.0f);
 
     m_seqTitle = new SeqTitle();
 
@@ -354,7 +350,6 @@ int MainWindow::MainLoop()
         {
             PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         }
-        m_Mesh1->Render();
 
         if (m_sprite != nullptr)
         {

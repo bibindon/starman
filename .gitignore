@@ -9,3 +9,4 @@
 *.user
 /.VSCodeCounter
 /starman/UnitTest/Debug
+/.vscode/c_cpp_properties.json

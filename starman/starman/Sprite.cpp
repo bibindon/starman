@@ -33,7 +33,7 @@ Sprite::Sprite(string filename)
     m_width = desc.Width;
     m_height = desc.Height;
 }
-void Sprite::Render(const D3DXVECTOR3& pos, const BYTE transparency)
+void Sprite::Render(const D3DXVECTOR3& pos, const BYTE transparency, const LONG width)
 {
     m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
     RECT rect = {
@@ -41,6 +41,10 @@ void Sprite::Render(const D3DXVECTOR3& pos, const BYTE transparency)
         0,
         static_cast<LONG>(m_width),
         static_cast<LONG>(m_height) };
+    if (width != -1)
+    {
+        rect.right = width;
+    }
     D3DXVECTOR3 center { 0, 0, 0 };
     if (m_isFill)
     {

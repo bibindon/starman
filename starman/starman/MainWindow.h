@@ -40,7 +40,6 @@ private:
     DWORD AX_NumMaterials;
     ID3DXMesh* pAX_Mesh;
 
-    Mesh* m_Mesh1 { nullptr };
     LPDIRECTINPUT8 m_directInput { nullptr };
     Sprite* m_sprite { nullptr };
 
