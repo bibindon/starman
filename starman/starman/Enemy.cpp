@@ -15,7 +15,7 @@ Enemy::~Enemy()
 bool Enemy::Init()
 {
     m_pos.z = 10.f;
-    m_AnimMesh = new AnimMesh("res\\model\\cube4\\cube4.x", m_pos, m_rotate, 0.5f);
+    m_AnimMesh = new AnimMesh("res\\model\\rippoutai\\rippoutai.x", m_pos, m_rotate, 0.5f);
     SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
     
     m_spriteHP = new Sprite("res\\image\\hp_green.png");

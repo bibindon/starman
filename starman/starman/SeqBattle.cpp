@@ -26,7 +26,7 @@ SeqBattle::SeqBattle()
     {
         D3DXVECTOR3 b = D3DXVECTOR3(10, 0, 0);
         D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
-        m_test = new Mesh("res\\model\\hoshiman\\hoshiman.x", b, c, 1.0f);
+        m_test = new Mesh("res\\model\\hoshiman\\hoshiman2.x", b, c, 1.0f);
     }
 
     m_player = new Player();
@@ -46,37 +46,35 @@ void SeqBattle::Update(eSequence* sequence)
     D3DXVECTOR3 pos = m_player->GetPos();
     D3DXVECTOR3 rotate {0.f, 0.f, 0.f};
     float radian = Camera::GetRadian();
-    // 回転ベクトルが0,0,0のとき右を向き、
-    // 回転ベクトルが0, D3DX_PI*3/2, 0のとき、正面を向く
-    float yaw = (D3DX_PI * 3 / 2) + ((D3DX_PI * 3 / 2) - radian);
+    float yaw = -1.f * (radian - (D3DX_PI * 3 / 2));
     if (KeyBoard::IsHold(DIK_W))
     {
-        pos.x += std::sin(yaw + D3DX_PI / 2) / 10;
-        pos.z += std::sin(yaw + D3DX_PI) / 10;
+        pos.x += -std::sin(radian + D3DX_PI / 2) / 10;
+        pos.z += std::sin(radian + D3DX_PI) / 10;
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
     }
     if (KeyBoard::IsHold(DIK_A))
     {
-        pos.x += std::sin(yaw) / 10;
-        pos.z += std::sin(yaw + D3DX_PI / 2) / 10;
+        pos.x += -std::sin(radian + D3DX_PI) / 10;
+        pos.z += std::sin(radian + D3DX_PI * 3 / 2) / 10;
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
         m_player->SetRotate(rotate);
     }
     if (KeyBoard::IsHold(DIK_S))
     {
-        pos.x += std::sin(yaw + D3DX_PI * 3 / 2) / 10;
-        pos.z += std::sin(yaw) / 10;
+        pos.x += -std::sin(radian + D3DX_PI * 3 / 2) / 10;
+        pos.z += std::sin(radian) / 10;
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI, 0.f };
         m_player->SetRotate(rotate);
     }
     if (KeyBoard::IsHold(DIK_D))
     {
-        pos.x += std::sin(yaw + D3DX_PI) / 10;
-        pos.z += std::sin(yaw + D3DX_PI * 3 / 2) / 10;
+        pos.x += -std::sin(radian) / 10;
+        pos.z += std::sin(radian + D3DX_PI / 2) / 10;
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI / 2, 0.f };
         m_player->SetRotate(rotate);

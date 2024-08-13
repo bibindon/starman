@@ -20,8 +20,7 @@ private:
     AnimMesh* m_AnimMesh2 { nullptr };
 
     D3DXVECTOR3 m_pos { 0.f, 0.f, 0.f };
-    // Ç»Ç∫Ç©Ç±ÇÍÇ≈ê≥ñ Çå¸Ç≠ÅB
-    D3DXVECTOR3 m_rotate { 0.f, D3DX_PI * 3/2, 0.f };
+    D3DXVECTOR3 m_rotate { 0.f, 0.f, 0.f };
 
     bool m_bAttack { false };
     int m_attackTimeCounter { 0 };
