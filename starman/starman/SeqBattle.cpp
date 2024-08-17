@@ -128,10 +128,10 @@ void SeqBattle::Update(eSequence* sequence)
     m_player->SetPos(pos);
     Camera::SetPos(pos);
     m_player->Update();
-    m_enemy->Update();
     if (m_enemy != nullptr)
     {
-        if (m_enemy->GetHP() <= 0)
+        m_enemy->Update();
+        if (m_enemy->GetState() == eState::DISABLE)
         {
             SAFE_DELETE(m_enemy);
     //        *sequence = eSequence::ENDING;
@@ -168,7 +168,15 @@ void SeqBattle::InputR1()
         return;
     }
     D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
-    D3DXVECTOR3 enemyPos { m_enemy->GetPos() };
+    D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+    if (m_enemy != nullptr)
+    {
+        enemyPos = m_enemy->GetPos();
+    }
+    else
+    {
+        return;
+    }
     D3DXVECTOR3 subPos { attackPos - enemyPos };
     FLOAT distance = D3DXVec3Length(&subPos);
 

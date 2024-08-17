@@ -9,6 +9,7 @@ enum class eState
     IDLE,
     DAMAGED,
     DEAD,
+    DISABLE,
     ATTACK,
 };
 class Enemy
@@ -39,5 +40,6 @@ private:
     Sprite* m_spriteHP { nullptr };
     Sprite* m_spriteHPBack { nullptr };
     eState m_state { eState::IDLE };
+    int m_deadTimeCounter { 0 };
 };
 

@@ -32,11 +32,6 @@ void AnimController::SetAnimSettings(const AnimSetMap& animSetMap)
 void AnimController::Update()
 {
     m_animationTime += Common::ANIMATION_SPEED;
-    if (m_animName == "Damaged")
-    {
-        int i { 0 };
-        i++;
-    }
     m_controller->SetTrackPosition(0, m_animSettingMap[m_animName].m_startPos);
 
     if (m_animSettingMap[m_animName].m_duration <= m_animationTime)
@@ -44,21 +39,8 @@ void AnimController::Update()
         m_animationTime = 0.f;
         if (m_animSettingMap[m_animName].m_loop == false)
         {
-            m_animName = "Idle";
+            m_animName = m_animSettingMap.begin()->first;
         }
     }
     m_controller->AdvanceTime(m_animationTime, nullptr);
-
-    /*
-    if (is_playing_)
-    {
-        float duration { animation_configs_.at(playing_animation_).duration_ };
-        if (animation_time_ + 0.001f >= duration)
-        {
-            set_animation(default_animation_);
-            is_playing_ = false;
-            animation_time_ = 0;
-        }
-    }
-    */
 }

@@ -51,8 +51,13 @@ bool Enemy::Init()
 
 void Enemy::Update()
 {
-    if (m_HP <= 0)
+    if (m_state == eState::DEAD)
     {
+        ++m_deadTimeCounter;
+        if (m_deadTimeCounter >= 60)
+        {
+            m_state = eState::DISABLE;
+        }
     }
 }
 
@@ -113,7 +118,8 @@ void Enemy::SetState(const eState state)
     }
     else if (state == eState::DEAD)
     {
-
+        SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
+        m_AnimMesh->SetAnim("Damaged", 0.f);
     }
     m_state = state;
 }
