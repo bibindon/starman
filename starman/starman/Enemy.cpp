@@ -68,7 +68,7 @@ void Enemy::Update()
         std::string msg;
         msg = "randNum: " + std::to_string(randNum) + "\n";
         OutputDebugString(msg.c_str());
-        if (randNum % 300 == 0)
+        if (randNum % 120 == 0)
         {
             m_state = eState::ATTACK;
         }
@@ -79,6 +79,10 @@ void Enemy::Update()
         if (m_attackTimeCounter == 1)
         {
             m_AnimMesh->SetAnim("Attack", 0.f);
+            Player* player = SharedObj::GetPlayer();
+            D3DXVECTOR3 pos = player->GetPos();
+            D3DXVECTOR3 rot = pos - m_pos;
+            m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
         }
         else if (m_attackTimeCounter >= 60)
         {

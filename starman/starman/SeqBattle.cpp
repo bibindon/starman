@@ -10,6 +10,7 @@
 #include "JoyStick.h"
 #include "Light.h"
 #include "BGM.h"
+#include "SharedObj.h"
 
 SeqBattle::SeqBattle()
 {
@@ -30,6 +31,7 @@ SeqBattle::SeqBattle()
     }
 
     m_player = new Player();
+    SharedObj::SetPlayer(m_player);
     m_enemy = new Enemy();
     m_enemy->Init();
 

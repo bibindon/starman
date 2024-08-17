@@ -3,6 +3,7 @@
 
 LPDIRECT3DDEVICE9 SharedObj::m_D3DDevice { nullptr };
 std::mt19937 SharedObj::m_Engine { };
+Player* SharedObj::m_player { nullptr };
 
 LPDIRECT3DDEVICE9 SharedObj::GetD3DDevice()
 {
@@ -17,6 +18,16 @@ void SharedObj::Finalize()
 int SharedObj::GetRandom()
 {
     return m_Engine();
+}
+
+Player* SharedObj::GetPlayer()
+{
+    return m_player;
+}
+
+void SharedObj::SetPlayer(Player* player)
+{
+    m_player = player;
 }
 
 void SharedObj::SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice)
