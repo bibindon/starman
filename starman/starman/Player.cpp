@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "SoundEffect.h"
+#include "Camera.h"
 
 Player::Player()
 {
@@ -37,10 +38,16 @@ Player::Player()
     m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 0.5f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
+
+    m_spriteHP = new Sprite("res\\image\\hp_green_p.png");
+    m_spriteHPBack = new Sprite("res\\image\\hp_black_p.png");
 }
 
 Player::~Player()
 {
+    SAFE_DELETE(m_spriteHP);
+    SAFE_DELETE(m_spriteHPBack);
+    SAFE_DELETE(m_AnimMesh2);
 }
 
 void Player::Update()
@@ -70,6 +77,14 @@ void Player::Render()
     m_AnimMesh2->SetPos(m_pos);
     m_AnimMesh2->SetRotate(m_rotate);
     m_AnimMesh2->Render();
+
+    POINT screenPos = Camera::GetScreenPos(m_pos);
+    m_spriteHPBack->Render(
+        D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f });
+    m_spriteHP->Render(
+        D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f },
+        255,
+        (m_HP*256/100));
 }
 
 void Player::SetPos(const D3DXVECTOR3& pos)

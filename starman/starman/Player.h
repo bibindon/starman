@@ -2,6 +2,7 @@
 
 #include <d3d9.h>
 #include "AnimMesh.h"
+#include "Sprite.h"
 
 class Player
 {
@@ -34,5 +35,8 @@ private:
     int m_damagedTimeCounter { 0 };
 
     int m_HP { 100 };
+
+    Sprite* m_spriteHP { nullptr };
+    Sprite* m_spriteHPBack { nullptr };
 };
 

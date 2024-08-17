@@ -63,14 +63,21 @@ void Enemy::Update()
     }
     else if (m_state == eState::IDLE)
     {
-        int randNum = SharedObj::GetRandom();
-
-        std::string msg;
-        msg = "randNum: " + std::to_string(randNum) + "\n";
-        //OutputDebugString(msg.c_str());
-        if (randNum % 60 == 0)
+        Player* player = SharedObj::GetPlayer();
+        D3DXVECTOR3 pos = player->GetPos();
+        D3DXVECTOR3 rot = pos - m_pos;
+        FLOAT distance = D3DXVec3Length(&rot);
+        if (distance < 3.f)
         {
-            m_state = eState::ATTACK;
+            int randNum = SharedObj::GetRandom();
+
+            //std::string msg;
+            //msg = "randNum: " + std::to_string(randNum) + "\n";
+            //OutputDebugString(msg.c_str());
+            if (randNum % 30 == 0)
+            {
+                m_state = eState::ATTACK;
+            }
         }
     }
     else if (m_state == eState::ATTACK)
