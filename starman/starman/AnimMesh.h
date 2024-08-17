@@ -17,7 +17,8 @@ public:
         const std::string&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
-        const float&);
+        const float&,
+        const AnimSetMap&);
     ~AnimMesh();
 
     void Render();

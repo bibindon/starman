@@ -10,12 +10,38 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
+    SAFE_DELETE(m_spriteHP);
+    SAFE_DELETE(m_spriteHPBack);
+    SAFE_DELETE(m_AnimMesh);
 }
 
 bool Enemy::Init()
 {
+    AnimSetMap animSetMap;
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 0.f;
+        animSetting.m_duration = 1.f;
+        animSetting.m_loop = true;
+        animSetMap["Idle"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 1.f;
+        animSetting.m_duration = 1.f;
+        animSetting.m_loop = false;
+        animSetMap["Damaged"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 2.f;
+        animSetting.m_duration = 0.5f;
+        animSetting.m_loop = false;
+        animSetMap["Attack"] = animSetting;
+    }
     m_pos.z = 10.f;
-    m_AnimMesh = new AnimMesh("res\\model\\rippoutai\\rippoutai.x", m_pos, m_rotate, 0.5f);
+    m_AnimMesh = new AnimMesh("res\\model\\rippoutai\\rippoutai.x",
+        m_pos, m_rotate, 0.5f, animSetMap);
     SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
     
     m_spriteHP = new Sprite("res\\image\\hp_green.png");
@@ -25,6 +51,9 @@ bool Enemy::Init()
 
 void Enemy::Update()
 {
+    if (m_HP <= 0)
+    {
+    }
 }
 
 void Enemy::Render()
@@ -61,10 +90,6 @@ D3DXVECTOR3 Enemy::GetRotate()
     return m_rotate;
 }
 
-void Enemy::SetAttack()
-{
-}
-
 void Enemy::SetHP(const int hp)
 {
     m_HP = hp;
@@ -84,6 +109,11 @@ void Enemy::SetState(const eState state)
     if (state == eState::DAMAGED)
     {
         SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
+        m_AnimMesh->SetAnim("Damaged", 0.f);
+    }
+    else if (state == eState::DEAD)
+    {
+
     }
     m_state = state;
 }

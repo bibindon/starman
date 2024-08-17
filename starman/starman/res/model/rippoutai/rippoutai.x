@@ -116,7 +116,7 @@ Frame Root {
   } // End of Cube
 } // End of Root
 AnimTicksPerSecond {
-  24;
+  60;
 }
 AnimationSet CubeAction {
   Animation {

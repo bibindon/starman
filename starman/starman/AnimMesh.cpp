@@ -37,7 +37,8 @@ AnimMesh::AnimMesh(
     const string& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
-    const float& scale)
+    const float& scale,
+    const AnimSetMap& animSetMap)
     : m_allocator { new AnimMeshAllocator { xFilename } }
     , m_frameRoot { nullptr, frame_root_deleter_object { m_allocator } }
     , m_rotationMatrix { D3DMATRIX { } }
@@ -89,28 +90,6 @@ AnimMesh::AnimMesh(
     }
     // lazy initialization 
     m_frameRoot.reset(temp_root_frame);
-    AnimSetMap animSetMap;
-    {
-        AnimSetting animSetting { };
-        animSetting.m_startPos = 0.f;
-        animSetting.m_duration = 0.5f;
-        animSetting.m_loop = true;
-        animSetMap["Idle"] = animSetting;
-    }
-    {
-        AnimSetting animSetting { };
-        animSetting.m_startPos = 1.f;
-        animSetting.m_duration = 1.f;
-        animSetting.m_loop = false;
-        animSetMap["Walk"] = animSetting;
-    }
-    {
-        AnimSetting animSetting { };
-        animSetting.m_startPos = 2.f;
-        animSetting.m_duration = 1.f;
-        animSetting.m_loop = false;
-        animSetMap["Attack"] = animSetting;
-    }
     m_animCtrlr.Init(temp_animation_controller, animSetMap);
 
     m_scale = scale;

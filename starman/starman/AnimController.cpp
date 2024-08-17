@@ -32,6 +32,11 @@ void AnimController::SetAnimSettings(const AnimSetMap& animSetMap)
 void AnimController::Update()
 {
     m_animationTime += Common::ANIMATION_SPEED;
+    if (m_animName == "Damaged")
+    {
+        int i { 0 };
+        i++;
+    }
     m_controller->SetTrackPosition(0, m_animSettingMap[m_animName].m_startPos);
 
     if (m_animSettingMap[m_animName].m_duration <= m_animationTime)

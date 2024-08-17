@@ -129,9 +129,13 @@ void SeqBattle::Update(eSequence* sequence)
     Camera::SetPos(pos);
     m_player->Update();
     m_enemy->Update();
-    if (m_enemy->GetHP() <= 0)
+    if (m_enemy != nullptr)
     {
-        *sequence = eSequence::ENDING;
+        if (m_enemy->GetHP() <= 0)
+        {
+            SAFE_DELETE(m_enemy);
+    //        *sequence = eSequence::ENDING;
+        }
     }
 }
 
@@ -150,7 +154,10 @@ void SeqBattle::Render()
     Light::SetLightNormal(norm);
     m_test->Render();
     m_player->Render();
-    m_enemy->Render();
+    if (m_enemy != nullptr)
+    {
+        m_enemy->Render();
+    }
 }
 
 void SeqBattle::InputR1()

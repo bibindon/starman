@@ -9,6 +9,7 @@ enum class eState
     IDLE,
     DAMAGED,
     DEAD,
+    ATTACK,
 };
 class Enemy
 {
@@ -22,7 +23,6 @@ public:
     D3DXVECTOR3 GetPos();
     void SetRotate(const D3DXVECTOR3& rotate);
     D3DXVECTOR3 GetRotate();
-    void SetAttack();
     void SetHP(const int hp);
     int GetHP();
     void SetState(const eState state);
