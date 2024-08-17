@@ -5,7 +5,7 @@ Player::Player()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
     m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, b, 0.5f);
-    m_AnimMesh2->SetAnim("Walk");
+    m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 }
 
@@ -59,7 +59,7 @@ void Player::SetAttack()
     if (!m_bAttack)
     {
         SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
-        m_AnimMesh2->SetTrackPos(2.f);
+        m_AnimMesh2->SetAnim("Attack");
         m_bAttack = true;
     }
 }

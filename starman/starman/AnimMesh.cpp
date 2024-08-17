@@ -89,7 +89,29 @@ AnimMesh::AnimMesh(
     }
     // lazy initialization 
     m_frameRoot.reset(temp_root_frame);
-    m_animationStrategy.reset(new normal_animation { temp_animation_controller });
+    AnimSetMap animSetMap;
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 0.f;
+        animSetting.m_duration = 0.5f;
+        animSetting.m_loop = true;
+        animSetMap["Idle"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 1.f;
+        animSetting.m_duration = 1.f;
+        animSetting.m_loop = false;
+        animSetMap["Walk"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 2.f;
+        animSetting.m_duration = 1.f;
+        animSetting.m_loop = false;
+        animSetMap["Attack"] = animSetting;
+    }
+    m_animCtrlr.Init(temp_animation_controller, animSetMap);
 
     m_scale = scale;
 }
@@ -107,7 +129,7 @@ void AnimMesh::Render()
     m_viewMatrix = Camera::GetViewMatrix();
     m_projMatrix = Camera::GetProjMatrix();
 
-    m_animationStrategy->update();
+    m_animCtrlr.Update();
 
     D3DXMATRIX worldMatrix { };
     D3DXMatrixIdentity(&worldMatrix);
@@ -141,12 +163,14 @@ void AnimMesh::SetRotate(const D3DXVECTOR3& rotate)
 
 void AnimMesh::SetAnim(const std::string& animName)
 {
-    m_animationStrategy->set_animation(animName);
+    m_animCtrlr.SetAnim(animName);
 }
 
 void AnimMesh::SetTrackPos(const DOUBLE& pos)
 {
-    m_animationStrategy->SetTrackPos(pos);
+    // TODO remove
+//    m_animationStrategy->SetTrackPos(pos);
+//    m_animCtrlr.SetTrackPos();
 }
 
 void AnimMesh::UpdateFrameMatrix(const LPD3DXFRAME frameBase, const LPD3DXMATRIX parentMatrix)

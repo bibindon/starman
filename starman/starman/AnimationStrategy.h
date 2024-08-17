@@ -46,7 +46,7 @@ public:
 
 private:
     std::string default_animation_;
-    float animation_time_;
+    DOUBLE animation_time_;
     std::string playing_animation_;
 
     struct animation_config

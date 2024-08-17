@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationStrategy.cpp" />
+    <ClCompile Include="AnimController.cpp" />
     <ClCompile Include="AnimMesh.cpp" />
     <ClCompile Include="AnimMeshAlloc.cpp" />
     <ClCompile Include="BGM.cpp" />
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationStrategy.h" />
+    <ClInclude Include="AnimController.h" />
     <ClInclude Include="AnimMesh.h" />
     <ClInclude Include="AnimMeshAlloc.h" />
     <ClInclude Include="BGM.h" />

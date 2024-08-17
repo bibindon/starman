@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include "AnimationStrategy.h"
+#include "AnimController.h"
 
 class AnimMeshAllocator;
 
@@ -63,6 +64,6 @@ private:
     D3DXHANDLE m_lightNormalHandle { nullptr };
     D3DXHANDLE m_brightnessHandle { nullptr };
 
-    std::unique_ptr<normal_animation> m_animationStrategy;
+    AnimController m_animCtrlr;
 };
 
