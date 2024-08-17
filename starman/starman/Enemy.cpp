@@ -1,8 +1,10 @@
 #include "Enemy.h"
+#include <ctime>
 #include "SoundEffect.h"
 #include "SharedObj.h"
 #include "Sprite.h"
 #include "Camera.h"
+#include <random>
 
 Enemy::Enemy()
 {
@@ -57,6 +59,31 @@ void Enemy::Update()
         if (m_deadTimeCounter >= 60)
         {
             m_state = eState::DISABLE;
+        }
+    }
+    else if (m_state == eState::IDLE)
+    {
+        int randNum = SharedObj::GetRandom();
+
+        std::string msg;
+        msg = "randNum: " + std::to_string(randNum) + "\n";
+        OutputDebugString(msg.c_str());
+        if (randNum % 300 == 0)
+        {
+            m_state = eState::ATTACK;
+        }
+    }
+    else if (m_state == eState::ATTACK)
+    {
+        ++m_attackTimeCounter;
+        if (m_attackTimeCounter == 1)
+        {
+            m_AnimMesh->SetAnim("Attack", 0.f);
+        }
+        else if (m_attackTimeCounter >= 60)
+        {
+            m_attackTimeCounter = 0;
+            m_state = eState::IDLE;
         }
     }
 }

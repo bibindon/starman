@@ -96,11 +96,11 @@ void Camera::Update()
     }
     std::string eysPosX = std::to_string(m_eyePos.x);
     eysPosX = "eysPosX: " + eysPosX + "\n";
-    OutputDebugString(eysPosX.c_str());
+//    OutputDebugString(eysPosX.c_str());
 
     std::string eysPosZ = std::to_string(m_eyePos.z);
     eysPosZ = "eysPosZ: " + eysPosZ + "\n";
-    OutputDebugString(eysPosZ.c_str());
+//    OutputDebugString(eysPosZ.c_str());
 }
 
 POINT Camera::GetScreenPos(const D3DXVECTOR3& world)

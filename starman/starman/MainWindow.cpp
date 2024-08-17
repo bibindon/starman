@@ -11,6 +11,7 @@
 #include "Common.h"
 #include "Camera.h"
 #include "SharedObj.h"
+#include <random>
 using std::chrono::system_clock;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
@@ -31,6 +32,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 
 MainWindow::MainWindow(const HINSTANCE& hInstance)
 {
+    SharedObj::Init();
+
     WNDCLASSEX wcex = {
         sizeof(WNDCLASSEX),
         CS_HREDRAW | CS_VREDRAW,
