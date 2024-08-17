@@ -7,6 +7,7 @@
 enum class eState
 {
     IDLE,
+    WALK,
     DAMAGED,
     DEAD,
     DISABLE,
@@ -18,6 +19,7 @@ public:
     Enemy();
     ~Enemy();
     bool Init();
+    void Finalize();
     void Render();
     void Update();
     void SetPos(const D3DXVECTOR3& pos);

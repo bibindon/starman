@@ -12,9 +12,6 @@ Enemy::Enemy()
 
 Enemy::~Enemy()
 {
-    SAFE_DELETE(m_spriteHP);
-    SAFE_DELETE(m_spriteHPBack);
-    SAFE_DELETE(m_AnimMesh);
 }
 
 bool Enemy::Init()
@@ -22,10 +19,17 @@ bool Enemy::Init()
     AnimSetMap animSetMap;
     {
         AnimSetting animSetting { };
-        animSetting.m_startPos = 0.f;
-        animSetting.m_duration = 1.f;
+        animSetting.m_startPos = 0.5f;
+        animSetting.m_duration = 0.5f;
         animSetting.m_loop = true;
         animSetMap["Idle"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 0.f;
+        animSetting.m_duration = 0.5f;
+        animSetting.m_loop = true;
+        animSetMap["Walk"] = animSetting;
     }
     {
         AnimSetting animSetting { };
@@ -41,14 +45,22 @@ bool Enemy::Init()
         animSetting.m_loop = false;
         animSetMap["Attack"] = animSetting;
     }
-    m_pos.z = 10.f;
     m_AnimMesh = new AnimMesh("res\\model\\rippoutai\\rippoutai.x",
         m_pos, m_rotate, 0.5f, animSetMap);
     SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
     
     m_spriteHP = new Sprite("res\\image\\hp_green.png");
     m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
+
+    m_AnimMesh->SetAnim("Idle", 0.f);
     return true;
+}
+
+void Enemy::Finalize()
+{
+    SAFE_DELETE(m_spriteHP);
+    SAFE_DELETE(m_spriteHPBack);
+    SAFE_DELETE(m_AnimMesh);
 }
 
 void Enemy::Update()
@@ -67,6 +79,18 @@ void Enemy::Update()
         D3DXVECTOR3 pos = player->GetPos();
         D3DXVECTOR3 enemyVector = pos - m_pos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
+        if (distance < 10.f)
+        {
+            m_state = eState::WALK;
+            m_AnimMesh->SetAnim("Walk", 0.f);
+        }
+    }
+    else if (m_state == eState::WALK)
+    {
+        Player* player = SharedObj::GetPlayer();
+        D3DXVECTOR3 pos = player->GetPos();
+        D3DXVECTOR3 enemyVector = pos - m_pos;
+        FLOAT distance = D3DXVec3Length(&enemyVector);
         if (distance < 3.f)
         {
             int randNum = SharedObj::GetRandom();
@@ -79,11 +103,16 @@ void Enemy::Update()
                 m_state = eState::ATTACK;
             }
         }
-        else
+        else if (3.f <= distance && distance < 20.f)
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
-            m_pos += norm / 10;
+            m_pos += norm / 50;
+        }
+        else if (20.f <= distance)
+        {
+            m_state = eState::IDLE;
+            m_AnimMesh->SetAnim("Idle", 0.f);
         }
     }
     else if (m_state == eState::DAMAGED)
@@ -140,10 +169,13 @@ void Enemy::Render()
     POINT screenPos = Camera::GetScreenPos(m_pos);
     m_spriteHPBack->Render(
         D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
-    m_spriteHP->Render(
-        D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
-        255,
-        (m_HP*128/100));
+    if (m_HP >= 0)
+    {
+        m_spriteHP->Render(
+            D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
+            255,
+            (m_HP*128/100));
+    }
 }
 
 void Enemy::SetPos(const D3DXVECTOR3& pos)

@@ -26,8 +26,32 @@ SeqBattle::SeqBattle()
 
     m_player = new Player();
     SharedObj::SetPlayer(m_player);
+    {
+        Enemy enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 25.f);
+        enemy.SetPos(pos);
+        m_vecEnemy.push_back(enemy);
+    }
+    {
+        Enemy enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(50.f, 0.f, 5.f);
+        enemy.SetPos(pos);
+        m_vecEnemy.push_back(enemy);
+    }
+    {
+        Enemy enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(30.f, 0.f, 13.f);
+        enemy.SetPos(pos);
+        m_vecEnemy.push_back(enemy);
+    }
+
     m_enemy = new Enemy();
     m_enemy->Init();
+    D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
+    m_enemy->SetPos(pos);
 
     BGM::get_ton()->load("res\\sound\\letsgo.wav");
     BGM::get_ton()->play(10);
@@ -93,35 +117,39 @@ void SeqBattle::Update(eSequence* sequence)
 
     if (JoyStick::IsHold(eJoyStickButtonType::UP))
     {
-        pos.x += std::sin(radian+D3DX_PI)/10;
-        pos.z += std::sin(radian+D3DX_PI*3/2)/10;
+        pos.x += -std::sin(radian + D3DX_PI / 2) / 10;
+        pos.z += std::sin(radian + D3DX_PI) / 10;
 
-        D3DXVECTOR3 rotate {0.f, radian+D3DX_PI/2, 0.f};
+        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
     if (JoyStick::IsHold(eJoyStickButtonType::LEFT))
     {
-        pos.x += std::sin(radian+D3DX_PI/2)/10;
-        pos.z += std::sin(radian+D3DX_PI)/10;
+        pos.x += -std::sin(radian + D3DX_PI) / 10;
+        pos.z += std::sin(radian + D3DX_PI * 3 / 2) / 10;
 
-        D3DXVECTOR3 rotate {0.f, radian, 0.f};
+        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
     if (JoyStick::IsHold(eJoyStickButtonType::DOWN))
     {
-        pos.x += std::sin(radian)/10;
-        pos.z += std::sin(radian+D3DX_PI/2)/10;
+        pos.x += -std::sin(radian + D3DX_PI * 3 / 2) / 10;
+        pos.z += std::sin(radian) / 10;
 
-        D3DXVECTOR3 rotate {0.f, radian+D3DX_PI, 0.f};
+        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
     if (JoyStick::IsHold(eJoyStickButtonType::RIGHT))
     {
-        pos.x += std::sin(radian+D3DX_PI*3/2)/10;
-        pos.z += std::sin(radian)/10;
+        pos.x += -std::sin(radian) / 10;
+        pos.z += std::sin(radian + D3DX_PI / 2) / 10;
 
-        D3DXVECTOR3 rotate {0.f, radian+D3DX_PI*3/2, 0.f};
+        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI / 2, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
     if (JoyStick::IsDown(eJoyStickButtonType::R1))
     {
@@ -141,7 +169,19 @@ void SeqBattle::Update(eSequence* sequence)
         if (m_enemy->GetState() == eState::DISABLE)
         {
             SAFE_DELETE(m_enemy);
-    //        *sequence = eSequence::ENDING;
+        }
+    }
+    for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
+    {
+        it->Update();
+        if (it->GetState() == eState::DISABLE)
+        {
+            it->Finalize();
+            it = m_vecEnemy.erase(it);
+        }
+        else
+        {
+            it++;
         }
     }
     if (m_player->GetHP() <= 0)
@@ -152,6 +192,13 @@ void SeqBattle::Update(eSequence* sequence)
     if (m_eState == eBattleState::GAMEOVER)
     {
         ++m_nGameoverCounter;
+    }
+    if (m_enemy == nullptr)
+    {
+        if (m_vecEnemy.size() == 0)
+        {
+            *sequence = eSequence::ENDING;
+        }
     }
 }
 
@@ -173,6 +220,10 @@ void SeqBattle::Render()
     {
         m_enemy->Render();
     }
+    for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
+    {
+        m_vecEnemy.at(i).Render();
+    }
     D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
     if (m_player->GetDead())
     {
@@ -192,19 +243,30 @@ void SeqBattle::InputR1()
     if (m_enemy != nullptr)
     {
         enemyPos = m_enemy->GetPos();
-    }
-    else
-    {
-        return;
-    }
-    D3DXVECTOR3 subPos { attackPos - enemyPos };
-    FLOAT distance = D3DXVec3Length(&subPos);
+        D3DXVECTOR3 subPos { attackPos - enemyPos };
+        FLOAT distance = D3DXVec3Length(&subPos);
 
-    if (distance <= 1.0f)
+        if (distance <= 1.5f)
+        {
+            m_enemy->SetState(eState::DAMAGED);
+            int hp = m_enemy->GetHP();
+            m_enemy->SetHP(hp - 10);
+        }
+    }
+    for (int i = 0; i < m_vecEnemy.size(); i++)
     {
-        m_enemy->SetState(eState::DAMAGED);
-        int hp = m_enemy->GetHP();
-        m_enemy->SetHP(hp - 10);
+        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+        enemyPos = m_vecEnemy.at(i).GetPos();
+
+        D3DXVECTOR3 subPos { attackPos - enemyPos };
+        FLOAT distance = D3DXVec3Length(&subPos);
+
+        if (distance <= 1.0f)
+        {
+            m_vecEnemy.at(i).SetState(eState::DAMAGED);
+            int hp = m_vecEnemy.at(i).GetHP();
+            m_vecEnemy.at(i).SetHP(hp - 10);
+        }
     }
 }
 

@@ -25,6 +25,7 @@ public:
     void InputA(eSequence* sequence);
 private:
     Player* m_player { nullptr };
+    std::vector<Enemy> m_vecEnemy { };
     Enemy* m_enemy { nullptr };
     Mesh* m_mesh1 { nullptr };
     Mesh* m_meshSky { nullptr };
