@@ -161,9 +161,9 @@ void AnimMesh::SetRotate(const D3DXVECTOR3& rotate)
     m_rotation = rotate;
 }
 
-void AnimMesh::SetAnim(const std::string& animName)
+void AnimMesh::SetAnim(const std::string& animName, const DOUBLE& pos)
 {
-    m_animCtrlr.SetAnim(animName);
+    m_animCtrlr.SetAnim(animName, pos);
 }
 
 void AnimMesh::SetTrackPos(const DOUBLE& pos)

@@ -54,6 +54,7 @@ void SeqBattle::Update(eSequence* sequence)
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
     if (KeyBoard::IsHold(DIK_A))
     {
@@ -62,6 +63,7 @@ void SeqBattle::Update(eSequence* sequence)
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
     if (KeyBoard::IsHold(DIK_S))
     {
@@ -70,6 +72,7 @@ void SeqBattle::Update(eSequence* sequence)
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
     if (KeyBoard::IsHold(DIK_D))
     {
@@ -78,6 +81,7 @@ void SeqBattle::Update(eSequence* sequence)
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI / 2, 0.f };
         m_player->SetRotate(rotate);
+        m_player->SetWalk();
     }
 
     if (Mouse::IsDownLeft())

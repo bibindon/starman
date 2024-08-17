@@ -15,9 +15,13 @@ void AnimController::Init(const LPD3DXANIMATIONCONTROLLER controller, const Anim
     m_animSettingMap = animSetMap;
 }
 
-void AnimController::SetAnim(const std::string& animName)
+void AnimController::SetAnim(const std::string& animName, const DOUBLE& pos)
 {
     m_animName = animName;
+    if (pos >= 0.f)
+    {
+        m_animationTime = 0.f;
+    }
 }
 
 void AnimController::SetAnimSettings(const AnimSetMap& animSetMap)

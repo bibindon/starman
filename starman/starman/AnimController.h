@@ -22,7 +22,7 @@ public:
     AnimController();
     ~AnimController();
     void Init(const LPD3DXANIMATIONCONTROLLER controller, const AnimSetMap& animSetMap);
-    void SetAnim(const std::string& animName);
+    void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
     void SetAnimSettings(const AnimSetMap& animSetMap);
     void Update();
 

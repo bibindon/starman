@@ -59,9 +59,14 @@ void Player::SetAttack()
     if (!m_bAttack)
     {
         SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
-        m_AnimMesh2->SetAnim("Attack");
+        m_AnimMesh2->SetAnim("Attack", 0.f);
         m_bAttack = true;
     }
+}
+
+void Player::SetWalk()
+{
+    m_AnimMesh2->SetAnim("Walk");
 }
 
 D3DXVECTOR3 Player::GetAttackPos()

@@ -23,7 +23,7 @@ public:
     void Render();
     void SetPos(const D3DXVECTOR3& pos);
     void SetRotate(const D3DXVECTOR3& rotate);
-    void SetAnim(const std::string& animName);
+    void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
     void SetTrackPos(const DOUBLE& pos);
 private:
 
