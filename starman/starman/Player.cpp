@@ -23,7 +23,7 @@ void Player::Update()
     {
         m_attackTimeCounter = 0;
         m_bAttack = false;
-        m_AnimMesh2->SetAnim("Walk");
+       // m_AnimMesh2->SetAnim("Walk");
     }
 }
 
@@ -54,14 +54,17 @@ D3DXVECTOR3 Player::GetRotate()
     return m_rotate;
 }
 
-void Player::SetAttack()
+bool Player::SetAttack()
 {
+    bool ret { false };
     if (!m_bAttack)
     {
         SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
         m_AnimMesh2->SetAnim("Attack", 0.f);
         m_bAttack = true;
+        ret = true;
     }
+    return ret;
 }
 
 void Player::SetWalk()
@@ -73,7 +76,7 @@ D3DXVECTOR3 Player::GetAttackPos()
 {
     D3DXVECTOR3 pos { m_pos };
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
-    norm.x = std::sin(m_rotate.y + D3DX_PI);
+    norm.x = std::sin(m_rotate.y);
     norm.z = std::sin(m_rotate.y + (D3DX_PI / 2));
     pos += norm*2;
     return pos;

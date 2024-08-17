@@ -155,7 +155,11 @@ void SeqBattle::Render()
 
 void SeqBattle::InputR1()
 {
-    m_player->SetAttack();
+    bool ret { m_player->SetAttack() };
+    if (ret == false)
+    {
+        return;
+    }
     D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
     D3DXVECTOR3 enemyPos { m_enemy->GetPos() };
     D3DXVECTOR3 subPos { attackPos - enemyPos };

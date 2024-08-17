@@ -14,7 +14,7 @@ public:
     D3DXVECTOR3 GetPos();
     void SetRotate(const D3DXVECTOR3& rotate);
     D3DXVECTOR3 GetRotate();
-    void SetAttack();
+    bool SetAttack();
     void SetWalk();
     D3DXVECTOR3 GetAttackPos();
 private:
