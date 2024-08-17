@@ -67,8 +67,8 @@ void Enemy::Update()
 
         std::string msg;
         msg = "randNum: " + std::to_string(randNum) + "\n";
-        OutputDebugString(msg.c_str());
-        if (randNum % 120 == 0)
+        //OutputDebugString(msg.c_str());
+        if (randNum % 60 == 0)
         {
             m_state = eState::ATTACK;
         }
@@ -83,7 +83,24 @@ void Enemy::Update()
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 rot = pos - m_pos;
             m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
-            player->SetDamaged();
+
+
+            D3DXVECTOR3 attackPos { GetAttackPos() };
+            D3DXVECTOR3 playerPos { 0.f, 0.f, 0.f };
+            playerPos = player->GetPos();
+            D3DXVECTOR3 subPos { attackPos - playerPos };
+            FLOAT distance = D3DXVec3Length(&subPos);
+            std::string msg;
+            msg = "distance: " + std::to_string(distance) + "\n";
+            OutputDebugString(msg.c_str());
+
+            if (distance <= 1.0f)
+            {
+                player->SetDamaged();
+                int hp = player->GetHP();
+                player->SetHP(hp - 10);
+            }
+
         }
         else if (m_attackTimeCounter >= 60)
         {
@@ -159,5 +176,15 @@ void Enemy::SetState(const eState state)
 eState Enemy::GetState()
 {
     return m_state;
+}
+
+D3DXVECTOR3 Enemy::GetAttackPos()
+{
+    D3DXVECTOR3 pos { m_pos };
+    D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
+    norm.x = std::sin(m_rotate.y + D3DX_PI);
+    norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
+    pos += norm * 2;
+    return pos;
 }
 

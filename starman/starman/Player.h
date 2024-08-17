@@ -18,16 +18,21 @@ public:
     void SetWalk();
     void SetDamaged();
     D3DXVECTOR3 GetAttackPos();
+
+    void SetHP(const int hp);
+    int GetHP();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
 
     D3DXVECTOR3 m_pos { 0.f, 0.f, 0.f };
-    D3DXVECTOR3 m_rotate { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 m_rotate { 0.f, D3DX_PI, 0.f };
 
     bool m_bAttack { false };
     int m_attackTimeCounter { 0 };
 
     bool m_bDamaged { false };
     int m_damagedTimeCounter { 0 };
+
+    int m_HP { 100 };
 };
 

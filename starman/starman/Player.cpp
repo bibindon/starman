@@ -4,6 +4,7 @@
 Player::Player()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
+    D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
     AnimSetMap animSetMap;
     {
         AnimSetting animSetting { };
@@ -33,7 +34,7 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap["Damaged"] = animSetting;
     }
-    m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, b, 0.5f, animSetMap);
+    m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 0.5f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 }
@@ -123,8 +124,18 @@ D3DXVECTOR3 Player::GetAttackPos()
 {
     D3DXVECTOR3 pos { m_pos };
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
-    norm.x = std::sin(m_rotate.y);
-    norm.z = std::sin(m_rotate.y + (D3DX_PI / 2));
-    pos += norm*2;
+    norm.x = std::sin(m_rotate.y + D3DX_PI);
+    norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
+    pos += norm * 2;
     return pos;
+}
+
+void Player::SetHP(const int hp)
+{
+    m_HP = hp;
+}
+
+int Player::GetHP()
+{
+    return m_HP;
 }

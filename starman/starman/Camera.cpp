@@ -83,7 +83,7 @@ void Camera::Update()
     }
     std::string radian = std::to_string(m_radian);
     radian = "radian: " + radian + "\n";
-    OutputDebugString(radian.c_str());
+    //OutputDebugString(radian.c_str());
     if (0.f <= m_eyePos.y)
     {
         m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(10-((m_y/3)*(m_y/3)));

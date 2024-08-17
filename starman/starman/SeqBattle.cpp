@@ -42,7 +42,7 @@ void SeqBattle::Update(eSequence* sequence)
     D3DXVECTOR3 pos = m_player->GetPos();
     D3DXVECTOR3 rotate {0.f, 0.f, 0.f};
     float radian = Camera::GetRadian();
-    float yaw = -1.f * (radian - (D3DX_PI * 3 / 2));
+    float yaw = -1.f * (radian - (D3DX_PI / 2));
     if (KeyBoard::IsHold(DIK_W))
     {
         pos.x += -std::sin(radian + D3DX_PI / 2) / 10;
