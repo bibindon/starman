@@ -65,8 +65,8 @@ void Enemy::Update()
     {
         Player* player = SharedObj::GetPlayer();
         D3DXVECTOR3 pos = player->GetPos();
-        D3DXVECTOR3 rot = pos - m_pos;
-        FLOAT distance = D3DXVec3Length(&rot);
+        D3DXVECTOR3 enemyVector = pos - m_pos;
+        FLOAT distance = D3DXVec3Length(&enemyVector);
         if (distance < 3.f)
         {
             int randNum = SharedObj::GetRandom();
@@ -78,6 +78,21 @@ void Enemy::Update()
             {
                 m_state = eState::ATTACK;
             }
+        }
+        else
+        {
+            D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
+            D3DXVec3Normalize(&norm, &enemyVector);
+            m_pos += norm/10;
+        }
+    }
+    else if (m_state == eState::DAMAGED)
+    {
+        m_damagedTimeCounter++;
+        if (m_damagedTimeCounter >= 60)
+        {
+            m_damagedTimeCounter = 0;
+            m_state = eState::IDLE;
         }
     }
     else if (m_state == eState::ATTACK)

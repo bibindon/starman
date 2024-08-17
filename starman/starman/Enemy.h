@@ -41,6 +41,7 @@ private:
     Sprite* m_spriteHPBack { nullptr };
     eState m_state { eState::IDLE };
     int m_deadTimeCounter { 0 };
+    int m_damagedTimeCounter { 0 };
     D3DXVECTOR3 GetAttackPos();
 };
 

@@ -18,6 +18,8 @@ public:
     bool SetAttack();
     void SetWalk();
     void SetDamaged();
+    void SetDead();
+    bool GetDead();
     D3DXVECTOR3 GetAttackPos();
 
     void SetHP(const int hp);
@@ -38,5 +40,6 @@ private:
 
     Sprite* m_spriteHP { nullptr };
     Sprite* m_spriteHPBack { nullptr };
+    bool m_dead { false };
 };
 

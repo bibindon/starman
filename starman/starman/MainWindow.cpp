@@ -288,6 +288,11 @@ int MainWindow::MainLoop()
                 SAFE_DELETE(m_seqBattle);
                 m_seqEnding = new SeqEnding();
             }
+            else if (m_sequence == eSequence::TITLE)
+            {
+                SAFE_DELETE(m_seqBattle);
+                m_seqTitle = new SeqTitle();
+            }
         }
         else if (m_sequence == eSequence::ENDING)
         {

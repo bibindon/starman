@@ -31,6 +31,8 @@ SeqBattle::SeqBattle()
 
     BGM::get_ton()->load("res\\sound\\letsgo.wav");
     BGM::get_ton()->play(10);
+
+    m_spriteGameover = new Sprite("res\\image\\gameover.png");
 }
 
 SeqBattle::~SeqBattle()
@@ -79,6 +81,10 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
+    if (KeyBoard::IsDown(DIK_F))
+    {
+        InputA(sequence);
+    }
 
     if (Mouse::IsDownLeft())
     {
@@ -121,6 +127,11 @@ void SeqBattle::Update(eSequence* sequence)
     {
         InputR1();
     }
+    if (JoyStick::IsDown(eJoyStickButtonType::A))
+    {
+        InputA(sequence);
+    }
+
     m_player->SetPos(pos);
     Camera::SetPos(pos);
     m_player->Update();
@@ -132,6 +143,15 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_enemy);
     //        *sequence = eSequence::ENDING;
         }
+    }
+    if (m_player->GetHP() <= 0)
+    {
+        m_player->SetDead();
+        m_eState = eBattleState::GAMEOVER;
+    }
+    if (m_eState == eBattleState::GAMEOVER)
+    {
+        ++m_nGameoverCounter;
     }
 }
 
@@ -152,6 +172,11 @@ void SeqBattle::Render()
     if (m_enemy != nullptr)
     {
         m_enemy->Render();
+    }
+    D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
+    if (m_player->GetDead())
+    {
+        m_spriteGameover->Render(pos);
     }
 }
 
@@ -182,3 +207,15 @@ void SeqBattle::InputR1()
         m_enemy->SetHP(hp - 10);
     }
 }
+
+void SeqBattle::InputA(eSequence* sequence)
+{
+    if (m_eState == eBattleState::GAMEOVER)
+    {
+        if (m_nGameoverCounter >= 60)
+        {
+            *sequence = eSequence::TITLE;
+        }
+    }
+}
+

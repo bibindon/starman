@@ -31,9 +31,16 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 3.f;
-        animSetting.m_duration = 1.f;
+        animSetting.m_duration = 0.5f;
         animSetting.m_loop = false;
         animSetMap["Damaged"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 3.5f;
+        animSetting.m_duration = 1.f;
+        animSetting.m_loop = false;
+        animSetMap["Dead"] = animSetting;
     }
     m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 0.5f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
@@ -133,6 +140,20 @@ void Player::SetDamaged()
         m_AnimMesh2->SetAnim("Damaged", 0.f);
         m_bDamaged = true;
     }
+}
+
+void Player::SetDead()
+{
+    if (m_dead == false)
+    {
+        m_dead = true;
+        m_AnimMesh2->SetAnim("Dead", 0.f);
+    }
+}
+
+bool Player::GetDead()
+{
+    return m_dead;
 }
 
 D3DXVECTOR3 Player::GetAttackPos()
