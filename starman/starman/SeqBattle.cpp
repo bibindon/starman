@@ -24,12 +24,6 @@ SeqBattle::SeqBattle()
     m_meshSky2 = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
     b.y = 0.f;
 
-    {
-        D3DXVECTOR3 b = D3DXVECTOR3(10, 0, 0);
-        D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
-        m_test = new Mesh("res\\model\\hoshiman\\hoshiman2.x", b, c, 1.0f);
-    }
-
     m_player = new Player();
     SharedObj::SetPlayer(m_player);
     m_enemy = new Enemy();
@@ -154,7 +148,6 @@ void SeqBattle::Render()
     m_meshSky->Render();
     m_meshSky2->Render();
     Light::SetLightNormal(norm);
-    m_test->Render();
     m_player->Render();
     if (m_enemy != nullptr)
     {

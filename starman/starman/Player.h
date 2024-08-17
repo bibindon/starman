@@ -16,6 +16,7 @@ public:
     D3DXVECTOR3 GetRotate();
     bool SetAttack();
     void SetWalk();
+    void SetDamaged();
     D3DXVECTOR3 GetAttackPos();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
@@ -25,5 +26,8 @@ private:
 
     bool m_bAttack { false };
     int m_attackTimeCounter { 0 };
+
+    bool m_bDamaged { false };
+    int m_damagedTimeCounter { 0 };
 };
 

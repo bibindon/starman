@@ -26,6 +26,13 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap["Attack"] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 3.f;
+        animSetting.m_duration = 1.f;
+        animSetting.m_loop = false;
+        animSetMap["Damaged"] = animSetting;
+    }
     m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, b, 0.5f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
@@ -45,7 +52,15 @@ void Player::Update()
     {
         m_attackTimeCounter = 0;
         m_bAttack = false;
-       // m_AnimMesh2->SetAnim("Walk");
+    }
+    if (m_bDamaged)
+    {
+        ++m_damagedTimeCounter;
+    }
+    if (m_damagedTimeCounter >= 30)
+    {
+        m_damagedTimeCounter = 0;
+        m_bDamaged = false;
     }
 }
 
@@ -79,7 +94,7 @@ D3DXVECTOR3 Player::GetRotate()
 bool Player::SetAttack()
 {
     bool ret { false };
-    if (!m_bAttack)
+    if (m_bAttack == false && m_bDamaged == false)
     {
         SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
         m_AnimMesh2->SetAnim("Attack", 0.f);
@@ -92,6 +107,16 @@ bool Player::SetAttack()
 void Player::SetWalk()
 {
     m_AnimMesh2->SetAnim("Walk");
+}
+
+void Player::SetDamaged()
+{
+    //if (!m_bDamaged)
+    {
+        SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
+        m_AnimMesh2->SetAnim("Damaged", 0.f);
+        m_bDamaged = true;
+    }
 }
 
 D3DXVECTOR3 Player::GetAttackPos()

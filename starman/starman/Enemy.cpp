@@ -83,6 +83,7 @@ void Enemy::Update()
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 rot = pos - m_pos;
             m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
+            player->SetDamaged();
         }
         else if (m_attackTimeCounter >= 60)
         {

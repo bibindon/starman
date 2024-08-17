@@ -22,6 +22,5 @@ private:
     Mesh* m_mesh1 { nullptr };
     Mesh* m_meshSky { nullptr };
     Mesh* m_meshSky2 { nullptr };
-    Mesh* m_test { nullptr };
 };
 
