@@ -88,10 +88,13 @@ void Player::Render()
     POINT screenPos = Camera::GetScreenPos(m_pos);
     m_spriteHPBack->Render(
         D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f });
-    m_spriteHP->Render(
-        D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f },
-        255,
-        (m_HP*256/100));
+    if (m_HP >= 0)
+    {
+        m_spriteHP->Render(
+            D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f },
+            255,
+            (m_HP*256/100));
+    }
 }
 
 void Player::SetPos(const D3DXVECTOR3& pos)

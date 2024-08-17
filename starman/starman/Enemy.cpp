@@ -83,7 +83,7 @@ void Enemy::Update()
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
-            m_pos += norm/10;
+            m_pos += norm / 10;
         }
     }
     else if (m_state == eState::DAMAGED)
