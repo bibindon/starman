@@ -24,6 +24,12 @@ SeqBattle::SeqBattle()
     m_meshSky2 = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
     b.y = 0.f;
 
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        m_meshTest = new Mesh("res\\model\\cube6\\cube6.x", b, c, 1.0f);
+    }
+
     m_player = new Player();
     SharedObj::SetPlayer(m_player);
     {
@@ -107,7 +113,11 @@ void SeqBattle::Update(eSequence* sequence)
     }
     if (KeyBoard::IsDown(DIK_F))
     {
-        InputA(sequence);
+        InputB(sequence);
+    }
+    if (KeyBoard::IsDown(DIK_SPACE))
+    {
+        InputA();
     }
 
     if (Mouse::IsDownLeft())
@@ -155,9 +165,13 @@ void SeqBattle::Update(eSequence* sequence)
     {
         InputR1();
     }
+    if (JoyStick::IsDown(eJoyStickButtonType::B))
+    {
+        InputB(sequence);
+    }
     if (JoyStick::IsDown(eJoyStickButtonType::A))
     {
-        InputA(sequence);
+        InputA();
     }
 
     m_player->SetPos(pos);
@@ -270,7 +284,12 @@ void SeqBattle::InputR1()
     }
 }
 
-void SeqBattle::InputA(eSequence* sequence)
+void SeqBattle::InputA()
+{
+    m_player->SetJump();
+}
+
+void SeqBattle::InputB(eSequence* sequence)
 {
     if (m_eState == eBattleState::GAMEOVER)
     {

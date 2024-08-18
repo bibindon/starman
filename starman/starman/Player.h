@@ -21,6 +21,7 @@ public:
     void SetDead();
     bool GetDead();
     D3DXVECTOR3 GetAttackPos();
+    void SetJump();
 
     void SetHP(const int hp);
     int GetHP();
@@ -40,6 +41,8 @@ private:
 
     Sprite* m_spriteHP { nullptr };
     Sprite* m_spriteHPBack { nullptr };
-    bool m_dead { false };
+    bool m_bDead { false };
+    bool m_bJump { false };
+    int m_jumpTimeCounter { 0 };
 };
 

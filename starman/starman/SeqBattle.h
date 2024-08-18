@@ -22,7 +22,8 @@ public:
     void Update(eSequence* sequence);
     void Render();
     void InputR1();
-    void InputA(eSequence* sequence);
+    void InputA();
+    void InputB(eSequence* sequence);
 private:
     Player* m_player { nullptr };
     std::vector<Enemy> m_vecEnemy { };
@@ -30,6 +31,7 @@ private:
     Mesh* m_mesh1 { nullptr };
     Mesh* m_meshSky { nullptr };
     Mesh* m_meshSky2 { nullptr };
+    Mesh* m_meshTest { nullptr };
     Sprite* m_spriteGameover { nullptr };
     eBattleState m_eState { eBattleState::NORMAL };
     int m_nGameoverCounter { 0 };

@@ -42,6 +42,13 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap["Dead"] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 5.f;
+        animSetting.m_duration = 1.f;
+        animSetting.m_loop = false;
+        animSetMap["Jump"] = animSetting;
+    }
     m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 0.5f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
@@ -61,7 +68,7 @@ void Player::Update()
 {
     if (m_bAttack)
     {
-        ++m_attackTimeCounter;
+        m_attackTimeCounter++;
     }
     if (m_attackTimeCounter >= 30)
     {
@@ -70,12 +77,21 @@ void Player::Update()
     }
     if (m_bDamaged)
     {
-        ++m_damagedTimeCounter;
+        m_damagedTimeCounter++;
     }
     if (m_damagedTimeCounter >= 30)
     {
         m_damagedTimeCounter = 0;
         m_bDamaged = false;
+    }
+    if (m_bJump)
+    {
+        m_jumpTimeCounter++;
+    }
+    if (m_jumpTimeCounter >= 60)
+    {
+        m_jumpTimeCounter = 0;
+        m_bJump = false;
     }
 }
 
@@ -147,16 +163,16 @@ void Player::SetDamaged()
 
 void Player::SetDead()
 {
-    if (m_dead == false)
+    if (m_bDead == false)
     {
-        m_dead = true;
+        m_bDead = true;
         m_AnimMesh2->SetAnim("Dead", 0.f);
     }
 }
 
 bool Player::GetDead()
 {
-    return m_dead;
+    return m_bDead;
 }
 
 D3DXVECTOR3 Player::GetAttackPos()
@@ -167,6 +183,15 @@ D3DXVECTOR3 Player::GetAttackPos()
     norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
     pos += norm * 2;
     return pos;
+}
+
+void Player::SetJump()
+{
+    if (m_bJump == false)
+    {
+        m_bJump = true;
+        m_AnimMesh2->SetAnim("Jump", 0.f);
+    }
 }
 
 void Player::SetHP(const int hp)

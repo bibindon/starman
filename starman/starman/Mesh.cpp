@@ -86,6 +86,18 @@ Mesh::Mesh(
 
     LPD3DXMESH tempMesh { nullptr };
     result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh);
+    LPDIRECT3DVERTEXBUFFER9 v;
+    tempMesh->GetVertexBuffer(&v);
+    void* a;
+    struct CUSTOMVERTEX
+    {
+        D3DXVECTOR3 position;
+    };
+    CUSTOMVERTEX cv[4];
+    v->Lock(0, sizeof(cv), &a, 0);
+
+    memcpy(a, cv, sizeof(cv));
+    v->Unlock();
 
     if (FAILED(result))
     {
