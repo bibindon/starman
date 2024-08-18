@@ -29,6 +29,7 @@ private:
     std::vector<Enemy> m_vecEnemy { };
     Enemy* m_enemy { nullptr };
     Mesh* m_mesh1 { nullptr };
+    Mesh* m_mesh2 { nullptr };
     Mesh* m_meshSky { nullptr };
     Mesh* m_meshSky2 { nullptr };
     Mesh* m_meshTest { nullptr };

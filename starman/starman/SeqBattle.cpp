@@ -14,9 +14,14 @@
 
 SeqBattle::SeqBattle()
 {
-    D3DXVECTOR3 b = D3DXVECTOR3(0, -9.f, 0);
+    D3DXVECTOR3 b = D3DXVECTOR3(0, 0.f, 0);
     D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
-    m_mesh1 = new Mesh("res\\model\\dessert\\dessert.x", b, c, 100.0f);
+    m_mesh1 = new Mesh("res\\model\\stage1\\stage1.x", b, c, 0.5f);
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(30.f, 0.f, 30.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        m_mesh2 = new Mesh("res\\model\\tree1\\tree1.x", b, c, 0.5f);
+    }
     b.x = 15.f;
     b.y = -80.f;
     m_meshSky = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
@@ -219,6 +224,7 @@ void SeqBattle::Update(eSequence* sequence)
 void SeqBattle::Render()
 {
     m_mesh1->Render();
+    m_mesh2->Render();
     D3DXVECTOR4 norm = Light::GetLightNormal();
     D3DXVECTOR4 norm2 { norm };
     // “V‹…—p‚É‰º‚©‚çŒõ‚ð“–‚Ä‚Ä‚¢‚é‚±‚Æ‚É‚·‚é
