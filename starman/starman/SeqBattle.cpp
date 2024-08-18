@@ -25,9 +25,9 @@ SeqBattle::SeqBattle()
     b.y = 0.f;
 
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        m_meshTest = new Mesh("res\\model\\cube6\\cube6.x", b, c, 1.0f);
+        m_meshTest = new Mesh("res\\model\\cottage\\cottage.x", b, c, 0.5f);
     }
 
     m_player = new Player();
@@ -242,6 +242,9 @@ void SeqBattle::Render()
     if (m_player->GetDead())
     {
         m_spriteGameover->Render(pos);
+    }
+    {
+        m_meshTest->Render();
     }
 }
 
