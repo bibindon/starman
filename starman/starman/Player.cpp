@@ -45,7 +45,7 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 5.f;
-        animSetting.m_duration = 1.f;
+        animSetting.m_duration = 2.f;
         animSetting.m_loop = false;
         animSetMap["Jump"] = animSetting;
     }
@@ -88,7 +88,7 @@ void Player::Update()
     {
         m_jumpTimeCounter++;
     }
-    if (m_jumpTimeCounter >= 60)
+    if (m_jumpTimeCounter >= 120)
     {
         m_jumpTimeCounter = 0;
         m_bJump = false;
@@ -148,7 +148,10 @@ bool Player::SetAttack()
 
 void Player::SetWalk()
 {
-    m_AnimMesh2->SetAnim("Walk");
+    if (m_bJump == false)
+    {
+        m_AnimMesh2->SetAnim("Walk");
+    }
 }
 
 void Player::SetDamaged()
