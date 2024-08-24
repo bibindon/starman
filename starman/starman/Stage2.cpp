@@ -1,11 +1,11 @@
-#include "Stage1.h"
+#include "Stage2.h"
 #include "Light.h"
 
-Stage1::Stage1()
+Stage2::Stage2()
 {
 }
 
-Stage1::~Stage1()
+Stage2::~Stage2()
 {
     SAFE_DELETE(m_mesh1);
     SAFE_DELETE(m_meshTree);
@@ -15,7 +15,7 @@ Stage1::~Stage1()
     SAFE_DELETE(m_spriteStageName);
 }
 
-void Stage1::Init()
+void Stage2::Init()
 {
     {
         m_mesh1 = new Mesh(
@@ -45,7 +45,7 @@ void Stage1::Init()
         enemy.SetPos(pos);
         m_vecEnemy.push_back(enemy);
     }
-    m_spriteStageName = new Sprite("res\\image\\stage1.png");
+    m_spriteStageName = new Sprite("res\\image\\stage2.png");
     m_nStagenameCount = 0;
 
     {
@@ -69,7 +69,7 @@ void Stage1::Init()
     }
 }
 
-void Stage1::Update()
+void Stage2::Update()
 {
     for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
     {
@@ -87,7 +87,7 @@ void Stage1::Update()
     m_nStagenameCount++;
 }
 
-void Stage1::Render()
+void Stage2::Render()
 {
     {
         D3DXVECTOR4 norm = Light::GetLightNormal();
@@ -114,12 +114,12 @@ void Stage1::Render()
     }
 }
 
-std::vector<Enemy> Stage1::GetEnemy()
+std::vector<Enemy> Stage2::GetEnemy()
 {
     return m_vecEnemy;
 }
 
-void Stage1::SetEnemy(const std::vector<Enemy>& vecEnemy)
+void Stage2::SetEnemy(const std::vector<Enemy>& vecEnemy)
 {
     m_vecEnemy = vecEnemy;
 }

@@ -8,6 +8,8 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Stage1.h"
+#include "Stage2.h"
+#include "Stage3.h"
 
 enum class eBattleState
 {
@@ -27,16 +29,12 @@ public:
     void InputB(eSequence* sequence);
 private:
     Player* m_player { nullptr };
-//    std::vector<Enemy> m_vecEnemy { };
-    Enemy* m_enemy { nullptr };
-    Mesh* m_mesh1 { nullptr };
-    Mesh* m_mesh2 { nullptr };
-    Mesh* m_meshSky { nullptr };
-    Mesh* m_meshSky2 { nullptr };
-    Mesh* m_meshTest { nullptr };
     Sprite* m_spriteGameover { nullptr };
     eBattleState m_eState { eBattleState::NORMAL };
     int m_nGameoverCounter { 0 };
-    Stage1 m_stage1 { };
+    int m_nCurrentStage { 1 };
+    Stage1* m_stage1 { };
+    Stage2* m_stage2 { };
+    Stage3* m_stage3 { };
 };
 

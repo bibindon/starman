@@ -45,6 +45,11 @@ float Camera::GetRadian()
     return m_radian;
 }
 
+void Camera::SetRadian(const float radian)
+{
+    m_radian = radian;
+}
+
 void Camera::Update()
 {
     LONG x = Mouse::GetX();
@@ -66,7 +71,7 @@ void Camera::Update()
     {
         y = 10;
     }
-    x *= -1.f; // ³•‰‚ğ‹t‚É‚·‚é
+    x *= -1; // ³•‰‚ğ‹t‚É‚·‚é
     m_radian += x/500.f;
     m_radian += joyX;
     m_y += y / 100.f;

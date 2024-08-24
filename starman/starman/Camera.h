@@ -7,6 +7,7 @@ public:
     static D3DXMATRIX GetProjMatrix();
     static void SetPos(const D3DXVECTOR3& lookAtPos);
     static float GetRadian();
+    static void SetRadian(const float radian);
     static void Update();
     static POINT GetScreenPos(const D3DXVECTOR3& world);
 

@@ -1,11 +1,11 @@
 #pragma once
 #include "Mesh.h"
 #include "Enemy.h"
-class Stage1
+class Stage3
 {
 public:
-    Stage1();
-    ~Stage1();
+    Stage3();
+    ~Stage3();
     void Init();
     void Update();
     void Render();
