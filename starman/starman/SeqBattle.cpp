@@ -37,27 +37,6 @@ SeqBattle::SeqBattle()
 
     m_player = new Player();
     SharedObj::SetPlayer(m_player);
-    {
-        Enemy enemy;
-        enemy.Init();
-        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 25.f);
-        enemy.SetPos(pos);
-        m_vecEnemy.push_back(enemy);
-    }
-    {
-        Enemy enemy;
-        enemy.Init();
-        D3DXVECTOR3 pos = D3DXVECTOR3(50.f, 0.f, 5.f);
-        enemy.SetPos(pos);
-        m_vecEnemy.push_back(enemy);
-    }
-    {
-        Enemy enemy;
-        enemy.Init();
-        D3DXVECTOR3 pos = D3DXVECTOR3(30.f, 0.f, 13.f);
-        enemy.SetPos(pos);
-        m_vecEnemy.push_back(enemy);
-    }
 
     m_enemy = new Enemy();
     m_enemy->Init();
@@ -68,6 +47,8 @@ SeqBattle::SeqBattle()
     BGM::get_ton()->play(10);
 
     m_spriteGameover = new Sprite("res\\image\\gameover.png");
+
+    m_stage1.Init();
 }
 
 SeqBattle::~SeqBattle()
@@ -76,6 +57,7 @@ SeqBattle::~SeqBattle()
 
 void SeqBattle::Update(eSequence* sequence)
 {
+    m_stage1.Update();
     D3DXVECTOR3 pos = m_player->GetPos();
     D3DXVECTOR3 rotate {0.f, 0.f, 0.f};
     float radian = Camera::GetRadian();
@@ -190,19 +172,6 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_enemy);
         }
     }
-    for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
-    {
-        it->Update();
-        if (it->GetState() == eState::DISABLE)
-        {
-            it->Finalize();
-            it = m_vecEnemy.erase(it);
-        }
-        else
-        {
-            it++;
-        }
-    }
     if (m_player->GetHP() <= 0)
     {
         m_player->SetDead();
@@ -214,7 +183,7 @@ void SeqBattle::Update(eSequence* sequence)
     }
     if (m_enemy == nullptr)
     {
-        if (m_vecEnemy.size() == 0)
+        if (m_stage1.GetEnemy().size() == 0)
         {
             *sequence = eSequence::ENDING;
         }
@@ -223,6 +192,7 @@ void SeqBattle::Update(eSequence* sequence)
 
 void SeqBattle::Render()
 {
+    m_stage1.Render();
     m_mesh1->Render();
     m_mesh2->Render();
     D3DXVECTOR4 norm = Light::GetLightNormal();
@@ -239,10 +209,6 @@ void SeqBattle::Render()
     if (m_enemy != nullptr)
     {
         m_enemy->Render();
-    }
-    for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
-    {
-        m_vecEnemy.at(i).Render();
     }
     D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
     if (m_player->GetDead())
@@ -276,19 +242,20 @@ void SeqBattle::InputR1()
             m_enemy->SetHP(hp - 10);
         }
     }
-    for (int i = 0; i < m_vecEnemy.size(); i++)
+    std::vector<Enemy> vecEnemy = m_stage1.GetEnemy();
+    for (int i = 0; i < vecEnemy.size(); i++)
     {
         D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-        enemyPos = m_vecEnemy.at(i).GetPos();
+        enemyPos = vecEnemy.at(i).GetPos();
 
         D3DXVECTOR3 subPos { attackPos - enemyPos };
         FLOAT distance = D3DXVec3Length(&subPos);
 
         if (distance <= 1.0f)
         {
-            m_vecEnemy.at(i).SetState(eState::DAMAGED);
-            int hp = m_vecEnemy.at(i).GetHP();
-            m_vecEnemy.at(i).SetHP(hp - 10);
+            vecEnemy.at(i).SetState(eState::DAMAGED);
+            int hp = vecEnemy.at(i).GetHP();
+            vecEnemy.at(i).SetHP(hp - 10);
         }
     }
 }

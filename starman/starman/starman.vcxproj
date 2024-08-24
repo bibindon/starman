@@ -168,6 +168,7 @@
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Stage1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationStrategy.h" />
@@ -194,6 +195,7 @@
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="Stage1.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="res\shader\animation_mesh_shader.fx">
