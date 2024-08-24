@@ -167,10 +167,16 @@
     <ClCompile Include="SharedObj.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Stage1.cpp" />
+    <ClCompile Include="Stage10.cpp" />
     <ClCompile Include="Stage2.cpp" />
     <ClCompile Include="Stage3.cpp" />
+    <ClCompile Include="Stage4.cpp" />
+    <ClCompile Include="Stage5.cpp" />
+    <ClCompile Include="Stage6.cpp" />
+    <ClCompile Include="Stage7.cpp" />
+    <ClCompile Include="Stage8.cpp" />
+    <ClCompile Include="Stage9.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationStrategy.h" />
@@ -196,10 +202,16 @@
     <ClInclude Include="SharedObj.h" />
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="Stage1.h" />
+    <ClInclude Include="Stage10.h" />
     <ClInclude Include="Stage2.h" />
     <ClInclude Include="Stage3.h" />
+    <ClInclude Include="Stage4.h" />
+    <ClInclude Include="Stage5.h" />
+    <ClInclude Include="Stage6.h" />
+    <ClInclude Include="Stage7.h" />
+    <ClInclude Include="Stage8.h" />
+    <ClInclude Include="Stage9.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="res\shader\animation_mesh_shader.fx">

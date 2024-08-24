@@ -10,6 +10,13 @@
 #include "Stage1.h"
 #include "Stage2.h"
 #include "Stage3.h"
+#include "Stage4.h"
+#include "Stage5.h"
+#include "Stage8.h"
+#include "Stage7.h"
+#include "Stage6.h"
+#include "Stage10.h"
+#include "Stage9.h"
 
 enum class eBattleState
 {
@@ -36,5 +43,12 @@ private:
     Stage1* m_stage1 { };
     Stage2* m_stage2 { };
     Stage3* m_stage3 { };
+    Stage4* m_stage4 { };
+    Stage5* m_stage5 { };
+    Stage6* m_stage6 { };
+    Stage7* m_stage7 { };
+    Stage8* m_stage8 { };
+    Stage9* m_stage9 { };
+    Stage10* m_stage10 { };
 };
 
