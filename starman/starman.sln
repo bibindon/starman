@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "starman", "starman\starman.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "UnitTest\UnitTest.vcxproj", "{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Launcher", "Launcher\Launcher.vcxproj", "{270B7186-2B12-4A68-AFB8-37F6D87969EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Release|x64.Build.0 = Release|x64
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Release|x86.ActiveCfg = Release|Win32
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Release|x86.Build.0 = Release|Win32
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Debug|x64.ActiveCfg = Debug|x64
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Debug|x64.Build.0 = Debug|x64
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Debug|x86.ActiveCfg = Debug|Win32
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Debug|x86.Build.0 = Debug|Win32
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Release|x64.ActiveCfg = Release|x64
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Release|x64.Build.0 = Release|x64
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Release|x86.ActiveCfg = Release|Win32
+		{270B7186-2B12-4A68-AFB8-37F6D87969EA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
