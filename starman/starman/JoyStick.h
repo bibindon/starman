@@ -47,6 +47,8 @@ public:
     static bool IsHold(eJoyStickButtonType button);
     static bool IsUp(eJoyStickButtonType button);
     static bool IsDown(eJoyStickButtonType button);
+    static float GetLeftRadian();
+    static bool IsLeftStickUsed();
     static bool CheckSimultaneous(eJoyStickButtonType button);
 
     static LPDIRECTINPUT8 m_DI;
@@ -60,6 +62,8 @@ public:
 private:
     static bool CreateDevice(HWND hwnd);
     static BOOL StartGamePadControl();
+    static float m_leftRadian;
+    static bool m_bLeftStickUsed;
 
 };
 

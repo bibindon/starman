@@ -130,39 +130,14 @@ void SeqBattle::Update(eSequence* sequence)
         InputR1();
     }
 
-    if (JoyStick::IsHold(eJoyStickButtonType::UP))
+    if (JoyStick::IsLeftStickUsed())
     {
-        pos.x += -std::sin(radian + D3DX_PI / 2) / 5;
-        pos.z += std::sin(radian + D3DX_PI) / 5;
-
-        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
-        m_player->SetRotate(rotate);
-        m_player->SetWalk();
-    }
-    if (JoyStick::IsHold(eJoyStickButtonType::LEFT))
-    {
-        pos.x += -std::sin(radian + D3DX_PI) / 5;
-        pos.z += std::sin(radian + D3DX_PI * 3 / 2) / 5;
-
-        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
-        m_player->SetRotate(rotate);
-        m_player->SetWalk();
-    }
-    if (JoyStick::IsHold(eJoyStickButtonType::DOWN))
-    {
+        float radian = JoyStick::GetLeftRadian();
         pos.x += -std::sin(radian + D3DX_PI * 3 / 2) / 5;
         pos.z += std::sin(radian) / 5;
 
-        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI, 0.f };
-        m_player->SetRotate(rotate);
-        m_player->SetWalk();
-    }
-    if (JoyStick::IsHold(eJoyStickButtonType::RIGHT))
-    {
-        pos.x += -std::sin(radian) / 5;
-        pos.z += std::sin(radian + D3DX_PI / 2) / 5;
-
-        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI / 2, 0.f };
+        yaw = -1.f * (radian - (D3DX_PI / 2));
+        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }

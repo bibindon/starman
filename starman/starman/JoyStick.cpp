@@ -14,6 +14,8 @@ BOOL SetupGamePadProperty(LPDIRECTINPUTDEVICE8 device);
 LPDIRECTINPUT8 JoyStick::m_DI;
 LPDIRECTINPUTDEVICE8 JoyStick::m_DIDevice;
 deque<JoyStick::JoyStickInfo> JoyStick::m_deqButton;
+float JoyStick::m_leftRadian { 0.f };
+bool JoyStick::m_bLeftStickUsed { false };
 
 bool JoyStick::Init(LPDIRECTINPUT8 DI, HWND hwnd)
 {
@@ -239,6 +241,26 @@ void JoyStick::Update()
         is_push_map.at(eJoyStickButtonType::Z_DOWN) = true;
     }
 
+    m_leftRadian = std::atan2((double)padData.lX, (double)padData.lY);
+    m_leftRadian += D3DX_PI * 3 / 2;
+    if (m_leftRadian < 0.f)
+    {
+        m_leftRadian += D3DX_PI * 2;
+    }
+    else if (D3DX_PI * 2 <= m_leftRadian)
+    {
+        m_leftRadian -= D3DX_PI * 2;
+    }
+    if ((-unresponsiveRange < padData.lX && padData.lX < unresponsiveRange)
+        && (-unresponsiveRange < padData.lY && padData.lY < unresponsiveRange))
+    {
+        m_bLeftStickUsed = false;
+    }
+    else
+    {
+        m_bLeftStickUsed = true;
+    }
+
     // Check D-pad
     if (padData.rgdwPOV[0] != 0xFFFFFFFF)
     {
@@ -346,6 +368,16 @@ bool JoyStick::IsDown(eJoyStickButtonType button)
         return true;
     }
     return false;
+}
+
+float JoyStick::GetLeftRadian()
+{
+    return m_leftRadian;
+}
+
+bool JoyStick::IsLeftStickUsed()
+{
+    return m_bLeftStickUsed;
 }
 
 bool JoyStick::CheckSimultaneous(eJoyStickButtonType button)
