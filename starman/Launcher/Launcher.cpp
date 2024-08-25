@@ -23,11 +23,13 @@ void InstallDirectX()
 
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
+    remove(".dxinstall.bat");
 
     {
         std::ofstream outputfile(".dxinstalled.txt");
         outputfile << "installed";
         outputfile.close();
+        SetFileAttributes(".dxinstalled.txt", FILE_ATTRIBUTE_HIDDEN);
     }
 }
 
