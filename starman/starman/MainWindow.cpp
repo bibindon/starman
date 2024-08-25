@@ -268,7 +268,7 @@ int MainWindow::MainLoop()
             else if (m_sequence == eSequence::BATTLE)
             {
                 SAFE_DELETE(m_seqTitle);
-                m_seqBattle = new SeqBattle();
+                m_seqBattle = new SeqBattle(true);
             }
         }
         else if (m_sequence == eSequence::OPENING)
@@ -277,7 +277,7 @@ int MainWindow::MainLoop()
             if (m_sequence == eSequence::BATTLE)
             {
                 SAFE_DELETE(m_seqOpening);
-                m_seqBattle = new SeqBattle();
+                m_seqBattle = new SeqBattle(false);
             }
         }
         else if (m_sequence == eSequence::BATTLE)

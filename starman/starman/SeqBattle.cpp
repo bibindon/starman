@@ -1,4 +1,5 @@
 #include "SeqBattle.h"
+#include <fstream>
 #include "Common.h"
 #ifndef DIRECTINPUT_VERSION
 #define DIRECTINPUT_VERSION 0x0800
@@ -12,7 +13,7 @@
 #include "BGM.h"
 #include "SharedObj.h"
 
-SeqBattle::SeqBattle()
+SeqBattle::SeqBattle(const bool isContinue)
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0.f, 0);
     D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
@@ -26,8 +27,76 @@ SeqBattle::SeqBattle()
 
     m_spriteGameover = new Sprite("res\\image\\gameover.png");
 
-    m_stage1 = new Stage1();
-    m_stage1->Init();
+    if (isContinue)
+    {
+        std::ifstream ifs(".savedata");
+        std::string line;
+        std::getline(ifs, line);
+        if (line.empty() == false)
+        {
+            m_nCurrentStage = atoi(line.c_str());
+            if (m_nCurrentStage == 1)
+            {
+                m_stage1 = new Stage1();
+                m_stage1->Init();
+            }
+            else if (m_nCurrentStage == 2)
+            {
+                m_stage2 = new Stage2();
+                m_stage2->Init();
+            }
+            else if (m_nCurrentStage == 3)
+            {
+                m_stage3 = new Stage3();
+                m_stage3->Init();
+            }
+            else if (m_nCurrentStage == 4)
+            {
+                m_stage4 = new Stage4();
+                m_stage4->Init();
+            }
+            else if (m_nCurrentStage == 5)
+            {
+                m_stage5 = new Stage5();
+                m_stage5->Init();
+            }
+            else if (m_nCurrentStage == 6)
+            {
+                m_stage6 = new Stage6();
+                m_stage6->Init();
+            }
+            else if (m_nCurrentStage == 7)
+            {
+                m_stage7 = new Stage7();
+                m_stage7->Init();
+            }
+            else if (m_nCurrentStage == 8)
+            {
+                m_stage8 = new Stage8();
+                m_stage8->Init();
+            }
+            else if (m_nCurrentStage == 9)
+            {
+                m_stage9 = new Stage9();
+                m_stage9->Init();
+            }
+            else if (m_nCurrentStage == 10)
+            {
+                m_stage10 = new Stage10();
+                m_stage10->Init();
+            }
+        }
+        else
+        {
+            m_stage1 = new Stage1();
+            m_stage1->Init();
+        }
+    }
+    else
+    {
+        m_stage1 = new Stage1();
+        m_stage1->Init();
+    }
 }
 
 SeqBattle::~SeqBattle()
@@ -179,9 +248,13 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage1);
             m_stage2 = new Stage2();
             m_stage2->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 2;
+
+            SaveLastStage(2);
+
         }
     }
     else if (m_nCurrentStage == 2)
@@ -192,9 +265,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage2);
             m_stage3 = new Stage3();
             m_stage3->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 3;
+            SaveLastStage(3);
         }
     }
     else if (m_nCurrentStage == 3)
@@ -204,9 +279,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage3);
             m_stage4 = new Stage4();
             m_stage4->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 4;
+            SaveLastStage(4);
         }
     }
     else if (m_nCurrentStage == 4)
@@ -216,9 +293,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage4);
             m_stage5 = new Stage5();
             m_stage5->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 5;
+            SaveLastStage(5);
         }
     }
     else if (m_nCurrentStage == 5)
@@ -228,9 +307,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage5);
             m_stage6 = new Stage6();
             m_stage6->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 6;
+            SaveLastStage(6);
         }
     }
     else if (m_nCurrentStage == 6)
@@ -240,9 +321,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage6);
             m_stage7 = new Stage7();
             m_stage7->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 7;
+            SaveLastStage(7);
         }
     }
     else if (m_nCurrentStage == 7)
@@ -252,9 +335,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage7);
             m_stage8 = new Stage8();
             m_stage8->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 8;
+            SaveLastStage(8);
         }
     }
     else if (m_nCurrentStage == 8)
@@ -264,9 +349,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage8);
             m_stage9 = new Stage9();
             m_stage9->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 9;
+            SaveLastStage(9);
         }
     }
     else if (m_nCurrentStage == 9)
@@ -276,9 +363,11 @@ void SeqBattle::Update(eSequence* sequence)
             SAFE_DELETE(m_stage9);
             m_stage10 = new Stage10();
             m_stage10->Init();
+            m_player->SetHP(100);
             m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
             Camera::SetRadian(D3DX_PI);
             m_nCurrentStage = 10;
+            SaveLastStage(10);
         }
     }
     else if (m_nCurrentStage == 10)
@@ -498,5 +587,13 @@ void SeqBattle::InputB(eSequence* sequence)
             *sequence = eSequence::TITLE;
         }
     }
+}
+
+void SeqBattle::SaveLastStage(const int stageNum)
+{
+    std::ofstream outputfile(".savedata");
+    outputfile << stageNum;
+    outputfile.close();
+    SetFileAttributes(".savedata", FILE_ATTRIBUTE_HIDDEN);
 }
 

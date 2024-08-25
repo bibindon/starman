@@ -27,7 +27,7 @@ enum class eBattleState
 class SeqBattle
 {
 public:
-    SeqBattle();
+    SeqBattle(const bool isContinue);
     ~SeqBattle();
     void Update(eSequence* sequence);
     void Render();
@@ -50,5 +50,7 @@ private:
     Stage8* m_stage8 { };
     Stage9* m_stage9 { };
     Stage10* m_stage10 { };
+
+    void SaveLastStage(const int);
 };
 
