@@ -345,6 +345,7 @@ void SeqBattle::InputR1()
     D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
     std::vector<Enemy> vecEnemy;
     std::vector<EnemySphere> vecEnemySphere;
+    std::vector<EnemyDisk> vecEnemyDisk;
     if (m_nCurrentStage == 1)
     {
         vecEnemy = m_stage1->GetEnemy();
@@ -357,6 +358,7 @@ void SeqBattle::InputR1()
     else if (m_nCurrentStage == 3)
     {
         vecEnemy = m_stage3->GetEnemy();
+        vecEnemyDisk = m_stage3->GetEnemyDisk();
     }
     else if (m_nCurrentStage == 4)
     {
@@ -416,6 +418,21 @@ void SeqBattle::InputR1()
             vecEnemySphere.at(i).SetHP(hp - 40);
         }
     }
+    for (std::size_t i = 0; i < vecEnemyDisk.size(); i++)
+    {
+        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+        enemyPos = vecEnemyDisk.at(i).GetPos();
+
+        D3DXVECTOR3 subPos { attackPos - enemyPos };
+        FLOAT distance = D3DXVec3Length(&subPos);
+
+        if (distance <= 1.5f)
+        {
+            vecEnemyDisk.at(i).SetState(eDiskState::DAMAGED);
+            int hp = vecEnemyDisk.at(i).GetHP();
+            vecEnemyDisk.at(i).SetHP(hp - 40);
+        }
+    }
     if (m_nCurrentStage == 1)
     {
         m_stage1->SetEnemy(vecEnemy);
@@ -428,6 +445,7 @@ void SeqBattle::InputR1()
     else if (m_nCurrentStage == 3)
     {
         m_stage3->SetEnemy(vecEnemy);
+        m_stage3->SetEnemyDisk(vecEnemyDisk);
     }
     else if (m_nCurrentStage == 4)
     {

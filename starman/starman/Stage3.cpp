@@ -45,6 +45,27 @@ void Stage3::Init()
         enemy.SetPos(pos);
         m_vecEnemy.push_back(enemy);
     }
+    {
+        EnemyDisk enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(-10.f, 0.f, 25.f);
+        enemy.SetPos(pos);
+        m_vecEnemyDisk.push_back(enemy);
+    }
+    {
+        EnemyDisk enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(-50.f, 0.f, 5.f);
+        enemy.SetPos(pos);
+        m_vecEnemyDisk.push_back(enemy);
+    }
+    {
+        EnemyDisk enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(-30.f, 0.f, 13.f);
+        enemy.SetPos(pos);
+        m_vecEnemyDisk.push_back(enemy);
+    }
     m_spriteStageName = new Sprite("res\\image\\stage3.png");
     m_nStagenameCount = 0;
 
@@ -84,6 +105,19 @@ void Stage3::Update()
             it++;
         }
     }
+    for (auto it = m_vecEnemyDisk.begin(); it != m_vecEnemyDisk.end();)
+    {
+        it->Update();
+        if (it->GetState() == eDiskState::DISABLE)
+        {
+            it->Finalize();
+            it = m_vecEnemyDisk.erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
     m_nStagenameCount++;
 }
 
@@ -108,6 +142,10 @@ void Stage3::Render()
     {
         m_vecEnemy.at(i).Render();
     }
+    for (std::size_t i = 0; i < m_vecEnemyDisk.size(); i++)
+    {
+        m_vecEnemyDisk.at(i).Render();
+    }
     if (m_nStagenameCount <= 255)
     {
         m_spriteStageName->Render(D3DXVECTOR3 {0.f, 0.f, 0.f}, 255 - m_nStagenameCount);
@@ -119,8 +157,18 @@ std::vector<Enemy> Stage3::GetEnemy()
     return m_vecEnemy;
 }
 
+std::vector<EnemyDisk> Stage3::GetEnemyDisk()
+{
+    return m_vecEnemyDisk;
+}
+
 void Stage3::SetEnemy(const std::vector<Enemy>& vecEnemy)
 {
     m_vecEnemy = vecEnemy;
+}
+
+void Stage3::SetEnemyDisk(const std::vector<EnemyDisk>& vecEnemy)
+{
+    m_vecEnemyDisk = vecEnemy;
 }
 
