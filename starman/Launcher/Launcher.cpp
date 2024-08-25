@@ -9,7 +9,7 @@
 void InstallDirectX()
 {
     {
-        std::ofstream outputfile("dxinstall.bat");
+        std::ofstream outputfile(".dxinstall.bat");
         outputfile << "start /wait .\\Redist\\DXSETUP.exe /silent";
         outputfile.close();
     }
@@ -18,14 +18,14 @@ void InstallDirectX()
     PROCESS_INFORMATION pi {};
     si.cb = sizeof(si);
 
-    BOOL ret = CreateProcess("dxinstall.bat", nullptr, nullptr, nullptr, false, 0, nullptr, nullptr, &si, &pi);
+    BOOL ret = CreateProcess(".dxinstall.bat", nullptr, nullptr, nullptr, false, 0, nullptr, nullptr, &si, &pi);
     WaitForSingleObject(pi.hProcess, INFINITE);
 
     CloseHandle(pi.hProcess);
     CloseHandle(pi.hThread);
 
     {
-        std::ofstream outputfile("dxinstalled.txt");
+        std::ofstream outputfile(".dxinstalled.txt");
         outputfile << "installed";
         outputfile.close();
     }
@@ -34,8 +34,8 @@ void InstallDirectX()
 int main()
 {
     // 初回起動時はDirectX9のランタイムのインストールを行う
-    // 「.\\starman\\dxinstalled.txt」というファイルがあればインストール済み、とする
-    std::string dxinstalled = ".\\dxinstalled.txt";
+    // 「.\\starman\\.dxinstalled.txt」というファイルがあればインストール済み、とする
+    std::string dxinstalled = ".\\.dxinstalled.txt";
 
     struct _stat s;
     bool exist = (_stat(dxinstalled.c_str(), &s) == 0);
@@ -49,6 +49,9 @@ int main()
     PROCESS_INFORMATION pi {};
     si.cb = sizeof(si);
     CreateProcess(".\\starman\\game.exe", nullptr, nullptr, nullptr, false, 0, nullptr, ".\\starman", &si, &pi);
+
+    CloseHandle(pi.hProcess);
+    CloseHandle(pi.hThread);
 
     return EXIT_SUCCESS;
 }
