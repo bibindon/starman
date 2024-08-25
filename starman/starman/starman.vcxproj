@@ -153,6 +153,7 @@
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EnemySphere.cpp" />
     <ClCompile Include="JoyStick.cpp" />
     <ClCompile Include="KeyBoard.cpp" />
     <ClCompile Include="Light.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Common.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EnemySphere.h" />
     <ClInclude Include="JoyStick.h" />
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="Light.h" />

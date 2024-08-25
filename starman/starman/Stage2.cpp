@@ -45,6 +45,27 @@ void Stage2::Init()
         enemy.SetPos(pos);
         m_vecEnemy.push_back(enemy);
     }
+    {
+        EnemySphere enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(10.f, 0.f, 25.f);
+        enemy.SetPos(pos);
+        m_vecEnemySphere.push_back(enemy);
+    }
+    {
+        EnemySphere enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(60.f, 0.f, 5.f);
+        enemy.SetPos(pos);
+        m_vecEnemySphere.push_back(enemy);
+    }
+    {
+        EnemySphere enemy;
+        enemy.Init();
+        D3DXVECTOR3 pos = D3DXVECTOR3(30.f, 0.f, 23.f);
+        enemy.SetPos(pos);
+        m_vecEnemySphere.push_back(enemy);
+    }
     m_spriteStageName = new Sprite("res\\image\\stage2.png");
     m_nStagenameCount = 0;
 
@@ -84,6 +105,19 @@ void Stage2::Update()
             it++;
         }
     }
+    for (auto it = m_vecEnemySphere.begin(); it != m_vecEnemySphere.end();)
+    {
+        it->Update();
+        if (it->GetState() == eSphereState::DISABLE)
+        {
+            it->Finalize();
+            it = m_vecEnemySphere.erase(it);
+        }
+        else
+        {
+            it++;
+        }
+    }
     m_nStagenameCount++;
 }
 
@@ -108,6 +142,10 @@ void Stage2::Render()
     {
         m_vecEnemy.at(i).Render();
     }
+    for (std::size_t i = 0; i < m_vecEnemySphere.size(); i++)
+    {
+        m_vecEnemySphere.at(i).Render();
+    }
     if (m_nStagenameCount <= 255)
     {
         m_spriteStageName->Render(D3DXVECTOR3 {0.f, 0.f, 0.f}, 255 - m_nStagenameCount);
@@ -117,6 +155,16 @@ void Stage2::Render()
 std::vector<Enemy> Stage2::GetEnemy()
 {
     return m_vecEnemy;
+}
+
+std::vector<EnemySphere> Stage2::GetEnemySphere()
+{
+    return m_vecEnemySphere;
+}
+
+void Stage2::SetEnemySphere(const std::vector<EnemySphere>& vecEnemySphere)
+{
+    m_vecEnemySphere = vecEnemySphere;
 }
 
 void Stage2::SetEnemy(const std::vector<Enemy>& vecEnemy)

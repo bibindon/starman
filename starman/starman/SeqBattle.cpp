@@ -344,6 +344,7 @@ void SeqBattle::InputR1()
     D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
     D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
     std::vector<Enemy> vecEnemy;
+    std::vector<EnemySphere> vecEnemySphere;
     if (m_nCurrentStage == 1)
     {
         vecEnemy = m_stage1->GetEnemy();
@@ -351,6 +352,7 @@ void SeqBattle::InputR1()
     else if (m_nCurrentStage == 2)
     {
         vecEnemy = m_stage2->GetEnemy();
+        vecEnemySphere = m_stage2->GetEnemySphere();
     }
     else if (m_nCurrentStage == 3)
     {
@@ -399,6 +401,21 @@ void SeqBattle::InputR1()
             vecEnemy.at(i).SetHP(hp - 50);
         }
     }
+    for (std::size_t i = 0; i < vecEnemySphere.size(); i++)
+    {
+        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+        enemyPos = vecEnemySphere.at(i).GetPos();
+
+        D3DXVECTOR3 subPos { attackPos - enemyPos };
+        FLOAT distance = D3DXVec3Length(&subPos);
+
+        if (distance <= 1.5f)
+        {
+            vecEnemySphere.at(i).SetState(eSphereState::DAMAGED);
+            int hp = vecEnemySphere.at(i).GetHP();
+            vecEnemySphere.at(i).SetHP(hp - 40);
+        }
+    }
     if (m_nCurrentStage == 1)
     {
         m_stage1->SetEnemy(vecEnemy);
@@ -406,6 +423,7 @@ void SeqBattle::InputR1()
     else if (m_nCurrentStage == 2)
     {
         m_stage2->SetEnemy(vecEnemy);
+        m_stage2->SetEnemySphere(vecEnemySphere);
     }
     else if (m_nCurrentStage == 3)
     {
