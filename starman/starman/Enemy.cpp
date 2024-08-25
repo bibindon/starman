@@ -108,6 +108,7 @@ void Enemy::Update()
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
             m_pos += norm / 50;
+            m_rotate.y = atan2(-enemyVector.x, -enemyVector.z);
         }
         else if (20.f <= distance)
         {

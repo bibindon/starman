@@ -186,7 +186,8 @@ void SeqBattle::Update(eSequence* sequence)
     }
     else if (m_nCurrentStage == 2)
     {
-        if (m_stage2->GetEnemy().size() == 0)
+        if (m_stage2->GetEnemy().size() == 0 &&
+            m_stage2->GetEnemySphere().size() == 0)
         {
             SAFE_DELETE(m_stage2);
             m_stage3 = new Stage3();

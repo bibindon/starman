@@ -1,5 +1,6 @@
 #include "Stage2.h"
 #include "Light.h"
+#include "SharedObj.h"
 
 Stage2::Stage2()
 {
@@ -88,6 +89,7 @@ void Stage2::Init()
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         m_meshCottage = new Mesh("res\\model\\cottage\\cottage.x", b, c, 0.5f);
     }
+    SharedObj::GetPlayer()->SetHP(100);
 }
 
 void Stage2::Update()

@@ -91,7 +91,7 @@ void EnemyDisk::Update()
         D3DXVECTOR3 pos = player->GetPos();
         D3DXVECTOR3 enemyVector = pos - m_pos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
-        if (distance < 3.f)
+        if (distance < 10.f)
         {
             int randNum = SharedObj::GetRandom();
 
@@ -103,11 +103,12 @@ void EnemyDisk::Update()
                 m_state = eDiskState::ATTACK;
             }
         }
-        else if (3.f <= distance && distance < 30.f)
+        else if (10.f <= distance && distance < 30.f)
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
             m_pos += norm / 40;
+            m_rotate.y = atan2(-enemyVector.x, -enemyVector.z);
         }
         else if (20.f <= distance)
         {
@@ -145,7 +146,7 @@ void EnemyDisk::Update()
             msg = "distance: " + std::to_string(distance) + "\n";
             OutputDebugString(msg.c_str());
 
-            if (distance <= 1.0f)
+            if (distance <= 10.0f)
             {
                 player->SetDamaged();
                 int hp = player->GetHP();
