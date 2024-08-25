@@ -132,11 +132,13 @@ void SeqBattle::Update(eSequence* sequence)
 
     if (JoyStick::IsLeftStickUsed())
     {
-        float radian = JoyStick::GetLeftRadian();
-        pos.x += -std::sin(radian + D3DX_PI * 3 / 2) / 5;
+        float joyRadian = JoyStick::GetLeftRadian();
+        float cameRadian = Camera::GetRadian();
+        float radian = joyRadian + (cameRadian - D3DX_PI * 3 / 2);
+        pos.x += std::cos(radian) / 5;
         pos.z += std::sin(radian) / 5;
 
-        yaw = -1.f * (radian - (D3DX_PI / 2));
+        yaw = -1.f * (radian + D3DX_PI / 2);
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
         m_player->SetWalk();
@@ -165,6 +167,10 @@ void SeqBattle::Update(eSequence* sequence)
     if (m_eState == eBattleState::GAMEOVER)
     {
         ++m_nGameoverCounter;
+        if (m_nGameoverCounter >= 120)
+        {
+            *sequence = eSequence::TITLE;
+        }
     }
     if (m_nCurrentStage == 1)
     {
