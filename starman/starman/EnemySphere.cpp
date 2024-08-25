@@ -41,7 +41,7 @@ bool EnemySphere::Init()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 2.f;
-        animSetting.m_duration = 0.5f;
+        animSetting.m_duration = 1.f;
         animSetting.m_loop = false;
         animSetMap["Attack"] = animSetting;
     }
