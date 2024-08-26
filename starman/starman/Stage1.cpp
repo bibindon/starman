@@ -8,6 +8,7 @@ Stage1::Stage1()
 Stage1::~Stage1()
 {
     SAFE_DELETE(m_mesh1);
+    SAFE_DELETE(m_mesh2);
     SAFE_DELETE(m_meshTree);
     SAFE_DELETE(m_meshCottage);
     SAFE_DELETE(m_meshSky);
@@ -21,6 +22,11 @@ void Stage1::Init()
         m_mesh1 = new Mesh(
             "res\\model\\stage1\\stage1.x",
             D3DXVECTOR3(0.f, 0.f, 0.f),
+            D3DXVECTOR3(0.f, 0.f, 0.f),
+            1.0f);
+        m_mesh2 = new Mesh(
+            "res\\model\\cube6\\cube6.x",
+            D3DXVECTOR3(-10.f, 0.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
     }
@@ -102,6 +108,7 @@ void Stage1::Render()
         Light::SetLightNormal(norm);
     }
     m_mesh1->Render();
+    m_mesh2->Render();
     m_meshCottage->Render();
     m_meshTree->Render();
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)

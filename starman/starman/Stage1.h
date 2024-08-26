@@ -13,6 +13,7 @@ public:
     void SetEnemy(const std::vector<Enemy>& vecEnemy);
 private:
     Mesh* m_mesh1 { nullptr };
+    Mesh* m_mesh2 { nullptr };
     Mesh* m_meshTree { nullptr };
     Mesh* m_meshCottage { nullptr };
     Mesh* m_meshSky { nullptr };
