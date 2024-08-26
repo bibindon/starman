@@ -17,7 +17,10 @@ public:
     ~Mesh();
 
     void SetPos(const D3DXVECTOR3& pos);
+    D3DXVECTOR3 GetPos();
     void Render();
+
+    LPD3DXMESH GetD3DMesh();
 
 private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };

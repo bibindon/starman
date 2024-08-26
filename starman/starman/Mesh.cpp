@@ -86,18 +86,24 @@ Mesh::Mesh(
 
     LPD3DXMESH tempMesh { nullptr };
     result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh);
-    LPDIRECT3DVERTEXBUFFER9 v;
-    tempMesh->GetVertexBuffer(&v);
-    void* a;
-    struct CUSTOMVERTEX
-    {
-        D3DXVECTOR3 position;
-    };
-    CUSTOMVERTEX cv[4];
-    v->Lock(0, sizeof(cv), &a, 0);
 
-    memcpy(a, cv, sizeof(cv));
-    v->Unlock();
+    // 頂点バッファの取得
+    {
+//        LPDIRECT3DVERTEXBUFFER9 pVertexBuffer;
+//        tempMesh->GetVertexBuffer(&pVertexBuffer);
+//
+//        struct CUSTOMVERTEX
+//        {
+//            FLOAT x, y, z; // 頂点の座標
+//            FLOAT normX, normY, normZ; // 法線の座標
+//            FLOAT u, v;   // 頂点の色
+//        };
+//        CUSTOMVERTEX* pVertices = nullptr;
+//        CUSTOMVERTEX temp[24]; // 立方体なら24個
+//        pVertexBuffer->Lock(0, 0, (void**)&pVertices, D3DLOCK_READONLY);
+//        memcpy(temp, pVertices, sizeof(temp));
+//        pVertexBuffer->Unlock();
+    }
 
     if (FAILED(result))
     {
@@ -180,6 +186,11 @@ void Mesh::SetPos(const D3DXVECTOR3& pos)
     m_pos = pos;
 }
 
+D3DXVECTOR3 Mesh::GetPos()
+{
+    return m_pos;
+}
+
 void Mesh::Render()
 {
     D3DXVECTOR4 normal = Light::GetLightNormal();
@@ -228,5 +239,10 @@ void Mesh::Render()
     }
     m_D3DEffect->EndPass();
     m_D3DEffect->End();
+}
+
+LPD3DXMESH Mesh::GetD3DMesh()
+{
+    return m_D3DMesh;
 }
 

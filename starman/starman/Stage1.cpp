@@ -1,5 +1,6 @@
 #include "Stage1.h"
 #include "Light.h"
+#include "SharedObj.h"
 
 Stage1::Stage1()
 {
@@ -24,6 +25,8 @@ void Stage1::Init()
             D3DXVECTOR3(0.f, 0.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
+    }
+    {
         m_mesh2 = new Mesh(
             "res\\model\\cube6\\cube6.x",
             D3DXVECTOR3(-10.f, 0.f, 0.f),
@@ -130,3 +133,55 @@ void Stage1::SetEnemy(const std::vector<Enemy>& vecEnemy)
 {
     m_vecEnemy = vecEnemy;
 }
+
+bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+{
+    // ステージ上のオブジェクトを原点としたときのposの位置
+    BOOL  bIsHit = false;
+
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh2->GetPos();
+        LPD3DXMESH mesh = m_mesh2->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            return true;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
+        LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            return true;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
+        LPD3DXMESH mesh = m_meshCottage->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            return true;
+        }
+    }
+
+    return bIsHit;
+}
+
