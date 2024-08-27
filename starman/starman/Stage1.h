@@ -12,9 +12,12 @@ public:
     std::vector<Enemy> GetEnemy();
     void SetEnemy(const std::vector<Enemy>& vecEnemy);
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
+    bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 private:
     Mesh* m_mesh1 { nullptr };
     Mesh* m_mesh2 { nullptr };
+    Mesh* m_mesh3 { nullptr };
+    Mesh* m_mesh4 { nullptr };
     Mesh* m_meshTree { nullptr };
     Mesh* m_meshCottage { nullptr };
     Mesh* m_meshSky { nullptr };

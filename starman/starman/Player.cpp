@@ -64,7 +64,7 @@ Player::~Player()
     SAFE_DELETE(m_AnimMesh2);
 }
 
-void Player::Update()
+void Player::Update(Stage1* stage1)
 {
     if (m_bAttack)
     {
@@ -87,11 +87,40 @@ void Player::Update()
     if (m_bJump)
     {
         m_jumpTimeCounter++;
+        m_jumpVelocity += -0.01f;
+        bool isHit = stage1->Intersect(m_pos, D3DXVECTOR3 { 0.f, m_jumpVelocity, 0.f });
+        if (isHit == false)
+        {
+            m_pos.y += m_jumpVelocity;
+            if (m_pos.y <= 0.f)
+            {
+                m_pos.y = 0.f;
+            }
+        }
+        else
+        {
+            m_jumpTimeCounter = 0;
+            m_bJump = false;
+        }
     }
-    if (m_jumpTimeCounter >= 120)
+    if (m_jumpTimeCounter >= 60)
     {
         m_jumpTimeCounter = 0;
         m_bJump = false;
+    }
+
+    // Ú’n”»’è
+    {
+        bool isHit = stage1->CollisionGround(m_pos, D3DXVECTOR3 { 0.f, -0.1f, 0.f });
+        if (isHit)
+        {
+            OutputDebugString("IsHit\n");
+        }
+        else
+        {
+            OutputDebugString("NotHit\n");
+            m_pos.y += -0.1f;
+        }
     }
 }
 
@@ -190,9 +219,10 @@ D3DXVECTOR3 Player::GetAttackPos()
 
 void Player::SetJump()
 {
-    if (m_bJump == false)
+//    if (m_bJump == false)
     {
         m_bJump = true;
+        m_jumpVelocity = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
     }
 }

@@ -10,6 +10,8 @@ Stage1::~Stage1()
 {
     SAFE_DELETE(m_mesh1);
     SAFE_DELETE(m_mesh2);
+    SAFE_DELETE(m_mesh3);
+    SAFE_DELETE(m_mesh4);
     SAFE_DELETE(m_meshTree);
     SAFE_DELETE(m_meshCottage);
     SAFE_DELETE(m_meshSky);
@@ -20,6 +22,7 @@ Stage1::~Stage1()
 void Stage1::Init()
 {
     {
+        // Šg‘åk¬‚·‚é‚ÆÕ“Ë”»’è‚ªŒø‚©‚È‚­‚È‚éIII
         m_mesh1 = new Mesh(
             "res\\model\\stage1\\stage1.x",
             D3DXVECTOR3(0.f, 0.f, 0.f),
@@ -30,6 +33,16 @@ void Stage1::Init()
         m_mesh2 = new Mesh(
             "res\\model\\cube6\\cube6.x",
             D3DXVECTOR3(-10.f, 0.f, 0.f),
+            D3DXVECTOR3(0.f, 0.f, 0.f),
+            1.0f);
+        m_mesh3 = new Mesh(
+            "res\\model\\cube6\\cube6.x",
+            D3DXVECTOR3(-13.f, 1.f, 0.f),
+            D3DXVECTOR3(0.f, 0.f, 0.f),
+            1.0f);
+        m_mesh4 = new Mesh(
+            "res\\model\\cube6\\cube6.x",
+            D3DXVECTOR3(-16.f, 2.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
     }
@@ -67,14 +80,14 @@ void Stage1::Init()
         m_meshSky2 = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(20.f, 0.f, 20.f);
+        D3DXVECTOR3 b = D3DXVECTOR3(22.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         m_meshTree = new Mesh("res\\model\\tree1\\tree1.x", b, c, 0.5f);
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        m_meshCottage = new Mesh("res\\model\\cottage\\cottage.x", b, c, 0.5f);
+        m_meshCottage = new Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
     }
 }
 
@@ -112,6 +125,8 @@ void Stage1::Render()
     }
     m_mesh1->Render();
     m_mesh2->Render();
+    m_mesh3->Render();
+    m_mesh4->Render();
     m_meshCottage->Render();
     m_meshTree->Render();
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
@@ -152,6 +167,46 @@ bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         {
             return true;
         }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh3->GetPos();
+        LPD3DXMESH mesh = m_mesh3->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh4->GetPos();
+        LPD3DXMESH mesh = m_mesh4->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
     }
     {
         D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
@@ -166,6 +221,10 @@ bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         {
             return true;
         }
+        else
+        {
+            bIsHit = false;
+        }
     }
     {
         D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
@@ -176,9 +235,128 @@ bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         float fHitV;
         D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
             &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.0f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+
+    return bIsHit;
+}
+
+bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+{
+    BOOL  bIsHit = false;
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh1->GetPos();
+        LPD3DXMESH mesh = m_mesh1->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh2->GetPos();
+        LPD3DXMESH mesh = m_mesh2->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh3->GetPos();
+        LPD3DXMESH mesh = m_mesh3->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh4->GetPos();
+        LPD3DXMESH mesh = m_mesh4->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
+        LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
         if (bIsHit && fLandDistance <= 1.f)
         {
             return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
+        LPD3DXMESH mesh = m_meshCottage->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
         }
     }
 

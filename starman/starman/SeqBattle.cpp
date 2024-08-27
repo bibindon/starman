@@ -162,6 +162,34 @@ void SeqBattle::Update(eSequence* sequence)
                 0.f,
                 std::sin(radian + D3DX_PI) / 5
             });
+        if (isHit == false)
+        {
+            isHit = m_stage1->Intersect(
+                D3DXVECTOR3 {
+                    pos.x,
+                    pos.y+1.f,
+                    pos.z
+                },
+                D3DXVECTOR3 {
+                    -std::sin(radian + D3DX_PI / 2) / 5,
+                    0.f,
+                    std::sin(radian + D3DX_PI) / 5
+                });
+            if (isHit == false)
+            {
+                isHit = m_stage1->Intersect(
+                    D3DXVECTOR3 {
+                        pos.x,
+                        pos.y+2.f,
+                        pos.z
+                    },
+                    D3DXVECTOR3 {
+                        -std::sin(radian + D3DX_PI / 2) / 5,
+                        0.f,
+                        std::sin(radian + D3DX_PI) / 5
+                    });
+            }
+        }
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
@@ -240,7 +268,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetPos(pos);
         Camera::SetPos(pos);
     }
-    m_player->Update();
+    m_player->Update(m_stage1);
     if (m_player->GetHP() <= 0)
     {
         m_player->SetDead();

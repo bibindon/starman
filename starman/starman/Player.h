@@ -3,6 +3,7 @@
 #include <d3d9.h>
 #include "AnimMesh.h"
 #include "Sprite.h"
+#include "Stage1.h"
 
 class Player
 {
@@ -10,7 +11,7 @@ public:
     Player();
     ~Player();
     void Render();
-    void Update();
+    void Update(Stage1* stage1);
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos();
     void SetRotate(const D3DXVECTOR3& rotate);
@@ -44,5 +45,7 @@ private:
     bool m_bDead { false };
     bool m_bJump { false };
     int m_jumpTimeCounter { 0 };
+    float m_jumpVelocity { 0.f };
+    const float JUMP_INITIAL_VELOCITY { 0.40f };
 };
 
