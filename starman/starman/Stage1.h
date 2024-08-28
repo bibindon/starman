@@ -18,6 +18,7 @@ private:
     Mesh* m_mesh2 { nullptr };
     Mesh* m_mesh3 { nullptr };
     Mesh* m_mesh4 { nullptr };
+    Mesh* m_meshColli { nullptr };
     Mesh* m_meshTree { nullptr };
     Mesh* m_meshCottage { nullptr };
     Mesh* m_meshSky { nullptr };

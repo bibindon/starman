@@ -12,6 +12,7 @@ Stage1::~Stage1()
     SAFE_DELETE(m_mesh2);
     SAFE_DELETE(m_mesh3);
     SAFE_DELETE(m_mesh4);
+    SAFE_DELETE(m_meshColli);
     SAFE_DELETE(m_meshTree);
     SAFE_DELETE(m_meshCottage);
     SAFE_DELETE(m_meshSky);
@@ -43,6 +44,11 @@ void Stage1::Init()
         m_mesh4 = new Mesh(
             "res\\model\\cube6\\cube6.x",
             D3DXVECTOR3(-16.f, 2.f, 0.f),
+            D3DXVECTOR3(0.f, 0.f, 0.f),
+            1.0f);
+        m_meshColli = new Mesh(
+            "res\\model\\collisionTest\\colli.x",
+            D3DXVECTOR3(0.f, 0.f, -20.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
     }
@@ -127,6 +133,7 @@ void Stage1::Render()
     m_mesh2->Render();
     m_mesh3->Render();
     m_mesh4->Render();
+    m_meshColli->Render();
     m_meshCottage->Render();
     m_meshTree->Render();
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
@@ -209,6 +216,24 @@ bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         }
     }
     {
+        D3DXVECTOR3 targetPos = pos - m_meshColli->GetPos();
+        LPD3DXMESH mesh = m_meshColli->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            //return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
         D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
         LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
         float fLandDistance;
@@ -251,24 +276,6 @@ bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
     BOOL  bIsHit = false;
-    {
-        D3DXVECTOR3 targetPos = pos - m_mesh1->GetPos();
-        LPD3DXMESH mesh = m_mesh1->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
     {
         D3DXVECTOR3 targetPos = pos - m_mesh2->GetPos();
         LPD3DXMESH mesh = m_mesh2->GetD3DMesh();
@@ -324,6 +331,81 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         }
     }
     {
+        D3DXVECTOR3 targetPos = pos - m_meshColli->GetPos();
+        LPD3DXMESH mesh = m_meshColli->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
+        D3DXIntersect(mesh, &targetPos, &rot2, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            OutputDebugString("IsHit\n");
+
+            // ----- キャラY座標補正 -----
+            // 当たったインデックスバッファ取得
+            WORD dwHitVertexNo[3];
+            WORD* pIndex;
+            HRESULT hr = mesh->LockIndexBuffer(0, (void**)&pIndex);
+
+            for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
+            {
+                dwHitVertexNo[nIdxIdx] = pIndex[dwHitIndex * 3 + nIdxIdx];
+            }
+
+            mesh->UnlockIndexBuffer();
+
+            // 当たったポリゴン取得
+            struct VERTEX
+            {
+                FLOAT x, y, z; // 頂点の座標
+                FLOAT normX, normY, normZ; // 法線の座標
+                FLOAT u, v;   // 頂点の色
+            };
+            VERTEX* pVertex;
+            hr = mesh->LockVertexBuffer(0, (void**)&pVertex);
+
+            // 地面の高さに合わせる
+            D3DXVECTOR3 pos = SharedObj::GetPlayer()->GetPos();
+            D3DXVECTOR3 p1 {pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z};
+            D3DXVECTOR3 p2 {pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z};
+            D3DXVECTOR3 p3 {pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z};
+
+            D3DXVECTOR3 v1 = p2 - p1;
+            D3DXVECTOR3 v2 = p3 - p1;
+
+            D3DXVECTOR3 normal;
+
+            D3DXVec3Cross(&normal, &v1, &v2);
+            D3DXVECTOR3 normal_n;
+            D3DXVec3Normalize(&normal_n, &normal);
+
+            D3DXVECTOR3 out;
+            D3DXVECTOR3 front;
+            front = SharedObj::GetPlayer()->GetRotate();
+            front.x = std::sin(-front.y);
+            front.z = -std::cos(-front.y);
+            front.y = 0;
+
+            D3DXVECTOR3 work;
+            work = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+            D3DXVec3Normalize(&out, &work);
+
+            mesh->UnlockVertexBuffer();
+            out *= 0.1f;
+            pos += out;
+            pos.y += 0.05f;
+            SharedObj::GetPlayer()->SetPos(pos);
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
         D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
         LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
         float fLandDistance;
@@ -344,6 +426,24 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
     {
         D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
         LPD3DXMESH mesh = m_meshCottage->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh1->GetPos();
+        LPD3DXMESH mesh = m_mesh1->GetD3DMesh();
         float fLandDistance;
         DWORD dwHitIndex = -1;
         float fHitU;

@@ -114,11 +114,11 @@ void Player::Update(Stage1* stage1)
         bool isHit = stage1->CollisionGround(m_pos, D3DXVECTOR3 { 0.f, -0.1f, 0.f });
         if (isHit)
         {
-            OutputDebugString("IsHit\n");
+//            OutputDebugString("IsHit\n");
         }
         else
         {
-            OutputDebugString("NotHit\n");
+            //OutputDebugString("NotHit\n");
             m_pos.y += -0.1f;
         }
     }
