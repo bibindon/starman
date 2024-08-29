@@ -273,8 +273,9 @@ bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
     return bIsHit;
 }
 
-bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
+    const D3DXVECTOR3 rot {move};
     BOOL  bIsHit = false;
     {
         D3DXVECTOR3 targetPos = pos - m_mesh2->GetPos();
@@ -337,6 +338,87 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         DWORD dwHitIndex = -1;
         float fHitU;
         float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
+        LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 1.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
+        LPD3DXMESH mesh = m_meshCottage->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+    {
+        D3DXVECTOR3 targetPos = pos - m_mesh1->GetPos();
+//        targetPos.y += 0.1f;
+        LPD3DXMESH mesh = m_mesh1->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+        if (bIsHit && fLandDistance <= 2.f)
+        {
+            return true;
+        }
+        else
+        {
+            bIsHit = false;
+        }
+    }
+
+    return bIsHit;
+}
+
+void Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+{
+    const D3DXVECTOR3 rot {move};
+    BOOL  bIsHit = false;
+    {
+        D3DXVECTOR3 targetPos = pos - m_meshColli->GetPos();
+        LPD3DXMESH mesh = m_meshColli->GetD3DMesh();
+        float fLandDistance;
+        DWORD dwHitIndex = -1;
+        float fHitU;
+        float fHitV;
         D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
         D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
             &fHitU, &fHitV, &fLandDistance, NULL, NULL);
@@ -390,68 +472,12 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 
             mesh->UnlockVertexBuffer();
             SharedObj::GetPlayer()->SetMove(work);
-            return true;
+            return ;
         }
         else
         {
             bIsHit = false;
         }
     }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
-        LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
-        LPD3DXMESH mesh = m_meshCottage->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_mesh1->GetPos();
-        LPD3DXMESH mesh = m_mesh1->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-
-    return bIsHit;
 }
 

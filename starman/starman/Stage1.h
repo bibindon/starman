@@ -11,8 +11,17 @@ public:
     void Render();
     std::vector<Enemy> GetEnemy();
     void SetEnemy(const std::vector<Enemy>& vecEnemy);
+
+    // 衝突判定
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
-    bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
+
+    // 設置判定
+    bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+
+    // 壁ずり処理
+    // 現在、斜面を登るために、地面に対しては壁ずり処理をするが
+    // 壁に対して壁ずるをする予定はない。
+    void WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
 private:
     Mesh* m_mesh1 { nullptr };
     Mesh* m_mesh2 { nullptr };

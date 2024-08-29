@@ -108,19 +108,27 @@ void Player::Update(Stage1* stage1)
         m_bJump = false;
     }
 
+    // •Ç‚¸‚è
+    stage1->WallSlide(m_pos, m_move);
+
     // Ú’n”»’è
     {
-        bool isHit = stage1->CollisionGround(m_pos, D3DXVECTOR3 { 0.f, -0.1f, 0.f });
+        D3DXVECTOR3 temp { m_move };
+        temp.y += -0.1f;
+        bool isHit = stage1->CollisionGround(m_pos, temp);
         if (isHit)
         {
-//            OutputDebugString("IsHit\n");
+//            if (m_move.y <= 0.f)
+//            {
+//                m_move.y = 0.0f;
+//            }
         }
         else
         {
-            //OutputDebugString("NotHit\n");
-            m_pos.y += -0.1f;
+            m_move.y += -0.1f;
         }
     }
+
     m_pos += m_move;
 
     m_move.x = 0.f;
