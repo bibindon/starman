@@ -16,6 +16,7 @@ public:
         const float&);
     ~Mesh();
 
+    void Init();
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos();
     void Render();
@@ -44,6 +45,7 @@ private:
     float m_radius { 0.0f };
     float m_scale { 0.0f };
     std::string m_meshName { "" };
+    bool m_bIsInit { false };
 };
 
 

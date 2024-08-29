@@ -109,7 +109,7 @@ void Player::Update(Stage1* stage1)
     }
 
     // •Ç‚¸‚è
-    stage1->WallSlide(m_pos, m_move);
+    m_move = stage1->WallSlide(m_pos, m_move);
 
     // Ú’n”»’è
     {

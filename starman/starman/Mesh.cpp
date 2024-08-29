@@ -17,7 +17,20 @@ Mesh::Mesh(
     , m_rotate { rotation }
     , m_scale { scale }
 {
+}
 
+Mesh::~Mesh()
+{
+    for (std::size_t i = 0; i < m_vecTexture.size(); ++i)
+    {
+        SAFE_RELEASE(m_vecTexture.at(i));
+    }
+    SAFE_RELEASE(m_D3DMesh);
+    SAFE_RELEASE(m_D3DEffect);
+}
+
+void Mesh::Init()
+{
     HRESULT result { 0 };
     D3DXCreateEffectFromFile(
         SharedObj::GetD3DDevice(),
@@ -43,7 +56,7 @@ Mesh::Mesh(
     LPD3DXBUFFER materialBuffer { nullptr };
 
     result = D3DXLoadMeshFromX(
-        xFilename.c_str(),
+        m_meshName.c_str(),
         D3DXMESH_SYSTEMMEM,
         SharedObj::GetD3DDevice(),
         &adjacencyBuffer,
@@ -168,17 +181,7 @@ Mesh::Mesh(
     }
     SAFE_RELEASE(materialBuffer);
 
-    m_scale = scale;
-}
-
-Mesh::~Mesh()
-{
-    for (std::size_t i = 0; i < m_vecTexture.size(); ++i)
-    {
-        SAFE_RELEASE(m_vecTexture.at(i));
-    }
-    SAFE_RELEASE(m_D3DMesh);
-    SAFE_RELEASE(m_D3DEffect);
+    m_bIsInit = true;
 }
 
 void Mesh::SetPos(const D3DXVECTOR3& pos)
@@ -193,6 +196,10 @@ D3DXVECTOR3 Mesh::GetPos()
 
 void Mesh::Render()
 {
+    if (m_bIsInit == false)
+    {
+        return;
+    }
     D3DXVECTOR4 normal = Light::GetLightNormal();
     m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
     m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());

@@ -8,49 +8,57 @@ Stage1::Stage1()
 
 Stage1::~Stage1()
 {
-    SAFE_DELETE(m_mesh1);
-    SAFE_DELETE(m_mesh2);
-    SAFE_DELETE(m_mesh3);
-    SAFE_DELETE(m_mesh4);
-    SAFE_DELETE(m_meshColli);
-    SAFE_DELETE(m_meshTree);
-    SAFE_DELETE(m_meshCottage);
-    SAFE_DELETE(m_meshSky);
-    SAFE_DELETE(m_meshSky2);
+    for (auto pair : m_meshMap)
+    {
+        SAFE_DELETE(pair.second);
+    }
     SAFE_DELETE(m_spriteStageName);
 }
 
 void Stage1::Init()
 {
+    // 拡大縮小すると衝突判定が効かなくなる！！！
     {
-        // 拡大縮小すると衝突判定が効かなくなる！！！
-        m_mesh1 = new Mesh(
+        Mesh* mesh = new Mesh(
             "res\\model\\stage1\\stage1.x",
             D3DXVECTOR3(0.f, 0.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
+        mesh->Init();
+        m_meshMap["stage1"] = mesh;
     }
     {
-        m_mesh2 = new Mesh(
+        Mesh* mesh = new Mesh(
             "res\\model\\cube6\\cube6.x",
             D3DXVECTOR3(-10.f, 0.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
-        m_mesh3 = new Mesh(
+        mesh->Init();
+        m_meshMap["cube61"] = mesh;
+
+        mesh = new Mesh(
             "res\\model\\cube6\\cube6.x",
             D3DXVECTOR3(-13.f, 1.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
-        m_mesh4 = new Mesh(
+        mesh->Init();
+        m_meshMap["cube62"] = mesh;
+
+        mesh = new Mesh(
             "res\\model\\cube6\\cube6.x",
             D3DXVECTOR3(-16.f, 2.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
-        m_meshColli = new Mesh(
+        mesh->Init();
+        m_meshMap["cube63"] = mesh;
+
+        mesh = new Mesh(
             "res\\model\\collisionTest\\colli.x",
             D3DXVECTOR3(0.f, 0.f, -20.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
+        mesh->Init();
+        m_meshMap["colli"] = mesh;
     }
     {
         Enemy enemy;
@@ -77,23 +85,33 @@ void Stage1::Init()
     m_nStagenameCount = 0;
 
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0, 0.f, 0);
-        D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
+        Mesh* mesh { nullptr };
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         b.x = 15.f;
         b.y = -80.f;
-        m_meshSky = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
+        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
+        mesh->Init();
+        m_meshMap["sky"] = mesh;
+
         c.y = D3DX_PI;
-        m_meshSky2 = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
+        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
+        mesh->Init();
+        m_meshMap["sky2"] = mesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(22.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        m_meshTree = new Mesh("res\\model\\tree1\\tree1.x", b, c, 0.5f);
+        Mesh* mesh = new Mesh("res\\model\\tree1\\tree1.x", b, c, 1.f);
+        mesh->Init();
+        m_meshMap["tree"] = mesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        m_meshCottage = new Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
+        Mesh* mesh = new Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
+        mesh->Init();
+        m_meshMap["cottage"] = mesh;
     }
 }
 
@@ -125,17 +143,18 @@ void Stage1::Render()
         norm2.x = 0.f;
         norm2.y = -1.f;
         Light::SetLightNormal(norm2);
-        m_meshSky->Render();
-        m_meshSky2->Render();
+        m_meshMap["sky"]->Render();
+        m_meshMap["sky2"]->Render();
         Light::SetLightNormal(norm);
     }
-    m_mesh1->Render();
-    m_mesh2->Render();
-    m_mesh3->Render();
-    m_mesh4->Render();
-    m_meshColli->Render();
-    m_meshCottage->Render();
-    m_meshTree->Render();
+    for (auto pair : m_meshMap)
+    {
+        if (pair.first == "sky" || pair.first == "sky2")
+        {
+            continue;
+        }
+        pair.second->Render();
+    }
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
         m_vecEnemy.at(i).Render();
@@ -156,271 +175,101 @@ void Stage1::SetEnemy(const std::vector<Enemy>& vecEnemy)
     m_vecEnemy = vecEnemy;
 }
 
+bool Stage1::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh)
+{
+    BOOL  bIsHit = false;
+    D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+    LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
+    float fLandDistance;
+    DWORD dwHitIndex = -1;
+    float fHitU;
+    float fHitV;
+    D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+        &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+    if (bIsHit && fLandDistance <= 1.f)
+    {
+        bIsHit = true;
+    }
+    else
+    {
+        bIsHit = false;
+    }
+    return bIsHit;
+}
+
 bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
     // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
-
+    for (auto pair : m_meshMap)
     {
-        D3DXVECTOR3 targetPos = pos - m_mesh2->GetPos();
-        LPD3DXMESH mesh = m_mesh2->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
+        bIsHit = IntersectSub(pos, rot, pair.second);
+        if (bIsHit)
         {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
+            break;
         }
     }
-    {
-        D3DXVECTOR3 targetPos = pos - m_mesh3->GetPos();
-        LPD3DXMESH mesh = m_mesh3->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_mesh4->GetPos();
-        LPD3DXMESH mesh = m_mesh4->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshColli->GetPos();
-        LPD3DXMESH mesh = m_meshColli->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
-        {
-            //return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
-        LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
-        LPD3DXMESH mesh = m_meshCottage->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.0f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-
     return bIsHit;
 }
 
 bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
-    const D3DXVECTOR3 rot {move};
+    // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
+    for (auto pair : m_meshMap)
     {
-        D3DXVECTOR3 targetPos = pos - m_mesh2->GetPos();
-        LPD3DXMESH mesh = m_mesh2->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
+        bIsHit = IntersectSub(pos, move, pair.second);
+        if (bIsHit)
         {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
+            break;
         }
     }
-    {
-        D3DXVECTOR3 targetPos = pos - m_mesh3->GetPos();
-        LPD3DXMESH mesh = m_mesh3->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_mesh4->GetPos();
-        LPD3DXMESH mesh = m_mesh4->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshColli->GetPos();
-        LPD3DXMESH mesh = m_meshColli->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshTree->GetPos();
-        LPD3DXMESH mesh = m_meshTree->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 1.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_meshCottage->GetPos();
-        LPD3DXMESH mesh = m_meshCottage->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-    {
-        D3DXVECTOR3 targetPos = pos - m_mesh1->GetPos();
-//        targetPos.y += 0.1f;
-        LPD3DXMESH mesh = m_mesh1->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        float fHitU;
-        float fHitV;
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
-        {
-            return true;
-        }
-        else
-        {
-            bIsHit = false;
-        }
-    }
-
     return bIsHit;
 }
 
-void Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+bool Stage1::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh)
 {
-    const D3DXVECTOR3 rot {move};
     BOOL  bIsHit = false;
+    D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+    LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
+    float fLandDistance;
+    DWORD dwHitIndex = -1;
+    float fHitU;
+    float fHitV;
+    D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+        &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+    if (bIsHit && fLandDistance <= 2.f)
     {
-        D3DXVECTOR3 targetPos = pos - m_meshColli->GetPos();
-        LPD3DXMESH mesh = m_meshColli->GetD3DMesh();
+        bIsHit = true;
+    }
+    else
+    {
+        bIsHit = false;
+    }
+    return bIsHit;
+}
+
+D3DXVECTOR3 Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+{
+    D3DXVECTOR3 result { 0.f, 0.f, 0.f };
+    WallSlideSub(pos, m_meshMap["colli"], move, result);
+    WallSlideSub(pos, m_meshMap["cottage"], result, result);
+    WallSlideSub(pos, m_meshMap["tree"], result, result);
+    return result;
+}
+
+void Stage1::WallSlideSub(const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, D3DXVECTOR3& result)
+{
+    {
+        D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+        LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
         float fLandDistance;
         DWORD dwHitIndex = -1;
+        BOOL  bIsHit = false;
         float fHitU;
         float fHitV;
         D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
-        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+        D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
             &fHitU, &fHitV, &fLandDistance, NULL, NULL);
         if (bIsHit && fLandDistance <= 2.f)
         {
@@ -430,14 +279,14 @@ void Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
             // 当たったインデックスバッファ取得
             WORD dwHitVertexNo[3];
             WORD* pIndex;
-            HRESULT hr = mesh->LockIndexBuffer(0, (void**)&pIndex);
+            HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
 
             for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
             {
                 dwHitVertexNo[nIdxIdx] = pIndex[dwHitIndex * 3 + nIdxIdx];
             }
 
-            mesh->UnlockIndexBuffer();
+            d3dmesh->UnlockIndexBuffer();
 
             // 当たったポリゴン取得
             struct VERTEX
@@ -447,13 +296,12 @@ void Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
                 FLOAT u, v;   // 頂点の色
             };
             VERTEX* pVertex;
-            hr = mesh->LockVertexBuffer(0, (void**)&pVertex);
+            hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
 
             // 地面の高さに合わせる
-            D3DXVECTOR3 move = SharedObj::GetPlayer()->GetMove();
-            D3DXVECTOR3 p1 {pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z};
-            D3DXVECTOR3 p2 {pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z};
-            D3DXVECTOR3 p3 {pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z};
+            D3DXVECTOR3 p1 { pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z };
+            D3DXVECTOR3 p2 { pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z };
+            D3DXVECTOR3 p3 { pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z };
 
             D3DXVECTOR3 v1 = p2 - p1;
             D3DXVECTOR3 v2 = p3 - p1;
@@ -467,16 +315,13 @@ void Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
             D3DXVECTOR3 front;
             front = move;
 
-            D3DXVECTOR3 work;
-            work = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+            result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
 
-            mesh->UnlockVertexBuffer();
-            SharedObj::GetPlayer()->SetMove(work);
-            return ;
+            d3dmesh->UnlockVertexBuffer();
         }
         else
         {
-            bIsHit = false;
+            result = move;
         }
     }
 }

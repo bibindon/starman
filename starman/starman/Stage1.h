@@ -1,4 +1,5 @@
 #pragma once
+#include <unordered_map>
 #include "Mesh.h"
 #include "Enemy.h"
 class Stage1
@@ -14,24 +15,19 @@ public:
 
     // 衝突判定
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
+    bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
 
     // 設置判定
     bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+    bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
 
     // 壁ずり処理
     // 現在、斜面を登るために、地面に対しては壁ずり処理をするが
-    // 壁に対して壁ずるをする予定はない。
-    void WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+    // 壁に対して壁ずりをする予定はない。
+    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
 private:
-    Mesh* m_mesh1 { nullptr };
-    Mesh* m_mesh2 { nullptr };
-    Mesh* m_mesh3 { nullptr };
-    Mesh* m_mesh4 { nullptr };
-    Mesh* m_meshColli { nullptr };
-    Mesh* m_meshTree { nullptr };
-    Mesh* m_meshCottage { nullptr };
-    Mesh* m_meshSky { nullptr };
-    Mesh* m_meshSky2 { nullptr };
+    void WallSlideSub(const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, D3DXVECTOR3& result);
+    std::unordered_map<std::string, Mesh*> m_meshMap;
     std::vector<Enemy> m_vecEnemy { };
     int m_nStagenameCount { 0 };
     Sprite* m_spriteStageName { nullptr };
