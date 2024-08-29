@@ -91,10 +91,9 @@ void Player::Update(Stage1* stage1)
         bool isHit = stage1->Intersect(m_pos, D3DXVECTOR3 { 0.f, m_jumpVelocity, 0.f });
         if (isHit == false)
         {
-            m_pos.y += m_jumpVelocity;
-            if (m_pos.y <= 0.f)
+            if (0.f <= m_pos.y + m_jumpVelocity)
             {
-                m_pos.y = 0.f;
+                m_move.y += m_jumpVelocity;
             }
         }
         else
@@ -122,6 +121,11 @@ void Player::Update(Stage1* stage1)
             m_pos.y += -0.1f;
         }
     }
+    m_pos += m_move;
+
+    m_move.x = 0.f;
+    m_move.y = 0.f;
+    m_move.z = 0.f;
 }
 
 void Player::Render()
@@ -150,6 +154,16 @@ void Player::SetPos(const D3DXVECTOR3& pos)
 D3DXVECTOR3 Player::GetPos()
 {
     return m_pos;
+}
+
+void Player::SetMove(const D3DXVECTOR3& move)
+{
+    m_move = move;
+}
+
+D3DXVECTOR3 Player::GetMove()
+{
+    return m_move;
 }
 
 void Player::SetRotate(const D3DXVECTOR3& rotate)

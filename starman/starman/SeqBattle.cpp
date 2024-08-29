@@ -145,18 +145,18 @@ void SeqBattle::Update(eSequence* sequence)
     {
         m_stage10->Update();
     }
-    D3DXVECTOR3 pos = m_player->GetPos();
-    D3DXVECTOR3 rotate {0.f, 0.f, 0.f};
+    D3DXVECTOR3 move { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 rotate { 0.f, 0.f, 0.f };
     float radian = Camera::GetRadian();
     float yaw = -1.f * (radian - (D3DX_PI / 2));
     bool isHit { false };
     if (KeyBoard::IsHold(DIK_W))
     {
-        pos.x += -std::sin(radian + D3DX_PI / 2) / 5;
-        pos.z += std::sin(radian + D3DX_PI) / 5;
+        move.x += -std::sin(radian + D3DX_PI / 2) / 5;
+        move.z += std::sin(radian + D3DX_PI) / 5;
 
         isHit = m_stage1->Intersect(
-            pos,
+            move,
             D3DXVECTOR3 {
                 -std::sin(radian + D3DX_PI / 2) / 5,
                 0.f,
@@ -166,9 +166,9 @@ void SeqBattle::Update(eSequence* sequence)
         {
             isHit = m_stage1->Intersect(
                 D3DXVECTOR3 {
-                    pos.x,
-                    pos.y+1.f,
-                    pos.z
+                    move.x,
+                    move.y+1.f,
+                    move.z
                 },
                 D3DXVECTOR3 {
                     -std::sin(radian + D3DX_PI / 2) / 5,
@@ -179,9 +179,9 @@ void SeqBattle::Update(eSequence* sequence)
             {
                 isHit = m_stage1->Intersect(
                     D3DXVECTOR3 {
-                        pos.x,
-                        pos.y+2.f,
-                        pos.z
+                        move.x,
+                        move.y+2.f,
+                        move.z
                     },
                     D3DXVECTOR3 {
                         -std::sin(radian + D3DX_PI / 2) / 5,
@@ -198,8 +198,8 @@ void SeqBattle::Update(eSequence* sequence)
     }
     if (KeyBoard::IsHold(DIK_A))
     {
-        pos.x += -std::sin(radian + D3DX_PI) / 5;
-        pos.z += std::sin(radian + D3DX_PI * 3 / 2) / 5;
+        move.x += -std::sin(radian + D3DX_PI) / 5;
+        move.z += std::sin(radian + D3DX_PI * 3 / 2) / 5;
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
         m_player->SetRotate(rotate);
@@ -207,8 +207,8 @@ void SeqBattle::Update(eSequence* sequence)
     }
     if (KeyBoard::IsHold(DIK_S))
     {
-        pos.x += -std::sin(radian + D3DX_PI * 3 / 2) / 5;
-        pos.z += std::sin(radian) / 5;
+        move.x += -std::sin(radian + D3DX_PI * 3 / 2) / 5;
+        move.z += std::sin(radian) / 5;
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI, 0.f };
         m_player->SetRotate(rotate);
@@ -216,8 +216,8 @@ void SeqBattle::Update(eSequence* sequence)
     }
     if (KeyBoard::IsHold(DIK_D))
     {
-        pos.x += -std::sin(radian) / 5;
-        pos.z += std::sin(radian + D3DX_PI / 2) / 5;
+        move.x += -std::sin(radian) / 5;
+        move.z += std::sin(radian + D3DX_PI / 2) / 5;
 
         D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI / 2, 0.f };
         m_player->SetRotate(rotate);
@@ -242,8 +242,8 @@ void SeqBattle::Update(eSequence* sequence)
         float joyRadian = JoyStick::GetLeftRadian();
         float cameRadian = Camera::GetRadian();
         float radian = joyRadian + (cameRadian - D3DX_PI * 3 / 2);
-        pos.x += std::cos(radian) / 5;
-        pos.z += std::sin(radian) / 5;
+        move.x += std::cos(radian) / 5;
+        move.z += std::sin(radian) / 5;
 
         yaw = -1.f * (radian + D3DX_PI / 2);
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
@@ -265,8 +265,8 @@ void SeqBattle::Update(eSequence* sequence)
 
     if (isHit == false)
     {
-        m_player->SetPos(pos);
-        Camera::SetPos(pos);
+        m_player->SetMove(m_player->GetMove() + move);
+        Camera::SetPos(m_player->GetPos());
     }
     m_player->Update(m_stage1);
     if (m_player->GetHP() <= 0)

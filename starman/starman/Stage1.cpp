@@ -338,7 +338,7 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         float fHitU;
         float fHitV;
         D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
-        D3DXIntersect(mesh, &targetPos, &rot2, &bIsHit, &dwHitIndex,
+        D3DXIntersect(mesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
             &fHitU, &fHitV, &fLandDistance, NULL, NULL);
         if (bIsHit && fLandDistance <= 2.f)
         {
@@ -368,7 +368,7 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
             hr = mesh->LockVertexBuffer(0, (void**)&pVertex);
 
             // ’n–Ê‚Ì‚‚³‚É‡‚í‚¹‚é
-            D3DXVECTOR3 pos = SharedObj::GetPlayer()->GetPos();
+            D3DXVECTOR3 move = SharedObj::GetPlayer()->GetMove();
             D3DXVECTOR3 p1 {pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z};
             D3DXVECTOR3 p2 {pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z};
             D3DXVECTOR3 p3 {pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z};
@@ -382,22 +382,14 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
             D3DXVECTOR3 normal_n;
             D3DXVec3Normalize(&normal_n, &normal);
 
-            D3DXVECTOR3 out;
             D3DXVECTOR3 front;
-            front = SharedObj::GetPlayer()->GetRotate();
-            front.x = std::sin(-front.y);
-            front.z = -std::cos(-front.y);
-            front.y = 0;
+            front = move;
 
             D3DXVECTOR3 work;
             work = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
-            D3DXVec3Normalize(&out, &work);
 
             mesh->UnlockVertexBuffer();
-            out *= 0.1f;
-            pos += out;
-            pos.y += 0.05f;
-            SharedObj::GetPlayer()->SetPos(pos);
+            SharedObj::GetPlayer()->SetMove(work);
             return true;
         }
         else

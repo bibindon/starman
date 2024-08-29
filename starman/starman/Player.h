@@ -14,6 +14,8 @@ public:
     void Update(Stage1* stage1);
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos();
+    void SetMove(const D3DXVECTOR3& move);
+    D3DXVECTOR3 GetMove();
     void SetRotate(const D3DXVECTOR3& rotate);
     D3DXVECTOR3 GetRotate();
     bool SetAttack();
@@ -31,6 +33,10 @@ private:
 
     D3DXVECTOR3 m_pos { 0.f, 0.f, 0.f };
     D3DXVECTOR3 m_rotate { 0.f, D3DX_PI, 0.f };
+    D3DXVECTOR3 m_dir { 0.f, 0.f, 1.f };
+
+    // ˆÚ“®ƒxƒNƒgƒ‹
+    D3DXVECTOR3 m_move { 0.f, 0.f, 0.f };
 
     bool m_bAttack { false };
     int m_attackTimeCounter { 0 };
