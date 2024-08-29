@@ -66,6 +66,10 @@ Player::~Player()
 
 void Player::Update(Stage1* stage1)
 {
+    if (stage1 == nullptr)
+    {
+        return;
+    }
     if (m_bAttack)
     {
         m_attackTimeCounter++;
