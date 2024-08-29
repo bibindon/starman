@@ -155,42 +155,6 @@ void SeqBattle::Update(eSequence* sequence)
         move.x += -std::sin(radian + D3DX_PI / 2) / 5;
         move.z += std::sin(radian + D3DX_PI) / 5;
 
-        isHit = m_stage1->Intersect(
-            move,
-            D3DXVECTOR3 {
-                -std::sin(radian + D3DX_PI / 2) / 5,
-                0.f,
-                std::sin(radian + D3DX_PI) / 5
-            });
-        if (isHit == false)
-        {
-            isHit = m_stage1->Intersect(
-                D3DXVECTOR3 {
-                    move.x,
-                    move.y+1.f,
-                    move.z
-                },
-                D3DXVECTOR3 {
-                    -std::sin(radian + D3DX_PI / 2) / 5,
-                    0.f,
-                    std::sin(radian + D3DX_PI) / 5
-                });
-            if (isHit == false)
-            {
-                isHit = m_stage1->Intersect(
-                    D3DXVECTOR3 {
-                        move.x,
-                        move.y+2.f,
-                        move.z
-                    },
-                    D3DXVECTOR3 {
-                        -std::sin(radian + D3DX_PI / 2) / 5,
-                        0.f,
-                        std::sin(radian + D3DX_PI) / 5
-                    });
-            }
-        }
-
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
         m_player->SetWalk();

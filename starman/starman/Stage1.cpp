@@ -249,80 +249,88 @@ bool Stage1::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, 
     return bIsHit;
 }
 
-D3DXVECTOR3 Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+D3DXVECTOR3 Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit)
 {
-    D3DXVECTOR3 result { 0.f, 0.f, 0.f };
-    WallSlideSub(pos, m_meshMap["colli"], move, result);
-    WallSlideSub(pos, m_meshMap["cottage"], result, result);
-    WallSlideSub(pos, m_meshMap["tree"], result, result);
+    D3DXVECTOR3 result { move };
+    for (auto pair : m_meshMap)
+    {
+        bool bIsHit = false;
+        result = WallSlideSub(pos, pair.second, result, &bIsHit);
+        if (bIsHit)
+        {
+            *bHit = true;
+        }
+    }
     return result;
 }
 
-void Stage1::WallSlideSub(const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, D3DXVECTOR3& result)
+D3DXVECTOR3 Stage1::WallSlideSub(
+    const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit)
 {
+    D3DXVECTOR3 result {move};
+    D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+    LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
+    float fLandDistance;
+    DWORD dwHitIndex = -1;
+    BOOL  bIsHit = false;
+    float fHitU;
+    float fHitV;
+    D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
+    D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
+        &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+    if (bIsHit && fLandDistance <= 2.f)
     {
-        D3DXVECTOR3 targetPos = pos - mesh->GetPos();
-        LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
-        float fLandDistance;
-        DWORD dwHitIndex = -1;
-        BOOL  bIsHit = false;
-        float fHitU;
-        float fHitV;
-        D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
-        D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
-            &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-        if (bIsHit && fLandDistance <= 2.f)
+        OutputDebugString("IsHit\n");
+        *bHit = true;
+
+        // ----- キャラY座標補正 -----
+        // 当たったインデックスバッファ取得
+        WORD dwHitVertexNo[3];
+        WORD* pIndex;
+        HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
+
+        for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
         {
-            OutputDebugString("IsHit\n");
-
-            // ----- キャラY座標補正 -----
-            // 当たったインデックスバッファ取得
-            WORD dwHitVertexNo[3];
-            WORD* pIndex;
-            HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
-
-            for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
-            {
-                dwHitVertexNo[nIdxIdx] = pIndex[dwHitIndex * 3 + nIdxIdx];
-            }
-
-            d3dmesh->UnlockIndexBuffer();
-
-            // 当たったポリゴン取得
-            struct VERTEX
-            {
-                FLOAT x, y, z; // 頂点の座標
-                FLOAT normX, normY, normZ; // 法線の座標
-                FLOAT u, v;   // 頂点の色
-            };
-            VERTEX* pVertex;
-            hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
-
-            // 地面の高さに合わせる
-            D3DXVECTOR3 p1 { pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z };
-            D3DXVECTOR3 p2 { pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z };
-            D3DXVECTOR3 p3 { pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z };
-
-            D3DXVECTOR3 v1 = p2 - p1;
-            D3DXVECTOR3 v2 = p3 - p1;
-
-            D3DXVECTOR3 normal;
-
-            D3DXVec3Cross(&normal, &v1, &v2);
-            D3DXVECTOR3 normal_n;
-            D3DXVec3Normalize(&normal_n, &normal);
-
-            D3DXVECTOR3 front;
-            front = move;
-
-            result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
-
-            d3dmesh->UnlockVertexBuffer();
+            dwHitVertexNo[nIdxIdx] = pIndex[dwHitIndex * 3 + nIdxIdx];
         }
-        else
+
+        d3dmesh->UnlockIndexBuffer();
+
+        // 当たったポリゴン取得
+        struct VERTEX
         {
-            result = move;
-        }
+            FLOAT x, y, z; // 頂点の座標
+            FLOAT normX, normY, normZ; // 法線の座標
+            FLOAT u, v;   // 頂点の色
+        };
+        VERTEX* pVertex;
+        hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
+
+        // 地面の高さに合わせる
+        D3DXVECTOR3 p1 { pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z };
+        D3DXVECTOR3 p2 { pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z };
+        D3DXVECTOR3 p3 { pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z };
+
+        D3DXVECTOR3 v1 = p2 - p1;
+        D3DXVECTOR3 v2 = p3 - p1;
+
+        D3DXVECTOR3 normal;
+
+        D3DXVec3Cross(&normal, &v1, &v2);
+        D3DXVECTOR3 normal_n;
+        D3DXVec3Normalize(&normal_n, &normal);
+
+        D3DXVECTOR3 front;
+        front = move;
+
+        result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+
+        d3dmesh->UnlockVertexBuffer();
     }
+    else
+    {
+        result = move;
+    }
+    return result;
 }
 

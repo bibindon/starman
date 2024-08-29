@@ -84,20 +84,17 @@ void Player::Update(Stage1* stage1)
         m_damagedTimeCounter = 0;
         m_bDamaged = false;
     }
+
+    // 重力
+    m_move.y += -0.01f;
+
     if (m_bJump)
     {
         m_jumpTimeCounter++;
-        m_jumpVelocity += -0.01f;
-        bool isHit = stage1->Intersect(m_pos, D3DXVECTOR3 { 0.f, m_jumpVelocity, 0.f });
-        if (isHit == false)
+        bool isHit = stage1->Intersect(m_pos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
+        if (isHit)
         {
-            if (0.f <= m_pos.y + m_jumpVelocity)
-            {
-                m_move.y += m_jumpVelocity;
-            }
-        }
-        else
-        {
+            m_move.y = 0.f;
             m_jumpTimeCounter = 0;
             m_bJump = false;
         }
@@ -109,30 +106,38 @@ void Player::Update(Stage1* stage1)
     }
 
     // 壁ずり
-    m_move = stage1->WallSlide(m_pos, m_move);
+    // 高さを変えて3回チェック
+    bool bHit { false };
+    m_move = stage1->WallSlide(m_pos, m_move, &bHit);
+    if (bHit == false)
+    {
+        D3DXVECTOR3 tempPos { m_pos };
+        tempPos.y += 1.f;
+        m_move = stage1->WallSlide(tempPos, m_move, &bHit);
+        if (bHit == false)
+        {
+            D3DXVECTOR3 tempPos { m_pos };
+            tempPos.y += 2.f;
+            m_move = stage1->WallSlide(tempPos, m_move, &bHit);
+        }
+    }
 
     // 接地判定
     {
         D3DXVECTOR3 temp { m_move };
         temp.y += -0.1f;
         bool isHit = stage1->CollisionGround(m_pos, temp);
-        if (isHit)
+        if (isHit == false)
         {
-//            if (m_move.y <= 0.f)
-//            {
-//                m_move.y = 0.0f;
-//            }
-        }
-        else
-        {
-            m_move.y += -0.1f;
+           // m_move.y += -0.01f;
         }
     }
+    OutputDebugString((std::to_string(m_move.y) + "\n").c_str());
 
     m_pos += m_move;
 
     m_move.x = 0.f;
-    m_move.y = 0.f;
+    // m_move.y = 0.f;
     m_move.z = 0.f;
 }
 
@@ -244,7 +249,7 @@ void Player::SetJump()
 //    if (m_bJump == false)
     {
         m_bJump = true;
-        m_jumpVelocity = JUMP_INITIAL_VELOCITY;
+        m_move.y = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
     }
 }

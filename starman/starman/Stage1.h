@@ -22,11 +22,10 @@ public:
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
 
     // 壁ずり処理
-    // 現在、斜面を登るために、地面に対しては壁ずり処理をするが
-    // 壁に対して壁ずりをする予定はない。
-    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit);
 private:
-    void WallSlideSub(const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, D3DXVECTOR3& result);
+    D3DXVECTOR3 WallSlideSub(
+        const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
     std::unordered_map<std::string, Mesh*> m_meshMap;
     std::vector<Enemy> m_vecEnemy { };
     int m_nStagenameCount { 0 };

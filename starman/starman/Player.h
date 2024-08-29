@@ -31,7 +31,7 @@ public:
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
 
-    D3DXVECTOR3 m_pos { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 m_pos { 0.f, 0.1f, 0.f }; // ‚¿‚å‚Á‚Æ•‚‚©‚¹‚é
     D3DXVECTOR3 m_rotate { 0.f, D3DX_PI, 0.f };
     D3DXVECTOR3 m_dir { 0.f, 0.f, 1.f };
 
@@ -52,6 +52,6 @@ private:
     bool m_bJump { false };
     int m_jumpTimeCounter { 0 };
     float m_jumpVelocity { 0.f };
-    const float JUMP_INITIAL_VELOCITY { 0.40f };
+    const float JUMP_INITIAL_VELOCITY { 0.25f };
 };
 
