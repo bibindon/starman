@@ -100,19 +100,19 @@ void Mesh::Init()
     LPD3DXMESH tempMesh { nullptr };
     result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh);
 
-    // ï¿½ï¿½ï¿½_ï¿½oï¿½bï¿½tï¿½@ï¿½Ìæ“¾
+    // ’¸“_ƒoƒbƒtƒ@‚Ìæ“¾
     {
 //        LPDIRECT3DVERTEXBUFFER9 pVertexBuffer;
 //        tempMesh->GetVertexBuffer(&pVertexBuffer);
 //
 //        struct CUSTOMVERTEX
 //        {
-//            FLOAT x, y, z; // ï¿½ï¿½ï¿½_ï¿½Ìï¿½ï¿½W
-//            FLOAT normX, normY, normZ; // ï¿½@ï¿½ï¿½ï¿½Ìï¿½ï¿½W
-//            FLOAT u, v;   // ï¿½ï¿½ï¿½_ï¿½ÌF
+//            FLOAT x, y, z; // ’¸“_‚ÌÀ•W
+//            FLOAT normX, normY, normZ; // –@ü‚ÌÀ•W
+//            FLOAT u, v;   // ’¸“_‚ÌF
 //        };
 //        CUSTOMVERTEX* pVertices = nullptr;
-//        CUSTOMVERTEX temp[24]; // ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚È‚ï¿½24ï¿½ï¿½
+//        CUSTOMVERTEX temp[24]; // —§•û‘Ì‚È‚ç24ŒÂ
 //        pVertexBuffer->Lock(0, 0, (void**)&pVertices, D3DLOCK_READONLY);
 //        memcpy(temp, pVertices, sizeof(temp));
 //        pVertexBuffer->Unlock();
@@ -126,7 +126,7 @@ void Mesh::Init()
     m_D3DMesh = tempMesh;
     DWORD* wordBuffer { static_cast<DWORD*>(adjacencyBuffer->GetBufferPointer()) };
 
-    // ã“ã“ã‚’ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹ã¨ãƒ•ãƒ©ãƒƒãƒˆã‚·ã‚§ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã«ãªã‚‹ã€‚
+     // ‚±‚±‚ğƒRƒƒ“ƒgƒAƒEƒg‚·‚é‚Æƒtƒ‰ƒbƒgƒVƒF[ƒfƒBƒ“ƒO‚É‚È‚éB
 //    result = D3DXComputeNormals(m_D3DMesh, wordBuffer);
 
     if (FAILED(result))
