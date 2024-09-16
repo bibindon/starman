@@ -12,6 +12,7 @@
 #include "Camera.h"
 #include "SharedObj.h"
 #include <random>
+#include "PopUp.h"
 using std::chrono::system_clock;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
@@ -131,6 +132,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     GamePad::Init(m_directInput, m_hWnd);
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
+    PopUp::Init();
 
     m_seqTitle = new SeqTitle();
 
