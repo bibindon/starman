@@ -203,6 +203,16 @@ void Mesh::Render()
     }
     D3DXVECTOR4 normal = Light::GetLightNormal();
     m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
+
+    SharedObj::GetPlayer();
+    D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
+    D3DXVECTOR4 ppos2;
+    ppos2.x = ppos.x;
+    ppos2.y = ppos.y+2;
+    ppos2.z = ppos.z;
+    ppos2.w = 0;
+    m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+
     m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
 
     D3DXMATRIX worldViewProjMatrix { };
@@ -222,6 +232,8 @@ void Mesh::Render()
         D3DXMatrixTranslation(&mat, m_pos.x, m_pos.y, m_pos.z);
         worldViewProjMatrix *= mat;
     }
+    m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
+    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 

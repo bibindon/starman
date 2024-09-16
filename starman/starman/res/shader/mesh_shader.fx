@@ -1,5 +1,6 @@
 float4x4 g_world;
 float4x4 g_world_view_projection;
+float4 g_point_light_pos = { 1, 1, 1, 0};
 float4 g_light_normal;
 float g_light_brightness;
 float4 g_diffuse;
@@ -25,6 +26,25 @@ void vertex_shader(
 
     out_texcood = in_texcood;
 }
+
+/*
+// point light
+{
+    out_position  = mul(in_position, g_world_view_projection);
+
+    float4 lightDir = g_point_light_pos - in_position;
+    float len = length(lightDir);
+    lightDir = normalize(lightDir);
+    float light_intensity = dot(in_normal, lightDir);
+    out_diffuse = g_diffuse * min(max(0, (25/len)), 25) + g_ambient;
+    out_diffuse.r *= 0.6f; // ˆÃ‚­‚µ‚Ä‚Ý‚é
+    out_diffuse.gb *= 0.3f; // ˆÃ‚­‚µ‚Ä‚Ý‚é
+    out_diffuse.a = 1.0f;
+
+    out_texcood = in_texcood;
+}
+
+*/
 
 sampler mesh_texture_sampler = sampler_state {
     Texture   = (g_mesh_texture);
