@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include <cmath>
 #include "Mouse.h"
-#include "JoyStick.h"
+#include "GamePad.h"
 #include <string>
 
 const D3DXVECTOR3 Camera::UPWARD { 0.0f, 1.0f, 0.0f };
@@ -55,19 +55,19 @@ void Camera::Update()
     LONG x = Mouse::GetX();
     LONG y = Mouse::GetY();
     float joyX { 0.0f };
-    if (JoyStick::IsHold(eJoyStickButtonType::Z_LEFT))
+    if (GamePad::IsHold(eJoyStickButtonType::Z_LEFT))
     {
         joyX = 0.05f;
     }
-    else if (JoyStick::IsHold(eJoyStickButtonType::Z_RIGHT))
+    else if (GamePad::IsHold(eJoyStickButtonType::Z_RIGHT))
     {
         joyX = -0.05f;
     }
-    if (JoyStick::IsHold(eJoyStickButtonType::Z_UP))
+    if (GamePad::IsHold(eJoyStickButtonType::Z_UP))
     {
         y = -10;
     }
-    else if (JoyStick::IsHold(eJoyStickButtonType::Z_DOWN))
+    else if (GamePad::IsHold(eJoyStickButtonType::Z_DOWN))
     {
         y = 10;
     }

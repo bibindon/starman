@@ -5,7 +5,7 @@
 
 #include "KeyBoard.h"
 #include "Mouse.h"
-#include "JoyStick.h"
+#include "GamePad.h"
 #include "BGM.h"
 #include "SoundEffect.h"
 #include "Common.h"
@@ -128,7 +128,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     KeyBoard::Init(m_directInput, m_hWnd);
     Mouse::Init(m_directInput, m_hWnd);
-    JoyStick::Init(m_directInput, m_hWnd);
+    GamePad::Init(m_directInput, m_hWnd);
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
 
@@ -226,7 +226,7 @@ int MainWindow::MainLoop()
 
         KeyBoard::Update();
         Mouse::Update();
-        JoyStick::Update();
+        GamePad::Update();
         Camera::Update();
 
         if (KeyBoard::IsDown(DIK_ESCAPE))
@@ -251,7 +251,7 @@ int MainWindow::MainLoop()
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
         //    m_sprite = new Sprite("res\\image\\board.png");
         }
-        if (JoyStick::IsDown(eJoyStickButtonType::A))
+        if (GamePad::IsDown(eJoyStickButtonType::A))
         {
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
          //   m_sprite = new Sprite("res\\image\\board.png");

@@ -1,7 +1,7 @@
 #include "SeqEnding.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
-#include "JoyStick.h"
+#include "GamePad.h"
 #include "Common.h"
 #include "SharedObj.h"
 #include "BGM.h"
@@ -77,7 +77,7 @@ void SeqEnding::Update(eSequence* sequence)
             m_fadeOutCount = 0;
         }
     }
-    if (JoyStick::IsDown(eJoyStickButtonType::A))
+    if (GamePad::IsDown(eJoyStickButtonType::A))
     {
         if (m_nIndex == 0)
         {

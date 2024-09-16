@@ -8,7 +8,7 @@
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "Camera.h"
-#include "JoyStick.h"
+#include "GamePad.h"
 #include "Light.h"
 #include "BGM.h"
 #include "SharedObj.h"
@@ -201,9 +201,9 @@ void SeqBattle::Update(eSequence* sequence)
         InputR1();
     }
 
-    if (JoyStick::IsLeftStickUsed())
+    if (GamePad::IsLeftStickUsed())
     {
-        float joyRadian = JoyStick::GetLeftRadian();
+        float joyRadian = GamePad::GetLeftRadian();
         float cameRadian = Camera::GetRadian();
         float radian = joyRadian + (cameRadian - D3DX_PI * 3 / 2);
         move.x += std::cos(radian) / 5;
@@ -214,15 +214,15 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
-    if (JoyStick::IsDown(eJoyStickButtonType::R1))
+    if (GamePad::IsDown(eJoyStickButtonType::R1))
     {
         InputR1();
     }
-    if (JoyStick::IsDown(eJoyStickButtonType::B))
+    if (GamePad::IsDown(eJoyStickButtonType::B))
     {
         InputB(sequence);
     }
-    if (JoyStick::IsDown(eJoyStickButtonType::A))
+    if (GamePad::IsDown(eJoyStickButtonType::A))
     {
         InputA();
     }

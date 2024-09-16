@@ -1,7 +1,7 @@
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
 
-#include "JoyStick.h"
+#include "GamePad.h"
 #include "Common.h"
 #include <d3dx9.h>
 
@@ -11,13 +11,13 @@ using std::deque;
 BOOL CALLBACK DeviceFindCallback(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef);
 BOOL SetupGamePadProperty(LPDIRECTINPUTDEVICE8 device);
 
-LPDIRECTINPUT8 JoyStick::m_DI;
-LPDIRECTINPUTDEVICE8 JoyStick::m_DIDevice;
-deque<JoyStick::JoyStickInfo> JoyStick::m_deqButton;
-float JoyStick::m_leftRadian { 0.f };
-bool JoyStick::m_bLeftStickUsed { false };
+LPDIRECTINPUT8 GamePad::m_DI;
+LPDIRECTINPUTDEVICE8 GamePad::m_DIDevice;
+deque<GamePad::JoyStickInfo> GamePad::m_deqButton;
+float GamePad::m_leftRadian { 0.f };
+bool GamePad::m_bLeftStickUsed { false };
 
-bool JoyStick::Init(LPDIRECTINPUT8 DI, HWND hwnd)
+bool GamePad::Init(LPDIRECTINPUT8 DI, HWND hwnd)
 {
     m_DI = DI;
     // Init button_queue_
@@ -51,7 +51,7 @@ bool JoyStick::Init(LPDIRECTINPUT8 DI, HWND hwnd)
     return true;
 }
 
-void JoyStick::Finalize()
+void GamePad::Finalize()
 {
     if (m_DIDevice != nullptr)
     {
@@ -68,7 +68,7 @@ struct DeviceEnumParam
     HWND m_hWnd;
 };
 
-BOOL JoyStick::StartGamePadControl()
+BOOL GamePad::StartGamePadControl()
 {
     if (m_DIDevice == nullptr)
     {
@@ -106,7 +106,7 @@ BOOL CALLBACK DeviceFindCallback(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef)
     }
 
     // Create device.
-    HRESULT hresult { JoyStick::m_DI->CreateDevice(
+    HRESULT hresult { GamePad::m_DI->CreateDevice(
         lpddi->guidInstance,
         parameter->m_argDIDevice,
         nullptr) };
@@ -145,7 +145,7 @@ BOOL CALLBACK DeviceFindCallback(LPCDIDEVICEINSTANCE lpddi, LPVOID pvRef)
 
 
 
-void JoyStick::Update()
+void GamePad::Update()
 {
     if (m_DIDevice == nullptr)
     {
@@ -241,7 +241,7 @@ void JoyStick::Update()
         is_push_map.at(eJoyStickButtonType::Z_DOWN) = true;
     }
 
-    m_leftRadian = std::atan2((double)padData.lX, (double)padData.lY);
+    m_leftRadian = std::atan2f((float)padData.lX, (float)padData.lY);
     m_leftRadian += D3DX_PI * 3 / 2;
     if (m_leftRadian < 0.f)
     {
@@ -343,7 +343,7 @@ void JoyStick::Update()
     }
 }
 
-bool JoyStick::IsHold(eJoyStickButtonType button)
+bool GamePad::IsHold(eJoyStickButtonType button)
 {
     if (m_deqButton.at(0).m_buttonStatusMap.at(button) == eJoyStickButtonState::HOLD)
     {
@@ -352,7 +352,7 @@ bool JoyStick::IsHold(eJoyStickButtonType button)
     return false;
 }
 
-bool JoyStick::IsUp(eJoyStickButtonType button)
+bool GamePad::IsUp(eJoyStickButtonType button)
 {
     if (m_deqButton.at(0).m_buttonStatusMap.at(button) == eJoyStickButtonState::UP)
     {
@@ -361,7 +361,7 @@ bool JoyStick::IsUp(eJoyStickButtonType button)
     return false;
 }
 
-bool JoyStick::IsDown(eJoyStickButtonType button)
+bool GamePad::IsDown(eJoyStickButtonType button)
 {
     if (m_deqButton.at(0).m_buttonStatusMap.at(button) == eJoyStickButtonState::DOWN)
     {
@@ -370,17 +370,17 @@ bool JoyStick::IsDown(eJoyStickButtonType button)
     return false;
 }
 
-float JoyStick::GetLeftRadian()
+float GamePad::GetLeftRadian()
 {
     return m_leftRadian;
 }
 
-bool JoyStick::IsLeftStickUsed()
+bool GamePad::IsLeftStickUsed()
 {
     return m_bLeftStickUsed;
 }
 
-bool JoyStick::CheckSimultaneous(eJoyStickButtonType button)
+bool GamePad::CheckSimultaneous(eJoyStickButtonType button)
 {
     for (std::size_t i = 0; i < Common::SIMULTANEOUS_ALLOW_FRAME; ++i)
     {
@@ -396,7 +396,7 @@ bool JoyStick::CheckSimultaneous(eJoyStickButtonType button)
     return false;
 }
 
-bool JoyStick::CreateDevice(HWND hwnd)
+bool GamePad::CreateDevice(HWND hwnd)
 {
     DeviceEnumParam parameter = { 0 };
 

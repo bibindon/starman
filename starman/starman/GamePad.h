@@ -37,7 +37,7 @@ enum class eJoyStickButtonState
     UP,
     MAX,
 };
-class JoyStick
+class GamePad
 {
 public:
 

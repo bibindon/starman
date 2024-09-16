@@ -1,7 +1,7 @@
 #include "SeqTitle.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
-#include "JoyStick.h"
+#include "GamePad.h"
 #include "Common.h"
 #include "SharedObj.h"
 #include "SoundEffect.h"
@@ -90,7 +90,7 @@ void SeqTitle::Update(eSequence* sequence)
             m_bFadeOut = true;
             SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
         }
-        if (JoyStick::IsDown(eJoyStickButtonType::UP))
+        if (GamePad::IsDown(eJoyStickButtonType::UP))
         {
             switch (m_eMenu)
             {
@@ -113,7 +113,7 @@ void SeqTitle::Update(eSequence* sequence)
             }
             }
         }
-        else if (JoyStick::IsDown(eJoyStickButtonType::DOWN))
+        else if (GamePad::IsDown(eJoyStickButtonType::DOWN))
         {
             switch (m_eMenu)
             {
@@ -136,7 +136,7 @@ void SeqTitle::Update(eSequence* sequence)
             }
             }
         }
-        else if (JoyStick::IsDown(eJoyStickButtonType::A))
+        else if (GamePad::IsDown(eJoyStickButtonType::A))
         {
             m_bFadeOut = true;
             SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
