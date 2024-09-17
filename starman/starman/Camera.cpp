@@ -81,11 +81,6 @@ void Camera::Update()
         m_eyePos.y = -9.f;
         m_y = -9.f;
     }
-    else if (29.f <= m_eyePos.y)
-    {
-        m_eyePos.y = 29.f;
-        m_y = 29.f;
-    }
     std::string radian = std::to_string(m_radian);
     radian = "radian: " + radian + "\n";
     //OutputDebugString(radian.c_str());

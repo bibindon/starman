@@ -126,8 +126,8 @@ void Mesh::Init()
     m_D3DMesh = tempMesh;
     DWORD* wordBuffer { static_cast<DWORD*>(adjacencyBuffer->GetBufferPointer()) };
 
-     // ここをコメントアウトするとフラットシェーディングになる。
-//    result = D3DXComputeNormals(m_D3DMesh, wordBuffer);
+    // ここをコメントアウトするとフラットシェーディングになる。
+    result = D3DXComputeNormals(m_D3DMesh, wordBuffer);
 
     if (FAILED(result))
     {
