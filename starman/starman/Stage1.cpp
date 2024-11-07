@@ -20,12 +20,22 @@ void Stage1::Init()
     // Šg‘åk¬‚·‚é‚ÆÕ“Ë”»’è‚ªŒø‚©‚È‚­‚È‚éIII
     {
         Mesh* mesh = new Mesh(
-            "res\\model\\stage1\\stage1.x",
+            //"res\\model\\stage1\\stage1.x",
+            "res\\model\\prolitan\\prolitan.x",
             D3DXVECTOR3(0.f, 0.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
         mesh->Init();
         m_meshMap["stage1"] = mesh;
+    }
+    {
+        Mesh* mesh = new Mesh(
+            "res\\model\\prolitan\\sea.x",
+            D3DXVECTOR3(10.f, 10.f, 10.f),
+            D3DXVECTOR3(0.f, 0.f, 0.f),
+            1.0f);
+        mesh->Init();
+        m_meshMap["sea"] = mesh;
     }
     {
         Mesh* mesh = new Mesh(
@@ -90,12 +100,12 @@ void Stage1::Init()
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         b.x = 15.f;
         b.y = -80.f;
-        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
+        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
         mesh->Init();
         m_meshMap["sky"] = mesh;
 
         c.y = D3DX_PI;
-        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 1000.0f);
+        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
         mesh->Init();
         m_meshMap["sky2"] = mesh;
     }
