@@ -235,10 +235,10 @@ SeqBattle::SeqBattle(const bool isContinue)
         ISoundEffect* pSE = new NSStoryTelling::SoundEffect();
 
         NSStoryTelling::Sprite* sprTextBack = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprTextBack->Load("textBack.png");
+        sprTextBack->Load("res\\image\\textBack.png");
 
         NSStoryTelling::Sprite* sprFade = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprFade->Load("black.png");
+        sprFade->Load("res\\image\\black.png");
 
         IFont* pFont = new NSStoryTelling::Font(SharedObj::GetD3DDevice());
         pFont->Init();
@@ -247,7 +247,7 @@ SeqBattle::SeqBattle(const bool isContinue)
         {
             Page page;
             NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("opening01.png");
+            sprite->Load("res\\image\\opening01.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
             std::vector<std::string> vs;
@@ -271,7 +271,7 @@ SeqBattle::SeqBattle(const bool isContinue)
         {
             Page page;
             NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("opening02.png");
+            sprite->Load("res\\image\\opening02.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
             std::vector<std::string> vs;
@@ -290,7 +290,7 @@ SeqBattle::SeqBattle(const bool isContinue)
         {
             Page page;
             NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("opening03.png");
+            sprite->Load("res\\image\\opening03.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
             std::vector<std::string> vs;
@@ -631,6 +631,18 @@ void SeqBattle::Update(eSequence* sequence)
             *sequence = eSequence::ENDING;
         }
     }
+
+    if (m_storyTelling != nullptr)
+    {
+        bFinish = m_storyTelling->Update();
+        if (bFinish)
+        {
+            m_storyTelling->Finalize();
+            delete m_storyTelling;
+            m_storyTelling = nullptr;
+        }
+    }
+
 }
 
 void SeqBattle::Render()
@@ -682,6 +694,11 @@ void SeqBattle::Render()
         m_stage10->Render();
     }
     PopUp::Get()->Render();
+
+    if (m_storyTelling != nullptr)
+    {
+        m_storyTelling->Render();
+    }
 }
 
 void SeqBattle::InputR1()
@@ -830,6 +847,11 @@ void SeqBattle::InputR1()
 void SeqBattle::InputA()
 {
     m_player->SetJump();
+
+    if (m_storyTelling != nullptr)
+    {
+        m_storyTelling->Next();
+    }
 }
 
 void SeqBattle::InputB(eSequence* sequence)

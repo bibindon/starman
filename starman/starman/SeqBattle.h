@@ -56,5 +56,7 @@ private:
     void SaveLastStage(const int);
 
     StoryTelling* m_storyTelling { nullptr };
+
+    bool bFinish { false };
 };
 
