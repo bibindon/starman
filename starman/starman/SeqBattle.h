@@ -18,6 +18,8 @@
 #include "Stage10.h"
 #include "Stage9.h"
 
+#include "..\..\StoryTelling\StoryTelling\StoryTelling.h"
+
 enum class eBattleState
 {
     NORMAL,
@@ -52,5 +54,7 @@ private:
     Stage10* m_stage10 { };
 
     void SaveLastStage(const int);
+
+    StoryTelling* m_storyTelling { nullptr };
 };
 

@@ -7,6 +7,7 @@
 #pragma comment(lib, "d3dx9.lib")
 #endif
 
+#pragma comment(lib, "..\\..\\StoryTelling\\Debug\\StoryTelling.lib")
 
 #include <windows.h>
 #include "MainWindow.h"
