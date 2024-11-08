@@ -16,137 +16,6 @@
 #include "SharedObj.h"
 #include "PopUp.h"
 
-namespace NSStoryTelling
-{
-class Sprite : public ISprite
-{
-public:
-
-    Sprite(LPDIRECT3DDEVICE9 dev)
-        : m_pD3DDevice(dev)
-    {
-    }
-
-    void DrawImage(const int x, const int y, const int transparency) override
-    {
-        D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
-        m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-        RECT rect = {
-            0,
-            0,
-            static_cast<LONG>(m_width),
-            static_cast<LONG>(m_height) };
-        D3DXVECTOR3 center { 0, 0, 0 };
-        m_D3DSprite->Draw(
-            m_pD3DTexture,
-            &rect,
-            &center,
-            &pos,
-            D3DCOLOR_ARGB(transparency, 255, 255, 255));
-        m_D3DSprite->End();
-
-    }
-
-    void Load(const std::string& filepath) override
-    {
-        LPD3DXSPRITE tempSprite { nullptr };
-        if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
-        {
-            throw std::exception("Failed to create a sprite.");
-        }
-
-        if (FAILED(D3DXCreateTextureFromFile(
-            m_pD3DDevice,
-            filepath.c_str(),
-            &m_pD3DTexture)))
-        {
-            throw std::exception("Failed to create a texture.");
-        }
-
-        D3DSURFACE_DESC desc { };
-        if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
-        {
-            throw std::exception("Failed to create a texture.");
-        }
-        m_width = desc.Width;
-        m_height = desc.Height;
-    }
-
-    ~Sprite()
-    {
-        m_D3DSprite->Release();
-        m_D3DSprite = nullptr;
-        m_pD3DTexture->Release();
-        m_pD3DTexture = nullptr;
-    }
-
-private:
-
-    LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
-    LPD3DXSPRITE m_D3DSprite = NULL;
-    LPDIRECT3DTEXTURE9 m_pD3DTexture = NULL;
-    UINT m_width { 0 };
-    UINT m_height { 0 };
-};
-
-class Font : public IFont
-{
-public:
-
-    Font(LPDIRECT3DDEVICE9 pD3DDevice)
-        : m_pD3DDevice(pD3DDevice)
-    {
-    }
-
-    void Init()
-    {
-        HRESULT hr = D3DXCreateFont(
-            m_pD3DDevice,
-            24,
-            0,
-            FW_NORMAL,
-            1,
-            false,
-            SHIFTJIS_CHARSET,
-            OUT_TT_ONLY_PRECIS,
-            ANTIALIASED_QUALITY,
-            FF_DONTCARE,
-            "‚l‚r –¾’©",
-            &m_pFont);
-    }
-
-    virtual void DrawText_(const std::string& msg, const int x, const int y)
-    {
-        RECT rect = { x, y, 0, 0 };
-        m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
-            D3DCOLOR_ARGB(255, 255, 255, 255));
-    }
-
-    ~Font()
-    {
-        m_pFont->Release();
-        m_pFont = nullptr;
-    }
-
-private:
-
-    LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
-    LPD3DXFONT m_pFont = NULL;
-};
-
-class SoundEffect : public ISoundEffect
-{
-    virtual void PlayMove() override
-    {
-        PlaySound("cursor_move.wav", NULL, SND_FILENAME | SND_ASYNC);
-    }
-    virtual void Init() override
-    {
-
-    }
-};
-}
-
 SeqBattle::SeqBattle(const bool isContinue)
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0.f, 0);
@@ -230,87 +99,6 @@ SeqBattle::SeqBattle(const bool isContinue)
     {
         m_stage1 = new Stage1();
         m_stage1->Init();
-    }
-    {
-        ISoundEffect* pSE = new NSStoryTelling::SoundEffect();
-
-        NSStoryTelling::Sprite* sprTextBack = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprTextBack->Load("res\\image\\textBack.png");
-
-        NSStoryTelling::Sprite* sprFade = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprFade->Load("res\\image\\black.png");
-
-        IFont* pFont = new NSStoryTelling::Font(SharedObj::GetD3DDevice());
-        pFont->Init();
-
-        std::vector<Page> pageList;
-        {
-            Page page;
-            NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\opening01.png");
-            page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vss;
-            std::vector<std::string> vs;
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚P");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚Q");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚R");
-            vss.push_back(vs);
-            vs.clear();
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚SƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚SƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚S");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚TƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚TƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚T");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚UƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚UƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚U");
-            vss.push_back(vs);
-            vs.clear();
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚VƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚VƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚VƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚VƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚V");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚WƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚WƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚WƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚WƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚W");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚XƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚XƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚XƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚XƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚X");
-            vss.push_back(vs);
-            page.SetTextList(vss);
-            pageList.push_back(page);
-        }
-        {
-            Page page;
-            NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\opening02.png");
-            page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vss;
-            std::vector<std::string> vs;
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚`");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚a");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚b");
-            vss.push_back(vs);
-            vs.clear();
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚cƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚cƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚c");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚dƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚d");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚e");
-            vss.push_back(vs);
-            page.SetTextList(vss);
-            pageList.push_back(page);
-        }
-        {
-            Page page;
-            NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\opening03.png");
-            page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vss;
-            std::vector<std::string> vs;
-            vs.push_back("‚P‚P‚P‚P‚P‚P‚P‚P‚P‚P‚P");
-            vs.push_back("‚Q‚Q‚Q‚Q‚Q‚Q‚Q‚Q‚Q‚Q‚Q‚Q‚Q");
-            vs.push_back("‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R‚R");
-            vss.push_back(vs);
-            vs.clear();
-            vs.push_back("‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S‚S");
-            vs.push_back("");
-            vss.push_back(vs);
-            vs.clear();
-            vs.push_back("‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T‚T");
-            vss.push_back(vs);
-            page.SetTextList(vss);
-            pageList.push_back(page);
-        }
-
-        m_storyTelling = new StoryTelling();
-        m_storyTelling->Init(pFont, pSE, sprTextBack, sprFade, pageList);
     }
 }
 
@@ -631,18 +419,6 @@ void SeqBattle::Update(eSequence* sequence)
             *sequence = eSequence::ENDING;
         }
     }
-
-    if (m_storyTelling != nullptr)
-    {
-        bFinish = m_storyTelling->Update();
-        if (bFinish)
-        {
-            m_storyTelling->Finalize();
-            delete m_storyTelling;
-            m_storyTelling = nullptr;
-        }
-    }
-
 }
 
 void SeqBattle::Render()
@@ -694,11 +470,6 @@ void SeqBattle::Render()
         m_stage10->Render();
     }
     PopUp::Get()->Render();
-
-    if (m_storyTelling != nullptr)
-    {
-        m_storyTelling->Render();
-    }
 }
 
 void SeqBattle::InputR1()
@@ -848,10 +619,6 @@ void SeqBattle::InputA()
 {
     m_player->SetJump();
 
-    if (m_storyTelling != nullptr)
-    {
-        m_storyTelling->Next();
-    }
 }
 
 void SeqBattle::InputB(eSequence* sequence)

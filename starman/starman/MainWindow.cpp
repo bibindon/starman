@@ -52,15 +52,22 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     if (!RegisterClassEx(&wcex))
     {
         throw std::exception("");
-    }
+    } 
+
+    RECT rect;
+    SetRect(&rect, 0, 0, 1600, 900);
+    AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
+    rect.right = rect.right - rect.left;
+    rect.bottom = rect.bottom - rect.top;
+
     m_hWnd = CreateWindow(
         TITLE.c_str(),
         TITLE.c_str(),
         WS_OVERLAPPEDWINDOW,
         100,
         100,
-        1600,
-        900,
+        rect.right,
+        rect.bottom,
         NULL,
         NULL,
         hInstance,
