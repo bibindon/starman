@@ -242,6 +242,14 @@ SeqBattle::SeqBattle(const bool isContinue)
     {
         m_stage1 = new Stage1();
         m_stage1->Init();
+
+        NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
+        NSTalkLib2::ISoundEffect* pSE = new NSTalkLib2::SoundEffect();
+        NSTalkLib2::ISprite* sprite = new NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+        m_talk = new NSTalkLib2::Talk();
+        m_talk->Init("res\\script\\talk2Sample.csv", pFont, pSE, sprite,
+                     "res\\image\\textBack.png", "res\\image\\black.png");
     }
 }
 
@@ -562,6 +570,19 @@ void SeqBattle::Update(eSequence* sequence)
             *sequence = eSequence::ENDING;
         }
     }
+
+    if (m_talk != nullptr)
+    {
+        m_bTalkFinish = m_talk->Update();
+        if (m_bTalkFinish)
+        {
+            m_talk->Finalize();
+            delete m_talk;
+            m_talk = nullptr;
+        }
+    }
+
+
 }
 
 void SeqBattle::Render()
@@ -612,7 +633,13 @@ void SeqBattle::Render()
     {
         m_stage10->Render();
     }
+
     PopUp::Get()->Render();
+
+    if (m_talk != nullptr)
+    {
+        m_talk->Render();
+    }
 }
 
 void SeqBattle::InputR1()
@@ -760,17 +787,31 @@ void SeqBattle::InputR1()
 
 void SeqBattle::InputA()
 {
-    m_player->SetJump();
+    if (m_talk != nullptr)
+    {
+        m_talk->Next();
+    }
+    else
+    {
+        m_player->SetJump();
 
+    }
 }
 
 void SeqBattle::InputB(eSequence* sequence)
 {
-    if (m_eState == eBattleState::GAMEOVER)
+    if (m_talk != nullptr)
     {
-        if (m_nGameoverCounter >= 60)
+        m_talk->Next();
+    }
+    else
+    {
+        if (m_eState == eBattleState::GAMEOVER)
         {
-            *sequence = eSequence::TITLE;
+            if (m_nGameoverCounter >= 60)
+            {
+                *sequence = eSequence::TITLE;
+            }
         }
     }
 }

@@ -54,5 +54,8 @@ private:
     Stage10* m_stage10 { };
 
     void SaveLastStage(const int);
+
+    NSTalkLib2::Talk* m_talk { nullptr };
+    bool m_bTalkFinish { false };
 };
 
