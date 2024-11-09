@@ -15,6 +15,149 @@
 #include "BGM.h"
 #include "SharedObj.h"
 #include "PopUp.h"
+#include "SoundEffect.h"
+
+namespace NSTalkLib2
+{
+
+class Sprite : public ISprite
+{
+public:
+    Sprite(LPDIRECT3DDEVICE9 dev)
+        : m_pD3DDevice(dev)
+    {
+    }
+
+    void DrawImage(const int x, const int y, const int transparency) override
+    {
+        if (m_D3DSprite == nullptr)
+        {
+            return;
+        }
+        D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
+        m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
+        RECT rect = { 0,
+                      0,
+                      static_cast<LONG>(m_width),
+                      static_cast<LONG>(m_height) };
+        D3DXVECTOR3 center { 0, 0, 0 };
+        m_D3DSprite->Draw(m_pD3DTexture, &rect, &center, &pos, D3DCOLOR_ARGB(transparency, 255, 255, 255));
+        m_D3DSprite->End();
+
+    }
+
+    void Load(const std::string& filepath) override
+    {
+        if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+        {
+            throw std::exception("Failed to create a sprite.");
+        }
+
+        if (FAILED(D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &m_pD3DTexture)))
+        {
+            throw std::exception("Failed to create a texture.");
+        }
+
+        D3DSURFACE_DESC desc { };
+        if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
+        {
+            throw std::exception("Failed to create a texture.");
+        }
+        m_width = desc.Width;
+        m_height = desc.Height;
+    }
+
+    ~Sprite() override
+    {
+        if (m_D3DSprite != nullptr)
+        {
+            m_D3DSprite->Release();
+            m_D3DSprite = nullptr;
+        }
+
+        if (m_pD3DTexture != nullptr)
+        {
+            m_pD3DTexture->Release();
+            m_pD3DTexture = nullptr;
+        }
+    }
+
+    virtual ISprite* Create() override
+    {
+        return new Sprite(m_pD3DDevice);
+    }
+private:
+    LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
+    LPD3DXSPRITE m_D3DSprite = NULL;
+    LPDIRECT3DTEXTURE9 m_pD3DTexture = NULL;
+    UINT m_width { 0 };
+    UINT m_height { 0 };
+
+};
+
+class Font : public IFont
+{
+public:
+    Font(LPDIRECT3DDEVICE9 pD3DDevice)
+        : m_pD3DDevice(pD3DDevice)
+    {
+    }
+
+    void Init()
+    {
+        HRESULT hr = D3DXCreateFont(m_pD3DDevice,
+            24,
+            0,
+            FW_NORMAL,
+            1,
+            false,
+            SHIFTJIS_CHARSET,
+            OUT_TT_ONLY_PRECIS,
+            ANTIALIASED_QUALITY,
+            FF_DONTCARE,
+            "‚l‚r –¾’©",
+            &m_pFont);
+    }
+
+    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    {
+        RECT rect = { x, y, 0, 0 };
+        m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
+            D3DCOLOR_ARGB(255, 255, 255, 255));
+    }
+
+    ~Font() override
+    {
+        m_pFont->Release();
+        m_pFont->Release();
+        m_pFont = nullptr;
+    }
+
+private:
+    LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
+    LPD3DXFONT m_pFont = NULL;
+};
+
+
+class SoundEffect : public ISoundEffect
+{
+    void Init() override
+    {
+        ::SoundEffect::get_ton()->load("res\\sound\\message1.wav");
+    }
+
+    void PlayMessage() override
+    {
+        ::SoundEffect::get_ton()->play("res\\sound\\message1.wav");
+    }
+
+    void Stop() override
+    {
+        ::SoundEffect::get_ton()->stop("res\\sound\\message1.wav");
+    }
+};
+
+}
 
 SeqBattle::SeqBattle(const bool isContinue)
 {

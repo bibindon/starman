@@ -18,6 +18,8 @@
 #include "Stage10.h"
 #include "Stage9.h"
 
+#include "..\..\talklib2\talklib2\talklib2.h"
+
 enum class eBattleState
 {
     NORMAL,

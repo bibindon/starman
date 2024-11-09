@@ -7,6 +7,8 @@
 #include "BGM.h"
 #include "SoundEffect.h"
 
+using namespace NSStoryTelling;
+
 namespace NSStoryTelling
 {
 class Sprite : public ISprite
@@ -145,10 +147,10 @@ SeqOpening::SeqOpening()
     {
         ISoundEffect* pSE = new NSStoryTelling::SoundEffect();
 
-        NSStoryTelling::Sprite* sprTextBack = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+        ISprite* sprTextBack = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprTextBack->Load("res\\image\\textBack.png");
 
-        NSStoryTelling::Sprite* sprFade = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+        ISprite* sprFade = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprFade->Load("res\\image\\black.png");
 
         IFont* pFont = new NSStoryTelling::Font(SharedObj::GetD3DDevice());
@@ -157,7 +159,7 @@ SeqOpening::SeqOpening()
         std::vector<Page> pageList;
         {
             Page page;
-            NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening01.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
@@ -169,7 +171,7 @@ SeqOpening::SeqOpening()
         }
         {
             Page page;
-            NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening02.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
@@ -183,7 +185,7 @@ SeqOpening::SeqOpening()
         }
         {
             Page page;
-            NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening03.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
@@ -200,7 +202,7 @@ SeqOpening::SeqOpening()
         }
         {
             Page page;
-            NSStoryTelling::Sprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening04.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;

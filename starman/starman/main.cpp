@@ -8,6 +8,7 @@
 #endif
 
 #pragma comment(lib, "..\\..\\StoryTelling\\StoryTelling.lib")
+#pragma comment(lib, "..\\..\\talklib2\\talklib2.lib")
 
 #include <windows.h>
 #include "MainWindow.h"
