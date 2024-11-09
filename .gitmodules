@@ -4,3 +4,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "StoryTelling"]
 	path = StoryTelling
 	url = https://github.com/bibindon/StoryTelling.git
+[submodule "talklib2"]
+	path = talklib2
+	url = https://github.com/bibindon/talklib2.git
