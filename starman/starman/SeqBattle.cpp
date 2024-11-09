@@ -25,7 +25,7 @@ SeqBattle::SeqBattle(const bool isContinue)
 
     D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
 
-    BGM::get_ton()->load("res\\sound\\letsgo.wav");
+    BGM::get_ton()->load("res\\sound\\novel.wav");
     BGM::get_ton()->play(10);
 
     m_spriteGameover = new Sprite("res\\image\\gameover.png");
