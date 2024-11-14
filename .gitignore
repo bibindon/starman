@@ -19,3 +19,4 @@
 /starman/Launcher/Release
 .savedata
 /starman/packages/Microsoft.DXSDK.D3DX.9.29.952.8
+*.csv#

@@ -382,6 +382,48 @@ int MainWindow::MainLoop()
             DT_LEFT | DT_NOCLIP,
             D3DCOLOR_ARGB(255, 0, 127, 0));
 
+        {
+            std::string work;
+            D3DXVECTOR3 pos {0.f, 0.f, 0.f};
+            if (SharedObj::GetPlayer() != nullptr)
+            {
+                pos = SharedObj::GetPlayer()->GetPos();
+            }
+
+            SetRect(&rect, 0, 50, 100, 100);
+            work = "x:" + std::to_string(pos.x);
+
+            m_D3DFont->DrawText(
+                NULL,
+                work.c_str(),
+                -1,
+                &rect,
+                DT_LEFT | DT_NOCLIP,
+                D3DCOLOR_ARGB(255, 0, 127, 0));
+
+            SetRect(&rect, 0, 100, 100, 100);
+            work = "y:" + std::to_string(pos.y);
+
+            m_D3DFont->DrawText(
+                NULL,
+                work.c_str(),
+                -1,
+                &rect,
+                DT_LEFT | DT_NOCLIP,
+                D3DCOLOR_ARGB(255, 0, 127, 0));
+
+            SetRect(&rect, 0, 150, 100, 100);
+            work = "z:" + std::to_string(pos.z);
+
+            m_D3DFont->DrawText(
+                NULL,
+                work.c_str(),
+                -1,
+                &rect,
+                DT_LEFT | DT_NOCLIP,
+                D3DCOLOR_ARGB(255, 0, 127, 0));
+        }
+
         D3DDevice->EndScene();
         D3DDevice->Present(NULL, NULL, NULL, NULL);
 

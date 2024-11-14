@@ -4,6 +4,7 @@
 LPDIRECT3DDEVICE9 SharedObj::m_D3DDevice { nullptr };
 std::mt19937 SharedObj::m_Engine { };
 Player* SharedObj::m_player { nullptr };
+NSQuestSystem::QuestSystem* SharedObj::m_questSystem { nullptr };
 
 LPDIRECT3DDEVICE9 SharedObj::GetD3DDevice()
 {
@@ -30,6 +31,11 @@ void SharedObj::SetPlayer(Player* player)
     m_player = player;
 }
 
+NSQuestSystem::QuestSystem* SharedObj::GetQuestSystem()
+{
+    return m_questSystem;
+}
+
 void SharedObj::SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice)
 {
     m_D3DDevice = D3DDevice;
@@ -39,5 +45,8 @@ void SharedObj::Init()
 {
     std::random_device seed_gen;
     m_Engine = std::mt19937(seed_gen());
+
+    m_questSystem = new NSQuestSystem::QuestSystem();
+    m_questSystem->Init("res\\script\\questSample.csv");
 }
 

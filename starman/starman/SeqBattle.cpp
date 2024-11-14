@@ -17,6 +17,8 @@
 #include "PopUp.h"
 #include "SoundEffect.h"
 
+using namespace NSQuestSystem;
+
 namespace NSTalkLib2
 {
 
@@ -582,7 +584,15 @@ void SeqBattle::Update(eSequence* sequence)
         }
     }
 
-
+    {
+        QuestSystem* qs = SharedObj::GetQuestSystem();
+        std::vector<std::string> vs = qs->GetFinishQuest();
+        unsigned int aaa = vs.size();
+        if (aaa != 0)
+        {
+            aaa = 123;
+        }
+    }
 }
 
 void SeqBattle::Render()

@@ -4,6 +4,8 @@
 #include <random>
 #include "Player.h"
 
+#include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
+
 class SharedObj
 {
 public:
@@ -15,9 +17,12 @@ public:
     static Player* GetPlayer();
     static void SetPlayer(Player* player);
 
+    static NSQuestSystem::QuestSystem* GetQuestSystem();
+
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;
     static std::mt19937 m_Engine;
     static Player* m_player;
+    static NSQuestSystem::QuestSystem* m_questSystem;
 };
 

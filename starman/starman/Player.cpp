@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "SoundEffect.h"
 #include "Camera.h"
+#include "SharedObj.h"
 
 Player::Player()
 {
@@ -143,6 +144,20 @@ void Player::Update(Stage1* stage1)
     m_move.x = 0.f;
     // m_move.y = 0.f;
     m_move.z = 0.f;
+
+    // 60回に一回くらいクエスト管理クラスに現在地を知らせる。
+    {
+        static int counter = 0;
+        counter++;
+        if (counter >= 60)
+        {
+            counter = 0;
+        }
+        if (counter == 0)
+        {
+            SharedObj::GetQuestSystem()->SetPos(m_pos.x, m_pos.y, m_pos.z);
+        }
+    }
 }
 
 void Player::Render()
