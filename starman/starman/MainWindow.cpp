@@ -145,7 +145,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     ret = D3DXCreateFont(
         D3DDevice,
-        40,
+        30,
         0,
         FW_HEAVY,
         1,
@@ -390,7 +390,7 @@ int MainWindow::MainLoop()
                 pos = SharedObj::GetPlayer()->GetPos();
             }
 
-            SetRect(&rect, 0, 50, 100, 100);
+            SetRect(&rect, 0, 40, 100, 100);
             work = "x:" + std::to_string(pos.x);
 
             m_D3DFont->DrawText(
@@ -401,7 +401,7 @@ int MainWindow::MainLoop()
                 DT_LEFT | DT_NOCLIP,
                 D3DCOLOR_ARGB(255, 0, 127, 0));
 
-            SetRect(&rect, 0, 100, 100, 100);
+            SetRect(&rect, 0, 80, 100, 100);
             work = "y:" + std::to_string(pos.y);
 
             m_D3DFont->DrawText(
@@ -412,7 +412,7 @@ int MainWindow::MainLoop()
                 DT_LEFT | DT_NOCLIP,
                 D3DCOLOR_ARGB(255, 0, 127, 0));
 
-            SetRect(&rect, 0, 150, 100, 100);
+            SetRect(&rect, 0, 120, 100, 100);
             work = "z:" + std::to_string(pos.z);
 
             m_D3DFont->DrawText(

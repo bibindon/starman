@@ -57,6 +57,8 @@ private:
     void SaveLastStage(const int);
 
     NSTalkLib2::Talk* m_talk { nullptr };
-    bool m_bTalkFinish { false };
+    bool m_bTalking { false };
+
+    std::deque<std::string> m_finishQuestQue;
 };
 

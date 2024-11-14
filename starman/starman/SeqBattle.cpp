@@ -252,6 +252,7 @@ SeqBattle::SeqBattle(const bool isContinue)
         m_talk = new NSTalkLib2::Talk();
         m_talk->Init("res\\script\\talk2Sample.csv", pFont, pSE, sprite,
                      "res\\image\\textBack.png", "res\\image\\black.png");
+        m_bTalking = true;
     }
 }
 
@@ -575,22 +576,57 @@ void SeqBattle::Update(eSequence* sequence)
 
     if (m_talk != nullptr)
     {
-        m_bTalkFinish = m_talk->Update();
-        if (m_bTalkFinish)
+        bool talkFinish = m_talk->Update();
+        if (talkFinish)
         {
+            m_bTalking = false;
             m_talk->Finalize();
             delete m_talk;
             m_talk = nullptr;
+        }
+    }
+    // 60回に一回くらいクエスト管理クラスにプレイヤーの現在地を知らせる。
+    {
+        static int counter = 0;
+        counter++;
+        if (counter >= 60)
+        {
+            counter = 0;
+        }
+        if (counter == 0)
+        {
+            D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+            SharedObj::GetQuestSystem()->SetPos(playerPos.x, playerPos.y, playerPos.z);
         }
     }
 
     {
         QuestSystem* qs = SharedObj::GetQuestSystem();
         std::vector<std::string> vs = qs->GetFinishQuest();
-        unsigned int aaa = vs.size();
-        if (aaa != 0)
+        for (std::size_t i = 0; i < vs.size(); ++i)
         {
-            aaa = 123;
+            m_finishQuestQue.push_back(vs.at(i));
+        }
+        if (m_finishQuestQue.size() >= 1 && m_bTalking == false)
+        {
+            std::string questId = m_finishQuestQue.at(0);
+            std::vector<std::string> vs2 = qs->GetQuestFinishEvent(questId);
+            m_finishQuestQue.pop_front();
+            if (vs2.at(0).find("<talk>") != std::string::npos)
+            {
+                std::string work = vs2.at(0);
+                std::string::size_type it = work.find("<talk>");
+                work = work.erase(it, 6);
+
+                NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                NSTalkLib2::ISoundEffect* pSE = new NSTalkLib2::SoundEffect();
+                NSTalkLib2::ISprite* sprite = new NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+                m_talk = new NSTalkLib2::Talk();
+                m_talk->Init(work, pFont, pSE, sprite,
+                             "res\\image\\textBack.png", "res\\image\\black.png");
+                m_bTalking = true;
+            }
         }
     }
 }
