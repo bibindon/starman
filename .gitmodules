@@ -7,3 +7,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "talklib2"]
 	path = talklib2
 	url = https://github.com/bibindon/talklib2.git
+[submodule "quest-system"]
+	path = quest-system
+	url = https://github.com/bibindon/quest-system.git
