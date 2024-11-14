@@ -607,6 +607,7 @@ void SeqBattle::Update(eSequence* sequence)
         {
             m_finishQuestQue.push_back(vs.at(i));
         }
+
         if (m_finishQuestQue.size() >= 1 && m_bTalking == false)
         {
             std::string questId = m_finishQuestQue.at(0);
