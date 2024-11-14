@@ -19,6 +19,7 @@
 #include "Stage9.h"
 
 #include "..\..\talklib2\talklib2\talklib2.h"
+#include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 
 enum class eBattleState
 {

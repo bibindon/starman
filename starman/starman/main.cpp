@@ -9,6 +9,7 @@
 
 #pragma comment(lib, "..\\..\\StoryTelling\\StoryTelling.lib")
 #pragma comment(lib, "..\\..\\talklib2\\talklib2.lib")
+#pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
 
 #include <windows.h>
 #include "MainWindow.h"
