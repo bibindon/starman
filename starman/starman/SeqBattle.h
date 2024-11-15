@@ -60,5 +60,8 @@ private:
     bool m_bTalking { false };
 
     std::deque<std::string> m_finishQuestQue;
+
+    bool m_bShowExamine { false };
+    Sprite* m_spriteExamine { nullptr };
 };
 

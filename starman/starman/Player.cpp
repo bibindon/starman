@@ -259,6 +259,11 @@ void Player::SetJump()
     }
 }
 
+void Player::SetExamine()
+{
+    // 
+}
+
 void Player::SetHP(const int hp)
 {
     m_HP = hp;

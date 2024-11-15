@@ -249,12 +249,12 @@ int MainWindow::MainLoop()
 //            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
             PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         }
-        if (KeyBoard::IsDown(DIK_E))
-        {
-            //BGM::get_ton()->play();
-            SoundEffect::get_ton()->play("res\\sound\\damage01.wav");
-            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
-        }
+//        if (KeyBoard::IsDown(DIK_E))
+//        {
+//            //BGM::get_ton()->play();
+//            SoundEffect::get_ton()->play("res\\sound\\damage01.wav");
+//            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
+//        }
         if (Mouse::IsDownLeft())
         {
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);

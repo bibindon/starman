@@ -174,6 +174,7 @@ SeqBattle::SeqBattle(const bool isContinue)
     BGM::get_ton()->play(10);
 
     m_spriteGameover = new Sprite("res\\image\\gameover.png");
+    m_spriteExamine = new Sprite("res\\image\\examine.png");
 
     if (isContinue)
     {
@@ -344,10 +345,12 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
-    if (KeyBoard::IsDown(DIK_F))
+
+    if (KeyBoard::IsDown(DIK_E))
     {
         InputB(sequence);
     }
+
     if (KeyBoard::IsDown(DIK_SPACE))
     {
         InputA();
@@ -597,6 +600,19 @@ void SeqBattle::Update(eSequence* sequence)
         {
             D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
             SharedObj::GetQuestSystem()->SetPos(playerPos.x, playerPos.y, playerPos.z);
+
+            // プレイヤーの現在座標で開始or完了できるクエストがあるなら
+            // 「調べる」アクションができることをアイコンで知らせる。
+            std::string quest1 = SharedObj::GetQuestSystem()->GetQuestIdStartByExamine(playerPos.x, playerPos.y, playerPos.z);
+            std::string quest2 = SharedObj::GetQuestSystem()->GetQuestIdFinishByExamine(playerPos.x, playerPos.y, playerPos.z);
+            if (quest1.empty() == false || quest2.empty() == false)
+            {
+                m_bShowExamine = true;
+            }
+            else
+            {
+                m_bShowExamine = false;
+            }
         }
     }
 
@@ -686,6 +702,12 @@ void SeqBattle::Render()
     if (m_talk != nullptr)
     {
         m_talk->Render();
+    }
+
+    if (m_bShowExamine)
+    {
+        D3DXVECTOR3 pos { 200.f, 600.f, 0.f };
+        m_spriteExamine->Render(pos);
     }
 }
 
@@ -858,6 +880,16 @@ void SeqBattle::InputB(eSequence* sequence)
             if (m_nGameoverCounter >= 60)
             {
                 *sequence = eSequence::TITLE;
+            }
+        }
+        else
+        {
+            // 調べるコマンド
+            // プレイヤーの現在座標で始まるクエストか終わるクエストがある。
+            D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+            if (m_bShowExamine)
+            {
+                SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
             }
         }
     }

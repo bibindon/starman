@@ -25,6 +25,7 @@ public:
     bool GetDead();
     D3DXVECTOR3 GetAttackPos();
     void SetJump();
+    void SetExamine();
 
     void SetHP(const int hp);
     int GetHP();
