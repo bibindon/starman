@@ -310,8 +310,8 @@ void SeqBattle::Update(eSequence* sequence)
     bool isHit { false };
     if (KeyBoard::IsHold(DIK_W))
     {
-        move.x += -std::sin(radian + D3DX_PI / 2) / 5;
-        move.z += std::sin(radian + D3DX_PI) / 5;
+        move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 10;
+        move.z += std::sin(radian + D3DX_PI) / 5 * 10;
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
