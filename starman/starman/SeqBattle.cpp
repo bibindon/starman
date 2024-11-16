@@ -449,6 +449,10 @@ void SeqBattle::Update(eSequence* sequence)
                              "res\\image\\textBack.png", "res\\image\\black.png");
                 m_bTalking = true;
             }
+            else if (vs2.at(0).find("<ending>") != std::string::npos)
+            {
+                *sequence = eSequence::ENDING;
+            }
         }
     }
 }
