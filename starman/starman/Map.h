@@ -2,11 +2,11 @@
 #include <unordered_map>
 #include "Mesh.h"
 #include "Enemy.h"
-class Stage1
+class Map
 {
 public:
-    Stage1();
-    ~Stage1();
+    Map();
+    ~Map();
     void Init();
     void Update();
     void Render();

@@ -65,9 +65,9 @@ Player::~Player()
     SAFE_DELETE(m_AnimMesh2);
 }
 
-void Player::Update(Stage1* stage1)
+void Player::Update(Map* map)
 {
-    if (stage1 == nullptr)
+    if (map == nullptr)
     {
         return;
     }
@@ -96,7 +96,7 @@ void Player::Update(Stage1* stage1)
     if (m_bJump)
     {
         m_jumpTimeCounter++;
-        bool isHit = stage1->Intersect(m_pos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
+        bool isHit = map->Intersect(m_pos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
         if (isHit)
         {
             m_move.y = 0.f;
@@ -113,17 +113,17 @@ void Player::Update(Stage1* stage1)
     // 壁ずり
     // 高さを変えて3回チェック
     bool bHit { false };
-    m_move = stage1->WallSlide(m_pos, m_move, &bHit);
+    m_move = map->WallSlide(m_pos, m_move, &bHit);
     if (bHit == false)
     {
         D3DXVECTOR3 tempPos { m_pos };
         tempPos.y += 1.f;
-        m_move = stage1->WallSlide(tempPos, m_move, &bHit);
+        m_move = map->WallSlide(tempPos, m_move, &bHit);
         if (bHit == false)
         {
             D3DXVECTOR3 tempPos { m_pos };
             tempPos.y += 2.f;
-            m_move = stage1->WallSlide(tempPos, m_move, &bHit);
+            m_move = map->WallSlide(tempPos, m_move, &bHit);
         }
     }
 
@@ -131,7 +131,7 @@ void Player::Update(Stage1* stage1)
     {
         D3DXVECTOR3 temp { m_move };
         temp.y += -0.1f;
-        bool isHit = stage1->CollisionGround(m_pos, temp);
+        bool isHit = map->CollisionGround(m_pos, temp);
         if (isHit == false)
         {
            // m_move.y += -0.01f;

@@ -3,7 +3,7 @@
 #include <d3d9.h>
 #include "AnimMesh.h"
 #include "Sprite.h"
-#include "Stage1.h"
+#include "Map.h"
 
 class Player
 {
@@ -11,7 +11,7 @@ public:
     Player();
     ~Player();
     void Render();
-    void Update(Stage1* stage1);
+    void Update(Map* stage1);
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos();
     void SetMove(const D3DXVECTOR3& move);

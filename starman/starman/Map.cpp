@@ -1,12 +1,12 @@
-#include "Stage1.h"
+#include "Map.h"
 #include "Light.h"
 #include "SharedObj.h"
 
-Stage1::Stage1()
+Map::Map()
 {
 }
 
-Stage1::~Stage1()
+Map::~Map()
 {
     for (auto pair : m_meshMap)
     {
@@ -15,18 +15,18 @@ Stage1::~Stage1()
     SAFE_DELETE(m_spriteStageName);
 }
 
-void Stage1::Init()
+void Map::Init()
 {
     // 拡大縮小すると衝突判定が効かなくなる！！！
     {
         Mesh* mesh = new Mesh(
-            //"res\\model\\stage1\\stage1.x",
+            //"res\\model\\Map\\Map.x",
             "res\\model\\prolitan\\prolitan.x",
             D3DXVECTOR3(0.f, 0.f, 0.f),
             D3DXVECTOR3(0.f, 0.f, 0.f),
             1.0f);
         mesh->Init();
-        m_meshMap["stage1"] = mesh;
+        m_meshMap["Map"] = mesh;
     }
     {
         Mesh* mesh = new Mesh(
@@ -91,7 +91,7 @@ void Stage1::Init()
         enemy.SetPos(pos);
         m_vecEnemy.push_back(enemy);
     }
-    m_spriteStageName = new Sprite("res\\image\\stage1.png");
+    m_spriteStageName = new Sprite("res\\image\\Map.png");
     m_nStagenameCount = 0;
 
     {
@@ -125,7 +125,7 @@ void Stage1::Init()
     }
 }
 
-void Stage1::Update()
+void Map::Update()
 {
     for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
     {
@@ -143,7 +143,7 @@ void Stage1::Update()
     m_nStagenameCount++;
 }
 
-void Stage1::Render()
+void Map::Render()
 {
     {
         D3DXVECTOR4 norm = Light::GetLightNormal();
@@ -175,17 +175,17 @@ void Stage1::Render()
     }
 }
 
-std::vector<Enemy> Stage1::GetEnemy()
+std::vector<Enemy> Map::GetEnemy()
 {
     return m_vecEnemy;
 }
 
-void Stage1::SetEnemy(const std::vector<Enemy>& vecEnemy)
+void Map::SetEnemy(const std::vector<Enemy>& vecEnemy)
 {
     m_vecEnemy = vecEnemy;
 }
 
-bool Stage1::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh)
+bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh)
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -207,7 +207,7 @@ bool Stage1::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* 
     return bIsHit;
 }
 
-bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
     // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
@@ -222,7 +222,7 @@ bool Stage1::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
     return bIsHit;
 }
 
-bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+bool Map::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
     // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
@@ -237,7 +237,7 @@ bool Stage1::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
     return bIsHit;
 }
 
-bool Stage1::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh)
+bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh)
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -259,7 +259,7 @@ bool Stage1::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, 
     return bIsHit;
 }
 
-D3DXVECTOR3 Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit)
+D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit)
 {
     D3DXVECTOR3 result { move };
     for (auto pair : m_meshMap)
@@ -274,7 +274,7 @@ D3DXVECTOR3 Stage1::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, b
     return result;
 }
 
-D3DXVECTOR3 Stage1::WallSlideSub(
+D3DXVECTOR3 Map::WallSlideSub(
     const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit)
 {
     D3DXVECTOR3 result {move};
