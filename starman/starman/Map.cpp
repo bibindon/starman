@@ -1,6 +1,7 @@
 #include "Map.h"
 #include "Light.h"
 #include "SharedObj.h"
+#include "KeyBoard.h"
 
 Map::Map()
 {
@@ -69,6 +70,14 @@ void Map::Init()
             1.0f);
         mesh->Init();
         m_meshMap["colli"] = mesh;
+    }
+    // ’x‰„“Ç‚Ýž‚Ý
+    {
+        m_lazyMap = new Mesh(
+            "res\\model\\prolitan\\prolitan1.x",
+            D3DXVECTOR3(0.f, 0.f, 0.f),
+            D3DXVECTOR3(0.f, 0.f, 0.f),
+            1.0f);
     }
     {
         Enemy enemy;
@@ -141,6 +150,23 @@ void Map::Update()
         }
     }
     m_nStagenameCount++;
+
+    Player* player = SharedObj::GetPlayer();
+    D3DXVECTOR3 pos = player->GetPos();
+
+    if (m_bInitializedLazyMap == false)
+    {
+//        if (350 <= pos.x && pos.x <= 400)
+        {
+//            if (300 <= pos.y && pos.y <= 320)
+            if (KeyBoard::IsDown(DIK_F))
+            {
+                m_bInitializedLazyMap = true;
+                m_thread = new std::thread([&]{ m_lazyMap->Init(); });
+//                m_lazyMap->Init();
+            }
+        }
+    }
 }
 
 void Map::Render()
@@ -165,6 +191,7 @@ void Map::Render()
         }
         pair.second->Render();
     }
+    m_lazyMap->Render();
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
         m_vecEnemy.at(i).Render();

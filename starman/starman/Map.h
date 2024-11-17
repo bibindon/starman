@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <thread>
 #include "Mesh.h"
 #include "Enemy.h"
 class Map
@@ -30,5 +31,9 @@ private:
     std::vector<Enemy> m_vecEnemy { };
     int m_nStagenameCount { 0 };
     Sprite* m_spriteStageName { nullptr };
+
+    Mesh* m_lazyMap { nullptr };
+    bool m_bInitializedLazyMap { false};
+    std::thread* m_thread { nullptr };
 };
 
