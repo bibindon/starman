@@ -13,7 +13,7 @@ Mesh::Mesh(
     const D3DXVECTOR3& rotation,
     const float& scale)
     : m_meshName { xFilename }
-    , m_pos { position }
+    , m_loadingPos { position }
     , m_rotate { rotation }
     , m_scale { scale }
 {
@@ -187,12 +187,12 @@ void Mesh::Init()
 
 void Mesh::SetPos(const D3DXVECTOR3& pos)
 {
-    m_pos = pos;
+    m_loadingPos = pos;
 }
 
 D3DXVECTOR3 Mesh::GetPos()
 {
-    return m_pos;
+    return m_loadingPos;
 }
 
 void Mesh::Render()
@@ -229,7 +229,7 @@ void Mesh::Render()
         D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
         worldViewProjMatrix *= mat;
 
-        D3DXMatrixTranslation(&mat, m_pos.x, m_pos.y, m_pos.z);
+        D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
         worldViewProjMatrix *= mat;
     }
     m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);

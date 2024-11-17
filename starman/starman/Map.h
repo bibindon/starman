@@ -3,6 +3,45 @@
 #include <thread>
 #include "Mesh.h"
 #include "Enemy.h"
+
+// 主人公が近づいたらメッシュを読み込み表示するためのメッシュクラス
+// 別スレッドで読む。DirectX9はマルチスレッドに対応していないらしいが
+// なぜか問題なく動く。
+// TODO 別のファイルに移動すべき？
+class LazyMesh
+{
+public:
+    void Init(const std::string& xFilename,
+              const D3DXVECTOR3& position,
+              const D3DXVECTOR3& rotation);
+
+    void Load();
+
+    void Unload();
+
+    // 読み込みが開始される座標と半径
+    void SetLoadPos(const D3DXVECTOR3& pos, const float r);
+
+    // 読み込みが開始される座標か確認
+    bool IsLoadPos(const D3DXVECTOR3& pos);
+
+    // 読み込み済みか
+    bool IsLoaded();
+
+    void Render();
+
+private:
+    Mesh* m_Mesh { nullptr };
+    bool m_bLoaded { false};
+    std::thread* m_thread { nullptr };
+    D3DXVECTOR3 m_loadingPos { 0.f, 0.f, 0.f };
+    float m_radius { 0.f };
+
+    std::string m_xFilename;
+    D3DXVECTOR3 m_drawPos { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 m_rotation { 0.f, 0.f, 0.f };
+};
+
 class Map
 {
 public:
@@ -32,8 +71,6 @@ private:
     int m_nStagenameCount { 0 };
     Sprite* m_spriteStageName { nullptr };
 
-    Mesh* m_lazyMap { nullptr };
-    bool m_bInitializedLazyMap { false};
-    std::thread* m_thread { nullptr };
+    LazyMesh m_lazyMesh;
 };
 

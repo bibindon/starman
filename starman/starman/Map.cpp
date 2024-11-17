@@ -73,11 +73,10 @@ void Map::Init()
     }
     // ’x‰„“Ç‚Ýž‚Ý
     {
-        m_lazyMap = new Mesh(
-            "res\\model\\prolitan\\prolitan1.x",
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            1.0f);
+        m_lazyMesh.Init("res\\model\\prolitan\\prolitan1.x",
+                        D3DXVECTOR3(0.f, 0.f, 0.f),
+                        D3DXVECTOR3(0.f, 0.f, 0.f));
+        m_lazyMesh.SetLoadPos(D3DXVECTOR3(367.f, 343.f, 755.f), 400.f);
     }
     {
         Enemy enemy;
@@ -154,18 +153,24 @@ void Map::Update()
     Player* player = SharedObj::GetPlayer();
     D3DXVECTOR3 pos = player->GetPos();
 
-    if (m_bInitializedLazyMap == false)
+    if (m_lazyMesh.IsLoadPos(pos))
     {
-//        if (350 <= pos.x && pos.x <= 400)
+        if (m_lazyMesh.IsLoaded() == false)
         {
-//            if (300 <= pos.y && pos.y <= 320)
-            if (KeyBoard::IsDown(DIK_F))
-            {
-                m_bInitializedLazyMap = true;
-                m_thread = new std::thread([&]{ m_lazyMap->Init(); });
-//                m_lazyMap->Init();
-            }
+            m_lazyMesh.Load();
         }
+    }
+    else
+    {
+        if (m_lazyMesh.IsLoaded())
+        {
+            m_lazyMesh.Unload();
+        }
+    }
+
+    if (KeyBoard::IsDown(DIK_F))
+    {
+        m_lazyMesh.Load();
     }
 }
 
@@ -191,7 +196,10 @@ void Map::Render()
         }
         pair.second->Render();
     }
-    m_lazyMap->Render();
+    if (m_lazyMesh.IsLoaded())
+    {
+        m_lazyMesh.Render();
+    }
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
         m_vecEnemy.at(i).Render();
@@ -371,3 +379,52 @@ D3DXVECTOR3 Map::WallSlideSub(
     return result;
 }
 
+void LazyMesh::Init(const std::string& xFilename,
+                    const D3DXVECTOR3& position,
+                    const D3DXVECTOR3& rotation)
+{
+    m_xFilename = xFilename;
+    m_drawPos = position;
+    m_rotation = rotation;
+}
+
+void LazyMesh::Load()
+{
+    m_bLoaded = true;
+    m_Mesh = new Mesh(m_xFilename, m_drawPos, m_rotation, 1.0f);
+    m_thread = new std::thread([&]{ m_Mesh->Init(); });
+}
+
+void LazyMesh::Unload()
+{
+    m_bLoaded = false;
+    delete m_Mesh;
+    m_Mesh = nullptr;
+}
+
+void LazyMesh::SetLoadPos(const D3DXVECTOR3& pos, const float r)
+{
+    m_loadingPos = pos;
+    m_radius = r;
+}
+
+bool LazyMesh::IsLoadPos(const D3DXVECTOR3& pos)
+{
+    D3DXVECTOR3 diff = m_loadingPos - pos;
+    float distance = D3DXVec3Length(&diff);
+
+    return m_radius >= distance;
+}
+
+bool LazyMesh::IsLoaded()
+{
+    return m_bLoaded;
+}
+
+void LazyMesh::Render()
+{
+    if (m_bLoaded)
+    {
+        m_Mesh->Render();
+    }
+}

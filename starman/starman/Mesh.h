@@ -29,7 +29,7 @@ private:
 
     LPD3DXEFFECT m_D3DEffect { nullptr };
 
-    D3DXVECTOR3 m_pos { };
+    D3DXVECTOR3 m_loadingPos { };
     D3DXVECTOR3 m_rotate { };
 
     D3DXHANDLE m_meshTextureHandle { nullptr };

@@ -46,7 +46,7 @@ bool EnemyDisk::Init()
         animSetMap["Attack"] = animSetting;
     }
     m_AnimMesh = new AnimMesh("res\\model\\enemyDisk\\disk.x",
-        m_pos, m_rotate, 0.5f, animSetMap);
+        m_loadingPos, m_rotate, 0.5f, animSetMap);
     SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
     
     m_spriteHP = new Sprite("res\\image\\hp_green.png");
@@ -77,7 +77,7 @@ void EnemyDisk::Update()
     {
         Player* player = SharedObj::GetPlayer();
         D3DXVECTOR3 pos = player->GetPos();
-        D3DXVECTOR3 enemyVector = pos - m_pos;
+        D3DXVECTOR3 enemyVector = pos - m_loadingPos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
         if (distance < 10.f)
         {
@@ -89,7 +89,7 @@ void EnemyDisk::Update()
     {
         Player* player = SharedObj::GetPlayer();
         D3DXVECTOR3 pos = player->GetPos();
-        D3DXVECTOR3 enemyVector = pos - m_pos;
+        D3DXVECTOR3 enemyVector = pos - m_loadingPos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
         if (distance < 10.f)
         {
@@ -107,7 +107,7 @@ void EnemyDisk::Update()
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
-            m_pos += norm / 40;
+            m_loadingPos += norm / 40;
             m_rotate.y = atan2(-enemyVector.x, -enemyVector.z);
         }
         else if (20.f <= distance)
@@ -133,7 +133,7 @@ void EnemyDisk::Update()
             m_AnimMesh->SetAnim("Attack", 0.f);
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
-            D3DXVECTOR3 rot = pos - m_pos;
+            D3DXVECTOR3 rot = pos - m_loadingPos;
             m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
 
 
@@ -164,10 +164,10 @@ void EnemyDisk::Update()
 
 void EnemyDisk::Render()
 {
-    m_AnimMesh->SetPos(m_pos);
+    m_AnimMesh->SetPos(m_loadingPos);
     m_AnimMesh->SetRotate(m_rotate);
     m_AnimMesh->Render();
-    POINT screenPos = Camera::GetScreenPos(m_pos);
+    POINT screenPos = Camera::GetScreenPos(m_loadingPos);
     m_spriteHPBack->Render(
         D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
     if (m_HP >= 0)
@@ -181,12 +181,12 @@ void EnemyDisk::Render()
 
 void EnemyDisk::SetPos(const D3DXVECTOR3& pos)
 {
-    m_pos = pos;
+    m_loadingPos = pos;
 }
 
 D3DXVECTOR3 EnemyDisk::GetPos()
 {
-    return m_pos;
+    return m_loadingPos;
 }
 
 void EnemyDisk::SetRotate(const D3DXVECTOR3& rotate)
@@ -235,7 +235,7 @@ eDiskState EnemyDisk::GetState()
 
 D3DXVECTOR3 EnemyDisk::GetAttackPos()
 {
-    D3DXVECTOR3 pos { m_pos };
+    D3DXVECTOR3 pos { m_loadingPos };
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
     norm.x = std::sin(m_rotate.y + D3DX_PI);
     norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));

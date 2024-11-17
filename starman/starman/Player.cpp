@@ -96,7 +96,7 @@ void Player::Update(Map* map)
     if (m_bJump)
     {
         m_jumpTimeCounter++;
-        bool isHit = map->Intersect(m_pos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
+        bool isHit = map->Intersect(m_loadingPos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
         if (isHit)
         {
             m_move.y = 0.f;
@@ -113,15 +113,15 @@ void Player::Update(Map* map)
     // 壁ずり
     // 高さを変えて3回チェック
     bool bHit { false };
-    m_move = map->WallSlide(m_pos, m_move, &bHit);
+    m_move = map->WallSlide(m_loadingPos, m_move, &bHit);
     if (bHit == false)
     {
-        D3DXVECTOR3 tempPos { m_pos };
+        D3DXVECTOR3 tempPos { m_loadingPos };
         tempPos.y += 1.f;
         m_move = map->WallSlide(tempPos, m_move, &bHit);
         if (bHit == false)
         {
-            D3DXVECTOR3 tempPos { m_pos };
+            D3DXVECTOR3 tempPos { m_loadingPos };
             tempPos.y += 2.f;
             m_move = map->WallSlide(tempPos, m_move, &bHit);
         }
@@ -131,7 +131,7 @@ void Player::Update(Map* map)
     {
         D3DXVECTOR3 temp { m_move };
         temp.y += -0.1f;
-        bool isHit = map->CollisionGround(m_pos, temp);
+        bool isHit = map->CollisionGround(m_loadingPos, temp);
         if (isHit == false)
         {
            // m_move.y += -0.01f;
@@ -139,7 +139,7 @@ void Player::Update(Map* map)
     }
     OutputDebugString((std::to_string(m_move.y) + "\n").c_str());
 
-    m_pos += m_move;
+    m_loadingPos += m_move;
 
     m_move.x = 0.f;
     // m_move.y = 0.f;
@@ -148,11 +148,11 @@ void Player::Update(Map* map)
 
 void Player::Render()
 {
-    m_AnimMesh2->SetPos(m_pos);
+    m_AnimMesh2->SetPos(m_loadingPos);
     m_AnimMesh2->SetRotate(m_rotate);
     m_AnimMesh2->Render();
 
-    POINT screenPos = Camera::GetScreenPos(m_pos);
+    POINT screenPos = Camera::GetScreenPos(m_loadingPos);
     m_spriteHPBack->Render(
         D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f });
     if (m_HP >= 0)
@@ -166,12 +166,12 @@ void Player::Render()
 
 void Player::SetPos(const D3DXVECTOR3& pos)
 {
-    m_pos = pos;
+    m_loadingPos = pos;
 }
 
 D3DXVECTOR3 Player::GetPos()
 {
-    return m_pos;
+    return m_loadingPos;
 }
 
 void Player::SetMove(const D3DXVECTOR3& move)
@@ -241,7 +241,7 @@ bool Player::GetDead()
 
 D3DXVECTOR3 Player::GetAttackPos()
 {
-    D3DXVECTOR3 pos { m_pos };
+    D3DXVECTOR3 pos { m_loadingPos };
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
     norm.x = std::sin(m_rotate.y + D3DX_PI);
     norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
