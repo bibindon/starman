@@ -175,7 +175,7 @@ SeqEnding::SeqEnding()
             vs.push_back("北西に進んでいたつもりだったが南に相当ずれていた。");
             vss.push_back(vs);
             vs.clear();
-            vs.push_back("北その日からホシマンは法律を無視して救助を最優先することにした。");
+            vs.push_back("その日からホシマンは法律を無視して救助を最優先することにした。");
             vss.push_back(vs);
             page.SetTextList(vss);
             pageList.push_back(page);
@@ -275,6 +275,16 @@ SeqEnding::SeqEnding()
             vs.push_back("ホシマンは海から上がり砂浜に到着した。ダイケイマンとサンカクマンも砂浜にやってきた。");
             vs.push_back("「よかった・・・ほんとうによかったよ・・・」");
             vss.push_back(vs);
+            page.SetTextList(vss);
+            pageList.push_back(page);
+        }
+        {
+            Page page;
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            sprite->Load("res\\image\\ending04.png");
+            page.SetSprite(sprite);
+            std::vector<std::vector<std::string> > vss;
+            std::vector<std::string> vs;
             vs.clear();
             vs.push_back("「待ってたぜー！」");
             vs.push_back("「歩けるようになったんだな」");
@@ -302,7 +312,16 @@ SeqEnding::SeqEnding()
             vs.push_back("　あ、あぁ・・・」");
             vs.push_back("海岸洞窟を通り過ぎ、内陸の方に行くと、以前と変わらない姿でシカクマンの墓があった。");
             vss.push_back(vs);
-            vs.clear();
+            page.SetTextList(vss);
+            pageList.push_back(page);
+        }
+        {
+            Page page;
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            sprite->Load("res\\image\\ending05.png");
+            page.SetSprite(sprite);
+            std::vector<std::vector<std::string> > vss;
+            std::vector<std::string> vs;
             vs.push_back("ホシマンは墓の前で正座し、手を合わせて目をつぶった。");
             vs.push_back("「「「・・・」」」");
             vss.push_back(vs);
@@ -310,6 +329,16 @@ SeqEnding::SeqEnding()
             vs.push_back("「じゃあ・・・、行こう」");
             vs.push_back("ホシマンは立ち上がり、３人でモーターボートのところに向かった。");
             vss.push_back(vs);
+            page.SetTextList(vss);
+            pageList.push_back(page);
+        }
+        {
+            Page page;
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            sprite->Load("res\\image\\ending06.png");
+            page.SetSprite(sprite);
+            std::vector<std::vector<std::string> > vss;
+            std::vector<std::string> vs;
             vs.clear();
             vs.push_back("モーターボートの中にはタンクが８個あった。");
             vs.push_back("「船は、実は燃費がすごく悪いんだ。１リットルで２Ｋｍくらいしか進めない。");
@@ -335,7 +364,17 @@ SeqEnding::SeqEnding()
             vs.push_back("縄を外し、ホシマンたちは出発した。");
             vs.push_back("ホシマンはGPS装置を確認しながら進んだ。");
             vss.push_back(vs);
-            vs.clear();
+            page.SetTextList(vss);
+            pageList.push_back(page);
+        }
+        {
+            Page page;
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            sprite->Load("res\\image\\ending07.png");
+            page.SetSprite(sprite);
+            std::vector<std::vector<std::string> > vss;
+            std::vector<std::string> vs;
+
             vs.push_back("「うぉ～すげぇ～」");
             vs.push_back("「１年前に船に乗った時を思い出すなぁ～」");
             vs.push_back("「・・・」");
@@ -350,13 +389,11 @@ SeqEnding::SeqEnding()
         {
             Page page;
             ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\ending04.png");
+            sprite->Load("res\\image\\ending08.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
             std::vector<std::string> vs;
             vs.push_back("９時間後、３人はラデオウ連邦の本土に到着した。");
-            vs.push_back("しばらくして道路を見つけた。");
-            vs.push_back("道路を歩き続けるとガソリンスタンドがあった。");
             vss.push_back(vs);
             vs.clear();
             vs.push_back("３人はホシマンの家で一泊することにした。");
@@ -380,7 +417,7 @@ SeqEnding::SeqEnding()
         {
             Page page;
             ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\ending05.png");
+            sprite->Load("res\\image\\ending09.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vss;
             std::vector<std::string> vs;
@@ -398,7 +435,7 @@ SeqEnding::SeqEnding()
             vs.push_back("ホシマンたちの帰還は小さく報じられた。");
             vss.push_back(vs);
             vs.clear();
-            vs.push_back("また、高度に文明が発展した情報化社会に置いて、");
+            vs.push_back("また、高度に文明が発展した情報化社会において、");
             vs.push_back("『無人島からの生還』というニュースは毎秒追加され続けるネットニュースによって、すぐに埋もれた。");
             vss.push_back(vs);
             vs.clear();
@@ -453,6 +490,19 @@ SeqEnding::SeqEnding()
             vss.push_back(vs);
             vs.clear();
             vs.push_back("ホシマンは言った。");
+            vss.push_back(vs);
+            page.SetTextList(vss);
+            pageList.push_back(page);
+        }
+        {
+            Page page;
+            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            sprite->Load("res\\image\\ending10.png");
+            page.SetSprite(sprite);
+            std::vector<std::vector<std::string> > vss;
+            std::vector<std::string> vs;
+
+            vs.push_back("");
             vss.push_back(vs);
             page.SetTextList(vss);
             pageList.push_back(page);
