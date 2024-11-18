@@ -1382,12 +1382,11 @@ std::string SeqBattle::OperateMenu()
         m_menu.RightClick(p.x, p.y);
     }
 
-    // TODO リモートデスクトップだとうまくいかない。実機でどうか確認
-    if (Mouse::GetZDelta() > 0)
+    if (Mouse::GetZDelta() < 0)
     {
         m_menu.Next();
     }
-    else if (Mouse::GetZDelta() < 0)
+    else if (Mouse::GetZDelta() > 0)
     {
         m_menu.Previous();
     }
