@@ -375,6 +375,7 @@ void SeqBattle::Update(eSequence* sequence)
             m_bShowMenu = true;
             Camera::SleepModeON();
             ShowCursor(true);
+
             return;
         }
     }
