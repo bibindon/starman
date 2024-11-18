@@ -57,8 +57,8 @@ void Camera::Update()
     {
         return;
     }
-    LONG x = Mouse::GetX();
-    LONG y = Mouse::GetY();
+    LONG x = Mouse::GetXDelta();
+    LONG y = Mouse::GetYDelta();
     float joyX { 0.0f };
     if (GamePad::IsHold(eJoyStickButtonType::Z_LEFT))
     {

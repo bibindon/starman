@@ -13,8 +13,9 @@ class Mouse
 public:
     static void Init(LPDIRECTINPUT8 directInput, HWND hWnd);
     static void Update();
-    static LONG GetX();
-    static LONG GetY();
+    static LONG GetXDelta();
+    static LONG GetYDelta();
+    static LONG GetZDelta();
     static bool IsDownLeft();
     static bool IsHoldLeft();
     static bool IsDownRight();
@@ -22,7 +23,7 @@ public:
 
 private:
     static LPDIRECTINPUTDEVICE8 m_DIMouse;
-    static DIMOUSESTATE m_DIMouseState;
-    static DIMOUSESTATE m_DIMouseStatePrev;
+    static DIMOUSESTATE2 m_DIMouseState;
+    static DIMOUSESTATE2 m_DIMouseStatePrev;
 };
 

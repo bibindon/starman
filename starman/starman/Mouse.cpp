@@ -2,14 +2,14 @@
 #include <exception>
 
 LPDIRECTINPUTDEVICE8 Mouse::m_DIMouse;
-DIMOUSESTATE Mouse::m_DIMouseState;
-DIMOUSESTATE Mouse::m_DIMouseStatePrev;
+DIMOUSESTATE2 Mouse::m_DIMouseState;
+DIMOUSESTATE2 Mouse::m_DIMouseStatePrev;
 
 void Mouse::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {
     HRESULT ret = directInput->CreateDevice(GUID_SysMouse, &m_DIMouse, NULL);
 
-    ret = m_DIMouse->SetDataFormat(&c_dfDIMouse);
+    ret = m_DIMouse->SetDataFormat(&c_dfDIMouse2);
     ret = m_DIMouse->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 
     // デバイスの設定
@@ -34,22 +34,27 @@ void Mouse::Update()
     m_DIMouse->Acquire();
     memcpy(&m_DIMouseStatePrev, &m_DIMouseState, sizeof(m_DIMouseStatePrev));
 
-    HRESULT	hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_DIMouseState);
+    HRESULT	hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE2), &m_DIMouseState);
     if (hr == DIERR_INPUTLOST)
     {
         m_DIMouse->Acquire();
-        hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &m_DIMouseState);
+        hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE2), &m_DIMouseState);
     }
 }
 
-LONG Mouse::GetX()
+LONG Mouse::GetXDelta()
 {
     return m_DIMouseState.lX;
 }
 
-LONG Mouse::GetY()
+LONG Mouse::GetYDelta()
 {
     return m_DIMouseState.lY;
+}
+
+LONG Mouse::GetZDelta()
+{
+    return m_DIMouseState.lZ;
 }
 
 bool Mouse::IsDownLeft()
