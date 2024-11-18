@@ -374,6 +374,7 @@ void SeqBattle::Update(eSequence* sequence)
         {
             m_bShowMenu = true;
             Camera::SleepModeON();
+            ShowCursor(true);
             return;
         }
     }
@@ -384,6 +385,7 @@ void SeqBattle::Update(eSequence* sequence)
         {
             m_bShowMenu = false;
             Camera::SleepModeOFF();
+            ShowCursor(false);
             // TODO fix
             *sequence = eSequence::TITLE;
         }
@@ -391,6 +393,7 @@ void SeqBattle::Update(eSequence* sequence)
         {
             m_bShowMenu = false;
             Camera::SleepModeOFF();
+            ShowCursor(false);
             *sequence = eSequence::TITLE;
         }
         return;

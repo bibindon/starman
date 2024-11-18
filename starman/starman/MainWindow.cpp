@@ -24,8 +24,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
     }
     else if (mes == WM_SETCURSOR)
     {
-        ShowCursor(false);
-        return 0;
+//        ShowCursor(false);
+//        return 0;
     }
 
     return DefWindowProc(hWnd, mes, wParam, lParam);
@@ -161,6 +161,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     // ウィンドウ表示
     ShowWindow(m_hWnd, SW_SHOW);
+
+    ShowCursor(false);
 }
 
 MainWindow::~MainWindow()
