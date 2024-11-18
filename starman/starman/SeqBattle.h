@@ -10,6 +10,7 @@
 #include "Map.h"
 
 #include "..\..\talklib2\talklib2\talklib2.h"
+#include "..\..\menulib\menulib\menulib\MenuLib.h"
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 
 enum class eBattleState
@@ -48,5 +49,13 @@ private:
 
     // エンディングを開始してほしいときにtrueにする
     bool m_bEndingRequest { false };
+
+    //----------------------------------------------------------
+    // メニュー
+    //----------------------------------------------------------
+    bool m_bShowMenu { false };
+    void InitMenu();
+    NSMenulib::MenuLib m_menu;
+    std::string OperateMenu();
 };
 

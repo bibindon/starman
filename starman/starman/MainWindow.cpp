@@ -238,7 +238,7 @@ int MainWindow::MainLoop()
         GamePad::Update();
         Camera::Update();
 
-        if (KeyBoard::IsDown(DIK_ESCAPE))
+        if (KeyBoard::IsDown(DIK_F1))
         {
             PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         }

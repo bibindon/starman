@@ -12,6 +12,7 @@ float Camera::m_viewAngle { D3DX_PI / 4 };
 // m_radian == D3DX_PI * 3 / 2の時（270度の時）カメラは正面を向く
 float Camera::m_radian { D3DX_PI * 3 / 2 };
 float Camera::m_y { 3.f };
+bool Camera::m_sleepMode { false };
 
 D3DXMATRIX Camera::GetViewMatrix()
 {
@@ -52,6 +53,10 @@ void Camera::SetRadian(const float radian)
 
 void Camera::Update()
 {
+    if (m_sleepMode)
+    {
+        return;
+    }
     LONG x = Mouse::GetX();
     LONG y = Mouse::GetY();
     float joyX { 0.0f };
@@ -118,4 +123,14 @@ POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
     return POINT {
         static_cast<int>(matrix._41 / matrix._44),
         static_cast<int>(matrix._42 / matrix._44) };
+}
+
+void Camera::SleepModeON()
+{
+    m_sleepMode = true;
+}
+
+void Camera::SleepModeOFF()
+{
+    m_sleepMode = false;
 }

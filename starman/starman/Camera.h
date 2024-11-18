@@ -11,6 +11,11 @@ public:
     static void Update();
     static POINT GetScreenPos(const D3DXVECTOR3& world);
 
+    // マウスを動かしてもカメラが動かないようにする。
+    // メニュー画面を表示しているときはマウスを動かしてもカメラが動かないで欲しいため。
+    static void SleepModeON();
+    static void SleepModeOFF();
+
 private:
 
     const static D3DXVECTOR3 UPWARD;
@@ -19,5 +24,6 @@ private:
     static float m_viewAngle;
     static float m_radian;
     static float m_y;
+    static bool m_sleepMode;
 };
 
