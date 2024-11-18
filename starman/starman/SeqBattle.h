@@ -12,6 +12,7 @@
 #include "..\..\talklib2\talklib2\talklib2.h"
 #include "..\..\menulib\menulib\menulib\MenuLib.h"
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
 
 enum class eBattleState
 {

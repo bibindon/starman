@@ -10,3 +10,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "quest-system"]
 	path = quest-system
 	url = https://github.com/bibindon/quest-system.git
+[submodule "StarmanLib"]
+	path = StarmanLib
+	url = https://github.com/bibindon/StarmanLib.git
