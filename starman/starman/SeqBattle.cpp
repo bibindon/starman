@@ -1368,12 +1368,18 @@ std::string SeqBattle::OperateMenu()
 
     if (Mouse::IsDownLeft())
     {
-        m_menu.Click(Mouse::GetX(), Mouse::GetY());
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        m_menu.Click(p.x, p.y);
     }
 
     if (Mouse::IsDownRight())
     {
-        m_menu.RightClick(Mouse::GetX(), Mouse::GetY());
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        m_menu.RightClick(p.x, p.y);
     }
 
     // TODO マウスホイール
