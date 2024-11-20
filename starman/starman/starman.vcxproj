@@ -176,6 +176,7 @@
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="KeyBoard.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MainWindow.h" />
+    <ClInclude Include="MenuManager.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Player.h" />

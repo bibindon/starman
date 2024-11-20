@@ -13,6 +13,7 @@
 #include "..\..\menulib\menulib\menulib\MenuLib.h"
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
+#include "MenuManager.h"
 
 enum class eBattleState
 {
@@ -55,8 +56,6 @@ private:
     // ƒƒjƒ…[
     //----------------------------------------------------------
     bool m_bShowMenu { false };
-    void InitMenu();
-    NSMenulib::MenuLib m_menu;
-    std::string OperateMenu();
+    MenuManager m_menuManager;
 };
 
