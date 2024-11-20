@@ -52,9 +52,12 @@ private:
     // エンディングを開始してほしいときにtrueにする
     bool m_bEndingRequest { false };
 
+    void OperateMenu(eSequence* sequence);
+
     //----------------------------------------------------------
     // メニュー
     //----------------------------------------------------------
+    void OperateTalk();
     bool m_bShowMenu { false };
     MenuManager m_menuManager;
 };

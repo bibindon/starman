@@ -229,35 +229,25 @@ void SeqBattle::Update(eSequence* sequence)
     }
 
     // TODO Gamepad support
-    if (m_bShowMenu == false)
+    // メニュー画面が表示されているときの処理
+    if (m_bShowMenu)
     {
-        if (KeyBoard::IsDown(DIK_ESCAPE))
-        {
-            m_bShowMenu = true;
-            Camera::SleepModeON();
-            ShowCursor(true);
-
-            return;
-        }
+        OperateMenu(sequence);
+        return;
     }
-    else
+    // 会話画面が表示されているときの処理
+    else if (m_bTalking)
     {
-        std::string result = m_menuManager.OperateMenu();
-        if (result == "最初から")
-        {
-            m_bShowMenu = false;
-            Camera::SleepModeOFF();
-            ShowCursor(false);
-            // TODO fix
-            *sequence = eSequence::TITLE;
-        }
-        else if (result == "タイトル")
-        {
-            m_bShowMenu = false;
-            Camera::SleepModeOFF();
-            ShowCursor(false);
-            *sequence = eSequence::TITLE;
-        }
+        OperateTalk();
+        return;
+    }
+
+    if (KeyBoard::IsDown(DIK_ESCAPE))
+    {
+        m_bShowMenu = true;
+        Camera::SleepModeON();
+        ShowCursor(true);
+
         return;
     }
 
@@ -419,17 +409,6 @@ void SeqBattle::Update(eSequence* sequence)
         }
     }
 
-    if (m_talk != nullptr)
-    {
-        bool talkFinish = m_talk->Update();
-        if (talkFinish)
-        {
-            m_bTalking = false;
-            m_talk->Finalize();
-            delete m_talk;
-            m_talk = nullptr;
-        }
-    }
     // 60回に一回くらいクエスト管理クラスにプレイヤーの現在地を知らせる。
     {
         static int counter = 0;
@@ -494,6 +473,46 @@ void SeqBattle::Update(eSequence* sequence)
     }
 }
 
+void SeqBattle::OperateMenu(eSequence* sequence)
+{
+    std::string result = m_menuManager.OperateMenu();
+    if (result == "最初から")
+    {
+        m_bShowMenu = false;
+        Camera::SleepModeOFF();
+        ShowCursor(false);
+        // TODO fix
+        *sequence = eSequence::TITLE;
+    }
+    else if (result == "タイトル")
+    {
+        m_bShowMenu = false;
+        Camera::SleepModeOFF();
+        ShowCursor(false);
+        *sequence = eSequence::TITLE;
+    }
+}
+
+void SeqBattle::OperateTalk()
+{
+    if (m_talk != nullptr)
+    {
+        bool talkFinish = m_talk->Update();
+        if (talkFinish)
+        {
+            m_bTalking = false;
+            m_talk->Finalize();
+            delete m_talk;
+            m_talk = nullptr;
+        }
+    }
+
+    if (KeyBoard::IsDown(DIK_SPACE))
+    {
+        m_talk->Next();
+    }
+}
+
 void SeqBattle::Render()
 {
     m_player->Render();
@@ -509,7 +528,7 @@ void SeqBattle::Render()
 
     PopUp::Get()->Render();
 
-    if (m_talk != nullptr)
+    if (m_bTalking)
     {
         m_talk->Render();
     }
@@ -605,41 +624,26 @@ void SeqBattle::InputR1()
 
 void SeqBattle::InputA()
 {
-    if (m_talk != nullptr)
-    {
-        m_talk->Next();
-    }
-    else
-    {
-        m_player->SetJump();
-
-    }
+    m_player->SetJump();
 }
 
 void SeqBattle::InputB(eSequence* sequence)
 {
-    if (m_talk != nullptr)
+    if (m_eState == eBattleState::GAMEOVER)
     {
-        m_talk->Next();
+        if (m_nGameoverCounter >= 60)
+        {
+            *sequence = eSequence::TITLE;
+        }
     }
     else
     {
-        if (m_eState == eBattleState::GAMEOVER)
+        // 調べるコマンド
+        // プレイヤーの現在座標で始まるクエストか終わるクエストがある。
+        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+        if (m_bShowExamine)
         {
-            if (m_nGameoverCounter >= 60)
-            {
-                *sequence = eSequence::TITLE;
-            }
-        }
-        else
-        {
-            // 調べるコマンド
-            // プレイヤーの現在座標で始まるクエストか終わるクエストがある。
-            D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
-            if (m_bShowExamine)
-            {
-                SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
-            }
+            SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
         }
     }
 }
