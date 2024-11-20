@@ -44,7 +44,7 @@ namespace UnitTest
             D3DXVECTOR3 eyePos { 0.0f, 2.0f, -2.0f };
             D3DXVECTOR3 lookAtPos { 0.0f, 0.0f, 0.0f };
             float viewAngle { D3DX_PI / 4 };
-            Camera::SetPos(lookAtPos);
+            Camera::SetLookAtPos(lookAtPos);
         }
 };
 }

@@ -36,7 +36,7 @@ D3DXMATRIX Camera::GetProjMatrix()
     return projection_matrix;
 }
 
-void Camera::SetPos(const D3DXVECTOR3& lookAtPos)
+void Camera::SetLookAtPos(const D3DXVECTOR3& lookAtPos)
 {
     m_lookAtPos = lookAtPos;
 }
@@ -91,13 +91,13 @@ void Camera::Update()
     //OutputDebugString(radian.c_str());
     if (0.f <= m_eyePos.y)
     {
-        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(10-((m_y/3)*(m_y/3)));
-        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(10-((m_y/3)*(m_y/3)));
+        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
+        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
     }
     else
     {
-        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(10-((m_y/3)*(m_y/3)));
-        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(10-((m_y/3)*(m_y/3)));
+        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
+        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
     }
     std::string eysPosX = std::to_string(m_eyePos.x);
     eysPosX = "eysPosX: " + eysPosX + "\n";

@@ -258,6 +258,9 @@ void SeqBattle::Update(eSequence* sequence)
     bool isHit { false };
     if (KeyBoard::IsHold(DIK_W))
     {
+        // デバッグ目的でWキーだけ移動速度10倍
+        //move.x += -std::sin(radian + D3DX_PI / 2) / 5;
+        //move.z += std::sin(radian + D3DX_PI) / 5;
         move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 10;
         move.z += std::sin(radian + D3DX_PI) / 5 * 10;
 
@@ -371,7 +374,9 @@ void SeqBattle::Update(eSequence* sequence)
     if (isHit == false)
     {
         m_player->SetMove(m_player->GetMove() + move);
-        Camera::SetPos(m_player->GetPos());
+        D3DXVECTOR3 pos = m_player->GetPos();
+        pos.y += 1.f;
+        Camera::SetLookAtPos(pos);
     }
     m_player->Update(m_map);
     if (m_player->GetHP() <= 0)
