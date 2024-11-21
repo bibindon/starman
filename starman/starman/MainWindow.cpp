@@ -163,6 +163,16 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     ShowWindow(m_hWnd, SW_SHOW);
 
     ShowCursor(false);
+
+    {
+        RECT rect2 = rect;
+        rect2.left = 100;
+        rect2.top = 100;
+        rect2.right = 1600;
+        rect2.bottom = 900;
+
+        ClipCursor(&rect2);
+    }
 }
 
 MainWindow::~MainWindow()
