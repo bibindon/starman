@@ -149,7 +149,7 @@ void MenuManager::InitMenu()
 {
     using namespace NSMenulib;
     NSMenulib::Sprite* sprCursor = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-    sprCursor->Load("res\\image\\cursor.png");
+    sprCursor->Load("res\\image\\menu_cursor.png");
 
     NSMenulib::Sprite* sprBackground = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load("res\\image\\background.png");
@@ -721,6 +721,7 @@ std::string MenuManager::OperateMenu()
     if (KeyBoard::IsDown(DIK_ESCAPE))
     {
         m_menu.Back();
+//        m_bShowMenu = false;
     }
 
     if (Mouse::IsDownLeft())
