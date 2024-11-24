@@ -720,8 +720,7 @@ std::string MenuManager::OperateMenu()
 
     if (KeyBoard::IsDown(DIK_ESCAPE))
     {
-        m_menu.Back();
-//        m_bShowMenu = false;
+        result = m_menu.Back();
     }
 
     if (Mouse::IsDownLeft())

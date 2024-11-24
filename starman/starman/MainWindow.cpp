@@ -168,8 +168,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         RECT rect2 = rect;
         rect2.left = 100;
         rect2.top = 100;
-        rect2.right = 1600;
-        rect2.bottom = 900;
+        rect2.right = 1600+100;
+        rect2.bottom = 900+100;
 
         ClipCursor(&rect2);
     }

@@ -247,6 +247,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_bShowMenu = true;
         Camera::SleepModeON();
         ShowCursor(true);
+        ClipCursor(NULL);
 
         return;
     }
@@ -486,6 +487,14 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         m_bShowMenu = false;
         Camera::SleepModeOFF();
         ShowCursor(false);
+        {
+            RECT rect;
+            rect.left = 100;
+            rect.top = 100;
+            rect.right = 1600 + 100;
+            rect.bottom = 900 + 100;
+            ClipCursor(&rect);
+        }
         // TODO fix
         *sequence = eSequence::TITLE;
     }
@@ -494,7 +503,29 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         m_bShowMenu = false;
         Camera::SleepModeOFF();
         ShowCursor(false);
+        {
+            RECT rect;
+            rect.left = 100;
+            rect.top = 100;
+            rect.right = 1600 + 100;
+            rect.bottom = 900 + 100;
+            ClipCursor(&rect);
+        }
         *sequence = eSequence::TITLE;
+    }
+    else if (result == "EXIT")
+    {
+        m_bShowMenu = false;
+        Camera::SleepModeOFF();
+        ShowCursor(false);
+        {
+            RECT rect;
+            rect.left = 100;
+            rect.top = 100;
+            rect.right = 1600 + 100;
+            rect.bottom = 900 + 100;
+            ClipCursor(&rect);
+        }
     }
 }
 
