@@ -5,6 +5,7 @@
 #include "SharedObj.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\HumanInfoManager.h"
 
 namespace NSMenulib
 {
@@ -411,32 +412,59 @@ void MenuManager::InitMenu()
     m_menu.SetItem(itemInfoList);
     std::vector<HumanInfo> humanInfoList;
     {
-        HumanInfo humanInfo;
-        humanInfo.SetName("テスト人物１");
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\human1.png");
-        humanInfo.SetSprite(sprItem);
-        humanInfo.SetDetail("テスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-        humanInfoList.push_back(humanInfo);
+        NSStarmanLib::HumanInfoManager* humanInfoManager = NSStarmanLib::HumanInfoManager::GetObj();
+        std::vector<std::string> humanNameList = humanInfoManager->GetHumanNameList();
+        for (std::size_t i = 0; i < humanNameList.size(); ++i)
+        {
+            HumanInfo humanInfo;
+
+            NSStarmanLib::HumanInfo libHumanInfo = humanInfoManager->GetHumanInfo(humanNameList.at(i));
+
+            if (libHumanInfo.GetVisible())
+            {
+//                continue;
+            }
+
+            humanInfo.SetName(libHumanInfo.GetName());
+
+            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+            sprItem->Load(libHumanInfo.GetImagePath());
+            humanInfo.SetSprite(sprItem);
+
+            humanInfo.SetDetail(libHumanInfo.GetDetail());
+
+            humanInfoList.push_back(humanInfo);
+        }
     }
-    {
-        HumanInfo humanInfo;
-        humanInfo.SetName("テスト人物２");
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\human2.png");
-        humanInfo.SetSprite(sprItem);
-        humanInfo.SetDetail("テスト人物２\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-        humanInfoList.push_back(humanInfo);
-    }
-    {
-        HumanInfo humanInfo;
-        humanInfo.SetName("テスト人物３");
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\human3.png");
-        humanInfo.SetSprite(sprItem);
-        humanInfo.SetDetail("テスト人物３\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-        humanInfoList.push_back(humanInfo);
-    }
+    m_menu.SetHuman(humanInfoList);
+//    {
+//        HumanInfo humanInfo;
+//        humanInfo.SetName("テスト人物１");
+//        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+//        sprItem->Load("res\\image\\human1.png");
+//        humanInfo.SetSprite(sprItem);
+//        humanInfo.SetDetail("テスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
+//        humanInfoList.push_back(humanInfo);
+//
+//    }
+//    {
+//        HumanInfo humanInfo;
+//        humanInfo.SetName("テスト人物２");
+//        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+//        sprItem->Load("res\\image\\human2.png");
+//        humanInfo.SetSprite(sprItem);
+//        humanInfo.SetDetail("テスト人物２\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
+//        humanInfoList.push_back(humanInfo);
+//    }
+//    {
+//        HumanInfo humanInfo;
+//        humanInfo.SetName("テスト人物３");
+//        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+//        sprItem->Load("res\\image\\human3.png");
+//        humanInfo.SetSprite(sprItem);
+//        humanInfo.SetDetail("テスト人物３\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
+//        humanInfoList.push_back(humanInfo);
+//    }
     m_menu.SetHuman(humanInfoList);
     {
         std::vector<WeaponInfo> infoList;

@@ -13,6 +13,7 @@
 #include "SharedObj.h"
 #include <random>
 #include "PopUp.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
 using std::chrono::system_clock;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
@@ -172,6 +173,11 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         rect2.bottom = 900+100;
 
         ClipCursor(&rect2);
+    }
+
+    {
+        NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
+        him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.csv");
     }
 }
 
