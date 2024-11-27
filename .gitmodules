@@ -13,3 +13,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "StarmanLib"]
 	path = StarmanLib
 	url = https://github.com/bibindon/StarmanLib.git
+[submodule "craftlib"]
+	path = craftlib
+	url = https://github.com/bibindon/craftlib.git
