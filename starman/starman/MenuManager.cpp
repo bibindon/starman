@@ -127,21 +127,21 @@ class SoundEffect : public ISoundEffect
 {
     virtual void PlayMove() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav");
+        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
     }
     virtual void PlayClick() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav");
+        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
     }
     virtual void PlayBack() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\cursor_cancel.wav");
+        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
     }
     virtual void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\cursor_move.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\cursor_confirm.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\cursor_cancel.wav");
+        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
+        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
+        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
     }
 };
 }
