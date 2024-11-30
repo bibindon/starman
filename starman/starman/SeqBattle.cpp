@@ -412,7 +412,6 @@ public:
     ~Font() override
     {
         m_pFont->Release();
-        m_pFont->Release();
         m_pFont = nullptr;
     }
 

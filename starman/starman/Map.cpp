@@ -198,7 +198,7 @@ void Map::Render()
     }
     if (m_lazyMesh.IsLoaded())
     {
-        m_lazyMesh.Render();
+        //m_lazyMesh.Render();
     }
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
