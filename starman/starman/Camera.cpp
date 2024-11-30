@@ -77,6 +77,7 @@ void Camera::Update()
         y = 10;
     }
     x *= -1; // 正負を逆にする
+    // xとyを10分の1にすればリモートデスクトップでもまともに操作できる
     m_radian += x/500.f;
     m_radian += joyX;
     m_y += y / 100.f;

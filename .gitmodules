@@ -16,3 +16,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "craftlib"]
 	path = craftlib
 	url = https://github.com/bibindon/craftlib.git
+[submodule "storehouselib"]
+	path = storehouselib
+	url = https://github.com/bibindon/storehouselib.git
