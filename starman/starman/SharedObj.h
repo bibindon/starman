@@ -16,13 +16,14 @@ public:
     static int GetRandom();
     static Player* GetPlayer();
     static void SetPlayer(Player* player);
-
     static NSQuestSystem::QuestSystem* GetQuestSystem();
+    static bool DebugMode();
 
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;
     static std::mt19937 m_Engine;
     static Player* m_player;
     static NSQuestSystem::QuestSystem* m_questSystem;
+    static bool m_debugMode;
 };
 
