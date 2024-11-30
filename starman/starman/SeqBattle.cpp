@@ -21,6 +21,146 @@
 
 using namespace NSQuestSystem;
 
+namespace NSStorehouseLib
+{
+
+    class Sprite : public ISprite
+    {
+    public:
+
+        Sprite(LPDIRECT3DDEVICE9 dev)
+            : m_pD3DDevice(dev)
+        {
+        }
+
+        void DrawImage(const int x, const int y, const int transparency) override
+        {
+            D3DXVECTOR3 pos{ (float)x, (float)y, 0.f };
+            m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
+            RECT rect = {
+                0,
+                0,
+                static_cast<LONG>(m_width),
+                static_cast<LONG>(m_height) };
+            D3DXVECTOR3 center{ 0, 0, 0 };
+            m_D3DSprite->Draw(
+                m_pD3DTexture,
+                &rect,
+                &center,
+                &pos,
+                D3DCOLOR_ARGB(transparency, 255, 255, 255));
+            m_D3DSprite->End();
+
+        }
+
+        void Load(const std::string& filepath) override
+        {
+            LPD3DXSPRITE tempSprite{ nullptr };
+            if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+            {
+                throw std::exception("Failed to create a sprite.");
+            }
+
+            if (FAILED(D3DXCreateTextureFromFile(
+                m_pD3DDevice,
+                filepath.c_str(),
+                &m_pD3DTexture)))
+            {
+                throw std::exception("Failed to create a texture.");
+            }
+
+            D3DSURFACE_DESC desc{ };
+            if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
+            {
+                throw std::exception("Failed to create a texture.");
+            }
+            m_width = desc.Width;
+            m_height = desc.Height;
+        }
+
+        ~Sprite()
+        {
+            m_D3DSprite->Release();
+            m_pD3DTexture->Release();
+        }
+
+    private:
+
+        LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
+        LPD3DXSPRITE m_D3DSprite = NULL;
+        LPDIRECT3DTEXTURE9 m_pD3DTexture = NULL;
+        UINT m_width{ 0 };
+        UINT m_height{ 0 };
+    };
+
+    class Font : public IFont
+    {
+    public:
+
+        Font(LPDIRECT3DDEVICE9 pD3DDevice)
+            : m_pD3DDevice(pD3DDevice)
+        {
+        }
+
+        void Init()
+        {
+            HRESULT hr = D3DXCreateFont(
+                m_pD3DDevice,
+                24,
+                0,
+                FW_NORMAL,
+                1,
+                false,
+                SHIFTJIS_CHARSET,
+                OUT_TT_ONLY_PRECIS,
+                ANTIALIASED_QUALITY,
+                FF_DONTCARE,
+                "ＭＳ 明朝",
+                &m_pFont);
+        }
+
+        virtual void DrawText_(const std::string& msg, const int x, const int y)
+        {
+            RECT rect = { x, y, 0, 0 };
+            m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
+                D3DCOLOR_ARGB(255, 255, 255, 255));
+        }
+
+        ~Font()
+        {
+            m_pFont->Release();
+        }
+
+    private:
+
+        LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
+        LPD3DXFONT m_pFont = NULL;
+    };
+
+
+    class SoundEffect : public ISoundEffect
+    {
+        virtual void PlayMove() override
+        {
+            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+        }
+        virtual void PlayClick() override
+        {
+            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+        }
+        virtual void PlayBack() override
+        {
+            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+        }
+        virtual void Init() override
+        {
+            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
+            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
+            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+        }
+    };
+}
+
 namespace NSTalkLib2
 {
 
@@ -241,6 +381,11 @@ void SeqBattle::Update(eSequence* sequence)
         OperateTalk();
         return;
     }
+    else if (m_bShowStorehouse)
+    {
+        OperateStorehouse();
+        return;
+    }
 
     if (KeyBoard::IsDown(DIK_ESCAPE))
     {
@@ -331,15 +476,85 @@ void SeqBattle::Update(eSequence* sequence)
         vss.push_back(vs);
         PopUp::Get()->SetText(vss);
     }
+
     if (KeyBoard::IsDown(DIK_F8))
     {
         PopUp::Get()->Next();
     }
+
     if (KeyBoard::IsDown(DIK_F9))
     {
         PopUp::Get()->Cancel();
     }
+
     PopUp::Get()->Update();
+
+    if (KeyBoard::IsDown(DIK_F1))
+    {
+        if (m_bShowStorehouse == false)
+        {
+            m_bShowStorehouse = true;
+            delete m_storehouse;
+            m_storehouse = new NSStorehouseLib::StorehouseLib();
+
+            NSStorehouseLib::Sprite* sprCursor = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+            sprCursor->Load("res\\image\\menu_cursor.png");
+
+            NSStorehouseLib::Sprite* sprBackground = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+            sprBackground->Load("res\\image\\background.png");
+
+            NSStorehouseLib::Sprite* sprPanelLeft = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+            sprPanelLeft->Load("res\\image\\panelLeft.png");
+
+            NSStorehouseLib::Sprite* sprPanelTop = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+            sprPanelTop->Load("res\\image\\craftPanel.png");
+
+            NSStorehouseLib::IFont* pFont = new NSStorehouseLib::Font(SharedObj::GetD3DDevice());
+            pFont->Init();
+
+            NSStorehouseLib::ISoundEffect* pSE = new NSStorehouseLib::SoundEffect();
+
+            m_storehouse->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
+            {
+                std::vector<std::string> vs;
+
+                vs.push_back("アイテムＡＡＡ");
+                vs.push_back("武器ＢＢＢ");
+                vs.push_back("アイテムＣ");
+                vs.push_back("アイテムＤ");
+                vs.push_back("アイテムＥ");
+                vs.push_back("アイテムＦ");
+                vs.push_back("アイテムＧ");
+                vs.push_back("アイテムＨ");
+                vs.push_back("アイテムＩ");
+                vs.push_back("アイテムＪ");
+                vs.push_back("アイテムＫ");
+                vs.push_back("アイテムＬ");
+                vs.push_back("アイテムＭ");
+                vs.push_back("アイテムＮ");
+                vs.push_back("アイテムＯ");
+                vs.push_back("アイテムＰ");
+                m_storehouse->SetInventoryList(vs);
+
+                vs.clear();
+                vs.push_back("アイテム１");
+                vs.push_back("アイテム２");
+                vs.push_back("アイテム３");
+                vs.push_back("アイテム４");
+                vs.push_back("アイテム５");
+                vs.push_back("アイテム６");
+                vs.push_back("アイテム７");
+                vs.push_back("アイテム８");
+                vs.push_back("アイテム９");
+                vs.push_back("アイテム１０");
+                vs.push_back("アイテム１１");
+                vs.push_back("アイテム１２");
+                vs.push_back("アイテム１３");
+                vs.push_back("アイテム１４");
+                m_storehouse->SetStorehouseList(vs);
+            }
+        }
+    }
 
     if (Mouse::IsDownLeft())
     {
@@ -549,6 +764,73 @@ void SeqBattle::OperateTalk()
     }
 }
 
+void SeqBattle::OperateStorehouse()
+{
+    std::string result;
+
+    if (KeyBoard::IsDown(DIK_F1))
+    {
+        m_bShowStorehouse = false;
+    }
+
+    if (KeyBoard::IsDown(DIK_UP))
+    {
+        m_storehouse->Up();
+    }
+
+    if (KeyBoard::IsDown(DIK_DOWN))
+    {
+        m_storehouse->Down();
+    }
+
+    if (KeyBoard::IsDown(DIK_LEFT))
+    {
+        m_storehouse->Left();
+    }
+
+    if (KeyBoard::IsDown(DIK_RIGHT))
+    {
+        m_storehouse->Right();
+    }
+
+    if (KeyBoard::IsDown(DIK_RETURN))
+    {
+        m_storehouse->Into();
+
+        if (result == "タイトル")
+        {
+            //m_bShowMenu = false;
+        }
+        else if (result == "最初から")
+        {
+            //m_bShowMenu = false;
+        }
+    }
+
+    if (KeyBoard::IsDown(DIK_ESCAPE))
+    {
+        result = m_storehouse->Back();
+    }
+
+    if (Mouse::IsDownLeft())
+    {
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        m_storehouse->Click(p.x, p.y);
+    }
+
+    if (Mouse::GetZDelta() < 0)
+    {
+        m_storehouse->Next();
+    }
+    else if (Mouse::GetZDelta() > 0)
+    {
+        m_storehouse->Previous();
+    }
+    return;
+}
+
 void SeqBattle::Render()
 {
     m_player->Render();
@@ -578,6 +860,11 @@ void SeqBattle::Render()
     if (m_bShowMenu)
     {
         m_menuManager.Draw();
+    }
+
+    if (m_bShowStorehouse)
+    {
+        m_storehouse->Draw();
     }
 }
 

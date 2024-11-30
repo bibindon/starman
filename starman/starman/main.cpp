@@ -12,6 +12,7 @@
 #pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
 #pragma comment(lib, "..\\..\\menulib\\menulib\\menulib.lib")
 #pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\StarmanLib.lib")
+#pragma comment(lib, "..\\..\\storehouselib\\storehouselib.lib")
 
 #include <windows.h>
 #include "MainWindow.h"

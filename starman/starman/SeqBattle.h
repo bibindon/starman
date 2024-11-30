@@ -13,6 +13,7 @@
 #include "..\..\menulib\menulib\menulib\MenuLib.h"
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
+#include "..\..\storehouselib\storehouselib\StorehouseLib.h"
 #include "MenuManager.h"
 
 enum class eBattleState
@@ -60,5 +61,13 @@ private:
     void OperateTalk();
     bool m_bShowMenu { false };
     MenuManager m_menuManager;
+
+    //----------------------------------------------------------
+    // ‘qŒÉ‰æ–Ê
+    //----------------------------------------------------------
+    void OperateStorehouse();
+    bool m_bShowStorehouse = false;
+    NSStorehouseLib::StorehouseLib* m_storehouse = nullptr;
+
 };
 
