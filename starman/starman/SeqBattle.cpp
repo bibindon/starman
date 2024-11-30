@@ -161,6 +161,145 @@ namespace NSStorehouseLib
     };
 }
 
+namespace NSCraftLib
+{
+    class Sprite : public ISprite
+    {
+    public:
+
+        Sprite(LPDIRECT3DDEVICE9 dev)
+            : m_pD3DDevice(dev)
+        {
+        }
+
+        void DrawImage(const int x, const int y, const int transparency) override
+        {
+            D3DXVECTOR3 pos{ (float)x, (float)y, 0.f };
+            m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
+            RECT rect = {
+                0,
+                0,
+                static_cast<LONG>(m_width),
+                static_cast<LONG>(m_height) };
+            D3DXVECTOR3 center{ 0, 0, 0 };
+            m_D3DSprite->Draw(
+                m_pD3DTexture,
+                &rect,
+                &center,
+                &pos,
+                D3DCOLOR_ARGB(transparency, 255, 255, 255));
+            m_D3DSprite->End();
+
+        }
+
+        void Load(const std::string& filepath) override
+        {
+            LPD3DXSPRITE tempSprite{ nullptr };
+            if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+            {
+                throw std::exception("Failed to create a sprite.");
+            }
+
+            if (FAILED(D3DXCreateTextureFromFile(
+                m_pD3DDevice,
+                filepath.c_str(),
+                &m_pD3DTexture)))
+            {
+                throw std::exception("Failed to create a texture.");
+            }
+
+            D3DSURFACE_DESC desc{ };
+            if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
+            {
+                throw std::exception("Failed to create a texture.");
+            }
+            m_width = desc.Width;
+            m_height = desc.Height;
+        }
+
+        ~Sprite()
+        {
+            m_D3DSprite->Release();
+            m_pD3DTexture->Release();
+        }
+
+    private:
+
+        LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
+        LPD3DXSPRITE m_D3DSprite = NULL;
+        LPDIRECT3DTEXTURE9 m_pD3DTexture = NULL;
+        UINT m_width{ 0 };
+        UINT m_height{ 0 };
+    };
+
+    class Font : public IFont
+    {
+    public:
+
+        Font(LPDIRECT3DDEVICE9 pD3DDevice)
+            : m_pD3DDevice(pD3DDevice)
+        {
+        }
+
+        void Init()
+        {
+            HRESULT hr = D3DXCreateFont(
+                m_pD3DDevice,
+                24,
+                0,
+                FW_NORMAL,
+                1,
+                false,
+                SHIFTJIS_CHARSET,
+                OUT_TT_ONLY_PRECIS,
+                ANTIALIASED_QUALITY,
+                FF_DONTCARE,
+                "‚l‚r –¾’©",
+                &m_pFont);
+        }
+
+        virtual void DrawText_(const std::string& msg, const int x, const int y)
+        {
+            RECT rect = { x, y, 0, 0 };
+            m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
+                D3DCOLOR_ARGB(255, 255, 255, 255));
+        }
+
+        ~Font()
+        {
+            m_pFont->Release();
+        }
+
+    private:
+
+        LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
+        LPD3DXFONT m_pFont = NULL;
+    };
+
+
+    class SoundEffect : public ISoundEffect
+    {
+        virtual void PlayMove() override
+        {
+            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+        }
+        virtual void PlayClick() override
+        {
+            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+        }
+        virtual void PlayBack() override
+        {
+            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+        }
+        virtual void Init() override
+        {
+            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
+            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
+            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+        }
+    };
+}
+
 namespace NSTalkLib2
 {
 
@@ -386,6 +525,11 @@ void SeqBattle::Update(eSequence* sequence)
         OperateStorehouse();
         return;
     }
+    else if (m_bShowCraft)
+    {
+        OperateCraft();
+        return;
+    }
 
     if (KeyBoard::IsDown(DIK_ESCAPE))
     {
@@ -495,6 +639,11 @@ void SeqBattle::Update(eSequence* sequence)
         {
             m_bShowStorehouse = true;
             delete m_storehouse;
+
+            Camera::SleepModeON();
+            ShowCursor(true);
+            ClipCursor(NULL);
+
             m_storehouse = new NSStorehouseLib::StorehouseLib();
 
             NSStorehouseLib::Sprite* sprCursor = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
@@ -552,6 +701,361 @@ void SeqBattle::Update(eSequence* sequence)
                 vs.push_back("ƒAƒCƒeƒ€‚P‚R");
                 vs.push_back("ƒAƒCƒeƒ€‚P‚S");
                 m_storehouse->SetStorehouseList(vs);
+            }
+        }
+    }
+    if (KeyBoard::IsDown(DIK_F2))
+    {
+        if (m_bShowCraft == false)
+        {
+            m_bShowCraft = true;
+            delete m_craft;
+
+            Camera::SleepModeON();
+            ShowCursor(true);
+            ClipCursor(NULL);
+
+            m_craft = new NSCraftLib::CraftLib();
+
+            NSCraftLib::Sprite* sprCursor = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+            sprCursor->Load("res\\image\\menu_cursor.png");
+
+            NSCraftLib::Sprite* sprBackground = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+            sprBackground->Load("res\\image\\background.png");
+
+            NSCraftLib::Sprite* sprPanelLeft = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+            sprPanelLeft->Load("res\\image\\panelLeft.png");
+
+            NSCraftLib::Sprite* sprPanelTop = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+            sprPanelTop->Load("res\\image\\craftPanel.png");
+
+            NSCraftLib::IFont* pFont = new NSCraftLib::Font(SharedObj::GetD3DDevice());
+            pFont->Init();
+
+            NSCraftLib::ISoundEffect* pSE = new NSCraftLib::SoundEffect();
+
+            m_craft->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
+
+            {
+                std::vector<std::string> vs;
+
+                vs.push_back("ƒAƒCƒeƒ€‚`‚`‚`");
+                vs.push_back("•Ší‚a‚a‚a");
+                vs.push_back("ƒAƒCƒeƒ€‚b");
+                vs.push_back("ƒAƒCƒeƒ€‚c");
+                vs.push_back("ƒAƒCƒeƒ€‚d");
+                vs.push_back("ƒAƒCƒeƒ€‚e");
+                vs.push_back("ƒAƒCƒeƒ€‚f");
+                vs.push_back("ƒAƒCƒeƒ€‚g");
+                vs.push_back("ƒAƒCƒeƒ€‚h");
+                vs.push_back("ƒAƒCƒeƒ€‚i");
+                vs.push_back("ƒAƒCƒeƒ€‚j");
+                vs.push_back("ƒAƒCƒeƒ€‚k");
+                vs.push_back("ƒAƒCƒeƒ€‚l");
+                vs.push_back("ƒAƒCƒeƒ€‚m");
+                vs.push_back("ƒAƒCƒeƒ€‚n");
+                vs.push_back("ƒAƒCƒeƒ€‚o");
+                m_craft->SetOutputList(vs);
+
+                m_craft->SetCraftingItem("ƒAƒCƒeƒ€‚y‚y‚y‚y‚y", 24);
+
+                vs.clear();
+                vs.push_back("ƒAƒCƒeƒ€‚P");
+                vs.push_back("ƒAƒCƒeƒ€‚Q");
+                vs.push_back("ƒAƒCƒeƒ€‚R");
+                vs.push_back("ƒAƒCƒeƒ€‚S");
+                m_craft->SetCraftQue(vs);
+
+                std::string work;
+
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚`‚`‚`\n";
+                    work += "¬‰Ê•¨‚Ì”F‚P\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“x\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚ ‚ ‚ \n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚O\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚¢‚¢‚¢\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚O\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚`‚`‚`", work);
+
+                    NSCraftLib::ISprite* sprite1 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚`‚`‚`", "res\\image\\item1.png", sprite1);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OF•Ší‚a‚a‚a\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("•Ší‚a‚a‚a", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("•Ší‚a‚a‚a", "res\\image\\item2.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚b\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚b", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚b", "res\\image\\item3.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚c\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚c", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚c", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚d\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚d", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚d", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚e\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚e", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚e", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚f\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚f", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚f", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚g\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚g", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚g", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚h\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚h", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚h", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚i\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚i", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚i", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚j\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚j", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚j", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚k\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚k", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚k", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚l\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚l", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚l", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚m\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚m", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚m", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚n\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚n", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚n", "res\\image\\item1.png", sprite2);
+                }
+                {
+                    work = "¬‰Ê•¨‚Ì–¼‘OFƒAƒCƒeƒ€‚o\n";
+                    work += "¬‰Ê•¨‚Ì”F‚Q\n";
+                    work += "¬‰Ê•¨‚Ì‹­‰»“xF‚Q\n";
+                    work += "\n";
+                    work += "‘fÞ‚P‚Ì–¼‘OF‘fÞ–¼‚©‚©‚©‚©‚©\n";
+                    work += "‘fÞ‚P‚Ì”F‚P‚P‚P\n";
+                    work += "‘fÞ‚P‚Ì‹­‰»“xF‚P\n";
+                    work += "\n";
+                    work += "‘fÞ‚Q‚Ì–¼‘OF‘fÞ–¼‚«‚«‚«‚«‚«\n";
+                    work += "‘fÞ‚Q‚Ì”F‚Q‚Q‚Q\n";
+                    work += "‘fÞ‚Q‚Ì‹­‰»“xF‚Q\n";
+
+                    m_craft->SetOutputInfo("ƒAƒCƒeƒ€‚o", work);
+
+                    NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                    m_craft->SetOutputImage("ƒAƒCƒeƒ€‚o", "res\\image\\item1.png", sprite2);
+                }
             }
         }
     }
@@ -771,6 +1275,8 @@ void SeqBattle::OperateStorehouse()
     if (KeyBoard::IsDown(DIK_F1))
     {
         m_bShowStorehouse = false;
+        Camera::SleepModeOFF();
+        ShowCursor(false);
     }
 
     if (KeyBoard::IsDown(DIK_UP))
@@ -831,6 +1337,75 @@ void SeqBattle::OperateStorehouse()
     return;
 }
 
+void SeqBattle::OperateCraft()
+{
+    std::string result;
+
+    if (KeyBoard::IsDown(DIK_F2))
+    {
+        m_bShowCraft = false;
+        Camera::SleepModeOFF();
+        ShowCursor(false);
+    }
+
+    if (KeyBoard::IsDown(DIK_UP))
+    {
+        m_craft->Up();
+    }
+
+    if (KeyBoard::IsDown(DIK_DOWN))
+    {
+        m_craft->Down();
+    }
+
+    if (KeyBoard::IsDown(DIK_LEFT))
+    {
+        m_craft->Left();
+    }
+
+    if (KeyBoard::IsDown(DIK_RIGHT))
+    {
+        m_craft->Right();
+    }
+
+    if (KeyBoard::IsDown(DIK_RETURN))
+    {
+        m_craft->Into();
+
+        if (result == "ƒ^ƒCƒgƒ‹")
+        {
+            //m_bShowMenu = false;
+        }
+        else if (result == "Å‰‚©‚ç")
+        {
+            //m_bShowMenu = false;
+        }
+    }
+
+    if (KeyBoard::IsDown(DIK_ESCAPE))
+    {
+        result = m_craft->Back();
+    }
+
+    if (Mouse::IsDownLeft())
+    {
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(FindWindowA("ƒzƒVƒ}ƒ“", nullptr), &p);
+        m_craft->Click(p.x, p.y);
+    }
+
+    if (Mouse::GetZDelta() < 0)
+    {
+        m_craft->Next();
+    }
+    else if (Mouse::GetZDelta() > 0)
+    {
+        m_craft->Previous();
+    }
+    return;
+}
+
 void SeqBattle::Render()
 {
     m_player->Render();
@@ -865,6 +1440,11 @@ void SeqBattle::Render()
     if (m_bShowStorehouse)
     {
         m_storehouse->Draw();
+    }
+
+    if (m_bShowCraft)
+    {
+        m_craft->Draw();
     }
 }
 

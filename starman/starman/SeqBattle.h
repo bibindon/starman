@@ -14,6 +14,7 @@
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
 #include "..\..\storehouselib\storehouselib\StorehouseLib.h"
+#include "..\..\craftlib\craftlib\CraftLib.h"
 #include "MenuManager.h"
 
 enum class eBattleState
@@ -68,6 +69,14 @@ private:
     void OperateStorehouse();
     bool m_bShowStorehouse = false;
     NSStorehouseLib::StorehouseLib* m_storehouse = nullptr;
+
+    //----------------------------------------------------------
+    // ƒNƒ‰ƒtƒg‰æ–Ê
+    //----------------------------------------------------------
+    void OperateCraft();
+    bool m_bShowCraft = false;
+    NSCraftLib::CraftLib* m_craft = nullptr;
+
 
 };
 

@@ -13,6 +13,7 @@
 #pragma comment(lib, "..\\..\\menulib\\menulib\\menulib.lib")
 #pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\StarmanLib.lib")
 #pragma comment(lib, "..\\..\\storehouselib\\storehouselib.lib")
+#pragma comment(lib, "..\\..\\craftlib\\craftlib.lib")
 
 #include <windows.h>
 #include "MainWindow.h"
