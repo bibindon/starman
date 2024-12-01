@@ -6,6 +6,7 @@
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\HumanInfoManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\MapInfoManager.h"
 
 namespace NSMenulib
 {
@@ -410,6 +411,10 @@ void MenuManager::InitMenu()
         itemInfoList.push_back(itemInfo);
     }
     m_menu.SetItem(itemInfoList);
+
+    //------------------------------------------------------
+    // 人物情報
+    //------------------------------------------------------
     std::vector<HumanInfo> humanInfoList;
     {
         NSStarmanLib::HumanInfoManager* humanInfoManager = NSStarmanLib::HumanInfoManager::GetObj();
@@ -420,9 +425,9 @@ void MenuManager::InitMenu()
 
             NSStarmanLib::HumanInfo libHumanInfo = humanInfoManager->GetHumanInfo(humanNameList.at(i));
 
-            if (libHumanInfo.GetVisible())
+            if (libHumanInfo.GetVisible() == false)
             {
-//                continue;
+                continue;
             }
 
             humanInfo.SetName(libHumanInfo.GetName());
@@ -437,35 +442,7 @@ void MenuManager::InitMenu()
         }
     }
     m_menu.SetHuman(humanInfoList);
-//    {
-//        HumanInfo humanInfo;
-//        humanInfo.SetName("テスト人物１");
-//        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-//        sprItem->Load("res\\image\\human1.png");
-//        humanInfo.SetSprite(sprItem);
-//        humanInfo.SetDetail("テスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-//        humanInfoList.push_back(humanInfo);
-//
-//    }
-//    {
-//        HumanInfo humanInfo;
-//        humanInfo.SetName("テスト人物２");
-//        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-//        sprItem->Load("res\\image\\human2.png");
-//        humanInfo.SetSprite(sprItem);
-//        humanInfo.SetDetail("テスト人物２\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-//        humanInfoList.push_back(humanInfo);
-//    }
-//    {
-//        HumanInfo humanInfo;
-//        humanInfo.SetName("テスト人物３");
-//        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-//        sprItem->Load("res\\image\\human3.png");
-//        humanInfo.SetSprite(sprItem);
-//        humanInfo.SetDetail("テスト人物３\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-//        humanInfoList.push_back(humanInfo);
-//    }
-    m_menu.SetHuman(humanInfoList);
+
     {
         std::vector<WeaponInfo> infoList;
         {
@@ -613,6 +590,10 @@ void MenuManager::InitMenu()
         }
         m_menu.SetEnemy(infoList);
     }
+
+    //------------------------------------------------------
+    // 技・魔法情報
+    //------------------------------------------------------
     {
         std::vector<SkillInfo> infoList;
         {
@@ -644,63 +625,39 @@ void MenuManager::InitMenu()
         }
         m_menu.SetSkill(infoList);
     }
+
+    //------------------------------------------------------
+    // 地図情報
+    //------------------------------------------------------
     {
-        std::vector<MapInfo> infoList;
-        {
-            MapInfo info;
-            info.SetName("サンプルテキスト１");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            MapInfo info;
-            info.SetName("サンプルテキスト２");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            MapInfo info;
-            info.SetName("サンプルテキスト３");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            MapInfo info;
-            info.SetName("サンプルテキスト１");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            MapInfo info;
-            info.SetName("サンプルテキスト２");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            MapInfo info;
-            info.SetName("サンプルテキスト３");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        m_menu.SetMap(infoList);
+		std::vector<MapInfo> mapInfoList;
+		{
+			NSStarmanLib::MapInfoManager* mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
+
+			std::vector<std::string> mapNameList = mapInfoManager->GetNameList();
+			for (std::size_t i = 0; i < mapNameList.size(); ++i)
+			{
+                std::string mapName = mapNameList.at(i);
+
+                bool visible = mapInfoManager->IsDiscovered(mapName);
+
+				if (visible == false)
+				{
+					continue;
+				}
+
+                MapInfo mapInfo;
+                mapInfo.SetName(mapName);
+                mapInfo.SetDetail(mapInfoManager->GetDetail(mapName));
+
+				NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                sprItem->Load(mapInfoManager->GetImagePath(mapName));
+                mapInfo.SetSprite(sprItem);
+
+                mapInfoList.push_back(mapInfo);
+			}
+		}
+		m_menu.SetMap(mapInfoList);
     }
 }
 

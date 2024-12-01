@@ -14,6 +14,8 @@
 #include <random>
 #include "PopUp.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
+
 using std::chrono::system_clock;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
@@ -177,7 +179,24 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     {
         NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-        him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.csv");
+        if (SharedObj::DebugMode())
+        {
+			him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.debug.csv");
+        }
+        else
+        {
+			him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.csv");
+        }
+
+        NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
+        if (SharedObj::DebugMode())
+        {
+			mapManager->Init("res\\script\\mapInfo.debug.csv");
+        }
+        else
+        {
+			mapManager->Init("res\\script\\mapInfo.csv");
+        }
     }
 }
 
