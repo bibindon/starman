@@ -255,7 +255,10 @@ void MenuManager::InitMenu()
                     sprItem->Load(work_str);
                     itemInfoG.SetSprite(sprItem);
 
-                    itemInfoG.SetDetail(itemDef.GetDetail());
+                    work_str = itemDef.GetDetail();
+                    work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
+
+                    itemInfoG.SetDetail(work_str);
                     itemInfoList.push_back(itemInfoG);
                 }
             }
