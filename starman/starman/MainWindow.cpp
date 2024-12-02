@@ -15,6 +15,9 @@
 #include "PopUp.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
 using std::chrono::system_clock;
 
@@ -181,21 +184,46 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
         if (SharedObj::DebugMode())
         {
-			him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.debug.csv");
+            him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.debug.csv");
         }
         else
         {
-			him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.csv");
+            him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.csv");
         }
 
         NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
         if (SharedObj::DebugMode())
         {
-			mapManager->Init("res\\script\\mapInfo.debug.csv");
+            mapManager->Init("res\\script\\mapInfo.debug.csv");
         }
         else
         {
-			mapManager->Init("res\\script\\mapInfo.csv");
+            mapManager->Init("res\\script\\mapInfo.csv");
+        }
+
+        NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+        itemManager->Init("res\\script\\item.csv");
+
+        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            inventory->Init("res\\script\\inventory.debug.csv");
+        }
+        else
+        {
+            inventory->Init("res\\script\\inventory.csv");
+        }
+
+        NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            weaponManager->Init("res\\script\\weapon.csv", "res\\script\\weaponSave.debug.csv");
+        }
+        else
+        {
+            weaponManager->Init("res\\script\\weapon.csv", "res\\script\\weaponSave.csv");
         }
     }
 }

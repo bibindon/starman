@@ -7,9 +7,14 @@
 #include "Mouse.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\HumanInfoManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\MapInfoManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\Inventory.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
 
 namespace NSMenulib
 {
+// 画像のファイル名が同じなら読み込まずに共有するようにする。
+// さもないと簡単にメモリー不足で落ちる
 class Sprite : public ISprite
 {
 public:
@@ -30,7 +35,7 @@ public:
             static_cast<LONG>(m_height) };
         D3DXVECTOR3 center { 0, 0, 0 };
         m_D3DSprite->Draw(
-            m_pD3DTexture,
+            m_texMap.at(m_filepath),
             &rect,
             &center,
             &pos,
@@ -41,22 +46,46 @@ public:
 
     void Load(const std::string& filepath) override
     {
-        LPD3DXSPRITE tempSprite { nullptr };
-        if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+        // スプライトは一つのみ確保し使いまわす
+        if (m_D3DSprite == NULL)
         {
-            throw std::exception("Failed to create a sprite.");
+            if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+            {
+                throw std::exception("Failed to create a sprite.");
+            }
         }
 
-        if (FAILED(D3DXCreateTextureFromFile(
-            m_pD3DDevice,
-            filepath.c_str(),
-            &m_pD3DTexture)))
+        m_filepath = filepath;
+
+        // 同じ画像ファイルで作られたテクスチャが既にあるなら、
+        // 画像のサイズだけ確保しテクスチャの作成を行わない
+        if (m_texMap.find(filepath) != m_texMap.end())
         {
-            throw std::exception("Failed to create a texture.");
+            D3DSURFACE_DESC desc { };
+            if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
+            {
+                throw std::exception("Failed to create a texture.");
+            }
+            m_width = desc.Width;
+            m_height = desc.Height;
+            return;
         }
+
+        // テクスチャの作成
+        LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
+        HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
+        if (FAILED(hr))
+        {
+            std::string work;
+            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
+            throw std::exception(work.c_str());
+        }
+
+        m_texMap[filepath] = pD3DTexture;
+
 
         D3DSURFACE_DESC desc { };
-        if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
+        if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
             throw std::exception("Failed to create a texture.");
         }
@@ -66,18 +95,32 @@ public:
 
     ~Sprite()
     {
-        m_D3DSprite->Release();
-        m_pD3DTexture->Release();
+        // TODO スプライトもテクスチャも使いまわしているのでデストラクタで解放処理ができない。
+        // いずれ考えることとする
+//        if (m_D3DSprite != NULL)
+//        {
+//            m_D3DSprite->Release();
+//            m_D3DSprite = NULL;
+//        }
     }
 
 private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
-    LPD3DXSPRITE m_D3DSprite = NULL;
-    LPDIRECT3DTEXTURE9 m_pD3DTexture = NULL;
+
+    // スプライトは一つを使いまわす
+    static LPD3DXSPRITE m_D3DSprite;
+
+    std::string m_filepath;
     UINT m_width { 0 };
     UINT m_height { 0 };
+
+    // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
+    static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
 };
+
+LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
+std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
 
 class Font : public IFont
 {
@@ -169,248 +212,57 @@ void MenuManager::InitMenu()
     pSE->Init();
 
     m_menu.Init("", pFont, pSE, sprCursor, sprBackground, sprPanel, sprPanelLeft);
-    std::vector<ItemInfo> itemInfoList;
+
+    NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+    NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
+    //------------------------------------------------------
+    // アイテム情報（＝インベントリ）
+    //------------------------------------------------------
     {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
+        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+
+        std::vector<int> idList = itemManager->GetItemIdList();
+
+        std::vector<ItemInfo> itemInfoList;
+        for (std::size_t i = 0; i < idList.size(); ++i)
+        {
+            NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(idList.at(i));
+            std::vector<int> subIdList = inventory->GetSubIdList(idList.at(i));
+            {
+                for (std::size_t j = 0; j < subIdList.size(); ++j)
+                {
+                    std::string work_str;
+
+                    NSMenulib::ItemInfo itemInfoG;
+
+                    itemInfoG.SetName(itemDef.GetName());
+
+                    // TODO 耐久度の表示
+                    NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(idList.at(i), subIdList.at(j));
+
+                    NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+
+                    // 画像ファイル名を取得して設定
+                    // アイテム種別が武器の時は武器クラスから取得する必要がある
+                    if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::WEAPON)
+                    {
+                        work_str = itemDef.GetImagePath();
+                    }
+                    else
+                    {
+                        work_str = weaponManager->GetImageName(itemDef.GetName());
+                    }
+
+                    sprItem->Load(work_str);
+                    itemInfoG.SetSprite(sprItem);
+
+                    itemInfoG.SetDetail(itemDef.GetDetail());
+                    itemInfoList.push_back(itemInfoG);
+                }
+            }
+        }
+        m_menu.SetItem(itemInfoList);
     }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム１");
-        itemInfo.SetNum(10);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item1.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("テストアイテムテキスト\nテストテキストテキスト\nテストテキストテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム２");
-        itemInfo.SetNum(20);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item2.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＡＡＡテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    {
-        ItemInfo itemInfo;
-        itemInfo.SetName("テストアイテム３");
-        itemInfo.SetNum(30);
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\item3.png");
-        itemInfo.SetSprite(sprItem);
-        itemInfo.SetDetail("ＢＢＢテストアイテムテキスト\nテストテキストテストテキスト"); // TODO
-        itemInfoList.push_back(itemInfo);
-    }
-    m_menu.SetItem(itemInfoList);
 
     //------------------------------------------------------
     // 人物情報
@@ -449,7 +301,7 @@ void MenuManager::InitMenu()
             WeaponInfo info;
             info.SetName("テスト人物１");
             NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
+            sprItem->Load("res\\image\\test2.png");
             info.SetSprite(sprItem);
             info.SetDetail("テスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
             infoList.push_back(info);
@@ -458,7 +310,7 @@ void MenuManager::InitMenu()
             WeaponInfo info;
             info.SetName("テスト人物２");
             NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
+            sprItem->Load("res\\image\\test2.png");
             info.SetSprite(sprItem);
             info.SetDetail("テスト人物２\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
             infoList.push_back(info);
@@ -467,7 +319,7 @@ void MenuManager::InitMenu()
             WeaponInfo info;
             info.SetName("テスト人物３");
             NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
+            sprItem->Load("res\\image\\test2.png");
             info.SetSprite(sprItem);
             info.SetDetail("テスト人物３\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
             infoList.push_back(info);
@@ -480,7 +332,7 @@ void MenuManager::InitMenu()
             TaskInfo info;
             info.SetName("サンプルテキスト１");
             NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
+            sprItem->Load("res\\image\\test2.png");
             info.SetSprite(sprItem);
             info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
             infoList.push_back(info);
@@ -489,7 +341,7 @@ void MenuManager::InitMenu()
             TaskInfo info;
             info.SetName("サンプルテキスト２");
             NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
+            sprItem->Load("res\\image\\test2.png");
             info.SetSprite(sprItem);
             info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
             infoList.push_back(info);
@@ -498,7 +350,7 @@ void MenuManager::InitMenu()
             TaskInfo info;
             info.SetName("サンプルテキスト３");
             NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
+            sprItem->Load("res\\image\\test2.png");
             info.SetSprite(sprItem);
             info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
             infoList.push_back(info);
@@ -630,34 +482,34 @@ void MenuManager::InitMenu()
     // 地図情報
     //------------------------------------------------------
     {
-		std::vector<MapInfo> mapInfoList;
-		{
-			NSStarmanLib::MapInfoManager* mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
+        std::vector<MapInfo> mapInfoList;
+        {
+            NSStarmanLib::MapInfoManager* mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
 
-			std::vector<std::string> mapNameList = mapInfoManager->GetNameList();
-			for (std::size_t i = 0; i < mapNameList.size(); ++i)
-			{
+            std::vector<std::string> mapNameList = mapInfoManager->GetNameList();
+            for (std::size_t i = 0; i < mapNameList.size(); ++i)
+            {
                 std::string mapName = mapNameList.at(i);
 
                 bool visible = mapInfoManager->IsDiscovered(mapName);
 
-				if (visible == false)
-				{
-					continue;
-				}
+                if (visible == false)
+                {
+                    continue;
+                }
 
                 MapInfo mapInfo;
                 mapInfo.SetName(mapName);
                 mapInfo.SetDetail(mapInfoManager->GetDetail(mapName));
 
-				NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
                 sprItem->Load(mapInfoManager->GetImagePath(mapName));
                 mapInfo.SetSprite(sprItem);
 
                 mapInfoList.push_back(mapInfo);
-			}
-		}
-		m_menu.SetMap(mapInfoList);
+            }
+        }
+        m_menu.SetMap(mapInfoList);
     }
 }
 
