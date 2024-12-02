@@ -236,8 +236,9 @@ void MenuManager::InitMenu()
 
                     itemInfoG.SetName(itemDef.GetName());
 
-                    // TODO ‘Ï‹v“x‚Ì•\Ž¦
                     NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(idList.at(i), subIdList.at(j));
+
+                    itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
 
                     NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
 
