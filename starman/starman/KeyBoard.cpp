@@ -3,6 +3,7 @@
 LPDIRECTINPUTDEVICE8 KeyBoard::m_keyboard;
 BYTE KeyBoard::m_key[256];
 BYTE KeyBoard::m_keyPrev[256];
+std::deque<std::vector<BYTE>> KeyBoard::m_keyDeque;
 
 void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {
@@ -29,6 +30,16 @@ void KeyBoard::Update()
         m_keyboard->Acquire();
         m_keyboard->GetDeviceState(sizeof(m_key), m_key);
     }
+
+    std::vector<BYTE> temp(256);
+    std::copy(&m_key[0], &m_key[256], temp.begin());
+    m_keyDeque.push_front(temp);
+
+    // 5秒分のキー情報、以上のキー情報が保存されているなら消す
+    if (m_keyDeque.size() >= 60 * 5)
+    {
+        m_keyDeque.erase(m_keyDeque.begin() + 60 * 5, m_keyDeque.end());
+    }
 }
 
 bool KeyBoard::IsDown(int keyCode)
@@ -45,9 +56,30 @@ bool KeyBoard::IsDown(int keyCode)
 
 bool KeyBoard::IsHold(int keyCode)
 {
-    if (m_key[keyCode] & 0x80)
+    // 500ミリ秒以上押されていたら長押しと判断する
+    if (m_keyDeque.size() <= 30)
+    {
+        return false;
+    }
+
+    bool isHold = true;
+    for (std::size_t i = 0; i < 30; ++i)
+    {
+        if (m_keyDeque.at(i).at((std::size_t)keyCode) & 0x80)
+        {
+            continue;
+        }
+        else
+        {
+            isHold = false;
+            break;
+        }
+    }
+
+    if (isHold)
     {
         return true;
     }
-    return false;
+
+    return isHold;
 }

@@ -5,6 +5,8 @@
 #endif
 
 #include <dinput.h>
+#include <deque>
+#include <vector>
 
 class KeyBoard
 {
@@ -17,5 +19,6 @@ private:
     static LPDIRECTINPUTDEVICE8 m_keyboard;
     static BYTE m_key[256];
     static BYTE m_keyPrev[256];
+    static std::deque<std::vector<BYTE>> m_keyDeque;
 };
 

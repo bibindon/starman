@@ -529,7 +529,17 @@ std::string MenuManager::OperateMenu()
         m_menu.Up();
     }
 
+    if (KeyBoard::IsHold(DIK_UP))
+    {
+        m_menu.Up();
+    }
+
     if (KeyBoard::IsDown(DIK_DOWN))
+    {
+        m_menu.Down();
+    }
+
+    if (KeyBoard::IsHold(DIK_DOWN))
     {
         m_menu.Down();
     }
