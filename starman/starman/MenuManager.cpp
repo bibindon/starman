@@ -133,19 +133,18 @@ public:
 
     void Init()
     {
-        HRESULT hr = D3DXCreateFont(
-            m_pD3DDevice,
-            24,
-            0,
-            FW_NORMAL,
-            1,
-            false,
-            SHIFTJIS_CHARSET,
-            OUT_TT_ONLY_PRECIS,
-            ANTIALIASED_QUALITY,
-            FF_DONTCARE,
-            "‚l‚r –¾’©",
-            &m_pFont);
+        HRESULT hr = D3DXCreateFont(m_pD3DDevice,
+                                    24,
+                                    0,
+                                    FW_NORMAL,
+                                    1,
+                                    false,
+                                    SHIFTJIS_CHARSET,
+                                    OUT_TT_ONLY_PRECIS,
+                                    ANTIALIASED_QUALITY,
+                                    FF_DONTCARE,
+                                    "‚l‚r –¾’©",
+                                    &m_pFont);
     }
 
     virtual void DrawText_(const std::string& msg, const int x, const int y)
