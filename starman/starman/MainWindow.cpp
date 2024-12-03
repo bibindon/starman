@@ -18,6 +18,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
 
 using std::chrono::system_clock;
 
@@ -224,6 +225,17 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         else
         {
             weaponManager->Init("res\\script\\weapon.csv", "res\\script\\weaponSave.csv");
+        }
+
+        NSStarmanLib::EnemyManager* enemyManager = NSStarmanLib::EnemyManager::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            enemyManager->Init("res\\script\\enemyDef.csv", "res\\script\\enemy.debug.csv");
+        }
+        else
+        {
+            enemyManager->Init("res\\script\\enemyDef.csv", "res\\script\\enemy.csv");
         }
     }
 }

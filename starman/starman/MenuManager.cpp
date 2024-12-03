@@ -10,6 +10,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\Inventory.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
 
 namespace NSMenulib
 {
@@ -359,6 +360,7 @@ void MenuManager::InitMenu()
     }
 
     // TODO 廃止
+    // 代わりにステータスか操作説明
     {
         std::vector<TaskInfo> infoList;
         {
@@ -390,88 +392,25 @@ void MenuManager::InitMenu()
         }
         m_menu.SetTask(infoList);
     }
+
+    //------------------------------------------------------
+    // 敵情報
+    //------------------------------------------------------
     {
         std::vector<EnemyInfo> infoList;
+        NSStarmanLib::EnemyManager* enemyManager = NSStarmanLib::EnemyManager::GetObj();
+        std::vector<std::string> nameList = enemyManager->GetEnemyNameList();
+        for (std::size_t i = 0; i < nameList.size(); ++i)
         {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト１");
+            NSStarmanLib::EnemyDef enemyDef = enemyManager->GetEnemyDef(nameList.at(i));
+            NSMenulib::EnemyInfo enemyInfo;
+            enemyInfo.SetName(enemyDef.GetName());
+            enemyInfo.SetDetail(enemyDef.GetDetail());
+
             NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト２");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト３");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト１");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト２");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト３");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト１");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト２");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            EnemyInfo info;
-            info.SetName("サンプルテキスト３");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
+            sprItem->Load(enemyDef.GetImagePath());
+            enemyInfo.SetSprite(sprItem);
+            infoList.push_back(enemyInfo);
         }
         m_menu.SetEnemy(infoList);
     }
