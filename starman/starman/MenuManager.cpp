@@ -556,16 +556,7 @@ std::string MenuManager::OperateMenu()
 
     if (KeyBoard::IsDown(DIK_RETURN))
     {
-        m_menu.Into();
-
-        if (result == "É^ÉCÉgÉã")
-        {
-            //m_bShowMenu = false;
-        }
-        else if (result == "ç≈èâÇ©ÇÁ")
-        {
-            //m_bShowMenu = false;
-        }
+        result = m_menu.Into();
     }
 
     if (KeyBoard::IsDown(DIK_ESCAPE))

@@ -1213,8 +1213,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
             rect.bottom = 900 + 100;
             ClipCursor(&rect);
         }
-        // TODO fix
-        *sequence = eSequence::TITLE;
+        *sequence = eSequence::OPENING;
     }
     else if (result == "ƒ^ƒCƒgƒ‹")
     {
