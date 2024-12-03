@@ -2,6 +2,7 @@
 
 #include <exception>
 #include <chrono>
+#include <random>
 
 #include "KeyBoard.h"
 #include "Mouse.h"
@@ -11,14 +12,15 @@
 #include "Common.h"
 #include "Camera.h"
 #include "SharedObj.h"
-#include <random>
 #include "PopUp.h"
+
 #include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
 
 using std::chrono::system_clock;
 
@@ -28,11 +30,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
     {
         PostQuitMessage(0);
         return 0;
-    }
-    else if (mes == WM_SETCURSOR)
-    {
-//        ShowCursor(FALSE);
-//        return 0;
     }
 
     return DefWindowProc(hWnd, mes, wParam, lParam);
@@ -231,11 +228,28 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
         if (SharedObj::DebugMode())
         {
-            enemyManager->Init("res\\script\\enemyDef.csv", "res\\script\\enemy.debug.csv");
+            enemyManager->Init("res\\script\\enemyDef.csv",
+                               "res\\script\\enemy.debug.csv",
+                               "res\\script\\enemyVisible.debug.csv");
         }
         else
         {
-            enemyManager->Init("res\\script\\enemyDef.csv", "res\\script\\enemy.csv");
+            enemyManager->Init("res\\script\\enemyDef.csv",
+                               "res\\script\\enemy.csv",
+                               "res\\script\\enemyVisible.csv");
+        }
+
+        NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            skillManager->Init("res\\script\\skill.csv",
+                               "res\\script\\skillSub.debug.csv");
+        }
+        else
+        {
+            skillManager->Init("res\\script\\skill.csv",
+                               "res\\script\\skillSub.csv");
         }
     }
 }
