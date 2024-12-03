@@ -256,6 +256,14 @@ void MenuManager::InitMenu()
                     sprItem->Load(work_str);
                     itemInfoG.SetSprite(sprItem);
 
+                    if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::WEAPON)
+                    {
+                        work_str = itemDef.GetDetail();
+                    }
+                    else
+                    {
+                        work_str = weaponManager->GetDetail(itemDef.GetName());
+                    }
                     work_str = itemDef.GetDetail();
                     work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
 
@@ -298,37 +306,59 @@ void MenuManager::InitMenu()
     }
     m_menu.SetHuman(humanInfoList);
 
+    //------------------------------------------------------
+    // 武器情報
+    //------------------------------------------------------
     {
-        std::vector<WeaponInfo> infoList;
+        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+
+        std::vector<int> idList = itemManager->GetItemIdList();
+
+        std::vector<WeaponInfo> weaponInfoList;
+        for (std::size_t i = 0; i < idList.size(); ++i)
         {
-            WeaponInfo info;
-            info.SetName("テスト人物１");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test2.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("テスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-            infoList.push_back(info);
+            NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(idList.at(i));
+            NSStarmanLib::ItemDef::ItemType itemType = itemDef.GetType();
+
+            // 武器じゃなかったら無視
+            if (itemType != NSStarmanLib::ItemDef::ItemType::WEAPON)
+            {
+                continue;
+            }
+
+            std::vector<int> subIdList = inventory->GetSubIdList(idList.at(i));
+            {
+                for (std::size_t j = 0; j < subIdList.size(); ++j)
+                {
+                    std::string work_str;
+
+                    NSMenulib::WeaponInfo weaponInfoG;
+
+                    weaponInfoG.SetName(itemDef.GetName());
+
+                    NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(idList.at(i), subIdList.at(j));
+
+                    weaponInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+
+                    NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+
+                    work_str = weaponManager->GetImageName(itemDef.GetName());
+
+                    sprItem->Load(work_str);
+                    weaponInfoG.SetSprite(sprItem);
+
+                    work_str = weaponManager->GetDetail(itemDef.GetName());
+                    work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
+
+                    weaponInfoG.SetDetail(work_str);
+                    weaponInfoList.push_back(weaponInfoG);
+                }
+            }
         }
-        {
-            WeaponInfo info;
-            info.SetName("テスト人物２");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test2.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("テスト人物２\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-            infoList.push_back(info);
-        }
-        {
-            WeaponInfo info;
-            info.SetName("テスト人物３");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test2.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("テスト人物３\n　\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト\nテスト人物テキスト");
-            infoList.push_back(info);
-        }
-        m_menu.SetWeapon(infoList);
+        m_menu.SetWeapon(weaponInfoList);
     }
+
+    // TODO 廃止
     {
         std::vector<TaskInfo> infoList;
         {
