@@ -13,6 +13,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\EnemyManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\SkillManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\Guide.h"
 
 namespace NSMenulib
 {
@@ -364,38 +365,31 @@ void MenuManager::InitMenu()
         m_menu.SetWeapon(weaponInfoList);
     }
 
-    // TODO 廃止
-    // 代わりにステータスか操作説明
+    //------------------------------------------------------
+    // 操作説明
+    //------------------------------------------------------
     {
-        std::vector<TaskInfo> infoList;
+        std::vector<GuideInfo> infoList;
+        NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
+        std::vector<std::string> vs = guide->GetCategoryList();
+        for (std::size_t i = 0; i < vs.size(); ++i)
         {
-            TaskInfo info;
-            info.SetName("サンプルテキスト１");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test2.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
+            std::vector<std::string> vsSub = guide->GetSubCategoryList(vs.at(i));
+            for (std::size_t j = 0; j < vsSub.size(); ++j)
+            {
+                if (guide->GetVisible(vs.at(i), vsSub.at(j)) == false)
+                {
+                    continue;
+                }
+                GuideInfo info;
+                info.SetCategory(vs.at(i));
+                info.SetSubCategory(vsSub.at(j));
+                std::string detail = guide->GetText(vs.at(i), vsSub.at(j));
+                info.SetDetail(detail);
+                infoList.push_back(info);
+            }
         }
-        {
-            TaskInfo info;
-            info.SetName("サンプルテキスト２");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test2.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        {
-            TaskInfo info;
-            info.SetName("サンプルテキスト３");
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test2.png");
-            info.SetSprite(sprItem);
-            info.SetDetail("サンプルテキスト\n\nサンプルテキスト\nサンプルテキスト\nサンプルテキスト");
-            infoList.push_back(info);
-        }
-        m_menu.SetTask(infoList);
+        m_menu.SetGuide(infoList);
     }
 
     //------------------------------------------------------

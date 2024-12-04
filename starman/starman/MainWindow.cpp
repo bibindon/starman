@@ -22,6 +22,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 
 using std::chrono::system_clock;
 
@@ -262,6 +263,17 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         else
         {
             statusManager->Init("res\\script\\status.csv");
+        }
+
+        NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            guide->Init("res\\script\\guide.debug.csv");
+        }
+        else
+        {
+            guide->Init("res\\script\\guide.csv");
         }
     }
 }
