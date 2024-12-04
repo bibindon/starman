@@ -12,6 +12,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\EnemyManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\SkillManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
 
 namespace NSMenulib
 {
@@ -536,12 +537,12 @@ std::string MenuManager::OperateMenu()
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
 
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                inventory->RemoveItem(id, subId);
-                m_menu.DeleteItem(id, subId);
-
-                // TODO
-
+                if (UseItem(id, subId))
+                {
+                    NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                    inventory->RemoveItem(id, subId);
+                    m_menu.DeleteItem(id, subId);
+                }
             }
             // アイテムを捨てる
             if (vs.at(4) == "捨てる")
@@ -586,5 +587,53 @@ std::string MenuManager::OperateMenu()
         m_menu.Previous();
     }
     return result;
+}
+
+bool MenuManager::UseItem(const int id, const int subId)
+{
+    // TODO StatusManagerに移動すべき
+    // 
+    // 食材だったらステータスを更新
+    // TODO 食材以外はあとで考える
+    NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+    NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(id);
+
+    if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::FOOD)
+    {
+        return false;
+    }
+
+    NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+
+    float work_f = 0.f;
+    work_f = statusManager->GetCarboCurrent();
+    work_f += itemDef.GetCarbo();
+    statusManager->SetCarboCurrent(work_f);
+
+    work_f = statusManager->GetProteinCurrent();
+    work_f += itemDef.GetProtein();
+    statusManager->SetProteinCurrent(work_f);
+
+    work_f = statusManager->GetLipidCurrent();
+    work_f += itemDef.GetLipid();
+    statusManager->SetLipidCurrent(work_f);
+
+    work_f = statusManager->GetVitaminCurrent();
+    work_f += itemDef.GetVitamin();
+    statusManager->SetVitaminCurrent(work_f);
+
+    work_f = statusManager->GetMineralCurrent();
+    work_f += itemDef.GetMineral();
+    statusManager->SetMineralCurrent(work_f);
+
+    work_f = statusManager->GetMineralCurrent();
+    work_f += itemDef.GetMineral();
+    statusManager->SetMineralCurrent(work_f);
+
+    work_f = statusManager->GetWaterCurrent();
+    work_f += itemDef.GetWater();
+    statusManager->SetWaterCurrent(work_f);
+    
+    return true;
 }
 

@@ -21,6 +21,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 
 using std::chrono::system_clock;
 
@@ -250,6 +251,17 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         {
             skillManager->Init("res\\script\\skill.csv",
                                "res\\script\\skillSub.csv");
+        }
+
+        NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            statusManager->Init("res\\script\\status.debug.csv");
+        }
+        else
+        {
+            statusManager->Init("res\\script\\status.csv");
         }
     }
 }

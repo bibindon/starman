@@ -8,6 +8,7 @@ public:
 
     void InitMenu();
     void Draw();
+    bool UseItem(const int id, const int subId);
     std::string OperateMenu();
 
 private:
