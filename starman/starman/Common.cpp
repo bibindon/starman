@@ -1,4 +1,5 @@
 #include "Common.h"
+#include <sstream>
 
 std::vector<char> Common::get_model_texture_resource(
     const std::string& model_name, const std::string& texture_name)
@@ -15,3 +16,18 @@ std::vector<char> Common::get_sound_resource(const std::string& filename)
 {
     return std::vector<char>();
 }
+
+std::vector<std::string> Common::split(const std::string& s, char delim)
+{
+    std::vector<std::string> result;
+    std::stringstream ss(s);
+    std::string item;
+
+    while (getline(ss, item, delim))
+    {
+        result.push_back(item);
+    }
+
+    return result;
+}
+

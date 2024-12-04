@@ -269,6 +269,9 @@ void MenuManager::InitMenu()
                     work_str = itemDef.GetDetail();
                     work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
 
+                    itemInfoG.SetId(itemInfo.GetId());
+                    itemInfoG.SetSubId(itemInfo.GetSubId());
+
                     itemInfoG.SetDetail(work_str);
                     itemInfoList.push_back(itemInfoG);
                 }
@@ -488,6 +491,8 @@ void MenuManager::Draw()
 std::string MenuManager::OperateMenu()
 {
     std::string result;
+    std::string work_str;
+
     if (KeyBoard::IsDown(DIK_UP))
     {
         m_menu.Up();
@@ -521,6 +526,34 @@ std::string MenuManager::OperateMenu()
     if (KeyBoard::IsDown(DIK_RETURN))
     {
         result = m_menu.Into();
+
+        std::vector<std::string> vs = Common::split(result, ':');
+        if (vs.size() == 5 && vs.at(0) == "アイテム")
+        {
+            // アイテムを使う
+            if (vs.at(4) == "使う")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                inventory->RemoveItem(id, subId);
+                m_menu.DeleteItem(id, subId);
+
+                // TODO
+
+            }
+            // アイテムを捨てる
+            if (vs.at(4) == "捨てる")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                inventory->RemoveItem(id, subId);
+                m_menu.DeleteItem(id, subId);
+            }
+        }
     }
 
     if (KeyBoard::IsDown(DIK_ESCAPE))
