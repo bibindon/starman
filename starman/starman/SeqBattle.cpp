@@ -684,42 +684,60 @@ void SeqBattle::Update(eSequence* sequence)
 
             m_storehouse->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
             {
-                std::vector<std::string> vs;
+                using namespace NSStarmanLib;
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
-                vs.push_back("アイテムＡＡＡ");
-                vs.push_back("武器ＢＢＢ");
-                vs.push_back("アイテムＣ");
-                vs.push_back("アイテムＤ");
-                vs.push_back("アイテムＥ");
-                vs.push_back("アイテムＦ");
-                vs.push_back("アイテムＧ");
-                vs.push_back("アイテムＨ");
-                vs.push_back("アイテムＩ");
-                vs.push_back("アイテムＪ");
-                vs.push_back("アイテムＫ");
-                vs.push_back("アイテムＬ");
-                vs.push_back("アイテムＭ");
-                vs.push_back("アイテムＮ");
-                vs.push_back("アイテムＯ");
-                vs.push_back("アイテムＰ");
-                m_storehouse->SetInventoryList(vs);
+                std::vector<int> idList = itemManager->GetItemIdList();
 
-                vs.clear();
-                vs.push_back("アイテム１");
-                vs.push_back("アイテム２");
-                vs.push_back("アイテム３");
-                vs.push_back("アイテム４");
-                vs.push_back("アイテム５");
-                vs.push_back("アイテム６");
-                vs.push_back("アイテム７");
-                vs.push_back("アイテム８");
-                vs.push_back("アイテム９");
-                vs.push_back("アイテム１０");
-                vs.push_back("アイテム１１");
-                vs.push_back("アイテム１２");
-                vs.push_back("アイテム１３");
-                vs.push_back("アイテム１４");
-                m_storehouse->SetStorehouseList(vs);
+                std::vector<NSStorehouseLib::StoreItem> itemInfoList;
+                for (std::size_t i = 0; i < idList.size(); ++i)
+                {
+                    NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(idList.at(i));
+                    std::vector<int> subIdList = inventory->GetSubIdList(idList.at(i));
+                    {
+                        for (std::size_t j = 0; j < subIdList.size(); ++j)
+                        {
+                            std::string work_str;
+
+                            NSStorehouseLib::StoreItem itemInfoG;
+
+                            itemInfoG.SetName(itemDef.GetName());
+                            itemInfoG.SetId(itemDef.GetId());
+                            itemInfoG.SetSubId(subIdList.at(j));
+                            itemInfoList.push_back(itemInfoG);
+                        }
+                    }
+                }
+                m_storehouse->SetInventoryList(itemInfoList);
+            }
+            {
+                using namespace NSStarmanLib;
+                NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+                NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+
+                std::vector<int> idList = itemManager->GetItemIdList();
+
+                std::vector<NSStorehouseLib::StoreItem> itemInfoList;
+                for (std::size_t i = 0; i < idList.size(); ++i)
+                {
+                    NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(idList.at(i));
+                    std::vector<int> subIdList = storehouse->GetSubIdList(idList.at(i));
+                    {
+                        for (std::size_t j = 0; j < subIdList.size(); ++j)
+                        {
+                            std::string work_str;
+
+                            NSStorehouseLib::StoreItem itemInfoG;
+
+                            itemInfoG.SetName(itemDef.GetName());
+                            itemInfoG.SetId(itemDef.GetId());
+                            itemInfoG.SetSubId(subIdList.at(j));
+                            itemInfoList.push_back(itemInfoG);
+                        }
+                    }
+                }
+                m_storehouse->SetStorehouseList(itemInfoList);
             }
         }
     }

@@ -18,6 +18,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
@@ -214,6 +215,17 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         else
         {
             inventory->Init("res\\script\\inventory.csv");
+        }
+
+        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            storehouse->Init("res\\script\\storehouse.debug.csv");
+        }
+        else
+        {
+            storehouse->Init("res\\script\\storehouse.csv");
         }
 
         NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
