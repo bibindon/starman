@@ -1,5 +1,6 @@
 #include "Common.h"
 #include <sstream>
+#include <iomanip>
 
 std::vector<char> Common::get_model_texture_resource(
     const std::string& model_name, const std::string& texture_name)
@@ -29,5 +30,12 @@ std::vector<std::string> Common::split(const std::string& s, char delim)
     }
 
     return result;
+}
+
+std::string Common::ToStringWithPrecision(const float value, const int precision)
+{
+    std::ostringstream out;
+    out << std::fixed << std::setprecision(precision) << value;
+    return out.str();
 }
 

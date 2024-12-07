@@ -506,6 +506,26 @@ void SeqBattle::Update(eSequence* sequence)
         m_map->Update();
     }
 
+    // 60回に一回（＝1秒ごと）の処理
+    {
+        static int counter = 0;
+        counter++;
+        if (counter >= 60)
+        {
+            counter = 0;
+        }
+        if (counter == 0)
+        {
+            // 時刻を進める
+            NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+            dateTime->IncreaseDateTime(0, 0, 0, 0, 1);
+
+            // ステータスを更新
+            NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+            statusManager->Update();
+        }
+    }
+
     // TODO Gamepad support
     // メニュー画面が表示されているときの処理
     if (m_bShowMenu)

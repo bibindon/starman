@@ -23,6 +23,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 
 using std::chrono::system_clock;
 

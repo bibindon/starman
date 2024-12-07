@@ -13,6 +13,8 @@
 #include "..\..\menulib\menulib\menulib\MenuLib.h"
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\PowereggDateTime.h"
 #include "..\..\storehouselib\storehouselib\StorehouseLib.h"
 #include "..\..\craftlib\craftlib\CraftLib.h"
 #include "MenuManager.h"
