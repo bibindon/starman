@@ -1337,15 +1337,36 @@ void SeqBattle::OperateStorehouse()
 
     if (KeyBoard::IsDown(DIK_RETURN))
     {
-        m_storehouse->Into();
+        result = m_storehouse->Into();
+        std::vector<std::string> vs = Common::split(result, ':');
 
-        if (result == "ƒ^ƒCƒgƒ‹")
+        int work1 = 0;
+        int work2 = 0;
+        int work3 = 0;
+
+		work1 = std::stoi(vs.at(2));
+		work2 = std::stoi(vs.at(3));
+
+		NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+		NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+        if (vs.at(0) == "left")
         {
-            //m_bShowMenu = false;
+			NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(work1, work2);
+            work3 = itemInfo.GetDurabilityCurrent();
+            inventory->RemoveItem(work1, work2);
+            storehouse->AddItemWithSubID(work1, work2, work3);
+            m_storehouse->MoveFromInventoryToStorehouse(work1, work2);
         }
-        else if (result == "Å‰‚©‚ç")
+        else if (vs.at(0) == "right")
         {
-            //m_bShowMenu = false;
+			NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(work1, work2);
+            storehouse->RemoveItem(work1, work2);
+            inventory->AddItemWithSubID(work1, work2, work3);
+            m_storehouse->MoveFromStorehouseToInventory(work1, work2);
+        }
+        else
+        {
+            throw std::exception();
         }
     }
 
