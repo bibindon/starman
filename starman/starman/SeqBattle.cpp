@@ -663,6 +663,7 @@ void SeqBattle::Update(eSequence* sequence)
             ShowCursor(true);
             ClipCursor(NULL);
 
+            // TODO 倉庫を表示する度に倉庫画面を作るのをやめる
             m_storehouse = new NSStorehouseLib::StorehouseLib();
 
             NSStorehouseLib::Sprite* sprCursor = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
@@ -1340,29 +1341,32 @@ void SeqBattle::OperateStorehouse()
         result = m_storehouse->Into();
         std::vector<std::string> vs = Common::split(result, ':');
 
-        int work1 = 0;
-        int work2 = 0;
-        int work3 = 0;
+        int id_ = 0;
+        int subId_ = 0;
+        int durability_ = 0;
 
-		work1 = std::stoi(vs.at(2));
-		work2 = std::stoi(vs.at(3));
+		id_ = std::stoi(vs.at(2));
+		subId_ = std::stoi(vs.at(3));
 
 		NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 		NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
         if (vs.at(0) == "left")
         {
-			NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(work1, work2);
-            work3 = itemInfo.GetDurabilityCurrent();
-            inventory->RemoveItem(work1, work2);
-            storehouse->AddItemWithSubID(work1, work2, work3);
-            m_storehouse->MoveFromInventoryToStorehouse(work1, work2);
+			NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            inventory->RemoveItem(id_, subId_);
+            storehouse->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+            m_menuManager.DeleteItem(id_, subId_);
         }
         else if (vs.at(0) == "right")
         {
-			NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(work1, work2);
-            storehouse->RemoveItem(work1, work2);
-            inventory->AddItemWithSubID(work1, work2, work3);
-            m_storehouse->MoveFromStorehouseToInventory(work1, work2);
+			NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            storehouse->RemoveItem(id_, subId_);
+            inventory->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
+            m_menuManager.AddItem(id_, subId_, durability_);
         }
         else
         {
@@ -1373,6 +1377,7 @@ void SeqBattle::OperateStorehouse()
     if (KeyBoard::IsDown(DIK_ESCAPE))
     {
         result = m_storehouse->Back();
+        m_bShowStorehouse = false;
     }
 
     if (Mouse::IsDownLeft())
