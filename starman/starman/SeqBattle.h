@@ -11,6 +11,7 @@
 
 #include "..\..\talklib2\talklib2\talklib2.h"
 #include "..\..\menulib\menulib\menulib\MenuLib.h"
+#include "..\..\hud\hud\hud.h"
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
@@ -67,6 +68,12 @@ private:
     void OperateTalk();
     bool m_bShowMenu { false };
     MenuManager m_menuManager;
+
+    //----------------------------------------------------------
+    // ステータス表示
+    //----------------------------------------------------------
+    bool m_bShowHud { false };
+    NSHud::hud* m_hud = nullptr;
 
     //----------------------------------------------------------
     // 倉庫画面
