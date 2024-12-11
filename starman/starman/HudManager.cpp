@@ -176,12 +176,36 @@ void HudManager::Update()
 
     work1 = statusManager->GetWaterMax();
     work2 = statusManager->GetWaterCurrent();
+    work3 = work2 * 100 / work1;
 
-    m_hud->UpsertStatus("水分",
-                        (int)(work2 * 100 / work1),
-                        (int)(work2 * 100 / work1),
-                        true);
+    // 水分
+    // 98%以下なら表示する
+    if ((int)work3 <= 98)
+    {
+        m_hud->UpsertStatus("水分", (int)work3, (int)work3, true);
+    }
+    else
+    {
+        m_hud->RemoveStatus("水分");
+    }
 
+    // 肉体の修復度
+    // 90%以下なら表示する
+    work1 = statusManager->GetMuscleMax();
+    work2 = statusManager->GetMuscleCurrent();
+    work3 = work2 * 100 / work1;
+
+    if ((int)work3 <= 90)
+    {
+        m_hud->UpsertStatus("肉体の修復度",
+                            (int)(work3 * 100 / work1),
+                            (int)(work2 * 100 / work1),
+                            true);
+    }
+    else
+    {
+        m_hud->RemoveStatus("肉体の修復度");
+    }
 
     // 10％以下なら表示する
     work1 = statusManager->GetCarboCurrent() * 100 / statusManager->GetCarboMax();
