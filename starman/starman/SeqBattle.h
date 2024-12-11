@@ -10,8 +10,6 @@
 #include "Map.h"
 
 #include "..\..\talklib2\talklib2\talklib2.h"
-#include "..\..\menulib\menulib\menulib\MenuLib.h"
-#include "..\..\hud\hud\hud.h"
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
@@ -22,6 +20,7 @@
 #include "..\..\storehouselib\storehouselib\StorehouseLib.h"
 #include "..\..\craftlib\craftlib\CraftLib.h"
 #include "MenuManager.h"
+#include "HudManager.h"
 
 enum class eBattleState
 {
@@ -73,7 +72,7 @@ private:
     // ステータス表示
     //----------------------------------------------------------
     bool m_bShowHud { false };
-    NSHud::hud* m_hud = nullptr;
+    HudManager m_hudManager;
 
     //----------------------------------------------------------
     // 倉庫画面
