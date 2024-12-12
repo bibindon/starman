@@ -22,3 +22,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "hud"]
 	path = hud
 	url = https://github.com/bibindon/hud.git
+[submodule "command"]
+	path = command
+	url = https://github.com/bibindon/command.git
