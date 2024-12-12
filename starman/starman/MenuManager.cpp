@@ -720,3 +720,56 @@ bool MenuManager::UseItem(const int id, const int subId)
     return true;
 }
 
+void MenuManager::DeleteItem(const int id, const int subId)
+{
+	m_menu.DeleteItem(id, subId);
+}
+
+void MenuManager::AddItem(const int id, const int subId, const int durability)
+{
+    using namespace NSMenulib;
+    NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+	NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+    NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
+
+	NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(id);
+	std::string work_str;
+
+	NSMenulib::ItemInfo itemInfoG;
+
+	itemInfoG.SetName(itemDef.GetName());
+	itemInfoG.SetDurability(durability);
+
+	NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+
+	// 画像ファイル名を取得して設定
+	// アイテム種別が武器の時は武器クラスから取得する必要がある
+	if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::WEAPON)
+	{
+		work_str = itemDef.GetImagePath();
+	}
+	else
+	{
+		work_str = weaponManager->GetImageName(itemDef.GetName());
+	}
+
+	sprItem->Load(work_str);
+	itemInfoG.SetSprite(sprItem);
+
+	if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::WEAPON)
+	{
+		work_str = itemDef.GetDetail();
+	}
+	else
+	{
+		work_str = weaponManager->GetDetail(itemDef.GetName());
+	}
+	work_str = itemDef.GetDetail();
+	work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
+
+	itemInfoG.SetId(id);
+	itemInfoG.SetSubId(subId);
+
+	itemInfoG.SetDetail(work_str);
+	m_menu.AddItem(itemInfoG);
+}

@@ -666,6 +666,7 @@ void SeqBattle::Update(eSequence* sequence)
             ShowCursor(true);
             ClipCursor(NULL);
 
+            // TODO 倉庫を表示する度に倉庫画面を作るのをやめる
             m_storehouse = new NSStorehouseLib::StorehouseLib();
 
             NSStorehouseLib::Sprite* sprCursor = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
@@ -1342,21 +1343,46 @@ void SeqBattle::OperateStorehouse()
 
     if (KeyBoard::IsDown(DIK_RETURN))
     {
-        m_storehouse->Into();
+        result = m_storehouse->Into();
+        std::vector<std::string> vs = Common::split(result, ':');
 
-        if (result == "タイトル")
+        int id_ = 0;
+        int subId_ = 0;
+        int durability_ = 0;
+
+		id_ = std::stoi(vs.at(2));
+		subId_ = std::stoi(vs.at(3));
+
+		NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+		NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+        if (vs.at(0) == "left")
         {
-            //m_bShowMenu = false;
+			NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            inventory->RemoveItem(id_, subId_);
+            storehouse->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+            m_menuManager.DeleteItem(id_, subId_);
         }
-        else if (result == "最初から")
+        else if (vs.at(0) == "right")
         {
-            //m_bShowMenu = false;
+			NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            storehouse->RemoveItem(id_, subId_);
+            inventory->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
+            m_menuManager.AddItem(id_, subId_, durability_);
+        }
+        else
+        {
+            throw std::exception();
         }
     }
 
     if (KeyBoard::IsDown(DIK_ESCAPE))
     {
         result = m_storehouse->Back();
+        m_bShowStorehouse = false;
     }
 
     if (Mouse::IsDownLeft())
