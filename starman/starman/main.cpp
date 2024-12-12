@@ -15,6 +15,7 @@
 #pragma comment(lib, "..\\..\\storehouselib\\storehouselib.lib")
 #pragma comment(lib, "..\\..\\craftlib\\craftlib.lib")
 #pragma comment(lib, "..\\..\\hud\\hud.lib")
+#pragma comment(lib, "..\\..\\command\\command.lib")
 
 #include <windows.h>
 #include "MainWindow.h"

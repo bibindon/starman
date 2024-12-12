@@ -21,6 +21,7 @@
 #include "..\..\craftlib\craftlib\CraftLib.h"
 #include "MenuManager.h"
 #include "HudManager.h"
+#include "CommandManager.h"
 
 enum class eBattleState
 {
@@ -87,6 +88,13 @@ private:
     void OperateCraft();
     bool m_bShowCraft = false;
     NSCraftLib::CraftLib* m_craft = nullptr;
+
+    //----------------------------------------------------------
+    // ƒRƒ}ƒ“ƒh‰æ–Ê
+    //----------------------------------------------------------
+    void OperateCommand();
+    bool m_bShowCommand = false;
+    CommandManager m_commandManager;
 
 
 };

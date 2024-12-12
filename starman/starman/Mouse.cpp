@@ -18,7 +18,7 @@ void Mouse::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
     diprop.diph.dwHeaderSize = sizeof(diprop.diph);
     diprop.diph.dwObj = 0;
     diprop.diph.dwHow = DIPH_DEVICE;
-    diprop.dwData = DIPROPAXISMODE_REL;	// 相対値モードで設定（絶対値はDIPROPAXISMODE_ABS）
+    diprop.dwData = DIPROPAXISMODE_REL; // 相対値モードで設定（絶対値はDIPROPAXISMODE_ABS）
 
     ret = m_DIMouse->SetProperty(DIPROP_AXISMODE, &diprop.diph);
 
@@ -34,7 +34,7 @@ void Mouse::Update()
     m_DIMouse->Acquire();
     memcpy(&m_DIMouseStatePrev, &m_DIMouseState, sizeof(m_DIMouseStatePrev));
 
-    HRESULT	hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE2), &m_DIMouseState);
+    HRESULT hr = m_DIMouse->GetDeviceState(sizeof(DIMOUSESTATE2), &m_DIMouseState);
     if (hr == DIERR_INPUTLOST)
     {
         m_DIMouse->Acquire();

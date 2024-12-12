@@ -166,6 +166,7 @@
     <ClCompile Include="AnimMeshAlloc.cpp" />
     <ClCompile Include="BGM.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyDisk.cpp" />
@@ -198,6 +199,7 @@
     <ClInclude Include="AnimMeshAlloc.h" />
     <ClInclude Include="BGM.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyDisk.h" />

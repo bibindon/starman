@@ -493,6 +493,7 @@ SeqBattle::SeqBattle(const bool isContinue)
 
     m_menuManager.InitMenu();
     m_hudManager.Init();
+    m_commandManager.Init();
 }
 
 SeqBattle::~SeqBattle()
@@ -549,6 +550,11 @@ void SeqBattle::Update(eSequence* sequence)
     else if (m_bShowCraft)
     {
         OperateCraft();
+        return;
+    }
+    else if (m_bShowCommand)
+    {
+        OperateCommand();
         return;
     }
     m_bShowHud = true;
@@ -1100,6 +1106,17 @@ void SeqBattle::Update(eSequence* sequence)
             }
         }
     }
+    if (KeyBoard::IsDown(DIK_F3))
+    {
+        if (m_bShowCommand == false)
+        {
+            m_bShowCommand = true;
+
+            Camera::SleepModeON();
+            ShowCursor(true);
+            ClipCursor(NULL);
+        }
+    }
 
     if (Mouse::IsDownLeft())
     {
@@ -1350,14 +1367,14 @@ void SeqBattle::OperateStorehouse()
         int subId_ = 0;
         int durability_ = 0;
 
-		id_ = std::stoi(vs.at(2));
-		subId_ = std::stoi(vs.at(3));
+        id_ = std::stoi(vs.at(2));
+        subId_ = std::stoi(vs.at(3));
 
-		NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-		NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
         if (vs.at(0) == "left")
         {
-			NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+            NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
             durability_ = itemInfo.GetDurabilityCurrent();
             inventory->RemoveItem(id_, subId_);
             storehouse->AddItemWithSubID(id_, subId_, durability_);
@@ -1366,7 +1383,7 @@ void SeqBattle::OperateStorehouse()
         }
         else if (vs.at(0) == "right")
         {
-			NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+            NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
             durability_ = itemInfo.GetDurabilityCurrent();
             storehouse->RemoveItem(id_, subId_);
             inventory->AddItemWithSubID(id_, subId_, durability_);
@@ -1473,6 +1490,26 @@ void SeqBattle::OperateCraft()
     return;
 }
 
+void SeqBattle::OperateCommand()
+{
+    std::string result = m_commandManager.Operate();
+
+    if (result == "EXIT")
+    {
+        m_bShowCommand = false;
+        Camera::SleepModeOFF();
+        ShowCursor(false);
+        {
+            RECT rect;
+            rect.left = 100;
+            rect.top = 100;
+            rect.right = 1600 + 100;
+            rect.bottom = 900 + 100;
+            ClipCursor(&rect);
+        }
+    }
+}
+
 void SeqBattle::Render()
 {
     m_player->Render();
@@ -1517,6 +1554,11 @@ void SeqBattle::Render()
     if (m_bShowHud)
     {
         m_hudManager.Draw();
+    }
+
+    if (m_bShowCommand)
+    {
+        m_commandManager.Draw();
     }
 }
 
