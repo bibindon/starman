@@ -715,9 +715,9 @@ bool MenuManager::UseItem(const int id, const int subId)
     }
 
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-    statusManager->Eat(itemDef);
 
-    return true;
+    // –ž• ‚¾‚Á‚½‚çfalse‚ª•Ô‚Á‚Ä‚­‚é
+    return statusManager->Eat(itemDef);
 }
 
 void MenuManager::DeleteItem(const int id, const int subId)
