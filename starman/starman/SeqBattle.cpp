@@ -519,12 +519,33 @@ void SeqBattle::Update(eSequence* sequence)
         if (counter == 0)
         {
             // 時刻を進める
+            // 2時間ゲームをしたらパワーエッグ星で24時間経過する
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
-            dateTime->IncreaseDateTime(0, 0, 0, 0, 1);
+//            dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
+            dateTime->IncreaseDateTime(0, 0, 2, 0, 0); // 1秒で2時間経過させたい時用
 
             // ステータスを更新
             NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
             statusManager->Update();
+
+            // 昼の12時が最も明るく、夜の0時が最も暗いこととする
+            // TODO サインカーブにしたほうが良い。
+            float hour = (float)dateTime->GetHour();
+            if (hour <= 12)
+            {
+                Light::SetBrightness(hour/12);
+            }
+            else
+            {
+                Light::SetBrightness((24-hour)/12);
+            }
+            // 太陽は昼の12時に真上、夜の0時に真下、とする。
+            D3DXVECTOR4 vec;
+            vec.x = std::sin((hour)/24*2*D3DX_PI);
+            vec.y = std::cos((hour)/24*2*D3DX_PI)*-1;
+            vec.w = 0.f;
+            vec.z = 0.f;
+            Light::SetLightNormal(vec);
         }
     }
 

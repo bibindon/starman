@@ -90,6 +90,7 @@ void pixel_shader(
     // 霧はピクセルシェーダーでやらないと意味がない。
     // 頂点シェーダーでやると、遠いほどくっきり見えるようになるだけ
     //======================================================
+    fog *= g_light_brightness;
     out_diffuse.r = (out_diffuse.r * (1.f - fog.r)) + (0.3 * fog.r);
     out_diffuse.g = (out_diffuse.g * (1.f - fog.g)) + (0.1 * fog.g);
     out_diffuse.b = (out_diffuse.b * (1.f - fog.b)) + (0.1 * fog.b);
