@@ -548,7 +548,7 @@ std::string MenuManager::OperateMenu()
     std::string result;
     std::string work_str;
 
-    if (KeyBoard::IsDown(DIK_UP))
+    if (KeyBoard::IsDownFirstFrame(DIK_UP))
     {
         m_menu.Up();
     }
@@ -558,7 +558,7 @@ std::string MenuManager::OperateMenu()
         m_menu.Up();
     }
 
-    if (KeyBoard::IsDown(DIK_DOWN))
+    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
     {
         m_menu.Down();
     }
@@ -568,17 +568,17 @@ std::string MenuManager::OperateMenu()
         m_menu.Down();
     }
 
-    if (KeyBoard::IsDown(DIK_LEFT))
+    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
     {
         m_menu.Left();
     }
 
-    if (KeyBoard::IsDown(DIK_RIGHT))
+    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
     {
         m_menu.Right();
     }
 
-    if (KeyBoard::IsDown(DIK_RETURN))
+    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
     {
         result = m_menu.Into();
 
@@ -611,7 +611,7 @@ std::string MenuManager::OperateMenu()
         }
     }
 
-    if (KeyBoard::IsDown(DIK_ESCAPE))
+    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_menu.Back();
     }

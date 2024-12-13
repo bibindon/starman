@@ -46,6 +46,15 @@ bool KeyBoard::IsDown(int keyCode)
 {
     if (m_key[keyCode] & 0x80)
     {
+        return true;
+    }
+    return false;
+}
+
+bool KeyBoard::IsDownFirstFrame(int keyCode)
+{
+    if (m_key[keyCode] & 0x80)
+    {
         if ((m_keyPrev[keyCode] & 0x80) == 0)
         {
             return true;

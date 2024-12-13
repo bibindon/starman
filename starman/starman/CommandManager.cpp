@@ -180,22 +180,22 @@ std::string CommandManager::Operate()
     std::string result;
     std::string work_str;
 
-    if (KeyBoard::IsDown(DIK_LEFT))
+    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
     {
         m_commandLib->Previous();
     }
 
-    if (KeyBoard::IsDown(DIK_RIGHT))
+    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
     {
         m_commandLib->Next();
     }
 
-    if (KeyBoard::IsDown(DIK_RETURN))
+    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
     {
         result = m_commandLib->Into();
     }
 
-    if (KeyBoard::IsDown(DIK_ESCAPE))
+    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         result = "EXIT";
     }

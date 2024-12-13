@@ -168,7 +168,7 @@ void Map::Update()
         }
     }
 
-    if (KeyBoard::IsDown(DIK_F))
+    if (KeyBoard::IsDownFirstFrame(DIK_F))
     {
         m_lazyMesh.Load();
     }

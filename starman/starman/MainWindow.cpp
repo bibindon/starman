@@ -366,11 +366,11 @@ int MainWindow::MainLoop()
         GamePad::Update();
         Camera::Update();
 
-        if (KeyBoard::IsDown(DIK_F4))
+        if (KeyBoard::IsDownFirstFrame(DIK_F4))
         {
             PostMessage(m_hWnd, WM_CLOSE, 0, 0);
         }
-        if (KeyBoard::IsDown(DIK_Q))
+        if (KeyBoard::IsDownFirstFrame(DIK_Q))
         {
             //BGM::get_ton()->load("res\\sound\\title.wav");
 //            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");

@@ -577,6 +577,12 @@ void SeqBattle::Update(eSequence* sequence)
             D3DXVECTOR3 sunPos(vec);
             sunPos *= 2000;
             m_pSun->SetPos(sunPos);
+
+            //-------------------------------------
+            // 死亡チェック
+            //-------------------------------------
+            bool dead = statusManager->GetDead();
+            m_player->SetDead();
         }
     }
 
@@ -611,7 +617,7 @@ void SeqBattle::Update(eSequence* sequence)
     }
     m_bShowHud = true;
 
-    if (KeyBoard::IsDown(DIK_ESCAPE))
+    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         m_bShowMenu = true;
         Camera::SleepModeON();
@@ -626,7 +632,7 @@ void SeqBattle::Update(eSequence* sequence)
     float radian = Camera::GetRadian();
     float yaw = -1.f * (radian - (D3DX_PI / 2));
     bool isHit { false };
-    if (KeyBoard::IsHold(DIK_W))
+    if (KeyBoard::IsDown(DIK_W))
     {
         // デバッグ目的でWキーだけ移動速度10倍
         //move.x += -std::sin(radian + D3DX_PI / 2) / 5;
@@ -639,7 +645,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetWalk();
 
     }
-    if (KeyBoard::IsHold(DIK_A))
+    if (KeyBoard::IsDown(DIK_A))
     {
         move.x += -std::sin(radian + D3DX_PI) / 5;
         move.z += std::sin(radian + D3DX_PI * 3 / 2) / 5;
@@ -648,7 +654,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
-    if (KeyBoard::IsHold(DIK_S))
+    if (KeyBoard::IsDown(DIK_S))
     {
         move.x += -std::sin(radian + D3DX_PI * 3 / 2) / 5;
         move.z += std::sin(radian) / 5;
@@ -657,7 +663,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
-    if (KeyBoard::IsHold(DIK_D))
+    if (KeyBoard::IsDown(DIK_D))
     {
         move.x += -std::sin(radian) / 5;
         move.z += std::sin(radian + D3DX_PI / 2) / 5;
@@ -667,17 +673,17 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetWalk();
     }
 
-    if (KeyBoard::IsDown(DIK_E))
+    if (KeyBoard::IsDownFirstFrame(DIK_E))
     {
         InputB(sequence);
     }
 
-    if (KeyBoard::IsDown(DIK_SPACE))
+    if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
     {
         InputA();
     }
 
-    if (KeyBoard::IsDown(DIK_F7))
+    if (KeyBoard::IsDownFirstFrame(DIK_F7))
     {
         std::vector<std::vector<std::string>> vss;
         std::vector<std::string> vs;
@@ -701,19 +707,19 @@ void SeqBattle::Update(eSequence* sequence)
         PopUp::Get()->SetText(vss);
     }
 
-    if (KeyBoard::IsDown(DIK_F8))
+    if (KeyBoard::IsDownFirstFrame(DIK_F8))
     {
         PopUp::Get()->Next();
     }
 
-    if (KeyBoard::IsDown(DIK_F9))
+    if (KeyBoard::IsDownFirstFrame(DIK_F9))
     {
         PopUp::Get()->Cancel();
     }
 
     PopUp::Get()->Update();
 
-    if (KeyBoard::IsDown(DIK_F1))
+    if (KeyBoard::IsDownFirstFrame(DIK_F1))
     {
         if (m_bShowStorehouse == false)
         {
@@ -803,7 +809,7 @@ void SeqBattle::Update(eSequence* sequence)
             }
         }
     }
-    if (KeyBoard::IsDown(DIK_F2))
+    if (KeyBoard::IsDownFirstFrame(DIK_F2))
     {
         if (m_bShowCraft == false)
         {
@@ -1158,7 +1164,7 @@ void SeqBattle::Update(eSequence* sequence)
             }
         }
     }
-    if (KeyBoard::IsDown(DIK_F3))
+    if (KeyBoard::IsDownFirstFrame(DIK_F3))
     {
         if (m_bShowCommand == false)
         {
@@ -1373,7 +1379,7 @@ void SeqBattle::OperateTalk()
         }
     }
 
-    if (KeyBoard::IsDown(DIK_SPACE))
+    if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
     {
         m_talk->Next();
     }
@@ -1383,34 +1389,34 @@ void SeqBattle::OperateStorehouse()
 {
     std::string result;
 
-    if (KeyBoard::IsDown(DIK_F1))
+    if (KeyBoard::IsDownFirstFrame(DIK_F1))
     {
         m_bShowStorehouse = false;
         Camera::SleepModeOFF();
         ShowCursor(false);
     }
 
-    if (KeyBoard::IsDown(DIK_UP))
+    if (KeyBoard::IsDownFirstFrame(DIK_UP))
     {
         m_storehouse->Up();
     }
 
-    if (KeyBoard::IsDown(DIK_DOWN))
+    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
     {
         m_storehouse->Down();
     }
 
-    if (KeyBoard::IsDown(DIK_LEFT))
+    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
     {
         m_storehouse->Left();
     }
 
-    if (KeyBoard::IsDown(DIK_RIGHT))
+    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
     {
         m_storehouse->Right();
     }
 
-    if (KeyBoard::IsDown(DIK_RETURN))
+    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
     {
         result = m_storehouse->Into();
         std::vector<std::string> vs = Common::split(result, ':');
@@ -1448,7 +1454,7 @@ void SeqBattle::OperateStorehouse()
         }
     }
 
-    if (KeyBoard::IsDown(DIK_ESCAPE))
+    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_storehouse->Back();
         m_bShowStorehouse = false;
@@ -1477,34 +1483,34 @@ void SeqBattle::OperateCraft()
 {
     std::string result;
 
-    if (KeyBoard::IsDown(DIK_F2))
+    if (KeyBoard::IsDownFirstFrame(DIK_F2))
     {
         m_bShowCraft = false;
         Camera::SleepModeOFF();
         ShowCursor(false);
     }
 
-    if (KeyBoard::IsDown(DIK_UP))
+    if (KeyBoard::IsDownFirstFrame(DIK_UP))
     {
         m_craft->Up();
     }
 
-    if (KeyBoard::IsDown(DIK_DOWN))
+    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
     {
         m_craft->Down();
     }
 
-    if (KeyBoard::IsDown(DIK_LEFT))
+    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
     {
         m_craft->Left();
     }
 
-    if (KeyBoard::IsDown(DIK_RIGHT))
+    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
     {
         m_craft->Right();
     }
 
-    if (KeyBoard::IsDown(DIK_RETURN))
+    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
     {
         m_craft->Into();
 
@@ -1518,7 +1524,7 @@ void SeqBattle::OperateCraft()
         }
     }
 
-    if (KeyBoard::IsDown(DIK_ESCAPE))
+    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_craft->Back();
     }

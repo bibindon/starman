@@ -527,7 +527,7 @@ void SeqEnding::Update(eSequence* sequence)
             m_firstPage = false;
         }
 
-        if (KeyBoard::IsDown(DIK_RETURN))
+        if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
         {
             m_storyTelling->Next();
             m_firstPage = false;

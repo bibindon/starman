@@ -39,7 +39,7 @@ void SeqTitle::Update(eSequence* sequence)
 {
     if (m_bFadeIn == false && m_bFadeOut == false)
     {
-        if (KeyBoard::IsDown(DIK_UP))
+        if (KeyBoard::IsDownFirstFrame(DIK_UP))
         {
             switch (m_eMenu)
             {
@@ -62,7 +62,7 @@ void SeqTitle::Update(eSequence* sequence)
             }
             }
         }
-        else if (KeyBoard::IsDown(DIK_DOWN))
+        else if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
         {
             switch (m_eMenu)
             {
@@ -85,7 +85,7 @@ void SeqTitle::Update(eSequence* sequence)
             }
             }
         }
-        else if (KeyBoard::IsDown(DIK_RETURN))
+        else if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
         {
             m_bFadeOut = true;
             SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
