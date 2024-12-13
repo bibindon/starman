@@ -6,6 +6,7 @@ public:
     static D3DXMATRIX GetViewMatrix();
     static D3DXMATRIX GetProjMatrix();
     static void SetLookAtPos(const D3DXVECTOR3& lookAtPos);
+    static D3DXVECTOR3 GetEyePos();
     static float GetRadian();
     static void SetRadian(const float radian);
     static void Update();

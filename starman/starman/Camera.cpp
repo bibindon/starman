@@ -41,6 +41,11 @@ void Camera::SetLookAtPos(const D3DXVECTOR3& lookAtPos)
     m_lookAtPos = lookAtPos;
 }
 
+D3DXVECTOR3 Camera::GetEyePos()
+{
+    return m_eyePos;
+}
+
 float Camera::GetRadian()
 {
     return m_radian;
@@ -78,6 +83,8 @@ void Camera::Update()
     }
     x *= -1; // 正負を逆にする
     // xとyを10分の1にすればリモートデスクトップでもまともに操作できる
+    x /= 10;
+    y /= 10;
     m_radian += x/500.f;
     m_radian += joyX;
     m_y += y / 100.f;

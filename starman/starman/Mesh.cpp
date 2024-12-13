@@ -46,11 +46,11 @@ void Mesh::Init()
         throw std::exception("Failed to create an effect file.");
     }
 
-    m_worldViewProjHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world_view_projection");
-    m_lightNormalHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_normal");
-    m_brightnessHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_brightness");
-    m_meshTextureHandle = m_D3DEffect->GetParameterByName(nullptr, "g_mesh_texture");
-    m_diffuseHandle = m_D3DEffect->GetParameterByName(nullptr, "g_diffuse");
+//    m_worldViewProjHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world_view_projection");
+//    m_lightNormalHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_normal");
+//    m_brightnessHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_brightness");
+//    m_meshTextureHandle = m_D3DEffect->GetParameterByName(nullptr, "g_mesh_texture");
+//    m_diffuseHandle = m_D3DEffect->GetParameterByName(nullptr, "g_diffuse");
 
     LPD3DXBUFFER adjacencyBuffer { nullptr };
     LPD3DXBUFFER materialBuffer { nullptr };
@@ -202,7 +202,7 @@ void Mesh::Render()
         return;
     }
     D3DXVECTOR4 normal = Light::GetLightNormal();
-    m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
+    m_D3DEffect->SetVector("g_light_normal", &normal);
 
     SharedObj::GetPlayer();
     D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
@@ -213,7 +213,7 @@ void Mesh::Render()
     ppos2.w = 0;
     m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
 
-    m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
+    m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
 
     D3DXMATRIX worldViewProjMatrix { };
     D3DXMatrixIdentity(&worldViewProjMatrix);
@@ -234,10 +234,20 @@ void Mesh::Render()
     }
     m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
     m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
+
+    D3DXVECTOR4 vec4Color = {
+        Camera::GetEyePos().x,
+        Camera::GetEyePos().y,
+        Camera::GetEyePos().z,
+        0.f
+    };
+
+    m_D3DEffect->SetVector("g_cameraPos", &vec4Color);
+
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
-    m_D3DEffect->SetMatrix(m_worldViewProjHandle, &worldViewProjMatrix);
+    m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
 
     m_D3DEffect->Begin(nullptr, 0);
 
@@ -252,8 +262,8 @@ void Mesh::Render()
     {
         D3DXVECTOR4 vec4Color {
             m_vecColor.at(i).r, m_vecColor.at(i).g, m_vecColor.at(i).b, m_vecColor.at(i).a};
-        m_D3DEffect->SetVector(m_diffuseHandle, &vec4Color);
-        m_D3DEffect->SetTexture(m_meshTextureHandle, m_vecTexture.at(i));
+        m_D3DEffect->SetVector("g_diffuse", &vec4Color);
+        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
         m_D3DEffect->CommitChanges();
         m_D3DMesh->DrawSubset(i);
     }
