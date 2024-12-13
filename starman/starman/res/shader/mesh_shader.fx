@@ -38,9 +38,9 @@ void vertex_shader(
     float distance = length(worldPos.xyz - g_cameraPos.xyz);
 
     fog.rbg = 1.0f - ((1500 - distance) / 1500);
-    if (fog.r > 0.5f) { fog.r = 0.5f; }
-    if (fog.g > 0.5f) { fog.g = 0.5f; }
-    if (fog.b > 0.5f) { fog.b = 0.5f; }
+    if (fog.r > 0.7f) { fog.r = 0.7f; }
+    if (fog.g > 0.7f) { fog.g = 0.7f; }
+    if (fog.b > 0.7f) { fog.b = 0.7f; }
     fog.a = 1.0f;
 }
 
@@ -70,6 +70,8 @@ sampler mesh_texture_sampler = sampler_state {
     MagFilter = LINEAR;
 };
 
+float4 fog_color = { 0.3f, 0.1f, 0.1f, 1.0f };
+
 void pixel_shader(
     in  float4 in_diffuse  : COLOR0,
     in  float2 in_texcood  : TEXCOORD0,
@@ -90,10 +92,11 @@ void pixel_shader(
     // 霧はピクセルシェーダーでやらないと意味がない。
     // 頂点シェーダーでやると、遠いほどくっきり見えるようになるだけ
     //======================================================
-    fog *= g_light_brightness;
-    out_diffuse.r = (out_diffuse.r * (1.f - fog.r)) + (0.3 * fog.r);
-    out_diffuse.g = (out_diffuse.g * (1.f - fog.g)) + (0.1 * fog.g);
-    out_diffuse.b = (out_diffuse.b * (1.f - fog.b)) + (0.1 * fog.b);
+    float4 fog_color2 = fog_color * g_light_brightness;
+    out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
+//    out_diffuse.r = (out_diffuse.r * (1.f - fog.r)) + (0.3 * fog.r);
+//    out_diffuse.g = (out_diffuse.g * (1.f - fog.g)) + (0.1 * fog.g);
+//    out_diffuse.b = (out_diffuse.b * (1.f - fog.b)) + (0.1 * fog.b);
 }
 
 technique technique_
