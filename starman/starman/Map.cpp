@@ -112,6 +112,7 @@ void Map::Init()
         mesh->Init();
         m_meshMap["sky"] = mesh;
 
+        // sky2‚Í‰½‚Ì‚½‚ß‚É‘¶Ý‚µ‚Ä‚¢‚éHH
         c.y = D3DX_PI;
         mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
         mesh->Init();
@@ -185,7 +186,7 @@ void Map::Render()
         norm2.y = -1.f;
         Light::SetLightNormal(norm2);
         m_meshMap["sky"]->Render();
-        m_meshMap["sky2"]->Render();
+        //m_meshMap["sky2"]->Render();
         Light::SetLightNormal(norm);
     }
     for (auto pair : m_meshMap)

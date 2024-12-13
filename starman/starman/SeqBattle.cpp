@@ -530,7 +530,7 @@ void SeqBattle::Update(eSequence* sequence)
             // 2時間ゲームをしたらパワーエッグ星で24時間経過する
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 //            dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
-            dateTime->IncreaseDateTime(0, 0, 1, 0, 0); // 1秒で2時間経過させたい時用
+            dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1秒で1時間とか経過させたい時用
 
             //-------------------------------------
             // ステータスを更新
@@ -582,8 +582,11 @@ void SeqBattle::Update(eSequence* sequence)
             // 死亡チェック
             //-------------------------------------
             bool dead = statusManager->GetDead();
-            m_player->SetDead();
-            m_eState = eBattleState::GAMEOVER;
+            if (dead)
+            {
+				m_player->SetDead();
+				m_eState = eBattleState::GAMEOVER;
+            }
         }
     }
 
