@@ -583,13 +583,27 @@ void SeqBattle::Update(eSequence* sequence)
             //-------------------------------------
             bool dead = statusManager->GetDead();
             m_player->SetDead();
+            m_eState = eBattleState::GAMEOVER;
         }
     }
 
     // TODO Gamepad support
     // ƒƒjƒ…[‰æ–Ê‚ª•\¦‚³‚ê‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
     m_bShowHud = false;
-    if (m_bShowMenu)
+
+    if (m_player->GetDead())
+    {
+        if (m_eState == eBattleState::GAMEOVER)
+        {
+            ++m_nGameoverCounter;
+            if (m_nGameoverCounter >= 120)
+            {
+                *sequence = eSequence::TITLE;
+            }
+        }
+        return;
+    }
+    else if (m_bShowMenu)
     {
         OperateMenu(sequence);
         return;
@@ -1220,14 +1234,6 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetDead();
         m_eState = eBattleState::GAMEOVER;
     }
-    if (m_eState == eBattleState::GAMEOVER)
-    {
-        ++m_nGameoverCounter;
-        if (m_nGameoverCounter >= 120)
-        {
-            *sequence = eSequence::TITLE;
-        }
-    }
     if (m_nCurrentStage == 1)
     {
         if (m_map->GetEnemy().size() == 0)
@@ -1576,6 +1582,7 @@ void SeqBattle::Render()
     {
         m_spriteGameover->Render(pos);
     }
+
     if (m_nCurrentStage == 1)
     {
         m_map->Render();
