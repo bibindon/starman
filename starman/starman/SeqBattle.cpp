@@ -500,6 +500,71 @@ SeqBattle::SeqBattle(const bool isContinue)
                              D3DXVECTOR3(0.f, 0.f, 0.f),
                              500.0f);
     m_pSun->Init();
+
+    {
+
+		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 541.f);
+		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+		AnimSetMap animSetMap;
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 0.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Idle"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 1.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Walk"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 2.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Attack"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = false;
+			animSetMap["Damaged"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.5f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Dead"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 5.f;
+			animSetting.m_duration = 2.f;
+			animSetting.m_loop = false;
+			animSetMap["Jump"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.1f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Sit"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.7f;
+			animSetting.m_duration = 0.6f;
+			animSetting.m_loop = true;
+			animSetMap["LieDown"] = animSetting;
+		}
+		m_daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
+		m_daikeiman->SetAnim("Sit");
+    }
 }
 
 SeqBattle::~SeqBattle()
@@ -1630,6 +1695,7 @@ void SeqBattle::Render()
     }
 
     m_pSun->Render();
+    m_daikeiman->Render();
 }
 
 void SeqBattle::InputR1()

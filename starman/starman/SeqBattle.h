@@ -100,5 +100,7 @@ private:
     // 太陽
     MeshNoShade* m_pSun = nullptr;
 
+    // ダイケイマン
+    AnimMesh* m_daikeiman = nullptr;
 };
 
