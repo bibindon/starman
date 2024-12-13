@@ -496,9 +496,9 @@ SeqBattle::SeqBattle(const bool isContinue)
     m_commandManager.Init();
 
     m_pSun = new MeshNoShade("res\\model\\sun\\sun.x",
-                             D3DXVECTOR3(-480.f, 160.f, 539.f),
+                             D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
-                             100.0f);
+                             500.0f);
     m_pSun->Init();
 }
 
@@ -524,16 +524,23 @@ void SeqBattle::Update(eSequence* sequence)
         }
         if (counter == 0)
         {
+            //-------------------------------------
             // 時刻を進める
+            //-------------------------------------
             // 2時間ゲームをしたらパワーエッグ星で24時間経過する
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 //            dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
-            dateTime->IncreaseDateTime(0, 0, 2, 0, 0); // 1秒で2時間経過させたい時用
+            dateTime->IncreaseDateTime(0, 0, 1, 0, 0); // 1秒で2時間経過させたい時用
 
+            //-------------------------------------
             // ステータスを更新
+            //-------------------------------------
             NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
             statusManager->Update();
 
+            //-------------------------------------
+            // 太陽の明るさ
+            //-------------------------------------
             // 昼の12時が最も明るく、夜の0時が最も暗いこととする
             // TODO サインカーブにしたほうが良い。
             float hour = (float)dateTime->GetHour();
@@ -545,13 +552,31 @@ void SeqBattle::Update(eSequence* sequence)
             {
                 Light::SetBrightness((24-hour)/12);
             }
+
+            //-------------------------------------
+            // 陰の表示
+            //-------------------------------------
             // 太陽は昼の12時に真上、夜の0時に真下、とする。
+            // 0時0分～23時59分を0.0f～0.99999fとなるように変換
+            // 0時0分を0分、23時59分を1439分と見なせばよい
+
+            float hourAndMinute = 0.f;
+            hourAndMinute += dateTime->GetHour() * 60;
+            hourAndMinute += dateTime->GetMinute();
+            hourAndMinute /= 1440;
             D3DXVECTOR4 vec;
-            vec.x = std::sin((hour)/24*2*D3DX_PI);
-            vec.y = std::cos((hour)/24*2*D3DX_PI)*-1;
+            vec.x = std::sin(hourAndMinute*2*D3DX_PI);
+            vec.y = std::cos(hourAndMinute*2*D3DX_PI)*-1;
+            vec.z = std::sin(hourAndMinute*2*D3DX_PI)*-1;
             vec.w = 0.f;
-            vec.z = 0.f;
             Light::SetLightNormal(vec);
+
+            //-------------------------------------
+            // 太陽
+            //-------------------------------------
+            D3DXVECTOR3 sunPos(vec);
+            sunPos *= 2000;
+            m_pSun->SetPos(sunPos);
         }
     }
 
