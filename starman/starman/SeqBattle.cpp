@@ -494,6 +494,12 @@ SeqBattle::SeqBattle(const bool isContinue)
     m_menuManager.InitMenu();
     m_hudManager.Init();
     m_commandManager.Init();
+
+    m_pSun = new MeshNoShade("res\\model\\sun\\sun.x",
+                             D3DXVECTOR3(-480.f, 160.f, 539.f),
+                             D3DXVECTOR3(0.f, 0.f, 0.f),
+                             100.0f);
+    m_pSun->Init();
 }
 
 SeqBattle::~SeqBattle()
@@ -1581,6 +1587,8 @@ void SeqBattle::Render()
     {
         m_commandManager.Draw();
     }
+
+    m_pSun->Render();
 }
 
 void SeqBattle::InputR1()

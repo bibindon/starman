@@ -22,6 +22,7 @@
 #include "MenuManager.h"
 #include "HudManager.h"
 #include "CommandManager.h"
+#include "MeshNoShade.h"
 
 enum class eBattleState
 {
@@ -96,6 +97,8 @@ private:
     bool m_bShowCommand = false;
     CommandManager m_commandManager;
 
+    // ‘¾—z
+    MeshNoShade* m_pSun = nullptr;
 
 };
 

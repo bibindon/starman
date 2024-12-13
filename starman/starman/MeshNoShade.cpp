@@ -1,4 +1,4 @@
-#include "Mesh.h"
+#include "MeshNoShade.h"
 #include "Light.h"
 #include "Common.h"
 #include "Camera.h"
@@ -7,7 +7,7 @@
 using std::string;
 using std::vector;
 
-Mesh::Mesh(
+MeshNoShade::MeshNoShade(
     const string& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
@@ -19,17 +19,13 @@ Mesh::Mesh(
 {
 }
 
-Mesh::~Mesh()
+MeshNoShade::~MeshNoShade()
 {
-    for (std::size_t i = 0; i < m_vecTexture.size(); ++i)
-    {
-        SAFE_RELEASE(m_vecTexture.at(i));
-    }
     SAFE_RELEASE(m_D3DMesh);
     SAFE_RELEASE(m_D3DEffect);
 }
 
-void Mesh::Init()
+void MeshNoShade::Init()
 {
     HRESULT result { 0 };
     D3DXCreateEffectFromFile(
@@ -94,24 +90,6 @@ void Mesh::Init()
     LPD3DXMESH tempMesh { nullptr };
     result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh);
 
-    // 頂点バッファの取得
-    {
-//        LPDIRECT3DVERTEXBUFFER9 pVertexBuffer;
-//        tempMesh->GetVertexBuffer(&pVertexBuffer);
-//
-//        struct CUSTOMVERTEX
-//        {
-//            FLOAT x, y, z; // 頂点の座標
-//            FLOAT normX, normY, normZ; // 法線の座標
-//            FLOAT u, v;   // 頂点の色
-//        };
-//        CUSTOMVERTEX* pVertices = nullptr;
-//        CUSTOMVERTEX temp[24]; // 立方体なら24個
-//        pVertexBuffer->Lock(0, 0, (void**)&pVertices, D3DLOCK_READONLY);
-//        memcpy(temp, pVertices, sizeof(temp));
-//        pVertexBuffer->Unlock();
-    }
-
     if (FAILED(result))
     {
         throw std::exception("Failed 'CloneMesh' function.");
@@ -143,8 +121,6 @@ void Mesh::Init()
     }
 
     m_vecColor.insert(begin(m_vecColor), m_materialCount, D3DCOLORVALUE { });
-    vector<LPDIRECT3DTEXTURE9> tempVecTexture { m_materialCount };
-    m_vecTexture.swap(tempVecTexture);
 
     D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
 
@@ -155,59 +131,28 @@ void Mesh::Init()
     for (DWORD i = 0; i < m_materialCount; ++i)
     {
         m_vecColor.at(i) = materials[i].MatD3D.Diffuse;
-        if (materials[i].pTextureFilename != nullptr)
-        {
-            std::string texPath = xFileDir;
-            texPath += materials[i].pTextureFilename;
-            LPDIRECT3DTEXTURE9 tempTexture { nullptr };
-            if (FAILED(D3DXCreateTextureFromFile(
-                SharedObj::GetD3DDevice(),
-                texPath.c_str(),
-                &tempTexture)))
-            {
-                throw std::exception("texture file is not found.");
-            }
-            else
-            {
-                SAFE_RELEASE(m_vecTexture.at(i));
-                m_vecTexture.at(i) = tempTexture;
-            }
-        }
     }
     SAFE_RELEASE(materialBuffer);
 
     m_bIsInit = true;
 }
 
-void Mesh::SetPos(const D3DXVECTOR3& pos)
+void MeshNoShade::SetPos(const D3DXVECTOR3& pos)
 {
     m_loadingPos = pos;
 }
 
-D3DXVECTOR3 Mesh::GetPos()
+D3DXVECTOR3 MeshNoShade::GetPos()
 {
     return m_loadingPos;
 }
 
-void Mesh::Render()
+void MeshNoShade::Render()
 {
     if (m_bIsInit == false)
     {
         return;
     }
-    D3DXVECTOR4 normal = Light::GetLightNormal();
-    m_D3DEffect->SetVector("g_light_normal", &normal);
-
-    SharedObj::GetPlayer();
-    D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
-    D3DXVECTOR4 ppos2;
-    ppos2.x = ppos.x;
-    ppos2.y = ppos.y+2;
-    ppos2.z = ppos.z;
-    ppos2.w = 0;
-    m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
-
-    m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
 
     D3DXMATRIX worldViewProjMatrix { };
     D3DXMatrixIdentity(&worldViewProjMatrix);
@@ -227,16 +172,6 @@ void Mesh::Render()
         worldViewProjMatrix *= mat;
     }
     m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
-    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
-
-    D3DXVECTOR4 vec4Color = {
-        Camera::GetEyePos().x,
-        Camera::GetEyePos().y,
-        Camera::GetEyePos().z,
-        0.f
-    };
-
-    m_D3DEffect->SetVector("g_cameraPos", &vec4Color);
 
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
@@ -244,6 +179,8 @@ void Mesh::Render()
     m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
 
     m_D3DEffect->Begin(nullptr, 0);
+
+    D3DXVECTOR4 vec4Color;
 
     HRESULT result { S_FALSE };
     if (FAILED(result = m_D3DEffect->BeginPass(0)))
@@ -254,18 +191,23 @@ void Mesh::Render()
 
     for (DWORD i = 0; i < m_materialCount; ++i)
     {
-        D3DXVECTOR4 vec4Color {
-            m_vecColor.at(i).r, m_vecColor.at(i).g, m_vecColor.at(i).b, m_vecColor.at(i).a};
-        m_D3DEffect->SetVector("g_diffuse", &vec4Color);
-        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
-        m_D3DEffect->CommitChanges();
+        vec4Color.x = m_vecColor.at(i).r;
+        vec4Color.y = m_vecColor.at(i).g;
+        vec4Color.z = m_vecColor.at(i).b;
+        vec4Color.w = m_vecColor.at(i).a;
+
+        vec4Color.x = 0.8f;
+        vec4Color.y = 0.2f;
+        vec4Color.z = 0.2f;
+        vec4Color.w = 1.f;
+        result = m_D3DEffect->SetVector("g_diffuse", &vec4Color);
         m_D3DMesh->DrawSubset(i);
     }
     m_D3DEffect->EndPass();
     m_D3DEffect->End();
 }
 
-LPD3DXMESH Mesh::GetD3DMesh()
+LPD3DXMESH MeshNoShade::GetD3DMesh()
 {
     return m_D3DMesh;
 }
