@@ -56,24 +56,17 @@ bool EnemyDisk::Init()
     return true;
 }
 
-void EnemyDisk::Finalize()
-{
-    SAFE_DELETE(m_spriteHP);
-    SAFE_DELETE(m_spriteHPBack);
-    SAFE_DELETE(m_AnimMesh);
-}
-
 void EnemyDisk::Update()
 {
-    if (m_state == eDiskState::DEAD)
+    if (m_state == eEnemyState::DEAD)
     {
         ++m_deadTimeCounter;
         if (m_deadTimeCounter >= 60)
         {
-            m_state = eDiskState::DISABLE;
+            m_state = eEnemyState::DISABLE;
         }
     }
-    else if (m_state == eDiskState::IDLE)
+    else if (m_state == eEnemyState::IDLE)
     {
         Player* player = SharedObj::GetPlayer();
         D3DXVECTOR3 pos = player->GetPos();
@@ -81,11 +74,11 @@ void EnemyDisk::Update()
         FLOAT distance = D3DXVec3Length(&enemyVector);
         if (distance < 10.f)
         {
-            m_state = eDiskState::WALK;
+            m_state = eEnemyState::WALK;
             m_AnimMesh->SetAnim("Walk", 0.f);
         }
     }
-    else if (m_state == eDiskState::WALK)
+    else if (m_state == eEnemyState::WALK)
     {
         Player* player = SharedObj::GetPlayer();
         D3DXVECTOR3 pos = player->GetPos();
@@ -100,7 +93,7 @@ void EnemyDisk::Update()
             //OutputDebugString(msg.c_str());
             if (randNum % 30 == 0)
             {
-                m_state = eDiskState::ATTACK;
+                m_state = eEnemyState::ATTACK;
             }
         }
         else if (10.f <= distance && distance < 30.f)
@@ -112,20 +105,20 @@ void EnemyDisk::Update()
         }
         else if (20.f <= distance)
         {
-            m_state = eDiskState::IDLE;
+            m_state = eEnemyState::IDLE;
             m_AnimMesh->SetAnim("Idle", 0.f);
         }
     }
-    else if (m_state == eDiskState::DAMAGED)
+    else if (m_state == eEnemyState::DAMAGED)
     {
         m_damagedTimeCounter++;
         if (m_damagedTimeCounter >= 60)
         {
             m_damagedTimeCounter = 0;
-            m_state = eDiskState::IDLE;
+            m_state = eEnemyState::IDLE;
         }
     }
-    else if (m_state == eDiskState::ATTACK)
+    else if (m_state == eEnemyState::ATTACK)
     {
         ++m_attackTimeCounter;
         if (m_attackTimeCounter == 1)
@@ -157,89 +150,8 @@ void EnemyDisk::Update()
         else if (m_attackTimeCounter >= 60)
         {
             m_attackTimeCounter = 0;
-            m_state = eDiskState::IDLE;
+            m_state = eEnemyState::IDLE;
         }
     }
-}
-
-void EnemyDisk::Render()
-{
-    m_AnimMesh->SetPos(m_loadingPos);
-    m_AnimMesh->SetRotate(m_rotate);
-    m_AnimMesh->Render();
-    POINT screenPos = Camera::GetScreenPos(m_loadingPos);
-    m_spriteHPBack->Render(
-        D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
-    if (m_HP >= 0)
-    {
-        m_spriteHP->Render(
-            D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
-            255,
-            (m_HP*128/100));
-    }
-}
-
-void EnemyDisk::SetPos(const D3DXVECTOR3& pos)
-{
-    m_loadingPos = pos;
-}
-
-D3DXVECTOR3 EnemyDisk::GetPos()
-{
-    return m_loadingPos;
-}
-
-void EnemyDisk::SetRotate(const D3DXVECTOR3& rotate)
-{
-    m_rotate = rotate;
-}
-
-D3DXVECTOR3 EnemyDisk::GetRotate()
-{
-    return m_rotate;
-}
-
-void EnemyDisk::SetHP(const int hp)
-{
-    m_HP = hp;
-    if (m_HP <= 0)
-    {
-        m_state = eDiskState::DEAD;
-    }
-}
-
-int EnemyDisk::GetHP()
-{
-    return m_HP;
-}
-
-void EnemyDisk::SetState(const eDiskState state)
-{
-    if (state == eDiskState::DAMAGED)
-    {
-        SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
-        m_AnimMesh->SetAnim("Damaged", 0.f);
-    }
-    else if (state == eDiskState::DEAD)
-    {
-        SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
-        m_AnimMesh->SetAnim("Damaged", 0.f);
-    }
-    m_state = state;
-}
-
-eDiskState EnemyDisk::GetState()
-{
-    return m_state;
-}
-
-D3DXVECTOR3 EnemyDisk::GetAttackPos()
-{
-    D3DXVECTOR3 pos { m_loadingPos };
-    D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
-    norm.x = std::sin(m_rotate.y + D3DX_PI);
-    norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
-    pos += norm * 2;
-    return pos;
 }
 

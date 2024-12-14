@@ -1859,7 +1859,7 @@ void SeqBattle::InputR1()
 
         if (distance <= 1.5f)
         {
-            vecEnemy.at(i)->SetState(eState::DAMAGED);
+            vecEnemy.at(i)->SetState(eEnemyState::DAMAGED);
             int hp = vecEnemy.at(i)->GetHP();
             vecEnemy.at(i)->SetHP(hp - 50);
         }
@@ -1874,7 +1874,7 @@ void SeqBattle::InputR1()
 
         if (distance <= 1.5f)
         {
-            vecEnemySphere.at(i).SetState(eSphereState::DAMAGED);
+            vecEnemySphere.at(i).SetState(eEnemyState::DAMAGED);
             int hp = vecEnemySphere.at(i).GetHP();
             vecEnemySphere.at(i).SetHP(hp - 40);
         }
@@ -1889,7 +1889,7 @@ void SeqBattle::InputR1()
 
         if (distance <= 1.5f)
         {
-            vecEnemyDisk.at(i).SetState(eDiskState::DAMAGED);
+            vecEnemyDisk.at(i).SetState(eEnemyState::DAMAGED);
             int hp = vecEnemyDisk.at(i).GetHP();
             vecEnemyDisk.at(i).SetHP(hp - 40);
         }

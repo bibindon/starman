@@ -140,7 +140,7 @@ void Map::Update()
     for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
     {
         (*it)->Update();
-        if ((*it)->GetState() == eState::DISABLE)
+        if ((*it)->GetState() == eEnemyState::DISABLE)
         {
             (*it)->Finalize();
             it = m_vecEnemy.erase(it);

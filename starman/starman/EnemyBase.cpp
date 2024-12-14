@@ -1,4 +1,5 @@
-#include "Enemy.h"
+#include "EnemyBase.h"
+
 #include <ctime>
 #include "SoundEffect.h"
 #include "SharedObj.h"
@@ -6,15 +7,17 @@
 #include "Camera.h"
 #include <random>
 
-Enemy::Enemy()
+EnemyBase::EnemyBase()
 {
 }
 
-Enemy::~Enemy()
+EnemyBase::~EnemyBase()
 {
 }
 
-bool Enemy::Init()
+std::mutex EnemyBase::s_mutex;
+
+bool EnemyBase::Init()
 {
     m_thread = new std::thread(
         [&]
@@ -65,7 +68,14 @@ bool Enemy::Init()
     return true;
 }
 
-void Enemy::Update()
+void EnemyBase::Finalize()
+{
+    SAFE_DELETE(m_spriteHP);
+    SAFE_DELETE(m_spriteHPBack);
+    SAFE_DELETE(m_AnimMesh);
+}
+
+void EnemyBase::Update()
 {
 	if (m_loaded.load() == false)
 	{
@@ -167,5 +177,106 @@ void Enemy::Update()
             m_state = eEnemyState::IDLE;
         }
     }
+}
+
+void EnemyBase::Render()
+{
+	if (m_loaded.load() == false)
+	{
+		return;
+	}
+
+    m_AnimMesh->SetPos(m_loadingPos);
+    m_AnimMesh->SetRotate(m_rotate);
+    m_AnimMesh->Render();
+    POINT screenPos = Camera::GetScreenPos(m_loadingPos);
+    m_spriteHPBack->Render(
+        D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
+    if (m_HP >= 0)
+    {
+        m_spriteHP->Render(
+            D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
+            255,
+            (m_HP*128/100));
+    }
+}
+
+void EnemyBase::SetPos(const D3DXVECTOR3& pos)
+{
+    m_loadingPos = pos;
+}
+
+D3DXVECTOR3 EnemyBase::GetPos()
+{
+    return m_loadingPos;
+}
+
+void EnemyBase::SetRotate(const D3DXVECTOR3& rotate)
+{
+    m_rotate = rotate;
+}
+
+D3DXVECTOR3 EnemyBase::GetRotate()
+{
+    return m_rotate;
+}
+
+void EnemyBase::SetHP(const int hp)
+{
+    m_HP = hp;
+    if (m_HP <= 0)
+    {
+        m_state = eEnemyState::DEAD;
+    }
+}
+
+int EnemyBase::GetHP()
+{
+    return m_HP;
+}
+
+void EnemyBase::SetState(const eEnemyState state)
+{
+	if (m_loaded.load() == false)
+	{
+		return;
+	}
+
+    if (state == eEnemyState::DAMAGED)
+    {
+        SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
+        m_AnimMesh->SetAnim("Damaged", 0.f);
+    }
+    else if (state == eEnemyState::DEAD)
+    {
+        SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
+        m_AnimMesh->SetAnim("Damaged", 0.f);
+    }
+    m_state = state;
+}
+
+eEnemyState EnemyBase::GetState()
+{
+    return m_state;
+}
+
+void EnemyBase::SetIdSub(const int arg)
+{
+    m_idSub = arg;
+}
+
+int EnemyBase::GetIdSub() const
+{
+    return m_idSub;
+}
+
+D3DXVECTOR3 EnemyBase::GetAttackPos()
+{
+    D3DXVECTOR3 pos { m_loadingPos };
+    D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
+    norm.x = std::sin(m_rotate.y + D3DX_PI);
+    norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
+    pos += norm * 2;
+    return pos;
 }
 

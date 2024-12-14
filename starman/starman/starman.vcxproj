@@ -169,7 +169,9 @@
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Common.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyDisk.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="EnemySphere.cpp" />
     <ClCompile Include="GamePad.cpp" />
     <ClCompile Include="HudManager.cpp" />
@@ -202,7 +204,9 @@
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyDisk.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="EnemySphere.h" />
     <ClInclude Include="GamePad.h" />
     <ClInclude Include="HudManager.h" />
