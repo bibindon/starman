@@ -3,7 +3,7 @@
 #include "SharedObj.h"
 #include "KeyBoard.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
-#include "Enemy.h"
+#include "EnemyCube.h"
 #include "EnemyDisk.h"
 #include "EnemySphere.h"
 
@@ -174,7 +174,7 @@ void Map::Update()
 				EnemyBase* enemy = nullptr;
                 if (eneList.at(i).GetBreed() == "リッポウタイ")
                 {
-				    enemy = new Enemy();
+				    enemy = new EnemyCube();
                 }
                 else if (eneList.at(i).GetBreed() == "キュウ")
                 {

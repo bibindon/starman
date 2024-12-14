@@ -1,4 +1,4 @@
-#include "Enemy.h"
+#include "EnemyCube.h"
 #include <ctime>
 #include "SoundEffect.h"
 #include "SharedObj.h"
@@ -6,15 +6,15 @@
 #include "Camera.h"
 #include <random>
 
-Enemy::Enemy()
+EnemyCube::EnemyCube()
 {
 }
 
-Enemy::~Enemy()
+EnemyCube::~EnemyCube()
 {
 }
 
-bool Enemy::Init()
+bool EnemyCube::Init()
 {
     m_thread = new std::thread(
         [&]
@@ -65,7 +65,7 @@ bool Enemy::Init()
     return true;
 }
 
-void Enemy::Update()
+void EnemyCube::Update()
 {
 	if (m_loaded.load() == false)
 	{

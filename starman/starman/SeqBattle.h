@@ -6,7 +6,7 @@
 #include "Mesh.h"
 #include "AnimMesh.h"
 #include "Player.h"
-#include "Enemy.h"
+#include "EnemyCube.h"
 #include "Map.h"
 
 #include "..\..\talklib2\talklib2\talklib2.h"
