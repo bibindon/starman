@@ -137,11 +137,13 @@ void Map::Init()
 
 void Map::Update()
 {
+	NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
     {
         (*it)->Update();
         if ((*it)->GetState() == eEnemyState::DISABLE)
         {
+            enemyInfoManager->SetDefeat((*it)->GetIdSub());
             (*it)->Finalize();
             it = m_vecEnemy.erase(it);
         }
@@ -171,7 +173,6 @@ void Map::Update()
     }
 
     // “G‚ª100[ƒgƒ‹ˆÈ“à‚É‚¢‚½‚ç“Ç‚İ‚ñ‚Å•\¦
-	NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     //std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 100.f);
     std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 10.f);
 

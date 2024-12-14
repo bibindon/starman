@@ -23,6 +23,7 @@
 #include "HudManager.h"
 #include "CommandManager.h"
 #include "MeshNoShade.h"
+#include "EnemyManager.h"
 
 enum class eBattleState
 {
@@ -46,7 +47,8 @@ private:
     eBattleState m_eState { eBattleState::NORMAL };
     int m_nGameoverCounter { 0 };
     int m_nCurrentStage { 1 };
-    Map* m_map { };
+    Map* m_map = nullptr;
+    EnemyManager* m_enemyManager = nullptr;
 
     void SaveLastStage(const int);
 
