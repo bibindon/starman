@@ -18,6 +18,8 @@ public:
     static void SetPlayer(Player* player);
     static NSQuestSystem::QuestSystem* GetQuestSystem();
     static bool DebugMode();
+    static Map* GetMap();
+    static void SetMap(Map* map);
 
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;
@@ -25,5 +27,6 @@ private:
     static Player* m_player;
     static NSQuestSystem::QuestSystem* m_questSystem;
     static bool m_debugMode;
+    static Map* m_map;
 };
 

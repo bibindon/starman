@@ -110,7 +110,12 @@ void EnemyDisk::Update()
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
-            m_loadingPos += norm / 40;
+            // •Ç‚¸‚è
+            Map* map = SharedObj::GetMap();
+            D3DXVECTOR3 move = norm / 40;
+            bool bHit = false;
+            move = map->WallSlide(m_loadingPos, move, &bHit);
+            m_loadingPos += move;
             m_rotate.y = atan2(-enemyVector.x, -enemyVector.z);
         }
         else if (20.f <= distance)

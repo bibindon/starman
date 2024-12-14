@@ -467,18 +467,21 @@ SeqBattle::SeqBattle(const bool isContinue)
             if (m_nCurrentStage == 1)
             {
                 m_map = new Map();
+                SharedObj::SetMap(m_map);
                 m_map->Init();
             }
         }
         else
         {
             m_map = new Map();
+			SharedObj::SetMap(m_map);
             m_map->Init();
         }
     }
     else
     {
         m_map = new Map();
+		SharedObj::SetMap(m_map);
         m_map->Init();
 
         NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
@@ -846,9 +849,17 @@ void SeqBattle::Update(eSequence* sequence)
     {
         move.x += -std::sin(radian + D3DX_PI / 2) / 5;
         move.z += std::sin(radian + D3DX_PI) / 5;
+
+        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
+        m_player->SetRotate(rotate);
+        m_player->SetWalk();
+
+    }
+    if (KeyBoard::IsDown(DIK_G))
+    {
         // デバッグ目的でWキーだけ移動速度10倍
-        //move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 10;
-        //move.z += std::sin(radian + D3DX_PI) / 5 * 10;
+        move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 10;
+        move.z += std::sin(radian + D3DX_PI) / 5 * 10;
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);

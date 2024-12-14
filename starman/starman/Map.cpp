@@ -103,7 +103,7 @@ void Map::Init()
         m_meshMap["sky2"] = mesh;
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(22.f, 0.f, 0.f);
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 14.f, 530.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = new Mesh("res\\model\\tree1\\tree1.x", b, c, 1.f);
         mesh->Init();

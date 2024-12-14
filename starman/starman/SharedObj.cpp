@@ -5,6 +5,7 @@ LPDIRECT3DDEVICE9 SharedObj::m_D3DDevice { nullptr };
 std::mt19937 SharedObj::m_Engine { };
 Player* SharedObj::m_player { nullptr };
 NSQuestSystem::QuestSystem* SharedObj::m_questSystem { nullptr };
+Map* SharedObj::m_map { nullptr };
 
 #if defined(NDEBUG)
 bool SharedObj::m_debugMode { false };
@@ -45,6 +46,16 @@ NSQuestSystem::QuestSystem* SharedObj::GetQuestSystem()
 bool SharedObj::DebugMode()
 {
     return m_debugMode;
+}
+
+Map* SharedObj::GetMap()
+{
+    return m_map;
+}
+
+void SharedObj::SetMap(Map* map)
+{
+    m_map = map;
 }
 
 void SharedObj::SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice)
