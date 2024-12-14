@@ -831,8 +831,8 @@ void SeqBattle::Update(eSequence* sequence)
     {
         m_bShowMenu = true;
         Camera::SleepModeON();
-        ShowCursor(true);
         ClipCursor(NULL);
+        ShowCursor(true);
 
         return;
     }
@@ -1528,10 +1528,10 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         ShowCursor(false);
         {
             RECT rect;
-            rect.left = 100;
-            rect.top = 100;
-            rect.right = 1600 + 100;
-            rect.bottom = 900 + 100;
+            rect.left = 150;
+            rect.top = 150;
+            rect.right = 150 + 100;
+            rect.bottom = 150 + 100;
             ClipCursor(&rect);
         }
         *sequence = eSequence::OPENING;
@@ -1543,10 +1543,10 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         ShowCursor(false);
         {
             RECT rect;
-            rect.left = 100;
-            rect.top = 100;
-            rect.right = 1600 + 100;
-            rect.bottom = 900 + 100;
+            rect.left = 150;
+            rect.top = 150;
+            rect.right = 150 + 100;
+            rect.bottom = 150 + 100;
             ClipCursor(&rect);
         }
         *sequence = eSequence::TITLE;
@@ -1558,10 +1558,10 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         ShowCursor(false);
         {
             RECT rect;
-            rect.left = 100;
-            rect.top = 100;
-            rect.right = 1600 + 100;
-            rect.bottom = 900 + 100;
+            rect.left = 150;
+            rect.top = 150;
+            rect.right = 150 + 100;
+            rect.bottom = 150 + 100;
             ClipCursor(&rect);
         }
     }
@@ -1761,10 +1761,10 @@ void SeqBattle::OperateCommand()
         ShowCursor(false);
         {
             RECT rect;
-            rect.left = 100;
-            rect.top = 100;
-            rect.right = 1600 + 100;
-            rect.bottom = 900 + 100;
+            rect.left = 150;
+            rect.top = 150;
+            rect.right = 150 + 100;
+            rect.bottom = 150 + 100;
             ClipCursor(&rect);
         }
     }
