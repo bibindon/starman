@@ -1,8 +1,11 @@
 #pragma once
 
-#include <d3d9.h>
 #include "AnimMesh.h"
 #include "Sprite.h"
+
+#include <thread>
+#include <d3d9.h>
+#include <mutex>
 
 enum class eState
 {
@@ -18,6 +21,7 @@ class Enemy
 public:
     Enemy();
     ~Enemy();
+    // TODO íxâÑì«Ç›çûÇ›
     bool Init();
     void Finalize();
     void Render();
@@ -30,6 +34,9 @@ public:
     int GetHP();
     void SetState(const eState state);
     eState GetState();
+
+    void SetIdSub(const int arg);
+    int GetIdSub() const;
 private:
     AnimMesh* m_AnimMesh { nullptr };
 
@@ -45,5 +52,11 @@ private:
     int m_deadTimeCounter { 0 };
     int m_damagedTimeCounter { 0 };
     D3DXVECTOR3 GetAttackPos();
+
+    int m_idSub = 0;
+
+    std::thread* m_thread = nullptr;
+    std::atomic<bool> m_loaded = false;
+    static std::mutex s_mutex;
 };
 

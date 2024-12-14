@@ -8,6 +8,7 @@
 // 別スレッドで読む。DirectX9はマルチスレッドに対応していないらしいが
 // なぜか問題なく動く。
 // TODO 別のファイルに移動すべき？
+// TODO LazyMeshは削除するべき。Load
 class LazyMesh
 {
 public:
@@ -50,8 +51,8 @@ public:
     void Init();
     void Update();
     void Render();
-    std::vector<Enemy> GetEnemy();
-    void SetEnemy(const std::vector<Enemy>& vecEnemy);
+    std::vector<Enemy*> GetEnemy();
+    void SetEnemy(const std::vector<Enemy*>& vecEnemy);
 
     // 衝突判定
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
@@ -67,7 +68,9 @@ private:
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
     std::unordered_map<std::string, Mesh*> m_meshMap;
-    std::vector<Enemy> m_vecEnemy { };
+
+    std::vector<Enemy*> m_vecEnemy { };
+
     int m_nStagenameCount { 0 };
     Sprite* m_spriteStageName { nullptr };
 

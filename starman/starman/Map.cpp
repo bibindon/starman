@@ -2,6 +2,7 @@
 #include "Light.h"
 #include "SharedObj.h"
 #include "KeyBoard.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
 
 Map::Map()
 {
@@ -78,27 +79,27 @@ void Map::Init()
                         D3DXVECTOR3(0.f, 0.f, 0.f));
         m_lazyMesh.SetLoadPos(D3DXVECTOR3(367.f, 343.f, 755.f), 400.f);
     }
-    {
-        Enemy enemy;
-        enemy.Init();
-        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 25.f);
-        enemy.SetPos(pos);
-        m_vecEnemy.push_back(enemy);
-    }
-    {
-        Enemy enemy;
-        enemy.Init();
-        D3DXVECTOR3 pos = D3DXVECTOR3(50.f, 0.f, 5.f);
-        enemy.SetPos(pos);
-        m_vecEnemy.push_back(enemy);
-    }
-    {
-        Enemy enemy;
-        enemy.Init();
-        D3DXVECTOR3 pos = D3DXVECTOR3(30.f, 0.f, 13.f);
-        enemy.SetPos(pos);
-        m_vecEnemy.push_back(enemy);
-    }
+//    {
+//        Enemy enemy;
+//        enemy.Init();
+//        D3DXVECTOR3 pos = D3DXVECTOR3(-285.f, 16.f, 530.f);
+//        enemy.SetPos(pos);
+//        m_vecEnemy.push_back(enemy);
+//    }
+//    {
+//        Enemy enemy;
+//        enemy.Init();
+//        D3DXVECTOR3 pos = D3DXVECTOR3(50.f, 0.f, 5.f);
+//        enemy.SetPos(pos);
+//        m_vecEnemy.push_back(enemy);
+//    }
+//    {
+//        Enemy enemy;
+//        enemy.Init();
+//        D3DXVECTOR3 pos = D3DXVECTOR3(30.f, 0.f, 13.f);
+//        enemy.SetPos(pos);
+//        m_vecEnemy.push_back(enemy);
+//    }
     m_spriteStageName = new Sprite("res\\image\\Map.png");
     m_nStagenameCount = 0;
 
@@ -138,10 +139,10 @@ void Map::Update()
 {
     for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
     {
-        it->Update();
-        if (it->GetState() == eState::DISABLE)
+        (*it)->Update();
+        if ((*it)->GetState() == eState::DISABLE)
         {
-            it->Finalize();
+            (*it)->Finalize();
             it = m_vecEnemy.erase(it);
         }
         else
@@ -169,10 +170,50 @@ void Map::Update()
         }
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_F))
+    // 敵が５００メートル以内にいたら読み込んで表示
+	NSStarmanLib::EnemyManager* enemyManager = NSStarmanLib::EnemyManager::GetObj();
+    //std::vector<NSStarmanLib::EnemyInfo> eneList = enemyManager->GetEnemyInfo(pos.x, pos.y, pos.z, 500.f);
+    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyManager->GetEnemyInfo(pos.x, pos.y, pos.z, 10.f);
+
+    for (int i = 0; i < (int)eneList.size(); ++i)
     {
-        m_lazyMesh.Load();
+		int id = eneList.at(i).GetID();
+		auto it = std::find_if(m_vecEnemy.begin(), m_vecEnemy.end(),
+							   [&](const Enemy* x)
+							   {
+								   return x->GetIdSub() == id;
+							   });
+		if (it == m_vecEnemy.end())
+		{
+            if (eneList.at(i).GetDefeated() == false)
+            {
+                if (eneList.at(i).GetBreed() == "リッポウタイ")
+                {
+					Enemy* enemy = new Enemy();
+					enemy->SetIdSub(eneList.at(i).GetID());
+					D3DXVECTOR3 work;
+					work.x = eneList.at(i).GetX();
+					work.y = eneList.at(i).GetY();
+					work.z = eneList.at(i).GetZ();
+					enemy->SetPos(work);
+
+					work.x = eneList.at(i).GetRotX();
+					work.y = eneList.at(i).GetRotY();
+					work.z = eneList.at(i).GetRotZ();
+					enemy->SetRotate(work);
+
+					enemy->SetHP(eneList.at(i).GetHP());
+
+				    m_vecEnemy.push_back(enemy);
+
+                    // Init関数は別スレッドで読み込みを行うのでpush_backした後に呼ぶ。
+                    auto it = m_vecEnemy.rbegin();
+                    (*it)->Init();
+                }
+            }
+		}
     }
+
 }
 
 void Map::Render()
@@ -203,7 +244,7 @@ void Map::Render()
     }
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
-        m_vecEnemy.at(i).Render();
+        m_vecEnemy.at(i)->Render();
     }
     if (m_nStagenameCount <= 255)
     {
@@ -211,12 +252,12 @@ void Map::Render()
     }
 }
 
-std::vector<Enemy> Map::GetEnemy()
+std::vector<Enemy*> Map::GetEnemy()
 {
     return m_vecEnemy;
 }
 
-void Map::SetEnemy(const std::vector<Enemy>& vecEnemy)
+void Map::SetEnemy(const std::vector<Enemy*>& vecEnemy)
 {
     m_vecEnemy = vecEnemy;
 }

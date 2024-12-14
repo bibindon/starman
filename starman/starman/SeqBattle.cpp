@@ -844,11 +844,11 @@ void SeqBattle::Update(eSequence* sequence)
     bool isHit { false };
     if (KeyBoard::IsDown(DIK_W))
     {
+        move.x += -std::sin(radian + D3DX_PI / 2) / 5;
+        move.z += std::sin(radian + D3DX_PI) / 5;
         // デバッグ目的でWキーだけ移動速度10倍
-        //move.x += -std::sin(radian + D3DX_PI / 2) / 5;
-        //move.z += std::sin(radian + D3DX_PI) / 5;
-        move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 10;
-        move.z += std::sin(radian + D3DX_PI) / 5 * 10;
+        //move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 10;
+        //move.z += std::sin(radian + D3DX_PI) / 5 * 10;
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
@@ -1837,7 +1837,7 @@ void SeqBattle::InputR1()
     }
     D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
     D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-    std::vector<Enemy> vecEnemy;
+    std::vector<Enemy*> vecEnemy;
     std::vector<EnemySphere> vecEnemySphere;
     std::vector<EnemyDisk> vecEnemyDisk;
     if (m_nCurrentStage == 1)
@@ -1852,16 +1852,16 @@ void SeqBattle::InputR1()
     for (std::size_t i = 0; i < vecEnemy.size(); i++)
     {
         D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-        enemyPos = vecEnemy.at(i).GetPos();
+        enemyPos = vecEnemy.at(i)->GetPos();
 
         D3DXVECTOR3 subPos { attackPos - enemyPos };
         FLOAT distance = D3DXVec3Length(&subPos);
 
         if (distance <= 1.5f)
         {
-            vecEnemy.at(i).SetState(eState::DAMAGED);
-            int hp = vecEnemy.at(i).GetHP();
-            vecEnemy.at(i).SetHP(hp - 50);
+            vecEnemy.at(i)->SetState(eState::DAMAGED);
+            int hp = vecEnemy.at(i)->GetHP();
+            vecEnemy.at(i)->SetHP(hp - 50);
         }
     }
     for (std::size_t i = 0; i < vecEnemySphere.size(); i++)

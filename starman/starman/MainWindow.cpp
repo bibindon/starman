@@ -25,6 +25,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 
 using std::chrono::system_clock;
 
@@ -287,6 +288,17 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         else
         {
             guide->Init("res\\script\\guide.csv");
+        }
+
+        NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
+
+        if (SharedObj::DebugMode())
+        {
+            datetime->Init("res\\script\\datetime.debug.csv");
+        }
+        else
+        {
+            datetime->Init("res\\script\\datetime.csv");
         }
     }
 }
