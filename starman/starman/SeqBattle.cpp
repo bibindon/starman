@@ -629,6 +629,70 @@ SeqBattle::SeqBattle(const bool isContinue)
 		m_sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
 		m_sankakuman->SetAnim("Sit");
     }
+    {
+
+		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 545.f);
+		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+		AnimSetMap animSetMap;
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 0.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Idle"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 1.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Walk"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 2.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Attack"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = false;
+			animSetMap["Damaged"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.5f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Dead"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 5.f;
+			animSetting.m_duration = 2.f;
+			animSetting.m_loop = false;
+			animSetMap["Jump"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.1f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Sit"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.7f;
+			animSetting.m_duration = 0.6f;
+			animSetting.m_loop = true;
+			animSetMap["LieDown"] = animSetting;
+		}
+		m_shikakuman = new AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
+		m_shikakuman->SetAnim("Sit");
+    }
 }
 
 SeqBattle::~SeqBattle()
@@ -1761,6 +1825,7 @@ void SeqBattle::Render()
     m_pSun->Render();
     m_daikeiman->Render();
     m_sankakuman->Render();
+    m_shikakuman->Render();
 }
 
 void SeqBattle::InputR1()

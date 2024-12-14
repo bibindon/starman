@@ -105,5 +105,8 @@ private:
 
     // サンカクマン
     AnimMesh* m_sankakuman = nullptr;
+
+    // シカクマン
+    AnimMesh* m_shikakuman = nullptr;
 };
 
