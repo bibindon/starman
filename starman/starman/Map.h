@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <thread>
 #include "Mesh.h"
-#include "Enemy.h"
+#include "EnemyBase.h"
 
 // 主人公が近づいたらメッシュを読み込み表示するためのメッシュクラス
 // 別スレッドで読む。DirectX9はマルチスレッドに対応していないらしいが
@@ -51,8 +51,8 @@ public:
     void Init();
     void Update();
     void Render();
-    std::vector<Enemy*> GetEnemy();
-    void SetEnemy(const std::vector<Enemy*>& vecEnemy);
+    std::vector<EnemyBase*> GetEnemy();
+    void SetEnemy(const std::vector<EnemyBase*>& vecEnemy);
 
     // 衝突判定
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
@@ -69,7 +69,7 @@ private:
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
     std::unordered_map<std::string, Mesh*> m_meshMap;
 
-    std::vector<Enemy*> m_vecEnemy { };
+    std::vector<EnemyBase*> m_vecEnemy { };
 
     int m_nStagenameCount { 0 };
     Sprite* m_spriteStageName { nullptr };

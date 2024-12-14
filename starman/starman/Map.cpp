@@ -3,6 +3,9 @@
 #include "SharedObj.h"
 #include "KeyBoard.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
+#include "Enemy.h"
+#include "EnemyDisk.h"
+#include "EnemySphere.h"
 
 Map::Map()
 {
@@ -79,27 +82,7 @@ void Map::Init()
                         D3DXVECTOR3(0.f, 0.f, 0.f));
         m_lazyMesh.SetLoadPos(D3DXVECTOR3(367.f, 343.f, 755.f), 400.f);
     }
-//    {
-//        Enemy enemy;
-//        enemy.Init();
-//        D3DXVECTOR3 pos = D3DXVECTOR3(-285.f, 16.f, 530.f);
-//        enemy.SetPos(pos);
-//        m_vecEnemy.push_back(enemy);
-//    }
-//    {
-//        Enemy enemy;
-//        enemy.Init();
-//        D3DXVECTOR3 pos = D3DXVECTOR3(50.f, 0.f, 5.f);
-//        enemy.SetPos(pos);
-//        m_vecEnemy.push_back(enemy);
-//    }
-//    {
-//        Enemy enemy;
-//        enemy.Init();
-//        D3DXVECTOR3 pos = D3DXVECTOR3(30.f, 0.f, 13.f);
-//        enemy.SetPos(pos);
-//        m_vecEnemy.push_back(enemy);
-//    }
+
     m_spriteStageName = new Sprite("res\\image\\Map.png");
     m_nStagenameCount = 0;
 
@@ -180,7 +163,7 @@ void Map::Update()
     {
 		int id = eneList.at(i).GetID();
 		auto it = std::find_if(m_vecEnemy.begin(), m_vecEnemy.end(),
-							   [&](const Enemy* x)
+							   [&](const EnemyBase* x)
 							   {
 								   return x->GetIdSub() == id;
 							   });
@@ -188,29 +171,39 @@ void Map::Update()
 		{
             if (eneList.at(i).GetDefeated() == false)
             {
+				EnemyBase* enemy = nullptr;
                 if (eneList.at(i).GetBreed() == "リッポウタイ")
                 {
-					Enemy* enemy = new Enemy();
-					enemy->SetIdSub(eneList.at(i).GetID());
-					D3DXVECTOR3 work;
-					work.x = eneList.at(i).GetX();
-					work.y = eneList.at(i).GetY();
-					work.z = eneList.at(i).GetZ();
-					enemy->SetPos(work);
-
-					work.x = eneList.at(i).GetRotX();
-					work.y = eneList.at(i).GetRotY();
-					work.z = eneList.at(i).GetRotZ();
-					enemy->SetRotate(work);
-
-					enemy->SetHP(eneList.at(i).GetHP());
-
-				    m_vecEnemy.push_back(enemy);
-
-                    // Init関数は別スレッドで読み込みを行うのでpush_backした後に呼ぶ。
-                    auto it = m_vecEnemy.rbegin();
-                    (*it)->Init();
+				    enemy = new Enemy();
                 }
+                else if (eneList.at(i).GetBreed() == "キュウ")
+                {
+				    enemy = new EnemySphere();
+                }
+                else if (eneList.at(i).GetBreed() == "エンバン")
+                {
+				    enemy = new EnemyDisk();
+                }
+
+				enemy->SetIdSub(eneList.at(i).GetID());
+				D3DXVECTOR3 work;
+				work.x = eneList.at(i).GetX();
+				work.y = eneList.at(i).GetY();
+				work.z = eneList.at(i).GetZ();
+				enemy->SetPos(work);
+
+				work.x = eneList.at(i).GetRotX();
+				work.y = eneList.at(i).GetRotY();
+				work.z = eneList.at(i).GetRotZ();
+				enemy->SetRotate(work);
+
+				enemy->SetHP(eneList.at(i).GetHP());
+
+				m_vecEnemy.push_back(enemy);
+
+				// Init関数は別スレッドで読み込みを行うのでpush_backした後に呼ぶ。
+				auto it = m_vecEnemy.rbegin();
+				(*it)->Init();
             }
 		}
     }
@@ -253,12 +246,12 @@ void Map::Render()
     }
 }
 
-std::vector<Enemy*> Map::GetEnemy()
+std::vector<EnemyBase*> Map::GetEnemy()
 {
     return m_vecEnemy;
 }
 
-void Map::SetEnemy(const std::vector<Enemy*>& vecEnemy)
+void Map::SetEnemy(const std::vector<EnemyBase*>& vecEnemy)
 {
     m_vecEnemy = vecEnemy;
 }

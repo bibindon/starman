@@ -1190,6 +1190,9 @@ Frame Root {
     } // End of Cube mesh
   } // End of Cube
 } // End of Root
+AnimTicksPerSecond {
+  60;
+}
 AnimationSet Global {
   Animation {
     {Cube}

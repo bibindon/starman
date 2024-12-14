@@ -63,8 +63,7 @@ bool EnemyBase::Init()
 			m_AnimMesh->SetAnim("Idle", 0.f);
             m_loaded.store(true);
             OutputDebugString("@@@@end\n");
-        }
-        );
+        });
     return true;
 }
 

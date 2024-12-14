@@ -1837,9 +1837,9 @@ void SeqBattle::InputR1()
     }
     D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
     D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-    std::vector<Enemy*> vecEnemy;
-    std::vector<EnemySphere> vecEnemySphere;
-    std::vector<EnemyDisk> vecEnemyDisk;
+    std::vector<EnemyBase*> vecEnemy;
+//    std::vector<EnemySphere> vecEnemySphere;
+//    std::vector<EnemyDisk> vecEnemyDisk;
     if (m_nCurrentStage == 1)
     {
         vecEnemy = m_map->GetEnemy();
@@ -1864,36 +1864,38 @@ void SeqBattle::InputR1()
             vecEnemy.at(i)->SetHP(hp - 50);
         }
     }
-    for (std::size_t i = 0; i < vecEnemySphere.size(); i++)
-    {
-        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-        enemyPos = vecEnemySphere.at(i).GetPos();
 
-        D3DXVECTOR3 subPos { attackPos - enemyPos };
-        FLOAT distance = D3DXVec3Length(&subPos);
+//    for (std::size_t i = 0; i < vecEnemySphere.size(); i++)
+//    {
+//        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+//        enemyPos = vecEnemySphere.at(i).GetPos();
+//
+//        D3DXVECTOR3 subPos { attackPos - enemyPos };
+//        FLOAT distance = D3DXVec3Length(&subPos);
+//
+//        if (distance <= 1.5f)
+//        {
+//            vecEnemySphere.at(i).SetState(eEnemyState::DAMAGED);
+//            int hp = vecEnemySphere.at(i).GetHP();
+//            vecEnemySphere.at(i).SetHP(hp - 40);
+//        }
+//    }
+//    for (std::size_t i = 0; i < vecEnemyDisk.size(); i++)
+//    {
+//        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+//        enemyPos = vecEnemyDisk.at(i).GetPos();
+//
+//        D3DXVECTOR3 subPos { attackPos - enemyPos };
+//        FLOAT distance = D3DXVec3Length(&subPos);
+//
+//        if (distance <= 1.5f)
+//        {
+//            vecEnemyDisk.at(i).SetState(eEnemyState::DAMAGED);
+//            int hp = vecEnemyDisk.at(i).GetHP();
+//            vecEnemyDisk.at(i).SetHP(hp - 40);
+//        }
+//    }
 
-        if (distance <= 1.5f)
-        {
-            vecEnemySphere.at(i).SetState(eEnemyState::DAMAGED);
-            int hp = vecEnemySphere.at(i).GetHP();
-            vecEnemySphere.at(i).SetHP(hp - 40);
-        }
-    }
-    for (std::size_t i = 0; i < vecEnemyDisk.size(); i++)
-    {
-        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-        enemyPos = vecEnemyDisk.at(i).GetPos();
-
-        D3DXVECTOR3 subPos { attackPos - enemyPos };
-        FLOAT distance = D3DXVec3Length(&subPos);
-
-        if (distance <= 1.5f)
-        {
-            vecEnemyDisk.at(i).SetState(eEnemyState::DAMAGED);
-            int hp = vecEnemyDisk.at(i).GetHP();
-            vecEnemyDisk.at(i).SetHP(hp - 40);
-        }
-    }
     if (m_nCurrentStage == 1)
     {
         m_map->SetEnemy(vecEnemy);
