@@ -760,7 +760,7 @@ void SeqBattle::Update(eSequence* sequence)
             D3DXVECTOR4 vec;
             vec.x = std::sin(hourAndMinute*2*D3DX_PI);
             vec.y = std::cos(hourAndMinute*2*D3DX_PI)*-1;
-            vec.z = std::sin(hourAndMinute*2*D3DX_PI)*-1;
+            vec.z = std::cos(hourAndMinute*2*D3DX_PI);
             vec.w = 0.f;
             Light::SetLightNormal(vec);
 
