@@ -563,7 +563,71 @@ SeqBattle::SeqBattle(const bool isContinue)
 			animSetMap["LieDown"] = animSetting;
 		}
 		m_daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
-		m_daikeiman->SetAnim("Sit");
+		m_daikeiman->SetAnim("LieDown");
+    }
+    {
+
+		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 543.f);
+		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+		AnimSetMap animSetMap;
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 0.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Idle"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 1.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Walk"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 2.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Attack"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = false;
+			animSetMap["Damaged"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.5f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Dead"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 5.f;
+			animSetting.m_duration = 2.f;
+			animSetting.m_loop = false;
+			animSetMap["Jump"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.1f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Sit"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.7f;
+			animSetting.m_duration = 0.6f;
+			animSetting.m_loop = true;
+			animSetMap["LieDown"] = animSetting;
+		}
+		m_sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
+		m_sankakuman->SetAnim("Sit");
     }
 }
 
@@ -1696,6 +1760,7 @@ void SeqBattle::Render()
 
     m_pSun->Render();
     m_daikeiman->Render();
+    m_sankakuman->Render();
 }
 
 void SeqBattle::InputR1()
