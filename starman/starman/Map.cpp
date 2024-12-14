@@ -2,7 +2,7 @@
 #include "Light.h"
 #include "SharedObj.h"
 #include "KeyBoard.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
 
 Map::Map()
 {
@@ -170,10 +170,10 @@ void Map::Update()
         }
     }
 
-    // “G‚ª‚T‚O‚Oƒ[ƒgƒ‹ˆÈ“à‚É‚¢‚½‚ç“Ç‚İ‚ñ‚Å•\¦
-	NSStarmanLib::EnemyManager* enemyManager = NSStarmanLib::EnemyManager::GetObj();
-    //std::vector<NSStarmanLib::EnemyInfo> eneList = enemyManager->GetEnemyInfo(pos.x, pos.y, pos.z, 500.f);
-    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyManager->GetEnemyInfo(pos.x, pos.y, pos.z, 10.f);
+    // “G‚ª100[ƒgƒ‹ˆÈ“à‚É‚¢‚½‚ç“Ç‚İ‚ñ‚Å•\¦
+	NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
+    //std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 100.f);
+    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 10.f);
 
     for (int i = 0; i < (int)eneList.size(); ++i)
     {

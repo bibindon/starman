@@ -20,7 +20,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
@@ -240,19 +240,19 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
             weaponManager->Init("res\\script\\weapon.csv", "res\\script\\weaponSave.csv");
         }
 
-        NSStarmanLib::EnemyManager* enemyManager = NSStarmanLib::EnemyManager::GetObj();
+        NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
 
         if (SharedObj::DebugMode())
         {
-            enemyManager->Init("res\\script\\enemyDef.csv",
-                               "res\\script\\enemy.debug.csv",
-                               "res\\script\\enemyVisible.debug.csv");
+            enemyInfoManager->Init("res\\script\\enemyDef.csv",
+                                   "res\\script\\enemy.debug.csv",
+                                   "res\\script\\enemyVisible.debug.csv");
         }
         else
         {
-            enemyManager->Init("res\\script\\enemyDef.csv",
-                               "res\\script\\enemy.csv",
-                               "res\\script\\enemyVisible.csv");
+            enemyInfoManager->Init("res\\script\\enemyDef.csv",
+                                   "res\\script\\enemy.csv",
+                                   "res\\script\\enemyVisible.csv");
         }
 
         NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();

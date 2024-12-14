@@ -10,7 +10,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\Inventory.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\WeaponManager.h"
-#include "..\..\StarmanLib\StarmanLib\StarmanLib\EnemyManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\EnemyInfoManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\SkillManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\Guide.h"
@@ -397,11 +397,11 @@ void MenuManager::InitMenu()
     //------------------------------------------------------
     {
         std::vector<EnemyInfo> infoList;
-        NSStarmanLib::EnemyManager* enemyManager = NSStarmanLib::EnemyManager::GetObj();
-        std::vector<std::string> nameList = enemyManager->GetEnemyNameList();
+        NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
+        std::vector<std::string> nameList = enemyInfoManager->GetEnemyNameList();
         for (std::size_t i = 0; i < nameList.size(); ++i)
         {
-            NSStarmanLib::EnemyDef enemyDef = enemyManager->GetEnemyDef(nameList.at(i));
+            NSStarmanLib::EnemyDef enemyDef = enemyInfoManager->GetEnemyDef(nameList.at(i));
             if (enemyDef.GetVisible() == false)
             {
                 continue;
