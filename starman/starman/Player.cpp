@@ -66,7 +66,7 @@ Player::Player()
     //}
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
         m_weaponMesh = new Mesh("res\\model\\stick\\stick.x", b, c, 1.0f);
         m_weaponMesh->Init();
         m_weaponMesh->SetWeapon(true);
