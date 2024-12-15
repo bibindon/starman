@@ -20,6 +20,8 @@ public:
     static bool DebugMode();
     static Map* GetMap();
     static void SetMap(Map* map);
+    static D3DXMATRIX GetRightHandMat();
+    static void SetRightHandMat(D3DXMATRIX mat);
 
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;
@@ -28,5 +30,6 @@ private:
     static NSQuestSystem::QuestSystem* m_questSystem;
     static bool m_debugMode;
     static Map* m_map;
+    static D3DXMATRIX m_rightHandMat;
 };
 

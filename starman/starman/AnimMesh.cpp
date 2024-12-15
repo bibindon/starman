@@ -158,6 +158,11 @@ void AnimMesh::UpdateFrameMatrix(const LPD3DXFRAME frameBase, const LPD3DXMATRIX
     if (parentMatrix != nullptr)
     {
         frame->m_combinedMatrix = frame->TransformationMatrix * (*parentMatrix);
+        std::string work = "RightHand";
+        if (work == frame->Name)
+        {
+            SharedObj::SetRightHandMat(frame->m_combinedMatrix);
+        }
     }
     else
     {

@@ -6,6 +6,7 @@ std::mt19937 SharedObj::m_Engine { };
 Player* SharedObj::m_player { nullptr };
 NSQuestSystem::QuestSystem* SharedObj::m_questSystem { nullptr };
 Map* SharedObj::m_map { nullptr };
+D3DXMATRIX SharedObj::m_rightHandMat;
 
 #if defined(NDEBUG)
 bool SharedObj::m_debugMode { false };
@@ -56,6 +57,16 @@ Map* SharedObj::GetMap()
 void SharedObj::SetMap(Map* map)
 {
     m_map = map;
+}
+
+D3DXMATRIX SharedObj::GetRightHandMat()
+{
+    return m_rightHandMat;
+}
+
+void SharedObj::SetRightHandMat(D3DXMATRIX mat)
+{
+    m_rightHandMat = mat;
 }
 
 void SharedObj::SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice)

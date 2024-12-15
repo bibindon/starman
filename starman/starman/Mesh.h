@@ -23,6 +23,8 @@ public:
 
     LPD3DXMESH GetD3DMesh();
 
+    void SetWeapon(const bool arg);
+
 private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
     LPD3DXMESH m_D3DMesh { nullptr };
@@ -46,6 +48,8 @@ private:
     float m_scale { 0.0f };
     std::string m_meshName { "" };
     bool m_bIsInit { false };
+
+    bool m_bWeapon = false;
 };
 
 
