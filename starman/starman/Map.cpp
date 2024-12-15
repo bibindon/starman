@@ -113,7 +113,6 @@ void Map::Init()
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 1.f);
-        mesh->SetWeapon(true);
         mesh->Init();
         m_meshMap["rock1"] = mesh;
     }
