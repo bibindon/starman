@@ -57,10 +57,17 @@ Player::Player()
     m_spriteHP = new Sprite("res\\image\\hp_green_p.png");
     m_spriteHPBack = new Sprite("res\\image\\hp_black_p.png");
 
+    //{
+    //    D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+    //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+    //    m_weaponMesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
+    //    m_weaponMesh->Init();
+    //    m_weaponMesh->SetWeapon(true);
+    //}
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        m_weaponMesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
+        m_weaponMesh = new Mesh("res\\model\\stick\\stick.x", b, c, 1.0f);
         m_weaponMesh->Init();
         m_weaponMesh->SetWeapon(true);
     }
