@@ -56,6 +56,14 @@ Player::Player()
 
     m_spriteHP = new Sprite("res\\image\\hp_green_p.png");
     m_spriteHPBack = new Sprite("res\\image\\hp_black_p.png");
+
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        m_weaponMesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
+        m_weaponMesh->Init();
+        m_weaponMesh->SetWeapon(true);
+    }
 }
 
 Player::~Player()
@@ -63,6 +71,7 @@ Player::~Player()
     SAFE_DELETE(m_spriteHP);
     SAFE_DELETE(m_spriteHPBack);
     SAFE_DELETE(m_AnimMesh2);
+    SAFE_DELETE(m_weaponMesh);
 }
 
 void Player::Update(Map* map)
@@ -164,6 +173,8 @@ void Player::Render()
             255,
             (m_HP*256/100));
     }
+
+    m_weaponMesh->Render();
 }
 
 void Player::SetPos(const D3DXVECTOR3& pos)

@@ -31,6 +31,7 @@ public:
     int GetHP();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
+    Mesh* m_weaponMesh { nullptr };
 
     D3DXVECTOR3 m_loadingPos { -285.f, 16.f, 539.f };
     D3DXVECTOR3 m_rotate { 0.f, D3DX_PI, 0.f };
