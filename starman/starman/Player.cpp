@@ -2,6 +2,7 @@
 #include "SoundEffect.h"
 #include "Camera.h"
 #include "SharedObj.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 
 Player::Player()
 {
@@ -57,55 +58,61 @@ Player::Player()
     m_spriteHP = new Sprite("res\\image\\hp_green_p.png");
     m_spriteHPBack = new Sprite("res\\image\\hp_black_p.png");
 
-    //{
-    //    D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-    //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-    //    m_weaponMesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
-    //    m_weaponMesh->Init();
-    //    m_weaponMesh->SetWeapon(true);
-    //}
-    /*
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["石"] = mesh;
+    }
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
+        Mesh * mesh = new Mesh("res\\model\\stick\\stick.x", b, c, 1.f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["木の棒"] = mesh;
+    }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI*3/2, 0.f, D3DX_PI/2);
-        m_weaponMesh = new Mesh("res\\model\\ax\\ax.x", b, c, 1.0f);
-        m_weaponMesh->Init();
-        m_weaponMesh->SetWeapon(true);
+        Mesh * mesh = new Mesh("res\\model\\ax\\ax.x", b, c, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["石斧"] = mesh;
     }
-    */
-    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
-        m_weaponMesh = new Mesh("res\\model\\atlatl\\atlatl.x", b, c, 1.0f);
-        m_weaponMesh->Init();
-        m_weaponMesh->SetWeapon(true);
+        Mesh * mesh = new Mesh("res\\model\\atlatl\\atlatl.x", b, c, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["アトラトル"] = mesh;
     }
-    */
-    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
-        m_weaponMesh = new Mesh("res\\model\\ironPipe\\ironPipe.x", b, c, 1.0f);
-        m_weaponMesh->Init();
-        m_weaponMesh->SetWeapon(true);
+        Mesh * mesh = new Mesh("res\\model\\ironPipe\\ironPipe.x", b, c, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["鉄パイプ"] = mesh;
     }
-    */
-    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
-        m_weaponMesh = new Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", b, c, 1.0f);
-        m_weaponMesh->Init();
-        m_weaponMesh->SetWeapon(true);
+        Mesh * mesh = new Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", b, c, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["石付き鉄パイプ"] = mesh;
     }
-    */
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
-        m_weaponMesh = new Mesh("res\\model\\spear\\spear.x", b, c, 1.0f);
-        m_weaponMesh->Init();
-        m_weaponMesh->SetWeapon(true);
+        Mesh * mesh = new Mesh("res\\model\\spear\\spear.x", b, c, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["石槍"] = mesh;
     }
 }
 
@@ -114,7 +121,10 @@ Player::~Player()
     SAFE_DELETE(m_spriteHP);
     SAFE_DELETE(m_spriteHPBack);
     SAFE_DELETE(m_AnimMesh2);
-    SAFE_DELETE(m_weaponMesh);
+    for (auto it = m_weaponMesh.begin(); it != m_weaponMesh.end(); ++it)
+    {
+		SAFE_DELETE(it->second);
+    }
 }
 
 void Player::Update(Map* map)
@@ -217,7 +227,15 @@ void Player::Render()
             (m_HP*256/100));
     }
 
-    m_weaponMesh->Render();
+    NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+    NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
+
+    if (itemInfo.GetId() != -1)
+    {
+		NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+		NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
+		m_weaponMesh.at(itemDef.GetName())->Render();
+    }
 }
 
 void Player::SetPos(const D3DXVECTOR3& pos)
