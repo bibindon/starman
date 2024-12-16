@@ -11,7 +11,7 @@
 #pragma comment(lib, "..\\..\\talklib2\\talklib2.lib")
 #pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
 #pragma comment(lib, "..\\..\\menulib\\menulib\\Debug\\menulib.lib")
-#pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\StarmanLib.lib")
+#pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\Debug\\StarmanLib.lib")
 #pragma comment(lib, "..\\..\\storehouselib\\storehouselib.lib")
 #pragma comment(lib, "..\\..\\craftlib\\craftlib.lib")
 #pragma comment(lib, "..\\..\\hud\\hud.lib")
