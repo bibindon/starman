@@ -270,7 +270,7 @@ D3DXVECTOR3 Player::GetRotate()
 
 bool Player::SetAttack()
 {
-    bool ret { false };
+    bool ret = false;
     if (m_bAttack == false && m_bDamaged == false)
     {
         SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);

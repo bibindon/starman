@@ -463,13 +463,9 @@ SeqBattle::SeqBattle(const bool isContinue)
         std::getline(ifs, line);
         if (line.empty() == false)
         {
-            m_nCurrentStage = atoi(line.c_str());
-            if (m_nCurrentStage == 1)
-            {
-                m_map = new Map();
-                SharedObj::SetMap(m_map);
-                m_map->Init();
-            }
+			m_map = new Map();
+			SharedObj::SetMap(m_map);
+			m_map->Init();
         }
         else
         {
@@ -507,10 +503,7 @@ SeqBattle::~SeqBattle()
 
 void SeqBattle::Update(eSequence* sequence)
 {
-    if (m_nCurrentStage == 1)
-    {
-        m_map->Update();
-    }
+	m_map->Update();
 
     // 60‰ñ‚Éˆê‰ñi1•b‚²‚Æj‚Ìˆ—
     {
@@ -1531,10 +1524,7 @@ void SeqBattle::Render()
         m_spriteGameover->Render(pos);
     }
 
-    if (m_nCurrentStage == 1)
-    {
-        m_map->Render();
-    }
+	m_map->Render();
 
     PopUp::Get()->Render();
 
@@ -1584,12 +1574,7 @@ void SeqBattle::InputR1()
     }
     D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
     D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-    std::vector<EnemyBase*> vecEnemy;
-
-    if (m_nCurrentStage == 1)
-    {
-        vecEnemy = m_map->GetEnemy();
-    }
+    std::vector<EnemyBase*> vecEnemy = m_map->GetEnemy();
 
     for (std::size_t i = 0; i < vecEnemy.size(); i++)
     {
@@ -1607,10 +1592,7 @@ void SeqBattle::InputR1()
         }
     }
 
-    if (m_nCurrentStage == 1)
-    {
-        m_map->SetEnemy(vecEnemy);
-    }
+	m_map->SetEnemy(vecEnemy);
 }
 
 void SeqBattle::InputA()
