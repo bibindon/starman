@@ -1203,27 +1203,6 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetDead();
         m_eState = eBattleState::GAMEOVER;
     }
-    if (m_nCurrentStage == 1)
-    {
-        if (m_map->GetEnemy().size() == 0)
-        {
-//            SAFE_DELETE(m_map);
-//            m_stage2 = new Stage2();
-//            m_stage2->Init();
-//            m_player->SetHP(100);
-//            m_player->SetPos(D3DXVECTOR3 { 0.f, 0.f, 0.f });
-//            Camera::SetRadian(D3DX_PI);
-//            m_nCurrentStage = 2;
-//
-//            SaveLastStage(2);
-        }
-    }
-    else if (m_nCurrentStage == 2)
-    {
-        {
-            *sequence = eSequence::ENDING;
-        }
-    }
 
     // 60回に一回くらいクエスト管理クラスにプレイヤーの現在地を知らせる。
     {
@@ -1606,17 +1585,12 @@ void SeqBattle::InputR1()
     D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
     D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
     std::vector<EnemyBase*> vecEnemy;
-//    std::vector<EnemySphere> vecEnemySphere;
-//    std::vector<EnemyDisk> vecEnemyDisk;
+
     if (m_nCurrentStage == 1)
     {
         vecEnemy = m_map->GetEnemy();
     }
-    else if (m_nCurrentStage == 2)
-    {
-        //vecEnemy = m_stage2->GetEnemy();
-        //vecEnemySphere = m_stage2->GetEnemySphere();
-    }
+
     for (std::size_t i = 0; i < vecEnemy.size(); i++)
     {
         D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
@@ -1633,45 +1607,9 @@ void SeqBattle::InputR1()
         }
     }
 
-//    for (std::size_t i = 0; i < vecEnemySphere.size(); i++)
-//    {
-//        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-//        enemyPos = vecEnemySphere.at(i).GetPos();
-//
-//        D3DXVECTOR3 subPos { attackPos - enemyPos };
-//        FLOAT distance = D3DXVec3Length(&subPos);
-//
-//        if (distance <= 1.5f)
-//        {
-//            vecEnemySphere.at(i).SetState(eEnemyState::DAMAGED);
-//            int hp = vecEnemySphere.at(i).GetHP();
-//            vecEnemySphere.at(i).SetHP(hp - 40);
-//        }
-//    }
-//    for (std::size_t i = 0; i < vecEnemyDisk.size(); i++)
-//    {
-//        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-//        enemyPos = vecEnemyDisk.at(i).GetPos();
-//
-//        D3DXVECTOR3 subPos { attackPos - enemyPos };
-//        FLOAT distance = D3DXVec3Length(&subPos);
-//
-//        if (distance <= 1.5f)
-//        {
-//            vecEnemyDisk.at(i).SetState(eEnemyState::DAMAGED);
-//            int hp = vecEnemyDisk.at(i).GetHP();
-//            vecEnemyDisk.at(i).SetHP(hp - 40);
-//        }
-//    }
-
     if (m_nCurrentStage == 1)
     {
         m_map->SetEnemy(vecEnemy);
-    }
-    else if (m_nCurrentStage == 2)
-    {
-        //m_stage2->SetEnemy(vecEnemy);
-        //m_stage2->SetEnemySphere(vecEnemySphere);
     }
 }
 
