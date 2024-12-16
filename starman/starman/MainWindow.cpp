@@ -13,6 +13,7 @@
 #include "Camera.h"
 #include "SharedObj.h"
 #include "PopUp.h"
+#include "PopUp2.h"
 
 #include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
@@ -149,6 +150,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
     PopUp::Init();
+    PopUp2::Init();
 
     m_seqTitle = new SeqTitle();
 

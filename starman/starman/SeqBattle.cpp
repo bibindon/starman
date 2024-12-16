@@ -18,6 +18,7 @@
 #include "SoundEffect.h"
 #include "EnemySphere.h"
 #include "EnemyDisk.h"
+#include "PopUp2.h"
 
 using namespace NSQuestSystem;
 
@@ -713,6 +714,7 @@ void SeqBattle::Update(eSequence* sequence)
     }
 
     PopUp::Get()->Update();
+    PopUp2::Get()->Update();
 
     if (KeyBoard::IsDownFirstFrame(DIK_F1))
     {
@@ -1546,6 +1548,7 @@ void SeqBattle::Render()
 	m_map->Render();
 
     PopUp::Get()->Render();
+    PopUp2::Get()->Render();
 
     if (m_bTalking)
     {
@@ -1630,6 +1633,10 @@ void SeqBattle::InputB(eSequence* sequence)
 				auto inventory = NSStarmanLib::Inventory::GetObj();
 				int newSubID = inventory->AddItem(itemPos.GetItemDefId());
                 m_menuManager.AddItem(itemPos.GetItemDefId(), newSubID);
+
+                std::string work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
+				SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+                PopUp2::Get()->SetText(work + " ‚ğè‚É“ü‚ê‚½B");
             }
         }
     }

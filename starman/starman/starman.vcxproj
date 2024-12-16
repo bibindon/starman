@@ -185,6 +185,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PopUp.cpp" />
+    <ClCompile Include="PopUp2.cpp" />
     <ClCompile Include="SeqBattle.cpp" />
     <ClCompile Include="SeqEnding.cpp" />
     <ClCompile Include="SeqOpening.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PopUp.h" />
+    <ClInclude Include="PopUp2.h" />
     <ClInclude Include="SeqBattle.h" />
     <ClInclude Include="SeqEnding.h" />
     <ClInclude Include="SeqOpening.h" />
