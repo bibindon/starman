@@ -197,8 +197,9 @@ void Map::Init()
 			animSetting.m_loop = true;
 			animSetMap["LieDown"] = animSetting;
 		}
-		m_daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
-		m_daikeiman->SetAnim("LieDown");
+		AnimMesh* daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
+		daikeiman->SetAnim("LieDown");
+        m_NPC["ダイケイマン"] = daikeiman;
     }
     {
 
@@ -261,8 +262,9 @@ void Map::Init()
 			animSetting.m_loop = true;
 			animSetMap["LieDown"] = animSetting;
 		}
-		m_sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
-		m_sankakuman->SetAnim("Sit");
+		AnimMesh* sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
+		sankakuman->SetAnim("Sit");
+        m_NPC["サンカクマン"] = sankakuman;
     }
     {
 
@@ -325,8 +327,9 @@ void Map::Init()
 			animSetting.m_loop = true;
 			animSetMap["LieDown"] = animSetting;
 		}
-		m_shikakuman = new AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
-		m_shikakuman->SetAnim("Sit");
+		AnimMesh* shikakuman = new AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
+		shikakuman->SetAnim("Sit");
+        m_NPC["シカクマン"] = shikakuman;
     }
 }
 
@@ -511,9 +514,11 @@ void Map::Render()
     }
 
     m_pSun->Render();
-    m_daikeiman->Render();
-    m_sankakuman->Render();
-    m_shikakuman->Render();
+
+    for (auto it = m_NPC.begin(); it != m_NPC.end(); ++it)
+    {
+        it->second->Render();
+    }
 }
 
 std::vector<EnemyBase*> Map::GetEnemy()

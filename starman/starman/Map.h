@@ -4,6 +4,7 @@
 #include "Mesh.h"
 #include "EnemyBase.h"
 #include "MeshNoShade.h"
+#include <map>
 
 // 主人公が近づいたらメッシュを読み込み表示するためのメッシュクラス
 // 別スレッドで読む。DirectX9はマルチスレッドに対応していないらしいが
@@ -80,15 +81,7 @@ private:
     // 太陽
     MeshNoShade* m_pSun = nullptr;
 
-    // TODO std::mapに変える
-
-    // ダイケイマン
-    AnimMesh* m_daikeiman = nullptr;
-
-    // サンカクマン
-    AnimMesh* m_sankakuman = nullptr;
-
-    // シカクマン
-    AnimMesh* m_shikakuman = nullptr;
+    // NPC
+    std::map<std::string, AnimMesh*> m_NPC;
 };
 
