@@ -86,7 +86,7 @@ AnimMesh::AnimMesh(
     }
     if (temp_animation_controller == nullptr)
     {
-        throw std::exception("Failed to load a x-file.");
+        throw std::exception("Failed to load a x-file.2");
     }
     // lazy initialization 
     m_frameRoot.reset(temp_root_frame);
