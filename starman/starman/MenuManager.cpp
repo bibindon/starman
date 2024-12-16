@@ -341,6 +341,9 @@ void MenuManager::InitMenu()
 
                     NSMenulib::WeaponInfo weaponInfoG;
 
+                    weaponInfoG.SetId(idList.at(i));
+                    weaponInfoG.SetSubId(subIdList.at(j));
+
                     weaponInfoG.SetName(itemDef.GetName());
 
                     NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(idList.at(i), subIdList.at(j));
@@ -598,6 +601,7 @@ std::string MenuManager::OperateMenu()
                     m_menu.DeleteItem(id, subId);
                 }
             }
+
             // ƒAƒCƒeƒ€‚ðŽÌ‚Ä‚é
             if (vs.at(4) == "ŽÌ‚Ä‚é")
             {
@@ -607,6 +611,20 @@ std::string MenuManager::OperateMenu()
                 NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
                 inventory->RemoveItem(id, subId);
                 m_menu.DeleteItem(id, subId);
+            }
+        }
+        else if (vs.size() == 5 && vs.at(0) == "•Ší")
+        {
+            if (vs.at(4) == "‘•”õ")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id, subId);
+
+				NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+                statusManager->SetEquipWeapon(itemInfo);
             }
         }
     }
