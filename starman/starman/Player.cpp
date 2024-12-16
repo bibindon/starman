@@ -64,10 +64,46 @@ Player::Player()
     //    m_weaponMesh->Init();
     //    m_weaponMesh->SetWeapon(true);
     //}
+    /*
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI*3/2, 0.f, D3DX_PI/2);
+        m_weaponMesh = new Mesh("res\\model\\ax\\ax.x", b, c, 1.0f);
+        m_weaponMesh->Init();
+        m_weaponMesh->SetWeapon(true);
+    }
+    */
+    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
-        m_weaponMesh = new Mesh("res\\model\\stick\\stick.x", b, c, 1.0f);
+        m_weaponMesh = new Mesh("res\\model\\atlatl\\atlatl.x", b, c, 1.0f);
+        m_weaponMesh->Init();
+        m_weaponMesh->SetWeapon(true);
+    }
+    */
+    /*
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
+        m_weaponMesh = new Mesh("res\\model\\ironPipe\\ironPipe.x", b, c, 1.0f);
+        m_weaponMesh->Init();
+        m_weaponMesh->SetWeapon(true);
+    }
+    */
+    /*
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
+        m_weaponMesh = new Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", b, c, 1.0f);
+        m_weaponMesh->Init();
+        m_weaponMesh->SetWeapon(true);
+    }
+    */
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
+        m_weaponMesh = new Mesh("res\\model\\spear\\spear.x", b, c, 1.0f);
         m_weaponMesh->Init();
         m_weaponMesh->SetWeapon(true);
     }

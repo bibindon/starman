@@ -535,9 +535,9 @@ void Map::Init()
 			animSetting.m_loop = true;
 			animSetMap["Idle"] = animSetting;
 		}
-		AnimMesh* animMesh = new AnimMesh("res\\model\\xeoff\\xeoff.x", b, rot, 1.5f, animSetMap);
-		animMesh->SetAnim("Idle");
-        m_NPC["ジーオフ"] = animMesh;
+		//AnimMesh* animMesh = new AnimMesh("res\\model\\xeoff\\xeoff.x", b, rot, 1.5f, animSetMap);
+		//animMesh->SetAnim("Idle");
+        //m_NPC["ジーオフ"] = animMesh;
     }
     {
 		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 555.f);
