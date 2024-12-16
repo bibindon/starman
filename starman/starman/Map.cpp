@@ -6,6 +6,7 @@
 #include "EnemyCube.h"
 #include "EnemyDisk.h"
 #include "EnemySphere.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 
 Map::Map()
 {
@@ -123,6 +124,210 @@ void Map::Init()
         mesh->Init();
         m_meshMap["cottage"] = mesh;
     }
+
+    //--------------------------------------------
+    // ‘¾—z
+    //--------------------------------------------
+    m_pSun = new MeshNoShade("res\\model\\sun\\sun.x",
+                             D3DXVECTOR3(0.f, -10000.f, 0.f),
+                             D3DXVECTOR3(0.f, 0.f, 0.f),
+                             500.0f);
+    m_pSun->Init();
+
+    //--------------------------------------------
+    // NPC
+    //--------------------------------------------
+    {
+		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 541.f);
+		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+		AnimSetMap animSetMap;
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 0.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Idle"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 1.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Walk"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 2.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Attack"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = false;
+			animSetMap["Damaged"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.5f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Dead"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 5.f;
+			animSetting.m_duration = 2.f;
+			animSetting.m_loop = false;
+			animSetMap["Jump"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.1f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Sit"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.7f;
+			animSetting.m_duration = 0.6f;
+			animSetting.m_loop = true;
+			animSetMap["LieDown"] = animSetting;
+		}
+		m_daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
+		m_daikeiman->SetAnim("LieDown");
+    }
+    {
+
+		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 543.f);
+		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+		AnimSetMap animSetMap;
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 0.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Idle"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 1.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Walk"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 2.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Attack"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = false;
+			animSetMap["Damaged"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.5f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Dead"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 5.f;
+			animSetting.m_duration = 2.f;
+			animSetting.m_loop = false;
+			animSetMap["Jump"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.1f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Sit"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.7f;
+			animSetting.m_duration = 0.6f;
+			animSetting.m_loop = true;
+			animSetMap["LieDown"] = animSetting;
+		}
+		m_sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
+		m_sankakuman->SetAnim("Sit");
+    }
+    {
+
+		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 545.f);
+		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+		AnimSetMap animSetMap;
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 0.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Idle"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 1.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Walk"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 2.f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Attack"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = false;
+			animSetMap["Damaged"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 3.5f;
+			animSetting.m_duration = 1.f;
+			animSetting.m_loop = false;
+			animSetMap["Dead"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 5.f;
+			animSetting.m_duration = 2.f;
+			animSetting.m_loop = false;
+			animSetMap["Jump"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.1f;
+			animSetting.m_duration = 0.5f;
+			animSetting.m_loop = true;
+			animSetMap["Sit"] = animSetting;
+		}
+		{
+			AnimSetting animSetting { };
+			animSetting.m_startPos = 7.7f;
+			animSetting.m_duration = 0.6f;
+			animSetting.m_loop = true;
+			animSetMap["LieDown"] = animSetting;
+		}
+		m_shikakuman = new AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
+		m_shikakuman->SetAnim("Sit");
+    }
 }
 
 void Map::Update()
@@ -215,6 +420,59 @@ void Map::Update()
 		}
     }
 
+    // 60‰ñ‚Éˆê‰ñi1•b‚²‚Æj‚Ìˆ—
+    {
+        static int counter = 0;
+        counter++;
+        if (counter >= 60)
+        {
+            counter = 0;
+        }
+        if (counter == 0)
+        {
+            NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+
+            //-------------------------------------
+            // ‘¾—z‚Ì–¾‚é‚³
+            //-------------------------------------
+            // ’‹‚Ì12Žž‚ªÅ‚à–¾‚é‚­A–é‚Ì0Žž‚ªÅ‚àˆÃ‚¢‚±‚Æ‚Æ‚·‚é
+            // TODO ƒTƒCƒ“ƒJ[ƒu‚É‚µ‚½‚Ù‚¤‚ª—Ç‚¢B
+            float hour = (float)dateTime->GetHour();
+            if (hour <= 12)
+            {
+                Light::SetBrightness(hour / 12);
+            }
+            else
+            {
+                Light::SetBrightness((24 - hour) / 12);
+            }
+
+            //-------------------------------------
+            // ‰A‚Ì•\Ž¦
+            //-------------------------------------
+            // ‘¾—z‚Í’‹‚Ì12Žž‚É^ãA–é‚Ì0Žž‚É^‰ºA‚Æ‚·‚éB
+            // 0Žž0•ª`23Žž59•ª‚ð0.0f`0.99999f‚Æ‚È‚é‚æ‚¤‚É•ÏŠ·
+            // 0Žž0•ª‚ð0•ªA23Žž59•ª‚ð1439•ª‚ÆŒ©‚È‚¹‚Î‚æ‚¢
+
+            float hourAndMinute = 0.f;
+            hourAndMinute += dateTime->GetHour() * 60;
+            hourAndMinute += dateTime->GetMinute();
+            hourAndMinute /= 1440;
+            D3DXVECTOR4 vec;
+            vec.x = std::sin(hourAndMinute * 2 * D3DX_PI);
+            vec.y = std::cos(hourAndMinute * 2 * D3DX_PI) * -1;
+            vec.z = std::cos(hourAndMinute * 2 * D3DX_PI);
+            vec.w = 0.f;
+            Light::SetLightNormal(vec);
+
+            //-------------------------------------
+            // ‘¾—z
+            //-------------------------------------
+            D3DXVECTOR3 sunPos(vec);
+            sunPos *= 2000;
+            m_pSun->SetPos(sunPos);
+        }
+    }
 }
 
 void Map::Render()
@@ -251,6 +509,11 @@ void Map::Render()
     {
         m_spriteStageName->Render(D3DXVECTOR3 {0.f, 0.f, 0.f}, 255 - m_nStagenameCount);
     }
+
+    m_pSun->Render();
+    m_daikeiman->Render();
+    m_sankakuman->Render();
+    m_shikakuman->Render();
 }
 
 std::vector<EnemyBase*> Map::GetEnemy()

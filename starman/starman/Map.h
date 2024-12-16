@@ -3,6 +3,7 @@
 #include <thread>
 #include "Mesh.h"
 #include "EnemyBase.h"
+#include "MeshNoShade.h"
 
 // 主人公が近づいたらメッシュを読み込み表示するためのメッシュクラス
 // 別スレッドで読む。DirectX9はマルチスレッドに対応していないらしいが
@@ -75,5 +76,19 @@ private:
     Sprite* m_spriteStageName { nullptr };
 
     LazyMesh m_lazyMesh;
+
+    // 太陽
+    MeshNoShade* m_pSun = nullptr;
+
+    // TODO std::mapに変える
+
+    // ダイケイマン
+    AnimMesh* m_daikeiman = nullptr;
+
+    // サンカクマン
+    AnimMesh* m_sankakuman = nullptr;
+
+    // シカクマン
+    AnimMesh* m_shikakuman = nullptr;
 };
 

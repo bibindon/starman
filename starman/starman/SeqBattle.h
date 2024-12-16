@@ -99,16 +99,5 @@ private:
     bool m_bShowCommand = false;
     CommandManager m_commandManager;
 
-    // 太陽
-    MeshNoShade* m_pSun = nullptr;
-
-    // ダイケイマン
-    AnimMesh* m_daikeiman = nullptr;
-
-    // サンカクマン
-    AnimMesh* m_sankakuman = nullptr;
-
-    // シカクマン
-    AnimMesh* m_shikakuman = nullptr;
 };
 
