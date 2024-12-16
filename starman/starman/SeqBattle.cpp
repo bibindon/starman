@@ -538,6 +538,25 @@ void SeqBattle::Update(eSequence* sequence)
 				m_player->SetDead();
 				m_eState = eBattleState::GAMEOVER;
             }
+
+            //-------------------------------------
+            // アイテム発見
+            //-------------------------------------
+            D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+            NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+
+            NSStarmanLib::ItemPos itemPos = itemManager->GetItemPosByPos(playerPos.x,
+                                                                         playerPos.y,
+                                                                         playerPos.z);
+
+            if (itemPos.GetItemPosId() != -1)
+            {
+                m_bObtainable = true;
+            }
+            else
+            {
+                m_bObtainable = false;
+            }
         }
     }
 
@@ -1533,7 +1552,7 @@ void SeqBattle::Render()
         m_talk->Render();
     }
 
-    if (m_bShowExamine)
+    if (m_bShowExamine || m_bObtainable)
     {
         D3DXVECTOR3 pos { 200.f, 600.f, 0.f };
         m_spriteExamine->Render(pos);
@@ -1592,6 +1611,26 @@ void SeqBattle::InputB(eSequence* sequence)
         if (m_bShowExamine)
         {
             SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
+        }
+
+        if (m_bObtainable)
+        {
+            NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+
+            NSStarmanLib::ItemPos itemPos = itemManager->GetItemPosByPos(playerPos.x,
+                                                                         playerPos.y,
+                                                                         playerPos.z);
+            if (itemPos.GetItemPosId() != -1)
+            {
+				int itemPosId = itemPos.GetItemPosId();
+				itemManager->SetItemPosObtained(itemPosId);
+				
+				// どれだけ荷物が重くても落ちているものを拾うことはできる。
+				// 代わりに、まともに歩いたりできなくなる。
+				auto inventory = NSStarmanLib::Inventory::GetObj();
+				int newSubID = inventory->AddItem(itemPos.GetItemDefId());
+                m_menuManager.AddItem(itemPos.GetItemDefId(), newSubID);
+            }
         }
     }
 }

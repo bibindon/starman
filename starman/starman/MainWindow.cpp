@@ -205,7 +205,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         }
 
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-        itemManager->Init("res\\script\\item.csv");
+        itemManager->Init("res\\script\\item.csv", "res\\script\\item_pos.csv");
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 

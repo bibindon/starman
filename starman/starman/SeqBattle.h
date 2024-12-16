@@ -57,8 +57,12 @@ private:
 
     std::deque<std::string> m_finishQuestQue;
 
+    // 調べる、が可能な時
     bool m_bShowExamine { false };
     Sprite* m_spriteExamine { nullptr };
+
+    // アイテムが拾える時
+    bool m_bObtainable = false;
 
     // エンディングを開始してほしいときにtrueにする
     bool m_bEndingRequest { false };
