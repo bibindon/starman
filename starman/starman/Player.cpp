@@ -270,15 +270,41 @@ D3DXVECTOR3 Player::GetRotate()
 
 bool Player::SetAttack()
 {
-    bool ret = false;
-    if (m_bAttack == false && m_bDamaged == false)
+    if (m_bAttack || m_bDamaged)
     {
-        SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
-        m_AnimMesh2->SetAnim("Attack", 0.f);
-        m_bAttack = true;
-        ret = true;
+        return false;
     }
-    return ret;
+
+	SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
+	m_AnimMesh2->SetAnim("Attack", 0.f);
+	m_bAttack = true;
+
+    D3DXVECTOR3 attackPos = GetAttackPos();
+    D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+    std::vector<EnemyBase*> vecEnemy = SharedObj::GetMap()->GetEnemy();
+
+    for (std::size_t i = 0; i < vecEnemy.size(); i++)
+    {
+        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
+        enemyPos = vecEnemy.at(i)->GetPos();
+
+        D3DXVECTOR3 subPos { attackPos - enemyPos };
+        FLOAT distance = D3DXVec3Length(&subPos);
+
+        if (distance <= 1.5f)
+        {
+            vecEnemy.at(i)->SetState(eEnemyState::DAMAGED);
+            int hp = vecEnemy.at(i)->GetHP();
+
+            auto statusManager = NSStarmanLib::StatusManager::GetObj();
+            float attackPower = statusManager->GetAttackPower();
+            vecEnemy.at(i)->SetHP(hp - (int)attackPower);
+            statusManager->ConsumeAttackCost();
+        }
+    }
+
+	SharedObj::GetMap()->SetEnemy(vecEnemy);
+    return true;
 }
 
 void Player::SetWalk()

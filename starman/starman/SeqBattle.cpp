@@ -1567,32 +1567,7 @@ void SeqBattle::Render()
 
 void SeqBattle::InputR1()
 {
-    bool ret { m_player->SetAttack() };
-    if (ret == false)
-    {
-        return;
-    }
-    D3DXVECTOR3 attackPos { m_player->GetAttackPos() };
-    D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-    std::vector<EnemyBase*> vecEnemy = m_map->GetEnemy();
-
-    for (std::size_t i = 0; i < vecEnemy.size(); i++)
-    {
-        D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
-        enemyPos = vecEnemy.at(i)->GetPos();
-
-        D3DXVECTOR3 subPos { attackPos - enemyPos };
-        FLOAT distance = D3DXVec3Length(&subPos);
-
-        if (distance <= 1.5f)
-        {
-            vecEnemy.at(i)->SetState(eEnemyState::DAMAGED);
-            int hp = vecEnemy.at(i)->GetHP();
-            vecEnemy.at(i)->SetHP(hp - 50);
-        }
-    }
-
-	m_map->SetEnemy(vecEnemy);
+    bool ret = m_player->SetAttack();
 }
 
 void SeqBattle::InputA()
