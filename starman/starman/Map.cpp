@@ -910,6 +910,10 @@ void Map::Update()
 				mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
 				for (int i = 0; i < (int)needHide.size(); ++i)
 				{
+					mapObjManager->SetShow(needHide.at(i).GetFrameX(),
+										   needHide.at(i).GetFrameZ(),
+										   needHide.at(i).GetId(),
+										   false);
 					m_meshCloneMap.erase(needHide.at(i).GetId());
 				}
 			}

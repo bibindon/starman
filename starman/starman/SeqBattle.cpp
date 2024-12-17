@@ -632,9 +632,9 @@ void SeqBattle::Update(eSequence* sequence)
     }
     if (KeyBoard::IsDown(DIK_G))
     {
-        // デバッグ目的でWキーだけ移動速度10倍
-        move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 10;
-        move.z += std::sin(radian + D3DX_PI) / 5 * 10;
+        // デバッグ目的でGキーだけ移動速度アップ
+        move.x += -std::sin(radian + D3DX_PI / 2) / 5 * 3;
+        move.z += std::sin(radian + D3DX_PI) / 5 * 3;
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         m_player->SetRotate(rotate);
