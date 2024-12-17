@@ -2,19 +2,23 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <map>
 #include <string>
 #include <vector>
 #include <memory>
 
-class Mesh
+// 同じ3Dモデルを沢山表示したいときに使うクラス
+// 同じ3Dモデルを沢山表示したいとき、3Dモデルの読み込みは1度でよく
+// 座標、回転、拡大率を再設定して再表示することで軽量化する。
+class MeshClone
 {
 public:
-    Mesh(
+    MeshClone(
         const std::string&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
         const float&);
-    ~Mesh();
+    ~MeshClone();
 
     void Init();
     void SetPos(const D3DXVECTOR3& pos);
@@ -27,16 +31,16 @@ public:
 
 private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
-    LPD3DXMESH m_D3DMesh { nullptr };
 
-    LPD3DXEFFECT m_D3DEffect { nullptr };
+    static LPD3DXEFFECT m_D3DEffect;
+    static std::map<std::string, LPD3DXMESH> m_D3DMeshMap;
+    static std::map<std::string, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
 
     D3DXVECTOR3 m_loadingPos { };
     D3DXVECTOR3 m_rotate { };
 
     DWORD m_materialCount { 0 };
     std::vector<D3DCOLORVALUE> m_vecColor { };
-    std::vector<LPDIRECT3DTEXTURE9> m_vecTexture { };
     D3DXVECTOR3 m_centerPos { 0.0f, 0.0f, 0.0f };
     float m_radius { 0.0f };
     float m_scale { 0.0f };
@@ -45,5 +49,4 @@ private:
 
     bool m_bWeapon = false;
 };
-
 

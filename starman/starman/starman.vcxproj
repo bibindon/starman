@@ -181,6 +181,7 @@
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="MenuManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshClone.cpp" />
     <ClCompile Include="MeshNoShade.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="MenuManager.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshClone.h" />
     <ClInclude Include="MeshNoShade.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Player.h" />

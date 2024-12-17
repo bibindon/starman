@@ -233,7 +233,6 @@ void Mesh::Render()
 			D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
 			worldViewProjMatrix *= mat;
 
-            // ä˙ë“ÇµÇΩìÆÇ´Ç…Ç»ÇÁÇ»Ç¢ÅB
 			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
 			worldViewProjMatrix *= mat;
 
