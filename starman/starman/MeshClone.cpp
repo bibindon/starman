@@ -224,7 +224,13 @@ void MeshClone::Render()
     {
         return;
     }
+	// YŽ²‰ñ“]‚¾‚¯‚µ‚Ä‚¢‚é‚¤‚¿‚Í³‚µ‚­‰e‚ª•\Ž¦‚³‚ê‚éB
     D3DXVECTOR4 normal = Light::GetLightNormal();
+	float work = m_rotate.y * -1.f;
+	normal.x = std::sin(work);
+	normal.z = std::cos(work);
+	D3DXVec4Normalize(&normal, &normal);
+
     m_D3DEffect->SetVector("g_light_normal", &normal);
 
     SharedObj::GetPlayer();

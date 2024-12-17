@@ -94,9 +94,6 @@ void pixel_shader(
     //======================================================
     float4 fog_color2 = fog_color * g_light_brightness;
     out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
-//    out_diffuse.r = (out_diffuse.r * (1.f - fog.r)) + (0.3 * fog.r);
-//    out_diffuse.g = (out_diffuse.g * (1.f - fog.g)) + (0.1 * fog.g);
-//    out_diffuse.b = (out_diffuse.b * (1.f - fog.b)) + (0.1 * fog.b);
 }
 
 technique technique_

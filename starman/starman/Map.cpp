@@ -895,9 +895,9 @@ void Map::Update()
 					pos.z = needShow.at(i).GetZ();
 
 					D3DXVECTOR3 rot;
-					rot.x = needShow.at(i).GetX();
-					rot.y = needShow.at(i).GetY();
-					rot.z = needShow.at(i).GetZ();
+					rot.x = needShow.at(i).GetRotX();
+					rot.y = needShow.at(i).GetRotY();
+					rot.z = needShow.at(i).GetRotZ();
 					auto meshClone = new MeshClone(needShow.at(i).GetFilename(), pos, rot, needShow.at(i).GetScale());
 					meshClone->Init();
 					m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
