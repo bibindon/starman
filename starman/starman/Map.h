@@ -57,14 +57,17 @@ public:
     void SetEnemy(const std::vector<EnemyBase*>& vecEnemy);
 
     // Õ“Ë”»’è
+    // TODO ˆø”‚ÉŠg‘å—¦‚àæ‚é‚æ‚¤‚É‚·‚é
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
 
     // İ’u”»’è
+    // TODO ˆø”‚ÉŠg‘å—¦‚àæ‚é‚æ‚¤‚É‚·‚é
     bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
 
     // •Ç‚¸‚èˆ—
+    // TODO ˆø”‚ÉŠg‘å—¦‚àæ‚é‚æ‚¤‚É‚·‚é
     D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit);
 private:
     D3DXVECTOR3 WallSlideSub(
