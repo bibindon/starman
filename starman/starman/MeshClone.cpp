@@ -213,6 +213,11 @@ D3DXVECTOR3 MeshClone::GetPos()
     return m_loadingPos;
 }
 
+float MeshClone::GetScale()
+{
+	return m_scale;
+}
+
 void MeshClone::Render()
 {
     if (m_bIsInit == false)

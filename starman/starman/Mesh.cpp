@@ -189,6 +189,11 @@ D3DXVECTOR3 Mesh::GetPos()
     return m_loadingPos;
 }
 
+float Mesh::GetScale()
+{
+    return m_scale;
+}
+
 void Mesh::Render()
 {
     if (m_bIsInit == false)

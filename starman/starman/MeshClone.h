@@ -23,6 +23,7 @@ public:
     void Init();
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos();
+    float GetScale();
     void Render();
 
     LPD3DXMESH GetD3DMesh();
