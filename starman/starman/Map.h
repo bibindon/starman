@@ -60,16 +60,22 @@ public:
     // è’ìÀîªíË
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
+    bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 
     // ê›íuîªíË
     bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
+    bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 
     // ï«Ç∏ÇËèàóù
     D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit);
 private:
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
+
+    D3DXVECTOR3 WallSlideSub(
+        const D3DXVECTOR3& pos, MeshClone* mesh, const D3DXVECTOR3& move, bool* bHit);
+
     std::unordered_map<std::string, Mesh*> m_meshMap;
 
     std::vector<EnemyBase*> m_vecEnemy { };
