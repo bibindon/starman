@@ -7,6 +7,7 @@
 #include "EnemyDisk.h"
 #include "EnemySphere.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 
 Map::Map()
 {
@@ -136,6 +137,7 @@ void Map::Init()
 
     //--------------------------------------------
     // NPC
+	// TODO NpcManagerというクラスを作ってそちらでやるべき。
     //--------------------------------------------
     {
 		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 541.f);
@@ -874,6 +876,39 @@ void Map::Update()
             D3DXVECTOR3 sunPos(vec);
             sunPos *= 2000;
             m_pSun->SetPos(sunPos);
+
+			//-------------------------------------
+			// 3Dモデルの遅延読み込み
+			//-------------------------------------
+			{
+				auto player = SharedObj::GetPlayer();
+				auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+				std::vector<NSStarmanLib::MapObj> needShow;
+				std::vector<NSStarmanLib::MapObj> needHide;
+				mapObjManager->GetMapObjListShow(player->GetPos().x, player->GetPos().z, &needShow);
+
+				for (int i = 0; i < (int)needShow.size(); ++i)
+				{
+					D3DXVECTOR3 pos;
+					pos.x = needShow.at(i).GetX();
+					pos.y = needShow.at(i).GetY();
+					pos.z = needShow.at(i).GetZ();
+
+					D3DXVECTOR3 rot;
+					rot.x = needShow.at(i).GetX();
+					rot.y = needShow.at(i).GetY();
+					rot.z = needShow.at(i).GetZ();
+					auto meshClone = new MeshClone(needShow.at(i).GetFilename(), pos, rot, needShow.at(i).GetScale());
+					meshClone->Init();
+					m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
+				}
+
+				mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
+				for (int i = 0; i < (int)needHide.size(); ++i)
+				{
+					m_meshCloneMap.erase(needHide.at(i).GetId());
+				}
+			}
         }
     }
 }
@@ -898,6 +933,10 @@ void Map::Render()
         {
             continue;
         }
+        pair.second->Render();
+    }
+    for (auto pair : m_meshCloneMap)
+    {
         pair.second->Render();
     }
     if (m_lazyMesh.IsLoaded())
@@ -966,6 +1005,16 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
             break;
         }
     }
+	// TODO
+//    BOOL  bIsHit2 = false;
+//    for (auto pair : m_meshCloneMap)
+//    {
+//        bIsHit2 = IntersectSub(pos, rot, pair.second);
+//        if (bIsHit2)
+//        {
+//            break;
+//        }
+//    }
     return bIsHit;
 }
 

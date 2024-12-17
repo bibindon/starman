@@ -27,6 +27,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 
 using std::chrono::system_clock;
 
@@ -302,6 +303,10 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         {
             datetime->Init("res\\script\\datetime.csv");
         }
+
+        NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+
+		mapObjManager->Init("res\\script\\map_obj.csv");
     }
 }
 

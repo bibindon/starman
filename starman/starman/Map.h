@@ -5,6 +5,7 @@
 #include "EnemyBase.h"
 #include "MeshNoShade.h"
 #include <map>
+#include "MeshClone.h"
 
 // 主人公が近づいたらメッシュを読み込み表示するためのメッシュクラス
 // 別スレッドで読む。DirectX9はマルチスレッドに対応していないらしいが
@@ -83,5 +84,7 @@ private:
 
     // NPC
     std::map<std::string, AnimMesh*> m_NPC;
+
+    std::unordered_map<int, MeshClone*> m_meshCloneMap;
 };
 
