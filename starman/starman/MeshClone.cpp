@@ -10,6 +10,8 @@ using std::vector;
 LPD3DXEFFECT MeshClone::m_D3DEffect;
 std::map<std::string, LPD3DXMESH> MeshClone::m_D3DMeshMap;
 std::map<std::string, std::vector<LPDIRECT3DTEXTURE9>> MeshClone::m_vecTextureMap;
+std::map<std::string, DWORD> MeshClone::m_materialCountMap;
+std::map<std::string, std::vector<D3DCOLORVALUE>> MeshClone::m_vecColorMap;
 
 MeshClone::MeshClone(
     const string& xFilename,
@@ -61,6 +63,7 @@ void MeshClone::Init()
 
 		LPD3DXBUFFER adjacencyBuffer { nullptr };
 		LPD3DXBUFFER materialBuffer { nullptr };
+		DWORD materialCount = 0;
 
 		result = D3DXLoadMeshFromX(
 			m_meshName.c_str(),
@@ -69,13 +72,15 @@ void MeshClone::Init()
 			&adjacencyBuffer,
 			&materialBuffer,
 			nullptr,
-			&m_materialCount,
+			&materialCount,
 			&tempMesh);
 
 		if (FAILED(result))
 		{
 			throw std::exception("Failed to load a x-file.");
 		}
+
+		m_materialCountMap[m_meshName] = materialCount;
 
 		D3DVERTEXELEMENT9 decl[] = {
 			{
@@ -157,8 +162,8 @@ void MeshClone::Init()
 			throw std::exception("Failed 'OptimizeInplace' function.");
 		}
 
-		m_vecColor.insert(begin(m_vecColor), m_materialCount, D3DCOLORVALUE { });
-		vector<LPDIRECT3DTEXTURE9> tempVecTexture { m_materialCount };
+		m_vecColorMap[m_meshName].insert(begin(m_vecColorMap[m_meshName]), materialCount, D3DCOLORVALUE { });
+		vector<LPDIRECT3DTEXTURE9> tempVecTexture { materialCount };
 		m_vecTextureMap[m_meshName].swap(tempVecTexture);
 
 		D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
@@ -167,9 +172,9 @@ void MeshClone::Init()
 		std::size_t lastPos = xFileDir.find_last_of("\\");
 		xFileDir = xFileDir.substr(0, lastPos + 1);
 
-		for (DWORD i = 0; i < m_materialCount; ++i)
+		for (DWORD i = 0; i < materialCount; ++i)
 		{
-			m_vecColor.at(i) = materials[i].MatD3D.Diffuse;
+			m_vecColorMap[m_meshName].at(i) = materials[i].MatD3D.Diffuse;
 			if (materials[i].pTextureFilename != nullptr)
 			{
 				std::string texPath = xFileDir;
@@ -191,6 +196,9 @@ void MeshClone::Init()
 		}
 		SAFE_RELEASE(materialBuffer);
     }
+	else
+	{
+	}
 
     m_bIsInit = true;
 }
@@ -281,10 +289,14 @@ void MeshClone::Render()
         throw std::exception("Failed 'BeginPass' function.");
     }
 
-    for (DWORD i = 0; i < m_materialCount; ++i)
+    for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
     {
         D3DXVECTOR4 vec4Color {
-            m_vecColor.at(i).r, m_vecColor.at(i).g, m_vecColor.at(i).b, m_vecColor.at(i).a};
+			m_vecColorMap[m_meshName].at(i).r,
+			m_vecColorMap[m_meshName].at(i).g,
+			m_vecColorMap[m_meshName].at(i).b,
+			m_vecColorMap[m_meshName].at(i).a
+		};
         m_D3DEffect->SetVector("g_diffuse", &vec4Color);
         m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
         m_D3DEffect->CommitChanges();

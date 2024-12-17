@@ -35,14 +35,13 @@ private:
     static LPD3DXEFFECT m_D3DEffect;
     static std::map<std::string, LPD3DXMESH> m_D3DMeshMap;
     static std::map<std::string, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
+    static std::map<std::string, DWORD> m_materialCountMap;
+    static std::map<std::string, std::vector<D3DCOLORVALUE>> m_vecColorMap;
 
     D3DXVECTOR3 m_loadingPos { };
     D3DXVECTOR3 m_rotate { };
 
-    DWORD m_materialCount { 0 };
-    std::vector<D3DCOLORVALUE> m_vecColor { };
     D3DXVECTOR3 m_centerPos { 0.0f, 0.0f, 0.0f };
-    float m_radius { 0.0f };
     float m_scale { 0.0f };
     std::string m_meshName { "" };
     bool m_bIsInit { false };
