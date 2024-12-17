@@ -901,6 +901,10 @@ void Map::Update()
 					auto meshClone = new MeshClone(needShow.at(i).GetFilename(), pos, rot, needShow.at(i).GetScale());
 					meshClone->Init();
 					m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
+					mapObjManager->SetShow(needShow.at(i).GetFrameX(),
+										   needShow.at(i).GetFrameZ(),
+										   needShow.at(i).GetId(),
+										   true);
 				}
 
 				mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
