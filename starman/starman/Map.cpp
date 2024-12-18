@@ -1210,12 +1210,12 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
 
-    if (targetPos.x >= 3.f)
+    if (targetPos.x >= 20.f)
     {
         return result;
     }
 
-    if (targetPos.z >= 3.f)
+    if (targetPos.z >= 20.f)
     {
         return result;
     }

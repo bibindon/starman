@@ -316,6 +316,7 @@ void MeshClone::Render()
 
     for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
     {
+        // TODO ‚±‚Ì•Ó‚Í–ˆ‰ñ‚â‚é•K—v‚Í‚È‚¢‹C‚ª‚·‚é
         m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
         m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
         m_D3DEffect->CommitChanges();
