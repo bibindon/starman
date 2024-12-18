@@ -358,7 +358,7 @@ int MainWindow::MainLoop()
 
             if (dura.count() <= 15)
             {
-				Sleep(15 - dura.count());
+				Sleep(15 - (DWORD)dura.count());
             }
 
 			if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))

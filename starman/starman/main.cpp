@@ -7,8 +7,9 @@
 #pragma comment(lib, "d3dx9d.lib")
 #endif
 
+#if defined(NDEBUG)
 #pragma comment(lib, "..\\..\\StoryTelling\\StoryTelling.lib")
-#pragma comment(lib, "..\\..\\talklib2\\talklib2.lib")
+#pragma comment(lib, "..\\..\\talklib2\\Debug\\talklib2.lib")
 #pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
 #pragma comment(lib, "..\\..\\menulib\\menulib\\Debug\\menulib.lib")
 #pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\Debug\\StarmanLib.lib")
@@ -16,6 +17,17 @@
 #pragma comment(lib, "..\\..\\craftlib\\craftlib.lib")
 #pragma comment(lib, "..\\..\\hud\\hud.lib")
 #pragma comment(lib, "..\\..\\command\\command.lib")
+#else
+#pragma comment(lib, "..\\..\\StoryTelling\\StoryTelling.lib")
+#pragma comment(lib, "..\\..\\talklib2\\Debug\\talklib2.lib")
+#pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
+#pragma comment(lib, "..\\..\\menulib\\menulib\\Debug\\menulib.lib")
+#pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\Debug\\StarmanLib.lib")
+#pragma comment(lib, "..\\..\\storehouselib\\storehouselib.lib")
+#pragma comment(lib, "..\\..\\craftlib\\craftlib.lib")
+#pragma comment(lib, "..\\..\\hud\\hud.lib")
+#pragma comment(lib, "..\\..\\command\\command.lib")
+#endif
 
 #include <windows.h>
 #include "MainWindow.h"
