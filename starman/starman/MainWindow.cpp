@@ -157,7 +157,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     ret = D3DXCreateFont(
         D3DDevice,
-        30,
+        24,
         0,
         FW_HEAVY,
         1,
@@ -166,7 +166,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         OUT_TT_ONLY_PRECIS,
         ANTIALIASED_QUALITY,
         FF_DONTCARE,
-        "‚l‚r ƒSƒVƒbƒN",
+        "‚l‚r –¾’©",
         &m_D3DFont);
 
     timeBeginPeriod(1);
