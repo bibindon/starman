@@ -8,7 +8,7 @@
 #endif
 
 #if defined(NDEBUG)
-#pragma comment(lib, "..\\..\\StoryTelling\\StoryTelling.lib")
+#pragma comment(lib, "..\\..\\StoryTelling\\Debug\\StoryTelling.lib")
 #pragma comment(lib, "..\\..\\talklib2\\Debug\\talklib2.lib")
 #pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
 #pragma comment(lib, "..\\..\\menulib\\menulib\\Debug\\menulib.lib")
@@ -18,7 +18,7 @@
 #pragma comment(lib, "..\\..\\hud\\hud.lib")
 #pragma comment(lib, "..\\..\\command\\command.lib")
 #else
-#pragma comment(lib, "..\\..\\StoryTelling\\StoryTelling.lib")
+#pragma comment(lib, "..\\..\\StoryTelling\\Debug\\StoryTelling.lib")
 #pragma comment(lib, "..\\..\\talklib2\\Debug\\talklib2.lib")
 #pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
 #pragma comment(lib, "..\\..\\menulib\\menulib\\Debug\\menulib.lib")
