@@ -10,7 +10,7 @@
 #if defined(NDEBUG)
 #pragma comment(lib, "..\\..\\StoryTelling\\Release\\StoryTelling.lib")
 #pragma comment(lib, "..\\..\\talklib2\\Release\\talklib2.lib")
-#pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
+#pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\Release\\QuestSystem.lib")
 #pragma comment(lib, "..\\..\\menulib\\menulib\\Release\\menulib.lib")
 #pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\Release\\StarmanLib.lib")
 #pragma comment(lib, "..\\..\\storehouselib\\Release\\storehouselib.lib")
@@ -20,7 +20,7 @@
 #else
 #pragma comment(lib, "..\\..\\StoryTelling\\Debug\\StoryTelling.lib")
 #pragma comment(lib, "..\\..\\talklib2\\Debug\\talklib2.lib")
-#pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\QuestSystem.lib")
+#pragma comment(lib, "..\\..\\quest-system\\QuestSystem\\Debug\\QuestSystem.lib")
 #pragma comment(lib, "..\\..\\menulib\\menulib\\Debug\\menulib.lib")
 #pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\Debug\\StarmanLib.lib")
 #pragma comment(lib, "..\\..\\storehouselib\\Debug\\storehouselib.lib")
