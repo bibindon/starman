@@ -4,7 +4,6 @@
 #include "Mesh.h"
 #include "EnemyBase.h"
 #include "MeshNoShade.h"
-#include <map>
 #include "MeshClone.h"
 
 // 主人公が近づいたらメッシュを読み込み表示するためのメッシュクラス
@@ -89,7 +88,7 @@ private:
     MeshNoShade* m_pSun = nullptr;
 
     // NPC
-    std::map<std::string, AnimMesh*> m_NPC;
+    std::unordered_map<std::string, AnimMesh*> m_NPC;
 
     std::unordered_map<int, MeshClone*> m_meshCloneMap;
 };

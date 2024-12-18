@@ -31,7 +31,7 @@ public:
     int GetHP();
 private:
     AnimMesh* m_AnimMesh2 { nullptr };
-    std::map<std::string, Mesh*> m_weaponMesh;
+    std::unordered_map<std::string, Mesh*> m_weaponMesh;
 
     D3DXVECTOR3 m_loadingPos { 0.f, 0.f, 0.f };
     D3DXVECTOR3 m_rotate { 0.f, D3DX_PI, 0.f };

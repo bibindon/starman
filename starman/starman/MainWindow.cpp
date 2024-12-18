@@ -214,17 +214,23 @@ int MainWindow::MainLoop()
     {
         // 60FPSÇ…Ç»ÇÈÇÊÇ§Ç…ÉXÉäÅ[Évéûä‘Çí≤êﬂ
         {
-            static system_clock::time_point timePoint1;
-            system_clock::time_point timePoint2 = timePoint1;
-            timePoint1 = system_clock::now();
+            static system_clock::time_point tpStart = system_clock::now();
+            static system_clock::time_point tpEnd = system_clock::now();
+            tpEnd = system_clock::now();
 
             std::chrono::milliseconds dura =
-                std::chrono::duration_cast<std::chrono::milliseconds>(timePoint1 - timePoint2);
+                std::chrono::duration_cast<std::chrono::milliseconds>(tpEnd - tpStart);
+            int dura_i = dura.count();
 
-            if (dura.count() <= 15)
+            if (dura_i >= 16 || dura_i <= 0)
             {
-                Sleep(15 - (DWORD)dura.count());
+                // do nothing
             }
+            else
+            {
+                Sleep(16 - dura_i);
+            }
+            tpStart = system_clock::now();
 
             if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
             {
@@ -235,7 +241,7 @@ int MainWindow::MainLoop()
         system_clock::time_point tempTime { system_clock::now() };
 
         m_vecTime.push_back(tempTime);
-        const int removeCnt = m_vecTime.size() - 100;
+        const int removeCnt = m_vecTime.size() - 300;
         if (removeCnt >= 1)
         {
             m_vecTime.erase(m_vecTime.begin(), m_vecTime.begin() + removeCnt);
@@ -244,13 +250,13 @@ int MainWindow::MainLoop()
         tempTime = tempTime - std::chrono::seconds { 1 };
 
         int fps { 0 };
-        for (int i = 0; i < 100; ++i)
+        for (int i = 0; i < 300; ++i)
         {
-            if (m_vecTime.size() == 100)
+            if (m_vecTime.size() == 300)
             {
                 if (tempTime < m_vecTime.at(i))
                 {
-                    fps = 100 - i;
+                    fps = 300 - i;
                     break;
                 }
             }

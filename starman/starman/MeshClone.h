@@ -2,10 +2,10 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
-#include <map>
 #include <string>
 #include <vector>
 #include <memory>
+#include <unordered_map>
 
 // 同じ3Dモデルを沢山表示したいときに使うクラス
 // 同じ3Dモデルを沢山表示したいとき、3Dモデルの読み込みは1度でよく
@@ -34,10 +34,10 @@ private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
 
     static LPD3DXEFFECT m_D3DEffect;
-    static std::map<std::string, LPD3DXMESH> m_D3DMeshMap;
-    static std::map<std::string, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
-    static std::map<std::string, DWORD> m_materialCountMap;
-    static std::map<std::string, std::vector<D3DCOLORVALUE>> m_vecColorMap;
+    static std::unordered_map<std::string, LPD3DXMESH> m_D3DMeshMap;
+    static std::unordered_map<std::string, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
+    static std::unordered_map<std::string, DWORD> m_materialCountMap;
+    static std::unordered_map<std::string, std::vector<D3DXVECTOR4>> m_vecColorMap;
 
     D3DXVECTOR3 m_loadingPos { };
     D3DXVECTOR3 m_rotate { };

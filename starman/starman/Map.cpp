@@ -898,6 +898,7 @@ void Map::Update()
                     rot.x = needShow.at(i).GetRotX();
                     rot.y = needShow.at(i).GetRotY();
                     rot.z = needShow.at(i).GetRotZ();
+                    // TODO Šg‘å—¦‚ª‚¨‚©‚µ‚¢
                     auto meshClone = new MeshClone(needShow.at(i).GetFilename(), pos, rot, needShow.at(i).GetScale());
                     meshClone->Init();
                     m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
@@ -1208,6 +1209,17 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+
+    if (targetPos.x >= 3.f)
+    {
+        return result;
+    }
+
+    if (targetPos.z >= 3.f)
+    {
+        return result;
+    }
+
     targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;

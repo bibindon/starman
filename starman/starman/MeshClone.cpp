@@ -8,10 +8,10 @@ using std::string;
 using std::vector;
 
 LPD3DXEFFECT MeshClone::m_D3DEffect;
-std::map<std::string, LPD3DXMESH> MeshClone::m_D3DMeshMap;
-std::map<std::string, std::vector<LPDIRECT3DTEXTURE9>> MeshClone::m_vecTextureMap;
-std::map<std::string, DWORD> MeshClone::m_materialCountMap;
-std::map<std::string, std::vector<D3DCOLORVALUE>> MeshClone::m_vecColorMap;
+std::unordered_map<std::string, LPD3DXMESH> MeshClone::m_D3DMeshMap;
+std::unordered_map<std::string, std::vector<LPDIRECT3DTEXTURE9>> MeshClone::m_vecTextureMap;
+std::unordered_map<std::string, DWORD> MeshClone::m_materialCountMap;
+std::unordered_map<std::string, std::vector<D3DXVECTOR4>> MeshClone::m_vecColorMap;
 
 MeshClone::MeshClone(
     const string& xFilename,
@@ -162,7 +162,7 @@ void MeshClone::Init()
             throw std::exception("Failed 'OptimizeInplace' function.");
         }
 
-        m_vecColorMap[m_meshName].insert(begin(m_vecColorMap[m_meshName]), materialCount, D3DCOLORVALUE { });
+        m_vecColorMap[m_meshName].insert(begin(m_vecColorMap[m_meshName]), materialCount, D3DXVECTOR4 { });
         vector<LPDIRECT3DTEXTURE9> tempVecTexture { materialCount };
         m_vecTextureMap[m_meshName].swap(tempVecTexture);
 
@@ -174,7 +174,10 @@ void MeshClone::Init()
 
         for (DWORD i = 0; i < materialCount; ++i)
         {
-            m_vecColorMap[m_meshName].at(i) = materials[i].MatD3D.Diffuse;
+            m_vecColorMap[m_meshName].at(i).x = materials[i].MatD3D.Diffuse.r;
+            m_vecColorMap[m_meshName].at(i).y = materials[i].MatD3D.Diffuse.g;
+            m_vecColorMap[m_meshName].at(i).z = materials[i].MatD3D.Diffuse.b;
+            m_vecColorMap[m_meshName].at(i).w = materials[i].MatD3D.Diffuse.a;
             if (materials[i].pTextureFilename != nullptr)
             {
                 std::string texPath = xFileDir;
@@ -259,8 +262,8 @@ void MeshClone::Render()
 
             // D3DXMatrixRotationYawPitchRollを使うと、Z軸回転が最初に行われる。
             // Y軸回転を最初に行いたいのでD3DXMatrixRotationYawPitchRollは使わない
-//			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
-//			worldViewProjMatrix *= mat;
+// D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+// worldViewProjMatrix *= mat;
 
             D3DXMatrixRotationY(&mat, m_rotate.y);
             worldViewProjMatrix *= mat;
@@ -286,7 +289,7 @@ void MeshClone::Render()
         }
     }
     m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
-    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
+//    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
 
     D3DXVECTOR4 vec4Color = {
         Camera::GetEyePos().x,
@@ -313,13 +316,7 @@ void MeshClone::Render()
 
     for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
     {
-        D3DXVECTOR4 vec4Color {
-            m_vecColorMap[m_meshName].at(i).r,
-            m_vecColorMap[m_meshName].at(i).g,
-            m_vecColorMap[m_meshName].at(i).b,
-            m_vecColorMap[m_meshName].at(i).a
-        };
-        m_D3DEffect->SetVector("g_diffuse", &vec4Color);
+        m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
         m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
         m_D3DEffect->CommitChanges();
         m_D3DMeshMap[m_meshName]->DrawSubset(i);

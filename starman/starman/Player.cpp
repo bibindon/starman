@@ -185,6 +185,7 @@ void Player::Update(Map* map)
     // 高さを変えて3回チェック
     bool bHit { false };
     m_move = map->WallSlide(m_loadingPos, m_move, &bHit);
+
 //    if (bHit == false)
 //    {
 //        D3DXVECTOR3 tempPos { m_loadingPos };
