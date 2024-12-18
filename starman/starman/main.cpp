@@ -15,7 +15,7 @@
 #pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\Release\\StarmanLib.lib")
 #pragma comment(lib, "..\\..\\storehouselib\\Release\\storehouselib.lib")
 #pragma comment(lib, "..\\..\\craftlib\\craftlib.lib")
-#pragma comment(lib, "..\\..\\hud\\hud.lib")
+#pragma comment(lib, "..\\..\\hud\\Release\\hud.lib")
 #pragma comment(lib, "..\\..\\command\\command.lib")
 #else
 #pragma comment(lib, "..\\..\\StoryTelling\\Debug\\StoryTelling.lib")
@@ -25,7 +25,7 @@
 #pragma comment(lib, "..\\..\\StarmanLib\\StarmanLib\\Debug\\StarmanLib.lib")
 #pragma comment(lib, "..\\..\\storehouselib\\Debug\\storehouselib.lib")
 #pragma comment(lib, "..\\..\\craftlib\\craftlib.lib")
-#pragma comment(lib, "..\\..\\hud\\hud.lib")
+#pragma comment(lib, "..\\..\\hud\\Debug\\hud.lib")
 #pragma comment(lib, "..\\..\\command\\command.lib")
 #endif
 
