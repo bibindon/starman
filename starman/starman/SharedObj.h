@@ -9,6 +9,8 @@
 class SharedObj
 {
 public:
+    static HWND GetWindowHandle();
+    static void SetWindowHandle(const HWND hWnd);
     static LPDIRECT3DDEVICE9 GetD3DDevice();
     static void SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice);
     static void Init();
@@ -25,6 +27,7 @@ public:
 
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;
+    static HWND m_hWnd;
     static std::mt19937 m_Engine;
     static Player* m_player;
     static NSQuestSystem::QuestSystem* m_questSystem;

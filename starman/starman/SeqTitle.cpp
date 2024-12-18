@@ -6,6 +6,7 @@
 #include "SharedObj.h"
 #include "SoundEffect.h"
 #include "BGM.h"
+#include "SaveManager.h"
 
 SeqTitle::SeqTitle()
 {
@@ -163,11 +164,13 @@ void SeqTitle::Update(eSequence* sequence)
             case eMenu::START:
             {
                 *sequence = eSequence::OPENING;
+                SaveManager::Get()->LoadOrigin();
                 break;
             }
             case eMenu::CONTINUE:
             {
                 *sequence = eSequence::BATTLE;
+                SaveManager::Get()->Load();
                 break;
             }
             case eMenu::EXIT:

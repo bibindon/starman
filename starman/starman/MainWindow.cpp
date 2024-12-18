@@ -15,20 +15,6 @@
 #include "PopUp.h"
 #include "PopUp2.h"
 
-#include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
-
 using std::chrono::system_clock;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
@@ -111,6 +97,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         D3DPRESENT_INTERVAL_DEFAULT
     };
 
+    SharedObj::SetWindowHandle(m_hWnd);
+
     LPDIRECT3DDEVICE9 D3DDevice;
     if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
         D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED, &d3dpp, &D3DDevice)))
@@ -184,129 +172,6 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         rect2.bottom = 150+100;
 
         ClipCursor(&rect2);
-    }
-
-    {
-        NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-        if (SharedObj::DebugMode())
-        {
-            him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.debug.csv");
-        }
-        else
-        {
-            him->Init("res\\script\\humanInfo.csv", "res\\script\\humanInfoSub.csv");
-        }
-
-        NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-        if (SharedObj::DebugMode())
-        {
-            mapManager->Init("res\\script\\mapInfo.debug.csv");
-        }
-        else
-        {
-            mapManager->Init("res\\script\\mapInfo.csv");
-        }
-
-        NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-        itemManager->Init("res\\script\\item.csv", "res\\script\\item_pos.csv");
-
-        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            inventory->Init("res\\script\\inventory.debug.csv");
-        }
-        else
-        {
-            inventory->Init("res\\script\\inventory.csv");
-        }
-
-        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            storehouse->Init("res\\script\\storehouse.debug.csv");
-        }
-        else
-        {
-            storehouse->Init("res\\script\\storehouse.csv");
-        }
-
-        NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            weaponManager->Init("res\\script\\weapon.csv", "res\\script\\weaponSave.debug.csv");
-        }
-        else
-        {
-            weaponManager->Init("res\\script\\weapon.csv", "res\\script\\weaponSave.csv");
-        }
-
-        NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            enemyInfoManager->Init("res\\script\\enemyDef.csv",
-                                   "res\\script\\enemy.debug.csv",
-                                   "res\\script\\enemyVisible.debug.csv");
-        }
-        else
-        {
-            enemyInfoManager->Init("res\\script\\enemyDef.csv",
-                                   "res\\script\\enemy.csv",
-                                   "res\\script\\enemyVisible.csv");
-        }
-
-        NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            skillManager->Init("res\\script\\skill.csv",
-                               "res\\script\\skillSub.debug.csv");
-        }
-        else
-        {
-            skillManager->Init("res\\script\\skill.csv",
-                               "res\\script\\skillSub.csv");
-        }
-
-        NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            statusManager->Init("res\\script\\status.debug.csv");
-        }
-        else
-        {
-            statusManager->Init("res\\script\\status.csv");
-        }
-
-        NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            guide->Init("res\\script\\guide.debug.csv");
-        }
-        else
-        {
-            guide->Init("res\\script\\guide.csv");
-        }
-
-        NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
-
-        if (SharedObj::DebugMode())
-        {
-            datetime->Init("res\\script\\datetime.debug.csv");
-        }
-        else
-        {
-            datetime->Init("res\\script\\datetime.csv");
-        }
-
-        NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-
-		mapObjManager->Init("res\\script\\map_obj.csv");
     }
 }
 

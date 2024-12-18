@@ -5,6 +5,7 @@
 #include "SharedObj.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
+#include "SaveManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\HumanInfoManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\MapInfoManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
@@ -626,6 +627,12 @@ std::string MenuManager::OperateMenu()
 				NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->SetEquipWeapon(itemInfo);
             }
+        }
+        else if (vs.size() >= 1 && vs.at(0) == "セーブして終了")
+        {
+            auto saveManager = SaveManager::Get();
+            saveManager->Save();
+            PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
         }
     }
 

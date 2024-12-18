@@ -1,6 +1,7 @@
 #include "SharedObj.h"
 #include "Common.h"
 
+HWND SharedObj::m_hWnd { nullptr };
 LPDIRECT3DDEVICE9 SharedObj::m_D3DDevice { nullptr };
 std::mt19937 SharedObj::m_Engine { };
 Player* SharedObj::m_player { nullptr };
@@ -17,6 +18,16 @@ bool SharedObj::m_debugMode { true };
 LPDIRECT3DDEVICE9 SharedObj::GetD3DDevice()
 {
     return m_D3DDevice;
+}
+
+HWND SharedObj::GetWindowHandle()
+{
+    return m_hWnd;
+}
+
+void SharedObj::SetWindowHandle(const HWND hWnd)
+{
+    m_hWnd = hWnd;
 }
 
 void SharedObj::Finalize()
