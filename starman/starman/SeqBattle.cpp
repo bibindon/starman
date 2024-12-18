@@ -464,21 +464,21 @@ SeqBattle::SeqBattle(const bool isContinue)
         std::getline(ifs, line);
         if (line.empty() == false)
         {
-			m_map = new Map();
-			SharedObj::SetMap(m_map);
-			m_map->Init();
+            m_map = new Map();
+            SharedObj::SetMap(m_map);
+            m_map->Init();
         }
         else
         {
             m_map = new Map();
-			SharedObj::SetMap(m_map);
+            SharedObj::SetMap(m_map);
             m_map->Init();
         }
     }
     else
     {
         m_map = new Map();
-		SharedObj::SetMap(m_map);
+        SharedObj::SetMap(m_map);
         m_map->Init();
 
         NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
@@ -504,7 +504,7 @@ SeqBattle::~SeqBattle()
 
 void SeqBattle::Update(eSequence* sequence)
 {
-	m_map->Update();
+    m_map->Update();
 
     // 60回に一回（＝1秒ごと）の処理
     {
@@ -536,8 +536,8 @@ void SeqBattle::Update(eSequence* sequence)
             bool dead = statusManager->GetDead();
             if (dead)
             {
-				m_player->SetDead();
-				m_eState = eBattleState::GAMEOVER;
+                m_player->SetDead();
+                m_eState = eBattleState::GAMEOVER;
             }
 
             //-------------------------------------
@@ -1545,7 +1545,7 @@ void SeqBattle::Render()
         m_spriteGameover->Render(pos);
     }
 
-	m_map->Render();
+    m_map->Render();
 
     PopUp::Get()->Render();
     PopUp2::Get()->Render();
@@ -1625,17 +1625,17 @@ void SeqBattle::InputB(eSequence* sequence)
                                                                          playerPos.z);
             if (itemPos.GetItemPosId() != -1)
             {
-				int itemPosId = itemPos.GetItemPosId();
-				itemManager->SetItemPosObtained(itemPosId);
-				
-				// どれだけ荷物が重くても落ちているものを拾うことはできる。
-				// 代わりに、まともに歩いたりできなくなる。
-				auto inventory = NSStarmanLib::Inventory::GetObj();
-				int newSubID = inventory->AddItem(itemPos.GetItemDefId());
+                int itemPosId = itemPos.GetItemPosId();
+                itemManager->SetItemPosObtained(itemPosId);
+                
+                // どれだけ荷物が重くても落ちているものを拾うことはできる。
+                // 代わりに、まともに歩いたりできなくなる。
+                auto inventory = NSStarmanLib::Inventory::GetObj();
+                int newSubID = inventory->AddItem(itemPos.GetItemDefId());
                 m_menuManager.AddItem(itemPos.GetItemDefId(), newSubID);
 
                 std::string work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
-				SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+                SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
                 PopUp2::Get()->SetText(work + " を手に入れた。");
             }
         }

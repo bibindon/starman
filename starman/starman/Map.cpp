@@ -137,607 +137,607 @@ void Map::Init()
 
     //--------------------------------------------
     // NPC
-	// TODO NpcManagerというクラスを作ってそちらでやるべき。
+    // TODO NpcManagerというクラスを作ってそちらでやるべき。
     //--------------------------------------------
     {
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 541.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
-		daikeiman->SetAnim("LieDown");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 541.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
+        daikeiman->SetAnim("LieDown");
         m_NPC["ダイケイマン"] = daikeiman;
     }
     {
 
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 543.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
-		sankakuman->SetAnim("Sit");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 543.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
+        sankakuman->SetAnim("Sit");
         m_NPC["サンカクマン"] = sankakuman;
     }
     {
 
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 545.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* shikakuman = new AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
-		shikakuman->SetAnim("Sit");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 545.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* shikakuman = new AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
+        shikakuman->SetAnim("Sit");
         m_NPC["シカクマン"] = shikakuman;
     }
     {
 
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 547.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* animMesh = new AnimMesh("res\\model\\vim\\vim.x", b, rot, 1.f, animSetMap);
-		animMesh->SetAnim("Idle");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 547.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* animMesh = new AnimMesh("res\\model\\vim\\vim.x", b, rot, 1.f, animSetMap);
+        animMesh->SetAnim("Idle");
         m_NPC["ビム"] = animMesh;
     }
     {
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 549.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* animMesh = new AnimMesh("res\\model\\vsco\\vsco.x", b, rot, 1.f, animSetMap);
-		animMesh->SetAnim("Idle");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 549.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* animMesh = new AnimMesh("res\\model\\vsco\\vsco.x", b, rot, 1.f, animSetMap);
+        animMesh->SetAnim("Idle");
         m_NPC["ブイエスコ"] = animMesh;
     }
     {
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 551.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* animMesh = new AnimMesh("res\\model\\webnin\\webnin.x", b, rot, 1.f, animSetMap);
-		animMesh->SetAnim("Idle");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 551.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* animMesh = new AnimMesh("res\\model\\webnin\\webnin.x", b, rot, 1.f, animSetMap);
+        animMesh->SetAnim("Idle");
         m_NPC["ウェブニン"] = animMesh;
     }
     {
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 533.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 2.0f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		//AnimMesh* animMesh = new AnimMesh("res\\model\\xeoff\\xeoff.x", b, rot, 1.5f, animSetMap);
-		//animMesh->SetAnim("Idle");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 533.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 2.0f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        //AnimMesh* animMesh = new AnimMesh("res\\model\\xeoff\\xeoff.x", b, rot, 1.5f, animSetMap);
+        //animMesh->SetAnim("Idle");
         //m_NPC["ジーオフ"] = animMesh;
     }
     {
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 555.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* animMesh = new AnimMesh("res\\model\\gain\\gain.x", b, rot, 1.f, animSetMap);
-		animMesh->SetAnim("Idle");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 555.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* animMesh = new AnimMesh("res\\model\\gain\\gain.x", b, rot, 1.f, animSetMap);
+        animMesh->SetAnim("Idle");
         m_NPC["ガイン"] = animMesh;
     }
     {
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 557.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* animMesh = new AnimMesh("res\\model\\nes\\nes.x", b, rot, 1.f, animSetMap);
-		animMesh->SetAnim("Idle");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 557.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* animMesh = new AnimMesh("res\\model\\nes\\nes.x", b, rot, 1.f, animSetMap);
+        animMesh->SetAnim("Idle");
         m_NPC["ネス"] = animMesh;
     }
     {
-		D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 559.f);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
-		AnimSetMap animSetMap;
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 0.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Idle"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 1.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Walk"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 2.f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Attack"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = false;
-			animSetMap["Damaged"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 3.5f;
-			animSetting.m_duration = 1.f;
-			animSetting.m_loop = false;
-			animSetMap["Dead"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 5.f;
-			animSetting.m_duration = 2.f;
-			animSetting.m_loop = false;
-			animSetMap["Jump"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.1f;
-			animSetting.m_duration = 0.5f;
-			animSetting.m_loop = true;
-			animSetMap["Sit"] = animSetting;
-		}
-		{
-			AnimSetting animSetting { };
-			animSetting.m_startPos = 7.7f;
-			animSetting.m_duration = 0.6f;
-			animSetting.m_loop = true;
-			animSetMap["LieDown"] = animSetting;
-		}
-		AnimMesh* animMesh = new AnimMesh("res\\model\\noble\\noble.x", b, rot, 1.f, animSetMap);
-		animMesh->SetAnim("Idle");
+        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 559.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Walk"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 2.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Attack"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = false;
+            animSetMap["Damaged"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 3.5f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = false;
+            animSetMap["Dead"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 5.f;
+            animSetting.m_duration = 2.f;
+            animSetting.m_loop = false;
+            animSetMap["Jump"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.1f;
+            animSetting.m_duration = 0.5f;
+            animSetting.m_loop = true;
+            animSetMap["Sit"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 7.7f;
+            animSetting.m_duration = 0.6f;
+            animSetting.m_loop = true;
+            animSetMap["LieDown"] = animSetting;
+        }
+        AnimMesh* animMesh = new AnimMesh("res\\model\\noble\\noble.x", b, rot, 1.f, animSetMap);
+        animMesh->SetAnim("Idle");
         m_NPC["ノーブル"] = animMesh;
     }
 }
 
 void Map::Update()
 {
-	NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
+    NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
     {
         (*it)->Update();
@@ -778,51 +778,51 @@ void Map::Update()
 
     for (int i = 0; i < (int)eneList.size(); ++i)
     {
-		int id = eneList.at(i).GetID();
-		auto it = std::find_if(m_vecEnemy.begin(), m_vecEnemy.end(),
-							   [&](const EnemyBase* x)
-							   {
-								   return x->GetIdSub() == id;
-							   });
-		if (it == m_vecEnemy.end())
-		{
+        int id = eneList.at(i).GetID();
+        auto it = std::find_if(m_vecEnemy.begin(), m_vecEnemy.end(),
+                               [&](const EnemyBase* x)
+                               {
+                                   return x->GetIdSub() == id;
+                               });
+        if (it == m_vecEnemy.end())
+        {
             if (eneList.at(i).GetDefeated() == false)
             {
-				EnemyBase* enemy = nullptr;
+                EnemyBase* enemy = nullptr;
                 if (eneList.at(i).GetBreed() == "リッポウタイ")
                 {
-				    enemy = new EnemyCube();
+                    enemy = new EnemyCube();
                 }
                 else if (eneList.at(i).GetBreed() == "キュウ")
                 {
-				    enemy = new EnemySphere();
+                    enemy = new EnemySphere();
                 }
                 else if (eneList.at(i).GetBreed() == "エンバン")
                 {
-				    enemy = new EnemyDisk();
+                    enemy = new EnemyDisk();
                 }
 
-				enemy->SetIdSub(eneList.at(i).GetID());
-				D3DXVECTOR3 work;
-				work.x = eneList.at(i).GetX();
-				work.y = eneList.at(i).GetY();
-				work.z = eneList.at(i).GetZ();
-				enemy->SetPos(work);
+                enemy->SetIdSub(eneList.at(i).GetID());
+                D3DXVECTOR3 work;
+                work.x = eneList.at(i).GetX();
+                work.y = eneList.at(i).GetY();
+                work.z = eneList.at(i).GetZ();
+                enemy->SetPos(work);
 
-				work.x = eneList.at(i).GetRotX();
-				work.y = eneList.at(i).GetRotY();
-				work.z = eneList.at(i).GetRotZ();
-				enemy->SetRotate(work);
+                work.x = eneList.at(i).GetRotX();
+                work.y = eneList.at(i).GetRotY();
+                work.z = eneList.at(i).GetRotZ();
+                enemy->SetRotate(work);
 
-				enemy->SetHP(eneList.at(i).GetHP());
+                enemy->SetHP(eneList.at(i).GetHP());
 
-				m_vecEnemy.push_back(enemy);
+                m_vecEnemy.push_back(enemy);
 
-				// Init関数は別スレッドで読み込みを行うのでpush_backした後に呼ぶ。
-				auto it = m_vecEnemy.rbegin();
-				(*it)->Init();
+                // Init関数は別スレッドで読み込みを行うのでpush_backした後に呼ぶ。
+                auto it = m_vecEnemy.rbegin();
+                (*it)->Init();
             }
-		}
+        }
     }
 
     // 60回に一回（＝1秒ごと）の処理
@@ -877,46 +877,46 @@ void Map::Update()
             sunPos *= 2000;
             m_pSun->SetPos(sunPos);
 
-			//-------------------------------------
-			// 3Dモデルの遅延読み込み
-			//-------------------------------------
-			{
-				auto player = SharedObj::GetPlayer();
-				auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-				std::vector<NSStarmanLib::MapObj> needShow;
-				std::vector<NSStarmanLib::MapObj> needHide;
-				mapObjManager->GetMapObjListShow(player->GetPos().x, player->GetPos().z, &needShow);
+            //-------------------------------------
+            // 3Dモデルの遅延読み込み
+            //-------------------------------------
+            {
+                auto player = SharedObj::GetPlayer();
+                auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+                std::vector<NSStarmanLib::MapObj> needShow;
+                std::vector<NSStarmanLib::MapObj> needHide;
+                mapObjManager->GetMapObjListShow(player->GetPos().x, player->GetPos().z, &needShow);
 
-				for (int i = 0; i < (int)needShow.size(); ++i)
-				{
-					D3DXVECTOR3 pos;
-					pos.x = needShow.at(i).GetX();
-					pos.y = needShow.at(i).GetY();
-					pos.z = needShow.at(i).GetZ();
+                for (int i = 0; i < (int)needShow.size(); ++i)
+                {
+                    D3DXVECTOR3 pos;
+                    pos.x = needShow.at(i).GetX();
+                    pos.y = needShow.at(i).GetY();
+                    pos.z = needShow.at(i).GetZ();
 
-					D3DXVECTOR3 rot;
-					rot.x = needShow.at(i).GetRotX();
-					rot.y = needShow.at(i).GetRotY();
-					rot.z = needShow.at(i).GetRotZ();
-					auto meshClone = new MeshClone(needShow.at(i).GetFilename(), pos, rot, needShow.at(i).GetScale());
-					meshClone->Init();
-					m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
-					mapObjManager->SetShow(needShow.at(i).GetFrameX(),
-										   needShow.at(i).GetFrameZ(),
-										   needShow.at(i).GetId(),
-										   true);
-				}
+                    D3DXVECTOR3 rot;
+                    rot.x = needShow.at(i).GetRotX();
+                    rot.y = needShow.at(i).GetRotY();
+                    rot.z = needShow.at(i).GetRotZ();
+                    auto meshClone = new MeshClone(needShow.at(i).GetFilename(), pos, rot, needShow.at(i).GetScale());
+                    meshClone->Init();
+                    m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
+                    mapObjManager->SetShow(needShow.at(i).GetFrameX(),
+                                           needShow.at(i).GetFrameZ(),
+                                           needShow.at(i).GetId(),
+                                           true);
+                }
 
-				mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
-				for (int i = 0; i < (int)needHide.size(); ++i)
-				{
-					mapObjManager->SetShow(needHide.at(i).GetFrameX(),
-										   needHide.at(i).GetFrameZ(),
-										   needHide.at(i).GetId(),
-										   false);
-					m_meshCloneMap.erase(needHide.at(i).GetId());
-				}
-			}
+                mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
+                for (int i = 0; i < (int)needHide.size(); ++i)
+                {
+                    mapObjManager->SetShow(needHide.at(i).GetFrameX(),
+                                           needHide.at(i).GetFrameZ(),
+                                           needHide.at(i).GetId(),
+                                           false);
+                    m_meshCloneMap.erase(needHide.at(i).GetId());
+                }
+            }
         }
     }
 }
@@ -982,7 +982,7 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mes
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
-	targetPos /= mesh->GetScale();
+    targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
     DWORD dwHitIndex = -1;
@@ -1005,7 +1005,7 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
-	targetPos /= mesh->GetScale();
+    targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
     DWORD dwHitIndex = -1;
@@ -1067,7 +1067,7 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
-	targetPos /= mesh->GetScale();
+    targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
     DWORD dwHitIndex = -1;
@@ -1090,7 +1090,7 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
-	targetPos /= mesh->GetScale();
+    targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
     DWORD dwHitIndex = -1;
@@ -1138,7 +1138,7 @@ D3DXVECTOR3 Map::WallSlideSub(
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
-	targetPos /= mesh->GetScale();
+    targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
     DWORD dwHitIndex = -1;
@@ -1208,7 +1208,7 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
-	targetPos /= mesh->GetScale();
+    targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
     DWORD dwHitIndex = -1;

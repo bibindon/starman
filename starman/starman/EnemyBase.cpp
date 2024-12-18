@@ -24,43 +24,43 @@ bool EnemyBase::Init()
         {
             std::lock_guard<std::mutex> lock(s_mutex);
             OutputDebugString("@@@@start\n");
-			AnimSetMap animSetMap;
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 0.5f;
-				animSetting.m_duration = 0.5f;
-				animSetting.m_loop = true;
-				animSetMap["Idle"] = animSetting;
-			}
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 0.f;
-				animSetting.m_duration = 0.5f;
-				animSetting.m_loop = true;
-				animSetMap["Walk"] = animSetting;
-			}
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 1.f;
-				animSetting.m_duration = 1.f;
-				animSetting.m_loop = false;
-				animSetMap["Damaged"] = animSetting;
-			}
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 2.f;
-				animSetting.m_duration = 0.5f;
-				animSetting.m_loop = false;
-				animSetMap["Attack"] = animSetting;
-			}
-			m_AnimMesh = new AnimMesh("res\\model\\rippoutai\\rippoutai.x",
-				m_loadingPos, m_rotate, 0.5f, animSetMap);
-			SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
-			
-			m_spriteHP = new Sprite("res\\image\\hp_green.png");
-			m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
+            AnimSetMap animSetMap;
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 0.5f;
+                animSetting.m_duration = 0.5f;
+                animSetting.m_loop = true;
+                animSetMap["Idle"] = animSetting;
+            }
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 0.f;
+                animSetting.m_duration = 0.5f;
+                animSetting.m_loop = true;
+                animSetMap["Walk"] = animSetting;
+            }
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 1.f;
+                animSetting.m_duration = 1.f;
+                animSetting.m_loop = false;
+                animSetMap["Damaged"] = animSetting;
+            }
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 2.f;
+                animSetting.m_duration = 0.5f;
+                animSetting.m_loop = false;
+                animSetMap["Attack"] = animSetting;
+            }
+            m_AnimMesh = new AnimMesh("res\\model\\rippoutai\\rippoutai.x",
+                m_loadingPos, m_rotate, 0.5f, animSetMap);
+            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
+            
+            m_spriteHP = new Sprite("res\\image\\hp_green.png");
+            m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
 
-			m_AnimMesh->SetAnim("Idle", 0.f);
+            m_AnimMesh->SetAnim("Idle", 0.f);
             m_loaded.store(true);
             OutputDebugString("@@@@end\n");
         });
@@ -76,10 +76,10 @@ void EnemyBase::Finalize()
 
 void EnemyBase::Update()
 {
-	if (m_loaded.load() == false)
-	{
-		return;
-	}
+    if (m_loaded.load() == false)
+    {
+        return;
+    }
 
     if (m_state == eEnemyState::DEAD)
     {
@@ -180,10 +180,10 @@ void EnemyBase::Update()
 
 void EnemyBase::Render()
 {
-	if (m_loaded.load() == false)
-	{
-		return;
-	}
+    if (m_loaded.load() == false)
+    {
+        return;
+    }
 
     m_AnimMesh->SetPos(m_loadingPos);
     m_AnimMesh->SetRotate(m_rotate);
@@ -236,10 +236,10 @@ int EnemyBase::GetHP()
 
 void EnemyBase::SetState(const eEnemyState state)
 {
-	if (m_loaded.load() == false)
-	{
-		return;
-	}
+    if (m_loaded.load() == false)
+    {
+        return;
+    }
 
     if (state == eEnemyState::DAMAGED)
     {

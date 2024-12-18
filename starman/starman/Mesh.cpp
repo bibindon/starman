@@ -221,25 +221,25 @@ void Mesh::Render()
 
         if (m_bWeapon == false)
         {
-			D3DXMatrixTranslation(&mat, -m_centerPos.x, -m_centerPos.y, -m_centerPos.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixTranslation(&mat, -m_centerPos.x, -m_centerPos.y, -m_centerPos.z);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
+            worldViewProjMatrix *= mat;
         }
         else
         {
-			D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+            worldViewProjMatrix *= mat;
 
             worldViewProjMatrix *= SharedObj::GetRightHandMat();
         }

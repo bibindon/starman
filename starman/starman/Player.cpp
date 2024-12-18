@@ -131,7 +131,7 @@ Player::~Player()
     SAFE_DELETE(m_AnimMesh2);
     for (auto it = m_weaponMesh.begin(); it != m_weaponMesh.end(); ++it)
     {
-		SAFE_DELETE(it->second);
+        SAFE_DELETE(it->second);
     }
 }
 
@@ -240,9 +240,9 @@ void Player::Render()
 
     if (itemInfo.GetId() != -1)
     {
-		NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-		NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
-		m_weaponMesh.at(itemDef.GetName())->Render();
+        NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+        NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
+        m_weaponMesh.at(itemDef.GetName())->Render();
     }
 }
 
@@ -283,9 +283,9 @@ bool Player::SetAttack()
         return false;
     }
 
-	SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
-	m_AnimMesh2->SetAnim("Attack", 0.f);
-	m_bAttack = true;
+    SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
+    m_AnimMesh2->SetAnim("Attack", 0.f);
+    m_bAttack = true;
 
     D3DXVECTOR3 attackPos = GetAttackPos();
     D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
@@ -311,7 +311,7 @@ bool Player::SetAttack()
         }
     }
 
-	SharedObj::GetMap()->SetEnemy(vecEnemy);
+    SharedObj::GetMap()->SetEnemy(vecEnemy);
     return true;
 }
 

@@ -19,43 +19,43 @@ bool EnemySphere::Init()
     m_thread = new std::thread(
         [&]
         {
-			AnimSetMap animSetMap;
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 0.5f;
-				animSetting.m_duration = 0.5f;
-				animSetting.m_loop = true;
-				animSetMap["Idle"] = animSetting;
-			}
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 0.f;
-				animSetting.m_duration = 0.5f;
-				animSetting.m_loop = true;
-				animSetMap["Walk"] = animSetting;
-			}
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 1.f;
-				animSetting.m_duration = 1.f;
-				animSetting.m_loop = false;
-				animSetMap["Damaged"] = animSetting;
-			}
-			{
-				AnimSetting animSetting { };
-				animSetting.m_startPos = 2.f;
-				animSetting.m_duration = 1.f;
-				animSetting.m_loop = false;
-				animSetMap["Attack"] = animSetting;
-			}
-			m_AnimMesh = new AnimMesh("res\\model\\enemySphere\\enemySphere.x",
-				m_loadingPos, m_rotate, 0.5f, animSetMap);
-			SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
-			
-			m_spriteHP = new Sprite("res\\image\\hp_green.png");
-			m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
+            AnimSetMap animSetMap;
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 0.5f;
+                animSetting.m_duration = 0.5f;
+                animSetting.m_loop = true;
+                animSetMap["Idle"] = animSetting;
+            }
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 0.f;
+                animSetting.m_duration = 0.5f;
+                animSetting.m_loop = true;
+                animSetMap["Walk"] = animSetting;
+            }
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 1.f;
+                animSetting.m_duration = 1.f;
+                animSetting.m_loop = false;
+                animSetMap["Damaged"] = animSetting;
+            }
+            {
+                AnimSetting animSetting { };
+                animSetting.m_startPos = 2.f;
+                animSetting.m_duration = 1.f;
+                animSetting.m_loop = false;
+                animSetMap["Attack"] = animSetting;
+            }
+            m_AnimMesh = new AnimMesh("res\\model\\enemySphere\\enemySphere.x",
+                m_loadingPos, m_rotate, 0.5f, animSetMap);
+            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
+            
+            m_spriteHP = new Sprite("res\\image\\hp_green.png");
+            m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
 
-			m_AnimMesh->SetAnim("Idle", 0.f);
+            m_AnimMesh->SetAnim("Idle", 0.f);
             m_loaded.store(true);
         });
     return true;
@@ -63,10 +63,10 @@ bool EnemySphere::Init()
 
 void EnemySphere::Update()
 {
-	if (m_loaded.load() == false)
-	{
-		return;
-	}
+    if (m_loaded.load() == false)
+    {
+        return;
+    }
 
     if (m_state == eEnemyState::DEAD)
     {

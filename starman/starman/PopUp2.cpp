@@ -94,22 +94,22 @@ void PopUp2::Update()
 
 void PopUp2::Render()
 {
-	if (m_textQ.size() >= 1)
-	{
-		D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
-		RECT rect;
+    if (m_textQ.size() >= 1)
+    {
+        D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
+        RECT rect;
         rect.top = 700;
         rect.bottom = 700 + 100;
         rect.left = 0;
         rect.right = 1600;
 
-		m_D3DFont->DrawText(
-			NULL,
-			m_textQ.front().c_str(),
-			-1,
-			&rect,
-			DT_CENTER | DT_VCENTER,
-			D3DCOLOR_ARGB(m_transparent, 255, 255, 255));
-	}
+        m_D3DFont->DrawText(
+            NULL,
+            m_textQ.front().c_str(),
+            -1,
+            &rect,
+            DT_CENTER | DT_VCENTER,
+            D3DCOLOR_ARGB(m_transparent, 255, 255, 255));
+    }
 }
 

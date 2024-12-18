@@ -42,163 +42,163 @@ void MeshClone::Init()
     HRESULT result { 0 };
     if (m_D3DEffect == nullptr)
     {
-		D3DXCreateEffectFromFile(
-			SharedObj::GetD3DDevice(),
-			SHADER_FILENAME.c_str(),
-			nullptr,
-			nullptr,
-			0,
-			nullptr,
-			&m_D3DEffect,
-			nullptr);
-		if (FAILED(result))
-		{
-			throw std::exception("Failed to create an effect file.");
-		}
+        D3DXCreateEffectFromFile(
+            SharedObj::GetD3DDevice(),
+            SHADER_FILENAME.c_str(),
+            nullptr,
+            nullptr,
+            0,
+            nullptr,
+            &m_D3DEffect,
+            nullptr);
+        if (FAILED(result))
+        {
+            throw std::exception("Failed to create an effect file.");
+        }
     }
 
     if (m_D3DMeshMap.find(m_meshName) == m_D3DMeshMap.end())
     {
-		LPD3DXMESH tempMesh = nullptr;
+        LPD3DXMESH tempMesh = nullptr;
 
-		LPD3DXBUFFER adjacencyBuffer { nullptr };
-		LPD3DXBUFFER materialBuffer { nullptr };
-		DWORD materialCount = 0;
+        LPD3DXBUFFER adjacencyBuffer { nullptr };
+        LPD3DXBUFFER materialBuffer { nullptr };
+        DWORD materialCount = 0;
 
-		result = D3DXLoadMeshFromX(
-			m_meshName.c_str(),
-			D3DXMESH_SYSTEMMEM,
-			SharedObj::GetD3DDevice(),
-			&adjacencyBuffer,
-			&materialBuffer,
-			nullptr,
-			&materialCount,
-			&tempMesh);
+        result = D3DXLoadMeshFromX(
+            m_meshName.c_str(),
+            D3DXMESH_SYSTEMMEM,
+            SharedObj::GetD3DDevice(),
+            &adjacencyBuffer,
+            &materialBuffer,
+            nullptr,
+            &materialCount,
+            &tempMesh);
 
-		if (FAILED(result))
-		{
-			throw std::exception("Failed to load a x-file.");
-		}
+        if (FAILED(result))
+        {
+            throw std::exception("Failed to load a x-file.");
+        }
 
-		m_materialCountMap[m_meshName] = materialCount;
+        m_materialCountMap[m_meshName] = materialCount;
 
-		D3DVERTEXELEMENT9 decl[] = {
-			{
-				0,
-				0,
-				D3DDECLTYPE_FLOAT3,
-				D3DDECLMETHOD_DEFAULT,
-				D3DDECLUSAGE_POSITION,
-				0},
-			{
-				0,
-				12,
-				D3DDECLTYPE_FLOAT3,
-				D3DDECLMETHOD_DEFAULT,
-				D3DDECLUSAGE_NORMAL,
-				0
-			},
-			{
-				0,
-				24,
-				D3DDECLTYPE_FLOAT2,
-				D3DDECLMETHOD_DEFAULT,
-				D3DDECLUSAGE_TEXCOORD,
-				0
-			},
-			D3DDECL_END(),
-		};
+        D3DVERTEXELEMENT9 decl[] = {
+            {
+                0,
+                0,
+                D3DDECLTYPE_FLOAT3,
+                D3DDECLMETHOD_DEFAULT,
+                D3DDECLUSAGE_POSITION,
+                0},
+            {
+                0,
+                12,
+                D3DDECLTYPE_FLOAT3,
+                D3DDECLMETHOD_DEFAULT,
+                D3DDECLUSAGE_NORMAL,
+                0
+            },
+            {
+                0,
+                24,
+                D3DDECLTYPE_FLOAT2,
+                D3DDECLMETHOD_DEFAULT,
+                D3DDECLUSAGE_TEXCOORD,
+                0
+            },
+            D3DDECL_END(),
+        };
 
-		LPD3DXMESH tempMesh2 { nullptr };
-		result = tempMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh2);
+        LPD3DXMESH tempMesh2 { nullptr };
+        result = tempMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh2);
 
-		// 頂点バッファの取得
-		{
-	//        LPDIRECT3DVERTEXBUFFER9 pVertexBuffer;
-	//        tempMesh->GetVertexBuffer(&pVertexBuffer);
-	//
-	//        struct CUSTOMVERTEX
-	//        {
-	//            FLOAT x, y, z; // 頂点の座標
-	//            FLOAT normX, normY, normZ; // 法線の座標
-	//            FLOAT u, v;   // 頂点の色
-	//        };
-	//        CUSTOMVERTEX* pVertices = nullptr;
-	//        CUSTOMVERTEX temp[24]; // 立方体なら24個
-	//        pVertexBuffer->Lock(0, 0, (void**)&pVertices, D3DLOCK_READONLY);
-	//        memcpy(temp, pVertices, sizeof(temp));
-	//        pVertexBuffer->Unlock();
-		}
+        // 頂点バッファの取得
+        {
+    //        LPDIRECT3DVERTEXBUFFER9 pVertexBuffer;
+    //        tempMesh->GetVertexBuffer(&pVertexBuffer);
+    //
+    //        struct CUSTOMVERTEX
+    //        {
+    //            FLOAT x, y, z; // 頂点の座標
+    //            FLOAT normX, normY, normZ; // 法線の座標
+    //            FLOAT u, v;   // 頂点の色
+    //        };
+    //        CUSTOMVERTEX* pVertices = nullptr;
+    //        CUSTOMVERTEX temp[24]; // 立方体なら24個
+    //        pVertexBuffer->Lock(0, 0, (void**)&pVertices, D3DLOCK_READONLY);
+    //        memcpy(temp, pVertices, sizeof(temp));
+    //        pVertexBuffer->Unlock();
+        }
 
-		if (FAILED(result))
-		{
-			throw std::exception("Failed 'CloneMesh' function.");
-		}
-		SAFE_RELEASE(tempMesh);
-		tempMesh = tempMesh2;
-		DWORD* wordBuffer { static_cast<DWORD*>(adjacencyBuffer->GetBufferPointer()) };
+        if (FAILED(result))
+        {
+            throw std::exception("Failed 'CloneMesh' function.");
+        }
+        SAFE_RELEASE(tempMesh);
+        tempMesh = tempMesh2;
+        DWORD* wordBuffer { static_cast<DWORD*>(adjacencyBuffer->GetBufferPointer()) };
 
-		// ここをコメントアウトするとフラットシェーディングになる。
-		result = D3DXComputeNormals(tempMesh, wordBuffer);
+        // ここをコメントアウトするとフラットシェーディングになる。
+        result = D3DXComputeNormals(tempMesh, wordBuffer);
 
-		if (FAILED(result))
-		{
-			throw std::exception("Failed 'D3DXComputeNormals' function.");
-		}
+        if (FAILED(result))
+        {
+            throw std::exception("Failed 'D3DXComputeNormals' function.");
+        }
 
-		result = tempMesh->OptimizeInplace(
-			D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE,
-			wordBuffer,
-			nullptr,
-			nullptr,
-			nullptr);
+        result = tempMesh->OptimizeInplace(
+            D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE,
+            wordBuffer,
+            nullptr,
+            nullptr,
+            nullptr);
 
-		m_D3DMeshMap[m_meshName] = tempMesh;
+        m_D3DMeshMap[m_meshName] = tempMesh;
 
-		SAFE_RELEASE(adjacencyBuffer);
+        SAFE_RELEASE(adjacencyBuffer);
 
-		if (FAILED(result))
-		{
-			throw std::exception("Failed 'OptimizeInplace' function.");
-		}
+        if (FAILED(result))
+        {
+            throw std::exception("Failed 'OptimizeInplace' function.");
+        }
 
-		m_vecColorMap[m_meshName].insert(begin(m_vecColorMap[m_meshName]), materialCount, D3DCOLORVALUE { });
-		vector<LPDIRECT3DTEXTURE9> tempVecTexture { materialCount };
-		m_vecTextureMap[m_meshName].swap(tempVecTexture);
+        m_vecColorMap[m_meshName].insert(begin(m_vecColorMap[m_meshName]), materialCount, D3DCOLORVALUE { });
+        vector<LPDIRECT3DTEXTURE9> tempVecTexture { materialCount };
+        m_vecTextureMap[m_meshName].swap(tempVecTexture);
 
-		D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
+        D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
 
-		std::string xFileDir = m_meshName;
-		std::size_t lastPos = xFileDir.find_last_of("\\");
-		xFileDir = xFileDir.substr(0, lastPos + 1);
+        std::string xFileDir = m_meshName;
+        std::size_t lastPos = xFileDir.find_last_of("\\");
+        xFileDir = xFileDir.substr(0, lastPos + 1);
 
-		for (DWORD i = 0; i < materialCount; ++i)
-		{
-			m_vecColorMap[m_meshName].at(i) = materials[i].MatD3D.Diffuse;
-			if (materials[i].pTextureFilename != nullptr)
-			{
-				std::string texPath = xFileDir;
-				texPath += materials[i].pTextureFilename;
-				LPDIRECT3DTEXTURE9 tempTexture { nullptr };
-				if (FAILED(D3DXCreateTextureFromFile(
-					SharedObj::GetD3DDevice(),
-					texPath.c_str(),
-					&tempTexture)))
-				{
-					throw std::exception("texture file is not found.");
-				}
-				else
-				{
-					SAFE_RELEASE(m_vecTextureMap[m_meshName].at(i));
-					m_vecTextureMap[m_meshName].at(i) = tempTexture;
-				}
-			}
-		}
-		SAFE_RELEASE(materialBuffer);
+        for (DWORD i = 0; i < materialCount; ++i)
+        {
+            m_vecColorMap[m_meshName].at(i) = materials[i].MatD3D.Diffuse;
+            if (materials[i].pTextureFilename != nullptr)
+            {
+                std::string texPath = xFileDir;
+                texPath += materials[i].pTextureFilename;
+                LPDIRECT3DTEXTURE9 tempTexture { nullptr };
+                if (FAILED(D3DXCreateTextureFromFile(
+                    SharedObj::GetD3DDevice(),
+                    texPath.c_str(),
+                    &tempTexture)))
+                {
+                    throw std::exception("texture file is not found.");
+                }
+                else
+                {
+                    SAFE_RELEASE(m_vecTextureMap[m_meshName].at(i));
+                    m_vecTextureMap[m_meshName].at(i) = tempTexture;
+                }
+            }
+        }
+        SAFE_RELEASE(materialBuffer);
     }
-	else
-	{
-	}
+    else
+    {
+    }
 
     m_bIsInit = true;
 }
@@ -215,7 +215,7 @@ D3DXVECTOR3 MeshClone::GetPos()
 
 float MeshClone::GetScale()
 {
-	return m_scale;
+    return m_scale;
 }
 
 void MeshClone::Render()
@@ -224,12 +224,12 @@ void MeshClone::Render()
     {
         return;
     }
-	// Y軸回転だけしているうちは正しく影が表示される。
+    // Y軸回転だけしているうちは正しく影が表示される。
     D3DXVECTOR4 normal = Light::GetLightNormal();
-	float work = m_rotate.y * -1.f;
-	normal.x = std::sin(work);
-	normal.z = std::cos(work);
-	D3DXVec4Normalize(&normal, &normal);
+    float work = m_rotate.y * -1.f;
+    normal.x = std::sin(work);
+    normal.z = std::cos(work);
+    D3DXVec4Normalize(&normal, &normal);
 
     m_D3DEffect->SetVector("g_light_normal", &normal);
 
@@ -251,36 +251,36 @@ void MeshClone::Render()
 
         if (m_bWeapon == false)
         {
-			D3DXMatrixTranslation(&mat, -m_centerPos.x, -m_centerPos.y, -m_centerPos.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixTranslation(&mat, -m_centerPos.x, -m_centerPos.y, -m_centerPos.z);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
+            worldViewProjMatrix *= mat;
 
-			// D3DXMatrixRotationYawPitchRollを使うと、Z軸回転が最初に行われる。
-			// Y軸回転を最初に行いたいのでD3DXMatrixRotationYawPitchRollは使わない
+            // D3DXMatrixRotationYawPitchRollを使うと、Z軸回転が最初に行われる。
+            // Y軸回転を最初に行いたいのでD3DXMatrixRotationYawPitchRollは使わない
 //			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
 //			worldViewProjMatrix *= mat;
 
-			D3DXMatrixRotationY(&mat, m_rotate.y);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixRotationY(&mat, m_rotate.y);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixRotationX(&mat, m_rotate.x);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixRotationX(&mat, m_rotate.x);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixRotationZ(&mat, m_rotate.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixRotationZ(&mat, m_rotate.z);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
+            worldViewProjMatrix *= mat;
         }
         else
         {
-			D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
+            worldViewProjMatrix *= mat;
 
-			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
-			worldViewProjMatrix *= mat;
+            D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+            worldViewProjMatrix *= mat;
 
             worldViewProjMatrix *= SharedObj::GetRightHandMat();
         }
@@ -314,11 +314,11 @@ void MeshClone::Render()
     for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
     {
         D3DXVECTOR4 vec4Color {
-			m_vecColorMap[m_meshName].at(i).r,
-			m_vecColorMap[m_meshName].at(i).g,
-			m_vecColorMap[m_meshName].at(i).b,
-			m_vecColorMap[m_meshName].at(i).a
-		};
+            m_vecColorMap[m_meshName].at(i).r,
+            m_vecColorMap[m_meshName].at(i).g,
+            m_vecColorMap[m_meshName].at(i).b,
+            m_vecColorMap[m_meshName].at(i).a
+        };
         m_D3DEffect->SetVector("g_diffuse", &vec4Color);
         m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
         m_D3DEffect->CommitChanges();
