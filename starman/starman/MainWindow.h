@@ -51,5 +51,6 @@ private:
 
     LPD3DXFONT m_D3DFont { nullptr };
     std::vector<std::chrono::system_clock::time_point> m_vecTime;
+
 };
 

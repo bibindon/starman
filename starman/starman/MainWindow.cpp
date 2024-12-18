@@ -347,10 +347,24 @@ int MainWindow::MainLoop()
 //    unsigned int i;
     do
     {
-        Sleep(15);
-        if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
+        // 60FPSÇ…Ç»ÇÈÇÊÇ§Ç…ÉXÉäÅ[Évéûä‘Çí≤êﬂ
         {
-            DispatchMessage(&m_msg);
+            static system_clock::time_point timePoint1;
+            system_clock::time_point timePoint2 = timePoint1;
+            timePoint1 = system_clock::now();
+
+            std::chrono::milliseconds dura =
+                std::chrono::duration_cast<std::chrono::milliseconds>(timePoint1 - timePoint2);
+
+            if (dura.count() <= 15)
+            {
+				Sleep(15 - dura.count());
+            }
+
+			if (PeekMessage(&m_msg, NULL, 0, 0, PM_REMOVE))
+			{
+				DispatchMessage(&m_msg);
+			}
         }
 
         system_clock::time_point tempTime { system_clock::now() };
