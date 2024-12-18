@@ -257,7 +257,18 @@ void MeshClone::Render()
 			D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
 			worldViewProjMatrix *= mat;
 
-			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+			// D3DXMatrixRotationYawPitchRollを使うと、Z軸回転が最初に行われる。
+			// Y軸回転を最初に行いたいのでD3DXMatrixRotationYawPitchRollは使わない
+//			D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+//			worldViewProjMatrix *= mat;
+
+			D3DXMatrixRotationY(&mat, m_rotate.y);
+			worldViewProjMatrix *= mat;
+
+			D3DXMatrixRotationX(&mat, m_rotate.x);
+			worldViewProjMatrix *= mat;
+
+			D3DXMatrixRotationZ(&mat, m_rotate.z);
 			worldViewProjMatrix *= mat;
 
 			D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
