@@ -33,7 +33,7 @@ private:
     AnimMesh* m_AnimMesh2 { nullptr };
     std::map<std::string, Mesh*> m_weaponMesh;
 
-    D3DXVECTOR3 m_loadingPos { -285.f, 16.f, 539.f };
+    D3DXVECTOR3 m_loadingPos { 0.f, 0.f, 0.f };
     D3DXVECTOR3 m_rotate { 0.f, D3DX_PI, 0.f };
     D3DXVECTOR3 m_dir { 0.f, 0.f, 1.f };
 

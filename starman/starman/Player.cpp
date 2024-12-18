@@ -114,6 +114,14 @@ Player::Player()
         mesh->SetWeapon(true);
         m_weaponMesh["Î‘„"] = mesh;
     }
+
+    float x = 0.f;
+    float y = 0.f;
+    float z = 0.f;
+    NSStarmanLib::StatusManager::GetObj()->GetXYZ(&x, &y, &z);
+    m_loadingPos.x = x;
+    m_loadingPos.y = y + 1.f;
+    m_loadingPos.z = z;
 }
 
 Player::~Player()
