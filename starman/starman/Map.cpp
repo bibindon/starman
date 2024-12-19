@@ -1131,6 +1131,35 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             *bHit = true;
         }
     }
+
+    // 壁ずりした先に壁があったときの処理。
+    // 壁ずり先に壁があるなら移動量を0にする
+    if (Intersect(pos, result))
+    {
+        return D3DXVECTOR3{ 0.f, 0.f, 0.f };
+    }
+
+    // 接地判定
+    // move.yが-0.01以下で、result.yが-0.001以上だったら
+    // 落下速度が10分の1以下になったということなので平らな地面に足がついているとする。
+    // move.yを0にする
+    if (move.y <= -0.01f &&
+        -0.001f <= result.y && result.y <= 0.f)
+    {
+        result.y = 0.f;
+    }
+
+    // 摩擦
+    // result.xとresult.zが小さいなら0にする
+    if (-0.005f <= result.x && result.x <= 0.005f)
+    {
+        if (-0.005f <= result.z && result.z <= 0.005f)
+        {
+            result.x = 0.f;
+            result.z = 0.f;
+        }
+    }
+
     return result;
 }
 

@@ -161,25 +161,25 @@ void Player::Update(Map* map)
     }
 
     // 重力
-    m_move.y += -0.01f;
+    m_move.y += -0.015f;
 
-    if (m_bJump)
-    {
-        m_jumpTimeCounter++;
-        bool isHit = map->Intersect(m_loadingPos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
-        // ?
-        //if (isHit)
-        //{
-        //    m_move.y = 0.f;
-        //    m_jumpTimeCounter = 0;
-        //    m_bJump = false;
-        //}
-    }
-    if (m_jumpTimeCounter >= 60)
-    {
-        m_jumpTimeCounter = 0;
-        m_bJump = false;
-    }
+//    if (m_bJump)
+//    {
+//        m_jumpTimeCounter++;
+//        bool isHit = map->Intersect(m_loadingPos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
+//        // ?
+//        //if (isHit)
+//        //{
+//        //    m_move.y = 0.f;
+//        //    m_jumpTimeCounter = 0;
+//        //    m_bJump = false;
+//        //}
+//    }
+//    if (m_jumpTimeCounter >= 60)
+//    {
+//        m_jumpTimeCounter = 0;
+//        m_bJump = false;
+//    }
 
     // 壁ずり
     // 高さを変えて3回チェック
@@ -198,18 +198,18 @@ void Player::Update(Map* map)
 //            m_move = map->WallSlide(tempPos, m_move, &bHit);
 //        }
 //    }
-
-    // 接地判定
-    {
-        D3DXVECTOR3 temp { m_move };
-
-        temp.y += -0.1f;
-        bool isHit = map->CollisionGround(m_loadingPos, temp);
-        if (isHit == false)
-        {
-           // m_move.y += -0.01f;
-        }
-    }
+//
+//    // 接地判定
+//    {
+//        D3DXVECTOR3 temp { m_move };
+//
+//        temp.y += -0.1f;
+//        bool isHit = map->CollisionGround(m_loadingPos, temp);
+//        if (isHit == false)
+//        {
+//           // m_move.y += -0.01f;
+//        }
+//    }
     OutputDebugString((std::to_string(m_move.y) + "\n").c_str());
 
     m_loadingPos += m_move;
