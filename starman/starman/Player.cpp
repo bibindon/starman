@@ -360,7 +360,16 @@ D3DXVECTOR3 Player::GetAttackPos()
 
 void Player::SetJump()
 {
-//    if (m_bJump == false)
+    if (SharedObj::DebugMode() == false)
+    {
+        if (m_bJump == false)
+        {
+            m_bJump = true;
+            m_move.y = JUMP_INITIAL_VELOCITY;
+            m_AnimMesh2->SetAnim("Jump", 0.f);
+        }
+    }
+    else
     {
         m_bJump = true;
         m_move.y = JUMP_INITIAL_VELOCITY;

@@ -98,11 +98,11 @@ void Map::Init()
         mesh->Init();
         m_meshMap["sky"] = mesh;
 
-        // sky2は何のために存在している？？
-        c.y = D3DX_PI;
-        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
-        mesh->Init();
-        m_meshMap["sky2"] = mesh;
+        // 半回転させた空。なくても見た目に違いがない。
+        //c.y = D3DX_PI;
+        //mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
+        //mesh->Init();
+        //m_meshMap["sky2"] = mesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 14.f, 530.f);
@@ -991,7 +991,8 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mes
     float fHitV;
     D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-    if (bIsHit && fLandDistance <= 1.f)
+    float judgeDistance = 1.f / mesh->GetScale();
+    if (bIsHit && fLandDistance <= judgeDistance)
     {
         bIsHit = true;
     }
@@ -1014,7 +1015,9 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
     float fHitV;
     D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-    if (bIsHit && fLandDistance <= 1.f)
+
+    float judgeDistance = 1.f / mesh->GetScale();
+    if (bIsHit && fLandDistance <= judgeDistance)
     {
         bIsHit = true;
     }
@@ -1076,7 +1079,9 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
     float fHitV;
     D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-    if (bIsHit && fLandDistance <= 2.f)
+
+    float judgeDistance = 2.f / mesh->GetScale();
+    if (bIsHit && fLandDistance <= judgeDistance)
     {
         bIsHit = true;
     }
@@ -1099,7 +1104,9 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
     float fHitV;
     D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-    if (bIsHit && fLandDistance <= 2.f)
+
+    float judgeDistance = 2.f / mesh->GetScale();
+    if (bIsHit && fLandDistance <= judgeDistance)
     {
         bIsHit = true;
     }
@@ -1122,6 +1129,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             *bHit = true;
         }
     }
+
     for (auto pair : m_meshCloneMap)
     {
         bool bIsHit = false;
@@ -1178,7 +1186,8 @@ D3DXVECTOR3 Map::WallSlideSub(
     D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
     D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-    if (bIsHit && fLandDistance <= 2.f)
+    float judgeDistance = 2.f / mesh->GetScale();
+    if (bIsHit && fLandDistance <= judgeDistance)
     {
         OutputDebugString("IsHit\n");
         *bHit = true;
@@ -1259,7 +1268,8 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
     D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
     D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
-    if (bIsHit && fLandDistance <= 2.f)
+    float judgeDistance = 2.f / mesh->GetScale();
+    if (bIsHit && fLandDistance <= judgeDistance)
     {
         OutputDebugString("IsHit\n");
         *bHit = true;
