@@ -372,7 +372,7 @@ void Player::SetJump()
     else
     {
         m_bJump = true;
-        m_move.y = JUMP_INITIAL_VELOCITY;
+        m_move.y = JUMP_INITIAL_VELOCITY*5;
         m_AnimMesh2->SetAnim("Jump", 0.f);
     }
 }
