@@ -983,6 +983,17 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mes
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+
+    if (targetPos.x >= 20.f)
+    {
+        return false;
+    }
+
+    if (targetPos.z >= 20.f)
+    {
+        return false;
+    }
+
     targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
@@ -1007,6 +1018,17 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+
+    if (targetPos.x >= 20.f)
+    {
+        return false;
+    }
+
+    if (targetPos.z >= 20.f)
+    {
+        return false;
+    }
+
     targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;

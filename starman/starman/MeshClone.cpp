@@ -314,14 +314,22 @@ void MeshClone::Render()
         throw std::exception("Failed 'BeginPass' function.");
     }
 
-    for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
-    {
-        // TODO この辺は毎回やる必要はない気がする
-        m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
-        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
-        m_D3DEffect->CommitChanges();
-        m_D3DMeshMap[m_meshName]->DrawSubset(i);
-    }
+    // マテリアルが二つ以上あることなんてあるのか？
+//    for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
+//    {
+//        // TODO この辺は毎回やる必要はない気がする
+//        m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
+//        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
+//        m_D3DEffect->CommitChanges();
+//        m_D3DMeshMap[m_meshName]->DrawSubset(i);
+//    }
+
+    // TODO この辺は毎回やる必要はない気がする
+    m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
+    m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
+    m_D3DEffect->CommitChanges();
+    m_D3DMeshMap[m_meshName]->DrawSubset(0);
+
     m_D3DEffect->EndPass();
     m_D3DEffect->End();
 }
