@@ -652,6 +652,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
+
     if (KeyBoard::IsDown(DIK_S))
     {
         move.x += -std::sin(radian + D3DX_PI * 3 / 2) / 5;
@@ -661,6 +662,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
+
     if (KeyBoard::IsDown(DIK_D))
     {
         move.x += -std::sin(radian) / 5;
@@ -670,6 +672,8 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetRotate(rotate);
         m_player->SetWalk();
     }
+
+    move /= 5.f;
 
     if (KeyBoard::IsDownFirstFrame(DIK_E))
     {
