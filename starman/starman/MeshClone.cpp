@@ -328,7 +328,7 @@ void MeshClone::Render()
     m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
 
     // TODO テクスチャなしにしたほうが良いかも
-    //m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
+    m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
     m_D3DEffect->CommitChanges();
     m_D3DMeshMap[m_meshName]->DrawSubset(0);
 
