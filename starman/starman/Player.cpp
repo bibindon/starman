@@ -306,7 +306,18 @@ void Player::Update(Map* map)
     // 何かに触れている状態が1秒続いたら再度ジャンプできる、でもよいかもしれない。
     if (bHit)
     {
-        m_bJump = false;
+        m_attachCount++;
+
+        // 0.1秒?張り付き状態を維持したら再度ジャンプ可能になる
+        if (m_attachCount >= 6)
+        {
+            m_bJumpEnable = true;
+            m_bJump = false;
+        }
+    }
+    else
+    {
+        m_attachCount = 0;
     }
 
 //    if (bHit == false)
@@ -482,9 +493,11 @@ D3DXVECTOR3 Player::GetAttackPos()
 
 void Player::SetJump()
 {
-    if (m_bJump == false)
+    if (m_bJumpEnable)
     {
         m_bJump = true;
+        m_bJumpEnable = false;
+
         m_move.y = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
     }

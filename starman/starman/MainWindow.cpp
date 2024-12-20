@@ -210,6 +210,7 @@ MainWindow::~MainWindow()
 
 int MainWindow::MainLoop()
 {
+    // TODO 整形
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
     D3DXMATRIX World;          // 立方体ワールド変換行列
     D3DXMATRIX Rot_X, Rot_Y;   // 立方体回転行列
@@ -292,34 +293,6 @@ int MainWindow::MainLoop()
         Mouse::Update();
         GamePad::Update();
         Camera::Update();
-
-        if (KeyBoard::IsDownFirstFrame(DIK_F4))
-        {
-            PostMessage(m_hWnd, WM_CLOSE, 0, 0);
-        }
-        if (KeyBoard::IsDownFirstFrame(DIK_Q))
-        {
-            //BGM::get_ton()->load("res\\sound\\title.wav");
-//            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
-//            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
-            PostMessage(m_hWnd, WM_CLOSE, 0, 0);
-        }
-//        if (KeyBoard::IsDown(DIK_E))
-//        {
-//            //BGM::get_ton()->play();
-//            SoundEffect::get_ton()->play("res\\sound\\damage01.wav");
-//            MessageBox(NULL, TEXT("aaa"), TEXT("bbb"), 0);
-//        }
-        if (Mouse::IsDownLeft())
-        {
-//            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
-        //    m_sprite = new Sprite("res\\image\\board.png");
-        }
-        if (GamePad::IsDown(eGamePadButtonType::A))
-        {
-//            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
-         //   m_sprite = new Sprite("res\\image\\board.png");
-        }
 
         if (m_sequence == eSequence::TITLE)
         {
@@ -487,6 +460,17 @@ int MainWindow::MainLoop()
         D3DDevice->EndScene();
         D3DDevice->Present(NULL, NULL, NULL, NULL);
 
+        if (SharedObj::DebugMode())
+        {
+            if (KeyBoard::IsDownFirstFrame(DIK_F4))
+            {
+                PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+            }
+            if (KeyBoard::IsDownFirstFrame(DIK_Q))
+            {
+                PostMessage(m_hWnd, WM_CLOSE, 0, 0);
+            }
+        }
 
     } while (m_msg.message != WM_QUIT);
     return 0;

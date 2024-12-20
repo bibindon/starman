@@ -55,4 +55,10 @@ private:
     int m_jumpTimeCounter = 0;
     float m_jumpVelocity = 0.f;
     const float JUMP_INITIAL_VELOCITY = 0.25f;
+
+    // 張り付きカウンター
+    // どこでも0.1秒?張り付き状態を維持したらジャンプ可能になる
+    int m_attachCount = 0;
+
+    bool m_bJumpEnable = true;
 };
