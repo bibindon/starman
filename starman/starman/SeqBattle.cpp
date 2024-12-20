@@ -640,6 +640,11 @@ void SeqBattle::OperateTalk()
     {
         m_talk->Next();
     }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        m_talk->Next();
+    }
 }
 
 void SeqBattle::OperateStorehouse()
@@ -648,11 +653,18 @@ void SeqBattle::OperateStorehouse()
 
     std::string result;
 
-    if (KeyBoard::IsDownFirstFrame(DIK_F1))
+    //---------------------------------------------------------
+    // KeyBoard
+    //---------------------------------------------------------
+
+    if (SharedObj::DebugMode())
     {
-        m_bShowStorehouse = false;
-        Camera::SleepModeOFF();
-        ShowCursor(false);
+        if (KeyBoard::IsDownFirstFrame(DIK_F1))
+        {
+            m_bShowStorehouse = false;
+            Camera::SleepModeOFF();
+            ShowCursor(false);
+        }
     }
 
     if (KeyBoard::IsDownFirstFrame(DIK_UP))
@@ -719,6 +731,10 @@ void SeqBattle::OperateStorehouse()
         m_bShowStorehouse = false;
     }
 
+    //---------------------------------------------------------
+    // Mouse
+    //---------------------------------------------------------
+
     if (Mouse::IsDownLeft())
     {
         POINT p;
@@ -735,6 +751,75 @@ void SeqBattle::OperateStorehouse()
     {
         m_storehouse->Previous();
     }
+
+    //---------------------------------------------------------
+    // GamePad
+    //---------------------------------------------------------
+
+    if (GamePad::IsDown(eGamePadButtonType::UP))
+    {
+        m_storehouse->Up();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    {
+        m_storehouse->Down();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    {
+        m_storehouse->Left();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    {
+        m_storehouse->Right();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        result = m_storehouse->Into();
+        std::vector<std::string> vs = Common::split(result, ':');
+
+        int id_ = 0;
+        int subId_ = 0;
+        int durability_ = 0;
+
+        id_ = std::stoi(vs.at(2));
+        subId_ = std::stoi(vs.at(3));
+
+        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+        if (vs.at(0) == "left")
+        {
+            NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            inventory->RemoveItem(id_, subId_);
+            storehouse->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+            m_menuManager.DeleteItem(id_, subId_);
+        }
+        else if (vs.at(0) == "right")
+        {
+            NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            storehouse->RemoveItem(id_, subId_);
+            inventory->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
+            m_menuManager.AddItem(id_, subId_, durability_);
+        }
+        else
+        {
+            throw std::exception();
+        }
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::B))
+    {
+        result = m_storehouse->Back();
+        m_bShowStorehouse = false;
+    }
+
     return;
 }
 
@@ -774,15 +859,6 @@ void SeqBattle::OperateCraft()
     if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
     {
         m_craft->Into();
-
-        if (result == "タイトル")
-        {
-            //m_bShowMenu = false;
-        }
-        else if (result == "最初から")
-        {
-            //m_bShowMenu = false;
-        }
     }
 
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
@@ -806,6 +882,37 @@ void SeqBattle::OperateCraft()
     {
         m_craft->Previous();
     }
+
+    if (GamePad::IsDown(eGamePadButtonType::UP))
+    {
+        m_craft->Up();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    {
+        m_craft->Down();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    {
+        m_craft->Left();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    {
+        m_craft->Right();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        m_craft->Into();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::B))
+    {
+        result = m_craft->Back();
+    }
+
     return;
 }
 
@@ -1538,18 +1645,32 @@ void SeqBattle::Operate(eSequence* sequence)
     // GamePad
     //--------------------------------------------
 
-    // TODO セレクトボタン対応
-//    if (GamePad::IsDown(select))
-//    {
-//        m_bShowMenu = true;
-//        Camera::SleepModeON();
-//        ClipCursor(NULL);
-//        ShowCursor(true);
-//
-//        return;
-//    }
+    // メニュー機能
+    if (GamePad::IsDown(eGamePadButtonType::START))
+    {
+        m_bShowMenu = true;
+        Camera::SleepModeON();
+        ClipCursor(NULL);
+        ShowCursor(true);
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+        return;
+    }
+
+    // コマンド機能
+    if (GamePad::IsDown(eGamePadButtonType::BACK))
+    {
+        if (m_bShowCommand == false)
+        {
+            m_bShowCommand = true;
+
+            Camera::SleepModeON();
+            ShowCursor(true);
+            ClipCursor(NULL);
+        }
+    }
+
+    // 確定操作
+    if (GamePad::IsDown(eGamePadButtonType::A))
     {
         Confirm(sequence);
     }

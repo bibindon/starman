@@ -243,7 +243,7 @@ void Player::Update(Map* map)
         bool ret = SetAttack();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDown(eGamePadButtonType::B))
     {
         SetJump();
     }

@@ -15,6 +15,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\SkillManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\Guide.h"
+#include "GamePad.h"
 
 namespace NSMenulib
 {
@@ -664,6 +665,95 @@ std::string MenuManager::OperateMenu()
     else if (Mouse::GetZDelta() > 0)
     {
         m_menu.Previous();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::UP))
+    {
+        m_menu.Up();
+    }
+
+    if (GamePad::IsHold(eGamePadButtonType::UP))
+    {
+        m_menu.Up();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    {
+        m_menu.Down();
+    }
+
+    if (GamePad::IsHold(eGamePadButtonType::DOWN))
+    {
+        m_menu.Down();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    {
+        m_menu.Left();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    {
+        m_menu.Right();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        result = m_menu.Into();
+
+        std::vector<std::string> vs = Common::split(result, ':');
+        if (vs.size() == 5 && vs.at(0) == "アイテム")
+        {
+            // アイテムを使う
+            if (vs.at(4) == "使う")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                if (UseItem(id, subId))
+                {
+                    NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                    inventory->RemoveItem(id, subId);
+                    m_menu.DeleteItem(id, subId);
+                }
+            }
+
+            // アイテムを捨てる
+            if (vs.at(4) == "捨てる")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                inventory->RemoveItem(id, subId);
+                m_menu.DeleteItem(id, subId);
+            }
+        }
+        else if (vs.size() == 5 && vs.at(0) == "武器")
+        {
+            if (vs.at(4) == "装備")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id, subId);
+
+                NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+                statusManager->SetEquipWeapon(itemInfo);
+            }
+        }
+        else if (vs.size() >= 1 && vs.at(0) == "セーブして終了")
+        {
+            auto saveManager = SaveManager::Get();
+            saveManager->Save();
+            PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+        }
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::B))
+    {
+        result = m_menu.Back();
     }
 
     // 表示内容を更新

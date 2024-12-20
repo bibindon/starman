@@ -5,6 +5,7 @@
 #include "SharedObj.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
+#include "GamePad.h"
 
 namespace NSCommand
 {
@@ -206,6 +207,26 @@ std::string CommandManager::Operate()
         GetCursorPos(&p);
         ScreenToClient(FindWindowA("ƒzƒVƒ}ƒ“", nullptr), &p);
         result = m_commandLib->Click(p.x, p.y);
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    {
+        m_commandLib->Previous();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    {
+        m_commandLib->Next();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        result = m_commandLib->Into();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::B))
+    {
+        result = "EXIT";
     }
 
     return result;

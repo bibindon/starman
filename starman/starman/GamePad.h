@@ -18,8 +18,8 @@ enum class eGamePadButtonType
     RIGHT,
     X,
     Y,
-    A,
-    B,
+    A, // Confirm
+    B, // Cancel
     Z_LEFT,
     Z_RIGHT,
     Z_UP,
