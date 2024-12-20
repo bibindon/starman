@@ -24,7 +24,10 @@ enum class eGamePadButtonType
     Z_RIGHT,
     Z_UP,
     Z_DOWN,
+    L1,
     R1,
+    BACK,
+    START,
     UNKNOWN,
 };
 static constexpr int BUTTON_KIND_MAX { 8 };
