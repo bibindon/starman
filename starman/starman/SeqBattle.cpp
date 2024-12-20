@@ -673,7 +673,7 @@ void SeqBattle::Update(eSequence* sequence)
         m_player->SetWalk();
     }
 
-    move /= 5.f;
+    move /= 2.f;
 
     if (KeyBoard::IsDownFirstFrame(DIK_E))
     {
