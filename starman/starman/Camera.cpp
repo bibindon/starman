@@ -1,4 +1,6 @@
 #include "Camera.h"
+
+#include "SharedObj.h"
 #include <cmath>
 #include "Mouse.h"
 #include "GamePad.h"
@@ -63,7 +65,7 @@ void Camera::Update()
         return;
     }
     LONG x = Mouse::GetXDelta();
-    LONG y = Mouse::GetYDelta();
+    float y = (float)Mouse::GetYDelta();
     float joyX { 0.0f };
     if (GamePad::IsHold(eGamePadButtonType::Z_LEFT))
     {
@@ -87,30 +89,28 @@ void Camera::Update()
     y /= 10;
     m_radian += x/500.f;
     m_radian += joyX;
-    m_y += y / 100.f;
-    m_eyePos.y = m_lookAtPos.y + m_y;
-    if (m_eyePos.y <= -9.f)
-    {
-        m_eyePos.y = -9.f;
-        m_y = -9.f;
-    }
-    std::string radian = std::to_string(m_radian);
-    radian = "radian: " + radian + "\n";
-    if (0.f <= m_eyePos.y)
-    {
-        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
-        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
-    }
-    else
-    {
-        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
-        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
-    }
-    std::string eysPosX = std::to_string(m_eyePos.x);
-    eysPosX = "eysPosX: " + eysPosX + "\n";
 
-    std::string eysPosZ = std::to_string(m_eyePos.z);
-    eysPosZ = "eysPosZ: " + eysPosZ + "\n";
+    y /= 100.f;
+
+    float temp = m_lookAtPos.y + m_y + y;
+
+    if ( m_lookAtPos.y - 5.f < temp && temp < m_lookAtPos.y + 5.f)
+    {
+        m_y += y;
+    }
+    else if (temp <= m_lookAtPos.y - 5.f)
+    {
+        m_y = -5.f;
+    }
+    else if (m_lookAtPos.y + 5.f <= temp)
+    {
+        m_y = 5.f;
+    }
+
+    m_eyePos.y = m_lookAtPos.y + m_y;
+
+    m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
+    m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
 }
 
 POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
