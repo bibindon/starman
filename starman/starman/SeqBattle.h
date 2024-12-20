@@ -41,6 +41,9 @@ public:
     void InputR1();
     void Confirm(eSequence* sequence);
 private:
+    void UpdateDebug();
+    void UpdatePerSecond();
+    void Operate(eSequence* sequence);
     Player* m_player { nullptr };
     Sprite* m_spriteGameover { nullptr };
     eBattleState m_eState { eBattleState::NORMAL };
