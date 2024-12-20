@@ -23,7 +23,6 @@ bool EnemyBase::Init()
         [&]
         {
             std::lock_guard<std::mutex> lock(s_mutex);
-            OutputDebugString("@@@@start\n");
             AnimSetMap animSetMap;
             {
                 AnimSetting animSetting { };
@@ -62,7 +61,6 @@ bool EnemyBase::Init()
 
             m_AnimMesh->SetAnim("Idle", 0.f);
             m_loaded.store(true);
-            OutputDebugString("@@@@end\n");
         });
     return true;
 }
@@ -113,7 +111,6 @@ void EnemyBase::Update()
 
             //std::string msg;
             //msg = "randNum: " + std::to_string(randNum) + "\n";
-            //OutputDebugString(msg.c_str());
             if (randNum % 30 == 0)
             {
                 m_state = eEnemyState::ATTACK;
@@ -160,7 +157,6 @@ void EnemyBase::Update()
             FLOAT distance = D3DXVec3Length(&subPos);
             std::string msg;
             msg = "distance: " + std::to_string(distance) + "\n";
-            OutputDebugString(msg.c_str());
 
             if (distance <= 1.0f)
             {

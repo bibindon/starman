@@ -30,30 +30,29 @@ public:
     void SetHP(const int hp);
     int GetHP();
 private:
-    AnimMesh* m_AnimMesh2 { nullptr };
+    AnimMesh* m_AnimMesh2 = nullptr;
     std::unordered_map<std::string, Mesh*> m_weaponMesh;
 
-    D3DXVECTOR3 m_loadingPos { 0.f, 0.f, 0.f };
-    D3DXVECTOR3 m_rotate { 0.f, D3DX_PI, 0.f };
-    D3DXVECTOR3 m_dir { 0.f, 0.f, 1.f };
+    D3DXVECTOR3 m_loadingPos = D3DXVECTOR3(0.f, 0.f, 0.f);
+    D3DXVECTOR3 m_rotate = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
+    D3DXVECTOR3 m_dir = D3DXVECTOR3(0.f, 0.f, 1.f);
 
     // ˆÚ“®ƒxƒNƒgƒ‹
-    D3DXVECTOR3 m_move { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
 
-    bool m_bAttack { false };
-    int m_attackTimeCounter { 0 };
+    bool m_bAttack = false;
+    int m_attackTimeCounter = 0;
 
-    bool m_bDamaged { false };
-    int m_damagedTimeCounter { 0 };
+    bool m_bDamaged = false;
+    int m_damagedTimeCounter = 0;
 
-    int m_HP { 100 };
+    int m_HP = 100;
 
-    Sprite* m_spriteHP { nullptr };
-    Sprite* m_spriteHPBack { nullptr };
-    bool m_bDead { false };
-    bool m_bJump { false };
-    int m_jumpTimeCounter { 0 };
-    float m_jumpVelocity { 0.f };
-    const float JUMP_INITIAL_VELOCITY { 0.25f };
+    Sprite* m_spriteHP = nullptr;
+    Sprite* m_spriteHPBack = nullptr;
+    bool m_bDead = false;
+    bool m_bJump = false;
+    int m_jumpTimeCounter = 0;
+    float m_jumpVelocity = 0.f;
+    const float JUMP_INITIAL_VELOCITY = 0.25f;
 };
-

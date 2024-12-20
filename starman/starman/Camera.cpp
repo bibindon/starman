@@ -96,7 +96,6 @@ void Camera::Update()
     }
     std::string radian = std::to_string(m_radian);
     radian = "radian: " + radian + "\n";
-    //OutputDebugString(radian.c_str());
     if (0.f <= m_eyePos.y)
     {
         m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
@@ -109,11 +108,9 @@ void Camera::Update()
     }
     std::string eysPosX = std::to_string(m_eyePos.x);
     eysPosX = "eysPosX: " + eysPosX + "\n";
-//    OutputDebugString(eysPosX.c_str());
 
     std::string eysPosZ = std::to_string(m_eyePos.z);
     eysPosZ = "eysPosZ: " + eysPosZ + "\n";
-//    OutputDebugString(eysPosZ.c_str());
 }
 
 POINT Camera::GetScreenPos(const D3DXVECTOR3& world)

@@ -22,7 +22,7 @@ public:
     float GetScale();
     void Render();
 
-    LPD3DXMESH GetD3DMesh();
+    LPD3DXMESH GetD3DMesh() const;
 
     void SetWeapon(const bool arg);
 

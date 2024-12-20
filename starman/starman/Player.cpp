@@ -140,9 +140,9 @@ Player::~Player()
 
 void Player::Update(Map* map)
 {
-    //------------------------------------------------------------
+    //============================================================
     // Key Mouse Pad
-    //------------------------------------------------------------
+    //============================================================
 
     //------------------------------------------------------------
     // Keyboard
@@ -164,16 +164,19 @@ void Player::Update(Map* map)
 
     }
 
-    if (KeyBoard::IsDown(DIK_G))
+    if (SharedObj::DebugMode())
     {
-        // デバッグ目的でGキーだけ移動速度アップ
-        move.x += -std::sin(radian + (D3DX_PI / 2)) * 50;
-        move.z += std::sin(radian + D3DX_PI) * 50;
+        if (KeyBoard::IsDown(DIK_G))
+        {
+            // デバッグ目的でGキーだけ移動速度アップ
+            move.x += -std::sin(radian + (D3DX_PI / 2)) * 50;
+            move.z += std::sin(radian + D3DX_PI) * 50;
 
-        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
-        SetRotate(rotate);
-        SetWalk();
+            D3DXVECTOR3 rotate{ 0.f, yaw, 0.f };
+            SetRotate(rotate);
+            SetWalk();
 
+        }
     }
 
     if (KeyBoard::IsDown(DIK_A))
@@ -209,6 +212,16 @@ void Player::Update(Map* map)
     if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
     {
         SetJump();
+    }
+
+    if (SharedObj::DebugMode())
+    {
+        if (KeyBoard::IsDownFirstFrame(DIK_J))
+        {
+            m_bJump = true;
+            m_move.y = JUMP_INITIAL_VELOCITY*5;
+            m_AnimMesh2->SetAnim("Jump", 0.f);
+        }
     }
 
     //------------------------------------------------------------
@@ -280,30 +293,21 @@ void Player::Update(Map* map)
     }
 
     // 重力
-    m_move.y += -0.015f;
-
-//    if (m_bJump)
-//    {
-//        m_jumpTimeCounter++;
-//        bool isHit = map->Intersect(m_loadingPos, D3DXVECTOR3 { 0.f, m_move.y, 0.f });
-//        // ?
-//        //if (isHit)
-//        //{
-//        //    m_move.y = 0.f;
-//        //    m_jumpTimeCounter = 0;
-//        //    m_bJump = false;
-//        //}
-//    }
-//    if (m_jumpTimeCounter >= 60)
-//    {
-//        m_jumpTimeCounter = 0;
-//        m_bJump = false;
-//    }
+    m_move.y += -0.013f;
 
     // 壁ずり
     // 高さを変えて3回チェック
     bool bHit { false };
+    D3DXVECTOR3 tmp = m_loadingPos;
     m_move = map->WallSlide(m_loadingPos, m_move, &bHit);
+
+    // 足が何かに触れたらジャンプを解除する。
+    // 壁ジャンプできてしまうが、ひとまずよしとする。
+    // 何かに触れている状態が1秒続いたら再度ジャンプできる、でもよいかもしれない。
+    if (bHit)
+    {
+        m_bJump = false;
+    }
 
 //    if (bHit == false)
 //    {
@@ -329,7 +333,6 @@ void Player::Update(Map* map)
 //           // m_move.y += -0.01f;
 //        }
 //    }
-    OutputDebugString((std::to_string(m_move.y) + "\n").c_str());
 
     m_loadingPos += m_move;
 
@@ -479,19 +482,10 @@ D3DXVECTOR3 Player::GetAttackPos()
 
 void Player::SetJump()
 {
-    if (SharedObj::DebugMode() == false)
-    {
-        if (m_bJump == false)
-        {
-            m_bJump = true;
-            m_move.y = JUMP_INITIAL_VELOCITY;
-            m_AnimMesh2->SetAnim("Jump", 0.f);
-        }
-    }
-    else
+    if (m_bJump == false)
     {
         m_bJump = true;
-        m_move.y = JUMP_INITIAL_VELOCITY*5;
+        m_move.y = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
     }
 }

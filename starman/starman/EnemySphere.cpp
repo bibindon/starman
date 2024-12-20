@@ -100,7 +100,6 @@ void EnemySphere::Update()
 
             //std::string msg;
             //msg = "randNum: " + std::to_string(randNum) + "\n";
-            //OutputDebugString(msg.c_str());
             if (randNum % 30 == 0)
             {
                 m_state = eEnemyState::ATTACK;
@@ -152,7 +151,6 @@ void EnemySphere::Update()
             FLOAT distance = D3DXVec3Length(&subPos);
             std::string msg;
             msg = "distance: " + std::to_string(distance) + "\n";
-            OutputDebugString(msg.c_str());
 
             if (distance <= 1.0f)
             {

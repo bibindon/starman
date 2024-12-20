@@ -245,7 +245,7 @@ void Mesh::Render()
         }
     }
     m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
-    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
+    //m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
 
     D3DXVECTOR4 vec4Color = {
         Camera::GetEyePos().x,
@@ -283,7 +283,7 @@ void Mesh::Render()
     m_D3DEffect->End();
 }
 
-LPD3DXMESH Mesh::GetD3DMesh()
+LPD3DXMESH Mesh::GetD3DMesh() const
 {
     return m_D3DMesh;
 }

@@ -24,6 +24,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
         PostQuitMessage(0);
         return 0;
     }
+    else if (mes == WM_ACTIVATE)
+    {
+        int lower = wParam & 0xFFFF;
+        if (lower == WA_ACTIVE)
+        {
+            Camera::SleepModeOFF();
+            ShowCursor(false);
+            {
+                RECT rect;
+                rect.left = 150;
+                rect.top = 150;
+                rect.right = 150 + 100;
+                rect.bottom = 150 + 100;
+                ClipCursor(&rect);
+            }
+        }
+        else if (lower == WA_INACTIVE)
+        {
+            Camera::SleepModeON();
+            ShowCursor(true);
+            ClipCursor(NULL);
+        }
+    }
 
     return DefWindowProc(hWnd, mes, wParam, lParam);
 }

@@ -171,8 +171,6 @@ void MeshNoShade::Render()
         D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
         worldViewProjMatrix *= mat;
     }
-    m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
-
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 

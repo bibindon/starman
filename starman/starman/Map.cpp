@@ -1054,7 +1054,7 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
     // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
-    for (auto pair : m_meshMap)
+    for (auto& pair : m_meshMap)
     {
         bIsHit = IntersectSub(pos, rot, pair.second);
         if (bIsHit)
@@ -1063,7 +1063,7 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
         }
     }
     BOOL  bIsHit2 = false;
-    for (auto pair : m_meshCloneMap)
+    for (auto& pair : m_meshCloneMap)
     {
         bIsHit2 = IntersectSub(pos, rot, pair.second);
         if (bIsHit2)
@@ -1078,7 +1078,7 @@ bool Map::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
     // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
-    for (auto pair : m_meshMap)
+    for (auto& pair : m_meshMap)
     {
         bIsHit = IntersectSub(pos, move, pair.second);
         if (bIsHit)
@@ -1142,7 +1142,7 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
 D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit)
 {
     D3DXVECTOR3 result { move };
-    for (auto pair : m_meshMap)
+    for (auto& pair : m_meshMap)
     {
         bool bIsHit = false;
         result = WallSlideSub(pos, pair.second, result, &bIsHit);
@@ -1152,7 +1152,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
         }
     }
 
-    for (auto pair : m_meshCloneMap)
+    for (auto& pair : m_meshCloneMap)
     {
         bool bIsHit = false;
         result = WallSlideSub(pos, pair.second, result, &bIsHit);
@@ -1211,7 +1211,6 @@ D3DXVECTOR3 Map::WallSlideSub(
     float judgeDistance = 2.f / mesh->GetScale();
     if (bIsHit && fLandDistance <= judgeDistance)
     {
-        OutputDebugString("IsHit\n");
         *bHit = true;
 
         // ----- キャラY座標補正 -----
@@ -1293,7 +1292,6 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
     float judgeDistance = 2.f / mesh->GetScale();
     if (bIsHit && fLandDistance <= judgeDistance)
     {
-        OutputDebugString("IsHit\n");
         *bHit = true;
 
         // ----- キャラY座標補正 -----

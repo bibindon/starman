@@ -1539,8 +1539,15 @@ void SeqBattle::UpdatePerSecond()
     //-------------------------------------
     // 2時間ゲームをしたらパワーエッグ星で24時間経過する
     NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
-//            dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
-    dateTime->IncreaseDateTime(0, 0, 0, 30, 0); // 1秒で1時間とか経過させたい時用
+
+    if (SharedObj::DebugMode() == false)
+    {
+        dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
+    }
+    else
+    {
+        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1秒で1時間とか経過させたい時用
+    }
 
     //-------------------------------------
     // ステータスを更新
