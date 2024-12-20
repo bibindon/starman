@@ -44,7 +44,8 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
     else
     {
         originDataPath = ORIGIN_DATA_PATH;
-        originDataPath += filename + ".enc";
+        originDataPath += filename;
+        originDataPath.replace(originDataPath.size() - 3, 3, "enc");
     }
     return originDataPath;
 }
@@ -60,7 +61,8 @@ std::string SaveManager::CreateSaveFilePath(const std::string& filename)
     else
     {
         saveDataPath = SAVEDATA_PATH;
-        saveDataPath += filename + ".enc";
+        saveDataPath += filename;
+        saveDataPath.replace(saveDataPath.size() - 3, 3, "enc");
     }
     return saveDataPath;
 }
