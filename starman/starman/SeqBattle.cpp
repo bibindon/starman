@@ -229,8 +229,8 @@ namespace NSCraftLib
         LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
         LPD3DXSPRITE m_D3DSprite = NULL;
         LPDIRECT3DTEXTURE9 m_pD3DTexture = NULL;
-        UINT m_width{ 0 };
-        UINT m_height{ 0 };
+        UINT m_width = 0;
+        UINT m_height = 0;
     };
 
     class Font : public IFont
