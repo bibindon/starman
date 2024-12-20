@@ -521,7 +521,7 @@ void SeqEnding::Update(eSequence* sequence)
 {
     if (m_storyTelling != nullptr)
     {
-        if (GamePad::IsDown(eJoyStickButtonType::A))
+        if (GamePad::IsDown(eGamePadButtonType::A))
         {
             m_storyTelling->Next();
             m_firstPage = false;

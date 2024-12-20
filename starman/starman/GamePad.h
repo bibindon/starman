@@ -10,7 +10,7 @@
 #include <deque>
 
 // Monostate pattern.
-enum class eJoyStickButtonType
+enum class eGamePadButtonType
 {
     UP,
     DOWN,
@@ -29,7 +29,7 @@ enum class eJoyStickButtonType
 };
 static constexpr int BUTTON_KIND_MAX { 8 };
 
-enum class eJoyStickButtonState
+enum class eGamePadButtonState
 {
     NONE,
     DOWN,
@@ -44,20 +44,20 @@ public:
     static bool Init(LPDIRECTINPUT8 DI, HWND hwnd);
     static void Finalize();
     static void Update();
-    static bool IsHold(eJoyStickButtonType button);
-    static bool IsUp(eJoyStickButtonType button);
-    static bool IsDown(eJoyStickButtonType button);
+    static bool IsHold(eGamePadButtonType button);
+    static bool IsUp(eGamePadButtonType button);
+    static bool IsDown(eGamePadButtonType button);
     static float GetLeftRadian();
     static bool IsLeftStickUsed();
-    static bool CheckSimultaneous(eJoyStickButtonType button);
+    static bool CheckSimultaneous(eGamePadButtonType button);
 
     static LPDIRECTINPUT8 m_DI;
     static LPDIRECTINPUTDEVICE8 m_DIDevice;
-    struct JoyStickInfo
+    struct GamePadInfo
     {
-        std::unordered_map<eJoyStickButtonType, eJoyStickButtonState> m_buttonStatusMap;
+        std::unordered_map<eGamePadButtonType, eGamePadButtonState> m_buttonStatusMap;
     };
-    static std::deque<JoyStickInfo> m_deqButton;
+    static std::deque<GamePadInfo> m_deqButton;
 
 private:
     static bool CreateDevice(HWND hwnd);

@@ -3,6 +3,9 @@
 #include "Camera.h"
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
+#include "KeyBoard.h"
+#include "Mouse.h"
+#include "GamePad.h"
 
 Player::Player()
 {
@@ -137,6 +140,122 @@ Player::~Player()
 
 void Player::Update(Map* map)
 {
+    //------------------------------------------------------------
+    // Key Mouse Pad
+    //------------------------------------------------------------
+
+    //------------------------------------------------------------
+    // Keyboard
+    //------------------------------------------------------------
+
+    D3DXVECTOR3 move { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 rotate { 0.f, 0.f, 0.f };
+    float radian = Camera::GetRadian();
+    float yaw = -1.f * (radian - (D3DX_PI / 2));
+
+    if (KeyBoard::IsDown(DIK_W))
+    {
+        move.x += -std::sin(radian + D3DX_PI / 2);
+        move.z += std::sin(radian + D3DX_PI);
+
+        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
+        SetRotate(rotate);
+        SetWalk();
+
+    }
+
+    if (KeyBoard::IsDown(DIK_G))
+    {
+        // デバッグ目的でGキーだけ移動速度アップ
+        move.x += -std::sin(radian + (D3DX_PI / 2)) * 50;
+        move.z += std::sin(radian + D3DX_PI) * 50;
+
+        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
+        SetRotate(rotate);
+        SetWalk();
+
+    }
+
+    if (KeyBoard::IsDown(DIK_A))
+    {
+        move.x += -std::sin(radian + D3DX_PI);
+        move.z += std::sin(radian + D3DX_PI * 3 / 2);
+
+        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
+        SetRotate(rotate);
+        SetWalk();
+    }
+
+    if (KeyBoard::IsDown(DIK_S))
+    {
+        move.x += -std::sin(radian + D3DX_PI * 3 / 2);
+        move.z += std::sin(radian);
+
+        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI, 0.f };
+        SetRotate(rotate);
+        SetWalk();
+    }
+
+    if (KeyBoard::IsDown(DIK_D))
+    {
+        move.x += -std::sin(radian);
+        move.z += std::sin(radian + D3DX_PI / 2);
+
+        D3DXVECTOR3 rotate { 0.f, yaw + D3DX_PI / 2, 0.f };
+        SetRotate(rotate);
+        SetWalk();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
+    {
+        SetJump();
+    }
+
+    //------------------------------------------------------------
+    // Mouse
+    //------------------------------------------------------------
+
+    if (Mouse::IsDownLeft())
+    {
+        bool ret = SetAttack();
+    }
+
+    //------------------------------------------------------------
+    // GamePad
+    //------------------------------------------------------------
+
+    if (GamePad::IsLeftStickUsed())
+    {
+        float joyRadian = GamePad::GetLeftRadian();
+        float cameRadian = Camera::GetRadian();
+        float radian = joyRadian + (cameRadian - D3DX_PI * 3 / 2);
+        move.x += std::cos(radian);
+        move.z += std::sin(radian);
+
+        yaw = -1.f * (radian + D3DX_PI / 2);
+        D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
+        SetRotate(rotate);
+        SetWalk();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::R1))
+    {
+        bool ret = SetAttack();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        SetJump();
+    }
+
+
+    //----------------------------------------------------------
+    // Finalize
+    //----------------------------------------------------------
+    move /= 10.f;
+    m_move += move;
+
+
     if (map == nullptr)
     {
         return;

@@ -39,8 +39,7 @@ public:
     void Update(eSequence* sequence);
     void Render();
     void InputR1();
-    void InputA();
-    void InputB(eSequence* sequence);
+    void Confirm(eSequence* sequence);
 private:
     Player* m_player { nullptr };
     Sprite* m_spriteGameover { nullptr };

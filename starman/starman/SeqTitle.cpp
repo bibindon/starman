@@ -91,7 +91,7 @@ void SeqTitle::Update(eSequence* sequence)
             m_bFadeOut = true;
             SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);
         }
-        if (GamePad::IsDown(eJoyStickButtonType::UP))
+        if (GamePad::IsDown(eGamePadButtonType::UP))
         {
             switch (m_eMenu)
             {
@@ -114,7 +114,7 @@ void SeqTitle::Update(eSequence* sequence)
             }
             }
         }
-        else if (GamePad::IsDown(eJoyStickButtonType::DOWN))
+        else if (GamePad::IsDown(eGamePadButtonType::DOWN))
         {
             switch (m_eMenu)
             {
@@ -137,7 +137,7 @@ void SeqTitle::Update(eSequence* sequence)
             }
             }
         }
-        else if (GamePad::IsDown(eJoyStickButtonType::A))
+        else if (GamePad::IsDown(eGamePadButtonType::A))
         {
             m_bFadeOut = true;
             SoundEffect::get_ton()->play("res\\sound\\cursor_confirm.wav", 90);

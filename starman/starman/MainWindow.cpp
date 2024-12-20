@@ -220,7 +220,7 @@ int MainWindow::MainLoop()
 
             std::chrono::milliseconds dura =
                 std::chrono::duration_cast<std::chrono::milliseconds>(tpEnd - tpStart);
-            int dura_i = dura.count();
+            int dura_i = (int)dura.count();
 
             if (dura_i >= 16 || dura_i <= 0)
             {
@@ -292,7 +292,7 @@ int MainWindow::MainLoop()
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
         //    m_sprite = new Sprite("res\\image\\board.png");
         }
-        if (GamePad::IsDown(eJoyStickButtonType::A))
+        if (GamePad::IsDown(eGamePadButtonType::A))
         {
 //            MessageBox(NULL, TEXT("aaaaaaa"), TEXT("aaaaaaa"), 0);
          //   m_sprite = new Sprite("res\\image\\board.png");
