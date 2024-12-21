@@ -522,6 +522,15 @@ SeqBattle::SeqBattle(const bool isContinue)
         m_commandManager.Init(vs, vb);
     }
 
+    ShowCursor(false);
+    //{
+    //    RECT rect { };
+    //    rect.left = 150;
+    //    rect.top = 150;
+    //    rect.right = 150 + 100;
+    //    rect.bottom = 150 + 100;
+    //    ClipCursor(&rect);
+    //}
 }
 
 SeqBattle::~SeqBattle()
