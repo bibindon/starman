@@ -51,6 +51,18 @@ bool Common::DebugMode()
     return m_debugMode;
 }
 
+bool Common::ReleaseMode()
+{
+    if (m_debugMode)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
 void Common::SetCursorVisibility(const bool visibility)
 {
     // Win32APIのShowCursor関数は内部でカウンターを持っており、

@@ -50,6 +50,7 @@ public:
     static constexpr float ANIMATION_SPEED { 1.0f / 60 };
 
     static bool DebugMode();
+    static bool ReleaseMode();
 
     static void SetCursorVisibility(const bool visibility);
 
