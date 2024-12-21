@@ -74,15 +74,15 @@ void SeqTitle::Update(eSequence* sequence)
 
         if (result == "Start")
         {
-            m_eMenu == eMenu::START;
+            m_eMenu = eMenu::START;
         }
         else if (result == "Continue")
         {
-            m_eMenu == eMenu::CONTINUE;
+            m_eMenu = eMenu::CONTINUE;
         }
         else if (result == "Exit")
         {
-            m_eMenu == eMenu::EXIT;
+            m_eMenu = eMenu::EXIT;
         }
     }
     if (m_bFadeIn)
