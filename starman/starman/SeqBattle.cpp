@@ -769,6 +769,13 @@ void SeqBattle::OperateStorehouse()
         ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
         m_storehouse->Click(p.x, p.y);
     }
+    else
+    {
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        m_storehouse->CursorOn(p.x, p.y);
+    }
 
     if (Mouse::GetZDelta() < 0)
     {
@@ -899,6 +906,13 @@ void SeqBattle::OperateCraft()
         GetCursorPos(&p);
         ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
         m_craft->Click(p.x, p.y);
+    }
+    else
+    {
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        m_craft->CursorOn(p.x, p.y);
     }
 
     if (Mouse::GetZDelta() < 0)

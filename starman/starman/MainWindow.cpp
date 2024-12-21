@@ -125,7 +125,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     if (adaptorNum >= 2)
     {
         std::vector<std::string> vs;
-        for (int i = 0; i < adaptorNum; ++i)
+        for (int i = 0; i < (int)adaptorNum; ++i)
         {
             D3DADAPTER_IDENTIFIER9 adapterInfo;
             m_D3D->GetAdapterIdentifier(i, 0, &adapterInfo);
