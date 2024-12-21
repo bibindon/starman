@@ -27,23 +27,21 @@ public:
     ~MainWindow();
     int MainLoop();
 
+    static eSequence GetSequence();
+
 private:
     const std::string TITLE = "ホシマン";
-    MSG m_msg;
-    HWND m_hWnd;
-    LPDIRECT3D9 m_D3D;
+    MSG m_msg {};
+    HWND m_hWnd = NULL;
+    LPDIRECT3D9 m_D3D = nullptr;
     D3DLIGHT9 light;
-    ID3DXBuffer* pMaterials;
-    DWORD NumMaterials;
-    ID3DXMesh* pMesh;
-    ID3DXBuffer* pAX_Materials;
-    DWORD AX_NumMaterials;
-    ID3DXMesh* pAX_Mesh;
 
     LPDIRECTINPUT8 m_directInput { nullptr };
     Sprite* m_sprite { nullptr };
 
-    eSequence m_sequence { eSequence::TITLE };
+    // WM_CLOSEメッセージを受信したときに対処する必要があるためstatic
+    static eSequence m_sequence;
+
     SeqTitle* m_seqTitle { nullptr };
     SeqOpening* m_seqOpening { nullptr };
     SeqBattle* m_seqBattle { nullptr };

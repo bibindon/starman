@@ -14,6 +14,9 @@
 #include "SharedObj.h"
 #include "PopUp.h"
 #include "PopUp2.h"
+#include "SaveManager.h"
+
+eSequence MainWindow::m_sequence = eSequence::TITLE;
 
 using std::chrono::system_clock;
 
@@ -45,6 +48,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
             Camera::SleepModeON();
             ShowCursor(true);
             ClipCursor(NULL);
+        }
+    }
+    else if (mes == WM_CLOSE)
+    {
+        if (MainWindow::GetSequence()  == eSequence::BATTLE)
+        {
+            SaveManager::Get()->Save();
         }
     }
 
@@ -474,4 +484,9 @@ int MainWindow::MainLoop()
 
     } while (m_msg.message != WM_QUIT);
     return 0;
+}
+
+eSequence MainWindow::GetSequence()
+{
+    return m_sequence;
 }
