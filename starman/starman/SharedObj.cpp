@@ -9,12 +9,6 @@ NSQuestSystem::QuestSystem* SharedObj::m_questSystem { nullptr };
 Map* SharedObj::m_map { nullptr };
 D3DXMATRIX SharedObj::m_rightHandMat;
 
-#if defined(NDEBUG)
-bool SharedObj::m_debugMode { false };
-#else
-bool SharedObj::m_debugMode { true };
-#endif
-
 LPDIRECT3DDEVICE9 SharedObj::GetD3DDevice()
 {
     return m_D3DDevice;
@@ -55,11 +49,6 @@ NSQuestSystem::QuestSystem* SharedObj::GetQuestSystem()
     return m_questSystem;
 }
 
-bool SharedObj::DebugMode()
-{
-    return m_debugMode;
-}
-
 Map* SharedObj::GetMap()
 {
     return m_map;
@@ -92,7 +81,7 @@ void SharedObj::Init()
 
     m_questSystem = new NSQuestSystem::QuestSystem();
 
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         m_questSystem->Init("res\\script\\questSample.debug.csv");
     }

@@ -35,29 +35,23 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
             if (MainWindow::GetSequence() == eSequence::BATTLE)
             {
                 Camera::SleepModeOFF();
-                ShowCursor(false);
-                {
-                    RECT rect { };
-                    rect.left = 150;
-                    rect.top = 150;
-                    rect.right = 150 + 100;
-                    rect.bottom = 150 + 100;
-                    ClipCursor(&rect);
-                }
+                Common::SetCursorVisibility(false);
             }
         }
         else if (lower == WA_INACTIVE)
         {
             Camera::SleepModeON();
-            ShowCursor(true);
-            ClipCursor(NULL);
+            Common::SetCursorVisibility(true);
         }
     }
     else if (mes == WM_CLOSE)
     {
         if (MainWindow::GetSequence()  == eSequence::BATTLE)
         {
-            SaveManager::Get()->Save();
+            if (Common::DebugMode() == false)
+            {
+                SaveManager::Get()->Save();
+            }
         }
     }
 
@@ -427,7 +421,7 @@ int MainWindow::MainLoop()
             m_sprite->Render(pos);
         }
 
-        if (SharedObj::DebugMode())
+        if (Common::DebugMode())
         {
             m_D3DFont->DrawText(
                 NULL,
@@ -480,7 +474,7 @@ int MainWindow::MainLoop()
         D3DDevice->EndScene();
         D3DDevice->Present(NULL, NULL, NULL, NULL);
 
-        if (SharedObj::DebugMode())
+        if (Common::DebugMode())
         {
             if (KeyBoard::IsDownFirstFrame(DIK_F4))
             {

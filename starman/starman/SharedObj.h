@@ -19,7 +19,6 @@ public:
     static Player* GetPlayer();
     static void SetPlayer(Player* player);
     static NSQuestSystem::QuestSystem* GetQuestSystem();
-    static bool DebugMode();
     static Map* GetMap();
     static void SetMap(Map* map);
     static D3DXMATRIX GetRightHandMat();
@@ -31,7 +30,6 @@ private:
     static std::mt19937 m_Engine;
     static Player* m_player;
     static NSQuestSystem::QuestSystem* m_questSystem;
-    static bool m_debugMode;
     static Map* m_map;
     static D3DXMATRIX m_rightHandMat;
 };

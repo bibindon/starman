@@ -48,5 +48,13 @@ public:
     static constexpr int KEY_DEQUE_MAX_SIZE { 300 };
     static constexpr int SIMULTANEOUS_ALLOW_FRAME { 3 };
     static constexpr float ANIMATION_SPEED { 1.0f / 60 };
+
+    static bool DebugMode();
+
+    static void SetCursorVisibility(const bool visibility);
+
+private:
+
+    static bool m_debugMode;
 };
 
