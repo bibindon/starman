@@ -35,7 +35,7 @@ void SaveManager::Destroy()
 std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 {
     std::string originDataPath;
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         originDataPath = ORIGIN_DATA_PATH_DEBUG;
         originDataPath += filename;
@@ -52,7 +52,7 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 {
     std::string saveDataPath;
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         saveDataPath = SAVEDATA_PATH_DEBUG;
         saveDataPath += filename;
@@ -70,46 +70,46 @@ void SaveManager::Save()
 {
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Save(CreateSaveFilePath("humanInfoSub.csv"), !SharedObj::DebugMode());
+    him->Save(CreateSaveFilePath("humanInfoSub.csv"), !Common::DebugMode());
 
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Save(CreateSaveFilePath("mapInfo.csv"), !SharedObj::DebugMode());
+    mapManager->Save(CreateSaveFilePath("mapInfo.csv"), !Common::DebugMode());
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Save(CreateSaveFilePath("item_pos.csv"), !SharedObj::DebugMode());
+    itemManager->Save(CreateSaveFilePath("item_pos.csv"), !Common::DebugMode());
 
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-    inventory->Save(CreateSaveFilePath("inventory.csv"), !SharedObj::DebugMode());
+    inventory->Save(CreateSaveFilePath("inventory.csv"), !Common::DebugMode());
 
     NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
-    storehouse->Save(CreateSaveFilePath("storehouse.csv"), !SharedObj::DebugMode());
+    storehouse->Save(CreateSaveFilePath("storehouse.csv"), !Common::DebugMode());
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Save(CreateSaveFilePath("weaponSave.csv"), !SharedObj::DebugMode());
+    weaponManager->Save(CreateSaveFilePath("weaponSave.csv"), !Common::DebugMode());
 
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Save(CreateSaveFilePath("enemy.csv"),
                            CreateSaveFilePath("enemyVisible.csv"),
-                           !SharedObj::DebugMode());
+                           !Common::DebugMode());
 
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Save(CreateSaveFilePath("skillSub.csv"), !SharedObj::DebugMode());
+    skillManager->Save(CreateSaveFilePath("skillSub.csv"), !Common::DebugMode());
 
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     statusManager->Save(CreateSaveFilePath("status.csv"),
                         SharedObj::GetPlayer()->GetPos().x,
                         SharedObj::GetPlayer()->GetPos().y,
                         SharedObj::GetPlayer()->GetPos().z,
-                        !SharedObj::DebugMode());
+                        !Common::DebugMode());
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Save(CreateSaveFilePath("guide.csv"), !SharedObj::DebugMode());
+    guide->Save(CreateSaveFilePath("guide.csv"), !Common::DebugMode());
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
-    datetime->Save(CreateSaveFilePath("datetime.csv"), !SharedObj::DebugMode());
+    datetime->Save(CreateSaveFilePath("datetime.csv"), !Common::DebugMode());
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-    mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), !SharedObj::DebugMode());
+    mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), !Common::DebugMode());
 }
 
 void SaveManager::LoadOrigin()
@@ -117,50 +117,50 @@ void SaveManager::LoadOrigin()
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
               CreateOriginFilePath("humanInfoSub.csv"),
-              !SharedObj::DebugMode());
+              !Common::DebugMode());
 
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Init(CreateOriginFilePath("mapInfo.csv"), !SharedObj::DebugMode());
+    mapManager->Init(CreateOriginFilePath("mapInfo.csv"), !Common::DebugMode());
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     itemManager->Init(CreateOriginFilePath("item.csv"),
                       CreateOriginFilePath("item_pos.csv"),
-                      !SharedObj::DebugMode());
+                      !Common::DebugMode());
 
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-    inventory->Init(CreateOriginFilePath("inventory.csv"), !SharedObj::DebugMode());
+    inventory->Init(CreateOriginFilePath("inventory.csv"), !Common::DebugMode());
 
     NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
-    storehouse->Init(CreateOriginFilePath("storehouse.csv"), !SharedObj::DebugMode());
+    storehouse->Init(CreateOriginFilePath("storehouse.csv"), !Common::DebugMode());
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Init(CreateOriginFilePath("weapon.csv"),
                         CreateOriginFilePath("weaponSave.csv"),
-                        !SharedObj::DebugMode());
+                        !Common::DebugMode());
 
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Init(CreateOriginFilePath("enemyDef.csv"),
                            CreateOriginFilePath("enemy.csv"),
                            CreateOriginFilePath("enemyVisible.csv"),
-                           !SharedObj::DebugMode());
+                           !Common::DebugMode());
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
     skillManager->Init(CreateOriginFilePath("skill.csv"),
                        CreateOriginFilePath("skillSub.csv"),
-                        !SharedObj::DebugMode());
+                        !Common::DebugMode());
             
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-    statusManager->Init(CreateOriginFilePath("status.csv"), !SharedObj::DebugMode());
+    statusManager->Init(CreateOriginFilePath("status.csv"), !Common::DebugMode());
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateOriginFilePath("guide.csv"), !SharedObj::DebugMode());
+    guide->Init(CreateOriginFilePath("guide.csv"), !Common::DebugMode());
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
-    datetime->Init(CreateOriginFilePath("datetime.csv"), !SharedObj::DebugMode());
+    datetime->Init(CreateOriginFilePath("datetime.csv"), !Common::DebugMode());
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-    mapObjManager->Init(CreateOriginFilePath("map_obj.csv"), !SharedObj::DebugMode());
+    mapObjManager->Init(CreateOriginFilePath("map_obj.csv"), !Common::DebugMode());
 }
 
 void SaveManager::Load()
@@ -168,48 +168,48 @@ void SaveManager::Load()
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateSaveFilePath("humanInfo.csv"),
               CreateSaveFilePath("humanInfoSub.csv"),
-              !SharedObj::DebugMode());
+              !Common::DebugMode());
 
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Init(CreateSaveFilePath("mapInfo.csv"), !SharedObj::DebugMode());
+    mapManager->Init(CreateSaveFilePath("mapInfo.csv"), !Common::DebugMode());
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     itemManager->Init(CreateSaveFilePath("item.csv"),
                       CreateSaveFilePath("item_pos.csv"),
-                      !SharedObj::DebugMode());
+                      !Common::DebugMode());
 
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-    inventory->Init(CreateSaveFilePath("inventory.csv"), !SharedObj::DebugMode());
+    inventory->Init(CreateSaveFilePath("inventory.csv"), !Common::DebugMode());
 
     NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
-    storehouse->Init(CreateSaveFilePath("storehouse.csv"), !SharedObj::DebugMode());
+    storehouse->Init(CreateSaveFilePath("storehouse.csv"), !Common::DebugMode());
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Init(CreateSaveFilePath("weapon.csv"),
                         CreateSaveFilePath("weaponSave.csv"),
-                        !SharedObj::DebugMode());
+                        !Common::DebugMode());
 
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Init(CreateSaveFilePath("enemyDef.csv"),
                            CreateSaveFilePath("enemy.csv"),
                            CreateSaveFilePath("enemyVisible.csv"),
-                           !SharedObj::DebugMode());
+                           !Common::DebugMode());
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
     skillManager->Init(CreateSaveFilePath("skill.csv"),
                        CreateSaveFilePath("skillSub.csv"),
-                        !SharedObj::DebugMode());
+                        !Common::DebugMode());
             
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-    statusManager->Init(CreateSaveFilePath("status.csv"), !SharedObj::DebugMode());
+    statusManager->Init(CreateSaveFilePath("status.csv"), !Common::DebugMode());
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateSaveFilePath("guide.csv"), !SharedObj::DebugMode());
+    guide->Init(CreateSaveFilePath("guide.csv"), !Common::DebugMode());
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
-    datetime->Init(CreateSaveFilePath("datetime.csv"), !SharedObj::DebugMode());
+    datetime->Init(CreateSaveFilePath("datetime.csv"), !Common::DebugMode());
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-    mapObjManager->Init(CreateSaveFilePath("map_obj.csv"), !SharedObj::DebugMode());
+    mapObjManager->Init(CreateSaveFilePath("map_obj.csv"), !Common::DebugMode());
 }

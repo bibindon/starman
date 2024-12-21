@@ -21,7 +21,7 @@ SeqTitle::SeqTitle()
 
     // セーブデータがあるか否か
     int saveExist = 0;
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         saveExist = PathFileExists("res\\script\\save_debug");
     }
@@ -55,8 +55,7 @@ SeqTitle::SeqTitle()
         m_commandManager.Init(vs, vb);
     }
 
-    ShowCursor(true);
-    ClipCursor(NULL);
+    Common::SetCursorVisibility(true);
 }
 
 SeqTitle::~SeqTitle()

@@ -164,7 +164,7 @@ void Player::Update(Map* map)
 
     }
 
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         if (KeyBoard::IsDown(DIK_G))
         {
@@ -214,7 +214,7 @@ void Player::Update(Map* map)
         SetJump();
     }
 
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         if (KeyBoard::IsDownFirstFrame(DIK_J))
         {

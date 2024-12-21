@@ -522,15 +522,7 @@ SeqBattle::SeqBattle(const bool isContinue)
         m_commandManager.Init(vs, vb);
     }
 
-    ShowCursor(false);
-    //{
-    //    RECT rect { };
-    //    rect.left = 150;
-    //    rect.top = 150;
-    //    rect.right = 150 + 100;
-    //    rect.bottom = 150 + 100;
-    //    ClipCursor(&rect);
-    //}
+    Common::SetCursorVisibility(false);
 }
 
 SeqBattle::~SeqBattle()
@@ -598,7 +590,7 @@ void SeqBattle::Update(eSequence* sequence)
         Operate(sequence);
     }
 
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         UpdateDebug();
     }
@@ -614,45 +606,21 @@ void SeqBattle::OperateMenu(eSequence* sequence)
     {
         m_bShowMenu = false;
         Camera::SleepModeOFF();
-        ShowCursor(false);
-        {
-            RECT rect { };
-            rect.left = 150;
-            rect.top = 150;
-            rect.right = 150 + 100;
-            rect.bottom = 150 + 100;
-            ClipCursor(&rect);
-        }
+        Common::SetCursorVisibility(false);
         *sequence = eSequence::OPENING;
     }
     else if (result == "タイトル")
     {
         m_bShowMenu = false;
         Camera::SleepModeOFF();
-        ShowCursor(false);
-        {
-            RECT rect { };
-            rect.left = 150;
-            rect.top = 150;
-            rect.right = 150 + 100;
-            rect.bottom = 150 + 100;
-            ClipCursor(&rect);
-        }
+        Common::SetCursorVisibility(false);
         *sequence = eSequence::TITLE;
     }
     else if (result == "EXIT")
     {
         m_bShowMenu = false;
         Camera::SleepModeOFF();
-        ShowCursor(false);
-        {
-            RECT rect { };
-            rect.left = 150;
-            rect.top = 150;
-            rect.right = 150 + 100;
-            rect.bottom = 150 + 100;
-            ClipCursor(&rect);
-        }
+        Common::SetCursorVisibility(false);
     }
 }
 
@@ -693,13 +661,13 @@ void SeqBattle::OperateStorehouse()
     // KeyBoard
     //---------------------------------------------------------
 
-    if (SharedObj::DebugMode())
+    if (Common::DebugMode())
     {
         if (KeyBoard::IsDownFirstFrame(DIK_F1))
         {
             m_bShowStorehouse = false;
             Camera::SleepModeOFF();
-            ShowCursor(false);
+            Common::SetCursorVisibility(false);
         }
     }
 
@@ -876,7 +844,7 @@ void SeqBattle::OperateCraft()
     {
         m_bShowCraft = false;
         Camera::SleepModeOFF();
-        ShowCursor(false);
+        Common::SetCursorVisibility(false);
     }
 
     if (KeyBoard::IsDownFirstFrame(DIK_UP))
@@ -974,15 +942,7 @@ void SeqBattle::OperateCommand()
     {
         m_bShowCommand = false;
         Camera::SleepModeOFF();
-        ShowCursor(false);
-        {
-            RECT rect { };
-            rect.left = 150;
-            rect.top = 150;
-            rect.right = 150 + 100;
-            rect.bottom = 150 + 100;
-            ClipCursor(&rect);
-        }
+        Common::SetCursorVisibility(false);
     }
 }
 
@@ -1138,8 +1098,7 @@ void SeqBattle::UpdateDebug()
                 delete m_storehouse;
 
                 Camera::SleepModeON();
-                ShowCursor(true);
-                ClipCursor(NULL);
+                Common::SetCursorVisibility(true);
 
                 // TODO 倉庫を表示する度に倉庫画面を作るのをやめる
                 m_storehouse = new NSStorehouseLib::StorehouseLib();
@@ -1232,8 +1191,7 @@ void SeqBattle::UpdateDebug()
                 delete m_craft;
 
                 Camera::SleepModeON();
-                ShowCursor(true);
-                ClipCursor(NULL);
+                Common::SetCursorVisibility(true);
 
                 m_craft = new NSCraftLib::CraftLib();
 
@@ -1590,7 +1548,7 @@ void SeqBattle::UpdatePerSecond()
     // 2時間ゲームをしたらパワーエッグ星で24時間経過する
     NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
-    if (SharedObj::DebugMode() == false)
+    if (Common::DebugMode() == false)
     {
         dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
@@ -1673,8 +1631,7 @@ void SeqBattle::Operate(eSequence* sequence)
     {
         m_bShowMenu = true;
         Camera::SleepModeON();
-        ClipCursor(NULL);
-        ShowCursor(true);
+        Common::SetCursorVisibility(true);
 
         return;
     }
@@ -1687,8 +1644,7 @@ void SeqBattle::Operate(eSequence* sequence)
             m_bShowCommand = true;
 
             Camera::SleepModeON();
-            ShowCursor(true);
-            ClipCursor(NULL);
+            Common::SetCursorVisibility(true);
         }
     }
 
@@ -1707,8 +1663,7 @@ void SeqBattle::Operate(eSequence* sequence)
     {
         m_bShowMenu = true;
         Camera::SleepModeON();
-        ClipCursor(NULL);
-        ShowCursor(true);
+        Common::SetCursorVisibility(true);
 
         return;
     }
@@ -1721,8 +1676,7 @@ void SeqBattle::Operate(eSequence* sequence)
             m_bShowCommand = true;
 
             Camera::SleepModeON();
-            ShowCursor(true);
-            ClipCursor(NULL);
+            Common::SetCursorVisibility(true);
         }
     }
 
