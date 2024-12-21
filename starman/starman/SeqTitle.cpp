@@ -30,8 +30,6 @@ SeqTitle::SeqTitle()
         saveExist = PathFileExists("res\\script\\save");
     }
 
-
-
     {
         std::vector<std::string> vs;
         std::vector<bool> vb;
@@ -56,6 +54,9 @@ SeqTitle::SeqTitle()
     }
 
     Common::SetCursorVisibility(true);
+
+    BGM::get_ton()->load("res\\sound\\title.wav");
+    BGM::get_ton()->play(10);
 }
 
 SeqTitle::~SeqTitle()
