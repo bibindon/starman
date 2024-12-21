@@ -48,7 +48,10 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
     {
         if (MainWindow::GetSequence()  == eSequence::BATTLE)
         {
-            SaveManager::Get()->Save();
+            if (Common::DebugMode() == false)
+            {
+                SaveManager::Get()->Save();
+            }
         }
     }
 
