@@ -11,7 +11,6 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 

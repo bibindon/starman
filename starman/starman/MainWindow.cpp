@@ -20,7 +20,7 @@ eSequence MainWindow::m_sequence = eSequence::TITLE;
 
 using std::chrono::system_clock;
 
-LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
+static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
     if (mes == WM_DESTROY)
     {
@@ -35,7 +35,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
             Camera::SleepModeOFF();
             ShowCursor(false);
             {
-                RECT rect;
+                RECT rect { };
                 rect.left = 150;
                 rect.top = 150;
                 rect.right = 150 + 100;

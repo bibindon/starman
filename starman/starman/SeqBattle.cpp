@@ -580,7 +580,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         Camera::SleepModeOFF();
         ShowCursor(false);
         {
-            RECT rect;
+            RECT rect { };
             rect.left = 150;
             rect.top = 150;
             rect.right = 150 + 100;
@@ -595,7 +595,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         Camera::SleepModeOFF();
         ShowCursor(false);
         {
-            RECT rect;
+            RECT rect { };
             rect.left = 150;
             rect.top = 150;
             rect.right = 150 + 100;
@@ -610,7 +610,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         Camera::SleepModeOFF();
         ShowCursor(false);
         {
-            RECT rect;
+            RECT rect { };
             rect.left = 150;
             rect.top = 150;
             rect.right = 150 + 100;
@@ -926,7 +926,7 @@ void SeqBattle::OperateCommand()
         Camera::SleepModeOFF();
         ShowCursor(false);
         {
-            RECT rect;
+            RECT rect { };
             rect.left = 150;
             rect.top = 150;
             rect.right = 150 + 100;

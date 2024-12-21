@@ -385,7 +385,7 @@ void Player::SetPos(const D3DXVECTOR3& pos)
     m_loadingPos = pos;
 }
 
-D3DXVECTOR3 Player::GetPos()
+D3DXVECTOR3 Player::GetPos() const
 {
     return m_loadingPos;
 }
@@ -395,7 +395,7 @@ void Player::SetMove(const D3DXVECTOR3& move)
     m_move = move;
 }
 
-D3DXVECTOR3 Player::GetMove()
+D3DXVECTOR3 Player::GetMove() const
 {
     return m_move;
 }
@@ -405,7 +405,7 @@ void Player::SetRotate(const D3DXVECTOR3& rotate)
     m_rotate = rotate;
 }
 
-D3DXVECTOR3 Player::GetRotate()
+D3DXVECTOR3 Player::GetRotate() const
 {
     return m_rotate;
 }
@@ -476,12 +476,12 @@ void Player::SetDead()
     }
 }
 
-bool Player::GetDead()
+bool Player::GetDead() const
 {
     return m_bDead;
 }
 
-D3DXVECTOR3 Player::GetAttackPos()
+D3DXVECTOR3 Player::GetAttackPos() const
 {
     D3DXVECTOR3 pos { m_loadingPos };
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
@@ -513,7 +513,7 @@ void Player::SetHP(const int hp)
     m_HP = hp;
 }
 
-int Player::GetHP()
+int Player::GetHP() const
 {
     return m_HP;
 }

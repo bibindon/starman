@@ -13,22 +13,22 @@ public:
     void Render();
     void Update(Map* stage1);
     void SetPos(const D3DXVECTOR3& pos);
-    D3DXVECTOR3 GetPos();
+    D3DXVECTOR3 GetPos() const;
     void SetMove(const D3DXVECTOR3& move);
-    D3DXVECTOR3 GetMove();
+    D3DXVECTOR3 GetMove() const;
     void SetRotate(const D3DXVECTOR3& rotate);
-    D3DXVECTOR3 GetRotate();
+    D3DXVECTOR3 GetRotate() const;
     bool SetAttack();
     void SetWalk();
     void SetDamaged();
     void SetDead();
-    bool GetDead();
-    D3DXVECTOR3 GetAttackPos();
+    bool GetDead() const;
+    D3DXVECTOR3 GetAttackPos() const;
     void SetJump();
     void SetExamine();
 
     void SetHP(const int hp);
-    int GetHP();
+    int GetHP() const;
 private:
     AnimMesh* m_AnimMesh2 = nullptr;
     std::unordered_map<std::string, Mesh*> m_weaponMesh;
