@@ -35,6 +35,13 @@
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance,
     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
+    HWND hWnd = FindWindowA("ホシマン", nullptr);
+    if (hWnd != nullptr)
+    {
+        MessageBox(NULL, "ホシマンはすでに起動済みです。", "二重起動エラー", MB_OK);
+        return 0;
+    }
+
     MainWindow window(hInstance);
     window.MainLoop();
 
