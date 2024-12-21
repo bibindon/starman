@@ -7,6 +7,7 @@
 #include "SoundEffect.h"
 #include "BGM.h"
 #include "SaveManager.h"
+#include <Shlwapi.h>
 
 SeqTitle::SeqTitle()
 {
@@ -18,6 +19,19 @@ SeqTitle::SeqTitle()
     m_spriteBlack = new Sprite("res\\image\\black.png");
     m_spriteBlack->SetFill(true);
 
+    // セーブデータがあるか否か
+    int saveExist = 0;
+    if (SharedObj::DebugMode())
+    {
+        saveExist = PathFileExists("res\\script\\save_debug");
+    }
+    else
+    {
+        saveExist = PathFileExists("res\\script\\save");
+    }
+
+
+
     {
         std::vector<std::string> vs;
         std::vector<bool> vb;
@@ -26,7 +40,14 @@ SeqTitle::SeqTitle()
         vb.push_back(true);
 
         vs.push_back("Continue");
-        vb.push_back(true);
+        if (saveExist == 1)
+        {
+            vb.push_back(true);
+        }
+        else
+        {
+            vb.push_back(false);
+        }
 
         vs.push_back("Exit");
         vb.push_back(true);
@@ -50,6 +71,19 @@ void SeqTitle::Update(eSequence* sequence)
     if (m_bFadeIn == false && m_bFadeOut == false)
     {
         std::string result = m_commandManager.Operate();
+
+        if (result == "Start")
+        {
+            m_eMenu == eMenu::START;
+        }
+        else if (result == "Continue")
+        {
+            m_eMenu == eMenu::CONTINUE;
+        }
+        else if (result == "Exit")
+        {
+            m_eMenu == eMenu::EXIT;
+        }
     }
     if (m_bFadeIn)
     {

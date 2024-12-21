@@ -6,6 +6,7 @@
 #else
 #pragma comment(lib, "d3dx9d.lib")
 #endif
+#pragma comment(lib, "shlwapi.lib")
 
 #if defined(NDEBUG)
 #pragma comment(lib, "..\\..\\StoryTelling\\Release\\StoryTelling.lib")
