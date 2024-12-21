@@ -26,6 +26,8 @@ enum class eGamePadButtonType
     Z_DOWN,
     L1,
     R1,
+    L2,
+    R2,
     BACK,
     START,
     UNKNOWN,

@@ -92,10 +92,10 @@ void Common::SetCursorVisibility(const bool visibility)
         while (work >= 0);
 
         RECT rect { };
-        rect.left = 150;
-        rect.top = 150;
-        rect.right = 150 + 100;
-        rect.bottom = 150 + 100;
+        rect.left = 800;
+        rect.top = 450;
+        rect.right = 800 + 100;
+        rect.bottom = 450 + 100;
         ClipCursor(&rect);
     }
 }

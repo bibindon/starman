@@ -36,6 +36,8 @@ bool GamePad::Init(LPDIRECTINPUT8 DI, HWND hwnd)
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_DOWN, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::L1, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::R1, eGamePadButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eGamePadButtonType::L2, eGamePadButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eGamePadButtonType::R2, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::BACK, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::START, eGamePadButtonState::NONE });
     m_deqButton.push_back(temp);
@@ -184,6 +186,8 @@ void GamePad::Update()
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_DOWN, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::L1, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::R1, eGamePadButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eGamePadButtonType::L2, eGamePadButtonState::NONE });
+    temp.m_buttonStatusMap.insert({ eGamePadButtonType::R2, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::BACK, eGamePadButtonState::NONE });
     temp.m_buttonStatusMap.insert({ eGamePadButtonType::START, eGamePadButtonState::NONE });
     m_deqButton.push_front(temp);
@@ -209,6 +213,8 @@ void GamePad::Update()
         { eGamePadButtonType::Z_DOWN, false },
         { eGamePadButtonType::L1, false },
         { eGamePadButtonType::R1, false },
+        { eGamePadButtonType::L2, false },
+        { eGamePadButtonType::R2, false },
         { eGamePadButtonType::BACK, false },
         { eGamePadButtonType::START, false },
     };
@@ -325,9 +331,15 @@ void GamePad::Update()
             is_push_map.at(eGamePadButtonType::R1) = true;
             break;
         case 6:
-            is_push_map.at(eGamePadButtonType::BACK) = true;
+            is_push_map.at(eGamePadButtonType::L2) = true;
             break;
         case 7:
+            is_push_map.at(eGamePadButtonType::R2) = true;
+            break;
+        case 8:
+            is_push_map.at(eGamePadButtonType::BACK) = true;
+            break;
+        case 9:
             is_push_map.at(eGamePadButtonType::START) = true;
             break;
         }
