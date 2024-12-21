@@ -140,7 +140,7 @@ public:
     void Init()
     {
         HRESULT hr = D3DXCreateFont(m_pD3DDevice,
-                                    24,
+                                    20,
                                     0,
                                     FW_NORMAL,
                                     1,
@@ -153,11 +153,30 @@ public:
                                     &m_pFont);
     }
 
-    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    virtual void DrawText_(const std::string& msg,
+                           const int x,
+                           const int y,
+                           const bool hcenter,
+                           const int transparency)
     {
-        RECT rect = { x, y, 0, 0 };
-        m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
-                          D3DCOLOR_ARGB(255, 255, 255, 255));
+        if (hcenter)
+        {
+            RECT rect = { x, y, x + 100, y + 20 };
+            m_pFont->DrawText(NULL, msg.c_str(),
+                              -1,
+                              &rect,
+                              DT_VCENTER | DT_CENTER | DT_NOCLIP,
+                              D3DCOLOR_ARGB(transparency, 255, 255, 255));
+        }
+        else
+        {
+            RECT rect = { x, y, x + 200, y + 20 };
+            m_pFont->DrawText(NULL, msg.c_str(),
+                              -1,
+                              &rect,
+                              DT_VCENTER | DT_NOCLIP,
+                              D3DCOLOR_ARGB(transparency, 255, 255, 255));
+        }
     }
 
     ~Font()
@@ -202,13 +221,7 @@ void MenuManager::InitMenu()
     sprCursor->Load("res\\image\\menu_cursor.png");
 
     NSMenulib::Sprite* sprBackground = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-    sprBackground->Load("res\\image\\background.png");
-
-    NSMenulib::Sprite* sprPanel = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-    sprPanel->Load("res\\image\\panel.png");
-
-    NSMenulib::Sprite* sprPanelLeft = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
-    sprPanelLeft->Load("res\\image\\panelLeft.png");
+    sprBackground->Load("res\\image\\menu_back.png");
 
     NSMenulib::IFont* pFont = new NSMenulib::Font(SharedObj::GetD3DDevice());
     pFont->Init();
@@ -216,7 +229,7 @@ void MenuManager::InitMenu()
     NSMenulib::ISoundEffect* pSE = new NSMenulib::SoundEffect();
     pSE->Init();
 
-    m_menu.Init("", pFont, pSE, sprCursor, sprBackground, sprPanel, sprPanelLeft);
+    m_menu.Init("", pFont, pSE, sprCursor, sprBackground);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
@@ -649,13 +662,17 @@ std::string MenuManager::OperateMenu()
         ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
         m_menu.Click(p.x, p.y);
     }
-
-    if (Mouse::IsDownRight())
+    else
     {
         POINT p;
         GetCursorPos(&p);
         ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
-        m_menu.RightClick(p.x, p.y);
+        m_menu.CursorOn(p.x, p.y);
+    }
+
+    if (Mouse::IsDownRight())
+    {
+        m_menu.RightClick();
     }
 
     if (Mouse::GetZDelta() < 0)
