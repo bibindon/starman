@@ -493,7 +493,34 @@ SeqBattle::SeqBattle(const bool isContinue)
 
     m_menuManager.InitMenu();
     m_hudManager.Init();
-    m_commandManager.Init();
+
+    {
+        std::vector<std::string> vs;
+        std::vector<bool> vb;
+
+        vs.push_back("”°Ì");
+        vb.push_back(true);
+
+        vs.push_back("‰¡‚É‚È‚é");
+        vb.push_back(true);
+
+        vs.push_back("À‚é");
+        vb.push_back(true);
+
+        vs.push_back("ÌW");
+        vb.push_back(true);
+
+        vs.push_back("‰ÁH");
+        vb.push_back(false);
+
+        vs.push_back("’²—");
+        vb.push_back(false);
+
+        vs.push_back("’Ş‚è");
+        vb.push_back(true);
+
+        m_commandManager.Init(vs, vb);
+    }
 
 }
 

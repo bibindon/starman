@@ -6,7 +6,7 @@
 class CommandManager
 {
 public:
-    void Init();
+    void Init(std::vector<std::string> commands, std::vector<bool> visibles);
     std::string Operate();
     void Draw();
 private:

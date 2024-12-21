@@ -148,7 +148,8 @@ class SoundEffect : public ISoundEffect
 };
 }
 
-void CommandManager::Init()
+void CommandManager::Init(std::vector<std::string> commands,
+                          std::vector<bool> visibles)
 {
     if (m_commandLib != nullptr)
     {
@@ -163,17 +164,14 @@ void CommandManager::Init()
     pFont->Init();
 
     NSCommand::ISoundEffect* pSE = new NSCommand::SoundEffect();
+    pSE->Init();
 
     m_commandLib->Init(pFont, pSE, sprCursor);
 
-    m_commandLib->UpsertCommand("伐採", true);
-    m_commandLib->UpsertCommand("横になる", true);
-    m_commandLib->UpsertCommand("座る", true);
-    m_commandLib->UpsertCommand("採集", true);
-    m_commandLib->UpsertCommand("加工", false);
-    m_commandLib->UpsertCommand("調理", false);
-    m_commandLib->UpsertCommand("釣り", true);
-//    m_commandLib->UpsertCommand("イカダを漕ぐ", false);
+    for (int i = 0; i < (int)commands.size(); ++i)
+    {
+        m_commandLib->UpsertCommand(commands.at(i), visibles.at(i));
+    }
 }
 
 std::string CommandManager::Operate()
@@ -207,6 +205,13 @@ std::string CommandManager::Operate()
         GetCursorPos(&p);
         ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
         result = m_commandLib->Click(p.x, p.y);
+    }
+    else
+    {
+        POINT p;
+        GetCursorPos(&p);
+        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        m_commandLib->MouseMove(p.x, p.y);
     }
 
     if (GamePad::IsDown(eGamePadButtonType::LEFT))

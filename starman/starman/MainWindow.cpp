@@ -32,15 +32,18 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
         int lower = wParam & 0xFFFF;
         if (lower == WA_ACTIVE)
         {
-            Camera::SleepModeOFF();
-            ShowCursor(false);
+            if (MainWindow::GetSequence() == eSequence::BATTLE)
             {
-                RECT rect { };
-                rect.left = 150;
-                rect.top = 150;
-                rect.right = 150 + 100;
-                rect.bottom = 150 + 100;
-                ClipCursor(&rect);
+                Camera::SleepModeOFF();
+                ShowCursor(false);
+                {
+                    RECT rect { };
+                    rect.left = 150;
+                    rect.top = 150;
+                    rect.right = 150 + 100;
+                    rect.bottom = 150 + 100;
+                    ClipCursor(&rect);
+                }
             }
         }
         else if (lower == WA_INACTIVE)
@@ -112,7 +115,25 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     {
         throw std::exception("");
     }
+    auto adaptorNum = m_D3D->GetAdapterCount();
 
+    // Intel HDとグラボからなるPCのときDirectX 9ではIntel HDしか見つからない。
+    // ユーザーがWindowsの設定画面で設定する必要がある。
+    //
+    // TODO 内蔵GPUと外付けGPUのいろいろな組み合わせで試す
+    int adaptor = D3DADAPTER_DEFAULT;
+    if (adaptorNum >= 2)
+    {
+        std::vector<std::string> vs;
+        for (int i = 0; i < adaptorNum; ++i)
+        {
+            D3DADAPTER_IDENTIFIER9 adapterInfo;
+            m_D3D->GetAdapterIdentifier(i, 0, &adapterInfo);
+            vs.push_back(adapterInfo.Description);
+        }
+    }
+
+    // TODO フルスクリーン対応
     D3DPRESENT_PARAMETERS d3dpp = {
         0,
         0,
@@ -133,10 +154,11 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     SharedObj::SetWindowHandle(m_hWnd);
 
     LPDIRECT3DDEVICE9 D3DDevice;
-    if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
+
+    if (FAILED(m_D3D->CreateDevice(adaptor, D3DDEVTYPE_HAL, m_hWnd,
         D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED, &d3dpp, &D3DDevice)))
     {
-        if (FAILED(m_D3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, m_hWnd,
+        if (FAILED(m_D3D->CreateDevice(adaptor, D3DDEVTYPE_HAL, m_hWnd,
             D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED, &d3dpp, &D3DDevice)))
         {
             m_D3D->Release();
@@ -194,18 +216,6 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     // ウィンドウ表示
     ShowWindow(m_hWnd, SW_SHOW);
-
-    ShowCursor(false);
-
-    {
-        RECT rect2 = rect;
-        rect2.left = 150;
-        rect2.top = 150;
-        rect2.right = 150+100;
-        rect2.bottom = 150+100;
-
-        ClipCursor(&rect2);
-    }
 }
 
 MainWindow::~MainWindow()
