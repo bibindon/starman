@@ -19,6 +19,8 @@ SeqTitle::SeqTitle()
     m_spriteBlack = new Sprite("res\\image\\black.png");
     m_spriteBlack->SetFill(true);
 
+    m_spriteTimer = new Sprite("res\\image\\command_cursor.png");
+
     // セーブデータがあるか否か
     int saveExist = 0;
     if (Common::DebugMode())
@@ -57,6 +59,19 @@ SeqTitle::SeqTitle()
 
     BGM::get_ton()->load("res\\sound\\title.wav");
     BGM::get_ton()->play(10);
+
+    HRESULT ret = D3DXCreateFont(SharedObj::GetD3DDevice(),
+                                 20,
+                                 0,
+                                 FW_NORMAL,
+                                 1,
+                                 false,
+                                 SHIFTJIS_CHARSET,
+                                 OUT_TT_ONLY_PRECIS,
+                                 ANTIALIASED_QUALITY,
+                                 FF_DONTCARE,
+                                 "ＭＳ 明朝",
+                                 &m_font);
 }
 
 SeqTitle::~SeqTitle()
@@ -64,6 +79,7 @@ SeqTitle::~SeqTitle()
     SAFE_DELETE(m_sprite1);
     SAFE_DELETE(m_sprite3);
     SAFE_DELETE(m_spriteBlack);
+    SAFE_DELETE(m_spriteTimer);
 }
 
 void SeqTitle::Update(eSequence* sequence)
@@ -76,11 +92,22 @@ void SeqTitle::Update(eSequence* sequence)
         {
             m_eMenu = eMenu::START;
             m_bFadeOut = true;
+            m_thread = new std::thread(
+                [&]
+                {
+                    SaveManager::Get()->LoadOrigin();
+                    m_loaded.store(true);
+                });
         }
         else if (result == "Continue")
         {
             m_eMenu = eMenu::CONTINUE;
-            m_bFadeOut = true;
+            m_thread = new std::thread(
+                [&]
+                {
+                    SaveManager::Get()->Load();
+                    m_loaded.store(true);
+                });
         }
         else if (result == "Exit")
         {
@@ -109,13 +136,11 @@ void SeqTitle::Update(eSequence* sequence)
             case eMenu::START:
             {
                 *sequence = eSequence::OPENING;
-                SaveManager::Get()->LoadOrigin();
                 break;
             }
             case eMenu::CONTINUE:
             {
                 *sequence = eSequence::BATTLE;
-                SaveManager::Get()->Load();
                 break;
             }
             case eMenu::EXIT:
@@ -125,6 +150,11 @@ void SeqTitle::Update(eSequence* sequence)
             }
             }
         }
+    }
+
+    if (m_loaded.load() == true)
+    {
+        m_bFadeOut = true;
     }
 }
 
@@ -147,5 +177,62 @@ void SeqTitle::Render()
     {
         D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
         m_spriteBlack->Render(pos, (int)(255.f * m_fadeOutCount / FADE_OUT_COUNT));
+    }
+
+    if (m_thread != nullptr && m_loaded.load() == false)
+    {
+        // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域
+        // 本当はちゃんとやらないといけない。
+
+        RECT rect { };
+        rect.left = 800 - 100;
+        rect.top = 450 - 100;
+        rect.right = 800 + 100;
+        rect.bottom = 450 + 100;
+
+        rect.left += 8;
+//        rect.top += 31;
+        rect.right += 8;
+//        rect.bottom += 31;
+
+        static float counter = 0;
+        counter += 0.05f;
+
+        D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
+        pos.x = std::sin(counter) * 100 + 800;
+        pos.y = std::cos(counter) * 60 + 450;
+        m_spriteTimer->Render(pos);
+
+        static float counter2 = 0;
+        counter2 += 0.04f;
+
+        pos.x = std::sin(counter2) * 60 + 800;
+        pos.y = std::cos(counter2) * 90 + 450;
+        m_spriteTimer->Render(pos);
+
+        static int counter3 = 0;
+
+        counter3 += 2;
+        if (counter3 >= 256)
+        {
+            counter3 = 0;
+        }
+
+        int temp = 0;
+        if (counter3 <= 127)
+        {
+            temp = counter3;
+        }
+        else
+        {
+            temp = 256 - counter3;
+        }
+
+        m_font->DrawText(NULL,
+                         "Loading...",
+                         -1,
+                         &rect,
+                         DT_CENTER | DT_VCENTER,
+                         D3DCOLOR_ARGB(temp, 255, 255, 255));
     }
 }

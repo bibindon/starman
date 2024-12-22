@@ -3,6 +3,8 @@
 #include "Common.h"
 #include "Sprite.h"
 #include "CommandManager.h"
+#include <thread>
+#include <atomic>
 
 class SeqTitle
 {
@@ -15,6 +17,7 @@ private:
     Sprite* m_sprite1 { nullptr };
     Sprite* m_sprite3 { nullptr };
     Sprite* m_spriteBlack { nullptr };
+    Sprite* m_spriteTimer { nullptr };
     enum class eMenu
     {
         START,
@@ -30,5 +33,9 @@ private:
     const int FADE_OUT_COUNT { 60 };
 
     CommandManager m_commandManager;
+
+    std::thread* m_thread = nullptr;
+    std::atomic<bool> m_loaded = false;
+    LPD3DXFONT m_font { nullptr };
 };
 
