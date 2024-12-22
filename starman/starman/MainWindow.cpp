@@ -124,16 +124,16 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     //
     // TODO 内蔵GPUと外付けGPUのいろいろな組み合わせで試す
     int adaptor = D3DADAPTER_DEFAULT;
-    if (adaptorNum >= 2)
+
+    std::vector<std::string> vs;
+    for (int i = 0; i < (int)adaptorNum; ++i)
     {
-        std::vector<std::string> vs;
-        for (int i = 0; i < (int)adaptorNum; ++i)
-        {
-            D3DADAPTER_IDENTIFIER9 adapterInfo;
-            m_D3D->GetAdapterIdentifier(i, 0, &adapterInfo);
-            vs.push_back(adapterInfo.Description);
-        }
+        D3DADAPTER_IDENTIFIER9 adapterInfo;
+        m_D3D->GetAdapterIdentifier(i, 0, &adapterInfo);
+        vs.push_back(adapterInfo.Description);
     }
+
+    m_GPUName = vs.at(0);
 
     // TODO フルスクリーン対応
     D3DPRESENT_PARAMETERS d3dpp = {
@@ -308,9 +308,6 @@ int MainWindow::MainLoop()
             }
         }
 
-        RECT rect;
-        SetRect(&rect, 0, 0, 50, 50);
-
         KeyBoard::Update();
         Mouse::Update();
         GamePad::Update();
@@ -429,10 +426,24 @@ int MainWindow::MainLoop()
             m_sprite->Render(pos);
         }
 
+        RECT rect;
+
+        if (m_sequence == eSequence::TITLE)
+        {
+            SetRect(&rect, 10, 850, 500, 890);
+            m_D3DFont->DrawText(NULL,
+                                m_GPUName.c_str(),
+                                -1,
+                                &rect,
+                                DT_LEFT | DT_BOTTOM,
+                                D3DCOLOR_ARGB(32, 255, 255, 255));
+        }
+
         if (Common::DebugMode())
         {
             std::string work;
 
+            SetRect(&rect, 0, 0, 50, 50);
             work = "fps:" + std::to_string(fps);
             m_D3DFont->DrawText(
                 NULL,
