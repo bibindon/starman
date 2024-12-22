@@ -79,9 +79,6 @@ private:
 
     std::vector<EnemyBase*> m_vecEnemy { };
 
-    int m_nStagenameCount { 0 };
-    Sprite* m_spriteStageName { nullptr };
-
     LazyMesh m_lazyMesh;
 
     // ‘¾—z

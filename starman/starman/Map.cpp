@@ -19,7 +19,6 @@ Map::~Map()
     {
         SAFE_DELETE(pair.second);
     }
-    SAFE_DELETE(m_spriteStageName);
 }
 
 void Map::Init()
@@ -84,9 +83,6 @@ void Map::Init()
                         D3DXVECTOR3(0.f, 0.f, 0.f));
         m_lazyMesh.SetLoadPos(D3DXVECTOR3(367.f, 343.f, 755.f), 400.f);
     }
-
-    m_spriteStageName = new Sprite("res\\image\\Map.png");
-    m_nStagenameCount = 0;
 
     {
         Mesh* mesh { nullptr };
@@ -752,7 +748,6 @@ void Map::Update()
             it++;
         }
     }
-    m_nStagenameCount++;
 
     Player* player = SharedObj::GetPlayer();
     D3DXVECTOR3 pos = player->GetPos();
@@ -955,10 +950,6 @@ void Map::Render()
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
         m_vecEnemy.at(i)->Render();
-    }
-    if (m_nStagenameCount <= 255)
-    {
-        m_spriteStageName->Render(D3DXVECTOR3 {0.f, 0.f, 0.f}, 255 - m_nStagenameCount);
     }
 
     m_pSun->Render();
