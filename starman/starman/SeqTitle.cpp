@@ -181,19 +181,6 @@ void SeqTitle::Render()
 
     if (m_thread != nullptr && m_loaded.load() == false)
     {
-        // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域
-        // 本当はちゃんとやらないといけない。
-
-        RECT rect { };
-        rect.left = 800 - 100;
-        rect.top = 450 - 100;
-        rect.right = 800 + 100;
-        rect.bottom = 450 + 100;
-
-        rect.left += 8;
-//        rect.top += 31;
-        rect.right += 8;
-//        rect.bottom += 31;
 
         static float counter = 0;
         counter += 0.05f;
@@ -227,6 +214,20 @@ void SeqTitle::Render()
         {
             temp = 256 - counter3;
         }
+
+        // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域
+        // 本当はちゃんとやらないといけない。
+
+        RECT rect { };
+        rect.left = 800 - 100;
+        rect.top = 450 - 100;
+        rect.right = 800 + 100;
+        rect.bottom = 450 + 100;
+
+        rect.left += 8;
+//        rect.top += 31;
+        rect.right += 8;
+//        rect.bottom += 31;
 
         m_font->DrawText(NULL,
                          "Loading...",
