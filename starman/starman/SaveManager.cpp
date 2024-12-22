@@ -185,7 +185,7 @@ void SaveManager::LoadOrigin()
 void SaveManager::Load()
 {
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Init(CreateSaveFilePath("humanInfo.csv"),
+    him->Init(CreateOriginFilePath("humanInfo.csv"),
               CreateSaveFilePath("humanInfoSub.csv"),
               !Common::DebugMode());
 
@@ -193,7 +193,7 @@ void SaveManager::Load()
     mapManager->Init(CreateSaveFilePath("mapInfo.csv"), !Common::DebugMode());
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Init(CreateSaveFilePath("item.csv"),
+    itemManager->Init(CreateOriginFilePath("item.csv"),
                       CreateSaveFilePath("item_pos.csv"),
                       !Common::DebugMode());
 
@@ -204,19 +204,19 @@ void SaveManager::Load()
     storehouse->Init(CreateSaveFilePath("storehouse.csv"), !Common::DebugMode());
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Init(CreateSaveFilePath("weapon.csv"),
+    weaponManager->Init(CreateOriginFilePath("weapon.csv"),
                         CreateSaveFilePath("weaponSave.csv"),
                         !Common::DebugMode());
 
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-    enemyInfoManager->Init(CreateSaveFilePath("enemyDef.csv"),
+    enemyInfoManager->Init(CreateOriginFilePath("enemyDef.csv"),
                            CreateSaveFilePath("enemy.csv"),
                            CreateSaveFilePath("enemyVisible.csv"),
                            !Common::DebugMode());
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Init(CreateSaveFilePath("skill.csv"),
+    skillManager->Init(CreateOriginFilePath("skill.csv"),
                        CreateSaveFilePath("skillSub.csv"),
                         !Common::DebugMode());
             
