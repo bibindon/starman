@@ -68,6 +68,25 @@ std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 
 void SaveManager::Save()
 {
+    // ƒtƒHƒ‹ƒ_‚ª‚È‚¯‚ê‚Îì‚é
+    std::string savedir;
+    if (Common::ReleaseMode())
+    {
+        savedir = "res\\script\\save";
+    }
+    else
+    {
+        savedir = "res\\script\\save_debug";
+    }
+
+    if (PathFileExists(savedir.c_str()) == FALSE)
+    {
+        BOOL result = CreateDirectory(savedir.c_str(), NULL);
+        if (result == FALSE)
+        {
+            throw std::exception();
+        }
+    }
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Save(CreateSaveFilePath("humanInfoSub.csv"), !Common::DebugMode());
