@@ -31,7 +31,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
     else if (mes == WM_ACTIVATE)
     {
         int lower = wParam & 0xFFFF;
-        if (lower == WA_ACTIVE)
+        if (lower == WA_ACTIVE || lower == WA_CLICKACTIVE)
         {
             if (MainWindow::GetSequence() == eSequence::BATTLE)
             {
