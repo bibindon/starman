@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iomanip>
 #include <Windows.h>
+#include "SharedObj.h"
 
 #if defined(NDEBUG)
 bool Common::m_debugMode { false };
@@ -82,6 +83,24 @@ void Common::SetCursorVisibility(const bool visibility)
         while (work <= -1);
 
         ClipCursor(NULL);
+
+        auto hWnd = SharedObj::GetWindowHandle();
+
+        if (hWnd != nullptr)
+        {
+            RECT rectClient { };
+            GetClientRect(hWnd, &rectClient);
+
+            POINT pt { };
+            ClientToScreen(hWnd, &pt);
+
+            rectClient.top += pt.y;
+            rectClient.left += pt.x;
+
+            // CursorOn処理でゲームパッドと取り合いになるので
+            // マウスカーソルを左上に移動しておく
+            SetCursorPos(rectClient.left, rectClient.top);
+        }
     }
     else
     {
@@ -91,12 +110,27 @@ void Common::SetCursorVisibility(const bool visibility)
         }
         while (work >= 0);
 
-        RECT rect { };
-        rect.left = 800;
-        rect.top = 450;
-        rect.right = 800 + 100;
-        rect.bottom = 450 + 100;
-        ClipCursor(&rect);
+        auto hWnd = SharedObj::GetWindowHandle();
+
+        if (hWnd != nullptr)
+        {
+            RECT rectClient { };
+            GetClientRect(hWnd, &rectClient);
+
+            POINT pt { };
+            ClientToScreen(hWnd, &pt);
+
+            rectClient.top += pt.y;
+            rectClient.left += pt.x;
+            rectClient.bottom += pt.y;
+            rectClient.right += pt.x;
+
+            ClipCursor(&rectClient);
+
+            // CursorOn処理でゲームパッドと取り合いになるので
+            // マウスカーソルを左上に移動しておく
+            SetCursorPos(rectClient.left, rectClient.top);
+        }
     }
 }
 
