@@ -232,6 +232,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PopUp.h" />
     <ClInclude Include="PopUp2.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SaveManager.h" />
     <ClInclude Include="SeqBattle.h" />
     <ClInclude Include="SeqEnding.h" />
@@ -263,6 +264,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="starman.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\image\starman.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

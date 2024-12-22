@@ -15,6 +15,7 @@
 #include "PopUp.h"
 #include "PopUp2.h"
 #include "SaveManager.h"
+#include "resource.h"
 
 eSequence MainWindow::m_sequence = eSequence::TITLE;
 
@@ -62,6 +63,13 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 {
     SharedObj::Init();
 
+    HICON hIcon = (HICON)LoadImage(hInstance,
+                                   MAKEINTRESOURCE(IDI_ICON1),
+                                   IMAGE_ICON,
+                                   GetSystemMetrics(SM_CXICON),
+                                   GetSystemMetrics(SM_CYICON),
+                                   0);
+
     WNDCLASSEX wcex = {
         sizeof(WNDCLASSEX),
         CS_HREDRAW | CS_VREDRAW,
@@ -69,7 +77,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
         0,
         0,
         hInstance,
-        NULL,
+        hIcon,
         NULL,
         (HBRUSH)(COLOR_WINDOW + 1),
         NULL,
