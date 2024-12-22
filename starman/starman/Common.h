@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <Windows.h>
 
 template <typename T>
 inline void SAFE_DELETE(T*& p)

@@ -1,7 +1,6 @@
 #include "Common.h"
 #include <sstream>
 #include <iomanip>
-#include <Windows.h>
 #include "SharedObj.h"
 
 #if defined(NDEBUG)

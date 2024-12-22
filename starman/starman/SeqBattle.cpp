@@ -891,7 +891,7 @@ void SeqBattle::OperateCraft()
 
     if (Mouse::IsDownLeft())
     {
-        POINT p = Common::GetScreenPos();;
+        POINT p = Common::GetScreenPos();
         m_craft->Click(p.x, p.y);
     }
     else
