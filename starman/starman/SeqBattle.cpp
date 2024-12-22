@@ -487,8 +487,17 @@ SeqBattle::SeqBattle(const bool isContinue)
         NSTalkLib2::ISprite* sprite = new NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
         m_talk = new NSTalkLib2::Talk();
-        m_talk->Init("res\\script\\talk2Sample.csv", pFont, pSE, sprite,
-                     "res\\image\\textBack.png", "res\\image\\black.png");
+
+        if (Common::ReleaseMode())
+        {
+            m_talk->Init("res\\script\\origin\\talk2Sample.csv", pFont, pSE, sprite,
+                         "res\\image\\textBack.png", "res\\image\\black.png");
+        }
+        else
+        {
+            m_talk->Init("res\\script\\origin_debug\\talk2Sample.csv", pFont, pSE, sprite,
+                         "res\\image\\textBack.png", "res\\image\\black.png");
+        }
         m_bTalking = true;
     }
 
@@ -643,6 +652,11 @@ void SeqBattle::OperateTalk()
     }
 
     if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
+    {
+        m_talk->Next();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
     {
         m_talk->Next();
     }

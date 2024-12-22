@@ -83,11 +83,11 @@ void SharedObj::Init()
 
     if (Common::DebugMode())
     {
-        m_questSystem->Init("res\\script\\questSample.debug.csv");
+        m_questSystem->Init("res\\script\\origin\\questSample.csv");
     }
     else
     {
-        m_questSystem->Init("res\\script\\questSample.csv");
+        m_questSystem->Init("res\\script\\origin_debug\\questSample.csv");
     }
 }
 
