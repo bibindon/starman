@@ -146,6 +146,7 @@ SeqOpening::SeqOpening()
 
     {
         ISoundEffect* pSE = new NSStoryTelling::SoundEffect();
+        pSE->Init();
 
         ISprite* sprTextBack = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprTextBack->Load("res\\image\\textBack.png");

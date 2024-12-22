@@ -19,6 +19,7 @@
 #include "EnemySphere.h"
 #include "EnemyDisk.h"
 #include "PopUp2.h"
+#include "SaveManager.h"
 
 using namespace NSQuestSystem;
 
@@ -555,6 +556,7 @@ void SeqBattle::Update(eSequence* sequence)
     {
         if (m_eState == eBattleState::GAMEOVER)
         {
+            SaveManager::Get()->DeleteSavedata();
             ++m_nGameoverCounter;
             if (m_nGameoverCounter >= 120)
             {

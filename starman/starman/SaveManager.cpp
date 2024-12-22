@@ -213,3 +213,7 @@ void SaveManager::Load()
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
     mapObjManager->Init(CreateSaveFilePath("map_obj.csv"), !Common::DebugMode());
 }
+
+void SaveManager::DeleteSavedata()
+{
+}

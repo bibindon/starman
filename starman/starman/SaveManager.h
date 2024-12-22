@@ -10,6 +10,7 @@ public:
     void Save();
     void LoadOrigin();
     void Load();
+    void DeleteSavedata();
 
 private:
 
