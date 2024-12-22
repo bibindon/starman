@@ -210,7 +210,7 @@ std::string CommandManager::Operate()
     {
         POINT p;
         GetCursorPos(&p);
-        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
         m_commandLib->MouseMove(p.x, p.y);
     }
 

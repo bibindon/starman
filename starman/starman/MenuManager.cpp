@@ -659,7 +659,7 @@ std::string MenuManager::OperateMenu()
     {
         POINT p;
         GetCursorPos(&p);
-        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
         result = m_menu.Click(p.x, p.y);
 
         std::vector<std::string> vs = Common::split(result, ':');
@@ -715,7 +715,7 @@ std::string MenuManager::OperateMenu()
     {
         POINT p;
         GetCursorPos(&p);
-        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
         m_menu.CursorOn(p.x, p.y);
     }
 
