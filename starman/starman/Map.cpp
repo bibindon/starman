@@ -1153,13 +1153,21 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     }
 
     // 接地判定
+    // TODO ここが間違い。ジャンプ中フラグを追加すること。
+    // (move.y <= -0.008f が諸悪の根源
     // move.yが-0.01以下で、result.yが-0.001以上だったら
     // 落下速度が10分の1以下になったということなので平らな地面に足がついているとする。
     // move.yを0にする
-    if (move.y <= -0.01f &&
-        -0.001f <= result.y && result.y <= 0.f)
+    if (bHit && (- 0.001f <= result.y && result.y <= 0.f))
     {
         result.y = 0.f;
+    }
+    else
+    {
+        if (result.y <= 0.f)
+        {
+            int i = 0;
+        }
     }
 
     // 摩擦
