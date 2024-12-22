@@ -293,7 +293,7 @@ void Player::Update(Map* map)
     }
 
     // 重力
-    m_move.y += -0.013f;
+    m_move.y += -0.01f;
 
     // 壁ずり
     // 高さを変えて3回チェック

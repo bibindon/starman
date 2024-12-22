@@ -194,9 +194,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
     ret = D3DXCreateFont(
         D3DDevice,
-        24,
+        20,
         0,
-        FW_HEAVY,
+        FW_NORMAL,
         1,
         false,
         SHIFTJIS_CHARSET,
@@ -423,23 +423,25 @@ int MainWindow::MainLoop()
 
         if (Common::DebugMode())
         {
+            std::string work;
+
+            work = "fps:" + std::to_string(fps);
             m_D3DFont->DrawText(
                 NULL,
-                std::to_string(fps).c_str(),
+                work.c_str(),
                 -1,
                 &rect,
                 DT_LEFT | DT_NOCLIP,
-                D3DCOLOR_ARGB(255, 0, 127, 0));
+                D3DCOLOR_ARGB(32, 255, 255, 255));
 
             {
-                std::string work;
                 D3DXVECTOR3 pos {0.f, 0.f, 0.f};
                 if (SharedObj::GetPlayer() != nullptr)
                 {
                     pos = SharedObj::GetPlayer()->GetPos();
                 }
 
-                SetRect(&rect, 0, 20, 100, 100);
+                SetRect(&rect, 0, 25, 100, 100);
                 work = "x:" + std::to_string(pos.x);
 
                 m_D3DFont->DrawText(NULL,
@@ -447,9 +449,9 @@ int MainWindow::MainLoop()
                                     -1,
                                     &rect,
                                     DT_LEFT | DT_NOCLIP,
-                                    D3DCOLOR_ARGB(255, 0, 127, 0));
+                                    D3DCOLOR_ARGB(32, 255, 255, 255));
 
-                SetRect(&rect, 0, 40, 100, 100);
+                SetRect(&rect, 0, 50, 100, 100);
                 work = "y:" + std::to_string(pos.y);
 
                 m_D3DFont->DrawText(NULL,
@@ -457,9 +459,9 @@ int MainWindow::MainLoop()
                                     -1,
                                     &rect,
                                     DT_LEFT | DT_NOCLIP,
-                                    D3DCOLOR_ARGB(255, 0, 127, 0));
+                                    D3DCOLOR_ARGB(32, 255, 255, 255));
 
-                SetRect(&rect, 0, 60, 100, 100);
+                SetRect(&rect, 0, 75, 100, 100);
                 work = "z:" + std::to_string(pos.z);
 
                 m_D3DFont->DrawText(NULL,
@@ -467,7 +469,7 @@ int MainWindow::MainLoop()
                                     -1,
                                     &rect,
                                     DT_LEFT | DT_NOCLIP,
-                                    D3DCOLOR_ARGB(255, 0, 127, 0));
+                                    D3DCOLOR_ARGB(32, 255, 255, 255));
             }
         }
 
