@@ -296,10 +296,26 @@ void Player::Update(Map* map)
     m_move.y += -0.01f;
 
     // 壁ずり
-    // 高さを変えて3回チェック
+    // 壁ずりは足に対してだけ行う
     bool bHit { false };
-    D3DXVECTOR3 tmp = m_loadingPos;
     m_move = map->WallSlide(m_loadingPos, m_move, &bHit);
+
+    // 足以外の衝突判定
+    // 胴と頭
+    D3DXVECTOR3 tmp = m_loadingPos;
+    tmp.y += 0.8f;
+    bool bHit2 = map->Intersect(tmp, m_move);
+    if (bHit2)
+    {
+        m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+    }
+
+    tmp.y += 0.8f;
+    bool bHit3 = map->Intersect(tmp, m_move);
+    if (bHit3)
+    {
+        m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+    }
 
     // 足が何かに触れたらジャンプを解除する。
     // 壁ジャンプできてしまうが、ひとまずよしとする。
@@ -319,31 +335,6 @@ void Player::Update(Map* map)
     {
         m_attachCount = 0;
     }
-
-//    if (bHit == false)
-//    {
-//        D3DXVECTOR3 tempPos { m_loadingPos };
-//        tempPos.y += 1.f;
-//        m_move = map->WallSlide(tempPos, m_move, &bHit);
-//        if (bHit == false)
-//        {
-//            D3DXVECTOR3 tempPos { m_loadingPos };
-//            tempPos.y += 2.f;
-//            m_move = map->WallSlide(tempPos, m_move, &bHit);
-//        }
-//    }
-//
-//    // 接地判定
-//    {
-//        D3DXVECTOR3 temp { m_move };
-//
-//        temp.y += -0.1f;
-//        bool isHit = map->CollisionGround(m_loadingPos, temp);
-//        if (isHit == false)
-//        {
-//           // m_move.y += -0.01f;
-//        }
-//    }
 
     m_loadingPos += m_move;
 
