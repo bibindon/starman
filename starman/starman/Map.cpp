@@ -984,16 +984,6 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mes
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
 
-    if (targetPos.x >= 20.f)
-    {
-        return false;
-    }
-
-    if (targetPos.z >= 20.f)
-    {
-        return false;
-    }
-
     targetPos /= mesh->GetScale();
     LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
     float fLandDistance;
@@ -1003,7 +993,7 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mes
     D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
     float judgeDistance = 1.f / mesh->GetScale();
-    if (bIsHit && fLandDistance <= judgeDistance)
+    if (bIsHit && (fLandDistance <= judgeDistance))
     {
         bIsHit = true;
     }
@@ -1019,12 +1009,13 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
 
-    if (targetPos.x >= 20.f)
+    float radius = mesh->GetRadius() * mesh->GetScale();
+    if (targetPos.x >= radius)
     {
         return false;
     }
 
-    if (targetPos.z >= 20.f)
+    if (targetPos.z >= radius)
     {
         return false;
     }
@@ -1039,7 +1030,7 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
 
     float judgeDistance = 1.f / mesh->GetScale();
-    if (bIsHit && fLandDistance <= judgeDistance)
+    if (bIsHit && (fLandDistance <= judgeDistance))
     {
         bIsHit = true;
     }
@@ -1159,6 +1150,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
         if (bIsHit)
         {
             *bHit = true;
+            break;
         }
     }
 
@@ -1269,12 +1261,13 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
 
-    if (targetPos.x >= 20.f)
+    float radius = mesh->GetRadius() * mesh->GetScale();
+    if (targetPos.x >= radius)
     {
         return result;
     }
 
-    if (targetPos.z >= 20.f)
+    if (targetPos.z >= radius)
     {
         return result;
     }

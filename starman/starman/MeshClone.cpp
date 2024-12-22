@@ -17,11 +17,13 @@ MeshClone::MeshClone(
     const string& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
-    const float& scale)
+    const float scale,
+    const float radius)
     : m_meshName { xFilename }
     , m_loadingPos { position }
     , m_rotate { rotation }
     , m_scale { scale }
+    , m_radius { radius }
 {
 }
 
@@ -344,6 +346,11 @@ LPD3DXMESH MeshClone::GetD3DMesh()
 void MeshClone::SetWeapon(const bool arg)
 {
     m_bWeapon = arg;
+}
+
+float MeshClone::GetRadius() const
+{
+    return m_radius;
 }
 
 

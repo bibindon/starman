@@ -13,7 +13,8 @@ public:
         const std::string&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
-        const float&);
+        const float,
+        const float = -1.f);
     ~Mesh();
 
     void Init();
@@ -25,6 +26,8 @@ public:
     LPD3DXMESH GetD3DMesh() const;
 
     void SetWeapon(const bool arg);
+
+    float GetRadius() const;
 
 private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
@@ -39,7 +42,12 @@ private:
     std::vector<D3DCOLORVALUE> m_vecColor { };
     std::vector<LPDIRECT3DTEXTURE9> m_vecTexture { };
     D3DXVECTOR3 m_centerPos { 0.0f, 0.0f, 0.0f };
+
+    // この物体の半径。プレイヤーがこの半径以内に近づいたら
+    // この物体は衝突判定の対象となる
+    // -1だったら必ず衝突判定の対象にする
     float m_radius { 0.0f };
+
     float m_scale { 0.0f };
     std::string m_meshName { "" };
     bool m_bIsInit { false };

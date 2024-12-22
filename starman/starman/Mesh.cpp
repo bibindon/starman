@@ -11,11 +11,13 @@ Mesh::Mesh(
     const string& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
-    const float& scale)
+    const float scale,
+    const float radius)
     : m_meshName { xFilename }
     , m_loadingPos { position }
     , m_rotate { rotation }
     , m_scale { scale }
+    , m_radius { radius }
 {
 }
 
@@ -291,5 +293,10 @@ LPD3DXMESH Mesh::GetD3DMesh() const
 void Mesh::SetWeapon(const bool arg)
 {
     m_bWeapon = arg;
+}
+
+float Mesh::GetRadius() const
+{
+    return m_radius;
 }
 

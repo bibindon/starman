@@ -17,7 +17,8 @@ public:
         const std::string&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
-        const float&);
+        const float scale,
+        const float radius = 20.f);
     ~MeshClone();
 
     void Init();
@@ -29,6 +30,8 @@ public:
     LPD3DXMESH GetD3DMesh();
 
     void SetWeapon(const bool arg);
+
+    float GetRadius() const;
 
 private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
@@ -44,6 +47,9 @@ private:
 
     D3DXVECTOR3 m_centerPos { 0.0f, 0.0f, 0.0f };
     float m_scale { 0.0f };
+
+    float m_radius = 0.f;
+
     std::string m_meshName { "" };
     bool m_bIsInit { false };
 
