@@ -134,3 +134,11 @@ void Common::SetCursorVisibility(const bool visibility)
     }
 }
 
+POINT Common::GetScreenPos()
+{
+    POINT p;
+    GetCursorPos(&p);
+    ScreenToClient(FindWindow("ƒzƒVƒ}ƒ“", nullptr), &p);
+    return p;
+}
+

@@ -53,6 +53,7 @@ public:
     static bool ReleaseMode();
 
     static void SetCursorVisibility(const bool visibility);
+    static POINT GetScreenPos();
 
 private:
 

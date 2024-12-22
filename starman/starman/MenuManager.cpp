@@ -657,9 +657,7 @@ std::string MenuManager::OperateMenu()
 
     if (Mouse::IsDownLeft())
     {
-        POINT p;
-        GetCursorPos(&p);
-        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
+        POINT p = Common::GetScreenPos();;
         result = m_menu.Click(p.x, p.y);
 
         std::vector<std::string> vs = Common::split(result, ':');
@@ -713,9 +711,7 @@ std::string MenuManager::OperateMenu()
     }
     else
     {
-        POINT p;
-        GetCursorPos(&p);
-        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
+        POINT p = Common::GetScreenPos();;
         m_menu.CursorOn(p.x, p.y);
     }
 
