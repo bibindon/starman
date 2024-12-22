@@ -660,7 +660,56 @@ std::string MenuManager::OperateMenu()
         POINT p;
         GetCursorPos(&p);
         ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
-        m_menu.Click(p.x, p.y);
+        result = m_menu.Click(p.x, p.y);
+
+        std::vector<std::string> vs = Common::split(result, ':');
+        if (vs.size() == 5 && vs.at(0) == "アイテム")
+        {
+            // アイテムを使う
+            if (vs.at(4) == "使う")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                if (UseItem(id, subId))
+                {
+                    NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                    inventory->RemoveItem(id, subId);
+                    m_menu.DeleteItem(id, subId);
+                }
+            }
+
+            // アイテムを捨てる
+            if (vs.at(4) == "捨てる")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                inventory->RemoveItem(id, subId);
+                m_menu.DeleteItem(id, subId);
+            }
+        }
+        else if (vs.size() == 5 && vs.at(0) == "武器")
+        {
+            if (vs.at(4) == "装備")
+            {
+                int id = std::stoi(vs.at(2));
+                int subId = std::stoi(vs.at(3));
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id, subId);
+
+                NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+                statusManager->SetEquipWeapon(itemInfo);
+            }
+        }
+        else if (vs.size() >= 1 && vs.at(0) == "セーブして終了")
+        {
+            auto saveManager = SaveManager::Get();
+            saveManager->Save();
+            PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+        }
     }
     else
     {
