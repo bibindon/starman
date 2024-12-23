@@ -71,10 +71,14 @@ private:
 
     void SaveLastStage(const int);
 
-    NSTalkLib2::Talk* m_talk { nullptr };
-    bool m_bTalking { false };
-
     std::deque<std::string> m_finishQuestQue;
+
+    // エンディングを開始してほしいときにtrueにする
+    bool m_bEndingRequest { false };
+
+    //----------------------------------------------------------
+    // 調べる
+    //----------------------------------------------------------
 
     // 調べる、が可能な時
     bool m_bShowExamine { false };
@@ -83,15 +87,17 @@ private:
     // アイテムが拾える時
     bool m_bObtainable = false;
 
-    // エンディングを開始してほしいときにtrueにする
-    bool m_bEndingRequest { false };
-
-    void OperateMenu(eSequence* sequence);
+    //----------------------------------------------------------
+    // 会話
+    //----------------------------------------------------------
+    NSTalkLib2::Talk* m_talk { nullptr };
+    bool m_bTalking { false };
+    void OperateTalk();
 
     //----------------------------------------------------------
     // メニュー
     //----------------------------------------------------------
-    void OperateTalk();
+    void OperateMenu(eSequence* sequence);
     MenuManager m_menuManager;
 
     //----------------------------------------------------------

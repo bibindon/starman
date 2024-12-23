@@ -585,6 +585,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
     else if (result == "EXIT")
     {
         m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
     }
 }
@@ -837,6 +838,11 @@ void SeqBattle::OperateCraft()
         result = m_craft->Back();
     }
 
+    if (KeyBoard::IsDownFirstFrame(DIK_BACK))
+    {
+        result = m_craft->Back();
+    }
+
     if (Mouse::IsDownLeft())
     {
         POINT p = Common::GetScreenPos();
@@ -885,6 +891,13 @@ void SeqBattle::OperateCraft()
     if (GamePad::IsDown(eGamePadButtonType::B))
     {
         result = m_craft->Back();
+    }
+
+    if (result == "EXIT")
+    {
+        m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
     }
 
     return;
