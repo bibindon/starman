@@ -1,3 +1,5 @@
+// TODO カメラ移動時、ちょっとビクンと動く。
+
 #include "Title.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
@@ -75,7 +77,7 @@ Title::Title(const bool blackFadeIn)
 
     m_eMenu = eTitleMenu::NOT_DECIDE;
     m_cameraFadeCount = 0;
-    m_bCameraFade = false;
+    m_bCameraFadeOut = false;
     m_bLoading = false;
     m_bFadeOut = false;
     m_fadeOutCount = 0;
@@ -127,7 +129,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
     else
     {
         // ローディング中、カメラ移動中、フェードアウト中は操作不能にする
-        if (m_bLoading == false && m_bCameraFade == false && m_bFadeOut == false)
+        if (m_bLoading == false && m_bCameraFadeOut == false && m_bFadeOut == false)
         {
             std::string result = m_titleCommand->Operate();
 
@@ -148,7 +150,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             else if (result == "Continue")
             {
                 m_eMenu = eTitleMenu::CONTINUE;
-                m_bCameraFade = true;
+                m_bCameraFadeOut = true;
                 Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
                 m_cameraFadeCount = 0;
                 auto ppos = SharedObj::GetPlayer()->GetPos();
@@ -163,7 +165,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
         }
         else
         {
-            if (m_bCameraFade)
+            if (m_bCameraFadeOut)
             {
                 // カメラをプレイヤーの位置に向かって60フレームで到達するように移動させる。
                 ++m_cameraFadeCount;
@@ -210,7 +212,11 @@ void Title::Render()
     pos.y = 200.f;
 
     m_sprLogo->Render(pos);
-    m_titleCommand->Draw();
+
+    if (m_bFadeIn == false && m_bFadeOut == false && m_bCameraFadeOut)
+    {
+        m_titleCommand->Draw();
+    }
 
     // ロードするならくるくるを表示
     if (m_thread != nullptr && m_loaded.load() == false)

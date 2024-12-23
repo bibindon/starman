@@ -55,7 +55,7 @@ private:
     eTitleMenu m_eMenu = eTitleMenu::NOT_DECIDE;
 
     int m_cameraFadeCount = 0;
-    bool m_bCameraFade = false;
+    bool m_bCameraFadeOut = false;
 
     bool m_bFadeOut = false;
     const int FADE_OUT = 60;
