@@ -26,8 +26,8 @@ void BGM::initialize(HWND hwnd)
 
 void BGM::finalize()
 {
-    SAFE_RELEASE(single_ton_->dx8sound_);
     SAFE_RELEASE(single_ton_->dx8sound_buffer_);
+    SAFE_RELEASE(single_ton_->dx8sound_);
     SAFE_DELETE(single_ton_);
 }
 
