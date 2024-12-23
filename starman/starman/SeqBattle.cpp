@@ -1035,8 +1035,8 @@ void SeqBattle::OperateTitle(eSequence* sequence)
             }
             else if (m_bTitleFadeOut)
             {
-                ++m_bTitleFadeOut;
-                if (m_bTitleFadeOut >= TITLE_FADE_OUT)
+                ++m_titleFadeOutCount;
+                if (m_titleFadeOutCount >= TITLE_FADE_OUT)
                 {
                     FinalizeTitle();
                     m_eState = eBattleState::OPENING;
@@ -1086,7 +1086,7 @@ void SeqBattle::RenderTitle()
         D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
         pos.x = std::sin(counter) * 100 + 800;
         pos.y = std::cos(counter) * 60 + 450;
-        temp1 = std::sin(counter * 0.2) * 255;
+        temp1 = (int)std::sin(counter * 0.2) * 255;
         m_sprTitleClock->Render(pos, temp1);
 
         static float counter2 = 0;
@@ -1094,7 +1094,7 @@ void SeqBattle::RenderTitle()
 
         pos.x = std::sin(counter2) * 60 + 800;
         pos.y = std::cos(counter2) * 90 + 450;
-        temp1 = std::sin(counter2 * 0.2) * 192;
+        temp1 = (int)std::sin(counter2 * 0.2) * 192;
         m_sprTitleClock->Render(pos, temp1);
 
         static int counter3 = 0;
@@ -1219,7 +1219,7 @@ void SeqBattle::RenderLoad()
         D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
         pos.x = std::sin(counter) * 100 + 800;
         pos.y = std::cos(counter) * 60 + 450;
-        temp1 = std::sin(counter * 0.2) * 255;
+        temp1 = (int)std::sin(counter * 0.2) * 255;
         m_sprLoadClock->Render(pos, temp1);
 
         static float counter2 = 0;
@@ -1227,7 +1227,7 @@ void SeqBattle::RenderLoad()
 
         pos.x = std::sin(counter2) * 60 + 800;
         pos.y = std::cos(counter2) * 90 + 450;
-        temp1 = std::sin(counter2 * 0.2) * 192;
+        temp1 = (int)std::sin(counter2 * 0.2) * 192;
         m_sprLoadClock->Render(pos, temp1);
 
         static int counter3 = 0;
@@ -1957,7 +1957,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 1, 10, 0); // 1秒で1時間とか経過させたい時用
+        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1秒で1時間とか経過させたい時用
     }
 
     //-------------------------------------

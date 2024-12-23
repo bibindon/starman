@@ -828,7 +828,7 @@ void Map::Update()
         {
             counter = 0;
         }
-        if (counter == 0)
+        if (counter == 1)
         {
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
