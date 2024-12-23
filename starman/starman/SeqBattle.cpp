@@ -972,7 +972,7 @@ void SeqBattle::OperateTitle()
     else
     {
         // ローディング中、カメラ移動中、フェードアウト中は操作不能にする
-        if (m_bTitleLoading == false && m_bTitleCameraFade == false && m_bTitleFadeOut)
+        if (m_bTitleLoading == false && m_bTitleCameraFade == false && m_bTitleFadeOut == false)
         {
             std::string result = m_titleCommand->Operate();
 
@@ -1129,7 +1129,7 @@ void SeqBattle::InitLoad()
 
     if (saveExist == FALSE)
     {
-        m_bSavedataExists = true;
+        m_bSavedataExists = false;
         m_loadThread = new std::thread(
             [&]
             {
@@ -1139,7 +1139,7 @@ void SeqBattle::InitLoad()
     }
     else
     {
-        m_bSavedataExists = false;
+        m_bSavedataExists = true;
         m_loadThread = new std::thread(
             [&]
             {

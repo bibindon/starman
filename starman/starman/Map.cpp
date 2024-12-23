@@ -90,7 +90,7 @@ void Map::Init()
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         b.x = 15.f;
         b.y = -80.f;
-        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
+        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 5000.0f);
         mesh->Init();
         m_meshMap["sky"] = mesh;
 
@@ -128,7 +128,7 @@ void Map::Init()
     m_pSun = new MeshNoShade("res\\model\\sun\\sun.x",
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
-                             500.0f);
+                             1000.0f);
     m_pSun->Init();
 
     //--------------------------------------------
@@ -869,7 +869,7 @@ void Map::Update()
             // ‘¾—z
             //-------------------------------------
             D3DXVECTOR3 sunPos(vec);
-            sunPos *= 2000;
+            sunPos *= 4000;
             m_pSun->SetPos(sunPos);
 
             //-------------------------------------

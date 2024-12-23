@@ -156,14 +156,4 @@ void Camera::SleepModeOFF()
 void Camera::SetTitleMode(const bool arg)
 {
     m_titleMode = arg;
-
-    if (arg)
-    {
-//        m_eyePos.x = 3000.f;
-//        m_eyePos.z = 3000.f;
-//        m_eyePos.y = 1000.f;
-//        m_lookAtPos.x = 1000.f;
-//        m_lookAtPos.z = 1000.f;
-//        m_lookAtPos.y = 300.f;
-    }
 }
