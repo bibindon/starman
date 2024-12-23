@@ -49,7 +49,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
         }
         else if (lower == WA_INACTIVE)
         {
-            Camera::SetCameraMode(eCameraMode::SLEEP);
+//            Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
         }
     }

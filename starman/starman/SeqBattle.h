@@ -136,7 +136,7 @@ private:
         EXIT,
     };
     void InitTitle();
-    void OperateTitle();
+    void OperateTitle(eSequence* sequence);
     void RenderTitle();
     void FinalizeTitle();
     CommandManager* m_titleCommand;
@@ -154,7 +154,6 @@ private:
     eTitleMenu m_eTitleMenu = eTitleMenu::NOT_DECIDE;
     int m_titleCameraFadeCount = 0;
     bool m_bTitleCameraFade = false;
-    const int TITLE_CAMERA_FADE = 60;
     bool m_bTitleLoading = false;
     bool m_bTitleFadeOut = false;
     const int TITLE_FADE_OUT = 60;

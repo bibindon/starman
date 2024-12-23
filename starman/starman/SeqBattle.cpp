@@ -452,7 +452,7 @@ SeqBattle::SeqBattle()
 
     D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
 
-    BGM::get_ton()->load("res\\sound\\novel.wav");
+    BGM::get_ton()->load("res\\sound\\title.wav");
     BGM::get_ton()->play(10);
 
     m_spriteGameover = new Sprite("res\\image\\gameover.png");
@@ -554,7 +554,7 @@ void SeqBattle::Update(eSequence* sequence)
     }
     else if (m_eState == eBattleState::TITLE)
     {
-        OperateTitle();
+        OperateTitle(sequence);
     }
 
 
@@ -934,9 +934,6 @@ void SeqBattle::InitTitle()
 
     Common::SetCursorVisibility(true);
 
-    BGM::get_ton()->load("res\\sound\\title.wav");
-    BGM::get_ton()->play(10);
-
     HRESULT ret = D3DXCreateFont(SharedObj::GetD3DDevice(),
                                  20,
                                  0,
@@ -955,7 +952,7 @@ void SeqBattle::InitTitle()
     m_titleFadeInAlpha = 255;
 }
 
-void SeqBattle::OperateTitle()
+void SeqBattle::OperateTitle(eSequence* sequence)
 {
     if (m_bTitleFadeIn)
     {
@@ -993,12 +990,16 @@ void SeqBattle::OperateTitle()
                 m_eTitleMenu = eTitleMenu::CONTINUE;
                 m_bTitleCameraFade = true;
                 Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
+                m_titleCameraFadeCount = 0;
+                auto ppos = SharedObj::GetPlayer()->GetPos();
+                ppos.y += 1.0f;
+                Camera::SetLookAtPos(ppos);
             }
             else if (result == "Exit")
             {
                 m_eTitleMenu = eTitleMenu::EXIT;
                 FinalizeTitle();
-                PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+                *sequence = eSequence::EXIT;
             }
         }
         else
@@ -1007,10 +1008,15 @@ void SeqBattle::OperateTitle()
             {
                 // カメラをプレイヤーの位置に向かって60フレームで到達するように移動させる。
                 ++m_titleCameraFadeCount;
-                if (m_titleCameraFadeCount >= TITLE_CAMERA_FADE)
+                if (m_titleCameraFadeCount >= Camera::MOVE_COUNT_MAX)
                 {
                     FinalizeTitle();
                     m_eState = eBattleState::NORMAL;
+                    Camera::SetCameraMode(eCameraMode::BATTLE);
+                    Common::SetCursorVisibility(false);
+
+                    BGM::get_ton()->load("res\\sound\\novel.wav");
+                    BGM::get_ton()->play(10);
                 }
             }
             else if (m_bTitleFadeOut)

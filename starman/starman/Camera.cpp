@@ -19,7 +19,7 @@ bool Camera::m_sleepMode { false };
 eCameraMode Camera::m_eCameraMode;
 
 int Camera::m_counter = 0;
-int Camera::MOVE_COUNT_MAX = 60;
+int Camera::MOVE_COUNT_MAX = 240;
 
 D3DXMATRIX Camera::GetViewMatrix()
 {
@@ -67,14 +67,13 @@ void Camera::Update()
 {
     if (m_eCameraMode == eCameraMode::SLEEP)
     {
-        return;
+        // do nothing
     }
     else if (m_eCameraMode == eCameraMode::TITLE)
     {
         m_eyePos.x = -4000.f;
         m_eyePos.z = -1000.f;
         m_eyePos.y = 300.f;
-        return;
     }
     else if (m_eCameraMode == eCameraMode::BATTLE)
     {
@@ -130,19 +129,27 @@ void Camera::Update()
     }
     else if (m_eCameraMode == eCameraMode::TITLE_TO_BATTLE)
     {
+        ++m_counter;
+
         auto playerPos = SharedObj::GetPlayer()->GetPos();
-        float x = -4000 - ((-4000 - playerPos.x) / MOVE_COUNT_MAX) * m_counter;
-        float z = 300 - ((300 - playerPos.z) / MOVE_COUNT_MAX) * m_counter;
-        float y = -1000 - ((-1000 - playerPos.y) / MOVE_COUNT_MAX) * m_counter;
+        playerPos.x += 0;
+        playerPos.z += -4;
+        playerPos.y += 4;
+        float temp = std::sin((float)m_counter / MOVE_COUNT_MAX * D3DX_PI / 2);
+        auto eyePos = (m_eyePos + playerPos) / 2;
+
+        float x = -4000 - ((-4000 - playerPos.x)  * temp);
+        float z = -1000 - ((-1000 - playerPos.z)  * temp);
+        float y = 300 - ((300 - playerPos.y)  * temp);
 
         m_eyePos.x = x;
         m_eyePos.z = z;
         m_eyePos.y = y;
-        
-        return;
     }
     else if (m_eCameraMode == eCameraMode::BATTLE_TO_TITLE)
     {
+        ++m_counter;
+
         auto playerPos = SharedObj::GetPlayer()->GetPos();
         float x = playerPos.x - ((playerPos.x - (-4000)) / MOVE_COUNT_MAX) * m_counter;
         float z = playerPos.z - ((playerPos.z - 300) / MOVE_COUNT_MAX) * m_counter;
@@ -151,8 +158,6 @@ void Camera::Update()
         m_eyePos.x = x;
         m_eyePos.z = z;
         m_eyePos.y = y;
-        
-        return;
     }
 }
 
