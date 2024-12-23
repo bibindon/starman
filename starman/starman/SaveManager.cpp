@@ -251,6 +251,85 @@ void SaveManager::Load()
     m_savedataLoaded = true;
 }
 
+
+bool SaveManager::DeleteFolderContents(const std::string& folderPath)
+{
+    std::string work;
+    std::string searchPath = folderPath + "\\*";
+    WIN32_FIND_DATA findFileData;
+    HANDLE hFind = FindFirstFile(searchPath.c_str(), &findFileData);
+
+    if (hFind == INVALID_HANDLE_VALUE) {
+        work = "Error: Unable to access directory: " + folderPath + "\n";
+        throw std::exception(work.c_str());
+        return false;
+    }
+
+    do {
+        std::string fileName = findFileData.cFileName;
+
+        // スキップする項目 ("." と "..")
+        if (fileName == "." || fileName == "..") {
+            continue;
+        }
+
+        std::string fullPath = folderPath + "\\" + fileName;
+
+        // ディレクトリの場合
+        if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
+            if (!DeleteFolderContents(fullPath)) {
+                FindClose(hFind);
+                return false;
+            }
+            if (!RemoveDirectory(fullPath.c_str())) {
+                FindClose(hFind);
+
+                work = "Failed to delete directory: " + fullPath + "\n";
+                throw std::exception(work.c_str());
+
+                return false;
+            }
+        }
+        else { // ファイルの場合
+            if (!DeleteFile(fullPath.c_str())) {
+                FindClose(hFind);
+
+                work = "Failed to delete file: " + fullPath + "\n";
+                throw std::exception(work.c_str());
+
+                return false;
+            }
+        }
+    } while (FindNextFile(hFind, &findFileData) != 0);
+
+    FindClose(hFind);
+    return true;
+}
+
+bool SaveManager::DeleteFolder(const std::string& folderPath)
+{
+    if (!DeleteFolderContents(folderPath))
+    {
+        return false;
+    }
+
+    if (!RemoveDirectory(folderPath.c_str()))
+    {
+        std::string work = "Failed to delete folder: " + folderPath + "\n";
+        throw std::exception(work.c_str());
+        return false;
+    }
+    return true;
+}
+
 void SaveManager::DeleteSavedata()
 {
+    if (Common::ReleaseMode())
+    {
+        DeleteFolder(SAVEDATA_FOLDER);
+    }
+    else
+    {
+        DeleteFolder(SAVEDATA_FOLDER_DEBUG);
+    }
 }
