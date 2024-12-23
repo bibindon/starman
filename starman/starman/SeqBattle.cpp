@@ -1938,7 +1938,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1秒で1時間とか経過させたい時用
+        dateTime->IncreaseDateTime(0, 0, 1, 10, 0); // 1秒で1時間とか経過させたい時用
     }
 
     //-------------------------------------

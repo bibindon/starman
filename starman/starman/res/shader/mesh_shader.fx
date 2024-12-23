@@ -38,9 +38,9 @@ void vertex_shader(
     float distance = length(worldPos.xyz - g_cameraPos.xyz);
 
     fog.rbg = 1.0f - ((1500 - distance) / 1500);
-    if (fog.r > 0.7f) { fog.r = 0.7f; }
-    if (fog.g > 0.7f) { fog.g = 0.7f; }
-    if (fog.b > 0.7f) { fog.b = 0.7f; }
+    if (fog.r > 0.5f) { fog.r = 0.5f; }
+    if (fog.g > 0.5f) { fog.g = 0.5f; }
+    if (fog.b > 0.5f) { fog.b = 0.5f; }
     fog.a = 1.0f;
 }
 

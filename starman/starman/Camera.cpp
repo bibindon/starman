@@ -66,11 +66,13 @@ void Camera::Update()
         return;
     }
 
+    // TODO Ç¢Ç¢ä¥Ç∂ÇæÇ™ÅAëæózÇÃå„ÇÎÇ™å©Ç¶ÇƒÇµÇ‹Ç§ÅB
     if (m_titleMode)
     {
-        m_eyePos.x = 1000.f;
-        m_eyePos.z = 1000.f;
+        m_eyePos.x = -4000.f;
+        m_eyePos.z = -1000.f;
         m_eyePos.y = 300.f;
+        return;
     }
 
     LONG x = Mouse::GetXDelta();
@@ -157,8 +159,11 @@ void Camera::SetTitleMode(const bool arg)
 
     if (arg)
     {
-        m_eyePos.x = 1000.f;
-        m_eyePos.z = 1000.f;
-        m_eyePos.y = 300.f;
+//        m_eyePos.x = 3000.f;
+//        m_eyePos.z = 3000.f;
+//        m_eyePos.y = 1000.f;
+//        m_lookAtPos.x = 1000.f;
+//        m_lookAtPos.z = 1000.f;
+//        m_lookAtPos.y = 300.f;
     }
 }
