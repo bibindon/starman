@@ -22,7 +22,7 @@
 class Title
 {
 public:
-    Title();
+    Title(const bool fadeIn);
     ~Title();
     void Update(eSequence* sequence, eBattleState* eState);
     void Render();
@@ -46,6 +46,7 @@ private:
     int m_fadeInCount = 0;
     int m_fadeInAlpha = 0;
     bool m_bFadeIn = false;
+    bool m_bCameraFadeIn = false;
 
     std::thread* m_thread = nullptr;
     std::atomic<bool> m_loaded = false;

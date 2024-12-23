@@ -10,7 +10,7 @@
 #include <Shlwapi.h>
 #include "Camera.h"
 
-Title::Title()
+Title::Title(const bool blackFadeIn)
 {
     {
         std::vector<std::string> vs;
@@ -70,13 +70,24 @@ Title::Title()
 
     m_fadeInCount = 0;
     m_fadeInAlpha = 255;
+
     m_bFadeIn = true;
+
     m_eMenu = eTitleMenu::NOT_DECIDE;
     m_cameraFadeCount = 0;
     m_bCameraFade = false;
     m_bLoading = false;
     m_bFadeOut = false;
     m_fadeOutCount = 0;
+
+    if (blackFadeIn)
+    {
+        m_bCameraFadeIn = false;
+    }
+    else
+    {
+        m_bCameraFadeIn = true;
+    }
 }
 
 Title::~Title()
@@ -93,12 +104,24 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 {
     if (m_bFadeIn)
     {
-        ++m_fadeInCount;
-        m_fadeInAlpha = 255 - (m_fadeInCount * 255 / 60);
-        if (m_fadeInCount >= FADE_IN)
+        if (m_bCameraFadeIn == false)
         {
-            m_bFadeIn = false;
-            m_fadeInAlpha = 0;
+            ++m_fadeInCount;
+            m_fadeInAlpha = 255 - (m_fadeInCount * 255 / 60);
+            if (m_fadeInCount >= FADE_IN)
+            {
+                m_bFadeIn = false;
+                m_fadeInAlpha = 0;
+            }
+        }
+        else
+        {
+            ++m_fadeInCount;
+            if (m_fadeInCount >= Camera::MOVE_COUNT_MAX)
+            {
+                m_bFadeIn = false;
+                Camera::SetCameraMode(eCameraMode::TITLE);
+            }
         }
     }
     else
@@ -178,7 +201,7 @@ void Title::Render()
 
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
 
-    if (m_bFadeIn)
+    if (m_bFadeIn && (m_bCameraFadeIn == false))
     {
         m_sprBack->Render(pos, m_fadeInAlpha);
     }

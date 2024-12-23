@@ -594,7 +594,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         m_eState = eBattleState::TITLE;
         Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
         Common::SetCursorVisibility(true);
-        m_title = new Title();
+        m_title = new Title(false);
     }
     else if (result == "セーブして終了")
     {
@@ -985,7 +985,7 @@ void SeqBattle::UpdateLoad()
         InitializeAfterLoad();
         FinalizeLoad();
         m_eState = eBattleState::TITLE;
-        m_title = new Title();
+        m_title = new Title(true);
     }
 }
 
