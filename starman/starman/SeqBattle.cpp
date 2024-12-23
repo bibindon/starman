@@ -578,15 +578,13 @@ void SeqBattle::OperateMenu(eSequence* sequence)
     }
     else if (result == "タイトル")
     {
-        // TODO カメラを凄く遠ざけてタイトル画面にする
         m_eState = eBattleState::TITLE;
-        Camera::SleepModeON();
+        Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
         Common::SetCursorVisibility(true);
     }
     else if (result == "EXIT")
     {
         m_eState = eBattleState::NORMAL;
-        Camera::SleepModeOFF();
         Common::SetCursorVisibility(false);
     }
 }
@@ -634,7 +632,7 @@ void SeqBattle::OperateStorehouse()
         if (KeyBoard::IsDownFirstFrame(DIK_F1))
         {
             m_eState = eBattleState::STOREHOUSE;
-            Camera::SleepModeOFF();
+            Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(false);
         }
     }
@@ -805,7 +803,7 @@ void SeqBattle::OperateCraft()
     if (KeyBoard::IsDownFirstFrame(DIK_F2))
     {
         m_eState = eBattleState::NORMAL;
-        Camera::SleepModeOFF();
+        Camera::SetCameraMode(eCameraMode::SLEEP);
         Common::SetCursorVisibility(false);
     }
 
@@ -899,7 +897,7 @@ void SeqBattle::OperateCommand()
     if (result == "EXIT")
     {
         m_eState = eBattleState::NORMAL;
-        Camera::SleepModeOFF();
+        Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
     }
 }
@@ -994,6 +992,7 @@ void SeqBattle::OperateTitle()
             {
                 m_eTitleMenu = eTitleMenu::CONTINUE;
                 m_bTitleCameraFade = true;
+                Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
             }
             else if (result == "Exit")
             {
@@ -1180,7 +1179,7 @@ void SeqBattle::InitializeAfterLoad()
     status->GetXYZ(&pos.x, &pos.y, &pos.z);
     m_player->SetPos(pos);
 
-    Camera::SetTitleMode(true);
+    Camera::SetCameraMode(eCameraMode::TITLE);
 }
 
 void SeqBattle::RenderLoad()
@@ -1480,7 +1479,7 @@ void SeqBattle::UpdateDebug()
                 m_eState = eBattleState::STOREHOUSE;
                 delete m_storehouse;
 
-                Camera::SleepModeON();
+                Camera::SetCameraMode(eCameraMode::SLEEP);
                 Common::SetCursorVisibility(true);
 
                 // TODO 倉庫を表示する度に倉庫画面を作るのをやめる
@@ -1574,7 +1573,7 @@ void SeqBattle::UpdateDebug()
 
                 delete m_craft;
 
-                Camera::SleepModeON();
+                Camera::SetCameraMode(eCameraMode::SLEEP);
                 Common::SetCursorVisibility(true);
 
                 m_craft = new NSCraftLib::CraftLib();
@@ -2012,7 +2011,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         m_eState = eBattleState::MENU;
-        Camera::SleepModeON();
+        Camera::SetCameraMode(eCameraMode::SLEEP);
         Common::SetCursorVisibility(true);
 
         return;
@@ -2025,7 +2024,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         {
             m_eState = eBattleState::COMMAND;
 
-            Camera::SleepModeON();
+            Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
         }
     }
@@ -2046,7 +2045,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         if (m_eState == eBattleState::NORMAL)
         {
             m_eState = eBattleState::MENU;
-            Camera::SleepModeON();
+            Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
         }
     }
@@ -2058,7 +2057,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         {
             m_eState = eBattleState::COMMAND;
 
-            Camera::SleepModeON();
+            Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
         }
     }

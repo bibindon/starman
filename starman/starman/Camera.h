@@ -1,8 +1,19 @@
 #pragma once
 #include <d3dx9.h>
+
+enum class eCameraMode
+{
+    BATTLE,
+    TITLE,
+    TITLE_TO_BATTLE,
+    BATTLE_TO_TITLE,
+    SLEEP,
+};
+
 class Camera
 {
 public:
+
     static D3DXMATRIX GetViewMatrix();
     static D3DXMATRIX GetProjMatrix();
     static void SetLookAtPos(const D3DXVECTOR3& lookAtPos);
@@ -12,12 +23,7 @@ public:
     static void Update();
     static POINT GetScreenPos(const D3DXVECTOR3& world);
 
-    // マウスを動かしてもカメラが動かないようにする。
-    // メニュー画面を表示しているときはマウスを動かしてもカメラが動かないで欲しいため。
-    static void SleepModeON();
-    static void SleepModeOFF();
-
-    static void SetTitleMode(const bool arg);
+    static void SetCameraMode(const eCameraMode arg);
 
 private:
 
@@ -29,6 +35,8 @@ private:
     static float m_y;
     static bool m_sleepMode;
 
-    static bool m_titleMode;
+    static eCameraMode m_eCameraMode;
+    static int m_counter;
+    static int MOVE_COUNT_MAX;
 };
 

@@ -36,17 +36,20 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
             auto seq = MainWindow::GetBattleSequence();
             if (seq != nullptr)
             {
-                if (seq->GetState() == eBattleState::NORMAL ||
-                    seq->GetState() == eBattleState::LOAD)
+                if (seq->GetState() == eBattleState::NORMAL)
                 {
-                    Camera::SleepModeOFF();
+                    Camera::SetCameraMode(eCameraMode::BATTLE);
+                    Common::SetCursorVisibility(false);
+                }
+                if (seq->GetState() == eBattleState::LOAD)
+                {
                     Common::SetCursorVisibility(false);
                 }
             }
         }
         else if (lower == WA_INACTIVE)
         {
-            Camera::SleepModeON();
+            Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
         }
     }

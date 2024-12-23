@@ -15,7 +15,11 @@ float Camera::m_viewAngle { D3DX_PI / 4 };
 float Camera::m_radian { D3DX_PI * 3 / 2 };
 float Camera::m_y { 3.f };
 bool Camera::m_sleepMode { false };
-bool Camera::m_titleMode = false;
+
+eCameraMode Camera::m_eCameraMode;
+
+int Camera::m_counter = 0;
+int Camera::MOVE_COUNT_MAX = 60;
 
 D3DXMATRIX Camera::GetViewMatrix()
 {
@@ -61,69 +65,95 @@ void Camera::SetRadian(const float radian)
 
 void Camera::Update()
 {
-    if (m_sleepMode)
+    if (m_eCameraMode == eCameraMode::SLEEP)
     {
         return;
     }
-
-    // TODO いい感じだが、太陽の後ろが見えてしまう。
-    if (m_titleMode)
+    else if (m_eCameraMode == eCameraMode::TITLE)
     {
         m_eyePos.x = -4000.f;
         m_eyePos.z = -1000.f;
         m_eyePos.y = 300.f;
         return;
     }
-
-    LONG x = Mouse::GetXDelta();
-    float y = (float)Mouse::GetYDelta();
-    float joyX { 0.0f };
-    if (GamePad::IsHold(eGamePadButtonType::Z_LEFT))
+    else if (m_eCameraMode == eCameraMode::BATTLE)
     {
-        joyX = 0.05f;
+        LONG x = Mouse::GetXDelta();
+        float y = (float)Mouse::GetYDelta();
+        float joyX { 0.0f };
+        if (GamePad::IsHold(eGamePadButtonType::Z_LEFT))
+        {
+            joyX = 0.05f;
+        }
+        else if (GamePad::IsHold(eGamePadButtonType::Z_RIGHT))
+        {
+            joyX = -0.05f;
+        }
+        if (GamePad::IsHold(eGamePadButtonType::Z_UP))
+        {
+            y = -10;
+        }
+        else if (GamePad::IsHold(eGamePadButtonType::Z_DOWN))
+        {
+            y = 10;
+        }
+        x *= -1; // 正負を逆にする
+
+        // xとyを10分の1にすればリモートデスクトップでもまともに操作できる
+        x /= 10;
+        y /= 10;
+
+        m_radian += x/500.f;
+        m_radian += joyX;
+
+        y /= 100.f;
+
+        float temp = m_lookAtPos.y + m_y + y;
+
+        if ( m_lookAtPos.y - 5.f < temp && temp < m_lookAtPos.y + 5.f)
+        {
+            m_y += y;
+        }
+        else if (temp <= m_lookAtPos.y - 5.f)
+        {
+            m_y = -5.f;
+        }
+        else if (m_lookAtPos.y + 5.f <= temp)
+        {
+            m_y = 5.f;
+        }
+
+        m_eyePos.y = m_lookAtPos.y + m_y;
+
+        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
+        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
     }
-    else if (GamePad::IsHold(eGamePadButtonType::Z_RIGHT))
+    else if (m_eCameraMode == eCameraMode::TITLE_TO_BATTLE)
     {
-        joyX = -0.05f;
+        auto playerPos = SharedObj::GetPlayer()->GetPos();
+        float x = -4000 - ((-4000 - playerPos.x) / MOVE_COUNT_MAX) * m_counter;
+        float z = 300 - ((300 - playerPos.z) / MOVE_COUNT_MAX) * m_counter;
+        float y = -1000 - ((-1000 - playerPos.y) / MOVE_COUNT_MAX) * m_counter;
+
+        m_eyePos.x = x;
+        m_eyePos.z = z;
+        m_eyePos.y = y;
+        
+        return;
     }
-    if (GamePad::IsHold(eGamePadButtonType::Z_UP))
+    else if (m_eCameraMode == eCameraMode::BATTLE_TO_TITLE)
     {
-        y = -10;
+        auto playerPos = SharedObj::GetPlayer()->GetPos();
+        float x = playerPos.x - ((playerPos.x - (-4000)) / MOVE_COUNT_MAX) * m_counter;
+        float z = playerPos.z - ((playerPos.z - 300) / MOVE_COUNT_MAX) * m_counter;
+        float y = playerPos.y - ((playerPos.y - (-1000)) / MOVE_COUNT_MAX) * m_counter;
+
+        m_eyePos.x = x;
+        m_eyePos.z = z;
+        m_eyePos.y = y;
+        
+        return;
     }
-    else if (GamePad::IsHold(eGamePadButtonType::Z_DOWN))
-    {
-        y = 10;
-    }
-    x *= -1; // 正負を逆にする
-
-    // xとyを10分の1にすればリモートデスクトップでもまともに操作できる
-    x /= 10;
-    y /= 10;
-
-    m_radian += x/500.f;
-    m_radian += joyX;
-
-    y /= 100.f;
-
-    float temp = m_lookAtPos.y + m_y + y;
-
-    if ( m_lookAtPos.y - 5.f < temp && temp < m_lookAtPos.y + 5.f)
-    {
-        m_y += y;
-    }
-    else if (temp <= m_lookAtPos.y - 5.f)
-    {
-        m_y = -5.f;
-    }
-    else if (m_lookAtPos.y + 5.f <= temp)
-    {
-        m_y = 5.f;
-    }
-
-    m_eyePos.y = m_lookAtPos.y + m_y;
-
-    m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
-    m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
 }
 
 POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
@@ -143,17 +173,8 @@ POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
         static_cast<int>(matrix._42 / matrix._44) };
 }
 
-void Camera::SleepModeON()
+void Camera::SetCameraMode(const eCameraMode mode)
 {
-    m_sleepMode = true;
+    m_eCameraMode = mode;
 }
 
-void Camera::SleepModeOFF()
-{
-    m_sleepMode = false;
-}
-
-void Camera::SetTitleMode(const bool arg)
-{
-    m_titleMode = arg;
-}
