@@ -576,11 +576,12 @@ void SeqBattle::OperateMenu(eSequence* sequence)
 //        Common::SetCursorVisibility(false);
 //        *sequence = eSequence::OPENING;
     }
-    else if (result == "ƒ^ƒCƒgƒ‹")
+    else if (result == "EXIT")
     {
         m_eState = eBattleState::TITLE;
         Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
         Common::SetCursorVisibility(true);
+        InitTitle();
     }
     else if (result == "EXIT")
     {

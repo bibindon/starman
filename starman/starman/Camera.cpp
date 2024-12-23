@@ -136,7 +136,6 @@ void Camera::Update()
         playerPos.z += -4;
         playerPos.y += 4;
         float temp = std::sin((float)m_counter / MOVE_COUNT_MAX * D3DX_PI / 2);
-        auto eyePos = (m_eyePos + playerPos) / 2;
 
         float x = -4000 - ((-4000 - playerPos.x)  * temp);
         float z = -1000 - ((-1000 - playerPos.z)  * temp);
@@ -151,9 +150,14 @@ void Camera::Update()
         ++m_counter;
 
         auto playerPos = SharedObj::GetPlayer()->GetPos();
-        float x = playerPos.x - ((playerPos.x - (-4000)) / MOVE_COUNT_MAX) * m_counter;
-        float z = playerPos.z - ((playerPos.z - 300) / MOVE_COUNT_MAX) * m_counter;
-        float y = playerPos.y - ((playerPos.y - (-1000)) / MOVE_COUNT_MAX) * m_counter;
+        playerPos.x += 0;
+        playerPos.z += -4;
+        playerPos.y += 4;
+        float temp = std::sin((float)m_counter / MOVE_COUNT_MAX * D3DX_PI / 2);
+
+        float x = playerPos.x - ((playerPos.x - (-4000))  * temp);
+        float z = playerPos.z - ((playerPos.x - (-1000))  * temp);
+        float y = playerPos.y - ((playerPos.x - 300)  * temp);
 
         m_eyePos.x = x;
         m_eyePos.z = z;
@@ -181,5 +185,6 @@ POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
 void Camera::SetCameraMode(const eCameraMode mode)
 {
     m_eCameraMode = mode;
+    m_counter = 0;
 }
 
