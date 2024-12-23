@@ -545,7 +545,7 @@ void SeqEnding::Update(eSequence* sequence)
             m_storyTelling->Finalize();
             delete m_storyTelling;
             m_storyTelling = nullptr;
-            *sequence = eSequence::TITLE;
+            *sequence = eSequence::BATTLE;
         }
     }
 }

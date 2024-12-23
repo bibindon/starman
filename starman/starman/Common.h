@@ -28,8 +28,6 @@ inline void SAFE_RELEASE(T*& p)
 
 enum class eSequence
 {
-    TITLE, //TODO remove
-    OPENING,
     BATTLE,
     ENDING,
     EXIT

@@ -42,8 +42,6 @@ private:
 
     eSequence m_sequence;
 
-    SeqOpening* m_seqOpening { nullptr };
-
     // WM_CLOSEメッセージを受信したときに対処する必要があるためstatic
     static SeqBattle* m_seqBattle;
 

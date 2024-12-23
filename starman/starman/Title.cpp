@@ -237,7 +237,7 @@ void Title::Render()
         D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
         pos.x = std::sin(counter) * 100 + 800;
         pos.y = std::cos(counter) * 60 + 450;
-        temp1 = (int)std::sin(counter * 0.2) * 255;
+        temp1 = (int)((std::sin(counter * 0.2) + 1) * 64);
         m_sprClock->Render(pos, temp1);
 
         static float counter2 = 0;
@@ -245,7 +245,7 @@ void Title::Render()
 
         pos.x = std::sin(counter2) * 60 + 800;
         pos.y = std::cos(counter2) * 90 + 450;
-        temp1 = (int)std::sin(counter2 * 0.2) * 192;
+        temp1 = (int)((std::sin(counter2 * 0.2) + 1) * 128);
         m_sprClock->Render(pos, temp1);
 
         static int counter3 = 0;
@@ -269,7 +269,7 @@ void Title::Render()
         // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域？
         // 本当はちゃんとやらないといけない。
 
-        pos = D3DXVECTOR3(800 - 64, 450 - 64, 0.0f);
+        pos = D3DXVECTOR3(800 - 40, 450 - 10, 0.0f);
         m_sprLoading->Render(pos, temp);
     }
 }

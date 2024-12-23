@@ -520,19 +520,17 @@ SeqBattle::~SeqBattle()
 
 void SeqBattle::Update(eSequence* sequence)
 {
+    UpdateCommon();
+
     if (m_eState == eBattleState::LOAD)
     {
         UpdateLoad();
-        return;
     }
-
-    UpdateCommon();
-
-    if (m_eState == eBattleState::MENU)
+    else if (m_eState == eBattleState::MENU)
     {
         OperateMenu(sequence);
     }
-    if (m_eState == eBattleState::OPENING)
+    else if (m_eState == eBattleState::OPENING)
     {
         OperateOpening();
     }
@@ -998,21 +996,21 @@ void SeqBattle::RenderLoad()
     {
 
         static float counter = 0;
-        counter += 0.05f;
+        counter += 0.02f;
         int temp1 = 0;
 
         D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
         pos.x = std::sin(counter) * 100 + 800;
         pos.y = std::cos(counter) * 60 + 450;
-        temp1 = (int)std::sin(counter * 0.2) * 255;
+        temp1 = (int)((std::sin(counter * 0.2) + 1) * 64);
         m_sprLoadClock->Render(pos, temp1);
 
         static float counter2 = 0;
-        counter2 += 0.04f;
+        counter2 += 0.03f;
 
         pos.x = std::sin(counter2) * 60 + 800;
         pos.y = std::cos(counter2) * 90 + 450;
-        temp1 = (int)std::sin(counter2 * 0.2) * 192;
+        temp1 = (int)((std::sin(counter2 * 0.2) + 1) * 128);
         m_sprLoadClock->Render(pos, temp1);
 
         static int counter3 = 0;
@@ -1145,7 +1143,7 @@ void SeqBattle::Confirm(eSequence* sequence)
     {
         if (m_nGameoverCounter >= 60)
         {
-            *sequence = eSequence::TITLE;
+            m_eState = eBattleState::TITLE;
         }
     }
     else
@@ -1191,6 +1189,16 @@ eBattleState SeqBattle::GetState() const
 
 void SeqBattle::UpdateCommon()
 {
+    if (m_eState == eBattleState::LOAD)
+    {
+        return;
+    }
+
+    if (m_eState == eBattleState::TITLE && m_title->GetLoading())
+    {
+        return;
+    }
+
     m_map->Update();
 
     PopUp2::Get()->Update();

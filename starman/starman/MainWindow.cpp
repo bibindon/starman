@@ -282,7 +282,7 @@ int MainWindow::MainLoop()
                 std::chrono::duration_cast<std::chrono::milliseconds>(tpEnd - tpStart);
             int dura_i = (int)dura.count();
 
-            if (dura_i >= 16 || dura_i <= 0)
+            if (dura_i >= 16 || dura_i <= -1)
             {
                 // do nothing
             }
@@ -335,11 +335,6 @@ int MainWindow::MainLoop()
                 SAFE_DELETE(m_seqBattle);
                 m_seqEnding = new SeqEnding();
             }
-            else if (m_sequence == eSequence::OPENING)
-            {
-                SAFE_DELETE(m_seqBattle);
-                m_seqOpening = new SeqOpening();
-            }
         }
         else if (m_sequence == eSequence::ENDING)
         {
@@ -379,12 +374,7 @@ int MainWindow::MainLoop()
         D3DDevice->SetTransform(D3DTS_VIEW, &View);
         D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
-
-        if (m_sequence == eSequence::OPENING)
-        {
-            m_seqOpening->Render();
-        }
-        else if (m_sequence == eSequence::BATTLE)
+        if (m_sequence == eSequence::BATTLE)
         {
             m_seqBattle->Render();
         }
