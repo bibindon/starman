@@ -29,7 +29,7 @@ public:
     ~MainWindow();
     int MainLoop();
 
-    static eSequence GetSequence();
+    static SeqBattle* GetBattleSequence();
 
 private:
     const std::string TITLE = "ホシマン";
@@ -41,12 +41,14 @@ private:
     LPDIRECTINPUT8 m_directInput { nullptr };
     Sprite* m_sprite { nullptr };
 
-    // WM_CLOSEメッセージを受信したときに対処する必要があるためstatic
-    static eSequence m_sequence;
+    eSequence m_sequence;
 
     SeqTitle* m_seqTitle { nullptr };
     SeqOpening* m_seqOpening { nullptr };
-    SeqBattle* m_seqBattle { nullptr };
+
+    // WM_CLOSEメッセージを受信したときに対処する必要があるためstatic
+    static SeqBattle* m_seqBattle;
+
     SeqEnding* m_seqEnding { nullptr };
 
     LPD3DXFONT m_D3DFont { nullptr };

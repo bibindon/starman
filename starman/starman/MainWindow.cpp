@@ -17,7 +17,7 @@
 #include "SaveManager.h"
 #include "resource.h"
 
-eSequence MainWindow::m_sequence = eSequence::TITLE;
+SeqBattle* MainWindow::m_seqBattle = nullptr;
 
 using std::chrono::system_clock;
 
@@ -33,10 +33,15 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
         int lower = wParam & 0xFFFF;
         if (lower == WA_ACTIVE || lower == WA_CLICKACTIVE)
         {
-            if (MainWindow::GetSequence() == eSequence::BATTLE)
+            auto seq = MainWindow::GetBattleSequence();
+            if (seq != nullptr)
             {
-                Camera::SleepModeOFF();
-                Common::SetCursorVisibility(false);
+                if (seq->GetState() == eBattleState::NORMAL ||
+                    seq->GetState() == eBattleState::LOAD)
+                {
+                    Camera::SleepModeOFF();
+                    Common::SetCursorVisibility(false);
+                }
             }
         }
         else if (lower == WA_INACTIVE)
@@ -47,11 +52,16 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
     }
     else if (mes == WM_CLOSE)
     {
-        if (MainWindow::GetSequence()  == eSequence::BATTLE)
+        auto seq = MainWindow::GetBattleSequence();
+        if (seq != nullptr)
         {
-            if (Common::ReleaseMode())
+            if (seq->GetState() == eBattleState::NORMAL ||
+                seq->GetState() == eBattleState::MENU)
             {
-                SaveManager::Get()->Save();
+                if (Common::ReleaseMode())
+                {
+                    SaveManager::Get()->Save();
+                }
             }
         }
     }
@@ -198,7 +208,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     PopUp::Init();
     PopUp2::Init();
 
-    m_seqTitle = new SeqTitle();
+    m_sequence = eSequence::BATTLE;
+    m_seqBattle = new SeqBattle();
 
     ret = D3DXCreateFont(
         D3DDevice,
@@ -313,6 +324,7 @@ int MainWindow::MainLoop()
         GamePad::Update();
         Camera::Update();
 
+        /*
         if (m_sequence == eSequence::TITLE)
         {
             m_seqTitle->Update(&m_sequence);
@@ -336,7 +348,7 @@ int MainWindow::MainLoop()
                 m_seqBattle = new SeqBattle(false);
             }
         }
-        else if (m_sequence == eSequence::BATTLE)
+        else */if (m_sequence == eSequence::BATTLE)
         {
             m_seqBattle->Update(&m_sequence);
             if (m_sequence == eSequence::ENDING)
@@ -344,11 +356,11 @@ int MainWindow::MainLoop()
                 SAFE_DELETE(m_seqBattle);
                 m_seqEnding = new SeqEnding();
             }
-            else if (m_sequence == eSequence::TITLE)
-            {
-                SAFE_DELETE(m_seqBattle);
-                m_seqTitle = new SeqTitle();
-            }
+            //else if (m_sequence == eSequence::TITLE)
+            //{
+            //    SAFE_DELETE(m_seqBattle);
+            //    m_seqTitle = new SeqTitle();
+            //}
             else if (m_sequence == eSequence::OPENING)
             {
                 SAFE_DELETE(m_seqBattle);
@@ -358,11 +370,11 @@ int MainWindow::MainLoop()
         else if (m_sequence == eSequence::ENDING)
         {
             m_seqEnding->Update(&m_sequence);
-            if (m_sequence == eSequence::TITLE)
-            {
-                SAFE_DELETE(m_seqEnding);
-                m_seqTitle = new SeqTitle();
-            }
+//            if (m_sequence == eSequence::TITLE)
+//            {
+//                SAFE_DELETE(m_seqEnding);
+//                m_seqTitle = new SeqTitle();
+//            }
         }
 
         D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
@@ -511,7 +523,8 @@ int MainWindow::MainLoop()
     return 0;
 }
 
-eSequence MainWindow::GetSequence()
+SeqBattle* MainWindow::GetBattleSequence()
 {
-    return m_sequence;
+    return m_seqBattle;
 }
+

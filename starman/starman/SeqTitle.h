@@ -36,6 +36,6 @@ private:
 
     std::thread* m_thread = nullptr;
     std::atomic<bool> m_loaded = false;
-    LPD3DXFONT m_font { nullptr };
+    LPD3DXFONT m_font = nullptr;
 };
 

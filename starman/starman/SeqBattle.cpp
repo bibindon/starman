@@ -443,7 +443,7 @@ class SoundEffect : public ISoundEffect
 
 }
 
-SeqBattle::SeqBattle(const bool isContinue)
+SeqBattle::SeqBattle()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0.f, 0);
     D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
@@ -458,50 +458,25 @@ SeqBattle::SeqBattle(const bool isContinue)
     m_spriteGameover = new Sprite("res\\image\\gameover.png");
     m_spriteExamine = new Sprite("res\\image\\examine.png");
 
-    if (isContinue)
+    NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
+    NSTalkLib2::ISoundEffect* pSE = new NSTalkLib2::SoundEffect();
+    NSTalkLib2::ISprite* sprite = new NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+    // ?
+    m_talk = new NSTalkLib2::Talk();
+
+    if (Common::ReleaseMode())
     {
-        std::ifstream ifs(".savedata");
-        std::string line;
-        std::getline(ifs, line);
-        if (line.empty() == false)
-        {
-            m_map = new Map();
-            SharedObj::SetMap(m_map);
-            m_map->Init();
-        }
-        else
-        {
-            m_map = new Map();
-            SharedObj::SetMap(m_map);
-            m_map->Init();
-        }
+        m_talk->Init("res\\script\\origin\\talk2Sample.csv", pFont, pSE, sprite,
+                     "res\\image\\textBack.png", "res\\image\\black.png");
     }
     else
     {
-        m_map = new Map();
-        SharedObj::SetMap(m_map);
-        m_map->Init();
-
-        NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
-        NSTalkLib2::ISoundEffect* pSE = new NSTalkLib2::SoundEffect();
-        NSTalkLib2::ISprite* sprite = new NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
-
-        m_talk = new NSTalkLib2::Talk();
-
-        if (Common::ReleaseMode())
-        {
-            m_talk->Init("res\\script\\origin\\talk2Sample.csv", pFont, pSE, sprite,
-                         "res\\image\\textBack.png", "res\\image\\black.png");
-        }
-        else
-        {
-            m_talk->Init("res\\script\\origin_debug\\talk2Sample.csv", pFont, pSE, sprite,
-                         "res\\image\\textBack.png", "res\\image\\black.png");
-        }
-        m_bTalking = true;
+        m_talk->Init("res\\script\\origin_debug\\talk2Sample.csv", pFont, pSE, sprite,
+                     "res\\image\\textBack.png", "res\\image\\black.png");
     }
+    m_bTalking = true;
 
-    m_menuManager.InitMenu();
     m_hudManager.Init();
 
     {
@@ -533,6 +508,9 @@ SeqBattle::SeqBattle(const bool isContinue)
     }
 
     Common::SetCursorVisibility(false);
+
+    m_eState = eBattleState::LOAD;
+    InitLoad();
 }
 
 SeqBattle::~SeqBattle()
@@ -542,64 +520,43 @@ SeqBattle::~SeqBattle()
 
 void SeqBattle::Update(eSequence* sequence)
 {
-    m_map->Update();
-
-    PopUp2::Get()->Update();
-
-    // 60回に一回（＝1秒ごと）の処理
+    if (m_eState == eBattleState::LOAD)
     {
-        static int counter = 0;
-        counter++;
-        if (counter >= 60)
-        {
-            counter = 0;
-        }
-        if (counter == 0)
-        {
-            UpdatePerSecond();
-        }
-    }
-
-    // TODO ここでやるべきではない
-    if (m_player->GetDead())
-    {
-        if (m_eState == eBattleState::GAMEOVER)
-        {
-            SaveManager::Get()->DeleteSavedata();
-            ++m_nGameoverCounter;
-            if (m_nGameoverCounter >= 120)
-            {
-                *sequence = eSequence::TITLE;
-            }
-        }
+        UpdateLoad();
         return;
     }
 
-    if (m_bShowMenu)
+    UpdateCommon();
+
+    if (m_eState == eBattleState::MENU)
     {
         OperateMenu(sequence);
     }
-    // 会話画面が表示されているときの処理
-    else if (m_bTalking)
+    else if (m_eState == eBattleState::TALK)
     {
         OperateTalk();
     }
-    else if (m_bShowStorehouse)
+    else if (m_eState == eBattleState::STOREHOUSE)
     {
         OperateStorehouse();
     }
-    else if (m_bShowCraft)
+    else if (m_eState == eBattleState::CRAFT)
     {
         OperateCraft();
     }
-    else if (m_bShowCommand)
+    else if (m_eState == eBattleState::COMMAND)
     {
         OperateCommand();
     }
-    else
+    else if (m_eState == eBattleState::NORMAL)
     {
-        Operate(sequence);
+        OperateNormal(sequence);
     }
+    else if (m_eState == eBattleState::TITLE)
+    {
+        OperateTitle();
+    }
+
 
     if (Common::DebugMode())
     {
@@ -610,26 +567,25 @@ void SeqBattle::Update(eSequence* sequence)
 
 void SeqBattle::OperateMenu(eSequence* sequence)
 {
-    m_bShowHud = false;
-
     std::string result = m_menuManager.OperateMenu();
     if (result == "最初から")
     {
-        m_bShowMenu = false;
-        Camera::SleepModeOFF();
-        Common::SetCursorVisibility(false);
-        *sequence = eSequence::OPENING;
+        // TODO 最初から、は無くしても良いかもしれない。
+//        m_bShowMenu = false;
+//        Camera::SleepModeOFF();
+//        Common::SetCursorVisibility(false);
+//        *sequence = eSequence::OPENING;
     }
     else if (result == "タイトル")
     {
-        m_bShowMenu = false;
-        Camera::SleepModeOFF();
-        Common::SetCursorVisibility(false);
-        *sequence = eSequence::TITLE;
+        // TODO カメラを凄く遠ざけてタイトル画面にする
+        m_eState = eBattleState::TITLE;
+        Camera::SleepModeON();
+        Common::SetCursorVisibility(true);
     }
     else if (result == "EXIT")
     {
-        m_bShowMenu = false;
+        m_eState = eBattleState::NORMAL;
         Camera::SleepModeOFF();
         Common::SetCursorVisibility(false);
     }
@@ -637,8 +593,6 @@ void SeqBattle::OperateMenu(eSequence* sequence)
 
 void SeqBattle::OperateTalk()
 {
-    m_bShowHud = false;
-
     if (m_talk != nullptr)
     {
         bool talkFinish = m_talk->Update();
@@ -669,8 +623,6 @@ void SeqBattle::OperateTalk()
 
 void SeqBattle::OperateStorehouse()
 {
-    m_bShowHud = false;
-
     std::string result;
 
     //---------------------------------------------------------
@@ -681,7 +633,7 @@ void SeqBattle::OperateStorehouse()
     {
         if (KeyBoard::IsDownFirstFrame(DIK_F1))
         {
-            m_bShowStorehouse = false;
+            m_eState = eBattleState::STOREHOUSE;
             Camera::SleepModeOFF();
             Common::SetCursorVisibility(false);
         }
@@ -748,7 +700,7 @@ void SeqBattle::OperateStorehouse()
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_storehouse->Back();
-        m_bShowStorehouse = false;
+        m_eState = eBattleState::NORMAL;
     }
 
     //---------------------------------------------------------
@@ -840,7 +792,7 @@ void SeqBattle::OperateStorehouse()
     if (GamePad::IsDown(eGamePadButtonType::B))
     {
         result = m_storehouse->Back();
-        m_bShowStorehouse = false;
+        m_eState = eBattleState::NORMAL;
     }
 
     return;
@@ -848,13 +800,11 @@ void SeqBattle::OperateStorehouse()
 
 void SeqBattle::OperateCraft()
 {
-    m_bShowHud = false;
-
     std::string result;
 
     if (KeyBoard::IsDownFirstFrame(DIK_F2))
     {
-        m_bShowCraft = false;
+        m_eState = eBattleState::NORMAL;
         Camera::SleepModeOFF();
         Common::SetCursorVisibility(false);
     }
@@ -948,68 +898,383 @@ void SeqBattle::OperateCommand()
 
     if (result == "EXIT")
     {
-        m_bShowCommand = false;
+        m_eState = eBattleState::NORMAL;
         Camera::SleepModeOFF();
         Common::SetCursorVisibility(false);
     }
 }
 
-void SeqBattle::OperateTitle()
+void SeqBattle::InitTitle()
 {
+    {
+        std::vector<std::string> vs;
+        std::vector<bool> vb;
+
+        vs.push_back("Start");
+        vb.push_back(true);
+
+        vs.push_back("Continue");
+        if (m_bSavedataExists)
+        {
+            vb.push_back(true);
+        }
+        else
+        {
+            vb.push_back(false);
+        }
+
+        vs.push_back("Exit");
+        vb.push_back(true);
+
+        m_titleCommand = new CommandManager();
+        m_titleCommand->Init(vs, vb);
+    }
+
+    m_sprTitleBack = new Sprite("res\\image\\black.png");
+    m_sprTitleLogo = new Sprite("res\\image\\title01.png");
+    m_sprTitleClock = new Sprite("res\\image\\load_clock.png");
+
+    Common::SetCursorVisibility(true);
+
+    BGM::get_ton()->load("res\\sound\\title.wav");
+    BGM::get_ton()->play(10);
+
+    HRESULT ret = D3DXCreateFont(SharedObj::GetD3DDevice(),
+                                 20,
+                                 0,
+                                 FW_NORMAL,
+                                 1,
+                                 false,
+                                 SHIFTJIS_CHARSET,
+                                 OUT_TT_ONLY_PRECIS,
+                                 ANTIALIASED_QUALITY,
+                                 FF_DONTCARE,
+                                 "ＭＳ 明朝",
+                                 &m_titleFont);
+
+    m_bTitleFadeIn = true;
+    m_titleFadeInCount = 0;
+    m_titleFadeInAlpha = 255;
 }
 
-void SeqBattle::OperateLoad()
+void SeqBattle::OperateTitle()
 {
+    if (m_bTitleFadeIn)
+    {
+        ++m_titleFadeInCount;
+        m_titleFadeInAlpha = 255 - (m_titleFadeInCount * 255 / 60);
+        if (m_titleFadeInCount >= TITLE_FADE_IN)
+        {
+            m_bTitleFadeIn = false;
+            m_titleFadeInAlpha = 0;
+        }
+    }
+    else
+    {
+        // ローディング中、カメラ移動中、フェードアウト中は操作不能にする
+        if (m_bTitleLoading == false && m_bTitleCameraFade == false && m_bTitleFadeOut)
+        {
+            std::string result = m_titleCommand->Operate();
+
+            if (result == "Start")
+            {
+                m_eTitleMenu = eTitleMenu::START;
+                if (m_bSavedataExists)
+                {
+                    m_bTitleLoading = true;
+                    m_titleThread = new std::thread(
+                        [&]
+                        {
+                            SaveManager::Get()->LoadOrigin();
+                            m_titleLoaded.store(true);
+                        });
+                }
+            }
+            else if (result == "Continue")
+            {
+                m_eTitleMenu = eTitleMenu::CONTINUE;
+                m_bTitleCameraFade = true;
+            }
+            else if (result == "Exit")
+            {
+                m_eTitleMenu = eTitleMenu::EXIT;
+                FinalizeTitle();
+                PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+            }
+        }
+        else
+        {
+            if (m_bTitleCameraFade)
+            {
+                // カメラをプレイヤーの位置に向かって60フレームで到達するように移動させる。
+                ++m_titleCameraFadeCount;
+                if (m_titleCameraFadeCount >= TITLE_CAMERA_FADE)
+                {
+                    FinalizeTitle();
+                    m_eState = eBattleState::NORMAL;
+                }
+            }
+            else if (m_bTitleFadeOut)
+            {
+                ++m_bTitleFadeOut;
+                if (m_bTitleFadeOut >= TITLE_FADE_OUT)
+                {
+                    FinalizeTitle();
+                    m_eState = eBattleState::OPENING;
+                    m_Opening = new SeqOpening();
+                }
+            }
+            else if (m_bTitleLoading)
+            {
+                // 即座にオープニングが始まるのではなく、
+                // フェードアウトを描画し、
+                // フェードアウトが完了したらオープニングが始まるようにする。
+                if (m_titleLoaded.load() == true)
+                {
+                    m_bTitleFadeOut = true;
+                    m_titleFadeOutCount = 0;
+                }
+            }
+        }
+    }
+}
+
+void SeqBattle::RenderTitle()
+{
+    // 1フレーム目は、OperateTitle関数が呼ばれる前に呼ばれることに注意する
+
+    D3DXVECTOR3 pos(0.f, 0.f, 0.f);
+
+    if (m_bTitleFadeIn)
+    {
+        m_sprTitleBack->Render(pos, m_titleFadeInAlpha);
+    }
+
+    m_sprTitleLogo->Render(pos);
+    m_titleCommand->Draw();
+
+    // ロードするならくるくるを表示
+    if (m_titleThread != nullptr && m_titleLoaded.load() == false)
+    {
+
+        static float counter = 0;
+        counter += 0.05f;
+        int temp1 = 0;
+
+        D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
+        pos.x = std::sin(counter) * 100 + 800;
+        pos.y = std::cos(counter) * 60 + 450;
+        temp1 = std::sin(counter * 0.2) * 255;
+        m_sprTitleClock->Render(pos, temp1);
+
+        static float counter2 = 0;
+        counter2 += 0.04f;
+
+        pos.x = std::sin(counter2) * 60 + 800;
+        pos.y = std::cos(counter2) * 90 + 450;
+        temp1 = std::sin(counter2 * 0.2) * 192;
+        m_sprTitleClock->Render(pos, temp1);
+
+        static int counter3 = 0;
+
+        counter3 += 2;
+        if (counter3 >= 256)
+        {
+            counter3 = 0;
+        }
+
+        int temp = 0;
+        if (counter3 <= 127)
+        {
+            temp = counter3;
+        }
+        else
+        {
+            temp = 256 - counter3;
+        }
+
+        // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域？
+        // 本当はちゃんとやらないといけない。
+
+        pos = D3DXVECTOR3(800 - 64, 450 - 64, 0.0f);
+        m_sprTitleLoading->Render(pos, temp);
+    }
+}
+
+    void SeqBattle::FinalizeTitle()
+{
+    SAFE_DELETE(m_titleCommand);
+    SAFE_DELETE(m_sprTitleBack);
+    SAFE_DELETE(m_sprTitleLogo);
+    SAFE_DELETE(m_sprTitleClock);
+    SAFE_DELETE(m_sprTitleLoading);
+    SAFE_RELEASE(m_titleFont);
+}
+
+void SeqBattle::InitLoad()
+{
+    // セーブデータがあるか否か
+    int saveExist = 0;
+    if (Common::DebugMode())
+    {
+        saveExist = PathFileExists("res\\script\\save_debug");
+    }
+    else
+    {
+        saveExist = PathFileExists("res\\script\\save");
+    }
+
+    if (saveExist == 1)
+    {
+        m_bSavedataExists = true;
+        m_loadThread = new std::thread(
+            [&]
+            {
+                SaveManager::Get()->LoadOrigin();
+                m_loadLoaded.store(true);
+            });
+    }
+    else
+    {
+        m_bSavedataExists = false;
+        m_loadThread = new std::thread(
+            [&]
+            {
+                SaveManager::Get()->Load();
+                m_loadLoaded.store(true);
+            });
+    }
+
+    m_sprLoadBack = new Sprite("res\\image\\black.png");
+    m_sprLoadClock = new Sprite("res\\image\\load_clock.png");
+    m_sprLoadLoading = new Sprite("res\\image\\loading.png");
+
+    Common::SetCursorVisibility(false);
+}
+
+void SeqBattle::UpdateLoad()
+{
+    if (m_loadLoaded.load())
+    {
+        InitializeAfterLoad();
+        FinalizeLoad();
+        m_eState = eBattleState::TITLE;
+        InitTitle();
+    }
+}
+
+void SeqBattle::InitializeAfterLoad()
+{
+    m_menuManager.InitMenu();
+
+    m_map = new Map();
+    SharedObj::SetMap(m_map);
+    m_map->Init();
+
+}
+
+void SeqBattle::RenderLoad()
+{
+    D3DXVECTOR3 pos;
+    pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    m_sprLoadBack->Render(pos);
+
+    // くるくるを表示
+    if (m_loadThread != nullptr && m_loadLoaded.load() == false)
+    {
+
+        static float counter = 0;
+        counter += 0.05f;
+        int temp1 = 0;
+
+        D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
+        pos.x = std::sin(counter) * 100 + 800;
+        pos.y = std::cos(counter) * 60 + 450;
+        temp1 = std::sin(counter * 0.2) * 255;
+        m_sprLoadClock->Render(pos, temp1);
+
+        static float counter2 = 0;
+        counter2 += 0.04f;
+
+        pos.x = std::sin(counter2) * 60 + 800;
+        pos.y = std::cos(counter2) * 90 + 450;
+        temp1 = std::sin(counter2 * 0.2) * 192;
+        m_sprLoadClock->Render(pos, temp1);
+
+        static int counter3 = 0;
+
+        counter3 += 2;
+        if (counter3 >= 256)
+        {
+            counter3 = 0;
+        }
+
+        int temp = 0;
+        if (counter3 <= 127)
+        {
+            temp = counter3;
+        }
+        else
+        {
+            temp = 256 - counter3;
+        }
+
+        // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域？
+        // 本当はちゃんとやらないといけない。
+
+        pos = D3DXVECTOR3(800 - 64, 450 - 64, 0.0f);
+        m_sprLoadLoading->Render(pos, temp);
+    }
+}
+
+void SeqBattle::FinalizeLoad()
+{
+    SAFE_DELETE(m_sprLoadBack);
+    SAFE_DELETE(m_sprLoadLoading);
+    SAFE_DELETE(m_sprLoadClock);
 }
 
 void SeqBattle::Render()
 {
-    m_player->Render();
-    D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
-    if (m_player->GetDead())
+    if (m_eState == eBattleState::LOAD)
     {
-        m_spriteGameover->Render(pos);
+        RenderLoad();
+        return;
     }
 
-    m_map->Render();
-
-    PopUp::Get()->Render();
-    PopUp2::Get()->Render();
-
-    if (m_bTalking)
+    RenderCommon();
+    
+    if (m_eState == eBattleState::TITLE)
+    {
+        RenderTitle();
+    }
+    else if (m_eState == eBattleState::OPENING)
+    {
+        m_Opening->Render();
+    }
+    else if (m_eState == eBattleState::TALK)
     {
         m_talk->Render();
     }
-
-    if (m_bShowExamine || m_bObtainable)
-    {
-        D3DXVECTOR3 pos { 200.f, 600.f, 0.f };
-        m_spriteExamine->Render(pos);
-    }
-    
-    if (m_bShowMenu)
+    else if (m_eState == eBattleState::MENU)
     {
         m_menuManager.Draw();
     }
-
-    if (m_bShowStorehouse)
+    else if (m_eState == eBattleState::STOREHOUSE)
     {
         m_storehouse->Draw();
     }
-
-    if (m_bShowCraft)
+    else if (m_eState == eBattleState::CRAFT)
     {
         m_craft->Draw();
     }
-
-    if (m_bShowHud)
-    {
-        m_hudManager.Draw();
-    }
-
-    if (m_bShowCommand)
+    else if (m_eState == eBattleState::COMMAND)
     {
         m_commandManager.Draw();
+    }
+    else if (m_eState == eBattleState::NORMAL)
+    {
+        RenderNormal();
     }
 }
 
@@ -1063,6 +1328,69 @@ void SeqBattle::Confirm(eSequence* sequence)
     }
 }
 
+eBattleState SeqBattle::GetState() const
+{
+    return m_eState;
+}
+
+void SeqBattle::UpdateCommon()
+{
+    m_map->Update();
+
+    PopUp2::Get()->Update();
+
+    // 60回に一回（＝1秒ごと）の処理
+    {
+        static int counter = 0;
+        counter++;
+        if (counter >= 60)
+        {
+            counter = 0;
+        }
+        if (counter == 0)
+        {
+            UpdatePerSecond();
+        }
+    }
+
+    if (m_player->GetDead())
+    {
+        if (m_eState == eBattleState::GAMEOVER)
+        {
+            SaveManager::Get()->DeleteSavedata();
+            ++m_nGameoverCounter;
+            if (m_nGameoverCounter >= 120)
+            {
+                m_eState = eBattleState::TITLE;
+            }
+        }
+        return;
+    }
+}
+
+void SeqBattle::RenderCommon()
+{
+    m_player->Render();
+    m_map->Render();
+}
+
+void SeqBattle::RenderNormal()
+{
+    PopUp::Get()->Render();
+    PopUp2::Get()->Render();
+    D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
+    if (m_player->GetDead())
+    {
+        m_spriteGameover->Render(pos);
+    }
+    if (m_bShowExamine || m_bObtainable)
+    {
+        D3DXVECTOR3 pos { 200.f, 600.f, 0.f };
+        m_spriteExamine->Render(pos);
+    }
+    m_hudManager.Draw();
+}
+
 void SeqBattle::UpdateDebug()
 {
     // PopUp Sample
@@ -1108,9 +1436,9 @@ void SeqBattle::UpdateDebug()
     {
         if (KeyBoard::IsDownFirstFrame(DIK_F1))
         {
-            if (m_bShowStorehouse == false)
+            if (m_eState == eBattleState::NORMAL)
             {
-                m_bShowStorehouse = true;
+                m_eState = eBattleState::STOREHOUSE;
                 delete m_storehouse;
 
                 Camera::SleepModeON();
@@ -1201,9 +1529,10 @@ void SeqBattle::UpdateDebug()
     {
         if (KeyBoard::IsDownFirstFrame(DIK_F2))
         {
-            if (m_bShowCraft == false)
+            if (m_eState == eBattleState::NORMAL)
             {
-                m_bShowCraft = true;
+                m_eState = eBattleState::CRAFT;
+
                 delete m_craft;
 
                 Camera::SleepModeON();
@@ -1630,10 +1959,8 @@ void SeqBattle::UpdatePerSecond()
     }
 }
 
-void SeqBattle::Operate(eSequence* sequence)
+void SeqBattle::OperateNormal(eSequence* sequence)
 {
-    m_bShowHud = true;
-
     //--------------------------------------------
     // キーボード、マウス、ゲームパッドの処理
     //--------------------------------------------
@@ -1645,7 +1972,7 @@ void SeqBattle::Operate(eSequence* sequence)
     // メニュー機能
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
-        m_bShowMenu = true;
+        m_eState = eBattleState::MENU;
         Camera::SleepModeON();
         Common::SetCursorVisibility(true);
 
@@ -1655,9 +1982,9 @@ void SeqBattle::Operate(eSequence* sequence)
     // コマンド機能
     if (KeyBoard::IsDownFirstFrame(DIK_C))
     {
-        if (m_bShowCommand == false)
+        if (m_eState == eBattleState::NORMAL)
         {
-            m_bShowCommand = true;
+            m_eState = eBattleState::COMMAND;
 
             Camera::SleepModeON();
             Common::SetCursorVisibility(true);
@@ -1677,19 +2004,20 @@ void SeqBattle::Operate(eSequence* sequence)
     // メニュー機能
     if (GamePad::IsDown(eGamePadButtonType::START))
     {
-        m_bShowMenu = true;
-        Camera::SleepModeON();
-        Common::SetCursorVisibility(true);
-
-        return;
+        if (m_eState == eBattleState::NORMAL)
+        {
+            m_eState = eBattleState::MENU;
+            Camera::SleepModeON();
+            Common::SetCursorVisibility(true);
+        }
     }
 
     // コマンド機能
     if (GamePad::IsDown(eGamePadButtonType::BACK))
     {
-        if (m_bShowCommand == false)
+        if (m_eState == eBattleState::NORMAL)
         {
-            m_bShowCommand = true;
+            m_eState = eBattleState::COMMAND;
 
             Camera::SleepModeON();
             Common::SetCursorVisibility(true);
