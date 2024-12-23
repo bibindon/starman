@@ -26,6 +26,9 @@ public:
     ~Title();
     void Update(eSequence* sequence, eBattleState* eState);
     void Render();
+
+    bool GetLoading() const;
+
 private:
     Sprite* m_sprite1 { nullptr };
     Sprite* m_sprite3 { nullptr };

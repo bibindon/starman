@@ -54,6 +54,7 @@ Title::Title(const bool blackFadeIn)
     m_sprBack = new Sprite("res\\image\\black.png");
     m_sprLogo = new Sprite("res\\image\\title01.png");
     m_sprClock = new Sprite("res\\image\\load_clock.png");
+    m_sprLoading = new Sprite("res\\image\\loading.png");
 
     Common::SetCursorVisibility(true);
 
@@ -146,6 +147,10 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
                             m_loaded.store(true);
                         });
                 }
+                else
+                {
+                    *eState = eBattleState::OPENING;
+                }
             }
             else if (result == "Continue")
             {
@@ -191,6 +196,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
                 {
                     m_bFadeOut = true;
                     m_fadeOutCount = 0;
+                    m_bLoading = false;
                 }
             }
         }
@@ -213,7 +219,7 @@ void Title::Render()
 
     m_sprLogo->Render(pos);
 
-    if (m_bFadeIn == false && m_bFadeOut == false && m_bCameraFadeOut)
+    if (m_bFadeIn == false && m_bFadeOut == false && m_bCameraFadeOut == false)
     {
         m_titleCommand->Draw();
     }
@@ -264,4 +270,9 @@ void Title::Render()
         pos = D3DXVECTOR3(800 - 64, 450 - 64, 0.0f);
         m_sprLoading->Render(pos, temp);
     }
+}
+
+bool Title::GetLoading() const
+{
+    return m_bLoading;
 }

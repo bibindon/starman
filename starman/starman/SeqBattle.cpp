@@ -554,30 +554,8 @@ void SeqBattle::Update(eSequence* sequence)
     }
     else if (m_eState == eBattleState::TITLE)
     {
-        m_title->Update(sequence, &m_eState);
-
-        if (*sequence == eSequence::EXIT)
-        {
-            SAFE_DELETE(m_title);
-        }
-
-        if (m_eState == eBattleState::OPENING)
-        {
-            SAFE_DELETE(m_title);
-            m_Opening = new SeqOpening();
-        }
-        else if (m_eState == eBattleState::NORMAL)
-        {
-            SAFE_DELETE(m_title);
-
-            Camera::SetCameraMode(eCameraMode::BATTLE);
-            Common::SetCursorVisibility(false);
-
-            BGM::get_ton()->load("res\\sound\\novel.wav");
-            BGM::get_ton()->play(10);
-        }
+        OperateTitle(sequence);
     }
-
 
     if (Common::DebugMode())
     {
@@ -1097,15 +1075,13 @@ void SeqBattle::FinalizeLoad()
 
 void SeqBattle::Render()
 {
+    RenderCommon();
+
     if (m_eState == eBattleState::LOAD)
     {
         RenderLoad();
-        return;
     }
-
-    RenderCommon();
-    
-    if (m_eState == eBattleState::TITLE)
+    else if (m_eState == eBattleState::TITLE)
     {
         m_title->Render();
     }
@@ -1231,8 +1207,19 @@ void SeqBattle::UpdateCommon()
 
 void SeqBattle::RenderCommon()
 {
-    m_player->Render();
-    m_map->Render();
+    if (m_eState == eBattleState::LOAD)
+    {
+        // do nothing
+    }
+    else if (m_eState == eBattleState::TITLE && m_title->GetLoading())
+    {
+        // do nothing
+    }
+    else
+    {
+        m_player->Render();
+        m_map->Render();
+    }
 }
 
 void SeqBattle::RenderNormal()
@@ -1943,6 +1930,32 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     m_hudManager.Update();
+}
+
+void SeqBattle::OperateTitle(eSequence* sequence)
+{
+    m_title->Update(sequence, &m_eState);
+
+    if (*sequence == eSequence::EXIT)
+    {
+        SAFE_DELETE(m_title);
+    }
+
+    if (m_eState == eBattleState::OPENING)
+    {
+        SAFE_DELETE(m_title);
+        m_Opening = new SeqOpening();
+    }
+    else if (m_eState == eBattleState::NORMAL)
+    {
+        SAFE_DELETE(m_title);
+
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+
+        BGM::get_ton()->load("res\\sound\\novel.wav");
+        BGM::get_ton()->play(10);
+    }
 }
 
 void SeqBattle::SaveLastStage(const int stageNum)

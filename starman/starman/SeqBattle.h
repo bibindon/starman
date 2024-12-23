@@ -50,6 +50,7 @@ private:
     void UpdateDebug();
     void UpdatePerSecond();
     void OperateNormal(eSequence* sequence);
+    void OperateTitle(eSequence* sequence);
     Player* m_player { nullptr };
     Sprite* m_spriteGameover { nullptr };
     eBattleState m_eState { eBattleState::NORMAL };
