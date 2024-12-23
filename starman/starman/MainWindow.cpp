@@ -440,7 +440,7 @@ int MainWindow::MainLoop()
 
         RECT rect;
 
-        if (m_sequence == eSequence::TITLE)
+        if (m_seqBattle != nullptr && m_seqBattle->GetState() == eBattleState::TITLE)
         {
             SetRect(&rect, 10, 850, 500, 890);
             m_D3DFont->DrawText(NULL,

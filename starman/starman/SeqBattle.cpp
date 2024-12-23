@@ -1124,7 +1124,7 @@ void SeqBattle::InitLoad()
         saveExist = PathFileExists("res\\script\\save");
     }
 
-    if (saveExist == 1)
+    if (saveExist == FALSE)
     {
         m_bSavedataExists = true;
         m_loadThread = new std::thread(
@@ -1219,10 +1219,7 @@ void SeqBattle::RenderLoad()
             temp = 256 - counter3;
         }
 
-        // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域？
-        // 本当はちゃんとやらないといけない。
-
-        pos = D3DXVECTOR3(800 - 64, 450 - 64, 0.0f);
+        pos = D3DXVECTOR3(800 - 40, 450 -10, 0.0f);
         m_sprLoadLoading->Render(pos, temp);
     }
 }
