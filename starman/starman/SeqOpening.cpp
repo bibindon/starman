@@ -231,7 +231,7 @@ SeqOpening::~SeqOpening()
 {
 }
 
-void SeqOpening::Update(eSequence* sequence)
+void SeqOpening::Update(eBattleState* eState)
 {
     if (m_storyTelling != nullptr)
     {
@@ -265,7 +265,7 @@ void SeqOpening::Update(eSequence* sequence)
             m_storyTelling->Finalize();
             delete m_storyTelling;
             m_storyTelling = nullptr;
-            *sequence = eSequence::BATTLE;
+            *eState = eBattleState::NORMAL;
         }
     }
 

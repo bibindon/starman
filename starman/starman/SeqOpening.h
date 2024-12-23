@@ -10,7 +10,7 @@ class SeqOpening
 public:
     SeqOpening();
     ~SeqOpening();
-    void Update(eSequence* sequence);
+    void Update(eBattleState* eState);
     void Render();
 private:
 

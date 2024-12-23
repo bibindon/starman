@@ -532,6 +532,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateMenu(sequence);
     }
+    if (m_eState == eBattleState::OPENING)
+    {
+        OperateOpening();
+    }
     else if (m_eState == eBattleState::TALK)
     {
         OperateTalk();
@@ -1071,6 +1075,21 @@ void SeqBattle::FinalizeLoad()
     SAFE_DELETE(m_sprLoadLogo);
     SAFE_DELETE(m_sprLoadLoading);
     SAFE_DELETE(m_sprLoadClock);
+}
+
+void SeqBattle::OperateOpening()
+{
+    m_Opening->Update(&m_eState);
+
+    if (m_eState == eBattleState::NORMAL)
+    {
+        SAFE_DELETE(m_Opening);
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+
+        BGM::get_ton()->load("res\\sound\\novel.wav");
+        BGM::get_ton()->play(10);
+    }
 }
 
 void SeqBattle::Render()

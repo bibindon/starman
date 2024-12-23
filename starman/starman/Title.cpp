@@ -136,6 +136,8 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             if (result == "Start")
             {
+                // TODO
+                // フェードアウトしてから読み込みを始める
                 m_eMenu = eTitleMenu::START;
                 if (m_bSavedataExists)
                 {

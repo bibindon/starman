@@ -50,7 +50,6 @@ private:
     void UpdateDebug();
     void UpdatePerSecond();
     void OperateNormal(eSequence* sequence);
-    void OperateTitle(eSequence* sequence);
     Player* m_player { nullptr };
     Sprite* m_spriteGameover { nullptr };
     eBattleState m_eState { eBattleState::NORMAL };
@@ -116,6 +115,7 @@ private:
     //----------------------------------------------------------
     // タイトル画面
     //----------------------------------------------------------
+    void OperateTitle(eSequence* sequence);
     Title* m_title = nullptr;
 
     //----------------------------------------------------------
@@ -141,7 +141,9 @@ private:
 
     //----------------------------------------------------------
     // オープニング画面
+    // TODO 名前を変更
     //----------------------------------------------------------
+    void OperateOpening();
     SeqOpening* m_Opening = nullptr;
 };
 
