@@ -954,6 +954,14 @@ void SeqBattle::OperateCommand()
     }
 }
 
+void SeqBattle::OperateTitle()
+{
+}
+
+void SeqBattle::OperateLoad()
+{
+}
+
 void SeqBattle::Render()
 {
     m_player->Render();

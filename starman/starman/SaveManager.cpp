@@ -133,6 +133,22 @@ void SaveManager::Save()
 
 void SaveManager::LoadOrigin()
 {
+    if (m_savedataLoaded)
+    {
+        NSStarmanLib::HumanInfoManager::Destroy();
+        NSStarmanLib::MapInfoManager::Destroy();
+        NSStarmanLib::ItemManager::Destroy();
+        NSStarmanLib::Inventory::Destroy();
+        NSStarmanLib::Storehouse::Destroy();
+        NSStarmanLib::WeaponManager::Destroy();
+        NSStarmanLib::EnemyInfoManager::Destroy();
+        NSStarmanLib::SkillManager::Destroy();
+        NSStarmanLib::StatusManager::Destroy();
+        NSStarmanLib::Guide::Destroy();
+        NSStarmanLib::PowereggDateTime::Destroy();
+        NSStarmanLib::MapObjManager::Destroy();
+    }
+
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
               CreateOriginFilePath("humanInfoSub.csv"),
@@ -231,6 +247,8 @@ void SaveManager::Load()
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
     mapObjManager->Init(CreateSaveFilePath("map_obj.csv"), !Common::DebugMode());
+
+    m_savedataLoaded = true;
 }
 
 void SaveManager::DeleteSavedata()

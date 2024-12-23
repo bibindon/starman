@@ -23,5 +23,7 @@ private:
 
     std::string CreateOriginFilePath(const std::string& filename);
     std::string CreateSaveFilePath(const std::string& filename);
+
+    bool m_savedataLoaded = false;
 };
 

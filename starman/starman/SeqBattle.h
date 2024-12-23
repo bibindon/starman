@@ -29,6 +29,13 @@ enum class eBattleState
 {
     NORMAL,
     GAMEOVER,
+    TITLE,
+    MENU,
+    COMMAND,
+    CRAFT,
+    STOREHOUSE,
+    TALK,
+    LOADING,
 };
 
 class SeqBattle
@@ -75,35 +82,57 @@ private:
     // メニュー
     //----------------------------------------------------------
     void OperateTalk();
-    bool m_bShowMenu { false };
+    bool m_bShowMenu { false }; // TODO eBattleStateを使うべし
     MenuManager m_menuManager;
 
     //----------------------------------------------------------
     // ステータス表示
     //----------------------------------------------------------
-    bool m_bShowHud { false };
+    bool m_bShowHud { false }; // TODO eBattleStateを使うべし
     HudManager m_hudManager;
 
     //----------------------------------------------------------
     // 倉庫画面
     //----------------------------------------------------------
     void OperateStorehouse();
-    bool m_bShowStorehouse = false;
+    bool m_bShowStorehouse = false; // TODO eBattleStateを使うべし
     NSStorehouseLib::StorehouseLib* m_storehouse = nullptr;
 
     //----------------------------------------------------------
     // クラフト画面
     //----------------------------------------------------------
     void OperateCraft();
-    bool m_bShowCraft = false;
+    bool m_bShowCraft = false; // TODO eBattleStateを使うべし
     NSCraftLib::CraftLib* m_craft = nullptr;
 
     //----------------------------------------------------------
     // コマンド画面
     //----------------------------------------------------------
     void OperateCommand();
-    bool m_bShowCommand = false;
+    bool m_bShowCommand = false; // TODO eBattleStateを使うべし
     CommandManager m_commandManager;
+
+    //----------------------------------------------------------
+    // タイトル画面
+    // カメラの移動が完了するまではタイトル画面の担当範囲。
+    // セーブデータがあったら、タイトル画面が表示されたときすでにセーブデータが読まれている。
+    // セーブデータがあるのに初めからを選んだら、初期データは読んでいないので
+    // くるくるを表示して読み直す必要がある。
+    //----------------------------------------------------------
+    void OperateTitle();
+    CommandManager m_title;
+    Sprite* m_sprTitle = nullptr;
+    Sprite* m_sprTitleClock = nullptr;
+
+    //----------------------------------------------------------
+    // ロード画面
+    // 真っ暗画面で砂時計のくるくるを表示
+    // セーブデータがなければ初期データを読み、
+    // セーブデータがあればセーブデータを読む。
+    //----------------------------------------------------------
+    void OperateLoad();
+    Sprite* m_sprLoadBack = nullptr;
+    Sprite* m_sprLoadClock = nullptr;
 
 };
 
