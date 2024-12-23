@@ -327,31 +327,7 @@ int MainWindow::MainLoop()
         GamePad::Update();
         Camera::Update();
 
-        /*
-        if (m_sequence == eSequence::TITLE)
-        {
-            m_seqTitle->Update(&m_sequence);
-            if (m_sequence == eSequence::OPENING)
-            {
-                SAFE_DELETE(m_seqTitle);
-                m_seqOpening = new SeqOpening();
-            }
-            else if (m_sequence == eSequence::BATTLE)
-            {
-                SAFE_DELETE(m_seqTitle);
-                m_seqBattle = new SeqBattle(true);
-            }
-        }
-        else if (m_sequence == eSequence::OPENING)
-        {
-            m_seqOpening->Update(&m_sequence);
-            if (m_sequence == eSequence::BATTLE)
-            {
-                SAFE_DELETE(m_seqOpening);
-                m_seqBattle = new SeqBattle(false);
-            }
-        }
-        else */if (m_sequence == eSequence::BATTLE)
+        if (m_sequence == eSequence::BATTLE)
         {
             m_seqBattle->Update(&m_sequence);
             if (m_sequence == eSequence::ENDING)
@@ -359,11 +335,6 @@ int MainWindow::MainLoop()
                 SAFE_DELETE(m_seqBattle);
                 m_seqEnding = new SeqEnding();
             }
-            //else if (m_sequence == eSequence::TITLE)
-            //{
-            //    SAFE_DELETE(m_seqBattle);
-            //    m_seqTitle = new SeqTitle();
-            //}
             else if (m_sequence == eSequence::OPENING)
             {
                 SAFE_DELETE(m_seqBattle);
@@ -373,11 +344,6 @@ int MainWindow::MainLoop()
         else if (m_sequence == eSequence::ENDING)
         {
             m_seqEnding->Update(&m_sequence);
-//            if (m_sequence == eSequence::TITLE)
-//            {
-//                SAFE_DELETE(m_seqEnding);
-//                m_seqTitle = new SeqTitle();
-//            }
         }
 
         D3DDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(40, 40, 80),
@@ -414,11 +380,7 @@ int MainWindow::MainLoop()
         D3DDevice->SetTransform(D3DTS_PROJECTION, &Persp);
 
 
-        if (m_sequence == eSequence::TITLE)
-        {
-            m_seqTitle->Render();
-        }
-        else if (m_sequence == eSequence::OPENING)
+        if (m_sequence == eSequence::OPENING)
         {
             m_seqOpening->Render();
         }

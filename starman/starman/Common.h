@@ -35,6 +35,28 @@ enum class eSequence
     EXIT
 };
 
+enum class eBattleState
+{
+    LOAD,
+    TITLE,
+    OPENING,
+    NORMAL,
+    MENU,
+    COMMAND,
+    CRAFT,
+    STOREHOUSE,
+    TALK,
+    GAMEOVER,
+};
+
+enum class eTitleMenu
+{
+    NOT_DECIDE,
+    START,
+    CONTINUE,
+    EXIT,
+};
+
 class Common
 {
 public:

@@ -27,20 +27,9 @@
 
 #include <thread>
 #include "SeqOpening.h"
+#include "Title.h"
 
-enum class eBattleState
-{
-    LOAD,
-    TITLE,
-    OPENING,
-    NORMAL,
-    MENU,
-    COMMAND,
-    CRAFT,
-    STOREHOUSE,
-    TALK,
-    GAMEOVER,
-};
+class Title;
 
 class SeqBattle
 {
@@ -125,45 +114,8 @@ private:
 
     //----------------------------------------------------------
     // タイトル画面
-    // TODO クラス化
-    // 最初は島全体が見えるようにカメラが離れている。
-    // Continueを選んだらカメラがプレイヤーの位置に移動する
-    // カメラの移動が完了するまではタイトル画面の担当範囲。
-    // Startを選んだら暗転してOpening画面
-    // セーブデータがあったら、タイトル画面が表示されたときすでにセーブデータが読まれている。
-    // セーブデータがあるのに初めからを選んだら、初期データは読んでいないので
-    // くるくるを表示して読み直す必要がある。
     //----------------------------------------------------------
-    enum class eTitleMenu
-    {
-        NOT_DECIDE,
-        START,
-        CONTINUE,
-        EXIT,
-    };
-    void InitTitle();
-    void OperateTitle(eSequence* sequence);
-    void RenderTitle();
-    void FinalizeTitle();
-    CommandManager* m_titleCommand;
-    Sprite* m_sprTitleBack = nullptr;
-    Sprite* m_sprTitleLogo = nullptr;
-    Sprite* m_sprTitleClock = nullptr;
-    Sprite* m_sprTitleLoading = nullptr;
-    LPD3DXFONT m_titleFont = nullptr;
-    const int TITLE_FADE_IN = 60;
-    int m_titleFadeInCount = 0;
-    int m_titleFadeInAlpha = 0;
-    bool m_bTitleFadeIn = false;
-    std::thread* m_titleThread = nullptr;
-    std::atomic<bool> m_titleLoaded = false;
-    eTitleMenu m_eTitleMenu = eTitleMenu::NOT_DECIDE;
-    int m_titleCameraFadeCount = 0;
-    bool m_bTitleCameraFade = false;
-    bool m_bTitleLoading = false;
-    bool m_bTitleFadeOut = false;
-    const int TITLE_FADE_OUT = 60;
-    int m_titleFadeOutCount = 0;
+    Title* m_title = nullptr;
 
     //----------------------------------------------------------
     // ロード画面

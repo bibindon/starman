@@ -17,7 +17,6 @@
 #include "Mesh.h"
 #include "Sprite.h"
 #include "AnimMesh.h"
-#include "SeqTitle.h"
 #include "SeqBattle.h"
 #include "SeqOpening.h"
 #include "SeqEnding.h"
@@ -43,7 +42,6 @@ private:
 
     eSequence m_sequence;
 
-    SeqTitle* m_seqTitle { nullptr };
     SeqOpening* m_seqOpening { nullptr };
 
     // WM_CLOSEメッセージを受信したときに対処する必要があるためstatic

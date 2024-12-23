@@ -554,7 +554,28 @@ void SeqBattle::Update(eSequence* sequence)
     }
     else if (m_eState == eBattleState::TITLE)
     {
-        OperateTitle(sequence);
+        m_title->Update(sequence, &m_eState);
+
+        if (*sequence == eSequence::EXIT)
+        {
+            SAFE_DELETE(m_title);
+        }
+
+        if (m_eState == eBattleState::OPENING)
+        {
+            SAFE_DELETE(m_title);
+            m_Opening = new SeqOpening();
+        }
+        else if (m_eState == eBattleState::NORMAL)
+        {
+            SAFE_DELETE(m_title);
+
+            Camera::SetCameraMode(eCameraMode::BATTLE);
+            Common::SetCursorVisibility(false);
+
+            BGM::get_ton()->load("res\\sound\\novel.wav");
+            BGM::get_ton()->play(10);
+        }
     }
 
 
@@ -568,20 +589,19 @@ void SeqBattle::Update(eSequence* sequence)
 void SeqBattle::OperateMenu(eSequence* sequence)
 {
     std::string result = m_menuManager.OperateMenu();
-    if (result == "最初から")
-    {
-        // TODO 最初から、は無くしても良いかもしれない。
-//        m_bShowMenu = false;
-//        Camera::SleepModeOFF();
-//        Common::SetCursorVisibility(false);
-//        *sequence = eSequence::OPENING;
-    }
-    else if (result == "EXIT")
+    if (result == "タイトルに戻る")
     {
         m_eState = eBattleState::TITLE;
         Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
         Common::SetCursorVisibility(true);
-        InitTitle();
+        m_title = new Title();
+    }
+    else if (result == "セーブして終了")
+    {
+//        m_eState = eBattleState::TITLE;
+//        Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
+//        Common::SetCursorVisibility(true);
+//        InitTitle();
     }
     else if (result == "EXIT")
     {
@@ -916,223 +936,6 @@ void SeqBattle::OperateCommand()
     }
 }
 
-void SeqBattle::InitTitle()
-{
-    {
-        std::vector<std::string> vs;
-        std::vector<bool> vb;
-
-        vs.push_back("Start");
-        vb.push_back(true);
-
-        vs.push_back("Continue");
-        if (m_bSavedataExists)
-        {
-            vb.push_back(true);
-        }
-        else
-        {
-            vb.push_back(false);
-        }
-
-        vs.push_back("Exit");
-        vb.push_back(true);
-
-        m_titleCommand = new CommandManager();
-        m_titleCommand->Init(vs, vb);
-    }
-
-    m_sprTitleBack = new Sprite("res\\image\\black.png");
-    m_sprTitleLogo = new Sprite("res\\image\\title01.png");
-    m_sprTitleClock = new Sprite("res\\image\\load_clock.png");
-
-    Common::SetCursorVisibility(true);
-
-    HRESULT ret = D3DXCreateFont(SharedObj::GetD3DDevice(),
-                                 20,
-                                 0,
-                                 FW_NORMAL,
-                                 1,
-                                 false,
-                                 SHIFTJIS_CHARSET,
-                                 OUT_TT_ONLY_PRECIS,
-                                 ANTIALIASED_QUALITY,
-                                 FF_DONTCARE,
-                                 "ＭＳ 明朝",
-                                 &m_titleFont);
-
-    m_bTitleFadeIn = true;
-    m_titleFadeInCount = 0;
-    m_titleFadeInAlpha = 255;
-}
-
-void SeqBattle::OperateTitle(eSequence* sequence)
-{
-    if (m_bTitleFadeIn)
-    {
-        ++m_titleFadeInCount;
-        m_titleFadeInAlpha = 255 - (m_titleFadeInCount * 255 / 60);
-        if (m_titleFadeInCount >= TITLE_FADE_IN)
-        {
-            m_bTitleFadeIn = false;
-            m_titleFadeInAlpha = 0;
-        }
-    }
-    else
-    {
-        // ローディング中、カメラ移動中、フェードアウト中は操作不能にする
-        if (m_bTitleLoading == false && m_bTitleCameraFade == false && m_bTitleFadeOut == false)
-        {
-            std::string result = m_titleCommand->Operate();
-
-            if (result == "Start")
-            {
-                m_eTitleMenu = eTitleMenu::START;
-                if (m_bSavedataExists)
-                {
-                    m_bTitleLoading = true;
-                    m_titleThread = new std::thread(
-                        [&]
-                        {
-                            SaveManager::Get()->LoadOrigin();
-                            m_titleLoaded.store(true);
-                        });
-                }
-            }
-            else if (result == "Continue")
-            {
-                m_eTitleMenu = eTitleMenu::CONTINUE;
-                m_bTitleCameraFade = true;
-                Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
-                m_titleCameraFadeCount = 0;
-                auto ppos = SharedObj::GetPlayer()->GetPos();
-                ppos.y += 1.0f;
-                Camera::SetLookAtPos(ppos);
-            }
-            else if (result == "Exit")
-            {
-                m_eTitleMenu = eTitleMenu::EXIT;
-                FinalizeTitle();
-                *sequence = eSequence::EXIT;
-            }
-        }
-        else
-        {
-            if (m_bTitleCameraFade)
-            {
-                // カメラをプレイヤーの位置に向かって60フレームで到達するように移動させる。
-                ++m_titleCameraFadeCount;
-                if (m_titleCameraFadeCount >= Camera::MOVE_COUNT_MAX)
-                {
-                    FinalizeTitle();
-                    m_eState = eBattleState::NORMAL;
-                    Camera::SetCameraMode(eCameraMode::BATTLE);
-                    Common::SetCursorVisibility(false);
-
-                    BGM::get_ton()->load("res\\sound\\novel.wav");
-                    BGM::get_ton()->play(10);
-                }
-            }
-            else if (m_bTitleFadeOut)
-            {
-                ++m_titleFadeOutCount;
-                if (m_titleFadeOutCount >= TITLE_FADE_OUT)
-                {
-                    FinalizeTitle();
-                    m_eState = eBattleState::OPENING;
-                    m_Opening = new SeqOpening();
-                }
-            }
-            else if (m_bTitleLoading)
-            {
-                // 即座にオープニングが始まるのではなく、
-                // フェードアウトを描画し、
-                // フェードアウトが完了したらオープニングが始まるようにする。
-                if (m_titleLoaded.load() == true)
-                {
-                    m_bTitleFadeOut = true;
-                    m_titleFadeOutCount = 0;
-                }
-            }
-        }
-    }
-}
-
-void SeqBattle::RenderTitle()
-{
-    // 1フレーム目は、OperateTitle関数が呼ばれる前に呼ばれることに注意する
-
-    D3DXVECTOR3 pos(0.f, 0.f, 0.f);
-
-    if (m_bTitleFadeIn)
-    {
-        m_sprTitleBack->Render(pos, m_titleFadeInAlpha);
-    }
-
-    pos.x = 630.f;
-    pos.y = 200.f;
-
-    m_sprTitleLogo->Render(pos);
-    m_titleCommand->Draw();
-
-    // ロードするならくるくるを表示
-    if (m_titleThread != nullptr && m_titleLoaded.load() == false)
-    {
-
-        static float counter = 0;
-        counter += 0.05f;
-        int temp1 = 0;
-
-        D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
-        pos.x = std::sin(counter) * 100 + 800;
-        pos.y = std::cos(counter) * 60 + 450;
-        temp1 = (int)std::sin(counter * 0.2) * 255;
-        m_sprTitleClock->Render(pos, temp1);
-
-        static float counter2 = 0;
-        counter2 += 0.04f;
-
-        pos.x = std::sin(counter2) * 60 + 800;
-        pos.y = std::cos(counter2) * 90 + 450;
-        temp1 = (int)std::sin(counter2 * 0.2) * 192;
-        m_sprTitleClock->Render(pos, temp1);
-
-        static int counter3 = 0;
-
-        counter3 += 2;
-        if (counter3 >= 256)
-        {
-            counter3 = 0;
-        }
-
-        int temp = 0;
-        if (counter3 <= 127)
-        {
-            temp = counter3;
-        }
-        else
-        {
-            temp = 256 - counter3;
-        }
-
-        // 右方向に8ピクセル、下方向に31ピクセル移動すればクライアント領域？
-        // 本当はちゃんとやらないといけない。
-
-        pos = D3DXVECTOR3(800 - 64, 450 - 64, 0.0f);
-        m_sprTitleLoading->Render(pos, temp);
-    }
-}
-
-    void SeqBattle::FinalizeTitle()
-{
-    SAFE_DELETE(m_titleCommand);
-    SAFE_DELETE(m_sprTitleBack);
-    SAFE_DELETE(m_sprTitleLogo);
-    SAFE_DELETE(m_sprTitleClock);
-    SAFE_DELETE(m_sprTitleLoading);
-    SAFE_RELEASE(m_titleFont);
-}
-
 void SeqBattle::InitLoad()
 {
     // セーブデータがあるか否か
@@ -1182,7 +985,7 @@ void SeqBattle::UpdateLoad()
         InitializeAfterLoad();
         FinalizeLoad();
         m_eState = eBattleState::TITLE;
-        InitTitle();
+        m_title = new Title();
     }
 }
 
@@ -1304,7 +1107,7 @@ void SeqBattle::Render()
     
     if (m_eState == eBattleState::TITLE)
     {
-        RenderTitle();
+        m_title->Render();
     }
     else if (m_eState == eBattleState::OPENING)
     {
