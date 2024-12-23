@@ -91,6 +91,7 @@
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -116,6 +117,7 @@
       </AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <ExceptionHandling>Async</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -204,6 +206,7 @@
     <ClCompile Include="SoundEffect.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="StackBackTrace.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationStrategy.h" />
@@ -242,6 +245,7 @@
     <ClInclude Include="SoundEffect.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="StackBackTrace.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="res\shader\animation_mesh_shader.fx">

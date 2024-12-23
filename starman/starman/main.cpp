@@ -7,6 +7,7 @@
 #pragma comment(lib, "d3dx9d.lib")
 #endif
 #pragma comment(lib, "shlwapi.lib")
+#pragma comment(lib, "dbghelp.lib")
 
 #if defined(NDEBUG)
 #pragma comment(lib, "..\\..\\StoryTelling\\Release\\StoryTelling.lib")
@@ -32,10 +33,23 @@
 
 #include <windows.h>
 #include "MainWindow.h"
+#include "StackBackTrace.h"
+
+// 例外で終了したときに、例外発生時のスタックトレースを出力する
+static void se_translator(unsigned int u, _EXCEPTION_POINTERS* e)
+{
+    StackBackTrace stackBackTrace;
+    std::string output = stackBackTrace.build();
+    std::ofstream ofs("error.log");
+    ofs << output;
+}
 
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance,
     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
+    // 例外で終了したときに、例外発生時のスタックトレースを出力する
+    _set_se_translator(se_translator);
+
     HWND hWnd = FindWindow("ホシマン", nullptr);
     if (hWnd != nullptr)
     {
