@@ -173,6 +173,7 @@ private:
     void RenderLoad();
     void FinalizeLoad();
     Sprite* m_sprLoadBack = nullptr;
+    Sprite* m_sprLoadLogo = nullptr;
     Sprite* m_sprLoadLoading = nullptr;
     Sprite* m_sprLoadClock = nullptr;
     bool m_bSavedataExists = false;

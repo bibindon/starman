@@ -17,6 +17,8 @@ public:
     static void SleepModeON();
     static void SleepModeOFF();
 
+    static void SetTitleMode(const bool arg);
+
 private:
 
     const static D3DXVECTOR3 UPWARD;
@@ -26,5 +28,7 @@ private:
     static float m_radian;
     static float m_y;
     static bool m_sleepMode;
+
+    static bool m_titleMode;
 };
 

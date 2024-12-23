@@ -15,6 +15,7 @@ float Camera::m_viewAngle { D3DX_PI / 4 };
 float Camera::m_radian { D3DX_PI * 3 / 2 };
 float Camera::m_y { 3.f };
 bool Camera::m_sleepMode { false };
+bool Camera::m_titleMode = false;
 
 D3DXMATRIX Camera::GetViewMatrix()
 {
@@ -64,6 +65,14 @@ void Camera::Update()
     {
         return;
     }
+
+    if (m_titleMode)
+    {
+        m_eyePos.x = 1000.f;
+        m_eyePos.z = 1000.f;
+        m_eyePos.y = 300.f;
+    }
+
     LONG x = Mouse::GetXDelta();
     float y = (float)Mouse::GetYDelta();
     float joyX { 0.0f };
@@ -84,9 +93,11 @@ void Camera::Update()
         y = 10;
     }
     x *= -1; // 正負を逆にする
+
     // xとyを10分の1にすればリモートデスクトップでもまともに操作できる
-//    x /= 10;
-//    y /= 10;
+    x /= 10;
+    y /= 10;
+
     m_radian += x/500.f;
     m_radian += joyX;
 
@@ -138,4 +149,16 @@ void Camera::SleepModeON()
 void Camera::SleepModeOFF()
 {
     m_sleepMode = false;
+}
+
+void Camera::SetTitleMode(const bool arg)
+{
+    m_titleMode = arg;
+
+    if (arg)
+    {
+        m_eyePos.x = 1000.f;
+        m_eyePos.z = 1000.f;
+        m_eyePos.y = 300.f;
+    }
 }

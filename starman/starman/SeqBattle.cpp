@@ -1050,6 +1050,9 @@ void SeqBattle::RenderTitle()
         m_sprTitleBack->Render(pos, m_titleFadeInAlpha);
     }
 
+    pos.x = 630.f;
+    pos.y = 200.f;
+
     m_sprTitleLogo->Render(pos);
     m_titleCommand->Draw();
 
@@ -1146,6 +1149,7 @@ void SeqBattle::InitLoad()
     }
 
     m_sprLoadBack = new Sprite("res\\image\\black.png");
+    m_sprLoadLogo = new Sprite("res\\image\\title01.png");
     m_sprLoadClock = new Sprite("res\\image\\load_clock.png");
     m_sprLoadLoading = new Sprite("res\\image\\loading.png");
 
@@ -1171,6 +1175,12 @@ void SeqBattle::InitializeAfterLoad()
     SharedObj::SetMap(m_map);
     m_map->Init();
 
+    auto status = NSStarmanLib::StatusManager::GetObj();
+    D3DXVECTOR3 pos;
+    status->GetXYZ(&pos.x, &pos.y, &pos.z);
+    m_player->SetPos(pos);
+
+    Camera::SetTitleMode(true);
 }
 
 void SeqBattle::RenderLoad()
@@ -1221,12 +1231,44 @@ void SeqBattle::RenderLoad()
 
         pos = D3DXVECTOR3(800 - 40, 450 -10, 0.0f);
         m_sprLoadLoading->Render(pos, temp);
+
+        // TODO 読み込みの進捗度に合わせて「ホシマン」を1文字ずつ表示する
+        static int width_ = 0;
+        pos.x = 630;
+        pos.y = 200;
+
+        static int counter4 = 0;
+        ++counter4;
+
+        if (counter4 <= 60*1)
+        {
+            width_ = 0;
+        }
+        else if (counter4 <= 60*4)
+        {
+            width_ = 90;
+        }
+        else if (counter4 <= 60*9)
+        {
+            width_ = 180;
+        }
+        else if (counter4 <= 60*16)
+        {
+            width_ = 270;
+        }
+        else if (counter4 <= 60*25)
+        {
+            width_ = -1;
+        }
+
+        m_sprLoadLogo->Render(pos, 255, width_);
     }
 }
 
 void SeqBattle::FinalizeLoad()
 {
     SAFE_DELETE(m_sprLoadBack);
+    SAFE_DELETE(m_sprLoadLogo);
     SAFE_DELETE(m_sprLoadLoading);
     SAFE_DELETE(m_sprLoadClock);
 }
