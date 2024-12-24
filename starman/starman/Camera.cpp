@@ -177,9 +177,19 @@ POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
     D3DXMATRIX matrix { };
     D3DXMatrixTranslation(&matrix, world.x, world.y, world.z);
     matrix = matrix * view_matrix * projection_matrix * viewport_matrix;
-    return POINT {
-        static_cast<int>(matrix._41 / matrix._44),
-        static_cast<int>(matrix._42 / matrix._44) };
+
+    POINT p { };
+    if (matrix._44 < 0.f)
+    {
+        p.x = -1;
+        p.y = -1;
+    }
+    else
+    {
+        p.x = static_cast<int>(matrix._41 / matrix._44);
+        p.y = static_cast<int>(matrix._42 / matrix._44);
+    }
+    return p;
 }
 
 void Camera::SetCameraMode(const eCameraMode mode)

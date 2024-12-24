@@ -190,14 +190,17 @@ void EnemyBase::Render()
     m_AnimMesh->SetRotate(m_rotate);
     m_AnimMesh->Render();
     POINT screenPos = Camera::GetScreenPos(m_loadingPos);
-    m_spriteHPBack->Render(
-        D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
-    if (m_HP >= 0)
+    if (screenPos.x >= 0)
     {
-        m_spriteHP->Render(
-            D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
-            255,
-            (m_HP*128/100));
+        m_spriteHPBack->Render(
+            D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
+        if (m_HP >= 0)
+        {
+            m_spriteHP->Render(
+                D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
+                255,
+                (m_HP*128/100));
+        }
     }
 }
 
