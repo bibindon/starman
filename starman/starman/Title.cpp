@@ -71,25 +71,19 @@ Title::Title(const bool blackFadeIn)
                                  "ＭＳ 明朝",
                                  &m_font);
 
-    m_fadeInCount = 0;
-    m_fadeInAlpha = 255;
-
-    m_bFadeIn = true;
-
-    m_eMenu = eTitleMenu::NOT_DECIDE;
-    m_cameraFadeCount = 0;
-    m_bCameraFadeOut = false;
-    m_bLoading = false;
-    m_bFadeOut = false;
-    m_fadeOutCount = 0;
-
     if (blackFadeIn)
     {
+        m_bFadeIn = true;
         m_bCameraFadeIn = false;
+
+        m_fadeInAlpha = 255;
     }
     else
     {
+        m_bFadeIn = false;
         m_bCameraFadeIn = true;
+
+        m_fadeInAlpha = 0;
     }
 }
 
@@ -107,100 +101,94 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 {
     if (m_bFadeIn)
     {
-        if (m_bCameraFadeIn == false)
+        ++m_fadeInCount;
+        m_fadeInAlpha = 255 - (m_fadeInCount * 255 / 60);
+        if (m_fadeInCount >= FADE_IN)
         {
-            ++m_fadeInCount;
-            m_fadeInAlpha = 255 - (m_fadeInCount * 255 / 60);
-            if (m_fadeInCount >= FADE_IN)
+            m_bFadeIn = false;
+            m_fadeInAlpha = 0;
+        }
+    }
+    else if (m_bFadeOut)
+    {
+        ++m_fadeOutCount;
+        m_fadeOutAlpha = m_fadeOutCount * 255 / 60;
+        if (m_fadeOutCount >= FADE_OUT)
+        {
+            m_bFadeOut = false;
+            m_fadeOutAlpha = 255;
+            if (m_bLoading == false)
             {
-                m_bFadeIn = false;
-                m_fadeInAlpha = 0;
+                *eState = eBattleState::OPENING;
             }
         }
-        else
+    }
+    else if (m_bCameraFadeIn)
+    {
+        ++m_cameraFadeInCount;
+        if (m_cameraFadeInCount >= Camera::MOVE_COUNT_MAX)
         {
-            ++m_fadeInCount;
-            if (m_fadeInCount >= Camera::MOVE_COUNT_MAX)
-            {
-                m_bFadeIn = false;
-                Camera::SetCameraMode(eCameraMode::TITLE);
-            }
+            m_bCameraFadeIn = false;
+            Camera::SetCameraMode(eCameraMode::TITLE);
+        }
+    }
+    else if (m_bCameraFadeOut)
+    {
+        ++m_cameraFadeOutCount;
+        if (m_cameraFadeOutCount >= Camera::MOVE_COUNT_MAX)
+        {
+            m_bCameraFadeOut = false;
+            Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
+            *eState = eBattleState::NORMAL;
+        }
+    }
+    else if (m_bLoading == true)
+    {
+        if (m_loaded.load() == true)
+        {
+            m_bLoading = false;
+            *eState = eBattleState::OPENING;
         }
     }
     else
     {
-        // ローディング中、カメラ移動中、フェードアウト中は操作不能にする
-        if (m_bLoading == false && m_bCameraFadeOut == false && m_bFadeOut == false)
-        {
-            std::string result = m_titleCommand->Operate();
+        std::string result = m_titleCommand->Operate();
 
-            if (result == "Start")
+        if (result == "Start")
+        {
+            // 即座にオープニングが始まるのではなく、
+            // フェードアウトを描画し、
+            // フェードアウトが完了したらオープニングが始まるようにする。
+            m_eMenu = eTitleMenu::START;
+            m_bFadeOut = true;
+            m_fadeOutCount = 0;
+
+            if (m_bSavedataExists)
             {
-                // TODO
-                // フェードアウトしてから読み込みを始める
-                m_eMenu = eTitleMenu::START;
-                if (m_bSavedataExists)
-                {
-                    m_bLoading = true;
-                    m_thread = new std::thread(
-                        [&]
-                        {
-                            SaveManager::Get()->LoadOrigin();
-                            m_loaded.store(true);
-                        });
-                }
-                else
-                {
-                    *eState = eBattleState::OPENING;
-                }
-            }
-            else if (result == "Continue")
-            {
-                m_eMenu = eTitleMenu::CONTINUE;
-                m_bCameraFadeOut = true;
-                Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
-                m_cameraFadeCount = 0;
-                auto ppos = SharedObj::GetPlayer()->GetPos();
-                ppos.y += 1.0f;
-                Camera::SetLookAtPos(ppos);
-            }
-            else if (result == "Exit")
-            {
-                m_eMenu = eTitleMenu::EXIT;
-                *sequence = eSequence::EXIT;
+                m_bLoading = true;
+                m_thread = new std::thread(
+                    [&]
+                    {
+                        SaveManager::Get()->LoadOrigin();
+                        m_loaded.store(true);
+                    });
             }
         }
-        else
+        else if (result == "Continue")
         {
-            if (m_bCameraFadeOut)
-            {
-                // カメラをプレイヤーの位置に向かって60フレームで到達するように移動させる。
-                ++m_cameraFadeCount;
-                if (m_cameraFadeCount >= Camera::MOVE_COUNT_MAX)
-                {
-                    *eState = eBattleState::NORMAL;
-                }
-            }
-            else if (m_bFadeOut)
-            {
-                ++m_fadeOutCount;
-                if (m_fadeOutCount >= FADE_OUT)
-                {
-                    *eState = eBattleState::OPENING;
-                }
-            }
-            else if (m_bLoading)
-            {
-                // 即座にオープニングが始まるのではなく、
-                // フェードアウトを描画し、
-                // フェードアウトが完了したらオープニングが始まるようにする。
-                if (m_loaded.load() == true)
-                {
-                    m_bFadeOut = true;
-                    m_fadeOutCount = 0;
-                    m_bLoading = false;
-                }
-            }
+            m_eMenu = eTitleMenu::CONTINUE;
+            m_bCameraFadeOut = true;
+            m_cameraFadeOutCount = 0;
+
+            Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
+            auto ppos = SharedObj::GetPlayer()->GetPos();
+            ppos.y += 1.0f;
+            Camera::SetLookAtPos(ppos);
+        }
+        else if (result == "Exit")
+        {
+            m_eMenu = eTitleMenu::EXIT;
+            *sequence = eSequence::EXIT;
         }
     }
 }
@@ -211,23 +199,38 @@ void Title::Render()
 
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
 
-    if (m_bFadeIn && (m_bCameraFadeIn == false))
+    if (m_bFadeIn)
     {
         m_sprBack->Render(pos, m_fadeInAlpha);
+    }
+    else if (m_bFadeOut)
+    {
+        m_sprBack->Render(pos, m_fadeOutAlpha);
+    }
+    else if (m_bLoading)
+    {
+        m_sprBack->Render(pos, m_fadeOutAlpha);
     }
 
     pos.x = 630.f;
     pos.y = 200.f;
 
-    m_sprLogo->Render(pos);
+    if (m_bLoading == false)
+    {
+        m_sprLogo->Render(pos);
+    }
 
-    if (m_bFadeIn == false && m_bFadeOut == false && m_bCameraFadeOut == false)
+    if (m_bFadeIn == false &&
+        m_bFadeOut == false &&
+        m_bCameraFadeIn == false &&
+        m_bCameraFadeOut == false &&
+        m_bLoading == false)
     {
         m_titleCommand->Draw();
     }
 
-    // ロードするならくるくるを表示
-    if (m_thread != nullptr && m_loaded.load() == false)
+    // ロード中ならくるくるを表示
+    if (m_bLoading && m_loaded.load() == false)
     {
 
         static float counter = 0;

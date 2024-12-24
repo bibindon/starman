@@ -11,18 +11,20 @@
 // タイトル画面
 //
 // ・最初は島全体が見えるようにカメラが離れている。
-// Continueを選んだらカメラがプレイヤーの位置に移動する
-// カメラの移動が完了するまではタイトル画面の担当範囲。
-// Startを選んだら暗転してOpening画面
-// セーブデータがあったら、タイトル画面が表示されたときすでにセーブデータが読まれている。
-// セーブデータがあるのに初めからを選んだら、初期データは読んでいないので
-// くるくるを表示して読み直す必要がある。
+// ・Continueを選んだらカメラがプレイヤーの位置に移動する
+// ・カメラの移動が完了するまではタイトル画面の担当範囲。
+// ・Startを選んだら暗転してOpening画面
+// ・セーブデータがあったら、タイトル画面が表示されたときすでにセーブデータが読まれている。
+// ・セーブデータがあるのに初めからを選んだら、初期データは読んでいないので
+//   くるくるを表示して読み直す必要がある。
+// ・カメラ移動のフェードイン・フェードアウトと暗転によるフェードイン・フェードアウトがある。
 //----------------------------------------------------------
 
 class Title
 {
 public:
-    Title(const bool fadeIn);
+    // blackFadeIn: 暗転によるフェードインか、カメラによるフェードインか。
+    Title(const bool blackFadeIn);
     ~Title();
     void Update(eSequence* sequence, eBattleState* eState);
     void Render();
@@ -35,7 +37,7 @@ private:
     Sprite* m_spriteBlack { nullptr };
     Sprite* m_spriteTimer { nullptr };
 
-    CommandManager* m_titleCommand;
+    CommandManager* m_titleCommand = nullptr;
 
     Sprite* m_sprBack = nullptr;
     Sprite* m_sprLogo = nullptr;
@@ -46,10 +48,20 @@ private:
     bool m_bSavedataExists = false;
 
     const int FADE_IN = 60;
+    bool m_bFadeIn = false;
     int m_fadeInCount = 0;
     int m_fadeInAlpha = 0;
-    bool m_bFadeIn = false;
+
+    const int FADE_OUT = 1;
+    bool m_bFadeOut = false;
+    int m_fadeOutCount = 0;
+    int m_fadeOutAlpha = 0;
+
     bool m_bCameraFadeIn = false;
+    int m_cameraFadeInCount = 0;
+
+    bool m_bCameraFadeOut = false;
+    int m_cameraFadeOutCount = 0;
 
     std::thread* m_thread = nullptr;
     std::atomic<bool> m_loaded = false;
@@ -57,11 +69,5 @@ private:
 
     eTitleMenu m_eMenu = eTitleMenu::NOT_DECIDE;
 
-    int m_cameraFadeCount = 0;
-    bool m_bCameraFadeOut = false;
-
-    bool m_bFadeOut = false;
-    const int FADE_OUT = 60;
-    int m_fadeOutCount = 0;
 };
 
