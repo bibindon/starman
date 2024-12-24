@@ -29,7 +29,7 @@ public:
     bool IsLoadPos(const D3DXVECTOR3& pos);
 
     // ì«Ç›çûÇ›çœÇ›Ç©
-    bool IsLoaded();
+    bool IsLoaded() const;
 
     void Render();
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <atomic>
 
 class SaveManager
 {
@@ -11,6 +12,9 @@ public:
     void LoadOrigin();
     void Load();
     void DeleteSavedata();
+
+    // 別スレッドから進捗を取得できるようにする
+    int GetProgress();
 
 private:
 
@@ -31,5 +35,7 @@ private:
     std::string CreateSaveFilePath(const std::string& filename);
 
     bool m_savedataLoaded = false;
+
+    std::atomic<int> m_progress = 0;
 };
 

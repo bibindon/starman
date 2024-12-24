@@ -23,7 +23,7 @@ Map::Map()
 
 Map::~Map()
 {
-    for (auto pair : m_meshMap)
+    for (auto& pair : m_meshMap)
     {
         SAFE_DELETE(pair.second);
     }
@@ -986,7 +986,7 @@ void Map::Render()
         //m_meshMap["sky2"]->Render();
         Light::SetLightNormal(norm);
     }
-    for (auto pair : m_meshMap)
+    for (auto& pair : m_meshMap)
     {
         if (pair.first == "sky" || pair.first == "sky2")
         {
@@ -994,7 +994,7 @@ void Map::Render()
         }
         pair.second->Render();
     }
-    for (auto pair : m_meshCloneMap)
+    for (auto& pair : m_meshCloneMap)
     {
         pair.second->Render();
     }
@@ -1261,8 +1261,8 @@ D3DXVECTOR3 Map::WallSlideSub(
 
         // ----- キャラY座標補正 -----
         // 当たったインデックスバッファ取得
-        WORD dwHitVertexNo[3];
-        WORD* pIndex;
+        WORD dwHitVertexNo[3] = {};
+        WORD* pIndex = nullptr;
         HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
 
         for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
@@ -1279,7 +1279,7 @@ D3DXVECTOR3 Map::WallSlideSub(
             FLOAT normX, normY, normZ; // 法線の座標
             FLOAT u, v;   // 頂点の色
         };
-        VERTEX* pVertex;
+        VERTEX* pVertex = nullptr;
         hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
 
         // 地面の高さに合わせる
@@ -1343,8 +1343,8 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
 
         // ----- キャラY座標補正 -----
         // 当たったインデックスバッファ取得
-        WORD dwHitVertexNo[3];
-        WORD* pIndex;
+        WORD dwHitVertexNo[3] = {};
+        WORD* pIndex = nullptr;
         HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
 
         for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
@@ -1361,7 +1361,7 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
             FLOAT normX, normY, normZ; // 法線の座標
             FLOAT u, v;   // 頂点の色
         };
-        VERTEX* pVertex;
+        VERTEX* pVertex = nullptr;
         hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
 
         // 地面の高さに合わせる
@@ -1429,7 +1429,7 @@ bool LazyMesh::IsLoadPos(const D3DXVECTOR3& pos)
     return m_radius >= distance;
 }
 
-bool LazyMesh::IsLoaded()
+bool LazyMesh::IsLoaded() const
 {
     return m_bLoaded;
 }

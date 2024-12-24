@@ -1042,23 +1042,46 @@ void SeqBattle::RenderLoad()
         static int counter4 = 0;
         ++counter4;
 
-        if (counter4 <= 60*1)
+        int progress = SaveManager::Get()->GetProgress();
+
+//        if (counter4 <= 60*1)
+//        {
+//            width_ = 0;
+//        }
+//        else if (counter4 <= 60*4)
+//        {
+//            width_ = 90;
+//        }
+//        else if (counter4 <= 60*9)
+//        {
+//            width_ = 180;
+//        }
+//        else if (counter4 <= 60*16)
+//        {
+//            width_ = 270;
+//        }
+//        else if (counter4 <= 60*25)
+//        {
+//            width_ = -1;
+//        }
+
+        if (progress <= 20)
         {
             width_ = 0;
         }
-        else if (counter4 <= 60*4)
+        else if (progress <= 40)
         {
             width_ = 90;
         }
-        else if (counter4 <= 60*9)
+        else if (progress <= 60)
         {
             width_ = 180;
         }
-        else if (counter4 <= 60*16)
+        else if (progress <= 80)
         {
             width_ = 270;
         }
-        else if (counter4 <= 60*25)
+        else if (progress <= 99)
         {
             width_ = -1;
         }

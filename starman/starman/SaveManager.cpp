@@ -200,53 +200,71 @@ void SaveManager::LoadOrigin()
 
 void SaveManager::Load()
 {
+    m_progress.store(0);
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
               CreateSaveFilePath("humanInfoSub.csv"),
               !Common::DebugMode());
 
+    m_progress.store(5);
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
     mapManager->Init(CreateSaveFilePath("mapInfo.csv"), !Common::DebugMode());
 
+    m_progress.store(10);
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     itemManager->Init(CreateOriginFilePath("item.csv"),
                       CreateSaveFilePath("item_pos.csv"),
                       !Common::DebugMode());
 
+    m_progress.store(15);
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
     inventory->Init(CreateSaveFilePath("inventory.csv"), !Common::DebugMode());
 
+    m_progress.store(20);
     NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
     storehouse->Init(CreateSaveFilePath("storehouse.csv"), !Common::DebugMode());
 
+    m_progress.store(25);
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Init(CreateOriginFilePath("weapon.csv"),
                         CreateSaveFilePath("weaponSave.csv"),
                         !Common::DebugMode());
 
+    m_progress.store(30);
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Init(CreateOriginFilePath("enemyDef.csv"),
                            CreateSaveFilePath("enemy.csv"),
                            CreateSaveFilePath("enemyVisible.csv"),
                            !Common::DebugMode());
             
+    m_progress.store(35);
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
     skillManager->Init(CreateOriginFilePath("skill.csv"),
                        CreateSaveFilePath("skillSub.csv"),
                         !Common::DebugMode());
             
+    m_progress.store(40);
+
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     statusManager->Init(CreateSaveFilePath("status.csv"), !Common::DebugMode());
+
+    m_progress.store(45);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
     guide->Init(CreateSaveFilePath("guide.csv"), !Common::DebugMode());
 
+    m_progress.store(50);
+
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Init(CreateSaveFilePath("datetime.csv"), !Common::DebugMode());
 
+    m_progress.store(55);
+
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
     mapObjManager->Init(CreateSaveFilePath("map_obj.csv"), !Common::DebugMode());
+
+    m_progress.store(100);
 
     m_savedataLoaded = true;
 }
@@ -332,4 +350,9 @@ void SaveManager::DeleteSavedata()
     {
         DeleteFolder(SAVEDATA_FOLDER_DEBUG);
     }
+}
+
+int SaveManager::GetProgress()
+{
+    return m_progress.load();
 }

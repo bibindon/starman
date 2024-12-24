@@ -209,7 +209,7 @@ void EnemyBase::SetPos(const D3DXVECTOR3& pos)
     m_loadingPos = pos;
 }
 
-D3DXVECTOR3 EnemyBase::GetPos()
+D3DXVECTOR3 EnemyBase::GetPos() const
 {
     return m_loadingPos;
 }
@@ -219,7 +219,7 @@ void EnemyBase::SetRotate(const D3DXVECTOR3& rotate)
     m_rotate = rotate;
 }
 
-D3DXVECTOR3 EnemyBase::GetRotate()
+D3DXVECTOR3 EnemyBase::GetRotate() const
 {
     return m_rotate;
 }
@@ -233,7 +233,7 @@ void EnemyBase::SetHP(const int hp)
     }
 }
 
-int EnemyBase::GetHP()
+int EnemyBase::GetHP() const
 {
     return m_HP;
 }
@@ -258,7 +258,7 @@ void EnemyBase::SetState(const eEnemyState state)
     m_state = state;
 }
 
-eEnemyState EnemyBase::GetState()
+eEnemyState EnemyBase::GetState() const
 {
     return m_state;
 }
@@ -273,7 +273,7 @@ int EnemyBase::GetIdSub() const
     return m_idSub;
 }
 
-D3DXVECTOR3 EnemyBase::GetAttackPos()
+D3DXVECTOR3 EnemyBase::GetAttackPos() const
 {
     D3DXVECTOR3 pos { m_loadingPos };
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };

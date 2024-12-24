@@ -26,7 +26,7 @@ void SoundEffect::initialize(HWND hwnd)
 
 void SoundEffect::finalize()
 {
-    for (auto pair : single_ton_->dx8sound_buffers_)
+    for (auto& pair : single_ton_->dx8sound_buffers_)
     {
         SAFE_RELEASE(pair.second);
     }

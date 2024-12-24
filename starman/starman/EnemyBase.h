@@ -27,13 +27,13 @@ public:
     void Render();
     virtual void Update();
     void SetPos(const D3DXVECTOR3& pos);
-    D3DXVECTOR3 GetPos();
+    D3DXVECTOR3 GetPos() const;
     void SetRotate(const D3DXVECTOR3& rotate);
-    D3DXVECTOR3 GetRotate();
+    D3DXVECTOR3 GetRotate() const;
     void SetHP(const int hp);
-    int GetHP();
+    int GetHP() const;
     void SetState(const eEnemyState state);
-    eEnemyState GetState();
+    eEnemyState GetState() const;
 
     void SetIdSub(const int arg);
     int GetIdSub() const;
@@ -53,7 +53,7 @@ protected:
     eEnemyState m_state { eEnemyState::IDLE };
     int m_deadTimeCounter { 0 };
     int m_damagedTimeCounter { 0 };
-    D3DXVECTOR3 GetAttackPos();
+    D3DXVECTOR3 GetAttackPos() const;
 
     int m_idSub = 0;
 
