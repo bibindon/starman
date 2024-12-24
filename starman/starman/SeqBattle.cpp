@@ -1914,7 +1914,8 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         Camera::SetLookAtPos(pos);
     }
 
-    if (m_player->GetHP() <= 0)
+    auto status = NSStarmanLib::StatusManager::GetObj();
+    if (status->GetDead())
     {
         m_player->SetDead();
         m_eState = eBattleState::GAMEOVER;

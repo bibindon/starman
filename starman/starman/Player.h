@@ -27,8 +27,6 @@ public:
     void SetJump();
     void SetExamine();
 
-    void SetHP(const int hp);
-    int GetHP() const;
 private:
     AnimMesh* m_AnimMesh2 = nullptr;
     std::unordered_map<std::string, Mesh*> m_weaponMesh;
@@ -46,10 +44,6 @@ private:
     bool m_bDamaged = false;
     int m_damagedTimeCounter = 0;
 
-    int m_HP = 100;
-
-    Sprite* m_spriteHP = nullptr;
-    Sprite* m_spriteHPBack = nullptr;
     bool m_bDead = false;
     bool m_bJump = false;
     int m_jumpTimeCounter = 0;

@@ -58,9 +58,6 @@ Player::Player()
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 
-    m_spriteHP = new Sprite("res\\image\\hp_green_p.png");
-    m_spriteHPBack = new Sprite("res\\image\\hp_black_p.png");
-
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -129,8 +126,6 @@ Player::Player()
 
 Player::~Player()
 {
-    SAFE_DELETE(m_spriteHP);
-    SAFE_DELETE(m_spriteHPBack);
     SAFE_DELETE(m_AnimMesh2);
     for (auto it = m_weaponMesh.begin(); it != m_weaponMesh.end(); ++it)
     {
@@ -265,9 +260,54 @@ void Player::Update(Map* map)
     //----------------------------------------------------------
     // Finalize
     //----------------------------------------------------------
-    move /= 10.f;
+
+    if (m_bJump || m_bDead)
+    {
+        move = D3DXVECTOR3(0.f, 0.f, 0.f);
+    }
+
     m_move += move;
 
+    if (Common::ReleaseMode())
+    {
+        if (m_move.x >= 1.f / 60 * 5)
+        {
+            m_move.x = 1.f / 60 * 5;
+        }
+
+        if (m_move.y >= 1.f / 60 * 5)
+        {
+            m_move.y = 1.f / 60 * 5;
+        }
+
+        if (m_move.z >= 1.f / 60 * 5)
+        {
+            m_move.z = 1.f / 60 * 5;
+        }
+    }
+    else if (Common::DebugMode())
+    {
+        if (m_move.x >= 0.2f)
+        {
+            m_move.x = 0.2f;
+        }
+
+        if (m_move.y >= 0.2f)
+        {
+            m_move.y = 0.2f;
+        }
+
+        if (m_move.z >= 0.2f)
+        {
+            m_move.z = 0.2f;
+        }
+    }
+
+    if (m_bJump == false)
+    {
+        m_move.x /= 2;
+        m_move.z /= 2;
+    }
 
     if (map == nullptr)
     {
@@ -346,10 +386,6 @@ void Player::Update(Map* map)
     }
 
     m_loadingPos += m_move;
-
-    m_move.x = 0.f;
-    // m_move.y = 0.f;
-    m_move.z = 0.f;
 }
 
 void Player::Render()
@@ -357,17 +393,6 @@ void Player::Render()
     m_AnimMesh2->SetPos(m_loadingPos);
     m_AnimMesh2->SetRotate(m_rotate);
     m_AnimMesh2->Render();
-
-    POINT screenPos = Camera::GetScreenPos(m_loadingPos);
-    m_spriteHPBack->Render(
-        D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f });
-    if (m_HP >= 0)
-    {
-        m_spriteHP->Render(
-            D3DXVECTOR3 { (FLOAT)screenPos.x - 128, (FLOAT)screenPos.y, 0.f },
-            255,
-            (m_HP*256/100));
-    }
 
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
@@ -392,7 +417,10 @@ D3DXVECTOR3 Player::GetPos() const
 
 void Player::SetMove(const D3DXVECTOR3& move)
 {
-    m_move = move;
+    if (m_bJumpEnable && m_bDead == false)
+    {
+        m_move = move;
+    }
 }
 
 D3DXVECTOR3 Player::GetMove() const
@@ -402,7 +430,10 @@ D3DXVECTOR3 Player::GetMove() const
 
 void Player::SetRotate(const D3DXVECTOR3& rotate)
 {
-    m_rotate = rotate;
+    if (m_bJump == false && m_bDead == false)
+    {
+        m_rotate = rotate;
+    }
 }
 
 D3DXVECTOR3 Player::GetRotate() const
@@ -412,7 +443,7 @@ D3DXVECTOR3 Player::GetRotate() const
 
 bool Player::SetAttack()
 {
-    if (m_bAttack || m_bDamaged)
+    if (m_bAttack || m_bDamaged || m_bDead)
     {
         return false;
     }
@@ -451,7 +482,7 @@ bool Player::SetAttack()
 
 void Player::SetWalk()
 {
-    if (m_bJump == false)
+    if (m_bJump == false || m_bDead == false)
     {
         m_AnimMesh2->SetAnim("Walk");
     }
@@ -493,7 +524,7 @@ D3DXVECTOR3 Player::GetAttackPos() const
 
 void Player::SetJump()
 {
-    if (m_bJumpEnable)
+    if (m_bJumpEnable && m_bDead == false)
     {
         m_bJump = true;
         m_bJumpEnable = false;
@@ -508,13 +539,4 @@ void Player::SetExamine()
     // 
 }
 
-void Player::SetHP(const int hp)
-{
-    m_HP = hp;
-}
-
-int Player::GetHP() const
-{
-    return m_HP;
-}
 

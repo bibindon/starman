@@ -6,6 +6,7 @@
 #include "Sprite.h"
 #include "Camera.h"
 #include <random>
+#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 
 EnemyBase::EnemyBase()
 {
@@ -161,10 +162,14 @@ void EnemyBase::Update()
             if (distance <= 1.0f)
             {
                 player->SetDamaged();
-                int hp = player->GetHP();
-                player->SetHP(hp - 10);
-            }
+                auto status = NSStarmanLib::StatusManager::GetObj();
 
+                auto muscle = status->GetMuscleCurrent();
+                status->SetMuscleCurrent(muscle - 1);
+
+                auto brain = status->GetBrainStaminaCurrent();
+                status->SetBrainStaminaCurrent(brain - 1);
+            }
         }
         else if (m_attackTimeCounter >= 60)
         {
