@@ -162,6 +162,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             m_eMenu = eTitleMenu::START;
             m_bFadeOut = true;
             m_fadeOutCount = 0;
+            Common::SetCursorVisibility(false);
 
             if (m_bSavedataExists)
             {
@@ -179,6 +180,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             m_eMenu = eTitleMenu::CONTINUE;
             m_bCameraFadeOut = true;
             m_cameraFadeOutCount = 0;
+            Common::SetCursorVisibility(false);
 
             Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
             auto ppos = SharedObj::GetPlayer()->GetPos();
@@ -215,7 +217,7 @@ void Title::Render()
     pos.x = 630.f;
     pos.y = 200.f;
 
-    if (m_bLoading == false)
+    if (m_bLoading == false && m_bCameraFadeOut == false)
     {
         m_sprLogo->Render(pos);
     }

@@ -256,7 +256,6 @@ void Player::Update(Map* map)
         SetJump();
     }
 
-
     //----------------------------------------------------------
     // Finalize
     //----------------------------------------------------------
@@ -268,39 +267,32 @@ void Player::Update(Map* map)
 
     m_move += move;
 
-    if (Common::ReleaseMode())
+    const float MAX_MOVE = 0.5f;
+    if (m_move.x >= MAX_MOVE)
     {
-        if (m_move.x >= 1.f / 60 * 5)
-        {
-            m_move.x = 1.f / 60 * 5;
-        }
-
-        if (m_move.y >= 1.f / 60 * 5)
-        {
-            m_move.y = 1.f / 60 * 5;
-        }
-
-        if (m_move.z >= 1.f / 60 * 5)
-        {
-            m_move.z = 1.f / 60 * 5;
-        }
+        m_move.x = MAX_MOVE;
     }
-    else if (Common::DebugMode())
+    else if (m_move.x <= -MAX_MOVE)
     {
-        if (m_move.x >= 0.2f)
-        {
-            m_move.x = 0.2f;
-        }
+        m_move.x = -MAX_MOVE;
+    }
 
-        if (m_move.y >= 0.2f)
-        {
-            m_move.y = 0.2f;
-        }
+    if (m_move.y >= MAX_MOVE)
+    {
+        m_move.y = MAX_MOVE;
+    }
+    else if (m_move.y <= -MAX_MOVE)
+    {
+        m_move.y = -MAX_MOVE;
+    }
 
-        if (m_move.z >= 0.2f)
-        {
-            m_move.z = 0.2f;
-        }
+    if (m_move.z >= MAX_MOVE)
+    {
+        m_move.z = MAX_MOVE;
+    }
+    else if (m_move.z <= -MAX_MOVE)
+    {
+        m_move.z = -MAX_MOVE;
     }
 
     if (m_bJump == false)
