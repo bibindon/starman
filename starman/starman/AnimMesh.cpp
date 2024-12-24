@@ -47,15 +47,15 @@ AnimMesh::AnimMesh(
     , m_centerPos { 0.0f, 0.0f, 0.0f }
 {
     HRESULT result { 0 };
-    D3DXCreateEffectFromFile(
-        SharedObj::GetD3DDevice(),
-        SHADER_FILENAME.c_str(),
-        nullptr,
-        nullptr,
-        0,
-        nullptr,
-        &m_D3DEffect,
-        nullptr);
+    result = D3DXCreateEffectFromFile(SharedObj::GetD3DDevice(),
+                                      SHADER_FILENAME.c_str(),
+                                      nullptr,
+                                      nullptr,
+                                      0,
+                                      nullptr,
+                                      &m_D3DEffect,
+                                      nullptr);
+
     if (FAILED(result))
     {
         throw std::exception("Failed to create an effect file.");

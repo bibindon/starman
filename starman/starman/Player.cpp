@@ -268,7 +268,17 @@ void Player::Update(Map* map)
 
     m_move += move;
 
-    const float MAX_MOVE = 0.5f;
+    float MAX_MOVE = 0.f;
+
+    if (Common::ReleaseMode())
+    {
+        MAX_MOVE = 0.5f;
+    }
+    else
+    {
+        MAX_MOVE = 10.f;
+    }
+
     if (m_move.x >= MAX_MOVE)
     {
         m_move.x = MAX_MOVE;
