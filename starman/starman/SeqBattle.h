@@ -26,7 +26,7 @@
 #include "EnemyManager.h"
 
 #include <thread>
-#include "SeqOpening.h"
+#include "Opening.h"
 #include "Title.h"
 
 class Title;
@@ -144,6 +144,6 @@ private:
     // TODO –¼‘O‚ğ•ÏX
     //----------------------------------------------------------
     void OperateOpening();
-    SeqOpening* m_Opening = nullptr;
+    Opening* m_Opening = nullptr;
 };
 

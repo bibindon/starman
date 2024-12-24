@@ -18,7 +18,7 @@
 #include "Sprite.h"
 #include "AnimMesh.h"
 #include "SeqBattle.h"
-#include "SeqOpening.h"
+#include "Opening.h"
 #include "SeqEnding.h"
 
 class MainWindow

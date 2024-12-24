@@ -1,4 +1,4 @@
-#include "SeqOpening.h"
+#include "Opening.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "GamePad.h"
@@ -140,7 +140,7 @@ class SoundEffect : public ISoundEffect
 };
 }
 
-SeqOpening::SeqOpening()
+Opening::Opening()
 {
     BGM::get_ton()->load("res\\sound\\novel.wav");
 
@@ -227,11 +227,11 @@ SeqOpening::SeqOpening()
     }
 }
 
-SeqOpening::~SeqOpening()
+Opening::~Opening()
 {
 }
 
-void SeqOpening::Update(eBattleState* eState)
+void Opening::Update(eBattleState* eState)
 {
     if (m_storyTelling != nullptr)
     {
@@ -271,7 +271,7 @@ void SeqOpening::Update(eBattleState* eState)
 
 }
 
-void SeqOpening::Render()
+void Opening::Render()
 {
     if (m_storyTelling != nullptr)
     {

@@ -5,11 +5,11 @@
 
 #include "..\..\StoryTelling\StoryTelling\StoryTelling.h"
 
-class SeqOpening
+class Opening
 {
 public:
-    SeqOpening();
-    ~SeqOpening();
+    Opening();
+    ~Opening();
     void Update(eBattleState* eState);
     void Render();
 private:

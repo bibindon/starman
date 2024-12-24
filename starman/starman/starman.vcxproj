@@ -200,7 +200,7 @@
     <ClCompile Include="SaveManager.cpp" />
     <ClCompile Include="SeqBattle.cpp" />
     <ClCompile Include="SeqEnding.cpp" />
-    <ClCompile Include="SeqOpening.cpp" />
+    <ClCompile Include="Opening.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="SharedObj.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
@@ -239,7 +239,7 @@
     <ClInclude Include="SaveManager.h" />
     <ClInclude Include="SeqBattle.h" />
     <ClInclude Include="SeqEnding.h" />
-    <ClInclude Include="SeqOpening.h" />
+    <ClInclude Include="Opening.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="SharedObj.h" />
     <ClInclude Include="SoundEffect.h" />
