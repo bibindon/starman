@@ -6,6 +6,7 @@
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "GamePad.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 
 Player::Player()
 {
@@ -469,6 +470,23 @@ bool Player::SetAttack()
     }
 
     SharedObj::GetMap()->SetEnemy(vecEnemy);
+
+    // ãﬂÇ≠ÇÃñÿÇè¡Ç∑
+    if (Common::DebugMode())
+    {
+        auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+        std::vector<NSStarmanLib::MapObj> mapObjs =
+            mapObjManager->GetMapObjListR(m_loadingPos.x, m_loadingPos.z, 20);
+
+        for (int i = 0; i < (int)mapObjs.size(); ++i)
+        {
+            mapObjManager->SetVisible(mapObjs.at(i).GetFrameX(),
+                                      mapObjs.at(i).GetFrameZ(),
+                                      mapObjs.at(i).GetId(),
+                                      false);
+        }
+    }
+
     return true;
 }
 

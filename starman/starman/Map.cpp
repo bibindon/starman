@@ -768,8 +768,7 @@ void Map::Update()
     }
 
     // ìGÇ™100Å[ÉgÉãà»ì‡Ç…Ç¢ÇΩÇÁì«Ç›çûÇÒÇ≈ï\é¶
-    //std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 100.f);
-    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 10.f);
+    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 100.f);
 
     for (int i = 0; i < (int)eneList.size(); ++i)
     {
@@ -893,7 +892,7 @@ void Map::Update()
                     rot.x = needShow.at(i).GetRotX();
                     rot.y = needShow.at(i).GetRotY();
                     rot.z = needShow.at(i).GetRotZ();
-                    // TODO ägëÂó¶Ç™Ç®Ç©ÇµÇ¢
+
                     auto meshClone = new MeshClone(needShow.at(i).GetFilename(), pos, rot, needShow.at(i).GetScale());
                     meshClone->Init();
                     m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
