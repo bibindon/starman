@@ -31,56 +31,48 @@ Map::~Map()
 
 void Map::Init()
 {
-    // Šg‘åk¬‚·‚é‚ÆÕ“Ë”»’è‚ªŒø‚©‚È‚­‚È‚éIII
     {
-        Mesh* mesh = new Mesh(
-            //"res\\model\\Map\\Map.x",
-            "res\\model\\prolitan\\prolitan.x",
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            1.0f);
+        Mesh* mesh = new Mesh("res\\model\\prolitan\\prolitan.x",
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              1.0f);
         mesh->Init();
         m_meshMap["Map"] = mesh;
     }
     {
-        Mesh* mesh = new Mesh(
-            "res\\model\\prolitan\\sea.x",
-            D3DXVECTOR3(10.f, 10.f, 10.f),
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            1.0f);
+        Mesh* mesh = new Mesh("res\\model\\prolitan\\sea.x",
+                              D3DXVECTOR3(10.f, 10.f, 10.f),
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              1.0f);
         mesh->Init();
         m_meshMap["sea"] = mesh;
     }
     {
-        Mesh* mesh = new Mesh(
-            "res\\model\\cube6\\cube6.x",
-            D3DXVECTOR3(-10.f, 0.f, 0.f),
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            1.0f);
+        Mesh* mesh = new Mesh("res\\model\\cube6\\cube6.x",
+                              D3DXVECTOR3(-10.f, 0.f, 0.f),
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              1.0f);
         mesh->Init();
         m_meshMap["cube61"] = mesh;
 
-        mesh = new Mesh(
-            "res\\model\\cube6\\cube6.x",
-            D3DXVECTOR3(-13.f, 1.f, 0.f),
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            1.0f);
+        mesh = new Mesh("res\\model\\cube6\\cube6.x",
+                        D3DXVECTOR3(-13.f, 1.f, 0.f),
+                        D3DXVECTOR3(0.f, 0.f, 0.f),
+                        1.0f);
         mesh->Init();
         m_meshMap["cube62"] = mesh;
 
-        mesh = new Mesh(
-            "res\\model\\cube6\\cube6.x",
-            D3DXVECTOR3(-16.f, 2.f, 0.f),
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            1.0f);
+        mesh = new Mesh("res\\model\\cube6\\cube6.x",
+                        D3DXVECTOR3(-16.f, 2.f, 0.f),
+                        D3DXVECTOR3(0.f, 0.f, 0.f),
+                        1.0f);
         mesh->Init();
         m_meshMap["cube63"] = mesh;
 
-        mesh = new Mesh(
-            "res\\model\\collisionTest\\colli.x",
-            D3DXVECTOR3(0.f, 0.f, -20.f),
-            D3DXVECTOR3(0.f, 0.f, 0.f),
-            1.0f);
+        mesh = new Mesh("res\\model\\collisionTest\\colli.x",
+                        D3DXVECTOR3(0.f, 0.f, -20.f),
+                        D3DXVECTOR3(0.f, 0.f, 0.f),
+                        1.0f);
         mesh->Init();
         m_meshMap["colli"] = mesh;
     }
