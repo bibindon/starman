@@ -776,7 +776,7 @@ void Map::Update()
     }
 
     // 敵が100ートル以内にいたら読み込んで表示
-    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 100.f);
+    auto eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 100.f);
 
     for (int i = 0; i < (int)eneList.size(); ++i)
     {
@@ -948,6 +948,26 @@ void Map::Update()
                     m_meshCloneMap.erase(needHide.at(i).GetId());
                 }
             }
+
+            // 100メートル以上離れた敵は消す
+            // 距離を球で調べると重くなるので立方体で調べる
+            // さらにY軸方向は無視する
+            for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end(); ++it)
+            {
+                if ((*it)->GetPos().x + 100.f < player->GetPos().x ||
+                    (*it)->GetPos().x - 100.f > player->GetPos().x)
+                {
+                    if ((*it)->GetPos().z + 100.f < player->GetPos().z ||
+                        (*it)->GetPos().z - 100.f > player->GetPos().z)
+                    {
+                        it = m_vecEnemy.erase(it);
+                    }
+                }
+            }
+
+            std::string work;
+            work = "m_vecEnemy.size(): " + std::to_string(m_vecEnemy.size()) + "\n";
+            OutputDebugString(work.c_str());
         }
     }
 }
