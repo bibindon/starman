@@ -2,10 +2,18 @@
 #include "Light.h"
 #include "SharedObj.h"
 #include "KeyBoard.h"
-#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
 #include "EnemyCube.h"
 #include "EnemyDisk.h"
 #include "EnemySphere.h"
+#include "EnemyBigCube.h"
+#include "EnemyEnban.h"
+#include "EnemyEnchu.h"
+#include "EnemyGhost.h"
+#include "EnemyHanen.h"
+#include "EnemyHankyuu.h"
+#include "EnemyOrangeCube.h"
+#include "EnemySmallCube.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 
@@ -793,7 +801,35 @@ void Map::Update()
                 }
                 else if (eneList.at(i).GetBreed() == "エンバン")
                 {
-                    enemy = new EnemyDisk();
+                    enemy = new EnemyEnban();
+                }
+                else if (eneList.at(i).GetBreed() == "エンチュウ")
+                {
+                    enemy = new EnemyEnchu();
+                }
+                else if (eneList.at(i).GetBreed() == "ビッグリッポウタイ")
+                {
+                    enemy = new EnemyBigCube();
+                }
+                else if (eneList.at(i).GetBreed() == "スモールリッポウタイ")
+                {
+                    enemy = new EnemySmallCube();
+                }
+                else if (eneList.at(i).GetBreed() == "ハンエン")
+                {
+                    enemy = new EnemyHanen();
+                }
+                else if (eneList.at(i).GetBreed() == "ハンキュウ")
+                {
+                    enemy = new EnemyHankyuu();
+                }
+                else if (eneList.at(i).GetBreed() == "オレンジリッポウタイ")
+                {
+                    enemy = new EnemyOrangeCube();
+                }
+                else if (eneList.at(i).GetBreed() == "島民の霊")
+                {
+                    enemy = new EnemyGhost();
                 }
 
                 enemy->SetIdSub(eneList.at(i).GetID());
