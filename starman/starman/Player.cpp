@@ -207,7 +207,23 @@ void Player::Update(Map* map)
 
     if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
     {
-        SetJump();
+        // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
+        if (KeyBoard::IsDown(DIK_A))
+        {
+            SetStep(eDir::LEFT);
+        }
+        else if (KeyBoard::IsDown(DIK_S))
+        {
+            SetStep(eDir::BACK);
+        }
+        else if (KeyBoard::IsDown(DIK_D))
+        {
+            SetStep(eDir::RIGHT);
+        }
+        else
+        {
+            SetJump();
+        }
     }
 
     if (Common::DebugMode())
@@ -552,6 +568,41 @@ void Player::SetJump()
         m_move.y = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
     }
+}
+
+void Player::SetStep(const eDir dir)
+{
+    const float STEP_VELOCITY = 10.f;
+    float radian = Camera::GetRadian();
+    float yaw = -1.f * (radian - (D3DX_PI / 2));
+    D3DXVECTOR3 move(0.f, 0.f, 0.f);
+    D3DXVECTOR3 rotate(0.f, 0.f, 0.f);
+
+    if (dir == eDir::LEFT)
+    {
+        move.x += -std::sin(radian + D3DX_PI);
+        move.z += std::sin(radian + D3DX_PI * 3 / 2);
+        move *= STEP_VELOCITY;
+        rotate = D3DXVECTOR3 { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
+    }
+    else if (dir == eDir::BACK)
+    {
+        move.x += -std::sin(radian + D3DX_PI * 3 / 2);
+        move.z += std::sin(radian);
+        move *= STEP_VELOCITY;
+        rotate = D3DXVECTOR3 { 0.f, yaw + D3DX_PI, 0.f };
+    }
+    else if (dir == eDir::RIGHT)
+    {
+        move.x += -std::sin(radian);
+        move.z += std::sin(radian + D3DX_PI / 2);
+        move *= STEP_VELOCITY;
+        rotate = D3DXVECTOR3 { 0.f, yaw + D3DX_PI / 2, 0.f };
+    }
+    SetMove(move);
+
+    // TODO カメラがおかしくなる
+    SetRotate(-rotate);
 }
 
 void Player::SetExamine()

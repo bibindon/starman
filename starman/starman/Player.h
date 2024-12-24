@@ -5,6 +5,14 @@
 #include "Sprite.h"
 #include "Map.h"
 
+enum class eDir
+{
+    LEFT,
+    RIGHT,
+    FRONT,
+    BACK,
+};
+
 class Player
 {
 public:
@@ -25,6 +33,8 @@ public:
     bool GetDead() const;
     D3DXVECTOR3 GetAttackPos() const;
     void SetJump();
+    // ゲームパッドの場合でも3方向にしかステップさせない
+    void SetStep(const eDir dir);
     void SetExamine();
 
 private:
