@@ -34,6 +34,9 @@ private:
     std::string CreateOriginFilePath(const std::string& filename);
     std::string CreateSaveFilePath(const std::string& filename);
 
+    std::string GetOriginMapPath();
+    std::string GetSavefileMapPath();
+
     bool m_savedataLoaded = false;
 
     bool m_encrypt = true;

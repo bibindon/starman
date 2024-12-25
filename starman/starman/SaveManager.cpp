@@ -46,7 +46,7 @@ void SaveManager::Destroy()
 std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 {
     std::string originDataPath;
-    if (!m_encrypt)
+    if (Common::DebugMode())
     {
         originDataPath = ORIGIN_DATA_PATH_DEBUG;
         originDataPath += filename;
@@ -55,7 +55,11 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
     {
         originDataPath = ORIGIN_DATA_PATH;
         originDataPath += filename;
-        originDataPath.replace(originDataPath.size() - 3, 3, "enc");
+
+        if (m_encrypt)
+        {
+            originDataPath.replace(originDataPath.size() - 3, 3, "enc");
+        }
     }
     return originDataPath;
 }
@@ -63,7 +67,7 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 {
     std::string saveDataPath;
-    if (!m_encrypt)
+    if (Common::DebugMode())
     {
         saveDataPath = SAVEDATA_PATH_DEBUG;
         saveDataPath += filename;
@@ -72,7 +76,43 @@ std::string SaveManager::CreateSaveFilePath(const std::string& filename)
     {
         saveDataPath = SAVEDATA_PATH;
         saveDataPath += filename;
-        saveDataPath.replace(saveDataPath.size() - 3, 3, "enc");
+
+        if (m_encrypt)
+        {
+            saveDataPath.replace(saveDataPath.size() - 3, 3, "enc");
+        }
+    }
+    return saveDataPath;
+}
+
+std::string SaveManager::GetOriginMapPath()
+{
+    std::string saveDataPath;
+    if (Common::ReleaseMode())
+    {
+        saveDataPath = ORIGIN_DATA_PATH;
+        saveDataPath += "map_obj.bin";
+    }
+    else
+    {
+        saveDataPath = ORIGIN_DATA_PATH_DEBUG;
+        saveDataPath += "map_obj.bin";
+    }
+    return saveDataPath;
+}
+
+std::string SaveManager::GetSavefileMapPath()
+{
+    std::string saveDataPath;
+    if (Common::ReleaseMode())
+    {
+        saveDataPath = SAVEDATA_PATH;
+        saveDataPath += "map_obj.bin";
+    }
+    else
+    {
+        saveDataPath = SAVEDATA_PATH_DEBUG;
+        saveDataPath += "map_obj.bin";
     }
     return saveDataPath;
 }
@@ -139,7 +179,8 @@ void SaveManager::Save()
     datetime->Save(CreateSaveFilePath("datetime.csv"), m_encrypt);
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-    mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), m_encrypt);
+    //mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), m_encrypt);
+    mapObjManager->Save(GetSavefileMapPath(), m_encrypt);
 }
 
 void SaveManager::LoadOrigin()
@@ -206,8 +247,11 @@ void SaveManager::LoadOrigin()
     datetime->Init(CreateOriginFilePath("datetime.csv"), m_encrypt);
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-    mapObjManager->Init(CreateOriginFilePath("map_obj.csv"),
-                        CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
+//    mapObjManager->Init(CreateOriginFilePath("map_obj.csv"),
+//                        CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
+
+    mapObjManager->InitWithBinary(GetOriginMapPath(),
+                                  CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
 }
 
 void SaveManager::Load()
@@ -249,35 +293,35 @@ void SaveManager::Load()
                            CreateSaveFilePath("enemyVisible.csv"),
                            m_encrypt);
             
-    m_progress.store(35);
+    m_progress.store(40);
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
     skillManager->Init(CreateOriginFilePath("skill.csv"),
                        CreateSaveFilePath("skillSub.csv"),
                         m_encrypt);
             
-    m_progress.store(40);
+    m_progress.store(50);
 
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     statusManager->Init(CreateSaveFilePath("status.csv"), m_encrypt);
 
-    m_progress.store(45);
+    m_progress.store(60);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
     guide->Init(CreateSaveFilePath("guide.csv"), m_encrypt);
 
-    m_progress.store(50);
+    m_progress.store(70);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Init(CreateSaveFilePath("datetime.csv"), m_encrypt);
 
-    m_progress.store(55);
+    m_progress.store(80);
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
 //    mapObjManager->Init(CreateSaveFilePath("map_obj.csv"),
 //                        CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
-    mapObjManager->InitWithBinary("res\\script\\save_debug\\map_obj.bin",
-                        CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
+    mapObjManager->InitWithBinary(GetSavefileMapPath(),
+                                  CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
 
     m_progress.store(100);
 
