@@ -1296,26 +1296,26 @@ void SeqBattle::UpdateDebug()
     {
         if (KeyBoard::IsDownFirstFrame(DIK_F7))
         {
-            std::vector<std::vector<std::string>> vss;
+            std::vector<std::vector<std::string>> vvs;
             std::vector<std::string> vs;
             vs.push_back("サンプルテキスト１");
             vs.push_back("サンプルテキスト２サンプルテキスト２");
             vs.push_back("サンプルテキスト３サンプルテキスト３サンプルテキスト３");
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
             vs.push_back("サンプルテキスト４");
             vs.push_back("サンプルテキスト５サンプルテキスト５");
             vs.push_back("サンプルテキスト６サンプルテキスト６サンプルテキスト６");
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
             vs.push_back("サンプルテキスト７サンプルテキスト７サンプルテキスト７サンプルテキスト７");
             vs.push_back("サンプルテキスト８サンプルテキスト８サンプルテキスト８");
             vs.push_back("サンプルテキスト９サンプルテキスト９");
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
             vs.push_back("サンプルテキスト１０");
-            vss.push_back(vs);
-            PopUp::Get()->SetText(vss);
+            vvs.push_back(vs);
+            PopUp::Get()->SetText(vvs);
         }
 
         if (KeyBoard::IsDownFirstFrame(DIK_F8))

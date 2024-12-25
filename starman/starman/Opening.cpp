@@ -163,11 +163,11 @@ Opening::Opening()
             ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening01.png");
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vss;
+            std::vector<std::vector<std::string> > vvs;
             std::vector<std::string> vs;
             vs.push_back("");
-            vss.push_back(vs);
-            page.SetTextList(vss);
+            vvs.push_back(vs);
+            page.SetTextList(vvs);
             pageList.push_back(page);
         }
         {
@@ -175,13 +175,13 @@ Opening::Opening()
             ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening02.png");
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vss;
+            std::vector<std::vector<std::string> > vvs;
             std::vector<std::string> vs;
             vs.push_back("あるところにパワーエッグ星という惑星があった。");
             vs.push_back("パワーエッグ星には海といくつかの大陸、そして無数の島があった。");
             vs.push_back("その島の中にプロリタン島という島があった。");
-            vss.push_back(vs);
-            page.SetTextList(vss);
+            vvs.push_back(vs);
+            page.SetTextList(vvs);
             pageList.push_back(page);
         }
         {
@@ -189,16 +189,16 @@ Opening::Opening()
             ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening03.png");
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vss;
+            std::vector<std::vector<std::string> > vvs;
             std::vector<std::string> vs;
             vs.push_back("プロリタン島の、入り江の木の下で一人の男性が寝ていた。寝ていた男性、ホシマンは浜辺で目を覚ました。");
             vs.push_back("ホシマンは頭部が星の形をしていた。星の形をしているうえに全身黄色でまさに星という感じであった。");
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
             vs.push_back("「し、死ぬ・・・」");
             vs.push_back("かすれ声だった。");
-            vss.push_back(vs);
-            page.SetTextList(vss);
+            vvs.push_back(vs);
+            page.SetTextList(vvs);
             pageList.push_back(page);
         }
         {
@@ -206,19 +206,19 @@ Opening::Opening()
             ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening04.png");
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vss;
+            std::vector<std::vector<std::string> > vvs;
             std::vector<std::string> vs;
             vs.clear();
             vs.push_back("ホシマンはバイクでツーリングを楽しむため船で東のオプティプル島に移動中だった。");
             vs.push_back("しかし、格安ツアーだったため台風でも強行された。");
             vs.push_back("そして、元からボロボロだった船は亀裂から浸水が起こり、船が傾きやがて転覆してしまった。");
-            vss.push_back(vs);
+            vvs.push_back(vs);
             vs.clear();
             vs.push_back("船が転覆したとき、船体は砕け、ホシマンは船の瓦礫に掴まった。そのあと寝ずに３０時間過ごした。");
             vs.push_back("漂流して３０時間後、島の姿が近くに現れた。");
             vs.push_back("ホシマンは無我夢中になり、瓦礫をオールにして島まで漕ぎ、島にたどり着くと浜辺に倒れこんだ。そして、そのまま意識を失った。");
-            vss.push_back(vs);
-            page.SetTextList(vss);
+            vvs.push_back(vs);
+            page.SetTextList(vvs);
             pageList.push_back(page);
         }
 
