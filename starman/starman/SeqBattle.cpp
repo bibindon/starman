@@ -1987,7 +1987,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
                 for (int i = 0; i < (int)mapObjs.size(); ++i)
                 {
-                    if (mapObjs.at(i).GetFilename() == work)
+                    std::string xName = mapObjManager->GetModelName(mapObjs.at(i).GetModelId());
+
+                    if (xName == work)
                     {
                         mapObjManager->SetVisible(mapObjs.at(i).GetFrameX(),
                                                   mapObjs.at(i).GetFrameZ(),

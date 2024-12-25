@@ -36,6 +36,8 @@ private:
 
     bool m_savedataLoaded = false;
 
+    bool m_encrypt = true;
+
     std::atomic<int> m_progress = 0;
 };
 
