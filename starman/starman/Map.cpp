@@ -768,7 +768,8 @@ void Map::Update()
     }
 
     // “G‚ª100[ƒgƒ‹ˆÈ“à‚É‚¢‚½‚ç“Ç‚Ýž‚ñ‚Å•\Ž¦
-    auto eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 100.f);
+    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 30.f);
+    //std::vector<NSStarmanLib::EnemyInfo> eneList;
 
     for (int i = 0; i < (int)eneList.size(); ++i)
     {

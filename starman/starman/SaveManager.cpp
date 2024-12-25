@@ -119,6 +119,8 @@ std::string SaveManager::GetSavefileMapPath()
 
 void SaveManager::Save()
 {
+    return;
+
     // ƒtƒHƒ‹ƒ_‚ª‚È‚¯‚ê‚Îì‚é
     std::string savedir;
     if (Common::ReleaseMode())
