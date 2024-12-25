@@ -905,41 +905,41 @@ void Map::Update()
             {
                 auto player = SharedObj::GetPlayer();
                 auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-                std::vector<NSStarmanLib::MapObj> needShow;
-                std::vector<NSStarmanLib::MapObj> needHide;
+                std::vector<NSStarmanLib::stMapObj> needShow;
+                std::vector<NSStarmanLib::stMapObj> needHide;
                 mapObjManager->GetMapObjListShow(player->GetPos().x, player->GetPos().z, &needShow);
 
                 for (int i = 0; i < (int)needShow.size(); ++i)
                 {
                     D3DXVECTOR3 pos;
-                    pos.x = needShow.at(i).GetX();
-                    pos.y = needShow.at(i).GetY();
-                    pos.z = needShow.at(i).GetZ();
+                    pos.x = needShow.at(i).m_x;
+                    pos.y = needShow.at(i).m_y;
+                    pos.z = needShow.at(i).m_z;
 
                     D3DXVECTOR3 rot;
                     rot.x = 0.f;
-                    rot.y = needShow.at(i).GetRotY();
+                    rot.y = needShow.at(i).m_yRot;
                     rot.z = 0.f;
 
-                    std::string xName = mapObjManager->GetModelName(needShow.at(i).GetModelId());
+                    std::string xName = mapObjManager->GetModelName(needShow.at(i).m_modelId);
 
-                    auto meshClone = new MeshClone(xName, pos, rot, needShow.at(i).GetScale());
+                    auto meshClone = new MeshClone(xName, pos, rot, needShow.at(i).m_scale);
                     meshClone->Init();
-                    m_meshCloneMap[needShow.at(i).GetId()] = meshClone;
-                    mapObjManager->SetShow(needShow.at(i).GetFrameX(),
-                                           needShow.at(i).GetFrameZ(),
-                                           needShow.at(i).GetId(),
+                    m_meshCloneMap[needShow.at(i).m_id] = meshClone;
+                    mapObjManager->SetShow(needShow.at(i).m_frameX,
+                                           needShow.at(i).m_frameZ,
+                                           needShow.at(i).m_id,
                                            true);
                 }
 
                 mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
                 for (int i = 0; i < (int)needHide.size(); ++i)
                 {
-                    mapObjManager->SetShow(needHide.at(i).GetFrameX(),
-                                           needHide.at(i).GetFrameZ(),
-                                           needHide.at(i).GetId(),
+                    mapObjManager->SetShow(needHide.at(i).m_frameX,
+                                           needHide.at(i).m_frameZ,
+                                           needHide.at(i).m_id,
                                            false);
-                    m_meshCloneMap.erase(needHide.at(i).GetId());
+                    m_meshCloneMap.erase(needHide.at(i).m_id);
                 }
             }
 

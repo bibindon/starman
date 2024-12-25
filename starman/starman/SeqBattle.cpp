@@ -1982,18 +1982,18 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 work = work.erase(it, 6);
 
                 auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-                std::vector<NSStarmanLib::MapObj> mapObjs =
+                std::vector<NSStarmanLib::stMapObj> mapObjs =
                     mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
 
                 for (int i = 0; i < (int)mapObjs.size(); ++i)
                 {
-                    std::string xName = mapObjManager->GetModelName(mapObjs.at(i).GetModelId());
+                    std::string xName = mapObjManager->GetModelName(mapObjs.at(i).m_modelId);
 
                     if (xName == work)
                     {
-                        mapObjManager->SetVisible(mapObjs.at(i).GetFrameX(),
-                                                  mapObjs.at(i).GetFrameZ(),
-                                                  mapObjs.at(i).GetId(),
+                        mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
+                                                  mapObjs.at(i).m_frameZ,
+                                                  mapObjs.at(i).m_id,
                                                   false);
                         break;
                     }

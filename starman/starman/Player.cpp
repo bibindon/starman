@@ -501,14 +501,14 @@ bool Player::SetAttack()
     if (Common::DebugMode())
     {
         auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-        std::vector<NSStarmanLib::MapObj> mapObjs =
+        std::vector<NSStarmanLib::stMapObj> mapObjs =
             mapObjManager->GetMapObjListR(m_loadingPos.x, m_loadingPos.z, 20);
 
         for (int i = 0; i < (int)mapObjs.size(); ++i)
         {
-            mapObjManager->SetVisible(mapObjs.at(i).GetFrameX(),
-                                      mapObjs.at(i).GetFrameZ(),
-                                      mapObjs.at(i).GetId(),
+            mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
+                                      mapObjs.at(i).m_frameZ,
+                                      mapObjs.at(i).m_id,
                                       false);
         }
     }
