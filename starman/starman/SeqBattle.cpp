@@ -20,6 +20,7 @@
 #include "EnemyDisk.h"
 #include "PopUp2.h"
 #include "SaveManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 
 using namespace NSQuestSystem;
 
@@ -1945,6 +1946,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     // クエスト処理
+    // TODO QuestManagerでやるべし
     {
         QuestSystem* qs = SharedObj::GetQuestSystem();
         std::vector<std::string> vs = qs->GetFinishQuest();
@@ -1972,6 +1974,28 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 m_talk->Init(work, pFont, pSE, sprite,
                              "res\\image\\textBack.png", "res\\image\\black.png");
                 m_bTalking = true;
+            }
+            else if (vs2.at(0).find("<hide>") != std::string::npos)
+            {
+                std::string work = vs2.at(0);
+                std::string::size_type it = work.find("<talk>");
+                work = work.erase(it, 6);
+
+                auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+                std::vector<NSStarmanLib::MapObj> mapObjs =
+                    mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
+
+                for (int i = 0; i < (int)mapObjs.size(); ++i)
+                {
+                    if (mapObjs.at(i).GetFilename() == work)
+                    {
+                        mapObjManager->SetVisible(mapObjs.at(i).GetFrameX(),
+                                                  mapObjs.at(i).GetFrameZ(),
+                                                  mapObjs.at(i).GetId(),
+                                                  false);
+                        break;
+                    }
+                }
             }
             else if (vs2.at(0).find("<ending>") != std::string::npos)
             {
