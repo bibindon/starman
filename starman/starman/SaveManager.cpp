@@ -276,7 +276,7 @@ void SaveManager::Load()
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
 //    mapObjManager->Init(CreateSaveFilePath("map_obj.csv"),
 //                        CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
-    mapObjManager->InitWithBinary(CreateSaveFilePath("map_obj.bin"),
+    mapObjManager->InitWithBinary("res\\script\\save_debug\\map_obj.bin",
                         CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
 
     m_progress.store(100);
