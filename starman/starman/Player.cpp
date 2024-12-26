@@ -316,55 +316,43 @@ void Player::Update(Map* map)
     // Finalize
     //----------------------------------------------------------
 
+    // ジャンプ中は移動方向を変えたり加速したりできない
     if (m_bJump || m_bDead)
     {
-        move = D3DXVECTOR3(0.f, 0.f, 0.f);
+        if (Common::DeployMode())
+        {
+            move = D3DXVECTOR3(0.f, 0.f, 0.f);
+        }
     }
 
     m_move += move;
 
     float MAX_MOVE = 0.f;
 
+    // 1フレームで50センチ以上移動しようとしたら50センチにする
     if (Common::DeployMode())
     {
         MAX_MOVE = 0.5f;
     }
     else
     {
-        MAX_MOVE = 5.f;
+        MAX_MOVE = 2.5f;
     }
 
-    if (m_move.x >= MAX_MOVE)
+    FLOAT speed = D3DXVec3Length(&m_move);
+
+    // もし100センチ移動しようとしていたら2で割ればよい。
+    if (speed >= MAX_MOVE)
     {
-        m_move.x = MAX_MOVE;
-    }
-    else if (m_move.x <= -MAX_MOVE)
-    {
-        m_move.x = -MAX_MOVE;
+        float work = MAX_MOVE / speed;
+        m_move *= work;
     }
 
-    if (m_move.y >= MAX_MOVE)
-    {
-        m_move.y = MAX_MOVE;
-    }
-    else if (m_move.y <= -MAX_MOVE)
-    {
-        m_move.y = -MAX_MOVE;
-    }
-
-    if (m_move.z >= MAX_MOVE)
-    {
-        m_move.z = MAX_MOVE;
-    }
-    else if (m_move.z <= -MAX_MOVE)
-    {
-        m_move.z = -MAX_MOVE;
-    }
-
+    // XZ平面上の移動量は毎フレーム半分にする。ジャンプしているときは半分にしない。
     if (m_bJump == false)
     {
-        m_move.x /= 2;
-        m_move.z /= 2;
+        m_move.x *= 0.5f;
+        m_move.z *= 0.5f;
     }
 
     if (map == nullptr)
