@@ -942,6 +942,8 @@ void Map::Update()
                                            needHide.at(i).m_frameZ,
                                            needHide.at(i).m_id,
                                            false);
+
+                    delete m_meshCloneMap.at(needHide.at(i).m_id);
                     m_meshCloneMap.erase(needHide.at(i).m_id);
                 }
             }

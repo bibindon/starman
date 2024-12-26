@@ -70,6 +70,7 @@ bool EnemyBase::Init()
 void EnemyBase::Finalize()
 {
     m_thread->join();
+    SAFE_DELETE(m_thread);
     SAFE_DELETE(m_spriteHP);
     SAFE_DELETE(m_spriteHPBack);
     SAFE_DELETE(m_AnimMesh);

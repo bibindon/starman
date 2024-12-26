@@ -29,13 +29,6 @@ MeshClone::MeshClone(
 
 MeshClone::~MeshClone()
 {
-    // TODO ‚¢‚¸‚ê
-//    for (std::size_t i = 0; i < m_vecTexture.size(); ++i)
-//    {
-//        SAFE_RELEASE(m_vecTexture.at(i));
-//    }
-//    SAFE_RELEASE(m_D3DMesh);
-//    SAFE_RELEASE(m_D3DEffect);
 }
 
 void MeshClone::Init()
