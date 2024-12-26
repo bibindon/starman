@@ -325,13 +325,13 @@ void Player::Update(Map* map)
 
     float MAX_MOVE = 0.f;
 
-    if (Common::DeployMode() == false)
+    if (Common::DeployMode())
     {
         MAX_MOVE = 0.5f;
     }
     else
     {
-        MAX_MOVE = 10.f;
+        MAX_MOVE = 5.f;
     }
 
     if (m_move.x >= MAX_MOVE)
