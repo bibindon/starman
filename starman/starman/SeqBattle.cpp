@@ -983,6 +983,9 @@ void SeqBattle::InitializeAfterLoad()
     status->GetXYZ(&pos.x, &pos.y, &pos.z);
     m_player->SetPos(pos);
 
+    pos.y += 1.f;
+    Camera::SetLookAtPos(pos);
+
     Camera::SetCameraMode(eCameraMode::TITLE);
 }
 

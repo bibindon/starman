@@ -163,6 +163,24 @@ void Camera::Update()
         m_eyePos.z = z;
         m_eyePos.y = y;
     }
+
+    if (!"Output camera eyepos")
+    {
+        std::string work;
+        work += "m_eyePos.x: " + std::to_string(m_eyePos.x) + ", ";
+        work += "m_eyePos.y: " + std::to_string(m_eyePos.y) + ", ";
+        work += "m_eyePos.z: " + std::to_string(m_eyePos.z) + "\n";
+        OutputDebugString(work.c_str());
+    }
+    
+    if ("Output camera lookAtPos")
+    {
+        std::string work;
+        work += "m_lookAtPos.x: " + std::to_string(m_lookAtPos.x) + ", ";
+        work += "m_lookAtPos.y: " + std::to_string(m_lookAtPos.y) + ", ";
+        work += "m_lookAtPos.z: " + std::to_string(m_lookAtPos.z) + "\n";
+        OutputDebugString(work.c_str());
+    }
 }
 
 POINT Camera::GetScreenPos(const D3DXVECTOR3& world)
