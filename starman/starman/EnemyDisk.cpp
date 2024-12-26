@@ -13,6 +13,7 @@ EnemyDisk::EnemyDisk()
 
 EnemyDisk::~EnemyDisk()
 {
+    Finalize();
 }
 
 bool EnemyDisk::Init()

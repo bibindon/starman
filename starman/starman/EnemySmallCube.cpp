@@ -13,6 +13,7 @@ EnemySmallCube::EnemySmallCube()
 
 EnemySmallCube::~EnemySmallCube()
 {
+    Finalize();
 }
 
 bool EnemySmallCube::Init()

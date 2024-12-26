@@ -13,6 +13,7 @@ EnemyEnban::EnemyEnban()
 
 EnemyEnban::~EnemyEnban()
 {
+    Finalize();
 }
 
 bool EnemyEnban::Init()
