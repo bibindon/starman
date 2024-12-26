@@ -228,11 +228,50 @@ void Player::Update(Map* map)
 
     if (Common::DebugMode())
     {
+        // スーパージャンプ
         if (KeyBoard::IsDownFirstFrame(DIK_J))
         {
             m_bJump = true;
             m_move.y = JUMP_INITIAL_VELOCITY*5;
             m_AnimMesh2->SetAnim("Jump", 0.f);
+        }
+
+        // 木を消す
+        if (KeyBoard::IsDownFirstFrame(DIK_Z))
+        {
+            auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+            std::vector<NSStarmanLib::stMapObj> mapObjs =
+                mapObjManager->GetMapObjListR(m_loadingPos.x, m_loadingPos.z, 20);
+
+            for (size_t i = 0; i < mapObjs.size(); ++i)
+            {
+                mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
+                                          mapObjs.at(i).m_frameZ,
+                                          mapObjs.at(i).m_id,
+                                          false);
+            }
+        }
+
+        // 敵を消す
+        if (KeyBoard::IsDownFirstFrame(DIK_X))
+        {
+            std::vector<EnemyBase*> vecEnemy = SharedObj::GetMap()->GetEnemy();
+
+            for (std::size_t i = 0; i < vecEnemy.size(); i++)
+            {
+                D3DXVECTOR3 enemyPos(0.f, 0.f, 0.f);
+                enemyPos = vecEnemy.at(i)->GetPos();
+
+                D3DXVECTOR3 subPos = m_loadingPos - enemyPos;
+                FLOAT distance = D3DXVec3Length(&subPos);
+
+                if (distance <= 20.f)
+                {
+                    vecEnemy.at(i)->SetHP(0);
+                }
+            }
+
+            SharedObj::GetMap()->SetEnemy(vecEnemy);
         }
     }
 
@@ -496,22 +535,6 @@ bool Player::SetAttack()
     }
 
     SharedObj::GetMap()->SetEnemy(vecEnemy);
-
-    // 近くの木を消す
-    if (Common::DebugMode())
-    {
-        auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-        std::vector<NSStarmanLib::stMapObj> mapObjs =
-            mapObjManager->GetMapObjListR(m_loadingPos.x, m_loadingPos.z, 20);
-
-        for (int i = 0; i < (int)mapObjs.size(); ++i)
-        {
-            mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
-                                      mapObjs.at(i).m_frameZ,
-                                      mapObjs.at(i).m_id,
-                                      false);
-        }
-    }
 
     return true;
 }
