@@ -61,7 +61,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
             if (seq->GetState() == eBattleState::NORMAL ||
                 seq->GetState() == eBattleState::MENU)
             {
-                if (Common::ReleaseMode())
+                if (Common::DeployMode())
                 {
                     SaveManager::Get()->Save();
                 }
