@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.34601.136
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "starman", "starman\starman.vcxproj", "{6DD95551-4853-454C-9F8F-E15464132F19}"
 EndProject
@@ -11,6 +11,8 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Deploy|x64 = Deploy|x64
+		Deploy|x86 = Deploy|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
@@ -19,6 +21,10 @@ Global
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Debug|x64.Build.0 = Debug|x64
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Debug|x86.ActiveCfg = Debug|Win32
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Debug|x86.Build.0 = Debug|Win32
+		{6DD95551-4853-454C-9F8F-E15464132F19}.Deploy|x64.ActiveCfg = Deploy|x64
+		{6DD95551-4853-454C-9F8F-E15464132F19}.Deploy|x64.Build.0 = Deploy|x64
+		{6DD95551-4853-454C-9F8F-E15464132F19}.Deploy|x86.ActiveCfg = Deploy|Win32
+		{6DD95551-4853-454C-9F8F-E15464132F19}.Deploy|x86.Build.0 = Deploy|Win32
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Release|x64.ActiveCfg = Release|x64
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Release|x64.Build.0 = Release|x64
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Release|x86.ActiveCfg = Release|Win32
@@ -27,6 +33,10 @@ Global
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Debug|x64.Build.0 = Debug|x64
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Debug|x86.ActiveCfg = Debug|Win32
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Debug|x86.Build.0 = Debug|Win32
+		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Deploy|x64.ActiveCfg = Deploy|x64
+		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Deploy|x64.Build.0 = Deploy|x64
+		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Deploy|x86.ActiveCfg = Deploy|Win32
+		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Deploy|x86.Build.0 = Deploy|Win32
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Release|x64.ActiveCfg = Release|x64
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Release|x64.Build.0 = Release|x64
 		{CE779F7D-91B5-4200-BDAA-254EDCDEACA2}.Release|x86.ActiveCfg = Release|Win32
