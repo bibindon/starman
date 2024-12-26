@@ -767,87 +767,6 @@ void Map::Update()
         }
     }
 
-    // 敵が100ートル以内にいたら読み込んで表示
-    std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 30.f);
-    //std::vector<NSStarmanLib::EnemyInfo> eneList;
-
-    for (int i = 0; i < (int)eneList.size(); ++i)
-    {
-        int id = eneList.at(i).GetID();
-        auto it = std::find_if(m_vecEnemy.begin(), m_vecEnemy.end(),
-                               [&](const EnemyBase* x)
-                               {
-                                   return x->GetIdSub() == id;
-                               });
-        if (it == m_vecEnemy.end())
-        {
-            if (eneList.at(i).GetDefeated() == false)
-            {
-                EnemyBase* enemy = nullptr;
-                if (eneList.at(i).GetBreed() == "リッポウタイ")
-                {
-                    enemy = new EnemyCube();
-                }
-                else if (eneList.at(i).GetBreed() == "キュウ")
-                {
-                    enemy = new EnemySphere();
-                }
-                else if (eneList.at(i).GetBreed() == "エンバン")
-                {
-                    enemy = new EnemyEnban();
-                }
-                else if (eneList.at(i).GetBreed() == "エンチュウ")
-                {
-                    enemy = new EnemyEnchu();
-                }
-                else if (eneList.at(i).GetBreed() == "ビッグリッポウタイ")
-                {
-                    enemy = new EnemyBigCube();
-                }
-                else if (eneList.at(i).GetBreed() == "スモールリッポウタイ")
-                {
-                    enemy = new EnemySmallCube();
-                }
-                else if (eneList.at(i).GetBreed() == "ハンエン")
-                {
-                    enemy = new EnemyHanen();
-                }
-                else if (eneList.at(i).GetBreed() == "ハンキュウ")
-                {
-                    enemy = new EnemyHankyuu();
-                }
-                else if (eneList.at(i).GetBreed() == "オレンジリッポウタイ")
-                {
-                    enemy = new EnemyOrangeCube();
-                }
-                else if (eneList.at(i).GetBreed() == "島民の霊")
-                {
-                    enemy = new EnemyGhost();
-                }
-
-                enemy->SetIdSub(eneList.at(i).GetID());
-                D3DXVECTOR3 work;
-                work.x = eneList.at(i).GetX();
-                work.y = eneList.at(i).GetY();
-                work.z = eneList.at(i).GetZ();
-                enemy->SetPos(work);
-
-                work.x = eneList.at(i).GetRotX();
-                work.y = eneList.at(i).GetRotY();
-                work.z = eneList.at(i).GetRotZ();
-                enemy->SetRotate(work);
-
-                enemy->SetHP(eneList.at(i).GetHP());
-
-                m_vecEnemy.push_back(enemy);
-
-                // Init関数は別スレッドで読み込みを行うのでpush_backした後に呼ぶ。
-                auto it = m_vecEnemy.rbegin();
-                (*it)->Init();
-            }
-        }
-    }
-
     // 60回に一回（＝1秒ごと）の処理
     {
         static int counter = 0;
@@ -858,6 +777,89 @@ void Map::Update()
         }
         if (counter == 1)
         {
+            //------------------------------------------------------------------------------
+            // 敵が100メートル以内にいたら読み込んで表示
+            //------------------------------------------------------------------------------
+            std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 30.f);
+
+            for (int i = 0; i < (int)eneList.size(); ++i)
+            {
+                int id = eneList.at(i).GetID();
+                auto it = std::find_if(m_vecEnemy.begin(), m_vecEnemy.end(),
+                                       [&](const EnemyBase* x)
+                                       {
+                                           return x->GetIdSub() == id;
+                                       });
+                if (it == m_vecEnemy.end())
+                {
+                    if (eneList.at(i).GetDefeated() == false)
+                    {
+                        EnemyBase* enemy = nullptr;
+                        if (eneList.at(i).GetBreed() == "リッポウタイ")
+                        {
+                            enemy = new EnemyCube();
+                        }
+                        else if (eneList.at(i).GetBreed() == "キュウ")
+                        {
+                            enemy = new EnemySphere();
+                        }
+                        else if (eneList.at(i).GetBreed() == "エンバン")
+                        {
+                            enemy = new EnemyEnban();
+                        }
+                        else if (eneList.at(i).GetBreed() == "エンチュウ")
+                        {
+                            enemy = new EnemyEnchu();
+                        }
+                        else if (eneList.at(i).GetBreed() == "ビッグリッポウタイ")
+                        {
+                            enemy = new EnemyBigCube();
+                        }
+                        else if (eneList.at(i).GetBreed() == "スモールリッポウタイ")
+                        {
+                            enemy = new EnemySmallCube();
+                        }
+                        else if (eneList.at(i).GetBreed() == "ハンエン")
+                        {
+                            enemy = new EnemyHanen();
+                        }
+                        else if (eneList.at(i).GetBreed() == "ハンキュウ")
+                        {
+                            enemy = new EnemyHankyuu();
+                        }
+                        else if (eneList.at(i).GetBreed() == "オレンジリッポウタイ")
+                        {
+                            enemy = new EnemyOrangeCube();
+                        }
+                        else if (eneList.at(i).GetBreed() == "島民の霊")
+                        {
+                            enemy = new EnemyGhost();
+                        }
+
+                        enemy->SetIdSub(eneList.at(i).GetID());
+                        D3DXVECTOR3 work;
+                        work.x = eneList.at(i).GetX();
+                        work.y = eneList.at(i).GetY();
+                        work.z = eneList.at(i).GetZ();
+                        enemy->SetPos(work);
+
+                        work.x = eneList.at(i).GetRotX();
+                        work.y = eneList.at(i).GetRotY();
+                        work.z = eneList.at(i).GetRotZ();
+                        enemy->SetRotate(work);
+
+                        enemy->SetHP(eneList.at(i).GetHP());
+
+                        m_vecEnemy.push_back(enemy);
+
+                        // Init関数は別スレッドで読み込みを行うのでpush_backした後に呼ぶ。
+                        auto it = m_vecEnemy.rbegin();
+                        (*it)->Init();
+                    }
+                }
+            }
+
+
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
             //-------------------------------------

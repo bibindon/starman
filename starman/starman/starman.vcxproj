@@ -91,7 +91,7 @@
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <ExceptionHandling>Async</ExceptionHandling>
+      <ExceptionHandling>Sync</ExceptionHandling>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
