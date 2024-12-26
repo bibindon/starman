@@ -25,14 +25,15 @@ Title::Title(const bool blackFadeIn)
 
         // セーブデータがあるか否か
         BOOL saveExist = 0;
-        if (Common::DebugMode())
-        {
-            saveExist = PathFileExists("res\\script\\save_debug");
-        }
-        else
+        if (Common::DeployMode())
         {
             saveExist = PathFileExists("res\\script\\save");
         }
+        else
+        {
+            saveExist = PathFileExists("res\\script\\save_debug");
+        }
+
         if (saveExist == TRUE)
         {
             m_bSavedataExists = true;

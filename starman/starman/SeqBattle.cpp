@@ -466,7 +466,7 @@ SeqBattle::SeqBattle()
     // ?
     m_talk = new NSTalkLib2::Talk();
 
-    if (Common::ReleaseMode())
+    if (Common::DeployMode())
     {
         m_talk->Init("res\\script\\origin\\talk2Sample.csv", pFont, pSE, sprite,
                      "res\\image\\textBack.png", "res\\image\\black.png");
@@ -560,7 +560,7 @@ void SeqBattle::Update(eSequence* sequence)
         OperateTitle(sequence);
     }
 
-    if (Common::DebugMode())
+    if (Common::DeployMode() == false)
     {
         UpdateDebug();
     }
@@ -630,7 +630,7 @@ void SeqBattle::OperateStorehouse()
     // KeyBoard
     //---------------------------------------------------------
 
-    if (Common::DebugMode())
+    if (Common::DeployMode() == false)
     {
         if (KeyBoard::IsDownFirstFrame(DIK_F1))
         {
@@ -921,13 +921,13 @@ void SeqBattle::InitLoad()
 {
     // セーブデータがあるか否か
     int saveExist = 0;
-    if (Common::DebugMode())
+    if (Common::DeployMode())
     {
-        saveExist = PathFileExists("res\\script\\save_debug");
+        saveExist = PathFileExists("res\\script\\save");
     }
     else
     {
-        saveExist = PathFileExists("res\\script\\save");
+        saveExist = PathFileExists("res\\script\\save_debug");
     }
 
     if (saveExist == FALSE)
@@ -1792,7 +1792,7 @@ void SeqBattle::UpdatePerSecond()
     // 2時間ゲームをしたらパワーエッグ星で24時間経過する
     NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
-    if (Common::ReleaseMode())
+    if (Common::DeployMode())
     {
         dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }

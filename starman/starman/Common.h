@@ -55,6 +55,13 @@ enum class eTitleMenu
     EXIT,
 };
 
+enum class eBuildMode
+{
+    Debug,
+    Release,
+    Deploy,
+};
+
 class Common
 {
 public:
@@ -72,12 +79,13 @@ public:
 
     static bool DebugMode();
     static bool ReleaseMode();
+    static bool DeployMode();
 
     static void SetCursorVisibility(const bool visibility);
     static POINT GetScreenPos();
 
 private:
 
-    static bool m_debugMode;
+    static eBuildMode m_buildMode;
 };
 

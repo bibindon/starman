@@ -22,11 +22,10 @@ SaveManager* SaveManager::Get()
     {
         m_obj = new SaveManager();
 
-        // 通常はリリースモードは暗号化する
-        if (Common::ReleaseMode())
+        // 通常はデプロイモードは暗号化する
+        if (Common::DeployMode())
         {
-//            m_obj->m_encrypt = true;
-            m_obj->m_encrypt = false;
+            m_obj->m_encrypt = true;
         }
         else
         {
@@ -46,7 +45,7 @@ void SaveManager::Destroy()
 std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 {
     std::string originDataPath;
-    if (Common::DebugMode())
+    if (Common::DebugMode() || Common::ReleaseMode())
     {
         originDataPath = ORIGIN_DATA_PATH_DEBUG;
         originDataPath += filename;
@@ -67,7 +66,7 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 {
     std::string saveDataPath;
-    if (Common::DebugMode())
+    if (Common::DebugMode() || Common::ReleaseMode())
     {
         saveDataPath = SAVEDATA_PATH_DEBUG;
         saveDataPath += filename;
@@ -88,7 +87,7 @@ std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 std::string SaveManager::GetOriginMapPath()
 {
     std::string saveDataPath;
-    if (Common::ReleaseMode())
+    if (Common::DeployMode())
     {
         saveDataPath = ORIGIN_DATA_PATH;
         saveDataPath += "map_obj.bin";
@@ -104,7 +103,7 @@ std::string SaveManager::GetOriginMapPath()
 std::string SaveManager::GetSavefileMapPath()
 {
     std::string saveDataPath;
-    if (Common::ReleaseMode())
+    if (Common::DeployMode())
     {
         saveDataPath = SAVEDATA_PATH;
         saveDataPath += "map_obj.bin";
@@ -123,7 +122,7 @@ void SaveManager::Save()
 
     // フォルダがなければ作る
     std::string savedir;
-    if (Common::ReleaseMode())
+    if (Common::DeployMode())
     {
         savedir = "res\\script\\save";
     }
@@ -405,7 +404,7 @@ bool SaveManager::DeleteFolder(const std::string& folderPath)
 
 void SaveManager::DeleteSavedata()
 {
-    if (Common::ReleaseMode())
+    if (Common::DeployMode())
     {
         DeleteFolder(SAVEDATA_FOLDER);
     }

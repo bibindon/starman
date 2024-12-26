@@ -4,9 +4,11 @@
 #include "SharedObj.h"
 
 #if defined(NDEBUG)
-bool Common::m_debugMode { false };
+eBuildMode Common::m_buildMode = eBuildMode::Debug;
+#elif defined(DEPLOY)
+eBuildMode Common::m_buildMode = eBuildMode::Deploy;
 #else
-bool Common::m_debugMode { true };
+eBuildMode Common::m_buildMode = eBuildMode::Release;
 #endif
 
 std::vector<char> Common::get_model_texture_resource(
@@ -48,19 +50,29 @@ std::string Common::ToStringWithPrecision(const float value, const int precision
 
 bool Common::DebugMode()
 {
-    return m_debugMode;
+    if (m_buildMode == eBuildMode::Debug)
+    {
+        return true;
+    }
+    return false;
 }
 
 bool Common::ReleaseMode()
 {
-    if (m_debugMode)
-    {
-        return false;
-    }
-    else
+    if (m_buildMode == eBuildMode::Release)
     {
         return true;
     }
+    return false;
+}
+
+bool Common::DeployMode()
+{
+    if (m_buildMode == eBuildMode::Deploy)
+    {
+        return true;
+    }
+    return false;
 }
 
 void Common::SetCursorVisibility(const bool visibility)

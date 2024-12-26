@@ -269,7 +269,6 @@ int MainWindow::MainLoop()
     Camera::SetLookAtPos(b);
 
     FLOAT Ang = 0.0f;   // ‰ñ“]Šp“x
-//    unsigned int i;
     do
     {
         // 60FPS‚É‚È‚é‚æ‚¤‚ÉƒXƒŠ[ƒvŽžŠÔ‚ð’²ß
@@ -288,7 +287,7 @@ int MainWindow::MainLoop()
             }
             else
             {
-                //Sleep(16 - dura_i);
+                Sleep(16 - dura_i);
             }
             tpStart = system_clock::now();
 
@@ -406,7 +405,7 @@ int MainWindow::MainLoop()
                                 D3DCOLOR_ARGB(32, 255, 255, 255));
         }
 
-        if (Common::DebugMode())
+        if (Common::DebugMode() || Common::ReleaseMode())
         {
             std::string work;
 
@@ -462,7 +461,7 @@ int MainWindow::MainLoop()
         D3DDevice->EndScene();
         D3DDevice->Present(NULL, NULL, NULL, NULL);
 
-        if (Common::DebugMode())
+        if (Common::DebugMode() || Common::ReleaseMode())
         {
             if (KeyBoard::IsDownFirstFrame(DIK_F4))
             {

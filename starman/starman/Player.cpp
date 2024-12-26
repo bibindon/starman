@@ -160,7 +160,7 @@ void Player::Update(Map* map)
 
     }
 
-    if (Common::DebugMode())
+    if (Common::DeployMode() == false)
     {
         if (KeyBoard::IsDown(DIK_G))
         {
@@ -226,7 +226,7 @@ void Player::Update(Map* map)
         }
     }
 
-    if (Common::DebugMode())
+    if (Common::DeployMode() == false)
     {
         // スーパージャンプ
         if (KeyBoard::IsDownFirstFrame(DIK_J))
@@ -325,7 +325,7 @@ void Player::Update(Map* map)
 
     float MAX_MOVE = 0.f;
 
-    if (Common::ReleaseMode())
+    if (Common::DeployMode() == false)
     {
         MAX_MOVE = 0.5f;
     }
