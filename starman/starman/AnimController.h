@@ -25,6 +25,7 @@ public:
     void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
     void SetAnimSettings(const AnimSetMap& animSetMap);
     void Update();
+    void Finalize();
 
 private:
     LPD3DXANIMATIONCONTROLLER m_controller { nullptr };

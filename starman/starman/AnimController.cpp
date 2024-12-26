@@ -44,3 +44,8 @@ void AnimController::Update()
     }
     m_controller->AdvanceTime(m_animationTime, nullptr);
 }
+
+void AnimController::Finalize()
+{
+    SAFE_RELEASE(m_controller);
+}

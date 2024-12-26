@@ -97,6 +97,7 @@ AnimMesh::AnimMesh(
 
 AnimMesh::~AnimMesh()
 {
+    m_animCtrlr.Finalize();
 }
 
 void AnimMesh::Render()

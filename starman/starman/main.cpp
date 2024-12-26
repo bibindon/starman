@@ -34,6 +34,7 @@
 #include <windows.h>
 #include "MainWindow.h"
 #include "StackBackTrace.h"
+#include <crtdbg.h>
 
 // 例外で終了したときに、例外発生時のスタックトレースを出力する
 static void se_translator(unsigned int u, _EXCEPTION_POINTERS* e)
@@ -47,6 +48,12 @@ static void se_translator(unsigned int u, _EXCEPTION_POINTERS* e)
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance,
     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
+    if (Common::DebugMode())
+    {
+        // メモリリーク検出
+        _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    }
+
     // 例外で終了したときに、例外発生時のスタックトレースを出力する
     _set_se_translator(se_translator);
 
