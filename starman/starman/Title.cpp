@@ -96,6 +96,7 @@ Title::~Title()
     SAFE_DELETE(m_sprClock);
     SAFE_DELETE(m_sprLoading);
     SAFE_RELEASE(m_font);
+    SAFE_DELETE(m_thread);
 }
 
 void Title::Update(eSequence* sequence, eBattleState* eState)
@@ -168,6 +169,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             if (m_bSavedataExists)
             {
                 m_bLoading = true;
+                SAFE_DELETE(m_thread);
                 m_thread = new std::thread(
                     [&]
                     {

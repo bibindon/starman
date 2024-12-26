@@ -26,6 +26,7 @@ void SharedObj::SetWindowHandle(const HWND hWnd)
 
 void SharedObj::Finalize()
 {
+    SAFE_DELETE(m_questSystem);
     SAFE_RELEASE(m_D3DDevice);
 }
 

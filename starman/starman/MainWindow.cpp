@@ -17,9 +17,39 @@
 #include "SaveManager.h"
 #include "resource.h"
 
+#include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
+
 SeqBattle* MainWindow::m_seqBattle = nullptr;
 
 using std::chrono::system_clock;
+
+static void Finalize()
+{
+    NSStarmanLib::HumanInfoManager::Destroy();
+    NSStarmanLib::MapInfoManager::Destroy();
+    NSStarmanLib::ItemManager::Destroy();
+    NSStarmanLib::Inventory::Destroy();
+    NSStarmanLib::Storehouse::Destroy();
+    NSStarmanLib::WeaponManager::Destroy();
+    NSStarmanLib::EnemyInfoManager::Destroy();
+    NSStarmanLib::SkillManager::Destroy();
+    NSStarmanLib::StatusManager::Destroy();
+    NSStarmanLib::Guide::Destroy();
+    NSStarmanLib::PowereggDateTime::Destroy();
+    NSStarmanLib::MapObjManager::Destroy();
+    SaveManager::Destroy();
+}
 
 static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
 {
@@ -236,12 +266,17 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
 
 MainWindow::~MainWindow()
 {
+    SAFE_DELETE(m_seqBattle);
+    SAFE_DELETE(m_seqEnding);
+
     BGM::finalize();
     SoundEffect::finalize();
     SAFE_DELETE(m_sprite);
     SharedObj::Finalize();
     m_D3D->Release();
     timeEndPeriod(1);
+
+    Finalize();
 }
 
 int MainWindow::MainLoop()

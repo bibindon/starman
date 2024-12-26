@@ -38,8 +38,7 @@ SaveManager* SaveManager::Get()
 
 void SaveManager::Destroy()
 {
-    delete m_obj;
-    m_obj = nullptr;
+    SAFE_DELETE(m_obj);
 }
 
 std::string SaveManager::CreateOriginFilePath(const std::string& filename)

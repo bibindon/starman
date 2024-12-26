@@ -173,7 +173,7 @@ void Camera::Update()
         OutputDebugString(work.c_str());
     }
     
-    if ("Output camera lookAtPos")
+    if (!"Output camera lookAtPos")
     {
         std::string work;
         work += "m_lookAtPos.x: " + std::to_string(m_lookAtPos.x) + ", ";

@@ -517,6 +517,16 @@ SeqBattle::SeqBattle()
 SeqBattle::~SeqBattle()
 {
     // TODO menu‚Ì‰ð•úˆ—
+    m_loadThread->join();
+    SAFE_DELETE(m_loadThread);
+    SAFE_DELETE(m_player);
+    SAFE_DELETE(m_map);
+    SAFE_DELETE(m_enemyManager);
+    SAFE_DELETE(m_talk);
+    SAFE_DELETE(m_storehouse);
+    SAFE_DELETE(m_craft);
+    SAFE_DELETE(m_title);
+    SAFE_DELETE(m_Opening);
 }
 
 void SeqBattle::Update(eSequence* sequence)
@@ -933,6 +943,7 @@ void SeqBattle::InitLoad()
     if (saveExist == FALSE)
     {
         m_bSavedataExists = false;
+        SAFE_DELETE(m_loadThread);
         m_loadThread = new std::thread(
             [&]
             {
@@ -943,6 +954,7 @@ void SeqBattle::InitLoad()
     else
     {
         m_bSavedataExists = true;
+        SAFE_DELETE(m_loadThread);
         m_loadThread = new std::thread(
             [&]
             {

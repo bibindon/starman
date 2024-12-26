@@ -241,3 +241,8 @@ void CommandManager::Draw()
 {
     m_commandLib->Draw();
 }
+
+void CommandManager::Finalize()
+{
+    SAFE_DELETE(m_commandLib);
+}

@@ -27,6 +27,23 @@ Map::~Map()
     {
         SAFE_DELETE(pair.second);
     }
+
+    for (auto& item : m_vecEnemy)
+    {
+        SAFE_DELETE(item);
+    }
+
+    SAFE_DELETE(m_pSun);
+
+    for (auto& item : m_NPC)
+    {
+        SAFE_DELETE(item.second);
+    }
+
+    for (auto& item : m_meshCloneMap)
+    {
+        SAFE_DELETE(item.second);
+    }
 }
 
 void Map::Init()
@@ -969,9 +986,12 @@ void Map::Update()
                 }
             }
 
-            std::string work;
-            work = "m_vecEnemy.size(): " + std::to_string(m_vecEnemy.size()) + "\n";
-            OutputDebugString(work.c_str());
+            if (!"m_vecEnemy.size()")
+            {
+                std::string work;
+                work = "m_vecEnemy.size(): " + std::to_string(m_vecEnemy.size()) + "\n";
+                OutputDebugString(work.c_str());
+            }
         }
     }
 }
