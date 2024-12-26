@@ -1053,12 +1053,12 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
 
     float radius = mesh->GetRadius() * mesh->GetScale();
-    if (targetPos.x >= radius)
+    if (targetPos.x >= radius || targetPos.x <= -radius)
     {
         return false;
     }
 
-    if (targetPos.z >= radius)
+    if (targetPos.z >= radius || targetPos.z <= -radius)
     {
         return false;
     }
@@ -1313,12 +1313,12 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
 
     float radius = mesh->GetRadius() * mesh->GetScale();
-    if (targetPos.x >= radius)
+    if (targetPos.x >= radius || targetPos.x <= -radius)
     {
         return result;
     }
 
-    if (targetPos.z >= radius)
+    if (targetPos.z >= radius || targetPos.z <= -radius)
     {
         return result;
     }
