@@ -90,7 +90,7 @@ void Map::Init()
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         b.x = 15.f;
         b.y = -80.f;
-        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 5000.0f);
+        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 9000.0f);
         mesh->Init();
         m_meshMap["sky"] = mesh;
 
@@ -899,7 +899,7 @@ void Map::Update()
             // ‘¾—z
             //-------------------------------------
             D3DXVECTOR3 sunPos(vec);
-            sunPos *= 4000;
+            sunPos *= 6000;
             m_pSun->SetPos(sunPos);
 
             //-------------------------------------
@@ -949,16 +949,21 @@ void Map::Update()
             // 100ƒ[ƒgƒ‹ˆÈã—£‚ê‚½“G‚ÍÁ‚·
             // ‹——£‚ð‹…‚Å’²‚×‚é‚Æd‚­‚È‚é‚Ì‚Å—§•û‘Ì‚Å’²‚×‚é
             // ‚³‚ç‚ÉYŽ²•ûŒü‚Í–³Ž‹‚·‚é
-            for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end(); ++it)
+            for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
             {
                 if ((*it)->GetPos().x + 100.f < player->GetPos().x ||
                     (*it)->GetPos().x - 100.f > player->GetPos().x)
                 {
-                    if ((*it)->GetPos().z + 100.f < player->GetPos().z ||
-                        (*it)->GetPos().z - 100.f > player->GetPos().z)
-                    {
-                        it = m_vecEnemy.erase(it);
-                    }
+                    it = m_vecEnemy.erase(it);
+                }
+                else if ((*it)->GetPos().z + 100.f < player->GetPos().z ||
+                         (*it)->GetPos().z - 100.f > player->GetPos().z)
+                {
+                    it = m_vecEnemy.erase(it);
+                }
+                else
+                {
+                    ++it;
                 }
             }
 
