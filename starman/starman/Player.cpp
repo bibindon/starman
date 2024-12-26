@@ -415,15 +415,6 @@ void Player::Update(Map* map)
         m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
     }
 
-    // 緊急手段
-    // 頭から地面までの距離が1.6メートル以下だったら
-    // 上に少し移動させる
-    bool bHit4 = map->Intersect(tmp, D3DXVECTOR3(0.f, -1.6f, 0.f));
-    if (bHit4)
-    {
-        m_move.y = 0.01f;
-    }
-
     // 足が何かに触れたらジャンプを解除する。
     // 壁ジャンプできてしまうが、ひとまずよしとする。
     // 何かに触れている状態が1秒続いたら再度ジャンプできる、でもよいかもしれない。
@@ -444,6 +435,17 @@ void Player::Update(Map* map)
     }
 
     m_loadingPos += m_move;
+
+    // 緊急手段
+    // 頭から地面までの距離が1.6メートル以下だったら
+    // 地面から1.6メートルの位置に瞬間移動
+    D3DXVECTOR3 tmp2 = m_loadingPos;
+    tmp2.y += 1.6f;
+    bool bHit4 = map->Intersect(tmp2, D3DXVECTOR3(0.f, -1.6f, 0.f));
+    if (bHit4)
+    {
+        m_loadingPos.y = tmp2.y;
+    }
 }
 
 void Player::Render()
