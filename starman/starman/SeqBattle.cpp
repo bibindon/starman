@@ -531,6 +531,9 @@ SeqBattle::~SeqBattle()
     SAFE_DELETE(m_craft);
     SAFE_DELETE(m_title);
     SAFE_DELETE(m_Opening);
+
+    SAFE_DELETE(m_spriteGameover);
+    SAFE_DELETE(m_spriteExamine);
 }
 
 void SeqBattle::Update(eSequence* sequence)

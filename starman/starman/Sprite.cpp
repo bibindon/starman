@@ -10,7 +10,6 @@ Sprite::Sprite(string filename)
 {
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
     // sprite setup
-    LPD3DXSPRITE tempSprite { nullptr };
     if (FAILED(D3DXCreateSprite(D3DDevice, &m_D3DSprite)))
     {
         throw std::exception("Failed to create a sprite.");
@@ -33,6 +32,13 @@ Sprite::Sprite(string filename)
     m_width = desc.Width;
     m_height = desc.Height;
 }
+
+Sprite::~Sprite()
+{
+    m_D3DSprite->Release();
+    m_D3DTexture->Release();
+}
+
 void Sprite::Render(const D3DXVECTOR3& pos, const BYTE transparency, const LONG width)
 {
     m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
