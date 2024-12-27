@@ -519,6 +519,7 @@ SeqBattle::~SeqBattle()
     m_loadThread->join();
 
     m_hudManager.Finalize();
+    m_commandManager.Finalize();
     SAFE_DELETE(m_loadThread);
     SAFE_DELETE(m_player);
     SAFE_DELETE(m_map);

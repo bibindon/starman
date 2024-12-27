@@ -90,6 +90,7 @@ Title::Title(const bool blackFadeIn)
 
 Title::~Title()
 {
+    m_titleCommand->Finalize();
     SAFE_DELETE(m_titleCommand);
     SAFE_DELETE(m_sprBack);
     SAFE_DELETE(m_sprLogo);
