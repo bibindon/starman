@@ -13,6 +13,7 @@ class KeyBoard
 public:
     static void Init(LPDIRECTINPUT8 directInput, HWND hWnd);
     static void Update();
+    static void Finalize();
 
     // ‰Ÿ‚³‚ê‚Ä‚¢‚é
     static bool IsDown(int keyCode);

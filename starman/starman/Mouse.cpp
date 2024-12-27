@@ -42,6 +42,11 @@ void Mouse::Update()
     }
 }
 
+void Mouse::Finalize()
+{
+    m_DIMouse->Release();
+}
+
 LONG Mouse::GetXDelta()
 {
     return m_DIMouseState.lX;

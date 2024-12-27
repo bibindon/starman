@@ -30,10 +30,24 @@ MeshClone::MeshClone(
 MeshClone::~MeshClone()
 {
     m_D3DEffect->Release();
-    m_D3DMeshMap.at(m_meshName)->Release();
-    if (m_vecTextureMap.at(m_meshName).at(0) != nullptr)
+    ULONG ulong = m_D3DMeshMap.at(m_meshName)->Release();
+
+    for (int i = 0; i < m_materialCountMap.at(m_meshName); ++i)
     {
-        m_vecTextureMap.at(m_meshName).at(0)->Release();
+        if (m_vecTextureMap.at(m_meshName).at(i) != nullptr)
+        {
+            m_vecTextureMap.at(m_meshName).at(i)->Release();
+        }
+    }
+    
+    if (!"tree1.x‚Ì‰ð•ú")
+    {
+        if (m_meshName.find("tree1.x") != std::string::npos)
+        {
+            std::string work;
+            work = "m_vecTextureMap.at(" + m_meshName + ") ref count: " + std::to_string(ulong) + "\n";
+            OutputDebugString(work.c_str());
+        }
     }
 }
 
@@ -65,9 +79,13 @@ void MeshClone::Init()
     if (m_D3DMeshMap.find(m_meshName) != m_D3DMeshMap.end())
     {
         m_D3DMeshMap.at(m_meshName)->AddRef();
-        if (m_vecTextureMap.at(m_meshName).at(0) != nullptr)
+
+        for (int i = 0; i < m_materialCountMap.at(m_meshName); ++i)
         {
-            m_vecTextureMap.at(m_meshName).at(0)->AddRef();
+            if (m_vecTextureMap.at(m_meshName).at(i) != nullptr)
+            {
+                m_vecTextureMap.at(m_meshName).at(i)->AddRef();
+            }
         }
     }
     else

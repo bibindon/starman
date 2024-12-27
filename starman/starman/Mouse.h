@@ -13,6 +13,8 @@ class Mouse
 public:
     static void Init(LPDIRECTINPUT8 directInput, HWND hWnd);
     static void Update();
+    static void Finalize();
+
     static LONG GetXDelta();
     static LONG GetYDelta();
     static LONG GetZDelta();

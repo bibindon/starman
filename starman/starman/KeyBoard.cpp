@@ -42,6 +42,11 @@ void KeyBoard::Update()
     }
 }
 
+void KeyBoard::Finalize()
+{
+    m_keyboard->Release();
+}
+
 bool KeyBoard::IsDown(int keyCode)
 {
     if (m_key[keyCode] & 0x80)

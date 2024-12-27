@@ -51,6 +51,9 @@ static void Finalize()
     SaveManager::Destroy();
     PopUp::Finalize();
     PopUp2::Finalize();
+    KeyBoard::Finalize();
+    Mouse::Finalize();
+    GamePad::Finalize();
 }
 
 static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)
@@ -279,6 +282,8 @@ MainWindow::~MainWindow()
     timeEndPeriod(1);
 
     Finalize();
+
+    m_directInput->Release();
 }
 
 int MainWindow::MainLoop()
