@@ -215,6 +215,15 @@ class SoundEffect : public ISoundEffect
 };
 }
 
+MenuManager::MenuManager()
+{
+}
+
+MenuManager::~MenuManager()
+{
+    m_menu.Finalize();
+}
+
 void MenuManager::InitMenu()
 {
     using namespace NSMenulib;

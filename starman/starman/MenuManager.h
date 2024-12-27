@@ -5,6 +5,8 @@
 class MenuManager
 {
 public:
+    MenuManager();
+    ~MenuManager();
 
     void InitMenu();
     void Draw();
