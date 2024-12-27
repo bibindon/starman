@@ -8,10 +8,15 @@ PopUp* PopUp::Get()
     return m_singleTonObj;
 }
 
+void PopUp::Finalize()
+{
+    SAFE_DELETE(m_singleTonObj);
+}
+
 PopUp::~PopUp()
 {
+    SAFE_RELEASE(m_D3DFont);
     SAFE_DELETE(m_sprBack);
-    SAFE_DELETE(m_singleTonObj);
 }
 
 void PopUp::Init()

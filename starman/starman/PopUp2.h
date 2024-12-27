@@ -13,6 +13,7 @@ class PopUp2
 public:
     static void Init();
     static PopUp2* Get();
+    static void Finalize();
     void SetText(const std::string& arg);
     bool IsShow();
     void Update();

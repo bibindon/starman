@@ -49,6 +49,8 @@ static void Finalize()
     NSStarmanLib::PowereggDateTime::Destroy();
     NSStarmanLib::MapObjManager::Destroy();
     SaveManager::Destroy();
+    PopUp::Finalize();
+    PopUp2::Finalize();
 }
 
 static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam)

@@ -8,6 +8,11 @@ PopUp2* PopUp2::Get()
     return m_singleTonObj;
 }
 
+void PopUp2::Finalize()
+{
+    SAFE_DELETE(m_singleTonObj);
+}
+
 void PopUp2::SetText(const std::string& arg)
 {
     m_textQ.push(arg);
@@ -17,7 +22,7 @@ void PopUp2::SetText(const std::string& arg)
 
 PopUp2::~PopUp2()
 {
-    SAFE_DELETE(m_singleTonObj);
+    SAFE_RELEASE(m_D3DFont);
 }
 
 void PopUp2::Init()

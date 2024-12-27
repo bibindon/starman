@@ -9,6 +9,7 @@ class PopUp
 public:
     static void Init();
     static PopUp* Get();
+    static void Finalize();
     void SetText(const std::vector<std::vector<std::string>>& arg);
     bool IsShow();
     void Next();
