@@ -370,7 +370,7 @@ public:
 
     virtual ISprite* Create() override
     {
-        return new Sprite(m_pD3DDevice);
+        return NEW Sprite(m_pD3DDevice);
     }
 private:
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
@@ -448,7 +448,7 @@ SeqBattle::SeqBattle()
 {
     D3DXVECTOR3 b = D3DXVECTOR3(0, 0.f, 0);
     D3DXVECTOR3 c = D3DXVECTOR3(0, 0, 0);
-    m_player = new Player();
+    m_player = NEW Player();
     SharedObj::SetPlayer(m_player);
 
     D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
@@ -456,15 +456,15 @@ SeqBattle::SeqBattle()
     BGM::get_ton()->load("res\\sound\\title.wav");
     BGM::get_ton()->play(10);
 
-    m_spriteGameover = new Sprite("res\\image\\gameover.png");
-    m_spriteExamine = new Sprite("res\\image\\examine.png");
+    m_spriteGameover = NEW Sprite("res\\image\\gameover.png");
+    m_spriteExamine = NEW Sprite("res\\image\\examine.png");
 
-    NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
-    NSTalkLib2::ISoundEffect* pSE = new NSTalkLib2::SoundEffect();
-    NSTalkLib2::ISprite* sprite = new NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
     // ?
-    m_talk = new NSTalkLib2::Talk();
+    m_talk = NEW NSTalkLib2::Talk();
 
     if (Common::DeployMode())
     {
@@ -585,7 +585,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         m_eState = eBattleState::TITLE;
         Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
         Common::SetCursorVisibility(true);
-        m_title = new Title(false);
+        m_title = NEW Title(false);
     }
     else if (result == "セーブして終了")
     {
@@ -944,7 +944,7 @@ void SeqBattle::InitLoad()
     {
         m_bSavedataExists = false;
         SAFE_DELETE(m_loadThread);
-        m_loadThread = new std::thread(
+        m_loadThread = NEW std::thread(
             [&]
             {
                 SaveManager::Get()->LoadOrigin();
@@ -955,7 +955,7 @@ void SeqBattle::InitLoad()
     {
         m_bSavedataExists = true;
         SAFE_DELETE(m_loadThread);
-        m_loadThread = new std::thread(
+        m_loadThread = NEW std::thread(
             [&]
             {
                 SaveManager::Get()->Load();
@@ -963,10 +963,10 @@ void SeqBattle::InitLoad()
             });
     }
 
-    m_sprLoadBack = new Sprite("res\\image\\black.png");
-    m_sprLoadLogo = new Sprite("res\\image\\title01.png");
-    m_sprLoadClock = new Sprite("res\\image\\load_clock.png");
-    m_sprLoadLoading = new Sprite("res\\image\\loading.png");
+    m_sprLoadBack = NEW Sprite("res\\image\\black.png");
+    m_sprLoadLogo = NEW Sprite("res\\image\\title01.png");
+    m_sprLoadClock = NEW Sprite("res\\image\\load_clock.png");
+    m_sprLoadLoading = NEW Sprite("res\\image\\loading.png");
 
     Common::SetCursorVisibility(false);
 }
@@ -978,7 +978,7 @@ void SeqBattle::UpdateLoad()
         InitializeAfterLoad();
         FinalizeLoad();
         m_eState = eBattleState::TITLE;
-        m_title = new Title(true);
+        m_title = NEW Title(true);
     }
 }
 
@@ -986,7 +986,7 @@ void SeqBattle::InitializeAfterLoad()
 {
     m_menuManager.InitMenu();
 
-    m_map = new Map();
+    m_map = NEW Map();
     SharedObj::SetMap(m_map);
     m_map->Init();
 
@@ -1359,24 +1359,24 @@ void SeqBattle::UpdateDebug()
                 Common::SetCursorVisibility(true);
 
                 // TODO 倉庫を表示する度に倉庫画面を作るのをやめる
-                m_storehouse = new NSStorehouseLib::StorehouseLib();
+                m_storehouse = NEW NSStorehouseLib::StorehouseLib();
 
-                NSStorehouseLib::Sprite* sprCursor = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+                NSStorehouseLib::Sprite* sprCursor = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
                 sprCursor->Load("res\\image\\menu_cursor.png");
 
-                NSStorehouseLib::Sprite* sprBackground = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+                NSStorehouseLib::Sprite* sprBackground = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
                 sprBackground->Load("res\\image\\background.png");
 
-                NSStorehouseLib::Sprite* sprPanelLeft = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+                NSStorehouseLib::Sprite* sprPanelLeft = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
                 sprPanelLeft->Load("res\\image\\panelLeft.png");
 
-                NSStorehouseLib::Sprite* sprPanelTop = new NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+                NSStorehouseLib::Sprite* sprPanelTop = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
                 sprPanelTop->Load("res\\image\\craftPanel.png");
 
-                NSStorehouseLib::IFont* pFont = new NSStorehouseLib::Font(SharedObj::GetD3DDevice());
+                NSStorehouseLib::IFont* pFont = NEW NSStorehouseLib::Font(SharedObj::GetD3DDevice());
                 pFont->Init();
 
-                NSStorehouseLib::ISoundEffect* pSE = new NSStorehouseLib::SoundEffect();
+                NSStorehouseLib::ISoundEffect* pSE = NEW NSStorehouseLib::SoundEffect();
 
                 m_storehouse->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
                 {
@@ -1452,24 +1452,24 @@ void SeqBattle::UpdateDebug()
                 Camera::SetCameraMode(eCameraMode::SLEEP);
                 Common::SetCursorVisibility(true);
 
-                m_craft = new NSCraftLib::CraftLib();
+                m_craft = NEW NSCraftLib::CraftLib();
 
-                NSCraftLib::Sprite* sprCursor = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                NSCraftLib::Sprite* sprCursor = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                 sprCursor->Load("res\\image\\menu_cursor.png");
 
-                NSCraftLib::Sprite* sprBackground = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                NSCraftLib::Sprite* sprBackground = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                 sprBackground->Load("res\\image\\background.png");
 
-                NSCraftLib::Sprite* sprPanelLeft = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                NSCraftLib::Sprite* sprPanelLeft = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                 sprPanelLeft->Load("res\\image\\panelLeft.png");
 
-                NSCraftLib::Sprite* sprPanelTop = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                NSCraftLib::Sprite* sprPanelTop = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                 sprPanelTop->Load("res\\image\\craftPanel.png");
 
-                NSCraftLib::IFont* pFont = new NSCraftLib::Font(SharedObj::GetD3DDevice());
+                NSCraftLib::IFont* pFont = NEW NSCraftLib::Font(SharedObj::GetD3DDevice());
                 pFont->Init();
 
-                NSCraftLib::ISoundEffect* pSE = new NSCraftLib::SoundEffect();
+                NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect();
 
                 m_craft->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
 
@@ -1520,7 +1520,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＡＡＡ", work);
 
-                        NSCraftLib::ISprite* sprite1 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＡＡＡ", "res\\image\\item1.png", sprite1);
                     }
                     {
@@ -1538,7 +1538,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("武器ＢＢＢ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("武器ＢＢＢ", "res\\image\\item2.png", sprite2);
                     }
                     {
@@ -1556,7 +1556,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＣ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＣ", "res\\image\\item3.png", sprite2);
                     }
                     {
@@ -1574,7 +1574,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＤ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＤ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1592,7 +1592,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＥ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＥ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1610,7 +1610,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＦ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＦ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1628,7 +1628,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＧ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＧ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1646,7 +1646,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＨ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＨ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1664,7 +1664,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＩ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＩ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1682,7 +1682,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＪ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＪ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1700,7 +1700,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＫ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＫ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1718,7 +1718,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＬ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＬ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1736,7 +1736,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＭ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＭ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1754,7 +1754,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＮ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＮ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1772,7 +1772,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＯ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＯ", "res\\image\\item1.png", sprite2);
                     }
                     {
@@ -1790,7 +1790,7 @@ void SeqBattle::UpdateDebug()
 
                         m_craft->SetOutputInfo("アイテムＰ", work);
 
-                        NSCraftLib::ISprite* sprite2 = new NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                        NSCraftLib::ISprite* sprite2 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                         m_craft->SetOutputImage("アイテムＰ", "res\\image\\item1.png", sprite2);
                     }
                 }
@@ -1981,11 +1981,11 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 std::string::size_type it = work.find("<talk>");
                 work = work.erase(it, 6);
 
-                NSTalkLib2::IFont* pFont = new NSTalkLib2::Font(SharedObj::GetD3DDevice());
-                NSTalkLib2::ISoundEffect* pSE = new NSTalkLib2::SoundEffect();
-                NSTalkLib2::ISprite* sprite = new NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+                NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
-                m_talk = new NSTalkLib2::Talk();
+                m_talk = NEW NSTalkLib2::Talk();
                 m_talk->Init(work, pFont, pSE, sprite,
                              "res\\image\\textBack.png", "res\\image\\black.png");
                 m_bTalking = true;
@@ -2036,7 +2036,7 @@ void SeqBattle::OperateTitle(eSequence* sequence)
     if (m_eState == eBattleState::OPENING)
     {
         SAFE_DELETE(m_title);
-        m_Opening = new Opening();
+        m_Opening = NEW Opening();
     }
     else if (m_eState == eBattleState::NORMAL)
     {

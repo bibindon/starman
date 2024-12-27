@@ -18,7 +18,7 @@ EnemyDisk::~EnemyDisk()
 
 bool EnemyDisk::Init()
 {
-    m_thread = new std::thread(
+    m_thread = NEW std::thread(
         [&]
         {
             AnimSetMap animSetMap;
@@ -50,12 +50,12 @@ bool EnemyDisk::Init()
                 animSetting.m_loop = false;
                 animSetMap["Attack"] = animSetting;
             }
-            m_AnimMesh = new AnimMesh("res\\model\\enemyDisk\\disk.x",
+            m_AnimMesh = NEW AnimMesh("res\\model\\enemyDisk\\disk.x",
                 m_loadingPos, m_rotate, 0.5f, animSetMap);
             SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
             
-            m_spriteHP = new Sprite("res\\image\\hp_green.png");
-            m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
+            m_spriteHP = NEW Sprite("res\\image\\hp_green.png");
+            m_spriteHPBack = NEW Sprite("res\\image\\hp_black.png");
 
             m_AnimMesh->SetAnim("Idle", 0.f);
             m_loaded.store(true);

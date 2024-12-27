@@ -242,7 +242,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     PopUp2::Init();
 
     m_sequence = eSequence::BATTLE;
-    m_seqBattle = new SeqBattle();
+    m_seqBattle = NEW SeqBattle();
 
     ret = D3DXCreateFont(
         D3DDevice,
@@ -367,7 +367,7 @@ int MainWindow::MainLoop()
             if (m_sequence == eSequence::ENDING)
             {
                 SAFE_DELETE(m_seqBattle);
-                m_seqEnding = new SeqEnding();
+                m_seqEnding = NEW SeqEnding();
             }
         }
         else if (m_sequence == eSequence::ENDING)

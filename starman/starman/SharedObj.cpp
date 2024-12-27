@@ -80,7 +80,7 @@ void SharedObj::Init()
     std::random_device seed_gen;
     m_Engine = std::mt19937(seed_gen());
 
-    m_questSystem = new NSQuestSystem::QuestSystem();
+    m_questSystem = NEW NSQuestSystem::QuestSystem();
 
     if (Common::ReleaseMode())
     {

@@ -22,7 +22,7 @@ PopUp2::~PopUp2()
 
 void PopUp2::Init()
 {
-    m_singleTonObj = new PopUp2();
+    m_singleTonObj = NEW PopUp2();
 
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
     D3DXCreateFont(

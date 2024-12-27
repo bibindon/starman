@@ -39,7 +39,7 @@ AnimMesh::AnimMesh(
     const D3DXVECTOR3& rotation,
     const float& scale,
     const AnimSetMap& animSetMap)
-    : m_allocator { new AnimMeshAllocator { xFilename } }
+    : m_allocator { NEW AnimMeshAllocator { xFilename } }
     , m_frameRoot { nullptr, frame_root_deleter_object { m_allocator } }
     , m_rotationMatrix { D3DMATRIX { } }
     , m_position { position }

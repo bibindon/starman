@@ -129,17 +129,17 @@ void HudManager::Init()
         {
             delete m_hud;
         }
-        m_hud = new NSHud::hud();
-        NSHud::IFont* pFont = new NSHud::Font(SharedObj::GetD3DDevice());
+        m_hud = NEW NSHud::hud();
+        NSHud::IFont* pFont = NEW NSHud::Font(SharedObj::GetD3DDevice());
         pFont->Init();
 
-        NSHud::ISprite* sprBack = new NSHud::Sprite(SharedObj::GetD3DDevice());
+        NSHud::ISprite* sprBack = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
         sprBack->Load("res\\image\\status_back.png");
 
-        NSHud::ISprite* sprMiddle = new NSHud::Sprite(SharedObj::GetD3DDevice());
+        NSHud::ISprite* sprMiddle = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
         sprMiddle->Load("res\\image\\status_middle.png");
 
-        NSHud::ISprite* sprFront = new NSHud::Sprite(SharedObj::GetD3DDevice());
+        NSHud::ISprite* sprFront = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
         sprFront->Load("res\\image\\status_front.png");
 
         m_hud->Init(pFont, sprBack, sprMiddle, sprFront);

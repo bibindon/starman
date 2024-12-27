@@ -16,9 +16,9 @@ PopUp::~PopUp()
 
 void PopUp::Init()
 {
-    m_singleTonObj = new PopUp();
+    m_singleTonObj = NEW PopUp();
 
-    m_singleTonObj->m_sprBack = new Sprite("res\\image\\PopupBack.png");
+    m_singleTonObj->m_sprBack = NEW Sprite("res\\image\\PopupBack.png");
 
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
     D3DXCreateFont(

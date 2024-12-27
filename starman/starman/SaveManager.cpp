@@ -20,7 +20,7 @@ SaveManager* SaveManager::Get()
 {
     if (m_obj == nullptr)
     {
-        m_obj = new SaveManager();
+        m_obj = NEW SaveManager();
 
         // 通常はデプロイモードは暗号化する
         if (Common::DeployMode())

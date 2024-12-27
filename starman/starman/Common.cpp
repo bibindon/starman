@@ -3,7 +3,7 @@
 #include <iomanip>
 #include "SharedObj.h"
 
-#if defined(NDEBUG)
+#if defined(_DEBUG)
 eBuildMode Common::m_buildMode = eBuildMode::Debug;
 #elif defined(DEPLOY)
 eBuildMode Common::m_buildMode = eBuildMode::Deploy;

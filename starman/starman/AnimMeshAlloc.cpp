@@ -10,7 +10,7 @@ AnimMeshFrame::AnimMeshFrame(const string& name)
     : D3DXFRAME { },
     m_combinedMatrix { }
 {
-    Name = new char[name.length() + 1];
+    Name = NEW char[name.length() + 1];
     strcpy_s(Name, name.length() + 1, name.c_str());
 
     D3DXMatrixIdentity(&TransformationMatrix);
@@ -26,7 +26,7 @@ AnimMeshContainer::AnimMeshContainer(
     const DWORD* adjacency)
     : D3DXMESHCONTAINER { }
 {
-    Name = new char[meshName.length() + 1];
+    Name = NEW char[meshName.length() + 1];
     strcpy_s(Name, meshName.length() + 1, meshName.c_str());
 
     LPDIRECT3DDEVICE9 d3dDevice { nullptr };
@@ -55,12 +55,12 @@ AnimMeshContainer::AnimMeshContainer(
     }
 
     NumMaterials = (std::max)(1UL, materialsCount);
-    pMaterials = new D3DXMATERIAL[NumMaterials];
+    pMaterials = NEW D3DXMATERIAL[NumMaterials];
     vector<LPDIRECT3DTEXTURE9> tempTexture(NumMaterials);
     m_vecTexture.swap(tempTexture);
 
     DWORD adjacencyCount { d3dMesh->GetNumFaces() * 3 };
-    pAdjacency = new DWORD[adjacencyCount];
+    pAdjacency = NEW DWORD[adjacencyCount];
 
     for (DWORD i { 0 }; i < adjacencyCount; ++i)
     {
@@ -119,7 +119,7 @@ AnimMeshAllocator::AnimMeshAllocator(const string& xFilename)
 
 STDMETHODIMP AnimMeshAllocator::CreateFrame(LPCTSTR name, LPD3DXFRAME* newFrame)
 {
-    *newFrame = new AnimMeshFrame { name };
+    *newFrame = NEW AnimMeshFrame { name };
     return S_OK;
 }
 
@@ -135,7 +135,7 @@ STDMETHODIMP AnimMeshAllocator::CreateMeshContainer(
 {
     try
     {
-        *meshContainer = new AnimMeshContainer {
+        *meshContainer = NEW AnimMeshContainer {
             m_xFilename,
             meshName,
             meshData->pMesh,

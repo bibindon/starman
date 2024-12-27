@@ -49,7 +49,7 @@ Map::~Map()
 void Map::Init()
 {
     {
-        Mesh* mesh = new Mesh("res\\model\\prolitan\\prolitan.x",
+        Mesh* mesh = NEW Mesh("res\\model\\prolitan\\prolitan.x",
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               1.0f);
@@ -57,7 +57,7 @@ void Map::Init()
         m_meshMap["Map"] = mesh;
     }
     {
-        Mesh* mesh = new Mesh("res\\model\\prolitan\\sea.x",
+        Mesh* mesh = NEW Mesh("res\\model\\prolitan\\sea.x",
                               D3DXVECTOR3(10.f, 10.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               1.0f);
@@ -65,28 +65,28 @@ void Map::Init()
         m_meshMap["sea"] = mesh;
     }
     {
-        Mesh* mesh = new Mesh("res\\model\\cube6\\cube6.x",
+        Mesh* mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
                               D3DXVECTOR3(-10.f, 0.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               1.0f);
         mesh->Init();
         m_meshMap["cube61"] = mesh;
 
-        mesh = new Mesh("res\\model\\cube6\\cube6.x",
+        mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
                         D3DXVECTOR3(-13.f, 1.f, 0.f),
                         D3DXVECTOR3(0.f, 0.f, 0.f),
                         1.0f);
         mesh->Init();
         m_meshMap["cube62"] = mesh;
 
-        mesh = new Mesh("res\\model\\cube6\\cube6.x",
+        mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
                         D3DXVECTOR3(-16.f, 2.f, 0.f),
                         D3DXVECTOR3(0.f, 0.f, 0.f),
                         1.0f);
         mesh->Init();
         m_meshMap["cube63"] = mesh;
 
-        mesh = new Mesh("res\\model\\collisionTest\\colli.x",
+        mesh = NEW Mesh("res\\model\\collisionTest\\colli.x",
                         D3DXVECTOR3(0.f, 0.f, -20.f),
                         D3DXVECTOR3(0.f, 0.f, 0.f),
                         1.0f);
@@ -107,34 +107,34 @@ void Map::Init()
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
         b.x = 15.f;
         b.y = -80.f;
-        mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 9000.0f);
+        mesh = NEW Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 9000.0f);
         mesh->Init();
         m_meshMap["sky"] = mesh;
 
         // 半回転させた空。なくても見た目に違いがない。
         //c.y = D3DX_PI;
-        //mesh = new Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
+        //mesh = NEW Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
         //mesh->Init();
         //m_meshMap["sky2"] = mesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 14.f, 530.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = new Mesh("res\\model\\tree1\\tree1.x", b, c, 1.f);
+        Mesh* mesh = NEW Mesh("res\\model\\tree1\\tree1.x", b, c, 1.f);
         mesh->Init();
         m_meshMap["tree"] = mesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 1.f);
+        Mesh* mesh = NEW Mesh("res\\model\\rock1\\rock1.x", b, c, 1.f);
         mesh->Init();
         m_meshMap["rock1"] = mesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = new Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
         mesh->Init();
         m_meshMap["cottage"] = mesh;
     }
@@ -142,7 +142,7 @@ void Map::Init()
     //--------------------------------------------
     // 太陽
     //--------------------------------------------
-    m_pSun = new MeshNoShade("res\\model\\sun\\sun.x",
+    m_pSun = NEW MeshNoShade("res\\model\\sun\\sun.x",
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
                              1000.0f);
@@ -212,7 +212,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* daikeiman = new AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
+        AnimMesh* daikeiman = NEW AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
         daikeiman->SetAnim("LieDown");
         m_NPC["ダイケイマン"] = daikeiman;
     }
@@ -277,7 +277,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* sankakuman = new AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
+        AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
         sankakuman->SetAnim("Sit");
         m_NPC["サンカクマン"] = sankakuman;
     }
@@ -342,7 +342,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* shikakuman = new AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
+        AnimMesh* shikakuman = NEW AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
         shikakuman->SetAnim("Sit");
         m_NPC["シカクマン"] = shikakuman;
     }
@@ -407,7 +407,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = new AnimMesh("res\\model\\vim\\vim.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim\\vim.x", b, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ビム"] = animMesh;
     }
@@ -471,7 +471,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = new AnimMesh("res\\model\\vsco\\vsco.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vsco\\vsco.x", b, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ブイエスコ"] = animMesh;
     }
@@ -535,7 +535,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = new AnimMesh("res\\model\\webnin\\webnin.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\webnin\\webnin.x", b, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ウェブニン"] = animMesh;
     }
@@ -550,7 +550,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["Idle"] = animSetting;
         }
-        //AnimMesh* animMesh = new AnimMesh("res\\model\\xeoff\\xeoff.x", b, rot, 1.5f, animSetMap);
+        //AnimMesh* animMesh = NEW AnimMesh("res\\model\\xeoff\\xeoff.x", b, rot, 1.5f, animSetMap);
         //animMesh->SetAnim("Idle");
         //m_NPC["ジーオフ"] = animMesh;
     }
@@ -614,7 +614,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = new AnimMesh("res\\model\\gain\\gain.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\gain\\gain.x", b, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ガイン"] = animMesh;
     }
@@ -678,7 +678,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = new AnimMesh("res\\model\\nes\\nes.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\nes\\nes.x", b, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ネス"] = animMesh;
     }
@@ -742,7 +742,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = new AnimMesh("res\\model\\noble\\noble.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\noble\\noble.x", b, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ノーブル"] = animMesh;
     }
@@ -814,43 +814,43 @@ void Map::Update()
                         EnemyBase* enemy = nullptr;
                         if (eneList.at(i).GetBreed() == "リッポウタイ")
                         {
-                            enemy = new EnemyCube();
+                            enemy = NEW EnemyCube();
                         }
                         else if (eneList.at(i).GetBreed() == "キュウ")
                         {
-                            enemy = new EnemySphere();
+                            enemy = NEW EnemySphere();
                         }
                         else if (eneList.at(i).GetBreed() == "エンバン")
                         {
-                            enemy = new EnemyEnban();
+                            enemy = NEW EnemyEnban();
                         }
                         else if (eneList.at(i).GetBreed() == "エンチュウ")
                         {
-                            enemy = new EnemyEnchu();
+                            enemy = NEW EnemyEnchu();
                         }
                         else if (eneList.at(i).GetBreed() == "ビッグリッポウタイ")
                         {
-                            enemy = new EnemyBigCube();
+                            enemy = NEW EnemyBigCube();
                         }
                         else if (eneList.at(i).GetBreed() == "スモールリッポウタイ")
                         {
-                            enemy = new EnemySmallCube();
+                            enemy = NEW EnemySmallCube();
                         }
                         else if (eneList.at(i).GetBreed() == "ハンエン")
                         {
-                            enemy = new EnemyHanen();
+                            enemy = NEW EnemyHanen();
                         }
                         else if (eneList.at(i).GetBreed() == "ハンキュウ")
                         {
-                            enemy = new EnemyHankyuu();
+                            enemy = NEW EnemyHankyuu();
                         }
                         else if (eneList.at(i).GetBreed() == "オレンジリッポウタイ")
                         {
-                            enemy = new EnemyOrangeCube();
+                            enemy = NEW EnemyOrangeCube();
                         }
                         else if (eneList.at(i).GetBreed() == "島民の霊")
                         {
-                            enemy = new EnemyGhost();
+                            enemy = NEW EnemyGhost();
                         }
 
                         enemy->SetIdSub(eneList.at(i).GetID());
@@ -943,7 +943,7 @@ void Map::Update()
 
                     std::string xName = mapObjManager->GetModelName(needShow.at(i).m_modelId);
 
-                    auto meshClone = new MeshClone(xName, pos, rot, needShow.at(i).m_scale);
+                    auto meshClone = NEW MeshClone(xName, pos, rot, needShow.at(i).m_scale);
                     meshClone->Init();
                     m_meshCloneMap[needShow.at(i).m_id] = meshClone;
                     mapObjManager->SetShow(needShow.at(i).m_frameX,
@@ -1428,8 +1428,8 @@ void LazyMesh::Init(const std::string& xFilename,
 void LazyMesh::Load()
 {
     m_bLoaded = true;
-    m_Mesh = new Mesh(m_xFilename, m_drawPos, m_rotation, 1.0f);
-    m_thread = new std::thread([&]{ m_Mesh->Init(); });
+    m_Mesh = NEW Mesh(m_xFilename, m_drawPos, m_rotation, 1.0f);
+    m_thread = NEW std::thread([&]{ m_Mesh->Init(); });
 }
 
 void LazyMesh::Unload()

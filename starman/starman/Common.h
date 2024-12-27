@@ -4,6 +4,12 @@
 #include <string>
 #include <Windows.h>
 
+#if defined(_DEBUG)
+#define NEW ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#else
+#define NEW new
+#endif
+
 template <typename T>
 inline void SAFE_DELETE(T*& p)
 {

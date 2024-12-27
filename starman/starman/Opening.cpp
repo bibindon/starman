@@ -145,22 +145,22 @@ Opening::Opening()
     BGM::get_ton()->load("res\\sound\\novel.wav");
 
     {
-        ISoundEffect* pSE = new NSStoryTelling::SoundEffect();
+        ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
         pSE->Init();
 
-        ISprite* sprTextBack = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+        ISprite* sprTextBack = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprTextBack->Load("res\\image\\textBack.png");
 
-        ISprite* sprFade = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+        ISprite* sprFade = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprFade->Load("res\\image\\black.png");
 
-        IFont* pFont = new NSStoryTelling::Font(SharedObj::GetD3DDevice());
+        IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
         pFont->Init();
 
         std::vector<Page> pageList;
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening01.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -172,7 +172,7 @@ Opening::Opening()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening02.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -186,7 +186,7 @@ Opening::Opening()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening03.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -203,7 +203,7 @@ Opening::Opening()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\opening04.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -222,7 +222,7 @@ Opening::Opening()
             pageList.push_back(page);
         }
 
-        m_storyTelling = new StoryTelling();
+        m_storyTelling = NEW StoryTelling();
         m_storyTelling->Init(pFont, pSE, sprTextBack, sprFade, pageList);
     }
 }

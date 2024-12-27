@@ -18,7 +18,7 @@ EnemyCube::~EnemyCube()
 
 bool EnemyCube::Init()
 {
-    m_thread = new std::thread(
+    m_thread = NEW std::thread(
         [&]
         {
             std::lock_guard<std::mutex> lock(s_mutex);
@@ -51,12 +51,12 @@ bool EnemyCube::Init()
                 animSetting.m_loop = false;
                 animSetMap["Attack"] = animSetting;
             }
-            m_AnimMesh = new AnimMesh("res\\model\\rippoutai\\rippoutai.x",
+            m_AnimMesh = NEW AnimMesh("res\\model\\rippoutai\\rippoutai.x",
                 m_loadingPos, m_rotate, 0.5f, animSetMap);
             SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
             
-            m_spriteHP = new Sprite("res\\image\\hp_green.png");
-            m_spriteHPBack = new Sprite("res\\image\\hp_black.png");
+            m_spriteHP = NEW Sprite("res\\image\\hp_green.png");
+            m_spriteHPBack = NEW Sprite("res\\image\\hp_black.png");
 
             m_AnimMesh->SetAnim("Idle", 0.f);
             m_loaded.store(true);

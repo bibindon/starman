@@ -65,7 +65,8 @@ public:
 
         // 同じ画像ファイルで作られたテクスチャが既にあるなら、
         // 画像のサイズだけ確保しテクスチャの作成を行わない
-        if (m_texMap.find(filepath) != m_texMap.end())
+        auto it = m_texMap.find(filepath);
+        if (it != m_texMap.end())
         {
             D3DSURFACE_DESC desc { };
             if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
@@ -74,6 +75,7 @@ public:
             }
             m_width = desc.Width;
             m_height = desc.Height;
+            it->second->AddRef();
             return;
         }
 
@@ -101,13 +103,12 @@ public:
 
     ~Sprite()
     {
-        // TODO スプライトもテクスチャも使いまわしているのでデストラクタで解放処理ができない。
-        // いずれ考えることとする
-//        if (m_D3DSprite != NULL)
-//        {
-//            m_D3DSprite->Release();
-//            m_D3DSprite = NULL;
-//        }
+        m_texMap.at(m_filepath)->Release();
+
+        if (m_texMap.empty())
+        {
+            SAFE_RELEASE(m_D3DSprite);
+        }
     }
 
 private:
@@ -217,16 +218,16 @@ class SoundEffect : public ISoundEffect
 void MenuManager::InitMenu()
 {
     using namespace NSMenulib;
-    NSMenulib::Sprite* sprCursor = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+    NSMenulib::Sprite* sprCursor = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprCursor->Load("res\\image\\menu_cursor.png");
 
-    NSMenulib::Sprite* sprBackground = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+    NSMenulib::Sprite* sprBackground = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load("res\\image\\menu_back.png");
 
-    NSMenulib::IFont* pFont = new NSMenulib::Font(SharedObj::GetD3DDevice());
+    NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice());
     pFont->Init();
 
-    NSMenulib::ISoundEffect* pSE = new NSMenulib::SoundEffect();
+    NSMenulib::ISoundEffect* pSE = NEW NSMenulib::SoundEffect();
     pSE->Init();
 
     m_menu.Init("", pFont, pSE, sprCursor, sprBackground);
@@ -259,7 +260,7 @@ void MenuManager::InitMenu()
 
                     itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
 
-                    NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                    NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
 
                     // 画像ファイル名を取得して設定
                     // アイテム種別が武器の時は武器クラスから取得する必要がある
@@ -317,7 +318,7 @@ void MenuManager::InitMenu()
 
             humanInfo.SetName(libHumanInfo.GetName());
 
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+            NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
             sprItem->Load(libHumanInfo.GetImagePath());
             humanInfo.SetSprite(sprItem);
 
@@ -365,7 +366,7 @@ void MenuManager::InitMenu()
 
                     weaponInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
 
-                    NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                    NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
 
                     work_str = weaponManager->GetImageName(itemDef.GetName());
 
@@ -428,7 +429,7 @@ void MenuManager::InitMenu()
             enemyInfo.SetName(enemyDef.GetName());
             enemyInfo.SetDetail(enemyDef.GetDetail());
 
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+            NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
             sprItem->Load(enemyDef.GetImagePath());
             enemyInfo.SetSprite(sprItem);
             infoList.push_back(enemyInfo);
@@ -453,7 +454,7 @@ void MenuManager::InitMenu()
             work_str = skillManager->GetDetail(nameList.at(i));
             info.SetDetail(work_str);
 
-            NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+            NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
             sprItem->Load("res\\image\\test.png");
             info.SetSprite(sprItem);
             infoList.push_back(info);
@@ -470,7 +471,7 @@ void MenuManager::InitMenu()
         NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
         StatusInfo info;
         info.SetName("ホシマン");
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+        NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
         sprItem->Load("res\\image\\test.png");
         info.SetSprite(sprItem);
         std::string work;
@@ -545,7 +546,7 @@ void MenuManager::InitMenu()
                 mapInfo.SetName(mapName);
                 mapInfo.SetDetail(mapInfoManager->GetDetail(mapName));
 
-                NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
                 sprItem->Load(mapInfoManager->GetImagePath(mapName));
                 mapInfo.SetSprite(sprItem);
 
@@ -827,7 +828,7 @@ std::string MenuManager::OperateMenu()
         NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
         StatusInfo info;
         info.SetName("ホシマン");
-        NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+        NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
         sprItem->Load("res\\image\\test.png");
         info.SetSprite(sprItem);
         std::string work;
@@ -918,7 +919,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     itemInfoG.SetName(itemDef.GetName());
     itemInfoG.SetDurability(durability);
 
-    NSMenulib::Sprite* sprItem = new NSMenulib::Sprite(SharedObj::GetD3DDevice());
+    NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
 
     // 画像ファイル名を取得して設定
     // アイテム種別が武器の時は武器クラスから取得する必要がある

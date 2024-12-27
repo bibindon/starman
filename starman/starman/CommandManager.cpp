@@ -155,15 +155,15 @@ void CommandManager::Init(std::vector<std::string> commands,
     {
         delete m_commandLib;
     }
-    m_commandLib = new NSCommand::CommandLib();
+    m_commandLib = NEW NSCommand::CommandLib();
 
-    NSCommand::Sprite* sprCursor = new NSCommand::Sprite(SharedObj::GetD3DDevice());
+    NSCommand::Sprite* sprCursor = NEW NSCommand::Sprite(SharedObj::GetD3DDevice());
     sprCursor->Load("res\\image\\command_cursor.png");
 
-    NSCommand::IFont* pFont = new NSCommand::Font(SharedObj::GetD3DDevice());
+    NSCommand::IFont* pFont = NEW NSCommand::Font(SharedObj::GetD3DDevice());
     pFont->Init();
 
-    NSCommand::ISoundEffect* pSE = new NSCommand::SoundEffect();
+    NSCommand::ISoundEffect* pSE = NEW NSCommand::SoundEffect();
     pSE->Init();
 
     m_commandLib->Init(pFont, pSE, sprCursor);

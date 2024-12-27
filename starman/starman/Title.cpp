@@ -48,14 +48,14 @@ Title::Title(const bool blackFadeIn)
         vs.push_back("Exit");
         vb.push_back(true);
 
-        m_titleCommand = new CommandManager();
+        m_titleCommand = NEW CommandManager();
         m_titleCommand->Init(vs, vb);
     }
 
-    m_sprBack = new Sprite("res\\image\\black.png");
-    m_sprLogo = new Sprite("res\\image\\title01.png");
-    m_sprClock = new Sprite("res\\image\\load_clock.png");
-    m_sprLoading = new Sprite("res\\image\\loading.png");
+    m_sprBack = NEW Sprite("res\\image\\black.png");
+    m_sprLogo = NEW Sprite("res\\image\\title01.png");
+    m_sprClock = NEW Sprite("res\\image\\load_clock.png");
+    m_sprLoading = NEW Sprite("res\\image\\loading.png");
 
     Common::SetCursorVisibility(true);
 
@@ -170,7 +170,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             {
                 m_bLoading = true;
                 SAFE_DELETE(m_thread);
-                m_thread = new std::thread(
+                m_thread = NEW std::thread(
                     [&]
                     {
                         SaveManager::Get()->LoadOrigin();

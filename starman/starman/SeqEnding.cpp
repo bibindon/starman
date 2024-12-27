@@ -146,22 +146,22 @@ SeqEnding::SeqEnding()
 //    BGM::get_ton()->play(10);
 
     {
-        ISoundEffect* pSE = new NSStoryTelling::SoundEffect();
+        ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
 
-        ISprite* sprTextBack = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+        ISprite* sprTextBack = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprTextBack->Load("res\\image\\textBack.png");
 
-        ISprite* sprFade = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+        ISprite* sprFade = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprFade->Load("res\\image\\black.png");
 
-        IFont* pFont = new NSStoryTelling::Font(SharedObj::GetD3DDevice());
+        IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
         pFont->Init();
 
         // TODO
         std::vector<Page> pageList;
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending01.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -182,7 +182,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending02.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -251,7 +251,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending03.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -280,7 +280,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending04.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -317,7 +317,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending05.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -334,7 +334,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending06.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -369,7 +369,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending07.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -388,7 +388,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending08.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -416,7 +416,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending09.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -496,7 +496,7 @@ SeqEnding::SeqEnding()
         }
         {
             Page page;
-            ISprite* sprite = new NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+            ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             sprite->Load("res\\image\\ending10.png");
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
@@ -508,7 +508,7 @@ SeqEnding::SeqEnding()
             pageList.push_back(page);
         }
 
-        m_storyTelling = new StoryTelling();
+        m_storyTelling = NEW StoryTelling();
         m_storyTelling->Init(pFont, pSE, sprTextBack, sprFade, pageList);
     }
 }

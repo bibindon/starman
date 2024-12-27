@@ -55,14 +55,14 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap["Jump"] = animSetting;
     }
-    m_AnimMesh2 = new AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 1.f, animSetMap);
+    m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = new Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
+        Mesh * mesh = NEW Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["石"] = mesh;
@@ -70,7 +70,7 @@ Player::Player()
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
-        Mesh * mesh = new Mesh("res\\model\\stick\\stick.x", b, c, 1.f);
+        Mesh * mesh = NEW Mesh("res\\model\\stick\\stick.x", b, c, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["木の棒"] = mesh;
@@ -78,7 +78,7 @@ Player::Player()
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI*3/2, 0.f, D3DX_PI/2);
-        Mesh * mesh = new Mesh("res\\model\\ax\\ax.x", b, c, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\ax\\ax.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["石斧"] = mesh;
@@ -86,7 +86,7 @@ Player::Player()
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
-        Mesh * mesh = new Mesh("res\\model\\atlatl\\atlatl.x", b, c, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\atlatl\\atlatl.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["アトラトル"] = mesh;
@@ -94,7 +94,7 @@ Player::Player()
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
-        Mesh * mesh = new Mesh("res\\model\\ironPipe\\ironPipe.x", b, c, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\ironPipe\\ironPipe.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["鉄パイプ"] = mesh;
@@ -102,7 +102,7 @@ Player::Player()
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
-        Mesh * mesh = new Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", b, c, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["石付き鉄パイプ"] = mesh;
@@ -110,7 +110,7 @@ Player::Player()
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
-        Mesh * mesh = new Mesh("res\\model\\spear\\spear.x", b, c, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\spear\\spear.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["石槍"] = mesh;
