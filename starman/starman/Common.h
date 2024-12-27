@@ -28,7 +28,7 @@ inline void SAFE_RELEASE(T*& p)
     if (p)
     {
         p->Release();
-        p = nullptr;
+        // p = nullptr; // nullptr‚ð‘ã“ü‚·‚é‚Ì‚ÍŠÔˆá‚¢
     }
 }
 
