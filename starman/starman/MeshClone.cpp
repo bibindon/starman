@@ -29,6 +29,12 @@ MeshClone::MeshClone(
 
 MeshClone::~MeshClone()
 {
+    m_D3DEffect->Release();
+    m_D3DMeshMap.at(m_meshName)->Release();
+    if (m_vecTextureMap.at(m_meshName).at(0) != nullptr)
+    {
+        m_vecTextureMap.at(m_meshName).at(0)->Release();
+    }
 }
 
 void MeshClone::Init()
@@ -51,8 +57,20 @@ void MeshClone::Init()
             throw std::exception("Failed to create an effect file.");
         }
     }
+    else
+    {
+        m_D3DEffect->AddRef();
+    }
 
-    if (m_D3DMeshMap.find(m_meshName) == m_D3DMeshMap.end())
+    if (m_D3DMeshMap.find(m_meshName) != m_D3DMeshMap.end())
+    {
+        m_D3DMeshMap.at(m_meshName)->AddRef();
+        if (m_vecTextureMap.at(m_meshName).at(0) != nullptr)
+        {
+            m_vecTextureMap.at(m_meshName).at(0)->AddRef();
+        }
+    }
+    else
     {
         LPD3DXMESH tempMesh = nullptr;
 
@@ -194,9 +212,6 @@ void MeshClone::Init()
         }
         SAFE_RELEASE(materialBuffer);
     }
-    else
-    {
-    }
 
     m_bIsInit = true;
 }
@@ -206,12 +221,12 @@ void MeshClone::SetPos(const D3DXVECTOR3& pos)
     m_loadingPos = pos;
 }
 
-D3DXVECTOR3 MeshClone::GetPos()
+D3DXVECTOR3 MeshClone::GetPos() const
 {
     return m_loadingPos;
 }
 
-float MeshClone::GetScale()
+float MeshClone::GetScale() const
 {
     return m_scale;
 }
@@ -333,7 +348,7 @@ void MeshClone::Render()
 
 LPD3DXMESH MeshClone::GetD3DMesh()
 {
-    return m_D3DMeshMap[m_meshName];
+    return m_D3DMeshMap.at(m_meshName);
 }
 
 void MeshClone::SetWeapon(const bool arg)

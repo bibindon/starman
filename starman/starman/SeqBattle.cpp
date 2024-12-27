@@ -534,6 +534,9 @@ SeqBattle::~SeqBattle()
 
     SAFE_DELETE(m_spriteGameover);
     SAFE_DELETE(m_spriteExamine);
+
+    SAFE_DELETE(m_sprLoadClock);
+    SAFE_DELETE(m_sprLoadLoading);
 }
 
 void SeqBattle::Update(eSequence* sequence)
