@@ -14,7 +14,6 @@ EnemyBase::EnemyBase()
 
 EnemyBase::~EnemyBase()
 {
-    Finalize();
 }
 
 std::mutex EnemyBase::s_mutex;
