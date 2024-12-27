@@ -244,5 +244,6 @@ void CommandManager::Draw()
 
 void CommandManager::Finalize()
 {
+    m_commandLib->Finalize();
     SAFE_DELETE(m_commandLib);
 }

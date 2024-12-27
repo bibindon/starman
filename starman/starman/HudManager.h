@@ -6,6 +6,7 @@ class HudManager
 {
 public:
     void Init();
+    void Finalize();
     void Update();
     void Draw();
 private:

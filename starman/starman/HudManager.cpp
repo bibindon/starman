@@ -149,6 +149,12 @@ void HudManager::Init()
     }
 }
 
+void HudManager::Finalize()
+{
+    m_hud->Finalize();
+    SAFE_DELETE(m_hud);
+}
+
 void HudManager::Update()
 {
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();

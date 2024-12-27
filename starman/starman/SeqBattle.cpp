@@ -516,8 +516,9 @@ SeqBattle::SeqBattle()
 
 SeqBattle::~SeqBattle()
 {
-    // TODO menu‚Ì‰ð•úˆ—
     m_loadThread->join();
+
+    m_hudManager.Finalize();
     SAFE_DELETE(m_loadThread);
     SAFE_DELETE(m_player);
     SAFE_DELETE(m_map);
