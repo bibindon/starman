@@ -39,7 +39,7 @@ MeshClone::~MeshClone()
 
 void MeshClone::Init()
 {
-    // TODO “Ç‚İ‚İÏ‚İ‚¾‚Á‚½‚ç“Ç‚İ‚Ü‚È‚¢B
+    // “Ç‚İ‚İÏ‚İ‚¾‚Á‚½‚ç“Ç‚İ‚Ü‚È‚¢B
     HRESULT result { 0 };
     if (m_D3DEffect == nullptr)
     {
