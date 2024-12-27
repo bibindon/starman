@@ -93,13 +93,6 @@ void Map::Init()
         mesh->Init();
         m_meshMap["colli"] = mesh;
     }
-    // ’x‰„“Ç‚Ýž‚Ý
-    {
-        m_lazyMesh.Init("res\\model\\prolitan\\prolitan1.x",
-                        D3DXVECTOR3(0.f, 0.f, 0.f),
-                        D3DXVECTOR3(0.f, 0.f, 0.f));
-        m_lazyMesh.SetLoadPos(D3DXVECTOR3(367.f, 343.f, 755.f), 400.f);
-    }
 
     {
         Mesh* mesh { nullptr };
@@ -110,12 +103,6 @@ void Map::Init()
         mesh = NEW Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 9000.0f);
         mesh->Init();
         m_meshMap["sky"] = mesh;
-
-        // ”¼‰ñ“]‚³‚¹‚½‹óB‚È‚­‚Ä‚àŒ©‚½–Ú‚Éˆá‚¢‚ª‚È‚¢B
-        //c.y = D3DX_PI;
-        //mesh = NEW Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 3000.0f);
-        //mesh->Init();
-        //m_meshMap["sky2"] = mesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 14.f, 530.f);
@@ -769,21 +756,6 @@ void Map::Update()
     Player* player = SharedObj::GetPlayer();
     D3DXVECTOR3 pos = player->GetPos();
 
-    if (m_lazyMesh.IsLoadPos(pos))
-    {
-        if (m_lazyMesh.IsLoaded() == false)
-        {
-            m_lazyMesh.Load();
-        }
-    }
-    else
-    {
-        if (m_lazyMesh.IsLoaded())
-        {
-            m_lazyMesh.Unload();
-        }
-    }
-
     // 60‰ñ‚Éˆê‰ñi1•b‚²‚Æj‚Ìˆ—
     {
         static int counter = 0;
@@ -1007,25 +979,23 @@ void Map::Render()
         norm2.y = -1.f;
         Light::SetLightNormal(norm2);
         m_meshMap["sky"]->Render();
-        //m_meshMap["sky2"]->Render();
         Light::SetLightNormal(norm);
     }
+
     for (auto& pair : m_meshMap)
     {
-        if (pair.first == "sky" || pair.first == "sky2")
+        if (pair.first == "sky")
         {
             continue;
         }
         pair.second->Render();
     }
+
     for (auto& pair : m_meshCloneMap)
     {
         pair.second->Render();
     }
-    if (m_lazyMesh.IsLoaded())
-    {
-        //m_lazyMesh.Render();
-    }
+
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
         m_vecEnemy.at(i)->Render();
@@ -1416,52 +1386,3 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
     return result;
 }
 
-void LazyMesh::Init(const std::string& xFilename,
-                    const D3DXVECTOR3& position,
-                    const D3DXVECTOR3& rotation)
-{
-    m_xFilename = xFilename;
-    m_drawPos = position;
-    m_rotation = rotation;
-}
-
-void LazyMesh::Load()
-{
-    m_bLoaded = true;
-    m_Mesh = NEW Mesh(m_xFilename, m_drawPos, m_rotation, 1.0f);
-    m_thread = NEW std::thread([&]{ m_Mesh->Init(); });
-}
-
-void LazyMesh::Unload()
-{
-    m_bLoaded = false;
-    delete m_Mesh;
-    m_Mesh = nullptr;
-}
-
-void LazyMesh::SetLoadPos(const D3DXVECTOR3& pos, const float r)
-{
-    m_loadingPos = pos;
-    m_radius = r;
-}
-
-bool LazyMesh::IsLoadPos(const D3DXVECTOR3& pos)
-{
-    D3DXVECTOR3 diff = m_loadingPos - pos;
-    float distance = D3DXVec3Length(&diff);
-
-    return m_radius >= distance;
-}
-
-bool LazyMesh::IsLoaded() const
-{
-    return m_bLoaded;
-}
-
-void LazyMesh::Render()
-{
-    if (m_bLoaded)
-    {
-        m_Mesh->Render();
-    }
-}

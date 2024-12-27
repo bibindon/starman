@@ -6,45 +6,6 @@
 #include "MeshNoShade.h"
 #include "MeshClone.h"
 
-// 主人公が近づいたらメッシュを読み込み表示するためのメッシュクラス
-// 別スレッドで読む。DirectX9はマルチスレッドに対応していないらしいが
-// なぜか問題なく動く。
-// TODO 別のファイルに移動すべき？
-// TODO LazyMeshは削除するべき。Load
-class LazyMesh
-{
-public:
-    void Init(const std::string& xFilename,
-              const D3DXVECTOR3& position,
-              const D3DXVECTOR3& rotation);
-
-    void Load();
-
-    void Unload();
-
-    // 読み込みが開始される座標と半径
-    void SetLoadPos(const D3DXVECTOR3& pos, const float r);
-
-    // 読み込みが開始される座標か確認
-    bool IsLoadPos(const D3DXVECTOR3& pos);
-
-    // 読み込み済みか
-    bool IsLoaded() const;
-
-    void Render();
-
-private:
-    Mesh* m_Mesh { nullptr };
-    bool m_bLoaded { false};
-    std::thread* m_thread { nullptr };
-    D3DXVECTOR3 m_loadingPos { 0.f, 0.f, 0.f };
-    float m_radius { 0.f };
-
-    std::string m_xFilename;
-    D3DXVECTOR3 m_drawPos { 0.f, 0.f, 0.f };
-    D3DXVECTOR3 m_rotation { 0.f, 0.f, 0.f };
-};
-
 class Map
 {
 public:
@@ -78,8 +39,6 @@ private:
     std::unordered_map<std::string, Mesh*> m_meshMap;
 
     std::vector<EnemyBase*> m_vecEnemy { };
-
-    LazyMesh m_lazyMesh;
 
     // 太陽
     MeshNoShade* m_pSun = nullptr;
