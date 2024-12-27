@@ -83,13 +83,13 @@ void SharedObj::Init()
 
     m_questSystem = NEW NSQuestSystem::QuestSystem();
 
-    if (Common::ReleaseMode())
+    if (Common::DeployMode())
     {
-        m_questSystem->Init("res\\script\\origin\\questSample.csv");
+        m_questSystem->Init("res\\script\\origin\\quest.csv");
     }
     else
     {
-        m_questSystem->Init("res\\script\\origin_debug\\questSample.csv");
+        m_questSystem->Init("res\\script\\origin_debug\\quest.csv");
     }
 }
 

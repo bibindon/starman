@@ -463,21 +463,6 @@ SeqBattle::SeqBattle()
     NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
     NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
-    // ?
-    m_talk = NEW NSTalkLib2::Talk();
-
-    if (Common::DeployMode())
-    {
-        m_talk->Init("res\\script\\origin\\talk2Sample.csv", pFont, pSE, sprite,
-                     "res\\image\\textBack.png", "res\\image\\black.png");
-    }
-    else
-    {
-        m_talk->Init("res\\script\\origin_debug\\talk2Sample.csv", pFont, pSE, sprite,
-                     "res\\image\\textBack.png", "res\\image\\black.png");
-    }
-    m_bTalking = true;
-
     m_hudManager.Init();
 
     {
@@ -619,10 +604,10 @@ void SeqBattle::OperateTalk()
         bool talkFinish = m_talk->Update();
         if (talkFinish)
         {
-            m_bTalking = false;
             m_talk->Finalize();
-            delete m_talk;
-            m_talk = nullptr;
+            SAFE_DELETE(m_talk);
+            m_eState = eBattleState::NORMAL;
+            Common::SetCursorVisibility(false);
         }
     }
 
@@ -1869,6 +1854,34 @@ void SeqBattle::UpdatePerSecond()
         SharedObj::GetQuestSystem()->SetPos(playerPos.x, playerPos.y, playerPos.z);
 
         // プレイヤーの現在座標で開始or完了できるクエストがあるなら
+        auto startQuest = SharedObj::GetQuestSystem()->GetStartQuest();
+        if (startQuest.empty() == false)
+        {
+            auto startEvent = SharedObj::GetQuestSystem()->GetQuestStartEvent(startQuest.at(0));
+            if (startEvent.empty() == false)
+            {
+                // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
+                if (startEvent.at(0).find("<talk>") != std::string::npos)
+                {
+                    std::string work = startEvent.at(0);
+                    std::string::size_type it = work.find("<talk>");
+                    work = work.erase(it, 6);
+
+                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+                    m_talk = NEW NSTalkLib2::Talk();
+                    m_talk->Init(work, pFont, pSE, sprite,
+                                 "res\\image\\textBack.png", "res\\image\\black.png");
+
+                    m_eState = eBattleState::TALK;
+                }
+            }
+
+        }
+
+
         // 「調べる」アクションができることをアイコンで知らせる。
         std::string quest1 = SharedObj::GetQuestSystem()->GetQuestIdStartByExamine(playerPos.x, playerPos.y, playerPos.z);
         std::string quest2 = SharedObj::GetQuestSystem()->GetQuestIdFinishByExamine(playerPos.x, playerPos.y, playerPos.z);
@@ -1980,7 +1993,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             m_finishQuestQue.push_back(vs.at(i));
         }
 
-        if (m_finishQuestQue.size() >= 1 && m_bTalking == false)
+        if (m_finishQuestQue.size() >= 1)
         {
             std::string questId = m_finishQuestQue.at(0);
             std::vector<std::string> vs2 = qs->GetQuestFinishEvent(questId);
@@ -1998,7 +2011,8 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 m_talk = NEW NSTalkLib2::Talk();
                 m_talk->Init(work, pFont, pSE, sprite,
                              "res\\image\\textBack.png", "res\\image\\black.png");
-                m_bTalking = true;
+
+                m_eState = eBattleState::TALK;
             }
             else if (vs2.at(0).find("<hide>") != std::string::npos)
             {
