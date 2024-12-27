@@ -13,7 +13,6 @@ EnemyGhost::EnemyGhost()
 
 EnemyGhost::~EnemyGhost()
 {
-    Finalize();
 }
 
 bool EnemyGhost::Init()

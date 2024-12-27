@@ -23,7 +23,6 @@ public:
     EnemyBase();
     virtual ~EnemyBase();
     virtual bool Init();
-    void Finalize();
     void Render();
     virtual void Update();
     void SetPos(const D3DXVECTOR3& pos);

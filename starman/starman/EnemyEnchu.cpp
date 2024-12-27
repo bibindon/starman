@@ -13,7 +13,6 @@ EnemyEnchu::EnemyEnchu()
 
 EnemyEnchu::~EnemyEnchu()
 {
-    Finalize();
 }
 
 bool EnemyEnchu::Init()

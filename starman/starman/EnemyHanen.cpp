@@ -13,7 +13,6 @@ EnemyHanen::EnemyHanen()
 
 EnemyHanen::~EnemyHanen()
 {
-    Finalize();
 }
 
 bool EnemyHanen::Init()

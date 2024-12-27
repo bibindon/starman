@@ -25,9 +25,9 @@ public:
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos() const;
     float GetScale() const;
-    void Render();
+    void Render() const;
 
-    LPD3DXMESH GetD3DMesh();
+    LPD3DXMESH GetD3DMesh() const;
 
     void SetWeapon(const bool arg);
 

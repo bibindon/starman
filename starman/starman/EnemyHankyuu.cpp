@@ -13,7 +13,6 @@ EnemyHankyuu::EnemyHankyuu()
 
 EnemyHankyuu::~EnemyHankyuu()
 {
-    Finalize();
 }
 
 bool EnemyHankyuu::Init()

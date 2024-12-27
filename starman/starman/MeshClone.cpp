@@ -80,7 +80,7 @@ void MeshClone::Init()
     {
         m_D3DMeshMap.at(m_meshName)->AddRef();
 
-        for (int i = 0; i < m_materialCountMap.at(m_meshName); ++i)
+        for (size_t i = 0; i < m_materialCountMap.at(m_meshName); ++i)
         {
             if (m_vecTextureMap.at(m_meshName).at(i) != nullptr)
             {
@@ -249,7 +249,7 @@ float MeshClone::GetScale() const
     return m_scale;
 }
 
-void MeshClone::Render()
+void MeshClone::Render() const
 {
     if (m_bIsInit == false)
     {
@@ -364,7 +364,7 @@ void MeshClone::Render()
     m_D3DEffect->End();
 }
 
-LPD3DXMESH MeshClone::GetD3DMesh()
+LPD3DXMESH MeshClone::GetD3DMesh() const
 {
     return m_D3DMeshMap.at(m_meshName);
 }
