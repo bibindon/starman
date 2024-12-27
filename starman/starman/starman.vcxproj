@@ -368,6 +368,7 @@
     <FxCompile Include="res\shader\mesh_shader_no_shade.fx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\README.md" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

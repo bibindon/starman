@@ -947,11 +947,13 @@ void Map::Update()
                 if ((*it)->GetPos().x + 100.f < player->GetPos().x ||
                     (*it)->GetPos().x - 100.f > player->GetPos().x)
                 {
+                    (*it)->Finalize();
                     it = m_vecEnemy.erase(it);
                 }
                 else if ((*it)->GetPos().z + 100.f < player->GetPos().z ||
                          (*it)->GetPos().z - 100.f > player->GetPos().z)
                 {
+                    (*it)->Finalize();
                     it = m_vecEnemy.erase(it);
                 }
                 else

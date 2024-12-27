@@ -301,6 +301,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="..\..\README.md" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="starman.rc">
