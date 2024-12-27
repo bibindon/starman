@@ -129,6 +129,7 @@ bool SoundEffect::open_wave(
     strcpy_s(Name, filepath.length() + 1, filepath.c_str());
     _hmmio = mmioOpen(Name, nullptr, MMIO_READ);
 
+    delete[] Name;
     if (_hmmio == nullptr)
     {
         return false;
