@@ -524,6 +524,8 @@ SeqBattle::~SeqBattle()
     SAFE_DELETE(m_player);
     SAFE_DELETE(m_map);
     SAFE_DELETE(m_enemyManager);
+
+    m_talk->Finalize();
     SAFE_DELETE(m_talk);
     SAFE_DELETE(m_storehouse);
     SAFE_DELETE(m_craft);
