@@ -277,13 +277,16 @@ MainWindow::~MainWindow()
     BGM::finalize();
     SoundEffect::finalize();
     SAFE_DELETE(m_sprite);
-    SharedObj::Finalize();
-    m_D3D->Release();
-    timeEndPeriod(1);
 
     Finalize();
 
+    m_D3DFont->Release();
     m_directInput->Release();
+
+    SharedObj::Finalize();
+    m_D3D->Release();
+
+    timeEndPeriod(1);
 }
 
 int MainWindow::MainLoop()
