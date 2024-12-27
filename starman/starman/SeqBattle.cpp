@@ -83,8 +83,8 @@ namespace NSStorehouseLib
 
         ~Sprite()
         {
-            m_D3DSprite->Release();
-            m_pD3DTexture->Release();
+            SAFE_RELEASE(m_D3DSprite);
+            SAFE_RELEASE(m_pD3DTexture);
         }
 
     private:

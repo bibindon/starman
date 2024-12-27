@@ -203,6 +203,7 @@ void Map::Init()
         daikeiman->SetAnim("LieDown");
         m_NPC["ダイケイマン"] = daikeiman;
     }
+    /*
     {
 
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 543.f);
@@ -733,6 +734,7 @@ void Map::Init()
         animMesh->SetAnim("Idle");
         m_NPC["ノーブル"] = animMesh;
     }
+    */
 }
 
 void Map::Update()

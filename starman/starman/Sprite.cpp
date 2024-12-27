@@ -35,8 +35,8 @@ Sprite::Sprite(string filename)
 
 Sprite::~Sprite()
 {
-    m_D3DSprite->Release();
-    m_D3DTexture->Release();
+    SAFE_RELEASE(m_D3DSprite);
+    SAFE_RELEASE(m_D3DTexture);
 }
 
 void Sprite::Render(const D3DXVECTOR3& pos, const BYTE transparency, const LONG width)

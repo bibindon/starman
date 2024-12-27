@@ -32,7 +32,7 @@ MeshClone::~MeshClone()
     m_D3DEffect->Release();
     ULONG ulong = m_D3DMeshMap.at(m_meshName)->Release();
 
-    for (int i = 0; i < m_materialCountMap.at(m_meshName); ++i)
+    for (size_t i = 0; i < m_materialCountMap.at(m_meshName); ++i)
     {
         if (m_vecTextureMap.at(m_meshName).at(i) != nullptr)
         {

@@ -182,7 +182,7 @@ public:
 
     ~Font()
     {
-        m_pFont->Release();
+        SAFE_RELEASE(m_pFont);
     }
 
 private:

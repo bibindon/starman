@@ -1,5 +1,6 @@
 #include "Mouse.h"
 #include <exception>
+#include "Common.h"
 
 LPDIRECTINPUTDEVICE8 Mouse::m_DIMouse;
 DIMOUSESTATE2 Mouse::m_DIMouseState;
@@ -44,7 +45,7 @@ void Mouse::Update()
 
 void Mouse::Finalize()
 {
-    m_DIMouse->Release();
+    SAFE_RELEASE(m_DIMouse);
 }
 
 LONG Mouse::GetXDelta()

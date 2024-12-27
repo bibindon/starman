@@ -153,3 +153,19 @@ POINT Common::GetScreenPos()
     return p;
 }
 
+void Common::OutputMsg(const std::string& str, const int arg)
+{
+    std::string work;
+    work = str + std::to_string(arg) + "\n";
+    OutputDebugString(work.c_str());
+}
+
+void Common::OutputMsg(const std::string& str, const D3DXVECTOR3& arg)
+{
+    std::string work;
+    work = str + "x: " + std::to_string(arg.x) + ", ";
+    work += "y: " + std::to_string(arg.y) + ", ";
+    work += "z: " + std::to_string(arg.z) + "\n";
+    OutputDebugString(work.c_str());
+}
+

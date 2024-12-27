@@ -154,7 +154,6 @@ STDMETHODIMP AnimMeshAllocator::CreateMeshContainer(
 STDMETHODIMP AnimMeshAllocator::DestroyFrame(LPD3DXFRAME frame)
 {
     SAFE_DELETE_ARRAY(frame->Name);
-    frame->~D3DXFRAME();
     SAFE_DELETE(frame);
     return S_OK;
 }
@@ -169,6 +168,12 @@ STDMETHODIMP AnimMeshAllocator::DestroyMeshContainer(
     SAFE_DELETE_ARRAY(meshContainer->pAdjacency);
     SAFE_DELETE_ARRAY(meshContainer->pMaterials);
     SAFE_RELEASE(meshContainer->MeshData.pMesh);
+
+    for (size_t i = 0; i < meshContainer->m_vecTexture.size(); ++i)
+    {
+        SAFE_RELEASE(meshContainer->m_vecTexture.at(i));
+    }
+
     SAFE_DELETE(meshContainer);
 
     return S_OK;

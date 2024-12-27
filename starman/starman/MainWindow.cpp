@@ -280,11 +280,12 @@ MainWindow::~MainWindow()
 
     Finalize();
 
-    m_D3DFont->Release();
-    m_directInput->Release();
+    SAFE_RELEASE(m_D3DFont);
+    SAFE_RELEASE(m_directInput);
 
     SharedObj::Finalize();
-    m_D3D->Release();
+
+    SAFE_RELEASE(m_D3D);
 
     timeEndPeriod(1);
 }

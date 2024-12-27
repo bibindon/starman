@@ -3,34 +3,13 @@
 #include <vector>
 #include <string>
 #include <Windows.h>
+#include <d3dx9.h>
 
 #if defined(_DEBUG)
 #define NEW ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #else
 #define NEW new
 #endif
-
-template <typename T>
-inline void SAFE_DELETE(T*& p)
-{
-    delete p;
-    p = nullptr;
-}
-template <typename T>
-inline void SAFE_DELETE_ARRAY(T*& p)
-{
-    delete[] p;
-    p = nullptr;
-}
-template <typename T>
-inline void SAFE_RELEASE(T*& p)
-{
-    if (p)
-    {
-        p->Release();
-        // p = nullptr; // nullptr‚ð‘ã“ü‚·‚é‚Ì‚ÍŠÔˆá‚¢
-    }
-}
 
 enum class eSequence
 {
@@ -90,8 +69,44 @@ public:
     static void SetCursorVisibility(const bool visibility);
     static POINT GetScreenPos();
 
+    static void OutputMsg(const std::string&, const int arg);
+    static void OutputMsg(const std::string&, const D3DXVECTOR3& arg);
+
 private:
 
     static eBuildMode m_buildMode;
 };
+
+template <typename T>
+inline void SAFE_RELEASE(T*& p)
+{
+    if (p == nullptr)
+    {
+        return;
+    }
+
+    while (true)
+    {
+        auto refCnt = p->Release();
+        if (refCnt == 0)
+        {
+            break;
+        }
+    }
+    p = nullptr;
+}
+
+template <typename T>
+inline void SAFE_DELETE(T*& p)
+{
+    delete p;
+    p = nullptr;
+}
+
+template <typename T>
+inline void SAFE_DELETE_ARRAY(T*& p)
+{
+    delete[] p;
+    p = nullptr;
+}
 

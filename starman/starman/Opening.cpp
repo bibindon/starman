@@ -67,10 +67,8 @@ public:
 
     ~Sprite()
     {
-        m_D3DSprite->Release();
-        m_D3DSprite = nullptr;
-        m_pD3DTexture->Release();
-        m_pD3DTexture = nullptr;
+        SAFE_RELEASE(m_D3DSprite);
+        SAFE_RELEASE(m_pD3DTexture);
     }
 
 private:
