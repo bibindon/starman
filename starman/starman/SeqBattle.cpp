@@ -510,7 +510,6 @@ SeqBattle::~SeqBattle()
     SAFE_DELETE(m_map);
     SAFE_DELETE(m_enemyManager);
 
-    m_talk->Finalize();
     SAFE_DELETE(m_talk);
     SAFE_DELETE(m_storehouse);
     SAFE_DELETE(m_craft);
@@ -604,7 +603,6 @@ void SeqBattle::OperateTalk()
         bool talkFinish = m_talk->Update();
         if (talkFinish)
         {
-            m_talk->Finalize();
             SAFE_DELETE(m_talk);
             m_eState = eBattleState::NORMAL;
             Common::SetCursorVisibility(false);
@@ -1294,7 +1292,7 @@ void SeqBattle::RenderNormal()
     }
     if (m_bShowExamine || m_bObtainable)
     {
-        D3DXVECTOR3 pos { 200.f, 600.f, 0.f };
+        D3DXVECTOR3 pos { 720.f, 700.f, 0.f };
         m_spriteExamine->Render(pos);
     }
     m_hudManager.Draw();
