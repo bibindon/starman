@@ -104,20 +104,20 @@ void Map::Init()
         mesh->Init();
         m_meshMap["sky"] = mesh;
     }
-    {
-        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 14.f, 530.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\tree1\\tree1.x", b, c, 1.f);
-        mesh->Init();
-        m_meshMap["tree"] = mesh;
-    }
-    {
-        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\rock1\\rock1.x", b, c, 1.f);
-        mesh->Init();
-        m_meshMap["rock1"] = mesh;
-    }
+    //{
+    //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 14.f, 530.f);
+    //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+    //    Mesh* mesh = NEW Mesh("res\\model\\tree1\\tree1.x", b, c, 1.f);
+    //    mesh->Init();
+    //    m_meshMap["tree"] = mesh;
+    //}
+    //{
+    //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
+    //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+    //    Mesh* mesh = NEW Mesh("res\\model\\rock1\\rock1.x", b, c, 1.f);
+    //    mesh->Init();
+    //    m_meshMap["rock1"] = mesh;
+    //}
     {
         D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
         D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);

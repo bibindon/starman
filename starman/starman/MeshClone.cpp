@@ -29,7 +29,18 @@ MeshClone::MeshClone(
 
 MeshClone::~MeshClone()
 {
-    m_D3DEffect->Release();
+    auto refcnt = m_D3DEffect->Release();
+
+    if (refcnt <= 0)
+    {
+        m_D3DEffect = nullptr;
+    }
+
+    if (m_D3DMeshMap.find(m_meshName) == m_D3DMeshMap.end())
+    {
+        throw std::exception();
+    }
+
     ULONG ulong = m_D3DMeshMap.at(m_meshName)->Release();
 
     for (size_t i = 0; i < m_materialCountMap.at(m_meshName); ++i)
@@ -39,8 +50,13 @@ MeshClone::~MeshClone()
             m_vecTextureMap.at(m_meshName).at(i)->Release();
         }
     }
-    
-    if (!"tree1.x‚Ì‰ð•ú")
+
+    if (ulong <= 0)
+    {
+        m_D3DMeshMap.erase(m_meshName);
+    }
+
+    if ("tree1.x‚Ì‰ð•ú")
     {
         if (m_meshName.find("tree1.x") != std::string::npos)
         {

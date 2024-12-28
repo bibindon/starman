@@ -456,6 +456,8 @@ SeqBattle::SeqBattle()
     BGM::get_ton()->load("res\\sound\\title.wav");
     BGM::get_ton()->play(10);
 
+    ::SoundEffect::get_ton()->load("res\\sound\\drink.wav");
+
     m_spriteGameover = NEW Sprite("res\\image\\gameover.png");
     m_spriteExamine = NEW Sprite("res\\image\\examine.png");
 
@@ -1996,11 +1998,11 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             std::string questId = m_finishQuestQue.at(0);
             std::vector<std::string> vs2 = qs->GetQuestFinishEvent(questId);
             m_finishQuestQue.pop_front();
-            if (vs2.empty() == false)
+            for (size_t j = 0; j < vs2.size(); ++j)
             {
-                if (vs2.at(0).find("<talk>") != std::string::npos)
+                if (vs2.at(j).find("<talk>") != std::string::npos)
                 {
-                    std::string work = vs2.at(0);
+                    std::string work = vs2.at(j);
                     std::string::size_type it = work.find("<talk>");
                     work = work.erase(it, 6);
 
@@ -2014,9 +2016,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
                     m_eState = eBattleState::TALK;
                 }
-                else if (vs2.at(0).find("<hide>") != std::string::npos)
+                else if (vs2.at(j).find("<hide>") != std::string::npos)
                 {
-                    std::string work = vs2.at(0);
+                    std::string work = vs2.at(j);
                     std::string::size_type it = work.find("<hide>");
                     work = work.erase(it, 6);
 
@@ -2038,7 +2040,11 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                         }
                     }
                 }
-                else if (vs2.at(0).find("<ending>") != std::string::npos)
+                else if (vs2.at(j).find("<sound>") != std::string::npos)
+                {
+                    ::SoundEffect::get_ton()->play("res\\sound\\drink.wav");
+                }
+                else if (vs2.at(j).find("<ending>") != std::string::npos)
                 {
                     *sequence = eSequence::ENDING;
                 }
