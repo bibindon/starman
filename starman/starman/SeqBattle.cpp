@@ -1233,6 +1233,11 @@ void SeqBattle::UpdateCommon()
         return;
     }
 
+    if (m_eState == eBattleState::TALK)
+    {
+        return;
+    }
+
     m_map->Update();
 
     PopUp2::Get()->Update();
@@ -1255,11 +1260,14 @@ void SeqBattle::UpdateCommon()
     {
         if (m_eState == eBattleState::GAMEOVER)
         {
-            SaveManager::Get()->DeleteSavedata();
-            ++m_nGameoverCounter;
-            if (m_nGameoverCounter >= 120)
+            if (Common::DeployMode())
             {
-                m_eState = eBattleState::TITLE;
+                SaveManager::Get()->DeleteSavedata();
+                ++m_nGameoverCounter;
+                if (m_nGameoverCounter >= 120)
+                {
+                    m_eState = eBattleState::TITLE;
+                }
             }
         }
         return;
@@ -1857,6 +1865,15 @@ void SeqBattle::UpdatePerSecond()
         auto startQuest = SharedObj::GetQuestSystem()->GetStartQuest();
         if (startQuest.empty() == false)
         {
+            {
+                auto it = std::find(startQuest.begin(), startQuest.end(), "Q9");
+                if (it != startQuest.end())
+                {
+                    int i = 0;
+                    ++i;
+                }
+            }
+
             auto startEvent = SharedObj::GetQuestSystem()->GetQuestStartEvent(startQuest.at(0));
             if (startEvent.empty() == false)
             {

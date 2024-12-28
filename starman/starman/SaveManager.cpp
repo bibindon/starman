@@ -117,7 +117,10 @@ std::string SaveManager::GetSavefileMapPath()
 
 void SaveManager::Save()
 {
-    return;
+    if (Common::DeployMode() == false)
+    {
+        return;
+    }
 
     // ƒtƒHƒ‹ƒ_‚ª‚È‚¯‚ê‚Îì‚é
     std::string savedir;
