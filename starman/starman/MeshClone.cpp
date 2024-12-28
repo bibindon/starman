@@ -36,11 +36,6 @@ MeshClone::~MeshClone()
         m_D3DEffect = nullptr;
     }
 
-    if (m_D3DMeshMap.find(m_meshName) == m_D3DMeshMap.end())
-    {
-        throw std::exception();
-    }
-
     ULONG ulong = m_D3DMeshMap.at(m_meshName)->Release();
 
     for (size_t i = 0; i < m_materialCountMap.at(m_meshName); ++i)

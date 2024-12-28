@@ -178,9 +178,12 @@ Q14
 Q15
 Q16
 Q17",,調べたら,-216.0:33.0:548.0:20.0,,<talk>res\\script\\origin\\talkFinishQuest3.csv
-Q18,"クエストが完了していたら
-クエストが完了していないなら","Q97
-Q98",,位置,1172.0:16.0:330.0:20.0,,<talk>res\\script\\origin\\talkFinishQuest4.csv
+Q18,"一つでもクエストが完了していたら
+クエストが完了していないなら","Q10:Q11:Q12:Q13:Q14:Q15:Q16:Q17
+Q18",,調べたら,-240.0:33.0:550.0:120.0,,<talk>res\\script\\origin\\talkFinishQuest4.csv
 Q19,"クエストが完了していたら
+クエストが完了していないなら","Q97
+Q98",,位置,1172.0:16.0:330.0:20.0,,<talk>res\\script\\origin\\talkFinishQuest99.csv
+Q20,"クエストが完了していたら
 クエストが完了していないなら","Q98
 Q99",,自動完了,,,<ending>
