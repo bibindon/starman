@@ -2065,6 +2065,13 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 {
                     *sequence = eSequence::ENDING;
                 }
+                else if (vs2.at(j).find("<finish>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<finish>");
+                    work = work.erase(it, 8);
+                    qs->SetQuestFinish(work);
+                }
             }
         }
     }

@@ -51,7 +51,7 @@ MeshClone::~MeshClone()
         m_D3DMeshMap.erase(m_meshName);
     }
 
-    if ("tree1.x‚Ì‰ð•ú")
+    if (!"tree1.x‚Ì‰ð•ú")
     {
         if (m_meshName.find("tree1.x") != std::string::npos)
         {
