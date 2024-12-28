@@ -98,8 +98,11 @@ Title::~Title()
     SAFE_DELETE(m_sprLoading);
     SAFE_RELEASE(m_font);
 
-    m_thread->join();
-    SAFE_DELETE(m_thread);
+    if (m_thread != nullptr)
+    {
+        m_thread->join();
+        SAFE_DELETE(m_thread);
+    }
 }
 
 void Title::Update(eSequence* sequence, eBattleState* eState)
