@@ -139,6 +139,7 @@ void Map::Init()
     // NPC
     // TODO NpcManager‚Æ‚¢‚¤ƒNƒ‰ƒX‚ðì‚Á‚Ä‚»‚¿‚ç‚Å‚â‚é‚×‚«B
     //--------------------------------------------
+    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 541.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);

@@ -2017,7 +2017,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 else if (vs2.at(0).find("<hide>") != std::string::npos)
                 {
                     std::string work = vs2.at(0);
-                    std::string::size_type it = work.find("<talk>");
+                    std::string::size_type it = work.find("<hide>");
                     work = work.erase(it, 6);
 
                     auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
