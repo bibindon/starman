@@ -6,6 +6,7 @@
 #include "SharedObj.h"
 #include "BGM.h"
 #include "SoundEffect.h"
+#include "Camera.h"
 
 using namespace NSStoryTelling;
 
@@ -257,16 +258,36 @@ void Opening::Update(eBattleState* eState)
             m_bPlay = true;
         }
 
-        bFinish = m_storyTelling->Update();
-        if (bFinish)
+        bool bStoryFinish = m_storyTelling->Update();
+        if (bStoryFinish)
         {
             m_storyTelling->Finalize();
             delete m_storyTelling;
             m_storyTelling = nullptr;
+
+            m_bStopBeforeCameraFade = true;
+            m_stopBeforeCameraFade = 0;
+        }
+    }
+    else if (m_bStopBeforeCameraFade)
+    {
+        ++m_stopBeforeCameraFade;
+        if (m_stopBeforeCameraFade >= WAIT_MAX)
+        {
+            m_bStopBeforeCameraFade = false;
+            m_bCameraFadeOut = true;
+            m_cameraFadeOutCnt = 0;
+            Camera::SetCameraMode(eCameraMode::TITLE_TO_BATTLE);
+        }
+    }
+    else
+    {
+        ++m_cameraFadeOutCnt;
+        if (m_cameraFadeOutCnt >= Camera::MOVE_COUNT_MAX)
+        {
             *eState = eBattleState::NORMAL;
         }
     }
-
 }
 
 void Opening::Render()

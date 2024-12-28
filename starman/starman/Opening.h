@@ -16,8 +16,16 @@ private:
 
     NSStoryTelling::StoryTelling* m_storyTelling { nullptr };
 
-    bool m_firstPage { true };
-    bool m_bPlay { false };
-    bool bFinish { false };
+    bool m_firstPage = true;
+    bool m_bPlay = false;
+
+    // ƒJƒƒ‰ˆÚ“®‘O‚É2•b‘Ò‚Â
+    bool m_bStopBeforeCameraFade = false;
+    int m_stopBeforeCameraFade = 0;
+    const int WAIT_MAX = 120;
+
+    bool m_bCameraFadeOut = false;
+    int m_cameraFadeOutCnt = 0;
+
 };
 

@@ -1996,49 +1996,52 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             std::string questId = m_finishQuestQue.at(0);
             std::vector<std::string> vs2 = qs->GetQuestFinishEvent(questId);
             m_finishQuestQue.pop_front();
-            if (vs2.at(0).find("<talk>") != std::string::npos)
+            if (vs2.empty() == false)
             {
-                std::string work = vs2.at(0);
-                std::string::size_type it = work.find("<talk>");
-                work = work.erase(it, 6);
-
-                NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
-                NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
-                NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
-
-                m_talk = NEW NSTalkLib2::Talk();
-                m_talk->Init(work, pFont, pSE, sprite,
-                             "res\\image\\textBack.png", "res\\image\\black.png");
-
-                m_eState = eBattleState::TALK;
-            }
-            else if (vs2.at(0).find("<hide>") != std::string::npos)
-            {
-                std::string work = vs2.at(0);
-                std::string::size_type it = work.find("<talk>");
-                work = work.erase(it, 6);
-
-                auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-                std::vector<NSStarmanLib::stMapObj> mapObjs =
-                    mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
-
-                for (int i = 0; i < (int)mapObjs.size(); ++i)
+                if (vs2.at(0).find("<talk>") != std::string::npos)
                 {
-                    std::string xName = mapObjManager->GetModelName(mapObjs.at(i).m_modelId);
+                    std::string work = vs2.at(0);
+                    std::string::size_type it = work.find("<talk>");
+                    work = work.erase(it, 6);
 
-                    if (xName == work)
+                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+                    m_talk = NEW NSTalkLib2::Talk();
+                    m_talk->Init(work, pFont, pSE, sprite,
+                                 "res\\image\\textBack.png", "res\\image\\black.png");
+
+                    m_eState = eBattleState::TALK;
+                }
+                else if (vs2.at(0).find("<hide>") != std::string::npos)
+                {
+                    std::string work = vs2.at(0);
+                    std::string::size_type it = work.find("<talk>");
+                    work = work.erase(it, 6);
+
+                    auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+                    std::vector<NSStarmanLib::stMapObj> mapObjs =
+                        mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
+
+                    for (int i = 0; i < (int)mapObjs.size(); ++i)
                     {
-                        mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
-                                                  mapObjs.at(i).m_frameZ,
-                                                  mapObjs.at(i).m_id,
-                                                  false);
-                        break;
+                        std::string xName = mapObjManager->GetModelName(mapObjs.at(i).m_modelId);
+
+                        if (xName == work)
+                        {
+                            mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
+                                                      mapObjs.at(i).m_frameZ,
+                                                      mapObjs.at(i).m_id,
+                                                      false);
+                            break;
+                        }
                     }
                 }
-            }
-            else if (vs2.at(0).find("<ending>") != std::string::npos)
-            {
-                *sequence = eSequence::ENDING;
+                else if (vs2.at(0).find("<ending>") != std::string::npos)
+                {
+                    *sequence = eSequence::ENDING;
+                }
             }
         }
     }
