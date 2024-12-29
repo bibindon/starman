@@ -72,10 +72,15 @@ public:
 
     ~Sprite()
     {
-        m_D3DSprite->Release();
-        m_D3DSprite = nullptr;
-        m_pD3DTexture->Release();
-        m_pD3DTexture = nullptr;
+        if (m_D3DSprite != nullptr)
+        {
+            m_D3DSprite->Release();
+        }
+
+        if (m_pD3DTexture != nullptr)
+        {
+            m_pD3DTexture->Release();
+        }
     }
 
 private:
@@ -185,6 +190,12 @@ void StoryManager::Update()
         }
 
         if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+        {
+            m_storyTelling->Next();
+            m_firstPage = false;
+        }
+
+        if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
         {
             m_storyTelling->Next();
             m_firstPage = false;
