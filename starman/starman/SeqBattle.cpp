@@ -1187,11 +1187,14 @@ void SeqBattle::Confirm(eSequence* sequence)
         D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
         if (m_bShowExamine)
         {
+            m_bShowExamine = false;
             SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
         }
 
         if (m_bObtainable)
         {
+            m_bObtainable = false;
+
             NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
             NSStarmanLib::ItemPos itemPos = itemManager->GetItemPosByPos(playerPos.x,
