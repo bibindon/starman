@@ -326,7 +326,7 @@ void SaveManager::Load()
 //                        CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
 
     mapObjManager->InitWithBinary(GetSavefileMapPath(),
-                                  CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
+                                  CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
 
     m_progress.store(100);
 

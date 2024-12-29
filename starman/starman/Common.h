@@ -24,6 +24,7 @@ enum class eBattleState
     TITLE,
     OPENING,
     NORMAL,
+    STORY,
     MENU,
     COMMAND,
     CRAFT,

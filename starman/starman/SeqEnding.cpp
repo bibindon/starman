@@ -65,6 +65,11 @@ public:
         m_height = desc.Height;
     }
 
+    ISprite* Create()
+    {
+        return new Sprite(m_pD3DDevice);
+    }
+
     ~Sprite()
     {
         m_D3DSprite->Release();

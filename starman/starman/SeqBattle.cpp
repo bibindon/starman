@@ -533,6 +533,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         UpdateLoad();
     }
+    else if (m_eState == eBattleState::STORY)
+    {
+        OperateStory();
+    }
     else if (m_eState == eBattleState::MENU)
     {
         OperateMenu(sequence);
@@ -572,6 +576,11 @@ void SeqBattle::Update(eSequence* sequence)
     }
 }
 
+
+void SeqBattle::OperateStory()
+{
+    m_story->Update();
+}
 
 void SeqBattle::OperateMenu(eSequence* sequence)
 {
@@ -1135,6 +1144,10 @@ void SeqBattle::Render()
     else if (m_eState == eBattleState::TITLE)
     {
         m_title->Render();
+    }
+    else if (m_eState == eBattleState::STORY)
+    {
+        m_story->Render();
     }
     else if (m_eState == eBattleState::OPENING)
     {
@@ -2062,7 +2075,12 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 }
                 else if (vs2.at(j).find("<sound>") != std::string::npos)
                 {
-                    ::SoundEffect::get_ton()->play("res\\sound\\drink.wav");
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<sound>");
+                    work = work.erase(it, 7);
+
+                    ::SoundEffect::get_ton()->load(work);
+                    ::SoundEffect::get_ton()->play(work);
                 }
                 else if (vs2.at(j).find("<ending>") != std::string::npos)
                 {
@@ -2074,6 +2092,14 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                     std::string::size_type it = work.find("<finish>");
                     work = work.erase(it, 8);
                     qs->SetQuestFinish(work);
+                }
+                else if (vs2.at(j).find("<story>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<story>");
+                    work = work.erase(it, 7);
+                    m_story = NEW StoryManager(work);
+                    m_eState = eBattleState::STORY;
                 }
             }
         }

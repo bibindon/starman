@@ -288,6 +288,7 @@
     <ClCompile Include="SeqBattle.cpp" />
     <ClCompile Include="SeqEnding.cpp" />
     <ClCompile Include="Opening.cpp" />
+    <ClCompile Include="StoryManager.cpp" />
     <ClCompile Include="Title.cpp" />
     <ClCompile Include="SharedObj.cpp" />
     <ClCompile Include="SoundEffect.cpp" />
@@ -335,6 +336,7 @@
     <ClInclude Include="SeqBattle.h" />
     <ClInclude Include="SeqEnding.h" />
     <ClInclude Include="Opening.h" />
+    <ClInclude Include="StoryManager.h" />
     <ClInclude Include="Title.h" />
     <ClInclude Include="SharedObj.h" />
     <ClInclude Include="SoundEffect.h" />

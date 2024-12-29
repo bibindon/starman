@@ -28,6 +28,7 @@
 #include <thread>
 #include "Opening.h"
 #include "Title.h"
+#include "StoryManager.h"
 
 class Title;
 
@@ -81,6 +82,12 @@ private:
     //----------------------------------------------------------
     NSTalkLib2::Talk* m_talk { nullptr };
     void OperateTalk();
+
+    //----------------------------------------------------------
+    // éÜé≈ãè
+    //----------------------------------------------------------
+    StoryManager* m_story = nullptr;
+    void OperateStory();
 
     //----------------------------------------------------------
     // ÉÅÉjÉÖÅ[
