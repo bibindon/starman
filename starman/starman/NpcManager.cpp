@@ -80,7 +80,7 @@ NSStarmanLib::NpcStatus NpcManager::GetNpcStatus(const std::string& npcName)
     return status;
 }
 
-bool NpcManager::GetTalkableNpc(const D3DXVECTOR3& pos)
+bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName)
 {
     // 3メートル以内に話しかけられるNPCがいるか
     // 球だと重いのでバウンディングボックス
@@ -103,8 +103,15 @@ bool NpcManager::GetTalkableNpc(const D3DXVECTOR3& pos)
                 work = std::abs(status.GetY() - pos.y);
                 if (work <= 3.f)
                 {
-                    exist = true;
-                    break;
+                    if (status.GetHasTalk())
+                    {
+                        exist = true;
+                        if (npcName != nullptr)
+                        {
+                            *npcName = nameList.at(i);
+                        }
+                        break;
+                    }
                 }
             }
         }

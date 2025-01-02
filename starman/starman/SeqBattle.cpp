@@ -1231,7 +1231,26 @@ void SeqBattle::Confirm(eSequence* sequence)
         }
         else if (m_bTalkable)
         {
-            // TODO 会話を開始
+            // 会話を開始
+            m_bTalkable = false;
+            auto npcManager = NpcManager::Get();
+            std::string npcName;
+            npcManager->GetNpcTalkable(playerPos, &npcName);
+            if (npcName.empty() == false)
+            {
+                auto npcStatus = npcManager->GetNpcStatus(npcName);
+                std::string csvfile = npcStatus.GetTalkCsv();
+
+                NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+                m_talk = NEW NSTalkLib2::Talk();
+                m_talk->Init(csvfile, pFont, pSE, sprite,
+                             "res\\image\\textBack.png", "res\\image\\black.png");
+
+                m_eState = eBattleState::TALK;
+            }
         }
     }
 }
@@ -1937,7 +1956,7 @@ void SeqBattle::UpdatePerSecond()
 
         // 3メートル以内に話しかけられるNPCがいるか。
         auto npcManager = NpcManager::Get();
-        bool exist = npcManager->GetTalkableNpc(playerPos);
+        bool exist = npcManager->GetNpcTalkable(playerPos);
         if (exist)
         {
             m_bTalkable = true;
@@ -2171,13 +2190,12 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                         {
                             NpcManager::Get()->SetTalkEnable(npcName, false);
                         }
-
-                        if (work.find("<talkScript>") != std::string::npos)
-                        {
-                            std::string work2;
-                            work2 = Common::RemoveSubstring(work, "<talkScript>");
-                            NpcManager::Get()->SetTalkScript(npcName, work2);
-                        }
+                    }
+                    else if (work.find("<talkScript>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<talkScript>");
+                        NpcManager::Get()->SetTalkScript(npcName, work2);
                     }
                     else if (work.find("<enableFeature>") != std::string::npos)
                     {
