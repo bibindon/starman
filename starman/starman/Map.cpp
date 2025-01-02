@@ -1221,7 +1221,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     // move.yが-0.01以下で、result.yが-0.001以上だったら
     // 落下速度が10分の1以下になったということなので平らな地面に足がついているとする。
     // move.yを0にする
-    if (bHit && (- 0.001f <= result.y && result.y <= 0.f))
+    if (bHit && (- 0.003f <= result.y && result.y <= 0.f))
     {
         result.y = 0.f;
     }

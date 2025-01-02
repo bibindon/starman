@@ -425,11 +425,10 @@ void Player::Update(Map* map)
     m_loadingPos += m_move;
 
     // 緊急手段
-    // 頭から地面までの距離が1.6メートル以下だったら
-    // 地面から1.6メートルの位置に瞬間移動
+    // 頭から地面までの距離が1.5メートル以下だったら地面にめり込んでいる？
     D3DXVECTOR3 tmp2 = m_loadingPos;
     tmp2.y += 1.6f;
-    bool bHit4 = map->Intersect(tmp2, D3DXVECTOR3(0.f, -1.6f, 0.f));
+    bool bHit4 = map->Intersect(tmp2, D3DXVECTOR3(0.f, -1.5f, 0.f));
     if (bHit4)
     {
         m_loadingPos.y = tmp2.y;
