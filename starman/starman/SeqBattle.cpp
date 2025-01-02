@@ -1204,8 +1204,7 @@ void SeqBattle::Confirm(eSequence* sequence)
             m_bShowExamine = false;
             SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
         }
-
-        if (m_bObtainable)
+        else if (m_bObtainable)
         {
             m_bObtainable = false;
 
@@ -1229,6 +1228,10 @@ void SeqBattle::Confirm(eSequence* sequence)
                 SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
                 PopUp2::Get()->SetText(work + " を手に入れた。");
             }
+        }
+        else if (m_bTalkable)
+        {
+            // TODO 会話を開始
         }
     }
 }
@@ -1317,7 +1320,7 @@ void SeqBattle::RenderNormal()
     {
         m_spriteGameover->Render(pos);
     }
-    if (m_bShowExamine || m_bObtainable)
+    if (m_bShowExamine || m_bObtainable || m_bTalkable)
     {
         D3DXVECTOR3 pos { 720.f, 700.f, 0.f };
         m_spriteExamine->Render(pos);
@@ -1927,6 +1930,23 @@ void SeqBattle::UpdatePerSecond()
         {
             m_bShowExamine = false;
         }
+
+        //---------------------------------------------------------------------
+        // 「話しかける」ができることをアイコンで知らせる
+        //---------------------------------------------------------------------
+
+        // 3メートル以内に話しかけられるNPCがいるか。
+        auto npcManager = NpcManager::Get();
+        bool exist = npcManager->GetTalkableNpc(playerPos);
+        if (exist)
+        {
+            m_bTalkable = true;
+        }
+        else
+        {
+            m_bTalkable = false;
+        }
+
     }
 }
 

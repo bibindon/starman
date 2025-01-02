@@ -71,11 +71,14 @@ private:
     //----------------------------------------------------------
 
     // 調べる、が可能な時
-    bool m_bShowExamine { false };
-    Sprite* m_spriteExamine { nullptr };
+    bool m_bShowExamine = false;
+    Sprite* m_spriteExamine = nullptr;
 
     // アイテムが拾える時
     bool m_bObtainable = false;
+
+    // 話しかけられるとき
+    bool m_bTalkable = false;
 
     //----------------------------------------------------------
     // 会話

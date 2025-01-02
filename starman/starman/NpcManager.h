@@ -1,6 +1,9 @@
 #pragma once
 
+#include <d3dx9.h>
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
+
+
 class NpcManager
 {
 public:
@@ -26,6 +29,8 @@ public:
                      const bool arg);
 
     NSStarmanLib::NpcStatus GetNpcStatus(const std::string& npcName);
+
+    bool GetTalkableNpc(const D3DXVECTOR3& pos);
 
 private:
     static NpcManager* m_ton;

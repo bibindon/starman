@@ -32,6 +32,7 @@ public:
 
     void SetNpcPos(const std::string& name, const D3DXVECTOR3& pos);
     void SetNpcRot(const std::string& name, const float yRot);
+
 private:
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
