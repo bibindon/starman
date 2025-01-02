@@ -105,13 +105,13 @@ void Map::Init()
         mesh->Init();
         m_meshMap["sky"] = mesh;
     }
-    //{
-    //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 14.f, 530.f);
-    //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-    //    Mesh* mesh = NEW Mesh("res\\model\\tree1\\tree1.x", b, c, 1.f);
-    //    mesh->Init();
-    //    m_meshMap["tree"] = mesh;
-    //}
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(11.f, 490.7f, -572.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\precision\\precision.x", pos, rot, 1.f);
+        mesh->Init();
+        m_meshMap["precision"] = mesh;
+    }
     //{
     //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
     //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
