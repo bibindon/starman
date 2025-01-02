@@ -13,6 +13,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -142,6 +143,9 @@ void SaveManager::Save()
         }
     }
 
+    NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
+    mgr->Save(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
+
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Save(CreateSaveFilePath("humanInfoSub.csv"), m_encrypt);
 
@@ -191,6 +195,7 @@ void SaveManager::LoadOrigin()
 {
     if (m_savedataLoaded)
     {
+        NSStarmanLib::NpcStatusManager::Destroy();
         NSStarmanLib::HumanInfoManager::Destroy();
         NSStarmanLib::MapInfoManager::Destroy();
         NSStarmanLib::ItemManager::Destroy();
@@ -204,6 +209,9 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::PowereggDateTime::Destroy();
         NSStarmanLib::MapObjManager::Destroy();
     }
+
+    NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
+    mgr->Init(CreateOriginFilePath("npcStatus.csv"), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
@@ -261,6 +269,10 @@ void SaveManager::LoadOrigin()
 void SaveManager::Load()
 {
     m_progress.store(0);
+
+    NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
+    mgr->Init(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
+
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
               CreateSaveFilePath("humanInfoSub.csv"),

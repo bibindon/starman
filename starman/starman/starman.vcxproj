@@ -281,6 +281,7 @@
     <ClCompile Include="MeshClone.cpp" />
     <ClCompile Include="MeshNoShade.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="NpcManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PopUp.cpp" />
     <ClCompile Include="PopUp2.cpp" />
@@ -328,6 +329,7 @@
     <ClInclude Include="MeshClone.h" />
     <ClInclude Include="MeshNoShade.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="NpcManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PopUp.h" />
     <ClInclude Include="PopUp2.h" />

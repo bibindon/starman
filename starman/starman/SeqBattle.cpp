@@ -21,6 +21,7 @@
 #include "PopUp2.h"
 #include "SaveManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
+#include "NpcManager.h"
 
 using namespace NSQuestSystem;
 
@@ -2100,6 +2101,90 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                     work = work.erase(it, 7);
                     m_story = NEW StoryManager(work);
                     m_eState = eBattleState::STORY;
+                }
+                else if (vs2.at(j).find("<npc>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<npc>");
+                    work = work.erase(it, 5);
+                    std::string npcName;
+                    if (work.find("<ダイケイマン>") != std::string::npos)
+                    {
+                        npcName = "ダイケイマン";
+                    }
+                    else if (work.find("<サンカクマン>") != std::string::npos)
+                    {
+                        npcName = "サンカクマン";
+                    }
+                    else if (work.find("<シカクマン>") != std::string::npos)
+                    {
+                        npcName = "シカクマン";
+                    }
+                    work = Common::RemoveSubstring(work, "<" + npcName + ">");
+
+                    if (work.find("<pos>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<pos>");
+                        std::vector<std::string> vs = Common::split(work2, ':');
+                        float fx = std::stof(vs.at(0));
+                        float fy = std::stof(vs.at(1));
+                        float fz = std::stof(vs.at(2));
+                        NpcManager::Get()->SetPos(npcName, fx, fy, fz);
+                    }
+                    else if (work.find("<rot>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<rot>");
+                        float fRot = std::stof(work2);
+                        NpcManager::Get()->SetRot(npcName, fRot);
+                    }
+                    else if (work.find("<talkEnable>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<talkEnable>");
+                        if (work2 == "y")
+                        {
+                            NpcManager::Get()->SetTalkEnable(npcName, true);
+                        }
+                        else
+                        {
+                            NpcManager::Get()->SetTalkEnable(npcName, false);
+                        }
+
+                        if (work.find("<talkScript>") != std::string::npos)
+                        {
+                            std::string work2;
+                            work2 = Common::RemoveSubstring(work, "<talkScript>");
+                            NpcManager::Get()->SetTalkScript(npcName, work2);
+                        }
+                    }
+                    else if (work.find("<enableFeature>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<enableFeature>");
+                        if (work2 == "y")
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, true);
+                        }
+                        else
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, false);
+                        }
+                    }
+                    else if (work.find("<showMenu>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<showMenu>");
+                        if (work2 == "y")
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, true);
+                        }
+                        else
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, false);
+                        }
+                    }
                 }
             }
         }

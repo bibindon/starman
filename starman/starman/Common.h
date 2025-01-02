@@ -73,6 +73,10 @@ public:
     static void OutputMsg(const std::string&, const int arg);
     static void OutputMsg(const std::string&, const D3DXVECTOR3& arg);
 
+    static std::string RemoveSubstring(const std::string& str, const std::string& toRemove);
+
+    static bool EqualF(const float arg1, const float arg2);
+
 private:
 
     static eBuildMode m_buildMode;

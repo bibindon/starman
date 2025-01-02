@@ -16,6 +16,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
+#include "NpcManager.h"
 
 Map::Map()
 {
@@ -137,12 +138,12 @@ void Map::Init()
 
     //--------------------------------------------
     // NPC
-    // TODO NpcManagerというクラスを作ってそちらでやるべき。
     //--------------------------------------------
-    /*
+    auto npcManager = NpcManager::Get();
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 541.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        auto status = npcManager->GetNpcStatus("ダイケイマン");
+        D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -200,15 +201,18 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* daikeiman = NEW AnimMesh("res\\model\\daikeiman\\daikeiman.x", b, rot, 1.f, animSetMap);
+        AnimMesh* daikeiman = NEW AnimMesh("res\\model\\daikeiman\\daikeiman.x",
+                                           pos,
+                                           rot,
+                                           1.f,
+                                           animSetMap);
         daikeiman->SetAnim("LieDown");
         m_NPC["ダイケイマン"] = daikeiman;
     }
-    /*
     {
-
-        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 543.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        auto status = npcManager->GetNpcStatus("サンカクマン");
+        D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -266,14 +270,14 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman\\sankakuman.x", b, rot, 0.66f, animSetMap);
+        AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman\\sankakuman.x", pos, rot, 0.66f, animSetMap);
         sankakuman->SetAnim("Sit");
         m_NPC["サンカクマン"] = sankakuman;
     }
     {
-
-        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 545.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        auto status = npcManager->GetNpcStatus("シカクマン");
+        D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -331,10 +335,15 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* shikakuman = NEW AnimMesh("res\\model\\shikakuman\\shikakuman.x", b, rot, 0.66f, animSetMap);
+        AnimMesh* shikakuman = NEW AnimMesh("res\\model\\shikakuman\\shikakuman.x",
+                                            pos,
+                                            rot,
+                                            0.66f,
+                                            animSetMap);
         shikakuman->SetAnim("Sit");
         m_NPC["シカクマン"] = shikakuman;
     }
+    /*
     {
 
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 547.f);
@@ -1226,9 +1235,10 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
 
     // 摩擦
     // result.xとresult.zが小さいなら0にする
-    if (-0.005f <= result.x && result.x <= 0.005f)
+    //if (-0.005f <= result.x && result.x <= 0.005f)
+    if (-0.01f <= result.x && result.x <= 0.01f)
     {
-        if (-0.005f <= result.z && result.z <= 0.005f)
+        if (-0.01f <= result.z && result.z <= 0.01f)
         {
             result.x = 0.f;
             result.z = 0.f;
@@ -1236,6 +1246,19 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     }
 
     return result;
+}
+
+void Map::SetNpcPos(const std::string& name, const D3DXVECTOR3& pos)
+{
+    m_NPC.at(name)->SetPos(pos);
+}
+
+void Map::SetNpcRot(const std::string& name, const float yRot)
+{
+    D3DXVECTOR3 rot(0.f, 0.f, 0.f);
+    rot.y = yRot;
+
+    m_NPC.at(name)->SetRotate(rot);
 }
 
 D3DXVECTOR3 Map::WallSlideSub(

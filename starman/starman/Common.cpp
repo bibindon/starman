@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iomanip>
 #include "SharedObj.h"
+#include <cfloat>
 
 #if defined(_DEBUG)
 eBuildMode Common::m_buildMode = eBuildMode::Debug;
@@ -167,5 +168,23 @@ void Common::OutputMsg(const std::string& str, const D3DXVECTOR3& arg)
     work += "y: " + std::to_string(arg.y) + ", ";
     work += "z: " + std::to_string(arg.z) + "\n";
     OutputDebugString(work.c_str());
+}
+
+std::string Common::RemoveSubstring(const std::string& str, const std::string& toRemove)
+{
+    std::string result = str;
+    size_t pos = std::string::npos;
+
+    // w’è‚³‚ê‚½•¶š—ñ‚ªŒ©‚Â‚©‚éŒÀ‚èƒ‹[ƒv
+    while ((pos = result.find(toRemove)) != std::string::npos)
+    {
+        result.erase(pos, toRemove.length());
+    }
+    return result;
+}
+
+bool Common::EqualF(const float arg1, const float arg2)
+{
+    return abs(arg1 - arg2) < FLT_EPSILON;
 }
 
