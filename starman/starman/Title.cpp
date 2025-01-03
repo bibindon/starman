@@ -88,6 +88,11 @@ Title::Title(const bool blackFadeIn)
 
         m_fadeInAlpha = 0;
     }
+
+    {
+        auto map = SharedObj::GetMap();
+        map->Update();
+    }
 }
 
 Title::~Title()

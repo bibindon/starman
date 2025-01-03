@@ -1269,7 +1269,7 @@ void SeqBattle::UpdateCommon()
         return;
     }
 
-    if (m_eState == eBattleState::TITLE && m_title->GetLoading())
+    if (m_eState == eBattleState::TITLE)
     {
         return;
     }
