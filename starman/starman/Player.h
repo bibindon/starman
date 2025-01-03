@@ -33,6 +33,7 @@ public:
     bool GetDead() const;
     D3DXVECTOR3 GetAttackPos() const;
     void SetJump();
+    void SetSit();
     // ゲームパッドの場合でも3方向にしかステップさせない
     void SetStep(const eDir dir);
     void SetExamine();

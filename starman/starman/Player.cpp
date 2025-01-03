@@ -55,6 +55,20 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap["Jump"] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 7.1f;
+        animSetting.m_duration = 0.5f;
+        animSetting.m_loop = true;
+        animSetMap["Sit"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 7.7f;
+        animSetting.m_duration = 0.6f;
+        animSetting.m_loop = true;
+        animSetMap["LieDown"] = animSetting;
+    }
     m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
@@ -580,6 +594,11 @@ void Player::SetJump()
         m_move.y = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
     }
+}
+
+void Player::SetSit()
+{
+    m_AnimMesh2->SetAnim("Sit", 0.f);
 }
 
 void Player::SetStep(const eDir dir)

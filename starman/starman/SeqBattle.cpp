@@ -930,6 +930,27 @@ void SeqBattle::OperateCommand()
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
     }
+    else if (result == "À‚é")
+    {
+        m_player->SetSit();
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SIT);
+
+        m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+    }
+    else if (result == "‰¡‚É‚È‚é")
+    {
+        m_player->SetSit();
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::LYING_DOWN);
+
+        m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+    }
+
 }
 
 void SeqBattle::InitLoad()
