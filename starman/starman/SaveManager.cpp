@@ -191,6 +191,14 @@ void SaveManager::Save()
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
     //mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), m_encrypt);
     mapObjManager->SaveWithBinary(GetSavefileMapPath());
+
+    auto qs = SharedObj::GetQuestSystem();
+    if (qs == nullptr)
+    {
+        throw std::exception();
+    }
+
+    qs->Save(CreateSaveFilePath("questSave.csv"), m_encrypt);
 }
 
 void SaveManager::LoadOrigin()
@@ -266,6 +274,14 @@ void SaveManager::LoadOrigin()
 
     mapObjManager->InitWithBinary(GetOriginMapPath(),
                                   CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
+
+    auto qs = SharedObj::GetQuestSystem();
+    if (qs == nullptr)
+    {
+        throw std::exception();
+    }
+
+    qs->Init(CreateOriginFilePath("quest.csv"), "", m_encrypt);
 }
 
 void SaveManager::Load()
@@ -341,6 +357,16 @@ void SaveManager::Load()
 
     mapObjManager->InitWithBinary(GetSavefileMapPath(),
                                   CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
+
+    m_progress.store(90);
+
+    auto qs = SharedObj::GetQuestSystem();
+    if (qs == nullptr)
+    {
+        throw std::exception();
+    }
+
+    qs->Init(CreateOriginFilePath("quest.csv"), CreateSaveFilePath("questSave.csv"), m_encrypt);
 
     m_progress.store(100);
 

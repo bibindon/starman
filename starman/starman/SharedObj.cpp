@@ -82,17 +82,5 @@ void SharedObj::Init()
     m_Engine = std::mt19937(seed_gen());
 
     m_questSystem = NEW NSQuestSystem::QuestSystem();
-
-    // TODO encrypt
-    if (Common::DeployMode())
-    {
-        m_questSystem->Init("res\\script\\origin\\quest.csv");
-    }
-    else
-    {
-        // ”pŽ~
-        // m_questSystem->Init("res\\script\\origin_debug\\quest.csv");
-        m_questSystem->Init("res\\script\\origin\\quest.csv");
-    }
 }
 
