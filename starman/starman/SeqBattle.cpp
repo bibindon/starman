@@ -942,7 +942,9 @@ void SeqBattle::InitLoad()
     }
     else
     {
-        saveExist = PathFileExists("res\\script\\save_debug");
+        // îpé~
+        // saveExist = PathFileExists("res\\script\\save_debug");
+        saveExist = PathFileExists("res\\script\\save");
     }
 
     if (saveExist == FALSE)

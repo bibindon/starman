@@ -83,13 +83,16 @@ void SharedObj::Init()
 
     m_questSystem = NEW NSQuestSystem::QuestSystem();
 
+    // TODO encrypt
     if (Common::DeployMode())
     {
         m_questSystem->Init("res\\script\\origin\\quest.csv");
     }
     else
     {
-        m_questSystem->Init("res\\script\\origin_debug\\quest.csv");
+        // ”pŽ~
+        // m_questSystem->Init("res\\script\\origin_debug\\quest.csv");
+        m_questSystem->Init("res\\script\\origin\\quest.csv");
     }
 }
 

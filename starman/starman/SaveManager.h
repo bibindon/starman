@@ -24,12 +24,22 @@ private:
     static SaveManager* m_obj;
 
     const std::string ORIGIN_DATA_PATH = "res\\script\\origin\\";
-    const std::string ORIGIN_DATA_PATH_DEBUG = "res\\script\\origin_debug\\";
+
+    // îpé~
+    //const std::string ORIGIN_DATA_PATH_DEBUG = "res\\script\\origin_debug\\";
+    const std::string ORIGIN_DATA_PATH_DEBUG = "res\\script\\origin\\";
+
     const std::string SAVEDATA_PATH = "res\\script\\save\\";
-    const std::string SAVEDATA_PATH_DEBUG = "res\\script\\save_debug\\";
+
+    // îpé~
+    //const std::string SAVEDATA_PATH_DEBUG = "res\\script\\save_debug\\";
+    const std::string SAVEDATA_PATH_DEBUG = "res\\script\\save\\";
 
     const std::string SAVEDATA_FOLDER = "res\\script\\save";
-    const std::string SAVEDATA_FOLDER_DEBUG = "res\\script\\save_debug";
+
+    // îpé~
+    // const std::string SAVEDATA_FOLDER_DEBUG = "res\\script\\save_debug";
+    const std::string SAVEDATA_FOLDER_DEBUG = "res\\script\\save";
 
     std::string CreateOriginFilePath(const std::string& filename);
     std::string CreateSaveFilePath(const std::string& filename);

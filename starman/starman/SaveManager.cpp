@@ -131,7 +131,9 @@ void SaveManager::Save()
     }
     else
     {
-        savedir = "res\\script\\save_debug";
+        // ”p~
+        // savedir = "res\\script\\save_debug";
+        savedir = "res\\script\\save";
     }
 
     if (PathFileExists(savedir.c_str()) == FALSE)
