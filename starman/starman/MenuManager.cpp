@@ -485,47 +485,49 @@ void MenuManager::InitMenu()
         info.SetSprite(sprItem);
         std::string work;
         work = "パラメータ　　　現在値/回復可能値/最大値\n";
-        work += "体のスタミナ:";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax()) + "\n";
-        work += "脳のスタミナ:";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax()) + "\n";
-        work += "瞬発力:";
-        work += Common::ToStringWithPrecision(statusManager->GetExplosivePower()) + "/-/-\n";
-        work += "肉体の修復度:";
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleMax()) + "\n";
-        work += "糖質:";
-        work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetCarboMax()) + "\n";
+        /*
+        work += "体のスタミナ:\t";
+        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
+        work += "脳のスタミナ:\t";
+        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
+        work += "瞬発力:\t";
+        work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
+        work += "肉体の修復度:\t";
+        work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
+        work += "糖質:\t";
+        work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
         work += "タンパク質:";
-        work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetProteinMax()) + "\n";
+        work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
         work += "脂質:";
-        work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetLipidMax()) + "\n";
+        work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
         work += "ビタミン:";
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminMax()) + "\n";
+        work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
         work += "ミネラル:";
-        work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMineralMax()) + "\n";
+        work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
         work += "水分:";
-        work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetWaterMax()) + "\n";
+        work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
         work += "\n";
         work += "状態異常：";
         work += "頭痛/腹痛/風邪/腕骨折/足骨折/脱水症状/寝不足";
         work += "\n";
-        work += "装備武器：";
+        work += "装備武器：\taaa";
         work += "\n";
-        work += "攻撃力：";
+        work += "攻撃力：\t";
         work += Common::ToStringWithPrecision(statusManager->GetAttackPower()) + "\n";
-        work += "防御力：";
+        work += "防御力：\t";
         work += Common::ToStringWithPrecision(statusManager->GetDefensePower()) + "\n";
+        */
         info.SetDetail(work);
         infoList.push_back(info);
         m_menu.SetStatus(infoList);
@@ -661,6 +663,11 @@ std::string MenuManager::OperateMenu()
     }
 
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    {
+        result = m_menu.Back();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_BACK))
     {
         result = m_menu.Back();
     }
@@ -835,54 +842,118 @@ std::string MenuManager::OperateMenu()
         std::vector<StatusInfo> infoList;
 
         NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+
+        NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
+        std::string weaponName;
+
+        if (itemInfo.GetId() != -1)
+        {
+            NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+            NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
+            weaponName = itemDef.GetName();
+        }
+
+        // 状態異常リスト
+        std::string condition;
+        {
+            if (statusManager->GetFractureArm())
+            {
+                condition += "腕骨折/";
+            }
+
+            if (statusManager->GetFractureLeg())
+            {
+                condition += "足骨折/";
+            }
+
+            if (statusManager->GetHeadache())
+            {
+                condition += "頭痛/";
+            }
+
+            if (statusManager->GetCold())
+            {
+                condition += "風邪/";
+            }
+
+            if (statusManager->GetStomachache())
+            {
+                condition += "腹痛/";
+            }
+
+            if (statusManager->GetSleep())
+            {
+                condition += "睡眠/";
+            }
+
+            if (statusManager->GetDehydration())
+            {
+                condition += "脱水症状/";
+            }
+
+            if (statusManager->GetLackOfSleep())
+            {
+                condition += "睡眠不足/";
+            }
+
+            if (statusManager->GetDead())
+            {
+                condition += "死亡/";
+            }
+
+            if (condition.empty() == false)
+            {
+                condition.pop_back();
+            }
+        }
+
         StatusInfo info;
         info.SetName("ホシマン");
         NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\test.png");
+        sprItem->Load("res\\image\\hoshiman00.png");
         info.SetSprite(sprItem);
         std::string work;
-        work = "パラメータ　　　現在値/回復可能値/最大値\n";
-        work += "体のスタミナ:";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax()) + "\n";
-        work += "脳のスタミナ:";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub()) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax()) + "\n";
-        work += "瞬発力:";
-        work += Common::ToStringWithPrecision(statusManager->GetExplosivePower()) + "/-/-\n";
-        work += "肉体の修復度:";
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleMax()) + "\n";
-        work += "糖質:";
-        work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetCarboMax()) + "\n";
-        work += "タンパク質:";
-        work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetProteinMax()) + "\n";
-        work += "脂質:";
-        work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetLipidMax()) + "\n";
-        work += "ビタミン:";
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminMax()) + "\n";
-        work += "ミネラル:";
-        work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMineralMax()) + "\n";
-        work += "水分:";
-        work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent()) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetWaterMax()) + "\n";
+        work =  "パラメータ      現在値/回復可能値/最大値\n";
+        work += "体のスタミナ    ";
+        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
+        work += "脳のスタミナ    ";
+        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
+        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
+        work += "瞬発力          ";
+        work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
+        work += "肉体の修復度    ";
+        work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
+        work += "糖質            ";
+        work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
+        work += "タンパク質      ";
+        work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
+        work += "脂質            ";
+        work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
+        work += "ビタミン        ";
+        work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
+        work += "ミネラル        ";
+        work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
+        work += "水分            ";
+        work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
+        work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
         work += "\n";
-        work += "状態異常：";
-        work += "頭痛/腹痛/風邪/腕骨折/足骨折/脱水症状/寝不足";
+        work += "状態異常       ";
+        work += condition;
         work += "\n";
-        work += "装備武器：";
+        work += "装備武器       ";
+        work += weaponName;
         work += "\n";
-        work += "攻撃力：";
-        work += Common::ToStringWithPrecision(statusManager->GetAttackPower()) + "\n";
-        work += "防御力：";
-        work += Common::ToStringWithPrecision(statusManager->GetDefensePower()) + "\n";
+        work += "攻撃力         ";
+        work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + "\n";
         info.SetDetail(work);
         infoList.push_back(info);
         m_menu.SetStatus(infoList);
