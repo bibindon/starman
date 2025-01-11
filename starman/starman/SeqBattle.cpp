@@ -1330,6 +1330,9 @@ void SeqBattle::UpdateCommon()
             if (m_nGameoverCounter >= 120)
             {
                 m_eState = eBattleState::TITLE;
+                Camera::SetCameraMode(eCameraMode::TITLE);
+                Common::SetCursorVisibility(true);
+                m_title = NEW Title(true);
             }
         }
         return;
