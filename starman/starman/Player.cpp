@@ -355,6 +355,9 @@ void Player::Update(Map* map)
 
     FLOAT speed = D3DXVec3Length(&m_move);
 
+    NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+    MAX_MOVE *= statusManager->GetWalkSpeed();
+
     // ‚à‚µ100ƒZƒ“ƒ`ˆÚ“®‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚½‚ç2‚ÅŠ„‚ê‚Î‚æ‚¢B
     if (speed >= MAX_MOVE)
     {
@@ -509,6 +512,9 @@ bool Player::SetAttack()
         return false;
     }
 
+    auto statusManager = NSStarmanLib::StatusManager::GetObj();
+    statusManager->ConsumeAttackCost();
+
     SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
     m_AnimMesh2->SetAnim("Attack", 0.f);
     m_bAttack = true;
@@ -530,10 +536,8 @@ bool Player::SetAttack()
             vecEnemy.at(i)->SetState(eEnemyState::DAMAGED);
             int hp = vecEnemy.at(i)->GetHP();
 
-            auto statusManager = NSStarmanLib::StatusManager::GetObj();
             float attackPower = statusManager->GetAttackPower();
             vecEnemy.at(i)->SetHP(hp - (int)attackPower);
-            statusManager->ConsumeAttackCost();
         }
     }
 
