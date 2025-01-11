@@ -451,7 +451,7 @@ int MainWindow::MainLoop()
                                 D3DCOLOR_ARGB(32, 255, 255, 255));
         }
 
-        //if (Common::DebugMode() || Common::ReleaseMode())
+        if (Common::DebugMode() || Common::ReleaseMode())
         {
             std::string work;
 

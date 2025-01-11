@@ -174,7 +174,7 @@ void Player::Update(Map* map)
 
     }
 
-    if (Common::DeployMode() == false)
+    if (Common::DebugMode())
     {
         if (KeyBoard::IsDown(DIK_G))
         {
@@ -240,7 +240,7 @@ void Player::Update(Map* map)
         }
     }
 
-    if (Common::DeployMode() == false)
+    if (Common::DebugMode())
     {
         // スーパージャンプ
         if (KeyBoard::IsDownFirstFrame(DIK_J))
@@ -333,7 +333,7 @@ void Player::Update(Map* map)
     // ジャンプ中は移動方向を変えたり加速したりできない
     if (m_bJump || m_bDead)
     {
-        if (Common::DeployMode())
+//        if (Common::DebugMode() == false)
         {
             move = D3DXVECTOR3(0.f, 0.f, 0.f);
         }
@@ -341,28 +341,32 @@ void Player::Update(Map* map)
 
     m_move += move;
 
-    float MAX_MOVE = 0.f;
+    float MAX_XZ_MOVE = 0.f;
 
     // 1フレームで50センチ以上移動しようとしたら50センチにする
-    if (Common::DeployMode())
+    // ただし、XZ平面のみ。Y軸方向は加味しない。
+    if (Common::DebugMode())
     {
-        MAX_MOVE = 0.5f;
+        MAX_XZ_MOVE = 0.5f;
     }
     else
     {
-        MAX_MOVE = 2.5f;
+        MAX_XZ_MOVE = 0.5f;
     }
 
-    FLOAT speed = D3DXVec3Length(&m_move);
+    D3DXVECTOR2 move_XZ(m_move.x, m_move.z);
+    FLOAT speed = D3DXVec2Length(&move_XZ);
 
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-    MAX_MOVE *= statusManager->GetWalkSpeed();
+    MAX_XZ_MOVE *= statusManager->GetWalkSpeed();
 
     // もし100センチ移動しようとしていたら2で割ればよい。
-    if (speed >= MAX_MOVE)
+    if (speed >= MAX_XZ_MOVE)
     {
-        float work = MAX_MOVE / speed;
-        m_move *= work;
+        float work = MAX_XZ_MOVE / speed;
+        move_XZ *= work;
+        m_move.x = move_XZ.x;
+        m_move.z = move_XZ.y;
     }
 
     // XZ平面上の移動量は毎フレーム半分にする。ジャンプしているときは半分にしない。

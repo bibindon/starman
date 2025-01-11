@@ -571,7 +571,7 @@ void SeqBattle::Update(eSequence* sequence)
         OperateTitle(sequence);
     }
 
-    if (Common::DeployMode() == false)
+    if (Common::DebugMode())
     {
         UpdateDebug();
     }
@@ -1872,7 +1872,7 @@ void SeqBattle::UpdatePerSecond()
     // 2時間ゲームをしたらパワーエッグ星で24時間経過する
     NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
-    if (Common::DeployMode())
+    if (Common::DebugMode() == false)
     {
         dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
