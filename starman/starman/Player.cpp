@@ -331,7 +331,8 @@ void Player::Update(Map* map)
     //----------------------------------------------------------
 
     // ジャンプ中は移動方向を変えたり加速したりできない
-    if (m_bJump || m_bDead)
+    auto statusManager = NSStarmanLib::StatusManager::GetObj();
+    if (m_bJump || statusManager->GetDead())
     {
 //        if (Common::DebugMode() == false)
         {
@@ -357,7 +358,6 @@ void Player::Update(Map* map)
     D3DXVECTOR2 move_XZ(m_move.x, m_move.z);
     FLOAT speed = D3DXVec2Length(&move_XZ);
 
-    NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     MAX_XZ_MOVE *= statusManager->GetWalkSpeed();
 
     // もし100センチ移動しようとしていたら2で割ればよい。
@@ -485,7 +485,7 @@ D3DXVECTOR3 Player::GetPos() const
 
 void Player::SetMove(const D3DXVECTOR3& move)
 {
-    if (m_bJumpEnable && m_bDead == false)
+    if (m_bJumpEnable && NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
         m_move = move;
     }
@@ -498,7 +498,7 @@ D3DXVECTOR3 Player::GetMove() const
 
 void Player::SetRotate(const D3DXVECTOR3& rotate)
 {
-    if (m_bJump == false && m_bDead == false)
+    if (m_bJump == false && NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
         m_rotate = rotate;
     }
@@ -511,7 +511,7 @@ D3DXVECTOR3 Player::GetRotate() const
 
 bool Player::SetAttack()
 {
-    if (m_bAttack || m_bDamaged || m_bDead)
+    if (m_bAttack || m_bDamaged || NSStarmanLib::StatusManager::GetObj()->GetDead())
     {
         return false;
     }
@@ -552,7 +552,7 @@ bool Player::SetAttack()
 
 void Player::SetWalk()
 {
-    if (m_bJump == false || m_bDead == false)
+    if (m_bJump == false || NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
         m_AnimMesh2->SetAnim("Walk");
     }
@@ -570,16 +570,16 @@ void Player::SetDamaged()
 
 void Player::SetDead()
 {
-    if (m_bDead == false)
+    if (NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
-        m_bDead = true;
+        NSStarmanLib::StatusManager::GetObj()->SetDead(true);
         m_AnimMesh2->SetAnim("Dead", 0.f);
     }
 }
 
 bool Player::GetDead() const
 {
-    return m_bDead;
+    return NSStarmanLib::StatusManager::GetObj()->GetDead();
 }
 
 D3DXVECTOR3 Player::GetAttackPos() const
@@ -594,7 +594,7 @@ D3DXVECTOR3 Player::GetAttackPos() const
 
 void Player::SetJump()
 {
-    if (m_bJumpEnable && m_bDead == false)
+    if (m_bJumpEnable && NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
         m_bJump = true;
         m_bJumpEnable = false;

@@ -1325,11 +1325,11 @@ void SeqBattle::UpdateCommon()
             if (Common::DeployMode())
             {
                 SaveManager::Get()->DeleteSavedata();
-                ++m_nGameoverCounter;
-                if (m_nGameoverCounter >= 120)
-                {
-                    m_eState = eBattleState::TITLE;
-                }
+            }
+            ++m_nGameoverCounter;
+            if (m_nGameoverCounter >= 120)
+            {
+                m_eState = eBattleState::TITLE;
             }
         }
         return;

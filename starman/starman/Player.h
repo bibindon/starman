@@ -55,7 +55,6 @@ private:
     bool m_bDamaged = false;
     int m_damagedTimeCounter = 0;
 
-    bool m_bDead = false;
     bool m_bJump = false;
     int m_jumpTimeCounter = 0;
     float m_jumpVelocity = 0.f;
