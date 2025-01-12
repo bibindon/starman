@@ -311,11 +311,11 @@ void HudManager::Update()
 
     if (statusManager->GetSleep())
     {
-        m_hud->UpsertStatus("睡眠", 0, 0, false);
+        m_hud->UpsertStatus("睡眠・気絶", 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("睡眠");
+        m_hud->RemoveStatus("睡眠・気絶");
     }
 
     if (statusManager->GetDehydration())
