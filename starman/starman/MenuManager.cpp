@@ -883,7 +883,7 @@ std::string MenuManager::OperateMenu()
 
             if (statusManager->GetSleep())
             {
-                condition += "‡–°/";
+                condition += "‡–°E‹Câ/";
             }
 
             if (statusManager->GetDehydration())
