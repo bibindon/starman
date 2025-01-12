@@ -14,6 +14,7 @@ struct AnimSetting
     float m_startPos { 0.f };
     float m_duration { 1.f };
     bool m_loop { true };
+    bool m_stopEnd = false;
 };
 
 class AnimController

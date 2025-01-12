@@ -570,6 +570,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateTitle(sequence);
     }
+    else if (m_eState == eBattleState::GAMEOVER)
+    {
+        OperateGameover(sequence);
+    }
 
     if (Common::DebugMode())
     {
@@ -1201,6 +1205,10 @@ void SeqBattle::Render()
     {
         RenderNormal();
     }
+    else if (m_eState == eBattleState::GAMEOVER)
+    {
+        RenderGameover();
+    }
 }
 
 void SeqBattle::InputR1()
@@ -1210,70 +1218,60 @@ void SeqBattle::InputR1()
 
 void SeqBattle::Confirm(eSequence* sequence)
 {
-    if (m_eState == eBattleState::GAMEOVER)
+    // 調べるコマンド
+    // プレイヤーの現在座標で始まるクエストか終わるクエストがある。
+    D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+    if (m_bShowExamine)
     {
-        if (m_nGameoverCounter >= 60)
+        m_bShowExamine = false;
+        SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
+    }
+    else if (m_bObtainable)
+    {
+        m_bObtainable = false;
+
+        NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+
+        NSStarmanLib::ItemPos itemPos = itemManager->GetItemPosByPos(playerPos.x,
+                                                                     playerPos.y,
+                                                                     playerPos.z);
+        if (itemPos.GetItemPosId() != -1)
         {
-            m_eState = eBattleState::TITLE;
+            int itemPosId = itemPos.GetItemPosId();
+            itemManager->SetItemPosObtained(itemPosId);
+            
+            // どれだけ荷物が重くても落ちているものを拾うことはできる。
+            // 代わりに、まともに歩いたりできなくなる。
+            auto inventory = NSStarmanLib::Inventory::GetObj();
+            int newSubID = inventory->AddItem(itemPos.GetItemDefId());
+            m_menuManager.AddItem(itemPos.GetItemDefId(), newSubID);
+
+            std::string work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
+            SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+            PopUp2::Get()->SetText(work + " を手に入れた。");
         }
     }
-    else
+    else if (m_bTalkable)
     {
-        // 調べるコマンド
-        // プレイヤーの現在座標で始まるクエストか終わるクエストがある。
-        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
-        if (m_bShowExamine)
+        // 会話を開始
+        m_bTalkable = false;
+        auto npcManager = NpcManager::Get();
+        std::string npcName;
+        npcManager->GetNpcTalkable(playerPos, &npcName);
+        if (npcName.empty() == false)
         {
-            m_bShowExamine = false;
-            SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
-        }
-        else if (m_bObtainable)
-        {
-            m_bObtainable = false;
+            auto npcStatus = npcManager->GetNpcStatus(npcName);
+            std::string csvfile = npcStatus.GetTalkCsv();
 
-            NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+            NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+            NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+            NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
-            NSStarmanLib::ItemPos itemPos = itemManager->GetItemPosByPos(playerPos.x,
-                                                                         playerPos.y,
-                                                                         playerPos.z);
-            if (itemPos.GetItemPosId() != -1)
-            {
-                int itemPosId = itemPos.GetItemPosId();
-                itemManager->SetItemPosObtained(itemPosId);
-                
-                // どれだけ荷物が重くても落ちているものを拾うことはできる。
-                // 代わりに、まともに歩いたりできなくなる。
-                auto inventory = NSStarmanLib::Inventory::GetObj();
-                int newSubID = inventory->AddItem(itemPos.GetItemDefId());
-                m_menuManager.AddItem(itemPos.GetItemDefId(), newSubID);
+            m_talk = NEW NSTalkLib2::Talk();
+            m_talk->Init(csvfile, pFont, pSE, sprite,
+                         "res\\image\\textBack.png", "res\\image\\black.png");
 
-                std::string work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
-                SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
-                PopUp2::Get()->SetText(work + " を手に入れた。");
-            }
-        }
-        else if (m_bTalkable)
-        {
-            // 会話を開始
-            m_bTalkable = false;
-            auto npcManager = NpcManager::Get();
-            std::string npcName;
-            npcManager->GetNpcTalkable(playerPos, &npcName);
-            if (npcName.empty() == false)
-            {
-                auto npcStatus = npcManager->GetNpcStatus(npcName);
-                std::string csvfile = npcStatus.GetTalkCsv();
-
-                NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
-                NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
-                NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
-
-                m_talk = NEW NSTalkLib2::Talk();
-                m_talk->Init(csvfile, pFont, pSE, sprite,
-                             "res\\image\\textBack.png", "res\\image\\black.png");
-
-                m_eState = eBattleState::TALK;
-            }
+            m_eState = eBattleState::TALK;
         }
     }
 }
@@ -1317,26 +1315,6 @@ void SeqBattle::UpdateCommon()
             UpdatePerSecond();
         }
     }
-
-    if (m_player->GetDead())
-    {
-        if (m_eState == eBattleState::GAMEOVER)
-        {
-            if (Common::DeployMode())
-            {
-                SaveManager::Get()->DeleteSavedata();
-            }
-            ++m_nGameoverCounter;
-            if (m_nGameoverCounter >= 120)
-            {
-                m_eState = eBattleState::TITLE;
-                Camera::SetCameraMode(eCameraMode::TITLE);
-                Common::SetCursorVisibility(true);
-                m_title = NEW Title(true);
-            }
-        }
-        return;
-    }
 }
 
 void SeqBattle::RenderCommon()
@@ -1361,16 +1339,32 @@ void SeqBattle::RenderNormal()
     PopUp::Get()->Render();
     PopUp2::Get()->Render();
     D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
-    if (m_player->GetDead())
-    {
-        m_spriteGameover->Render(pos);
-    }
+
     if (m_bShowExamine || m_bObtainable || m_bTalkable)
     {
         D3DXVECTOR3 pos { 720.f, 700.f, 0.f };
         m_spriteExamine->Render(pos);
     }
+
     m_hudManager.Draw();
+}
+
+void SeqBattle::RenderGameover()
+{
+    D3DXVECTOR3 pos(0.f, 0.f, 0.f);
+    int transparency = 0.f;
+
+    if (m_nGameoverCounter < 120)
+    {
+        transparency = m_nGameoverCounter * 255 / 120;
+        m_spriteGameover->Render(pos, transparency);
+    }
+    else
+    {
+        m_spriteGameover->Render(pos);
+        pos = D3DXVECTOR3(720.f, 700.f, 0.f);
+        m_spriteExamine->Render(pos);
+    }
 }
 
 void SeqBattle::UpdateDebug()
@@ -1896,8 +1890,11 @@ void SeqBattle::UpdatePerSecond()
     bool dead = statusManager->GetDead();
     if (dead)
     {
-        m_player->SetDead();
-        m_eState = eBattleState::GAMEOVER;
+        if (m_eState != eBattleState::GAMEOVER)
+        {
+            m_eState = eBattleState::GAMEOVER;
+            m_nGameoverCounter = 0;
+        }
     }
 
     //-------------------------------------
@@ -2073,13 +2070,6 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         D3DXVECTOR3 pos = m_player->GetPos();
         pos.y += 1.f;
         Camera::SetLookAtPos(pos);
-    }
-
-    auto status = NSStarmanLib::StatusManager::GetObj();
-    if (status->GetDead())
-    {
-        m_player->SetDead();
-        m_eState = eBattleState::GAMEOVER;
     }
 
     // クエスト処理
@@ -2280,6 +2270,46 @@ void SeqBattle::OperateTitle(eSequence* sequence)
 
         BGM::get_ton()->load("res\\sound\\novel.wav");
         BGM::get_ton()->play(10);
+    }
+}
+
+void SeqBattle::OperateGameover(eSequence* sequence)
+{
+    ++m_nGameoverCounter;
+
+    if (m_nGameoverCounter == 1)
+    {
+        if (Common::DeployMode())
+        {
+            SaveManager::Get()->DeleteSavedata();
+        }
+    }
+
+    if (m_nGameoverCounter >= 120)
+    {
+        // 確定操作
+        if (KeyBoard::IsDownFirstFrame(DIK_E))
+        {
+            if (m_nGameoverCounter >= 120)
+            {
+                m_eState = eBattleState::TITLE;
+                Camera::SetCameraMode(eCameraMode::TITLE);
+                Common::SetCursorVisibility(true);
+                m_title = NEW Title(true);
+            }
+        }
+
+        // 確定操作
+        if (GamePad::IsDown(eGamePadButtonType::A))
+        {
+            if (m_nGameoverCounter >= 120)
+            {
+                m_eState = eBattleState::TITLE;
+                Camera::SetCameraMode(eCameraMode::TITLE);
+                Common::SetCursorVisibility(true);
+                m_title = NEW Title(true);
+            }
+        }
     }
 }
 

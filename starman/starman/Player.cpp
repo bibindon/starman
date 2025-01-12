@@ -44,8 +44,9 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 3.5f;
-        animSetting.m_duration = 1.f;
+        animSetting.m_duration = 0.45f;
         animSetting.m_loop = false;
+        animSetting.m_stopEnd = true;
         animSetMap["Dead"] = animSetting;
     }
     {
@@ -454,6 +455,11 @@ void Player::Update(Map* map)
     {
         m_loadingPos.y = tmp2.y;
     }
+
+    if (statusManager->GetDead())
+    {
+        SetDead();
+    }
 }
 
 void Player::Render()
@@ -560,7 +566,7 @@ void Player::SetWalk()
 
 void Player::SetDamaged()
 {
-    //if (!m_bDamaged)
+    if (NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
         SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
         m_AnimMesh2->SetAnim("Damaged", 0.f);
@@ -570,11 +576,7 @@ void Player::SetDamaged()
 
 void Player::SetDead()
 {
-    if (NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
-    {
-        NSStarmanLib::StatusManager::GetObj()->SetDead(true);
-        m_AnimMesh2->SetAnim("Dead", 0.f);
-    }
+    m_AnimMesh2->SetAnim("Dead", 0.f);
 }
 
 bool Player::GetDead() const

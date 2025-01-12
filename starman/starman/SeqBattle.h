@@ -47,14 +47,13 @@ private:
     void UpdateCommon();
     void RenderCommon();
     void RenderNormal();
+    void RenderGameover();
 
     void UpdateDebug();
     void UpdatePerSecond();
     void OperateNormal(eSequence* sequence);
     Player* m_player { nullptr };
-    Sprite* m_spriteGameover { nullptr };
     eBattleState m_eState { eBattleState::NORMAL };
-    int m_nGameoverCounter { 0 };
 
     Map* m_map = nullptr;
     EnemyManager* m_enemyManager = nullptr;
@@ -127,6 +126,13 @@ private:
     //----------------------------------------------------------
     void OperateTitle(eSequence* sequence);
     Title* m_title = nullptr;
+
+    //----------------------------------------------------------
+    // ゲームオーバー画面
+    //----------------------------------------------------------
+    void OperateGameover(eSequence* sequence);
+    Sprite* m_spriteGameover = nullptr;
+    int m_nGameoverCounter = 0;
 
     //----------------------------------------------------------
     // ロード画面
