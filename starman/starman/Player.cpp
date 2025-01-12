@@ -558,7 +558,9 @@ bool Player::SetAttack()
 
 void Player::SetWalk()
 {
-    if (m_bJump == false || NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
+    if (m_bJump == false &&
+        NSStarmanLib::StatusManager::GetObj()->GetDead() == false &&
+        m_bAttack == false)
     {
         m_AnimMesh2->SetAnim("Walk");
     }
