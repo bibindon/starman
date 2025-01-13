@@ -68,6 +68,7 @@ Player::Player()
         animSetting.m_startPos = 7.7f;
         animSetting.m_duration = 0.6f;
         animSetting.m_loop = true;
+        animSetting.m_stopEnd = true;
         animSetMap["LieDown"] = animSetting;
     }
     m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 1.f, animSetMap);
@@ -586,6 +587,24 @@ bool Player::GetDead() const
     return NSStarmanLib::StatusManager::GetObj()->GetDead();
 }
 
+void Player::SetSleep(const bool arg)
+{
+    if (arg)
+    {
+        m_AnimMesh2->SetAnim("LieDown", 0.f);
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::LYING_DOWN);
+        status->SetSleep(true);
+    }
+    else
+    {
+        m_AnimMesh2->SetAnim("Idle", 0.f);
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::STAND);
+        status->SetSleep(false);
+    }
+}
+
 D3DXVECTOR3 Player::GetAttackPos() const
 {
     D3DXVECTOR3 pos { m_loadingPos };
@@ -611,6 +630,17 @@ void Player::SetJump()
 void Player::SetSit()
 {
     m_AnimMesh2->SetAnim("Sit", 0.f);
+
+    auto status = NSStarmanLib::StatusManager::GetObj();
+    status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SIT);
+}
+
+void Player::SetLieDown()
+{
+    m_AnimMesh2->SetAnim("LieDown", 0.f);
+
+    auto status = NSStarmanLib::StatusManager::GetObj();
+    status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::LYING_DOWN);
 }
 
 void Player::SetStep(const eDir dir)

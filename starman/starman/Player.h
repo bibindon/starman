@@ -29,11 +29,18 @@ public:
     bool SetAttack();
     void SetWalk();
     void SetDamaged();
+
     void SetDead();
     bool GetDead() const;
+
+    void SetSleep(const bool arg);
+
     D3DXVECTOR3 GetAttackPos() const;
     void SetJump();
+
     void SetSit();
+    void SetLieDown();
+
     // ゲームパッドの場合でも3方向にしかステップさせない
     void SetStep(const eDir dir);
     void SetExamine();

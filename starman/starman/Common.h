@@ -31,6 +31,7 @@ enum class eBattleState
     STOREHOUSE,
     TALK,
     GAMEOVER,
+    SLEEP,
 };
 
 enum class eTitleMenu

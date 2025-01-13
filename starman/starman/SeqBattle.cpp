@@ -500,6 +500,8 @@ SeqBattle::SeqBattle()
 
     m_eState = eBattleState::LOAD;
     InitLoad();
+
+    m_sprSleepBlack = NEW Sprite("res\\image\\black.png");
 }
 
 SeqBattle::~SeqBattle()
@@ -573,6 +575,10 @@ void SeqBattle::Update(eSequence* sequence)
     else if (m_eState == eBattleState::GAMEOVER)
     {
         OperateGameover(sequence);
+    }
+    else if (m_eState == eBattleState::SLEEP)
+    {
+        OperateSleep();
     }
 
     if (Common::DebugMode())
@@ -937,8 +943,6 @@ void SeqBattle::OperateCommand()
     else if (result == "座る")
     {
         m_player->SetSit();
-        auto status = NSStarmanLib::StatusManager::GetObj();
-        status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SIT);
 
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
@@ -946,9 +950,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == "横になる")
     {
-        m_player->SetSit();
-        auto status = NSStarmanLib::StatusManager::GetObj();
-        status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::LYING_DOWN);
+        m_player->SetLieDown();
 
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
@@ -1161,6 +1163,75 @@ void SeqBattle::OperateOpening()
     }
 }
 
+void SeqBattle::OperateSleep()
+{
+    auto statusManager = NSStarmanLib::StatusManager::GetObj();
+    {
+        if (m_eSleepSeq == eSleepSeq::FadeOut)
+        {
+            ++m_sleepFadeOut;
+            if (m_sleepFadeOut >= 300)
+            {
+                m_eSleepSeq = eSleepSeq::Sleep;
+            }
+
+            // TODO 攻撃されたら即死
+
+        }
+        else if (m_eSleepSeq == eSleepSeq::Sleep)
+        {
+            ++m_sleepBlack;
+            if (m_sleepBlack >= 60)
+            {
+                m_eSleepSeq = eSleepSeq::FadeIn;
+            }
+            else if (m_sleepBlack == 1)
+            {
+                // 6時間経過
+                auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+                dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
+            }
+        }
+        else if (m_eSleepSeq == eSleepSeq::FadeIn)
+        {
+            ++m_sleepFadeIn;
+            if (m_sleepFadeIn >= 60)
+            {
+                m_eSleepSeq = eSleepSeq::Finish;
+            }
+        }
+        else if (m_eSleepSeq == eSleepSeq::Finish)
+        {
+            m_eState = eBattleState::NORMAL;
+            m_player->SetSleep(false);
+            m_eSleepSeq = eSleepSeq::NotStart;
+            m_sleepFadeOut = 0;
+            m_sleepBlack = 0;
+            m_sleepFadeIn = 0;
+        }
+    }
+}
+
+void SeqBattle::RenderSleep()
+{
+    D3DXVECTOR3 pos(0.f, 0.f, 0.f);
+    int transparency = 0;
+    if (m_eSleepSeq == eSleepSeq::FadeOut)
+    {
+        transparency = m_sleepFadeOut * 255 / 300;
+        m_sprSleepBlack->Render(pos, transparency);
+    }
+    else if (m_eSleepSeq == eSleepSeq::Sleep)
+    {
+        m_sprSleepBlack->Render(pos);
+    }
+    else if (m_eSleepSeq == eSleepSeq::FadeIn)
+    {
+        transparency = 255 - (m_sleepFadeIn * 255 / 60);
+        m_sprSleepBlack->Render(pos, transparency);
+    }
+}
+
 void SeqBattle::Render()
 {
     RenderCommon();
@@ -1208,6 +1279,10 @@ void SeqBattle::Render()
     else if (m_eState == eBattleState::GAMEOVER)
     {
         RenderGameover();
+    }
+    else if (m_eState == eBattleState::SLEEP)
+    {
+        RenderSleep();
     }
 }
 
@@ -1352,7 +1427,7 @@ void SeqBattle::RenderNormal()
 void SeqBattle::RenderGameover()
 {
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
-    int transparency = 0.f;
+    int transparency = 0;
 
     if (m_nGameoverCounter < 120)
     {
@@ -1898,6 +1973,23 @@ void SeqBattle::UpdatePerSecond()
     }
 
     //-------------------------------------
+    // 睡眠・気絶チェック
+    //-------------------------------------
+    if (m_eSleepSeq == eSleepSeq::NotStart)
+    {
+        bool sleep = statusManager->GetSleep();
+        if (sleep)
+        {
+            m_eState = eBattleState::SLEEP;
+            m_eSleepSeq = eSleepSeq::FadeOut;
+            m_sleepFadeOut = 0;
+            m_sleepBlack = 0;
+            m_sleepFadeIn = 0;
+            m_player->SetSleep(true);
+        }
+    }
+
+    //-------------------------------------
     // アイテム発見
     //-------------------------------------
     D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
@@ -1994,9 +2086,9 @@ void SeqBattle::UpdatePerSecond()
 
 void SeqBattle::OperateNormal(eSequence* sequence)
 {
-    //--------------------------------------------
+    //============================================
     // キーボード、マウス、ゲームパッドの処理
-    //--------------------------------------------
+    //============================================
 
     //--------------------------------------------
     // KeyBoard

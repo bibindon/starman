@@ -161,5 +161,27 @@ private:
     //----------------------------------------------------------
     void OperateOpening();
     Opening* m_Opening = nullptr;
+
+    //----------------------------------------------------------
+    // 睡眠・気絶
+    // 現実時間で5秒攻撃されなければパワーエッグ星の6時間後に移動する。
+    // 睡眠中に攻撃されたら即死
+    //----------------------------------------------------------
+    void OperateSleep();
+    void RenderSleep();
+    enum class eSleepSeq
+    {
+        NotStart, // 睡眠中ではない
+        FadeOut, // 5秒かけてフェードアウト
+        Sleep, // 睡眠。黒背景
+        FadeIn, // 目覚め。フェードイン
+        Finish, // 完了
+    };
+
+    eSleepSeq m_eSleepSeq = eSleepSeq::NotStart;
+    int m_sleepFadeOut = 0;
+    int m_sleepBlack = 0;
+    int m_sleepFadeIn = 0;
+    Sprite* m_sprSleepBlack = nullptr;
 };
 

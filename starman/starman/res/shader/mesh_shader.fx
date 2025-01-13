@@ -4,7 +4,8 @@ float4 g_point_light_pos = { 1, 1, 1, 0};
 float4 g_light_normal;
 float g_light_brightness;
 float4 g_diffuse;
-float4 g_ambient = { 0.45f, 0.4f, 0.3f, 0.0f };
+//float4 g_ambient = { 0.45f, 0.4f, 0.3f, 0.0f };
+float4 g_ambient = { 0.1f, 0.1f, 0.1f, 0.0f };
 float4 g_cameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 texture g_mesh_texture;
 
