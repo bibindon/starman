@@ -349,7 +349,7 @@ void Player::Update(Map* map)
     // ÇΩÇæÇµÅAXZïΩñ ÇÃÇ›ÅBYé≤ï˚å¸ÇÕâ¡ñ°ÇµÇ»Ç¢ÅB
     if (Common::DebugMode())
     {
-        MAX_XZ_MOVE = 0.5f;
+        MAX_XZ_MOVE = 10.5f;
     }
     else
     {

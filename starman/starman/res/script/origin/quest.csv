@@ -270,9 +270,9 @@ Q24",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest6.csv
 Q25,"一つでもクエストが完了していたら
 クエストが完了していないなら","Q24
 Q25",,調べたら,-218:75:207:120,,"<talk>res\\script\\origin\\talkFinishQuest7.csv
-<npc><サンカクマン><pos>-207:97:202
+<npc><サンカクマン><pos>-206:106.5:195
 <npc><サンカクマン><rot>1.57
-<npc><シカクマン><pos>-208:97:202
+<npc><シカクマン><pos>-205:106.5:195
 <npc><サンカクマン><talkEnable>y
 <npc><サンカクマン><talkScript>res\\script\\origin\\talkFinishQuest8.csv"
 Q26,"一つでもクエストが完了していたら
