@@ -575,6 +575,12 @@ void Player::SetDamaged()
         m_AnimMesh2->SetAnim("Damaged", 0.f);
         m_bDamaged = true;
     }
+
+    // ‡–°’†‚ÉUŒ‚‚³‚ê‚½‚ç‘¦Ž€
+    if (NSStarmanLib::StatusManager::GetObj()->GetSleep())
+    {
+        NSStarmanLib::StatusManager::GetObj()->SetDead(true);
+    }
 }
 
 void Player::SetDead()

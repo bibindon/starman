@@ -1084,7 +1084,6 @@ void SeqBattle::RenderLoad()
         pos = D3DXVECTOR3(800 - 40, 450 -10, 0.0f);
         m_sprLoadLoading->Render(pos, temp);
 
-        // TODO 読み込みの進捗度に合わせて「ホシマン」を1文字ずつ表示する
         static int width_ = 0;
         pos.x = 630;
         pos.y = 200;
@@ -1174,9 +1173,6 @@ void SeqBattle::OperateSleep()
             {
                 m_eSleepSeq = eSleepSeq::Sleep;
             }
-
-            // TODO 攻撃されたら即死
-
         }
         else if (m_eSleepSeq == eSleepSeq::Sleep)
         {
@@ -1187,9 +1183,8 @@ void SeqBattle::OperateSleep()
             }
             else if (m_sleepBlack == 1)
             {
-                // 6時間経過
-                auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
-                dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
+                auto status = NSStarmanLib::StatusManager::GetObj();
+                status->Sleep();
             }
         }
         else if (m_eSleepSeq == eSleepSeq::FadeIn)
