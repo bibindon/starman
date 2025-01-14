@@ -85,7 +85,7 @@ Player::Player()
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
         Mesh * mesh = NEW Mesh("res\\model\\stick\\stick.x", b, c, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
@@ -93,7 +93,7 @@ Player::Player()
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI*3/2, 0.f, D3DX_PI/2);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
         Mesh * mesh = NEW Mesh("res\\model\\ax\\ax.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
@@ -101,7 +101,7 @@ Player::Player()
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
         Mesh * mesh = NEW Mesh("res\\model\\atlatl\\atlatl.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
@@ -109,7 +109,7 @@ Player::Player()
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI/2);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
         Mesh * mesh = NEW Mesh("res\\model\\ironPipe\\ironPipe.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
@@ -117,7 +117,7 @@ Player::Player()
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
         Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
@@ -125,7 +125,7 @@ Player::Player()
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(D3DX_PI/2, 0.f, D3DX_PI/2);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
         Mesh * mesh = NEW Mesh("res\\model\\spear\\spear.x", b, c, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
