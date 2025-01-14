@@ -203,7 +203,7 @@ std::string CommandManager::Operate()
     {
         POINT p;
         GetCursorPos(&p);
-        ScreenToClient(FindWindowA("ホシマン", nullptr), &p);
+        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
         result = m_commandLib->Click(p.x, p.y);
     }
     else

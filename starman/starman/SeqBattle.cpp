@@ -932,31 +932,109 @@ void SeqBattle::OperateCraft()
 
 void SeqBattle::OperateCommand()
 {
+    ++m_commandCounter;
+
     std::string result = m_commandManager.Operate();
+
+    bool leave = false;
 
     if (result == "EXIT")
     {
-        m_eState = eBattleState::NORMAL;
-        Camera::SetCameraMode(eCameraMode::BATTLE);
-        Common::SetCursorVisibility(false);
+        leave = true;
     }
     else if (result == "座る")
     {
+        leave = true;
         m_player->SetSit();
-
-        m_eState = eBattleState::NORMAL;
-        Camera::SetCameraMode(eCameraMode::BATTLE);
-        Common::SetCursorVisibility(false);
     }
     else if (result == "横になる")
     {
+        leave = true;
         m_player->SetLieDown();
+    }
+    else if (result == "脱出")
+    {
+        leave = true;
+        D3DXVECTOR3 pos(-285.f, 16.f, 539.f);
+        m_player->SetPos(pos);
+    }
 
+    if (leave)
+    {
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
+
+        m_commandCounter = 0;
+
+        if (m_commandShowEscape)
+        {
+            m_commandShowEscape = false;
+            std::vector<std::string> vs;
+            std::vector<bool> vb;
+
+            vs.push_back("伐採");
+            vb.push_back(true);
+
+            vs.push_back("横になる");
+            vb.push_back(true);
+
+            vs.push_back("座る");
+            vb.push_back(true);
+
+            vs.push_back("採集");
+            vb.push_back(true);
+
+            vs.push_back("加工");
+            vb.push_back(false);
+
+            vs.push_back("調理");
+            vb.push_back(false);
+
+            vs.push_back("釣り");
+            vb.push_back(true);
+
+            m_commandManager.Init(vs, vb);
+        }
     }
 
+    // コマンド画面が1分表示されていたら脱出コマンドを表示する
+    //if (m_commandCounter >= 60 * 60)
+    if (m_commandCounter >= 60 * 2)
+    {
+        if (m_commandShowEscape == false)
+        {
+            m_commandShowEscape = true;
+            std::vector<std::string> vs;
+            std::vector<bool> vb;
+
+            vs.push_back("伐採");
+            vb.push_back(true);
+
+            vs.push_back("横になる");
+            vb.push_back(true);
+
+            vs.push_back("座る");
+            vb.push_back(true);
+
+            vs.push_back("採集");
+            vb.push_back(true);
+
+            vs.push_back("加工");
+            vb.push_back(false);
+
+            vs.push_back("調理");
+            vb.push_back(false);
+
+            vs.push_back("釣り");
+            vb.push_back(true);
+
+            vs.push_back("脱出");
+            vb.push_back(true);
+
+            m_commandManager.Init(vs, vb);
+        }
+    }
 }
 
 void SeqBattle::InitLoad()
@@ -2108,6 +2186,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
+            m_commandCounter = 0;
         }
     }
 
@@ -2141,6 +2220,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
+            m_commandCounter = 0;
         }
     }
 

@@ -121,6 +121,10 @@ private:
     void OperateCommand();
     CommandManager m_commandManager;
 
+    // コマンド画面が1分表示されていたら脱出コマンドを追加する
+    int m_commandCounter = 0;
+    bool m_commandShowEscape = false;
+
     //----------------------------------------------------------
     // タイトル画面
     //----------------------------------------------------------
