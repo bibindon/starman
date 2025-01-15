@@ -188,3 +188,35 @@ bool Common::EqualF(const float arg1, const float arg2)
     return abs(arg1 - arg2) < FLT_EPSILON;
 }
 
+    // 点と線分の距離を計算する関数
+float Common::PointToSegmentDistance(const D3DXVECTOR3& p1, const D3DXVECTOR3& p2, const D3DXVECTOR3& point)
+{
+    // 線分をベクトルとして扱う
+    D3DXVECTOR3 segment = p2 - p1;
+    D3DXVECTOR3 pointToStart = point - p1;
+
+    // 線分の長さの2乗
+    float segmentLengthSquared = D3DXVec3LengthSq(&segment);
+
+    if (segmentLengthSquared == 0.0f)
+    {
+        // 線分が点の場合、点と始点（または終点）の距離を返す
+        auto temp1(point - p1);
+        return D3DXVec3Length(&temp1);
+    }
+
+    // 点を線分に投影
+    float t = D3DXVec3Dot(&pointToStart, &segment) / segmentLengthSquared;
+
+    // t を 0 ～ 1 にクランプ（投影点が線分上にあるか確認）
+    t = (std::max)(0.0f, (std::min)(1.0f, t));
+
+    // 投影点の座標を計算
+    D3DXVECTOR3 projection = p1 + t * segment;
+
+    // 点と投影点の距離を計算
+    auto temp2(point - projection);
+    return D3DXVec3Length(&temp2);
+}
+
+

@@ -78,6 +78,12 @@ public:
 
     static bool EqualF(const float arg1, const float arg2);
 
+    // “_‚Æü•ª‚Ì‹——£
+    static float PointToSegmentDistance(const D3DXVECTOR3& p1,
+                                        const D3DXVECTOR3& p2,
+                                        const D3DXVECTOR3& point);
+
+
 private:
 
     static eBuildMode m_buildMode;

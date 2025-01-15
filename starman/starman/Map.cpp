@@ -992,9 +992,34 @@ void Map::Update()
     for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
     {
         auto pos = it->m_mesh->GetPos();
-        pos += it->m_move;
         it->m_move.y -= 0.01f;
 
+        // 衝突判定
+        // 地面などにぶつかったら移動量0にする
+        if (Intersect(pos, it->m_move))
+        {
+            it->m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+            continue;
+        }
+
+        // モンスターに当たったらダメージを与える
+        if (it->m_bHit == false)
+        {
+            auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
+            for (auto it2 = m_vecEnemy.begin(); it2 != m_vecEnemy.end(); ++it2)
+            {
+                auto enemyPos = (*it2)->GetPos();
+                float dist = Common::PointToSegmentDistance(pos, pos + it->m_move, enemyPos);
+                if (dist <= 2.f)
+                {
+                    auto hp = (*it2)->GetHP();
+                    (*it2)->SetHP(hp - 10); // TODO ちゃんと計算
+                    it->m_bHit = true;
+                }
+            }
+        }
+
+        pos += it->m_move;
 
         it->m_mesh->SetPos(pos);
     }

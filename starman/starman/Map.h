@@ -72,6 +72,9 @@ private:
         NSStarmanLib::ItemInfo m_itemInfo;
         D3DXVECTOR3 m_move;
         MeshClone* m_mesh;
+
+        // ˆê“x‚Å‚à“G‚Éƒqƒbƒg‚µ‚½
+        bool m_bHit = false;
     };
 
     std::vector<ThrownItem> m_thrownList;
