@@ -173,6 +173,8 @@ void Player::Update(Map* map)
         if (m_bUnderwater)
         {
             m_AnimMesh2->SetAnim("IdleWater");
+            auto status = NSStarmanLib::StatusManager::GetObj();
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::IDLE_WATER);
         }
     }
 
@@ -249,19 +251,19 @@ void Player::Update(Map* map)
         if (m_bUnderwater == false)
         {
             // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
-            if (KeyBoard::IsDown(DIK_A))
-            {
-                SetStep(eDir::LEFT);
-            }
-            else if (KeyBoard::IsDown(DIK_S))
-            {
-                SetStep(eDir::BACK);
-            }
-            else if (KeyBoard::IsDown(DIK_D))
-            {
-                SetStep(eDir::RIGHT);
-            }
-            else
+//            if (KeyBoard::IsDown(DIK_A))
+//            {
+//                SetStep(eDir::LEFT);
+//            }
+//            else if (KeyBoard::IsDown(DIK_S))
+//            {
+//                SetStep(eDir::BACK);
+//            }
+//            else if (KeyBoard::IsDown(DIK_D))
+//            {
+//                SetStep(eDir::RIGHT);
+//            }
+//            else
             {
                 SetJump();
             }
@@ -599,17 +601,20 @@ bool Player::SetAttack()
 
 void Player::SetWalk()
 {
+    auto status = NSStarmanLib::StatusManager::GetObj();
     if (m_bJump == false &&
-        NSStarmanLib::StatusManager::GetObj()->GetDead() == false &&
+        status->GetDead() == false &&
         m_bAttack == false)
     {
         if (m_bUnderwater == false)
         {
             m_AnimMesh2->SetAnim("Walk");
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::JOGGING);
         }
         else
         {
             m_AnimMesh2->SetAnim("Swim");
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
         }
     }
 }
