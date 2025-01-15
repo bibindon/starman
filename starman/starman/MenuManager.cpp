@@ -268,6 +268,7 @@ void MenuManager::InitMenu()
                     NSMenulib::ItemInfo itemInfoG;
 
                     itemInfoG.SetName(itemDef.GetName());
+                    itemInfoG.SetLevel(itemDef.GetLevel());
 
                     NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(idList.at(i), subIdList.at(j));
 
@@ -374,6 +375,7 @@ void MenuManager::InitMenu()
                     weaponInfoG.SetSubId(subIdList.at(j));
 
                     weaponInfoG.SetName(itemDef.GetName());
+                    weaponInfoG.SetLevel(itemDef.GetLevel());
 
                     NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(idList.at(i), subIdList.at(j));
 
