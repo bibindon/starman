@@ -993,7 +993,7 @@ void Map::Update()
     {
         auto pos = it->m_mesh->GetPos();
         pos += it->m_move;
-        it->m_move.y -= 0.01f;
+        it->m_move.y -= 0.001f;
 
 
         it->m_mesh->SetPos(pos);

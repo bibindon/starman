@@ -25,7 +25,7 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 1.f;
-        animSetting.m_duration = 1.f;
+        animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
         animSetMap["Walk"] = animSetting;
     }
@@ -830,6 +830,7 @@ void Player::Throw()
 
         auto dir = GetAttackPos();
         dir *= 0.001f;
+        dir.y = 0.1f;
 
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
         auto itemDef = itemManager->GetItemDef(itemInfo.GetId());
