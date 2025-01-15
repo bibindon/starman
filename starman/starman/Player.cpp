@@ -828,9 +828,12 @@ void Player::Throw()
         D3DXVECTOR3 pos(m_loadingPos);
         pos.y += 1.f;
 
-        auto dir = GetAttackPos();
-        dir *= 0.001f;
-        dir.y = 0.1f;
+        D3DXVECTOR3 norm(0.f, 0.f, 0.f);
+        norm.x = std::sin(m_rotate.y + D3DX_PI);
+        norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
+
+        norm *= 0.4f;
+        norm.y = 0.1f;
 
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
         auto itemDef = itemManager->GetItemDef(itemInfo.GetId());
@@ -839,11 +842,11 @@ void Player::Throw()
 
         if (xfilename.find("rock") != std::string::npos)
         {
-            SharedObj::GetMap()->AddThrownItem(pos, dir, itemDef.GetName(), itemInfo, 0.1f);
+            SharedObj::GetMap()->AddThrownItem(pos, norm, itemDef.GetName(), itemInfo, 0.1f);
         }
         else
         {
-            SharedObj::GetMap()->AddThrownItem(pos, dir, itemDef.GetName(), itemInfo);
+            SharedObj::GetMap()->AddThrownItem(pos, norm, itemDef.GetName(), itemInfo);
         }
 
         m_throwItemId = itemInfo.GetId();
