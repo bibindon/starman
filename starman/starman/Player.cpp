@@ -74,14 +74,14 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 8.0f;
-        animSetting.m_duration = 1.0f;
+        animSetting.m_duration = 0.97f;
         animSetting.m_loop = true;
         animSetMap["IdleWater"] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 9.0f;
-        animSetting.m_duration = 1.0f;
+        animSetting.m_duration = 0.97f;
         animSetting.m_loop = true;
         animSetMap["Swim"] = animSetting;
     }
@@ -166,6 +166,16 @@ Player::~Player()
 
 void Player::Update(Map* map)
 {
+    // 海と接しているか
+    {
+        D3DXVECTOR3 down(0.f, -1.f, 0.f);
+        m_bUnderwater = map->IntersectWater(m_loadingPos, down);
+        if (m_bUnderwater)
+        {
+            m_AnimMesh2->SetAnim("IdleWater");
+        }
+    }
+
     //============================================================
     // Key Mouse Pad
     //============================================================
@@ -187,7 +197,6 @@ void Player::Update(Map* map)
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         SetRotate(rotate);
         SetWalk();
-
     }
 
     if (Common::DebugMode())
@@ -237,22 +246,25 @@ void Player::Update(Map* map)
 
     if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
     {
-        // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
-        if (KeyBoard::IsDown(DIK_A))
+        if (m_bUnderwater == false)
         {
-            SetStep(eDir::LEFT);
-        }
-        else if (KeyBoard::IsDown(DIK_S))
-        {
-            SetStep(eDir::BACK);
-        }
-        else if (KeyBoard::IsDown(DIK_D))
-        {
-            SetStep(eDir::RIGHT);
-        }
-        else
-        {
-            SetJump();
+            // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
+            if (KeyBoard::IsDown(DIK_A))
+            {
+                SetStep(eDir::LEFT);
+            }
+            else if (KeyBoard::IsDown(DIK_S))
+            {
+                SetStep(eDir::BACK);
+            }
+            else if (KeyBoard::IsDown(DIK_D))
+            {
+                SetStep(eDir::RIGHT);
+            }
+            else
+            {
+                SetJump();
+            }
         }
     }
 
@@ -364,11 +376,25 @@ void Player::Update(Map* map)
     // ただし、XZ平面のみ。Y軸方向は加味しない。
     if (Common::DebugMode())
     {
-        MAX_XZ_MOVE = 10.5f;
+        if (m_bUnderwater == false)
+        {
+            MAX_XZ_MOVE = 5.0f;
+        }
+        else
+        {
+            MAX_XZ_MOVE = 1.0f;
+        }
     }
     else
     {
-        MAX_XZ_MOVE = 0.5f;
+        if (m_bUnderwater == false)
+        {
+            MAX_XZ_MOVE = 0.5f;
+        }
+        else
+        {
+            MAX_XZ_MOVE = 0.1f;
+        }
     }
 
     D3DXVECTOR2 move_XZ(m_move.x, m_move.z);
@@ -577,7 +603,14 @@ void Player::SetWalk()
         NSStarmanLib::StatusManager::GetObj()->GetDead() == false &&
         m_bAttack == false)
     {
-        m_AnimMesh2->SetAnim("Walk");
+        if (m_bUnderwater == false)
+        {
+            m_AnimMesh2->SetAnim("Walk");
+        }
+        else
+        {
+            m_AnimMesh2->SetAnim("Swim");
+        }
     }
 }
 

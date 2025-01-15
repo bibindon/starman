@@ -1096,6 +1096,14 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
     return bIsHit;
 }
 
+bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+{
+    BOOL  bIsHit = false;
+    auto sea = m_meshMap["sea"];
+    bIsHit = IntersectSub(pos, rot, sea);
+    return bIsHit;
+}
+
 bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
     // ステージ上のオブジェクトを原点としたときのposの位置

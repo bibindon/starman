@@ -72,4 +72,7 @@ private:
     int m_attachCount = 0;
 
     bool m_bJumpEnable = true;
+
+    // …’†‚É‚¢‚é‚©
+    bool m_bUnderwater = false;
 };

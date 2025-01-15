@@ -22,6 +22,9 @@ public:
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 
+    // äCÇ∆ê⁄ÇµÇƒÇ¢ÇÈÇ©
+    bool IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
+
     // ê›íuîªíË
     bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
