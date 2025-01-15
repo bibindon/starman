@@ -71,6 +71,20 @@ Player::Player()
         animSetting.m_stopEnd = true;
         animSetMap["LieDown"] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 8.0f;
+        animSetting.m_duration = 1.0f;
+        animSetting.m_loop = true;
+        animSetMap["IdleWater"] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 9.0f;
+        animSetting.m_duration = 1.0f;
+        animSetting.m_loop = true;
+        animSetMap["Swim"] = animSetting;
+    }
     m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
