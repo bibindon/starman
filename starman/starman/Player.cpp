@@ -462,6 +462,19 @@ void Player::Update(Map* map)
         {
             m_throwTimeCounter = 0;
             m_bThrow = false;
+
+            // 投げた後、インベントリに同一のアイテムがある場合、
+            // 再度装備される。なければ素手になる。
+            NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+            std::vector<int> subIdList = inventory->GetSubIdList(m_throwItemId);
+            if (subIdList.empty() == false)
+            {
+                NSStarmanLib::ItemInfo itemInfo =
+                    inventory->GetItemInfo(m_throwItemId, subIdList.at(0));
+
+                NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+                statusManager->SetEquipWeapon(itemInfo);
+            }
         }
     }
 
@@ -552,14 +565,6 @@ void Player::Render()
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
         NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
         m_weaponMesh.at(itemDef.GetName())->Render();
-    }
-
-    for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
-    {
-        auto pos = it->m_mesh->GetPos();
-        pos += it->m_move;
-        it->m_mesh->SetPos(pos);
-        it->m_mesh->Render();
     }
 }
 
@@ -820,28 +825,27 @@ void Player::Throw()
     {
         m_bThrow = true;
 
-        ThrownItem work;
-        work.m_itemInfo = itemInfo;
+        D3DXVECTOR3 pos(m_loadingPos);
+        pos.y += 1.f;
 
         auto dir = GetAttackPos();
         dir *= 0.001f;
-        work.m_move = dir;
 
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
         auto itemDef = itemManager->GetItemDef(itemInfo.GetId());
         auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
         std::string xfilename = weaponManager->GetXfilename(itemDef.GetName());
 
-        D3DXVECTOR3 pos(m_loadingPos);
-        pos.y += 1.f;
+        if (xfilename.find("rock") != std::string::npos)
+        {
+            SharedObj::GetMap()->AddThrownItem(pos, dir, itemDef.GetName(), itemInfo, 0.1f);
+        }
+        else
+        {
+            SharedObj::GetMap()->AddThrownItem(pos, dir, itemDef.GetName(), itemInfo);
+        }
 
-        D3DXVECTOR3 rot(0.f, 0.f, D3DX_PI);
-
-        auto meshClone = NEW MeshClone(xfilename, pos, rot, 1.f);
-        meshClone->Init();
-        work.m_mesh = meshClone;
-
-        m_thrownList.push_back(work);
+        m_throwItemId = itemInfo.GetId();
     }
 
     // 素手にする

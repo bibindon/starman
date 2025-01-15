@@ -17,6 +17,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "NpcManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
 Map::Map()
 {
@@ -879,6 +880,9 @@ void Map::Update()
                 Light::SetBrightness((24 - hour) / 12);
             }
 
+            // TODO remove
+            Light::SetBrightness(1.f);
+
             //-------------------------------------
             // ‰A‚Ì•\Ž¦
             //-------------------------------------
@@ -981,6 +985,19 @@ void Map::Update()
             }
         }
     }
+
+    //-------------------------------------------------------
+    // “Š‚°•¨
+    //-------------------------------------------------------
+    for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
+    {
+        auto pos = it->m_mesh->GetPos();
+        pos += it->m_move;
+        it->m_move.y -= 0.01f;
+
+
+        it->m_mesh->SetPos(pos);
+    }
 }
 
 void Map::Render()
@@ -1021,6 +1038,11 @@ void Map::Render()
     for (auto it = m_NPC.begin(); it != m_NPC.end(); ++it)
     {
         it->second->Render();
+    }
+
+    for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
+    {
+        it->m_mesh->Render();
     }
 }
 
@@ -1268,6 +1290,28 @@ void Map::SetNpcRot(const std::string& name, const float yRot)
     rot.y = yRot;
 
     m_NPC.at(name)->SetRotate(rot);
+}
+
+void Map::AddThrownItem(const D3DXVECTOR3& pos,
+                        const D3DXVECTOR3& move,
+                        const std::string& weaponName,
+                        const NSStarmanLib::ItemInfo& itemInfo,
+                        const float scale)
+{
+    ThrownItem work;
+    work.m_itemInfo = itemInfo;
+    work.m_move = move;
+
+    auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
+    std::string xfilename = weaponManager->GetXfilename(weaponName);
+
+    D3DXVECTOR3 rot(0.f, 0.f, D3DX_PI);
+
+    auto meshClone = NEW MeshClone(xfilename, pos, rot, scale);
+    meshClone->Init();
+    work.m_mesh = meshClone;
+
+    m_thrownList.push_back(work);
 }
 
 D3DXVECTOR3 Map::WallSlideSub(

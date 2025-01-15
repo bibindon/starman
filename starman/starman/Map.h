@@ -5,6 +5,7 @@
 #include "EnemyBase.h"
 #include "MeshNoShade.h"
 #include "MeshClone.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
 
 class Map
 {
@@ -36,6 +37,12 @@ public:
     void SetNpcPos(const std::string& name, const D3DXVECTOR3& pos);
     void SetNpcRot(const std::string& name, const float yRot);
 
+    void AddThrownItem(const D3DXVECTOR3& pos,
+                       const D3DXVECTOR3& move,
+                       const std::string& weaponName,
+                       const NSStarmanLib::ItemInfo& itemInfo,
+                       const float scale = 1.f);
+
 private:
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
@@ -54,5 +61,19 @@ private:
     std::unordered_map<std::string, AnimMesh*> m_NPC;
 
     std::unordered_map<int, MeshClone*> m_meshCloneMap;
+
+    //-------------------------------------------------------
+    // “Š‚°‚ç‚ê‚½‚à‚Ì
+    //-------------------------------------------------------
+
+    // “Š‚°‚é‚à‚Ì
+    struct ThrownItem
+    {
+        NSStarmanLib::ItemInfo m_itemInfo;
+        D3DXVECTOR3 m_move;
+        MeshClone* m_mesh;
+    };
+
+    std::vector<ThrownItem> m_thrownList;
 };
 

@@ -103,7 +103,11 @@ public:
 
     ~Sprite()
     {
-        m_texMap.at(m_filepath)->Release();
+        ULONG refCnt = m_texMap.at(m_filepath)->Release();
+        if (refCnt == 0)
+        {
+            m_texMap.erase(m_filepath);
+        }
 
         if (m_texMap.empty())
         {
