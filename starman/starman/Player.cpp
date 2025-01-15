@@ -7,6 +7,8 @@
 #include "Mouse.h"
 #include "GamePad.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
 Player::Player()
 {
@@ -319,13 +321,29 @@ void Player::Update(Map* map)
         }
     }
 
+    // Shift + F → もの投げ
+    if (KeyBoard::IsDownFirstFrame(DIK_F))
+    {
+        if (KeyBoard::IsDown(DIK_LSHIFT))
+        {
+            Throw();
+        }
+    }
+
     //------------------------------------------------------------
     // Mouse
     //------------------------------------------------------------
 
     if (Mouse::IsDownLeft())
     {
-        bool ret = SetAttack();
+        if (KeyBoard::IsDown(DIK_LSHIFT) == false)
+        {
+            bool ret = SetAttack();
+        }
+        else
+        {
+            // Shift + 左Click → 魔法
+        }
     }
 
     //------------------------------------------------------------
@@ -424,23 +442,38 @@ void Player::Update(Map* map)
     {
         return;
     }
+
     if (m_bAttack)
     {
         m_attackTimeCounter++;
+
+        if (m_attackTimeCounter >= 30)
+        {
+            m_attackTimeCounter = 0;
+            m_bAttack = false;
+        }
     }
-    if (m_attackTimeCounter >= 30)
+
+    if (m_bThrow)
     {
-        m_attackTimeCounter = 0;
-        m_bAttack = false;
+        m_throwTimeCounter++;
+
+        if (m_throwTimeCounter >= 30)
+        {
+            m_throwTimeCounter = 0;
+            m_bThrow = false;
+        }
     }
+
     if (m_bDamaged)
     {
         m_damagedTimeCounter++;
-    }
-    if (m_damagedTimeCounter >= 30)
-    {
-        m_damagedTimeCounter = 0;
-        m_bDamaged = false;
+
+        if (m_damagedTimeCounter >= 30)
+        {
+            m_damagedTimeCounter = 0;
+            m_bDamaged = false;
+        }
     }
 
     // 重力
@@ -519,6 +552,14 @@ void Player::Render()
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
         NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
         m_weaponMesh.at(itemDef.GetName())->Render();
+    }
+
+    for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
+    {
+        auto pos = it->m_mesh->GetPos();
+        pos += it->m_move;
+        it->m_mesh->SetPos(pos);
+        it->m_mesh->Render();
     }
 }
 
@@ -739,6 +780,82 @@ void Player::SetStep(const eDir dir)
 void Player::SetExamine()
 {
     // 
+}
+
+void Player::Throw()
+{
+    //-------------------------------------------------------------
+    // 1. 素手になる。
+    // 2. 殴るモーションを再生
+    // 3. 装備アイテムが頭上から前方に飛んでいく。
+    // 4. インベントリに同一のアイテムがある場合、再度装備される。なければ素手になる。
+    //
+    // ・投げられたものは物に衝突して停止する。
+    // ・敵にあたった場合は、ダメージを与え、地面に落ちる。
+    // ・地面に落ちた物は拾える。
+    // ・投げる動作は2秒に一回
+    // ・体力を消耗する
+    //-------------------------------------------------------------
+
+    auto statusManager = NSStarmanLib::StatusManager::GetObj();
+
+    // 素手だったら何もしない。
+    auto itemInfo = statusManager->GetEquipWeapon();
+    if (itemInfo.GetId() == -1)
+    {
+        return;
+    }
+
+    // 投げている最中なら何もしない
+    if (m_bThrow)
+    {
+        return;
+    }
+
+    // インベントリから一つアイテムを減らす。
+    auto inventory = NSStarmanLib::Inventory::GetObj();
+    inventory->RemoveItem(itemInfo.GetId(), itemInfo.GetSubId());
+
+    // 投げるものをセット
+    {
+        m_bThrow = true;
+
+        ThrownItem work;
+        work.m_itemInfo = itemInfo;
+
+        auto dir = GetAttackPos();
+        dir *= 0.001f;
+        work.m_move = dir;
+
+        auto itemManager = NSStarmanLib::ItemManager::GetObj();
+        auto itemDef = itemManager->GetItemDef(itemInfo.GetId());
+        auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
+        std::string xfilename = weaponManager->GetXfilename(itemDef.GetName());
+
+        D3DXVECTOR3 pos(m_loadingPos);
+        pos.y += 1.f;
+
+        D3DXVECTOR3 rot(0.f, 0.f, D3DX_PI);
+
+        auto meshClone = NEW MeshClone(xfilename, pos, rot, 1.f);
+        meshClone->Init();
+        work.m_mesh = meshClone;
+
+        m_thrownList.push_back(work);
+    }
+
+    // 素手にする
+    {
+        NSStarmanLib::ItemInfo itemInfo;
+        itemInfo.SetId(-1);
+        statusManager->SetEquipWeapon(itemInfo);
+
+        SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
+        m_AnimMesh2->SetAnim("Attack", 0.f);
+    }
+
+    // 体力を消耗する
+    statusManager->ConsumeAttackCost();
 }
 
 

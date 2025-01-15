@@ -2173,6 +2173,8 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         m_eState = eBattleState::MENU;
         Camera::SetCameraMode(eCameraMode::SLEEP);
         Common::SetCursorVisibility(true);
+        m_menuManager.Finalize();
+        m_menuManager.InitMenu();
 
         return;
     }
@@ -2208,6 +2210,8 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             m_eState = eBattleState::MENU;
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
+            m_menuManager.Finalize();
+            m_menuManager.InitMenu();
         }
     }
 

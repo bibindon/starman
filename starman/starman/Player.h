@@ -4,6 +4,7 @@
 #include "AnimMesh.h"
 #include "Sprite.h"
 #include "Map.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
 
 enum class eDir
 {
@@ -75,4 +76,25 @@ private:
 
     // …’†‚É‚¢‚é‚©
     bool m_bUnderwater = false;
+
+    //---------------------------------------------------
+    // “Š‚°‚é
+    //---------------------------------------------------
+
+    // “Š‚°‚é
+    void Throw();
+
+    // “Š‚°‚Ä‚¢‚é
+    bool m_bThrow = false;
+    int m_throwTimeCounter = 0;
+
+    // “Š‚°‚é‚à‚Ì
+    struct ThrownItem
+    {
+        NSStarmanLib::ItemInfo m_itemInfo;
+        D3DXVECTOR3 m_move;
+        MeshClone* m_mesh;
+    };
+
+    std::vector<ThrownItem> m_thrownList;
 };

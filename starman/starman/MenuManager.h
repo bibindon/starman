@@ -9,6 +9,7 @@ public:
     ~MenuManager();
 
     void InitMenu();
+    void Finalize();
     void Draw();
     bool UseItem(const int id, const int subId);
     void AddItem(const int id, const int subId, const int durability = -1);

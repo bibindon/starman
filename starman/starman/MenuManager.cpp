@@ -568,6 +568,11 @@ void MenuManager::InitMenu()
     }
 }
 
+void MenuManager::Finalize()
+{
+    m_menu.Finalize();
+}
+
 void MenuManager::Draw()
 {
     m_menu.Draw();
