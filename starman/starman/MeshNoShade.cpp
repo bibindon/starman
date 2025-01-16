@@ -194,10 +194,11 @@ void MeshNoShade::Render()
         vec4Color.z = m_vecColor.at(i).b;
         vec4Color.w = m_vecColor.at(i).a;
 
-        vec4Color.x = 0.8f;
-        vec4Color.y = 0.2f;
-        vec4Color.z = 0.2f;
-        vec4Color.w = 1.f;
+        // TODO
+//        vec4Color.x = 0.8f;
+//        vec4Color.y = 0.2f;
+//        vec4Color.z = 0.2f;
+//        vec4Color.w = 1.f;
         result = m_D3DEffect->SetVector("g_diffuse", &vec4Color);
         m_D3DEffect->CommitChanges();
         m_D3DMesh->DrawSubset(i);

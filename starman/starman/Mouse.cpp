@@ -104,3 +104,13 @@ bool Mouse::IsHoldRight()
     }
     return false;
 }
+
+bool Mouse::IsWheelUp()
+{
+    return m_DIMouseStatePrev.lZ < m_DIMouseState.lZ;
+}
+
+bool Mouse::IsWheelDown()
+{
+    return m_DIMouseStatePrev.lZ > m_DIMouseState.lZ;
+}

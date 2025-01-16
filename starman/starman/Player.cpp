@@ -9,6 +9,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 
 Player::Player()
 {
@@ -343,6 +344,63 @@ void Player::Update(Map* map)
         else
         {
             // Shift + 左Click → 魔法
+            SetMagic();
+        }
+    }
+
+    // 魔法切り替え
+    if (Mouse::IsWheelUp())
+    {
+        if (NSStarmanLib::Rynen::GetObj()->GetContracted())
+        {
+            auto status = NSStarmanLib::StatusManager::GetObj();
+            auto magicType = status->GetMagicType();
+
+            if (magicType == NSStarmanLib::eMagicType::None)
+            {
+                magicType = NSStarmanLib::eMagicType::Dark;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Fire)
+            {
+                magicType = NSStarmanLib::eMagicType::None;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Ice)
+            {
+                magicType = NSStarmanLib::eMagicType::Fire;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Dark)
+            {
+                magicType = NSStarmanLib::eMagicType::Ice;
+            }
+
+            status->SetMagicType(magicType);
+        }
+    }
+    else if (Mouse::IsWheelDown())
+    {
+        if (NSStarmanLib::Rynen::GetObj()->GetContracted())
+        {
+            auto status = NSStarmanLib::StatusManager::GetObj();
+            auto magicType = status->GetMagicType();
+
+            if (magicType == NSStarmanLib::eMagicType::None)
+            {
+                magicType = NSStarmanLib::eMagicType::Fire;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Fire)
+            {
+                magicType = NSStarmanLib::eMagicType::Ice;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Ice)
+            {
+                magicType = NSStarmanLib::eMagicType::Dark;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Dark)
+            {
+                magicType = NSStarmanLib::eMagicType::None;
+            }
+
+            status->SetMagicType(magicType);
         }
     }
 
@@ -367,6 +425,11 @@ void Player::Update(Map* map)
     if (GamePad::IsDown(eGamePadButtonType::R1))
     {
         bool ret = SetAttack();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::L1))
+    {
+        Throw();
     }
 
     if (GamePad::IsDown(eGamePadButtonType::B))
@@ -475,6 +538,17 @@ void Player::Update(Map* map)
                 NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->SetEquipWeapon(itemInfo);
             }
+        }
+    }
+
+    if (m_bMagic)
+    {
+        m_magicTimeCounter++;
+
+        if (m_magicTimeCounter >= 30)
+        {
+            m_magicTimeCounter = 0;
+            m_bMagic = false;
         }
     }
 
@@ -864,6 +938,54 @@ void Player::Throw()
 
     // 体力を消耗する
     statusManager->ConsumeAttackCost();
+}
+
+void Player::SetMagic()
+{
+    //-------------------------------------------------------------
+    // 1. 殴るモーションを再生
+    // 2. 火の玉が頭上から前方に飛んでいく。
+    //
+    // ・投げる動作は2秒に一回
+    // ・体力を消耗する
+    //-------------------------------------------------------------
+
+    auto statusManager = NSStarmanLib::StatusManager::GetObj();
+
+    auto magicType = statusManager->GetMagicType();
+    if (magicType == NSStarmanLib::eMagicType::None)
+    {
+        return;
+    }
+
+    // 投げている最中なら何もしない
+    if (m_bMagic)
+    {
+        return;
+    }
+
+    // 投げるものをセット
+    {
+        m_bMagic = true;
+
+        D3DXVECTOR3 pos(m_loadingPos);
+        pos.y += 1.f;
+
+        D3DXVECTOR3 norm(0.f, 0.f, 0.f);
+        norm.x = std::sin(m_rotate.y + D3DX_PI);
+        norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
+
+        norm *= 0.4f;
+        norm.y = 0.1f;
+
+        SharedObj::GetMap()->SetThrownMagic(pos, norm, magicType);
+    }
+
+    SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
+    m_AnimMesh2->SetAnim("Attack", 0.f);
+
+    // 体力を消耗する
+    statusManager->UseMagic();
 }
 
 

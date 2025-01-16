@@ -6,6 +6,7 @@
 #include "MeshNoShade.h"
 #include "MeshClone.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 
 class Map
 {
@@ -37,6 +38,10 @@ public:
     void SetNpcPos(const std::string& name, const D3DXVECTOR3& pos);
     void SetNpcRot(const std::string& name, const float yRot);
 
+    //------------------------------------
+    // もの投げ
+    //------------------------------------
+
     void AddThrownItem(const D3DXVECTOR3& pos,
                        const D3DXVECTOR3& move,
                        const std::string& weaponName,
@@ -49,6 +54,15 @@ public:
     // 投げて地面に落ちた武器を削除
     void DeleteThrownItem(const NSStarmanLib::ItemInfo& thrownItem);
 
+    //------------------------------------
+    // 魔法攻撃
+    //------------------------------------
+
+    // 魔法攻撃は武器を投げるのと同じような処理を行う
+    // 武器を投げた時と違い、地面に落ちたら消える。
+    void SetThrownMagic(const D3DXVECTOR3& pos,
+                        const D3DXVECTOR3& move,
+                        const NSStarmanLib::eMagicType& magicType);
 
 private:
     D3DXVECTOR3 WallSlideSub(
@@ -70,7 +84,7 @@ private:
     std::unordered_map<int, MeshClone*> m_meshCloneMap;
 
     //-------------------------------------------------------
-    // 投げられたもの
+    // 投げられたもの（武器）
     //-------------------------------------------------------
 
     // 投げるもの
@@ -85,5 +99,24 @@ private:
     };
 
     std::vector<ThrownItem> m_thrownList;
+
+    //-------------------------------------------------------
+    // 投げられたもの（魔法）
+    //-------------------------------------------------------
+
+    // 投げるもの（魔法）
+    struct ThrownMagic
+    {
+        NSStarmanLib::eMagicType m_eMagicType;
+        D3DXVECTOR3 m_move;
+
+        MeshNoShade* m_mesh;
+
+        // 一度でも敵にヒットした
+        bool m_bHit = false;
+    };
+
+    std::vector<ThrownMagic> m_thrownMagicList;
+
 };
 

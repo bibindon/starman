@@ -1023,6 +1023,50 @@ void Map::Update()
 
         it->m_mesh->SetPos(pos);
     }
+
+    //-------------------------------------------------------
+    // 投げ物（魔法）
+    //-------------------------------------------------------
+    for (auto it = m_thrownMagicList.begin(); it != m_thrownMagicList.end();)
+    {
+        auto pos = it->m_mesh->GetPos();
+        it->m_move.y -= 0.005f;
+
+        // 衝突判定
+        // 地面などにぶつかったら消す
+        if (Intersect(pos, it->m_move))
+        {
+            delete it->m_mesh;
+            it = m_thrownMagicList.erase(it);
+            continue;
+        }
+
+        // モンスターに当たったらダメージを与える
+        if (it->m_bHit == false)
+        {
+            auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
+            for (auto it2 = m_vecEnemy.begin(); it2 != m_vecEnemy.end(); ++it2)
+            {
+                auto enemyPos = (*it2)->GetPos();
+                float dist = Common::PointToSegmentDistance(pos, pos + it->m_move, enemyPos);
+                if (dist <= 2.f)
+                {
+                    auto hp = (*it2)->GetHP();
+                    (*it2)->SetHP(hp - 20); // TODO ちゃんと計算
+                    it->m_bHit = true;
+
+                    delete it->m_mesh;
+                    it = m_thrownMagicList.erase(it);
+                    break;
+                }
+            }
+        }
+
+        pos += it->m_move;
+
+        it->m_mesh->SetPos(pos);
+        ++it;
+    }
 }
 
 void Map::Render()
@@ -1066,6 +1110,11 @@ void Map::Render()
     }
 
     for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
+    {
+        it->m_mesh->Render();
+    }
+
+    for (auto it = m_thrownMagicList.begin(); it != m_thrownMagicList.end(); ++it)
     {
         it->m_mesh->Render();
     }
@@ -1376,6 +1425,36 @@ void Map::DeleteThrownItem(const NSStarmanLib::ItemInfo& thrownItem)
             break;
         }
     }
+}
+
+void Map::SetThrownMagic(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, const NSStarmanLib::eMagicType& magicType)
+{
+    ThrownMagic work;
+    work.m_eMagicType = magicType;
+    work.m_move = move;
+
+    std::string xfilename;
+
+    if (magicType == NSStarmanLib::eMagicType::Fire)
+    {
+        xfilename = "res\\model\\MagicFire\\MagicFire.x";
+    }
+    else if (magicType == NSStarmanLib::eMagicType::Ice)
+    {
+        xfilename = "res\\model\\MagicIce\\MagicIce.x";
+    }
+    else if (magicType == NSStarmanLib::eMagicType::Dark)
+    {
+        xfilename = "res\\model\\MagicDark\\MagicDark.x";
+    }
+
+    D3DXVECTOR3 rot(0.f, 0.f, 0.f);
+
+    auto mesh = NEW MeshNoShade(xfilename, pos, rot, 1.f);
+    mesh->Init();
+    work.m_mesh = mesh;
+
+    m_thrownMagicList.push_back(work);
 }
 
 D3DXVECTOR3 Map::WallSlideSub(

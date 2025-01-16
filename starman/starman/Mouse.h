@@ -23,6 +23,9 @@ public:
     static bool IsDownRight();
     static bool IsHoldRight();
 
+    static bool IsWheelUp();
+    static bool IsWheelDown();
+
 private:
     static LPDIRECTINPUTDEVICE8 m_DIMouse;
     static DIMOUSESTATE2 m_DIMouseState;

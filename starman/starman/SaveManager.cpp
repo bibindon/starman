@@ -14,6 +14,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -145,6 +146,9 @@ void SaveManager::Save()
         }
     }
 
+    auto rynen = NSStarmanLib::Rynen::GetObj();
+    rynen->Save(CreateSaveFilePath("rynen.csv"), m_encrypt);
+
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
     mgr->Save(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
 
@@ -205,6 +209,7 @@ void SaveManager::LoadOrigin()
 {
     if (m_savedataLoaded)
     {
+        NSStarmanLib::Rynen::Destroy();
         NSStarmanLib::NpcStatusManager::Destroy();
         NSStarmanLib::HumanInfoManager::Destroy();
         NSStarmanLib::MapInfoManager::Destroy();
@@ -219,6 +224,9 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::PowereggDateTime::Destroy();
         NSStarmanLib::MapObjManager::Destroy();
     }
+
+    auto rynen = NSStarmanLib::Rynen::GetObj();
+    rynen->Init(CreateOriginFilePath("rynen.csv"), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
     mgr->Init(CreateOriginFilePath("npcStatus.csv"), m_encrypt);
@@ -287,6 +295,9 @@ void SaveManager::LoadOrigin()
 void SaveManager::Load()
 {
     m_progress.store(0);
+
+    auto rynen = NSStarmanLib::Rynen::GetObj();
+    rynen->Init(CreateSaveFilePath("rynen.csv"), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
     mgr->Init(CreateSaveFilePath("npcStatus.csv"), m_encrypt);

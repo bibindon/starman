@@ -29,6 +29,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 
 SeqBattle* MainWindow::m_seqBattle = nullptr;
 
@@ -36,6 +37,7 @@ using std::chrono::system_clock;
 
 static void Finalize()
 {
+    NSStarmanLib::Rynen::Destroy();
     NSStarmanLib::HumanInfoManager::Destroy();
     NSStarmanLib::MapInfoManager::Destroy();
     NSStarmanLib::ItemManager::Destroy();
