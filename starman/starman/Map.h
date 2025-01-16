@@ -43,6 +43,13 @@ public:
                        const NSStarmanLib::ItemInfo& itemInfo,
                        const float scale = 1.f);
 
+    // 投げて地面に落ちた武器のうち近くのものを1つ取得（半径2メートル以内）
+    NSStarmanLib::ItemInfo GetThrownItem(const D3DXVECTOR3& pos);
+
+    // 投げて地面に落ちた武器を削除
+    void DeleteThrownItem(const NSStarmanLib::ItemInfo& thrownItem);
+
+
 private:
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);

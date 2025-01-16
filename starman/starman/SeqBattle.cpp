@@ -1368,10 +1368,10 @@ void SeqBattle::Confirm(eSequence* sequence)
 {
     // 調べるコマンド
     // プレイヤーの現在座標で始まるクエストか終わるクエストがある。
-    D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
     if (m_bShowExamine)
     {
         m_bShowExamine = false;
+        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
         SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
     }
     else if (m_bObtainable)
@@ -1380,6 +1380,7 @@ void SeqBattle::Confirm(eSequence* sequence)
 
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
+        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
         NSStarmanLib::ItemPos itemPos = itemManager->GetItemPosByPos(playerPos.x,
                                                                      playerPos.y,
                                                                      playerPos.z);
@@ -1405,6 +1406,7 @@ void SeqBattle::Confirm(eSequence* sequence)
         m_bTalkable = false;
         auto npcManager = NpcManager::Get();
         std::string npcName;
+        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
         npcManager->GetNpcTalkable(playerPos, &npcName);
         if (npcName.empty() == false)
         {
@@ -1421,6 +1423,31 @@ void SeqBattle::Confirm(eSequence* sequence)
 
             m_eState = eBattleState::TALK;
         }
+    }
+    else if (m_bObtainWeapon)
+    {
+        m_bObtainWeapon = false;
+
+        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+        auto thrownItem = SharedObj::GetMap()->GetThrownItem(playerPos);
+
+        NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+
+        if (thrownItem.GetId() != -1)
+        {
+            SharedObj::GetMap()->DeleteThrownItem(thrownItem);
+            
+            // どれだけ荷物が重くても落ちているものを拾うことはできる。
+            // 代わりに、まともに歩いたりできなくなる。
+            auto inventory = NSStarmanLib::Inventory::GetObj();
+            int newSubID = inventory->AddItem(thrownItem.GetId());
+            m_menuManager.AddItem(thrownItem.GetId(), newSubID);
+
+            std::string work = itemManager->GetItemDef(thrownItem.GetId()).GetName();
+            SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+            PopUp2::Get()->SetText(work + " を手に入れた。");
+        }
+
     }
 }
 
@@ -1488,7 +1515,7 @@ void SeqBattle::RenderNormal()
     PopUp2::Get()->Render();
     D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
 
-    if (m_bShowExamine || m_bObtainable || m_bTalkable)
+    if (m_bShowExamine || m_bObtainable || m_bTalkable || m_bObtainWeapon)
     {
         D3DXVECTOR3 pos { 720.f, 700.f, 0.f };
         m_spriteExamine->Render(pos);
@@ -2079,6 +2106,20 @@ void SeqBattle::UpdatePerSecond()
     else
     {
         m_bObtainable = false;
+    }
+
+    //-------------------------------------
+    // 投げて地面に落ちたアイテムを発見
+    //-------------------------------------
+    auto thrownItem = SharedObj::GetMap()->GetThrownItem(playerPos);
+
+    if (thrownItem.GetId() != -1)
+    {
+        m_bObtainWeapon = true;
+    }
+    else
+    {
+        m_bObtainWeapon = false;
     }
 
     //-------------------------------------

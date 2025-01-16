@@ -1339,6 +1339,45 @@ void Map::AddThrownItem(const D3DXVECTOR3& pos,
     m_thrownList.push_back(work);
 }
 
+// 見つからなければidが-1のItemInfoが返る。
+NSStarmanLib::ItemInfo Map::GetThrownItem(const D3DXVECTOR3& pos)
+{
+    bool exist = false;
+    NSStarmanLib::ItemInfo result;
+    result.SetId(-1);
+
+    // 2メートル以内のアイテムを拾えるようにする
+    // ラクするために円ではなく四角で範囲チェック
+    for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
+    {
+        auto itemPos = it->m_mesh->GetPos();
+        if (std::abs(itemPos.x - pos.x) < 2.f)
+        {
+            if (std::abs(itemPos.z - pos.z) < 2.f)
+            {
+                result = it->m_itemInfo;
+                exist = true;
+                break;
+            }
+        }
+    }
+
+    return result;
+}
+
+void Map::DeleteThrownItem(const NSStarmanLib::ItemInfo& thrownItem)
+{
+    for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
+    {
+        if (thrownItem.GetId() == it->m_itemInfo.GetId() &&
+            thrownItem.GetSubId() == it->m_itemInfo.GetSubId())
+        {
+            m_thrownList.erase(it);
+            break;
+        }
+    }
+}
+
 D3DXVECTOR3 Map::WallSlideSub(
     const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit)
 {

@@ -76,6 +76,9 @@ private:
     // アイテムが拾える時
     bool m_bObtainable = false;
 
+    // 投げて地面に落ちた武器を拾える時
+    bool m_bObtainWeapon = false;
+
     // 話しかけられるとき
     bool m_bTalkable = false;
 
