@@ -1042,6 +1042,7 @@ void Map::Update()
         }
 
         // モンスターに当たったらダメージを与える
+        bool bHit = false;
         if (it->m_bHit == false)
         {
             auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
@@ -1054,6 +1055,7 @@ void Map::Update()
                     auto hp = (*it2)->GetHP();
                     (*it2)->SetHP(hp - 20); // TODO ちゃんと計算
                     it->m_bHit = true;
+                    bHit = true;
 
                     delete it->m_mesh;
                     it = m_thrownMagicList.erase(it);
@@ -1062,10 +1064,17 @@ void Map::Update()
             }
         }
 
-        pos += it->m_move;
+        if (bHit)
+        {
+            continue;
+        }
+        else
+        {
+            pos += it->m_move;
 
-        it->m_mesh->SetPos(pos);
-        ++it;
+            it->m_mesh->SetPos(pos);
+            ++it;
+        }
     }
 }
 
