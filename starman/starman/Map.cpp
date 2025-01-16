@@ -1330,7 +1330,7 @@ void Map::AddThrownItem(const D3DXVECTOR3& pos,
     auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
     std::string xfilename = weaponManager->GetXfilename(weaponName);
 
-    D3DXVECTOR3 rot(0.f, 0.f, D3DX_PI);
+    D3DXVECTOR3 rot(D3DX_PI/2, 0.f, 0.f);
 
     auto meshClone = NEW MeshClone(xfilename, pos, rot, scale);
     meshClone->Init();
