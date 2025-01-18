@@ -101,4 +101,9 @@ private:
     bool m_bMagic = false;
     int m_magicTimeCounter = 0;
 
+    // 装備魔法を切り替えたら頭上に文字を表示し、フェードアウトさせる
+    int m_switchMagicCounter = 0;
+    bool m_bSwitchMagic = false;
+
+    LPD3DXFONT m_D3DFont = nullptr;
 };

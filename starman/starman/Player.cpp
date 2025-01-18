@@ -168,6 +168,20 @@ Player::Player()
     SoundEffect::get_ton()->load("res\\sound\\fireSet.wav");
     SoundEffect::get_ton()->load("res\\sound\\iceSet.wav");
     SoundEffect::get_ton()->load("res\\sound\\darkSet.wav");
+
+    D3DXCreateFont(
+        SharedObj::GetD3DDevice(),
+        32,
+        0,
+        FW_NORMAL,
+        1,
+        false,
+        SHIFTJIS_CHARSET,
+        OUT_TT_ONLY_PRECIS,
+        ANTIALIASED_QUALITY,
+        FF_DONTCARE,
+        "‚l‚r –¾’©",
+        &m_D3DFont);
 }
 
 Player::~Player()
@@ -386,6 +400,8 @@ void Player::Update(Map* map)
             }
 
             status->SetMagicType(magicType);
+            m_switchMagicCounter = 0;
+            m_bSwitchMagic = true;
         }
     }
     else if (Mouse::IsWheelDown())
@@ -413,6 +429,8 @@ void Player::Update(Map* map)
             }
 
             status->SetMagicType(magicType);
+            m_switchMagicCounter = 0;
+            m_bSwitchMagic = true;
         }
     }
 
@@ -447,6 +465,66 @@ void Player::Update(Map* map)
     if (GamePad::IsDown(eGamePadButtonType::B))
     {
         SetJump();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::UP))
+    {
+        if (NSStarmanLib::Rynen::GetObj()->GetContracted())
+        {
+            auto status = NSStarmanLib::StatusManager::GetObj();
+            auto magicType = status->GetMagicType();
+
+            if (magicType == NSStarmanLib::eMagicType::None)
+            {
+                magicType = NSStarmanLib::eMagicType::Dark;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Fire)
+            {
+                magicType = NSStarmanLib::eMagicType::None;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Ice)
+            {
+                magicType = NSStarmanLib::eMagicType::Fire;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Dark)
+            {
+                magicType = NSStarmanLib::eMagicType::Ice;
+            }
+
+            status->SetMagicType(magicType);
+            m_switchMagicCounter = 0;
+            m_bSwitchMagic = true;
+        }
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    {
+        if (NSStarmanLib::Rynen::GetObj()->GetContracted())
+        {
+            auto status = NSStarmanLib::StatusManager::GetObj();
+            auto magicType = status->GetMagicType();
+
+            if (magicType == NSStarmanLib::eMagicType::None)
+            {
+                magicType = NSStarmanLib::eMagicType::Fire;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Fire)
+            {
+                magicType = NSStarmanLib::eMagicType::Ice;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Ice)
+            {
+                magicType = NSStarmanLib::eMagicType::Dark;
+            }
+            else if (magicType == NSStarmanLib::eMagicType::Dark)
+            {
+                magicType = NSStarmanLib::eMagicType::None;
+            }
+
+            status->SetMagicType(magicType);
+            m_switchMagicCounter = 0;
+            m_bSwitchMagic = true;
+        }
     }
 
     //----------------------------------------------------------
@@ -651,6 +729,40 @@ void Player::Render()
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
         NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
         m_weaponMesh.at(itemDef.GetName())->Render();
+    }
+
+    if (m_bSwitchMagic)
+    {
+        ++m_switchMagicCounter;
+        if (m_switchMagicCounter >= 60)
+        {
+            m_bSwitchMagic = false;
+        }
+        int transparency = 255 - (m_switchMagicCounter * 255 / 60);
+
+        std::string magicType = "–³";
+        auto equipMagic = statusManager->GetMagicType();
+        if (equipMagic == NSStarmanLib::eMagicType::Fire)
+        {
+            magicType = "‰Š";
+        }
+        else if (equipMagic == NSStarmanLib::eMagicType::Ice)
+        {
+            magicType = "•X";
+        }
+        else if (equipMagic == NSStarmanLib::eMagicType::Dark)
+        {
+            magicType = "ˆÅ";
+        }
+
+        RECT rect;
+        SetRect(&rect, 750, 300, 850, 360);
+        m_D3DFont->DrawText(NULL,
+                            magicType.c_str(),
+                            -1,
+                            &rect,
+                            DT_CENTER,
+                            D3DCOLOR_ARGB(transparency, 255, 255, 255));
     }
 }
 
@@ -1000,7 +1112,6 @@ void Player::SetMagic()
 
         SharedObj::GetMap()->SetThrownMagic(pos, norm, magicType);
     }
-
 
     if (magicType == NSStarmanLib::eMagicType::Fire)
     {
