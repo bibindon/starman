@@ -18,6 +18,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
+#include "SoundEffect.h"
 
 Map::Map()
 {
@@ -746,6 +747,9 @@ void Map::Init()
         m_NPC["ƒm[ƒuƒ‹"] = animMesh;
     }
     */
+    SoundEffect::get_ton()->load("res\\sound\\fireHit.wav");
+    SoundEffect::get_ton()->load("res\\sound\\iceHit.wav");
+    SoundEffect::get_ton()->load("res\\sound\\darkHit.wav");
 }
 
 void Map::Update()
@@ -1036,8 +1040,22 @@ void Map::Update()
         // ’n–Ê‚È‚Ç‚É‚Ô‚Â‚©‚Á‚½‚çÁ‚·
         if (Intersect(pos, it->m_move))
         {
+            if (it->m_eMagicType == NSStarmanLib::eMagicType::Fire)
+            {
+                SoundEffect::get_ton()->play("res\\sound\\fireHit.wav", 20);
+            }
+            else if (it->m_eMagicType == NSStarmanLib::eMagicType::Ice)
+            {
+                SoundEffect::get_ton()->play("res\\sound\\iceHit.wav", 20);
+            }
+            else if (it->m_eMagicType == NSStarmanLib::eMagicType::Dark)
+            {
+                SoundEffect::get_ton()->play("res\\sound\\darkHit.wav", 20);
+            }
+
             delete it->m_mesh;
             it = m_thrownMagicList.erase(it);
+
             continue;
         }
 
@@ -1065,6 +1083,19 @@ void Map::Update()
                     (*it2)->SetHP(hp - 20); // TODO ‚¿‚á‚ñ‚ÆŒvŽZ
                     it->m_bHit = true;
                     bHit = true;
+
+                    if (it->m_eMagicType == NSStarmanLib::eMagicType::Fire)
+                    {
+                        SoundEffect::get_ton()->play("res\\sound\\fireHit.wav");
+                    }
+                    else if (it->m_eMagicType == NSStarmanLib::eMagicType::Ice)
+                    {
+                        SoundEffect::get_ton()->play("res\\sound\\iceHit.wav");
+                    }
+                    else if (it->m_eMagicType == NSStarmanLib::eMagicType::Dark)
+                    {
+                        SoundEffect::get_ton()->play("res\\sound\\darkHit.wav");
+                    }
 
                     delete it->m_mesh;
                     it = m_thrownMagicList.erase(it);

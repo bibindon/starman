@@ -157,6 +157,10 @@ Player::Player()
     m_loadingPos.x = x;
     m_loadingPos.y = y + 1.f;
     m_loadingPos.z = z;
+
+    SoundEffect::get_ton()->load("res\\sound\\fireSet.wav");
+    SoundEffect::get_ton()->load("res\\sound\\iceSet.wav");
+    SoundEffect::get_ton()->load("res\\sound\\darkSet.wav");
 }
 
 Player::~Player()
@@ -988,7 +992,20 @@ void Player::SetMagic()
         SharedObj::GetMap()->SetThrownMagic(pos, norm, magicType);
     }
 
-    SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
+
+    if (magicType == NSStarmanLib::eMagicType::Fire)
+    {
+        SoundEffect::get_ton()->play("res\\sound\\fireSet.wav");
+    }
+    else if (magicType == NSStarmanLib::eMagicType::Ice)
+    {
+        SoundEffect::get_ton()->play("res\\sound\\iceSet.wav");
+    }
+    else if (magicType == NSStarmanLib::eMagicType::Dark)
+    {
+        SoundEffect::get_ton()->play("res\\sound\\darkSet.wav");
+    }
+
     m_AnimMesh2->SetAnim("Attack", 0.f);
 
     // ‘Ì—Í‚ğÁ–Õ‚·‚é
