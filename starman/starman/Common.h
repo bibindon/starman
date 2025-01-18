@@ -30,7 +30,7 @@ enum class eBattleState
     CRAFT,
     STOREHOUSE,
     TALK,
-    GAMEOVER,
+    DEAD,
     SLEEP,
 };
 

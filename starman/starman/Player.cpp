@@ -10,6 +10,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Inventory.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include "PopUp2.h"
 
 Player::Player()
 {

@@ -139,7 +139,7 @@ private:
     //----------------------------------------------------------
     void OperateGameover(eSequence* sequence);
     Sprite* m_spriteGameover = nullptr;
-    int m_nGameoverCounter = 0;
+    int m_nDeadCounter = 0;
 
     //----------------------------------------------------------
     // ÉçÅ[ÉhâÊñ 
@@ -189,6 +189,7 @@ private:
     int m_sleepFadeOut = 0;
     int m_sleepBlack = 0;
     int m_sleepFadeIn = 0;
-    Sprite* m_sprSleepBlack = nullptr;
+
+    Sprite* m_sprBlack = nullptr;
 };
 

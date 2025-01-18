@@ -22,6 +22,7 @@
 #include "SaveManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "NpcManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 
 using namespace NSQuestSystem;
 
@@ -501,7 +502,7 @@ SeqBattle::SeqBattle()
     m_eState = eBattleState::LOAD;
     InitLoad();
 
-    m_sprSleepBlack = NEW Sprite("res\\image\\black.png");
+    m_sprBlack = NEW Sprite("res\\image\\black.png");
 }
 
 SeqBattle::~SeqBattle()
@@ -572,7 +573,7 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateTitle(sequence);
     }
-    else if (m_eState == eBattleState::GAMEOVER)
+    else if (m_eState == eBattleState::DEAD)
     {
         OperateGameover(sequence);
     }
@@ -1286,21 +1287,23 @@ void SeqBattle::OperateSleep()
 
 void SeqBattle::RenderSleep()
 {
+    PopUp2::Get()->Render();
+
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
     int transparency = 0;
     if (m_eSleepSeq == eSleepSeq::FadeOut)
     {
         transparency = m_sleepFadeOut * 255 / 300;
-        m_sprSleepBlack->Render(pos, transparency);
+        m_sprBlack->Render(pos, transparency);
     }
     else if (m_eSleepSeq == eSleepSeq::Sleep)
     {
-        m_sprSleepBlack->Render(pos);
+        m_sprBlack->Render(pos);
     }
     else if (m_eSleepSeq == eSleepSeq::FadeIn)
     {
         transparency = 255 - (m_sleepFadeIn * 255 / 60);
-        m_sprSleepBlack->Render(pos, transparency);
+        m_sprBlack->Render(pos, transparency);
     }
 }
 
@@ -1348,7 +1351,7 @@ void SeqBattle::Render()
     {
         RenderNormal();
     }
-    else if (m_eState == eBattleState::GAMEOVER)
+    else if (m_eState == eBattleState::DEAD)
     {
         RenderGameover();
     }
@@ -1528,17 +1531,35 @@ void SeqBattle::RenderGameover()
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
     int transparency = 0;
 
-    if (m_nGameoverCounter < 120)
+    auto rynen = NSStarmanLib::Rynen::GetObj();
+    // 復活可能か
+    if (rynen->GetReviveEnable() == false)
     {
-        transparency = m_nGameoverCounter * 255 / 120;
-        m_spriteGameover->Render(pos, transparency);
+        if (m_nDeadCounter < 120)
+        {
+            transparency = m_nDeadCounter * 255 / 120;
+            m_spriteGameover->Render(pos, transparency);
+        }
+        else
+        {
+            m_spriteGameover->Render(pos);
+            pos = D3DXVECTOR3(720.f, 700.f, 0.f);
+            m_spriteExamine->Render(pos);
+        }
     }
     else
     {
-        m_spriteGameover->Render(pos);
-        pos = D3DXVECTOR3(720.f, 700.f, 0.f);
-        m_spriteExamine->Render(pos);
+        if (m_nDeadCounter < 120)
+        {
+            transparency = m_nDeadCounter * 255 / 120;
+            m_sprBlack->Render(pos, transparency);
+        }
+        else
+        {
+            m_sprBlack->Render(pos);
+        }
     }
+    PopUp2::Get()->Render();
 }
 
 void SeqBattle::UpdateDebug()
@@ -2064,11 +2085,18 @@ void SeqBattle::UpdatePerSecond()
     bool dead = statusManager->GetDead();
     if (dead)
     {
-        if (m_eState != eBattleState::GAMEOVER)
+        if (m_eState != eBattleState::DEAD)
         {
-            m_eState = eBattleState::GAMEOVER;
-            m_nGameoverCounter = 0;
+            m_eState = eBattleState::DEAD;
+            m_nDeadCounter = 0;
+
+            auto rynen = NSStarmanLib::Rynen::GetObj();
+            if (rynen->GetReviveEnable())
+            {
+                PopUp2::Get()->SetText("死亡。ワードブレスを飲んだ場所で復活します。");
+            }
         }
+        return;
     }
 
     //-------------------------------------
@@ -2085,6 +2113,7 @@ void SeqBattle::UpdatePerSecond()
             m_sleepBlack = 0;
             m_sleepFadeIn = 0;
             m_player->SetSleep(true);
+            PopUp2::Get()->SetText("睡眠・気絶");
         }
     }
 
@@ -2486,9 +2515,9 @@ void SeqBattle::OperateTitle(eSequence* sequence)
 
 void SeqBattle::OperateGameover(eSequence* sequence)
 {
-    ++m_nGameoverCounter;
+    ++m_nDeadCounter;
 
-    if (m_nGameoverCounter == 1)
+    if (m_nDeadCounter == 1)
     {
         if (Common::DeployMode())
         {
@@ -2496,30 +2525,61 @@ void SeqBattle::OperateGameover(eSequence* sequence)
         }
     }
 
-    if (m_nGameoverCounter >= 120)
+    if (m_nDeadCounter >= 120)
     {
-        // 確定操作
-        if (KeyBoard::IsDownFirstFrame(DIK_E))
+        auto rynen = NSStarmanLib::Rynen::GetObj();
+
+        // 復活ナシ
+        if (rynen->GetReviveEnable() == false)
         {
-            if (m_nGameoverCounter >= 120)
+            // 確定操作
+            if (KeyBoard::IsDownFirstFrame(DIK_E))
             {
-                m_eState = eBattleState::TITLE;
-                Camera::SetCameraMode(eCameraMode::TITLE);
-                Common::SetCursorVisibility(true);
-                m_title = NEW Title(true);
+                if (m_nDeadCounter >= 120)
+                {
+                    m_eState = eBattleState::TITLE;
+                    Camera::SetCameraMode(eCameraMode::TITLE);
+                    Common::SetCursorVisibility(true);
+                    m_title = NEW Title(true);
+                }
+            }
+
+            // 確定操作
+            if (GamePad::IsDown(eGamePadButtonType::A))
+            {
+                if (m_nDeadCounter >= 120)
+                {
+                    m_eState = eBattleState::TITLE;
+                    Camera::SetCameraMode(eCameraMode::TITLE);
+                    Common::SetCursorVisibility(true);
+                    m_title = NEW Title(true);
+                }
             }
         }
-
-        // 確定操作
-        if (GamePad::IsDown(eGamePadButtonType::A))
+        // 復活あり
+        else
         {
-            if (m_nGameoverCounter >= 120)
-            {
-                m_eState = eBattleState::TITLE;
-                Camera::SetCameraMode(eCameraMode::TITLE);
-                Common::SetCursorVisibility(true);
-                m_title = NEW Title(true);
-            }
+            rynen->SetReviveEnable(false);
+            float x = 0.f;
+            float y = 0.f;
+            float z = 0.f;
+            rynen->GetRevivePos(&x, &y, &z);
+
+            m_player->SetPos(D3DXVECTOR3(x, y, z));
+
+            m_eState = eBattleState::NORMAL;
+
+            auto status = NSStarmanLib::StatusManager::GetObj();
+            float work1 = 0.f;
+            work1 = status->GetBodyStaminaMax();
+            status->SetBodyStaminaCurrent(work1);
+            status->SetBodyStaminaMaxSub(work1);
+
+            work1 = status->GetBrainStaminaMax();
+            status->SetBrainStaminaCurrent(work1);
+            status->SetBrainStaminaMaxSub(work1);
+
+            status->SetDead(false);
         }
     }
 }

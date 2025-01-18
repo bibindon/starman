@@ -1030,7 +1030,7 @@ void Map::Update()
     for (auto it = m_thrownMagicList.begin(); it != m_thrownMagicList.end();)
     {
         auto pos = it->m_mesh->GetPos();
-        it->m_move.y -= 0.005f;
+        it->m_move.y -= 0.002f;
 
         // Õ“Ë”»’è
         // ’n–Ê‚È‚Ç‚É‚Ô‚Â‚©‚Á‚½‚çÁ‚·
