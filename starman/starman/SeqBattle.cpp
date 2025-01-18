@@ -999,8 +999,7 @@ void SeqBattle::OperateCommand()
     }
 
     // コマンド画面が1分表示されていたら脱出コマンドを表示する
-    //if (m_commandCounter >= 60 * 60)
-    if (m_commandCounter >= 60 * 2)
+    if (m_commandCounter >= 60 * 20)
     {
         if (m_commandShowEscape == false)
         {
