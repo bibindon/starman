@@ -6,7 +6,7 @@
 #include "EnemyDisk.h"
 #include "EnemySphere.h"
 #include "EnemyBigCube.h"
-#include "EnemyEnban.h"
+#include "EnemyDisk.h"
 #include "EnemyEnchu.h"
 #include "EnemyGhost.h"
 #include "EnemyHanen.h"
@@ -808,7 +808,7 @@ void Map::Update()
                         }
                         else if (eneList.at(i).GetBreed() == "エンバン")
                         {
-                            enemy = NEW EnemyEnban();
+                            enemy = NEW EnemyDisk();
                         }
                         else if (eneList.at(i).GetBreed() == "エンチュウ")
                         {

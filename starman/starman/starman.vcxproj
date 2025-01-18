@@ -261,7 +261,6 @@
     <ClCompile Include="EnemyCube.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
     <ClCompile Include="EnemyDisk.cpp" />
-    <ClCompile Include="EnemyEnban.cpp" />
     <ClCompile Include="EnemyEnchu.cpp" />
     <ClCompile Include="EnemyGhost.cpp" />
     <ClCompile Include="EnemyHanen.cpp" />
@@ -310,7 +309,6 @@
     <ClInclude Include="EnemyCube.h" />
     <ClInclude Include="EnemyBase.h" />
     <ClInclude Include="EnemyDisk.h" />
-    <ClInclude Include="EnemyEnban.h" />
     <ClInclude Include="EnemyEnchu.h" />
     <ClInclude Include="EnemyGhost.h" />
     <ClInclude Include="EnemyHanen.h" />
