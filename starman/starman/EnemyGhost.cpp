@@ -24,34 +24,34 @@ bool EnemyGhost::Init()
             AnimSetMap animSetMap;
             {
                 AnimSetting animSetting { };
-                animSetting.m_startPos = 0.5f;
+                animSetting.m_startPos = 0.0f;
                 animSetting.m_duration = 0.5f;
                 animSetting.m_loop = true;
                 animSetMap["Idle"] = animSetting;
             }
             {
                 AnimSetting animSetting { };
-                animSetting.m_startPos = 0.f;
-                animSetting.m_duration = 0.5f;
+                animSetting.m_startPos = 1.f;
+                animSetting.m_duration = 0.97f;
                 animSetting.m_loop = true;
                 animSetMap["Walk"] = animSetting;
             }
             {
                 AnimSetting animSetting { };
-                animSetting.m_startPos = 1.f;
-                animSetting.m_duration = 1.f;
+                animSetting.m_startPos = 3.f;
+                animSetting.m_duration = 0.5f;
                 animSetting.m_loop = false;
                 animSetMap["Damaged"] = animSetting;
             }
             {
                 AnimSetting animSetting { };
                 animSetting.m_startPos = 2.f;
-                animSetting.m_duration = 0.5f;
+                animSetting.m_duration = 1.f;
                 animSetting.m_loop = false;
                 animSetMap["Attack"] = animSetting;
             }
             m_AnimMesh = NEW AnimMesh("res\\model\\enemyGhost\\enemyGhost.x",
-                m_loadingPos, m_rotate, 0.5f, animSetMap);
+                m_loadingPos, m_rotate, 1.f, animSetMap);
             SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
             
             m_spriteHP = NEW Sprite("res\\image\\hp_green.png");
