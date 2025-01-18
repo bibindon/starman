@@ -16,6 +16,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\Guide.h"
 #include "GamePad.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 
 namespace NSMenulib
 {
@@ -739,8 +740,20 @@ std::string MenuManager::OperateMenu()
     }
     else
     {
-        POINT p = Common::GetScreenPos();;
-        m_menu.CursorOn(p.x, p.y);
+        static POINT previousPoint = { 0, 0 };
+        POINT p = Common::GetScreenPos();
+
+        if (p.x == previousPoint.x &&
+            p.y == previousPoint.y)
+        {
+            // do nothing
+        }
+        else
+        {
+            m_menu.CursorOn(p.x, p.y);
+        }
+        
+        previousPoint = p;
     }
 
     if (Mouse::IsDownRight())
@@ -965,6 +978,22 @@ std::string MenuManager::OperateMenu()
         work += "\n";
         work += "攻撃力         ";
         work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + "\n";
+
+        auto rynen = NSStarmanLib::Rynen::GetObj();
+        if (rynen->GetContracted())
+        {
+            work += "ワードブレス   ";
+
+            if (rynen->GetReviveEnable())
+            {
+                work += "使用済み\n";
+            }
+            else
+            {
+                work += "未使用\n";
+            }
+        }
+
         info.SetDetail(work);
         infoList.push_back(info);
         m_menu.SetStatus(infoList);
@@ -974,20 +1003,31 @@ std::string MenuManager::OperateMenu()
 
 bool MenuManager::UseItem(const int id, const int subId)
 {
+    bool result = false;
+
     // 食材だったらステータスを更新
     // TODO 食材以外はあとで考える
-    NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(id);
+    auto itemManager = NSStarmanLib::ItemManager::GetObj();
+    auto itemDef = itemManager->GetItemDef(id);
+    auto statusManager = NSStarmanLib::StatusManager::GetObj();
 
-    if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::FOOD)
+    if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::FOOD)
     {
-        return false;
+        // 満腹だったらfalseが返ってくる
+        result = statusManager->Eat(itemDef);
+    }
+    else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::OTHERS)
+    {
+        // ワードブレス
+        if (itemDef.GetName() == "ワードブレス")
+        {
+            auto pos = SharedObj::GetPlayer();
+            statusManager->DrinkWordBress(pos->GetPos().x, pos->GetPos().y, pos->GetPos().z);
+            result = true;
+        }
     }
 
-    NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-
-    // 満腹だったらfalseが返ってくる
-    return statusManager->Eat(itemDef);
+    return result;
 }
 
 void MenuManager::DeleteItem(const int id, const int subId)
