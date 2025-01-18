@@ -1033,6 +1033,15 @@ void Map::Update()
     //-------------------------------------------------------
     for (auto it = m_thrownMagicList.begin(); it != m_thrownMagicList.end();)
     {
+        ++it->m_counter;
+
+        // 1•bŒo‰ß‚µ‚½‚ç”­ŽË
+        if (it->m_counter <= 60)
+        {
+            ++it;
+            continue;
+        }
+
         auto pos = it->m_mesh->GetPos();
         it->m_move.y -= 0.002f;
 
@@ -1502,6 +1511,8 @@ void Map::SetThrownMagic(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, const 
     auto mesh = NEW MeshNoShade(xfilename, pos, rot, 1.f);
     mesh->Init();
     work.m_mesh = mesh;
+
+    work.m_counter = 0;
 
     m_thrownMagicList.push_back(work);
 }

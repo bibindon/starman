@@ -114,6 +114,9 @@ private:
 
         // ˆê“x‚Å‚à“G‚Éƒqƒbƒg‚µ‚½
         bool m_bHit = false;
+
+        // 1•b‘Ò‚Á‚Ä‚©‚ç”­ŽË
+        int m_counter = 0;
     };
 
     std::vector<ThrownMagic> m_thrownMagicList;

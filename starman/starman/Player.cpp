@@ -89,6 +89,13 @@ Player::Player()
         animSetting.m_loop = true;
         animSetMap["Swim"] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 10.0f;
+        animSetting.m_duration = 0.97f;
+        animSetting.m_loop = false;
+        animSetMap["Magic"] = animSetting;
+    }
     m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
@@ -981,6 +988,8 @@ void Player::SetMagic()
 
         D3DXVECTOR3 pos(m_loadingPos);
         pos.y += 1.f;
+        pos.x += std::sin(m_rotate.y + D3DX_PI);
+        pos.z += std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
 
         D3DXVECTOR3 norm(0.f, 0.f, 0.f);
         norm.x = std::sin(m_rotate.y + D3DX_PI);
@@ -1006,7 +1015,7 @@ void Player::SetMagic()
         SoundEffect::get_ton()->play("res\\sound\\darkSet.wav");
     }
 
-    m_AnimMesh2->SetAnim("Attack", 0.f);
+    m_AnimMesh2->SetAnim("Magic", 0.f);
 
     // ‘Ì—Í‚ðÁ–Õ‚·‚é
     statusManager->UseMagic();
