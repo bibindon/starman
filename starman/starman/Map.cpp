@@ -1048,6 +1048,15 @@ void Map::Update()
             auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
             for (auto it2 = m_vecEnemy.begin(); it2 != m_vecEnemy.end(); ++it2)
             {
+                // 島民の霊は闇魔法でのみダメージを与えられる。
+                if (it->m_eMagicType != NSStarmanLib::eMagicType::Dark)
+                {
+                    if ((*it2)->GetEnemyType() == eEnemyType::Ghost)
+                    {
+                        continue;
+                    }
+                }
+
                 auto enemyPos = (*it2)->GetPos();
                 float dist = Common::PointToSegmentDistance(pos, pos + it->m_move, enemyPos);
                 if (dist <= 2.f)

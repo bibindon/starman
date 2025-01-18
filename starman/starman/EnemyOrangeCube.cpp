@@ -9,6 +9,7 @@
 
 EnemyOrangeCube::EnemyOrangeCube()
 {
+    m_eType = eEnemyType::OrangeCube;
 }
 
 EnemyOrangeCube::~EnemyOrangeCube()

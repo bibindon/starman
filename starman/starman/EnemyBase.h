@@ -17,6 +17,20 @@ enum class eEnemyState
     ATTACK,
 };
 
+enum class eEnemyType
+{
+    Cube,
+    Sphere,
+    Disk,
+    Enchu,
+    Hanen,
+    Hankyuu,
+    OrangeCube,
+    BigCube,
+    SmallCube,
+    Ghost,
+};
+
 class EnemyBase
 {
 public:
@@ -36,6 +50,8 @@ public:
 
     void SetIdSub(const int arg);
     int GetIdSub() const;
+
+    eEnemyType GetEnemyType();
 
 protected:
 
@@ -59,5 +75,7 @@ protected:
     std::thread* m_thread = nullptr;
     std::atomic<bool> m_loaded = false;
     static std::mutex s_mutex;
+
+    eEnemyType m_eType = eEnemyType::Cube;
 };
 

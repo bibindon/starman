@@ -9,6 +9,7 @@
 
 EnemyGhost::EnemyGhost()
 {
+    m_eType = eEnemyType::Ghost;
 }
 
 EnemyGhost::~EnemyGhost()

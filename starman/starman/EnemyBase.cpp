@@ -271,6 +271,11 @@ int EnemyBase::GetIdSub() const
     return m_idSub;
 }
 
+eEnemyType EnemyBase::GetEnemyType()
+{
+    return m_eType;
+}
+
 D3DXVECTOR3 EnemyBase::GetAttackPos() const
 {
     D3DXVECTOR3 pos { m_loadingPos };

@@ -9,6 +9,7 @@
 
 EnemyDisk::EnemyDisk()
 {
+    m_eType = eEnemyType::Disk;
 }
 
 EnemyDisk::~EnemyDisk()

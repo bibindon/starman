@@ -9,6 +9,7 @@
 
 EnemyEnchu::EnemyEnchu()
 {
+    m_eType = eEnemyType::Enchu;
 }
 
 EnemyEnchu::~EnemyEnchu()

@@ -699,6 +699,12 @@ bool Player::SetAttack()
 
     for (std::size_t i = 0; i < vecEnemy.size(); i++)
     {
+        // 島民の霊は闇魔法でしかダメージを与えられない
+        if (vecEnemy.at(i)->GetEnemyType() == eEnemyType::Ghost)
+        {
+            continue;
+        }
+
         D3DXVECTOR3 enemyPos { 0.f, 0.f, 0.f };
         enemyPos = vecEnemy.at(i)->GetPos();
 

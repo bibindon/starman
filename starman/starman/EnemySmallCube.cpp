@@ -9,6 +9,7 @@
 
 EnemySmallCube::EnemySmallCube()
 {
+    m_eType = eEnemyType::SmallCube;
 }
 
 EnemySmallCube::~EnemySmallCube()

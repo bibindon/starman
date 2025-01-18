@@ -9,6 +9,7 @@
 
 EnemyHankyuu::EnemyHankyuu()
 {
+    m_eType = eEnemyType::Hankyuu;
 }
 
 EnemyHankyuu::~EnemyHankyuu()

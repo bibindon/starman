@@ -9,6 +9,7 @@
 
 EnemyHanen::EnemyHanen()
 {
+    m_eType = eEnemyType::Hanen;
 }
 
 EnemyHanen::~EnemyHanen()

@@ -9,6 +9,7 @@
 
 EnemySphere::EnemySphere()
 {
+    m_eType = eEnemyType::Sphere;
 }
 
 EnemySphere::~EnemySphere()
