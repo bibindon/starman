@@ -2579,6 +2579,36 @@ void SeqBattle::OperateGameover(eSequence* sequence)
             status->SetBrainStaminaCurrent(work1);
             status->SetBrainStaminaMaxSub(work1);
 
+            work1 = status->GetMuscleMax();
+            status->SetMuscleCurrent(work1);
+
+            work1 = status->GetCarboMax();
+            status->SetCarboCurrent(work1);
+
+            work1 = status->GetProteinMax();
+            status->SetProteinCurrent(work1);
+
+            work1 = status->GetLipidMax();
+            status->SetLipidCurrent(work1);
+
+            work1 = status->GetVitaminMax();
+            status->SetVitaminCurrent(work1);
+
+            work1 = status->GetMineralMax();
+            status->SetMineralCurrent(work1);
+
+            work1 = status->GetWaterMax();
+            status->SetWaterCurrent(work1);
+
+            status->SetFractureArm(false);
+            status->SetFractureLeg(false);
+            status->SetHeadache(false);
+            status->SetHeadache(false);
+            status->SetCold(false);
+            status->SetStomachache(false);
+            status->SetDehydration(false);
+            status->SetLackOfSleep(false);
+
             status->SetDead(false);
         }
     }
