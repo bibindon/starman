@@ -63,7 +63,7 @@ void Map::Init()
         Mesh* mesh = NEW Mesh("res\\model\\prolitan\\sea.x",
                               D3DXVECTOR3(10.f, 10.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
-                              1.0f);
+                              10000.0f);
         mesh->Init();
         m_meshMap["sea"] = mesh;
     }
@@ -866,6 +866,16 @@ void Map::Update()
                 }
             }
 
+            //-------------------------------------
+            // ‹ó
+            //-------------------------------------
+
+            // ålŒö‚ª“Œ‚ÉˆÚ“®‚µ‚½‚ç‹ó‚à“Œ‚ÉˆÚ“®‚·‚é
+            {
+                auto player = SharedObj::GetPlayer();
+                auto ppos = player->GetPos();
+                m_meshMap["sky"]->SetPos(ppos);
+            }
 
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
@@ -908,9 +918,17 @@ void Map::Update()
             //-------------------------------------
             // ‘¾—z
             //-------------------------------------
-            D3DXVECTOR3 sunPos(vec);
-            sunPos *= 6000;
-            m_pSun->SetPos(sunPos);
+
+            {
+                // ålŒö‚ª“Œ‚ÉˆÚ“®‚µ‚½‚ç‘¾—z‚à“Œ‚ÉˆÚ“®‚·‚é
+                auto player = SharedObj::GetPlayer();
+                auto ppos = player->GetPos();
+
+                D3DXVECTOR3 sunPos(vec);
+                sunPos *= 6000;
+                sunPos += ppos;
+                m_pSun->SetPos(sunPos);
+            }
 
             //-------------------------------------
             // 3Dƒ‚ƒfƒ‹‚Ì’x‰„“Ç‚İ‚İ
