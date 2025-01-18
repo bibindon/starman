@@ -69,8 +69,8 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 7.7f;
-        animSetting.m_duration = 0.6f;
-        animSetting.m_loop = true;
+        animSetting.m_duration = 0.27f;
+        animSetting.m_loop = false;
         animSetting.m_stopEnd = true;
         animSetMap["LieDown"] = animSetting;
     }

@@ -992,7 +992,7 @@ void Map::Update()
     for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
     {
         auto pos = it->m_mesh->GetPos();
-        it->m_move.y -= 0.01f;
+        it->m_move.y -= 0.005f;
 
         // Õ“Ë”»’è
         // ’n–Ê‚È‚Ç‚É‚Ô‚Â‚©‚Á‚½‚çˆÚ“®—Ê0‚É‚·‚é
