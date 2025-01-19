@@ -46,6 +46,10 @@ public:
 private:
     void UpdateCommon();
     void RenderCommon();
+
+    // 2D—v‘f‚Íˆê”ÔÅŒã‚É•`‰æ‚·‚é•K—v‚ª‚ ‚é
+    void RenderCommon2D();
+
     void RenderNormal();
     void RenderGameover();
 

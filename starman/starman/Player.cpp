@@ -637,7 +637,7 @@ void Player::Update(Map* map)
     {
         m_magicTimeCounter++;
 
-        if (m_magicTimeCounter >= 30)
+        if (m_magicTimeCounter >= 90)
         {
             m_magicTimeCounter = 0;
             m_bMagic = false;
@@ -732,7 +732,10 @@ void Player::Render()
         NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
         m_weaponMesh.at(itemDef.GetName())->Render();
     }
+}
 
+void Player::Render2D()
+{
     if (m_bSwitchMagic)
     {
         ++m_switchMagicCounter;
@@ -743,6 +746,8 @@ void Player::Render()
         int transparency = 255 - (m_switchMagicCounter * 255 / 60);
 
         std::string magicType = "–³";
+
+        auto statusManager = NSStarmanLib::StatusManager::GetObj();
         auto equipMagic = statusManager->GetMagicType();
         if (equipMagic == NSStarmanLib::eMagicType::Fire)
         {

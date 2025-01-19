@@ -19,6 +19,7 @@ public:
     Player();
     ~Player();
     void Render();
+    void Render2D();
     void Update(Map* stage1);
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos() const;

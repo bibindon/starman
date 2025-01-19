@@ -1263,6 +1263,35 @@ void SeqBattle::OperateSleep()
             {
                 auto status = NSStarmanLib::StatusManager::GetObj();
                 status->Sleep();
+                if (status->GetLevelUpFire())
+                {
+                    PopUp2::Get()->SetText("炎魔法のレベルが上がった");
+                }
+
+                if (status->GetLevelUpIce())
+                {
+                    PopUp2::Get()->SetText("氷魔法のレベルが上がった");
+                }
+
+                if (status->GetLevelUpDark())
+                {
+                    PopUp2::Get()->SetText("闇魔法のレベルが上がった");
+                }
+
+                if (status->GetLevelDownFire())
+                {
+                    PopUp2::Get()->SetText("炎魔法のレベルが下がった");
+                }
+
+                if (status->GetLevelDownIce())
+                {
+                    PopUp2::Get()->SetText("氷魔法のレベルが下がった");
+                }
+
+                if (status->GetLevelDownDark())
+                {
+                    PopUp2::Get()->SetText("闇魔法のレベルが下がった");
+                }
             }
         }
         else if (m_eSleepSeq == eSleepSeq::FadeIn)
@@ -1287,8 +1316,6 @@ void SeqBattle::OperateSleep()
 
 void SeqBattle::RenderSleep()
 {
-    PopUp2::Get()->Render();
-
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
     int transparency = 0;
     if (m_eSleepSeq == eSleepSeq::FadeOut)
@@ -1359,6 +1386,8 @@ void SeqBattle::Render()
     {
         RenderSleep();
     }
+
+    RenderCommon2D();
 }
 
 void SeqBattle::InputR1()
@@ -1511,10 +1540,24 @@ void SeqBattle::RenderCommon()
     }
 }
 
+void SeqBattle::RenderCommon2D()
+{
+    m_player->Render2D();
+
+    // TODO 微調整
+    if (m_eState != eBattleState::LOAD &&
+        m_eState != eBattleState::TITLE &&
+        m_eState != eBattleState::MENU &&
+        m_eState != eBattleState::OPENING &&
+        m_eState != eBattleState::TALK)
+    {
+        PopUp2::Get()->Render();
+    }
+}
+
 void SeqBattle::RenderNormal()
 {
     PopUp::Get()->Render();
-    PopUp2::Get()->Render();
     D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
 
     if (m_bShowExamine || m_bObtainable || m_bTalkable || m_bObtainWeapon)
@@ -1559,7 +1602,6 @@ void SeqBattle::RenderGameover()
             m_sprBlack->Render(pos);
         }
     }
-    PopUp2::Get()->Render();
 }
 
 void SeqBattle::UpdateDebug()
