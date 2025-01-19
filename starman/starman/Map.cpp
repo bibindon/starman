@@ -1107,7 +1107,7 @@ void Map::Update()
                 if (dist <= 2.f)
                 {
                     auto hp = (*it2)->GetHP();
-                    (*it2)->SetHP(hp - 20); // TODO ‚¿‚á‚ñ‚ÆŒvŽZ
+                    (*it2)->SetHP(hp - (int)it->m_magicPower); // TODO ‚¿‚á‚ñ‚ÆŒvŽZ
                     it->m_bHit = true;
                     bHit = true;
 
@@ -1503,11 +1503,15 @@ void Map::DeleteThrownItem(const NSStarmanLib::ItemInfo& thrownItem)
     }
 }
 
-void Map::SetThrownMagic(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, const NSStarmanLib::eMagicType& magicType)
+void Map::SetThrownMagic(const D3DXVECTOR3& pos,
+                         const D3DXVECTOR3& move,
+                         const NSStarmanLib::eMagicType& magicType,
+                         const float power)
 {
     ThrownMagic work;
     work.m_eMagicType = magicType;
     work.m_move = move;
+    work.m_magicPower = power;
 
     std::string xfilename;
 

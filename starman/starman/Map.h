@@ -62,7 +62,8 @@ public:
     // •Ší‚ğ“Š‚°‚½‚Æˆá‚¢A’n–Ê‚É—‚¿‚½‚çÁ‚¦‚éB
     void SetThrownMagic(const D3DXVECTOR3& pos,
                         const D3DXVECTOR3& move,
-                        const NSStarmanLib::eMagicType& magicType);
+                        const NSStarmanLib::eMagicType& magicType,
+                        const float power);
 
 private:
     D3DXVECTOR3 WallSlideSub(
@@ -117,6 +118,9 @@ private:
 
         // 1•b‘Ò‚Á‚Ä‚©‚ç”­Ë
         int m_counter = 0;
+
+        // ˆĞ—Í
+        float m_magicPower = 0.f;
     };
 
     std::vector<ThrownMagic> m_thrownMagicList;

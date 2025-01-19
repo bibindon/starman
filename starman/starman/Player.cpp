@@ -1117,7 +1117,22 @@ void Player::SetMagic()
         norm *= 0.4f;
         norm.y = 0.1f;
 
-        SharedObj::GetMap()->SetThrownMagic(pos, norm, magicType);
+        float power = 0.f;
+
+        if (magicType == NSStarmanLib::eMagicType::Fire)
+        {
+            power = ((float)statusManager->GetLevelFire()+1) * 2;
+        }
+        else if (magicType == NSStarmanLib::eMagicType::Ice)
+        {
+            power = ((float)statusManager->GetLevelIce()+1) * 2;
+        }
+        else if (magicType == NSStarmanLib::eMagicType::Dark)
+        {
+            power = ((float)statusManager->GetLevelDark()+1) * 2;
+        }
+
+        SharedObj::GetMap()->SetThrownMagic(pos, norm, magicType, power);
     }
 
     if (magicType == NSStarmanLib::eMagicType::Fire)
