@@ -367,6 +367,7 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'">Effect</ShaderType>
     </FxCompile>
+    <FxCompile Include="res\shader\mesh_shader_cull_none.fx" />
     <FxCompile Include="res\shader\mesh_shader_no_shade.fx" />
   </ItemGroup>
   <ItemGroup>

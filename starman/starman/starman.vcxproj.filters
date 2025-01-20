@@ -304,6 +304,9 @@
     <FxCompile Include="res\shader\mesh_shader_no_shade.fx">
       <Filter>リソース ファイル</Filter>
     </FxCompile>
+    <FxCompile Include="res\shader\mesh_shader_cull_none.fx">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

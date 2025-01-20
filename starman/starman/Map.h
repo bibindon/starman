@@ -5,7 +5,7 @@
 #include "EnemyBase.h"
 #include "MeshNoShade.h"
 #include "MeshClone.h"
-#include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 
 class Map

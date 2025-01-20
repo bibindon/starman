@@ -7,13 +7,27 @@
 using std::string;
 using std::vector;
 
-Mesh::Mesh(
-    const string& xFilename,
-    const D3DXVECTOR3& position,
-    const D3DXVECTOR3& rotation,
-    const float scale,
-    const float radius)
+Mesh::Mesh(const string& xFilename,
+           const D3DXVECTOR3& position,
+           const D3DXVECTOR3& rotation,
+           const float scale,
+           const float radius)
     : m_meshName { xFilename }
+    , m_loadingPos { position }
+    , m_rotate { rotation }
+    , m_scale { scale }
+    , m_radius { radius }
+{
+}
+
+Mesh::Mesh(const string& shaderName,
+           const string& xFilename,
+           const D3DXVECTOR3& position,
+           const D3DXVECTOR3& rotation,
+           const float scale,
+           const float radius)
+    : SHADER_FILENAME { shaderName }
+    , m_meshName { xFilename }
     , m_loadingPos { position }
     , m_rotate { rotation }
     , m_scale { scale }
