@@ -2266,6 +2266,47 @@ void SeqBattle::UpdatePerSecond()
             m_bTalkable = false;
         }
 
+        //---------------------------------------------------------------------
+        // クエストシステムに登録されている所持品情報を更新
+        //---------------------------------------------------------------------
+
+        // インベントリ
+        {
+            auto inventory = NSStarmanLib::Inventory::GetObj();
+            auto itemManager = NSStarmanLib::ItemManager::GetObj();
+            auto allItem = inventory->GetAllItem();
+
+            std::vector<NSQuestSystem::ItemInfo> itemList;
+            for (auto it = allItem.begin(); it != allItem.end(); ++it)
+            {
+                NSQuestSystem::ItemInfo itemInfo;
+                auto itemDef = itemManager->GetItemDef(it->GetId());
+                itemInfo.m_itemName = itemDef.GetName();
+                itemInfo.m_level = itemDef.GetLevel();
+                itemList.push_back(itemInfo);
+            }
+
+            SharedObj::GetQuestSystem()->SetInventoryContent(itemList);
+        }
+
+        // 倉庫
+        {
+            auto storehouse = NSStarmanLib::Storehouse::GetObj();
+            auto itemManager = NSStarmanLib::ItemManager::GetObj();
+            auto allItem = storehouse->GetAllItem();
+
+            std::vector<NSQuestSystem::ItemInfo> itemList;
+            for (auto it = allItem.begin(); it != allItem.end(); ++it)
+            {
+                NSQuestSystem::ItemInfo itemInfo;
+                auto itemDef = itemManager->GetItemDef(it->GetId());
+                itemInfo.m_itemName = itemDef.GetName();
+                itemInfo.m_level = itemDef.GetLevel();
+                itemList.push_back(itemInfo);
+            }
+
+            SharedObj::GetQuestSystem()->SetStorehouseContent(itemList);
+        }
     }
 }
 

@@ -1044,7 +1044,7 @@ void Map::Update()
                 if (dist <= 2.f)
                 {
                     auto hp = (*it2)->GetHP();
-                    (*it2)->SetHP(hp - it->m_power);
+                    (*it2)->SetHP(hp - (int)it->m_power);
                     it->m_bHit = true;
                 }
             }
