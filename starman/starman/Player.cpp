@@ -879,6 +879,11 @@ bool Player::SetAttack()
             SetAttackArrow();
             return true;
         }
+        else if (weaponName == "アトラトル")
+        {
+            SetAttackAtlatl();
+            return true;
+        }
     }
 
     SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
@@ -1001,6 +1006,88 @@ bool Player::SetAttackArrow()
         power += (bowLevel * 0.2f) + (arrowLevel * 10.f);
 
         SharedObj::GetMap()->AddThrownItem(pos, norm, "弓矢の矢", itemInfo, 1.f, power, m_rotate.y);
+    }
+
+    // 体力を消耗する
+    {
+        auto statusManager = NSStarmanLib::StatusManager::GetObj();
+        statusManager->ConsumeAttackCost();
+    }
+    return true;
+}
+
+bool Player::SetAttackAtlatl()
+{
+    // インベントリからアトラトルの矢を一つ減らす。
+    auto inventory = NSStarmanLib::Inventory::GetObj();
+    auto itemManager = NSStarmanLib::ItemManager::GetObj();
+
+    // 強化値の強い槍のほうからなくなる
+    // 強化値は-1,1,2,3,4,5の6種類
+    int arrowLevel = 0;
+    for (int i = 5; ;)
+    {
+        int arrowCnt = inventory->CountItem("アトラトルに使う槍", i);
+        if (arrowCnt >= 1)
+        {
+            arrowLevel = i;
+            break;
+        }
+
+        --i;
+        if (i == 0)
+        {
+            i = -1;
+        }
+        else if (i == -2)
+        {
+            break;
+        }
+    }
+
+    if (arrowLevel == -2)
+    {
+        return false;
+    }
+
+    NSStarmanLib::ItemDef itemDef;
+    NSStarmanLib::ItemInfo itemInfo;
+
+    // インベントリから槍を一つ減らす
+    {
+        itemDef = itemManager->GetItemDef("アトラトルに使う槍", arrowLevel);
+        auto subIdList = inventory->GetSubIdList(itemDef.GetId());
+        itemInfo = inventory->GetItemInfo(itemDef.GetId(), subIdList.at(0));
+        inventory->RemoveItem(itemDef.GetId(), subIdList.at(0));
+    }
+
+    m_AnimMesh2->SetAnim("Attack", 0.f);
+
+    m_bAttack = true;
+
+    // 矢を投げるものとしてセット
+    {
+        // 初期位置
+        D3DXVECTOR3 pos(m_loadingPos);
+        pos.y += 1.15f;
+        pos.x += std::sin(m_rotate.y + D3DX_PI) * 0.5f;
+        pos.z += std::sin(m_rotate.y + (D3DX_PI * 3 / 2)) * 0.5f;
+
+        // 方向と速度
+        D3DXVECTOR3 norm(0.f, 0.f, 0.f);
+        norm.x = std::sin(m_rotate.y + D3DX_PI);
+        norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
+
+        norm *= 0.1f + (arrowLevel * 0.2f); // TODO 微調整
+        norm.y = 0.05f;
+
+        float power = 0.f;
+
+        // TODO 微調整
+        power = 20.f;
+        power += (arrowLevel * 5.f);
+
+        SharedObj::GetMap()->AddThrownItem(pos, norm, "アトラトルに使う槍", itemInfo, 2.f, power, m_rotate.y);
     }
 
     // 体力を消耗する
