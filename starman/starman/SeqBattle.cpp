@@ -604,13 +604,6 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         Common::SetCursorVisibility(true);
         m_title = NEW Title(false);
     }
-    else if (result == "セーブして終了")
-    {
-//        m_eState = eBattleState::TITLE;
-//        Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
-//        Common::SetCursorVisibility(true);
-//        InitTitle();
-    }
     else if (result == "EXIT")
     {
         m_eState = eBattleState::NORMAL;

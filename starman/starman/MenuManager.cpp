@@ -848,7 +848,6 @@ std::string MenuManager::OperateMenu()
         }
         else if (vs.size() >= 1 && vs.at(0) == "セーブして終了")
         {
-            // ?
             auto saveManager = SaveManager::Get();
             saveManager->Save();
             PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);

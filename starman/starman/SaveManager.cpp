@@ -121,7 +121,7 @@ void SaveManager::Save()
 {
     if (Common::DeployMode() == false)
     {
-        return;
+//        return;
     }
 
     // ƒtƒHƒ‹ƒ_‚ª‚È‚¯‚ê‚Îì‚é

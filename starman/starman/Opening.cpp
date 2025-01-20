@@ -257,6 +257,12 @@ void Opening::Update(eBattleState* eState)
             m_firstPage = false;
         }
 
+        if (Mouse::IsDownLeft())
+        {
+            m_storyTelling->Next();
+            m_firstPage = false;
+        }
+
         if (m_firstPage == false && m_bPlay == false)
         {
             //BGM::get_ton()->play();
