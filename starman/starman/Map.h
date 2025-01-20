@@ -46,7 +46,9 @@ public:
                        const D3DXVECTOR3& move,
                        const std::string& weaponName,
                        const NSStarmanLib::ItemInfo& itemInfo,
-                       const float scale = 1.f);
+                       const float scale = 1.f,
+                       const float power = 10.f,
+                       const float rotY = 0.f);
 
     // 投げて地面に落ちた武器のうち近くのものを1つ取得（半径2メートル以内）
     NSStarmanLib::ItemInfo GetThrownItem(const D3DXVECTOR3& pos);
@@ -97,6 +99,15 @@ private:
 
         // 一度でも敵にヒットした
         bool m_bHit = false;
+
+        // 地面に落ちた
+        bool m_bStop = false;
+
+        // 0.5秒待ってから発射
+        int m_counter = 0;
+
+        // 威力
+        float m_power = 0.f;
     };
 
     std::vector<ThrownItem> m_thrownList;

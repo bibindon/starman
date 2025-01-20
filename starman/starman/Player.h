@@ -28,6 +28,7 @@ public:
     void SetRotate(const D3DXVECTOR3& rotate);
     D3DXVECTOR3 GetRotate() const;
     bool SetAttack();
+    bool SetAttackArrow();
     void SetWalk();
     void SetDamaged();
 

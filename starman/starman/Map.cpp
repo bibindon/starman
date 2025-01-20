@@ -1013,6 +1013,14 @@ void Map::Update()
     //-------------------------------------------------------
     for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
     {
+        ++it->m_counter;
+
+        // 0.5•bŒo‰ß‚µ‚½‚ç”­ŽË
+        if (it->m_counter <= 30)
+        {
+            continue;
+        }
+
         auto pos = it->m_mesh->GetPos();
         it->m_move.y -= 0.005f;
 
@@ -1021,6 +1029,7 @@ void Map::Update()
         if (Intersect(pos, it->m_move))
         {
             it->m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+            it->m_bStop = true;
             continue;
         }
 
@@ -1035,7 +1044,7 @@ void Map::Update()
                 if (dist <= 2.f)
                 {
                     auto hp = (*it2)->GetHP();
-                    (*it2)->SetHP(hp - 10); // TODO ‚¿‚á‚ñ‚ÆŒvŽZ
+                    (*it2)->SetHP(hp - it->m_power);
                     it->m_bHit = true;
                 }
             }
@@ -1446,16 +1455,19 @@ void Map::AddThrownItem(const D3DXVECTOR3& pos,
                         const D3DXVECTOR3& move,
                         const std::string& weaponName,
                         const NSStarmanLib::ItemInfo& itemInfo,
-                        const float scale)
+                        const float scale,
+                        const float power,
+                        const float rotY)
 {
     ThrownItem work;
     work.m_itemInfo = itemInfo;
     work.m_move = move;
+    work.m_power = power;
 
     auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
     std::string xfilename = weaponManager->GetXfilename(weaponName);
 
-    D3DXVECTOR3 rot(D3DX_PI/2, 0.f, 0.f);
+    D3DXVECTOR3 rot(0.f, rotY, 0.f);
 
     auto meshClone = NEW MeshClone(xfilename, pos, rot, scale);
     meshClone->Init();
@@ -1475,14 +1487,17 @@ NSStarmanLib::ItemInfo Map::GetThrownItem(const D3DXVECTOR3& pos)
     // ƒ‰ƒN‚·‚é‚½‚ß‚É‰~‚Å‚Í‚È‚­ŽlŠp‚Å”ÍˆÍƒ`ƒFƒbƒN
     for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
     {
-        auto itemPos = it->m_mesh->GetPos();
-        if (std::abs(itemPos.x - pos.x) < 2.f)
+        if (it->m_bStop)
         {
-            if (std::abs(itemPos.z - pos.z) < 2.f)
+            auto itemPos = it->m_mesh->GetPos();
+            if (std::abs(itemPos.x - pos.x) < 2.f)
             {
-                result = it->m_itemInfo;
-                exist = true;
-                break;
+                if (std::abs(itemPos.z - pos.z) < 2.f)
+                {
+                    result = it->m_itemInfo;
+                    exist = true;
+                    break;
+                }
             }
         }
     }

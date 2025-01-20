@@ -14,7 +14,7 @@
 
 Player::Player()
 {
-    D3DXVECTOR3 b = D3DXVECTOR3(0, 0, 0);
+    D3DXVECTOR3 pos = D3DXVECTOR3(0, 0, 0);
     D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
     AnimSetMap animSetMap;
     {
@@ -96,65 +96,113 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap["Magic"] = animSetting;
     }
-    m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", b, rot, 1.f, animSetMap);
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 11.0f;
+        animSetting.m_duration = 0.97f;
+        animSetting.m_loop = false;
+        animSetMap["Arrow"] = animSetting;
+    }
+    m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", pos, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 
+    // “Ç‚Ýž‚Ýˆ—‚Ì‘O‚É‘–‚Á‚Ä‚µ‚Ü‚¤‚Ì‚ÅˆÈ‰º‚Ì‚æ‚¤‚È‘‚«•û‚ª‚Å‚«‚È‚¢B
+    // l‚¦•¨‚Å‚ ‚é
+//    auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
+//    auto weaponNameList = weaponManager->GetWeaponNameList();
+//
+//    for (auto it = weaponNameList.begin(); it != weaponNameList.end(); ++it)
+//    {
+//        auto weaponName = weaponManager->GetXfilename(*it);
+//
+//        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        Mesh* mesh = NEW Mesh(weaponName, pos, rot, 0.1f);
+//        mesh->Init();
+//        mesh->SetWeapon(true);
+//        m_weaponMesh[*it] = mesh;
+//    }
+
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\rock1\\rock1.x", b, c, 0.1f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = NEW Mesh("res\\model\\rock1\\rock1.x", pos, rot, 0.1f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î"] = mesh;
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\stick\\stick.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\stick\\stick.x", pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["–Ø‚Ì–_"] = mesh;
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ax\\ax.x", b, c, 1.0f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\ax\\ax.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î•€"] = mesh;
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\atlatl\\atlatl.x", b, c, 1.0f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\atlatl\\atlatl.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["ƒAƒgƒ‰ƒgƒ‹"] = mesh;
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ironPipe\\ironPipe.x", b, c, 1.0f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\atlatl\\arrow.x", pos, rot, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["ƒAƒgƒ‰ƒgƒ‹‚Ì–î"] = mesh;
+    }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\ironPipe\\ironPipe.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["“SƒpƒCƒv"] = mesh;
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", b, c, 1.0f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î•t‚«“SƒpƒCƒv"] = mesh;
     }
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\spear\\spear.x", b, c, 1.0f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\spear\\spear.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î‘„"] = mesh;
+    }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(D3DX_PI / 2, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\bow\\bow.x", pos, rot, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["‹|–î‚Ì‹|"] = mesh;
+    }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, -0.3f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(D3DX_PI / 2, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\bow\\arrow.x", pos, rot, 1.0f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["‹|–î‚Ì–î"] = mesh;
     }
 
     float x = 0.f;
@@ -817,7 +865,21 @@ bool Player::SetAttack()
     }
 
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
+
     statusManager->ConsumeAttackCost();
+
+    auto itemManager = NSStarmanLib::ItemManager::GetObj();
+    auto weaponId = statusManager->GetEquipWeapon().GetId();
+    if (statusManager->GetEquipWeapon().GetId() != -1)
+    {
+        auto itemDef = itemManager->GetItemDef(weaponId);
+        auto weaponName = itemDef.GetName();
+        if (weaponName == "‹|–î‚Ì‹|")
+        {
+            SetAttackArrow();
+            return true;
+        }
+    }
 
     SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
     m_AnimMesh2->SetAnim("Attack", 0.f);
@@ -853,6 +915,99 @@ bool Player::SetAttack()
 
     SharedObj::GetMap()->SetEnemy(vecEnemy);
 
+    return true;
+}
+
+bool Player::SetAttackArrow()
+{
+    // ƒCƒ“ƒxƒ“ƒgƒŠ‚©‚ç‹|–î‚Ì–î‚ðˆê‚ÂŒ¸‚ç‚·B
+    auto inventory = NSStarmanLib::Inventory::GetObj();
+    auto itemManager = NSStarmanLib::ItemManager::GetObj();
+
+    // ‹­‰»’l‚Ì‹­‚¢–î‚Ì‚Ù‚¤‚©‚ç‚È‚­‚È‚é
+    int arrowCnt = 0;
+    arrowCnt = inventory->CountItem("‹|–î‚Ì–î", 1);
+
+    int arrowLevel = 0;
+
+    NSStarmanLib::ItemDef itemDef;
+    NSStarmanLib::ItemInfo itemInfo;
+
+    if (arrowCnt > 0)
+    {
+        itemDef = itemManager->GetItemDef("‹|–î‚Ì–î", 1);
+
+        auto subIdList = inventory->GetSubIdList(itemDef.GetId());
+
+        itemInfo = inventory->GetItemInfo(itemDef.GetId(), subIdList.at(0));
+
+        inventory->RemoveItem(itemDef.GetId(), subIdList.at(0));
+        arrowLevel = 1;
+    }
+    else
+    {
+        arrowCnt = inventory->CountItem("‹|–î‚Ì–î", -1);
+        if (arrowCnt > 0)
+        {
+            itemDef = itemManager->GetItemDef("‹|–î‚Ì–î", -1);
+
+            auto subIdList = inventory->GetSubIdList(itemDef.GetId());
+
+            itemInfo = inventory->GetItemInfo(itemDef.GetId(), subIdList.at(0));
+
+            inventory->RemoveItem(itemDef.GetId(), subIdList.at(0));
+            arrowLevel = 0;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    m_AnimMesh2->SetAnim("Arrow", 0.f);
+
+    int bowLevel = 0;
+    {
+        auto statusManager = NSStarmanLib::StatusManager::GetObj();
+        NSStarmanLib::ItemInfo equip = statusManager->GetEquipWeapon();
+        NSStarmanLib::ItemDef equip2 = itemManager->GetItemDef(equip.GetId());
+        bowLevel = equip2.GetLevel();
+        if (bowLevel == -1)
+        {
+            bowLevel = 0;
+        }
+    }
+
+    m_bAttack = true;
+
+    // –î‚ð“Š‚°‚é‚à‚Ì‚Æ‚µ‚ÄƒZƒbƒg
+    {
+        D3DXVECTOR3 pos(m_loadingPos);
+        pos.y += 0.85f;
+        pos.x += std::sin(m_rotate.y + D3DX_PI) * 0.5f;
+        pos.z += std::sin(m_rotate.y + (D3DX_PI * 3 / 2)) * 0.5f;
+
+        D3DXVECTOR3 norm(0.f, 0.f, 0.f);
+        norm.x = std::sin(m_rotate.y + D3DX_PI);
+        norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
+
+        norm *= 0.1f + (bowLevel * 0.1f) + (arrowLevel * 0.2f); // TODO ”÷’²®
+        norm.y = 0.05f;
+
+        float power = 0.f;
+
+        // TODO ”÷’²®
+        power = 0.01f;
+        power += (bowLevel * 0.2f) + (arrowLevel * 10.f);
+
+        SharedObj::GetMap()->AddThrownItem(pos, norm, "‹|–î‚Ì–î", itemInfo, 1.f, power, m_rotate.y);
+    }
+
+    // ‘Ì—Í‚ðÁ–Õ‚·‚é
+    {
+        auto statusManager = NSStarmanLib::StatusManager::GetObj();
+        statusManager->ConsumeAttackCost();
+    }
     return true;
 }
 
@@ -1037,7 +1192,7 @@ void Player::Throw()
         m_bThrow = true;
 
         D3DXVECTOR3 pos(m_loadingPos);
-        pos.y += 1.f;
+        pos.y += 2.f;
 
         D3DXVECTOR3 norm(0.f, 0.f, 0.f);
         norm.x = std::sin(m_rotate.y + D3DX_PI);
