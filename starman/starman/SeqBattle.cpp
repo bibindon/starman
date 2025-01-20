@@ -635,6 +635,11 @@ void SeqBattle::OperateTalk()
         m_talk->Next();
     }
 
+    if (Mouse::IsDownLeft())
+    {
+        m_talk->Next();
+    }
+
     if (GamePad::IsDown(eGamePadButtonType::A))
     {
         m_talk->Next();

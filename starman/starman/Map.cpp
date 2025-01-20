@@ -1301,6 +1301,7 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
             break;
         }
     }
+
     BOOL  bIsHit2 = false;
     for (auto& pair : m_meshCloneMap)
     {
