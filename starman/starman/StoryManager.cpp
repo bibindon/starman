@@ -177,7 +177,7 @@ StoryManager::StoryManager(const std::string& csvFile)
                              sprFade, 
                              Common::ModExt(csvFile),
                              sprite,
-                             Common::DebugMode());
+                             Common::DeployMode());
     }
 }
 
