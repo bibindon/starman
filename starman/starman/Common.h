@@ -83,6 +83,7 @@ public:
                                         const D3DXVECTOR3& p2,
                                         const D3DXVECTOR3& point);
 
+    static std::string ModExt(const std::string& filepath);
 
 private:
 

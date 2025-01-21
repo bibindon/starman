@@ -1481,8 +1481,9 @@ void SeqBattle::Confirm(eSequence* sequence)
             NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
             m_talk = NEW NSTalkLib2::Talk();
-            m_talk->Init(csvfile, pFont, pSE, sprite,
-                         "res\\image\\textBack.png", "res\\image\\black.png");
+            m_talk->Init(Common::ModExt(csvfile), pFont, pSE, sprite,
+                         "res\\image\\textBack.png", "res\\image\\black.png",
+                         Common::DeployMode());
 
             m_eState = eBattleState::TALK;
         }
@@ -2260,8 +2261,9 @@ void SeqBattle::UpdatePerSecond()
                     NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
                     m_talk = NEW NSTalkLib2::Talk();
-                    m_talk->Init(work, pFont, pSE, sprite,
-                                 "res\\image\\textBack.png", "res\\image\\black.png");
+                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
+                                 "res\\image\\textBack.png", "res\\image\\black.png",
+                                 Common::DeployMode());
 
                     m_eState = eBattleState::TALK;
                 }
@@ -2456,8 +2458,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                     NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
                     m_talk = NEW NSTalkLib2::Talk();
-                    m_talk->Init(work, pFont, pSE, sprite,
-                                 "res\\image\\textBack.png", "res\\image\\black.png");
+                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
+                                 "res\\image\\textBack.png", "res\\image\\black.png",
+                                 Common::DeployMode());
 
                     m_eState = eBattleState::TALK;
                 }

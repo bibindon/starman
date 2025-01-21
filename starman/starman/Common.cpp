@@ -219,4 +219,15 @@ float Common::PointToSegmentDistance(const D3DXVECTOR3& p1, const D3DXVECTOR3& p
     return D3DXVec3Length(&temp2);
 }
 
+std::string Common::ModExt(const std::string& filepath)
+{
+    std::string work = filepath;
+    if (Common::DeployMode())
+    {
+        work = work.replace(work.size() - 3, 3, "enc");
+    }
+
+    return work;
+}
+
 
