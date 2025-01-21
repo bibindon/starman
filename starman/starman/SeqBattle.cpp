@@ -1057,8 +1057,25 @@ void SeqBattle::InitLoad()
         m_loadThread = NEW std::thread(
             [&]
             {
-                SaveManager::Get()->LoadOrigin();
-                m_loadLoaded.store(true);
+                if (Common::DeployMode())
+                {
+                    try
+                    {
+                        SaveManager::Get()->LoadOrigin();
+                        m_loadLoaded.store(true);
+                    }
+                    catch (const std::exception& e)
+                    {
+                        std::ofstream ofs("error.log");
+                        ofs << e.what();
+                        std::terminate();
+                    }
+                }
+                else
+                {
+                    SaveManager::Get()->LoadOrigin();
+                    m_loadLoaded.store(true);
+                }
             });
     }
     else
@@ -1068,8 +1085,25 @@ void SeqBattle::InitLoad()
         m_loadThread = NEW std::thread(
             [&]
             {
-                SaveManager::Get()->Load();
-                m_loadLoaded.store(true);
+                if (Common::DeployMode())
+                {
+                    try
+                    {
+                        SaveManager::Get()->Load();
+                        m_loadLoaded.store(true);
+                    }
+                    catch (const std::exception& e)
+                    {
+                        std::ofstream ofs("error.log");
+                        ofs << e.what();
+                        std::terminate();
+                    }
+                }
+                else
+                {
+                    SaveManager::Get()->Load();
+                    m_loadLoaded.store(true);
+                }
             });
     }
 
