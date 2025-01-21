@@ -171,7 +171,13 @@ StoryManager::StoryManager(const std::string& csvFile)
         NSStoryTelling::ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
 
         m_storyTelling = NEW StoryTelling();
-        m_storyTelling->Init(pFont, pSE, sprTextBack, sprFade, csvFile, sprite);
+        m_storyTelling->Init(pFont,
+                             pSE,
+                             sprTextBack,
+                             sprFade, 
+                             Common::ModExt(csvFile),
+                             sprite,
+                             Common::DebugMode());
     }
 }
 
