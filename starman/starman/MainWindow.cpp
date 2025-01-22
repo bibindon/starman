@@ -145,12 +145,21 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     rect.right = rect.right - rect.left;
     rect.bottom = rect.bottom - rect.top;
 
+    int monitorWidth = GetSystemMetrics(SM_CXSCREEN);
+    int monitorHeight = GetSystemMetrics(SM_CYSCREEN);
+
+    int startX = 0;
+    int startY = 0;
+
+    startX = (monitorWidth / 2) - (1600 / 2);
+    startY = (monitorHeight / 2) - (900 / 2);
+
     m_hWnd = CreateWindow(
         TITLE.c_str(),
         TITLE.c_str(),
         WS_OVERLAPPEDWINDOW,
-        100,
-        100,
+        startX,
+        startY,
         rect.right,
         rect.bottom,
         NULL,
