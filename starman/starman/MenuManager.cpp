@@ -671,6 +671,14 @@ std::string MenuManager::OperateMenu()
 
                 auto statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->EquipBag(itemInfo);
+
+                NSMenulib::ItemInfo itemInfoG;
+                itemInfoG.SetId(id);
+                itemInfoG.SetSubId(subId);
+                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+                itemInfoG.SetEquip(true);
+                m_menu.UpdateItem(itemInfoG);
             }
             else if (vs.at(4) == "ëïîıÇäOÇ∑")
             {
@@ -679,6 +687,17 @@ std::string MenuManager::OperateMenu()
 
                 auto statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->UnequipBag(id, subId);
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                auto itemInfo = inventory->GetItemInfo(id, subId);
+
+                NSMenulib::ItemInfo itemInfoG;
+                itemInfoG.SetId(id);
+                itemInfoG.SetSubId(subId);
+                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+                itemInfoG.SetEquip(false);
+                m_menu.UpdateItem(itemInfoG);
             }
         }
         else if (vs.size() == 5 && vs.at(0) == "ïêäÌ")
@@ -754,6 +773,14 @@ std::string MenuManager::OperateMenu()
 
                 auto statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->EquipBag(itemInfo);
+
+                NSMenulib::ItemInfo itemInfoG;
+                itemInfoG.SetId(id);
+                itemInfoG.SetSubId(subId);
+                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+                itemInfoG.SetEquip(true);
+                m_menu.UpdateItem(itemInfoG);
             }
             else if (vs.at(4) == "ëïîıÇäOÇ∑")
             {
@@ -762,6 +789,17 @@ std::string MenuManager::OperateMenu()
 
                 auto statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->UnequipBag(id, subId);
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                auto itemInfo = inventory->GetItemInfo(id, subId);
+
+                NSMenulib::ItemInfo itemInfoG;
+                itemInfoG.SetId(id);
+                itemInfoG.SetSubId(subId);
+                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+                itemInfoG.SetEquip(false);
+                m_menu.UpdateItem(itemInfoG);
             }
         }
         else if (vs.size() == 5 && vs.at(0) == "ïêäÌ")
@@ -887,6 +925,14 @@ std::string MenuManager::OperateMenu()
 
                 auto statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->EquipBag(itemInfo);
+
+                NSMenulib::ItemInfo itemInfoG;
+                itemInfoG.SetId(id);
+                itemInfoG.SetSubId(subId);
+                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+                itemInfoG.SetEquip(true);
+                m_menu.UpdateItem(itemInfoG);
             }
             else if (vs.at(4) == "ëïîıÇäOÇ∑")
             {
@@ -895,6 +941,17 @@ std::string MenuManager::OperateMenu()
 
                 auto statusManager = NSStarmanLib::StatusManager::GetObj();
                 statusManager->UnequipBag(id, subId);
+
+                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+                auto itemInfo = inventory->GetItemInfo(id, subId);
+
+                NSMenulib::ItemInfo itemInfoG;
+                itemInfoG.SetId(id);
+                itemInfoG.SetSubId(subId);
+                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+                itemInfoG.SetEquip(false);
+                m_menu.UpdateItem(itemInfoG);
             }
         }
         else if (vs.size() == 5 && vs.at(0) == "ïêäÌ")
