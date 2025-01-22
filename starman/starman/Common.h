@@ -4,6 +4,9 @@
 #include <string>
 #include <Windows.h>
 #include <d3dx9.h>
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\Inventory.h"
+#include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
 
 #if defined(_DEBUG)
 #define NEW ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -84,6 +87,15 @@ public:
                                         const D3DXVECTOR3& point);
 
     static std::string ModExt(const std::string& filepath);
+    static NSStarmanLib::StatusManager* Status();
+    static NSStarmanLib::Inventory* Inventory();
+    static NSStarmanLib::ItemManager* ItemManager();
+
+    static void ReduceBrainStaminaCurrent(const float arg);
+    static void ReduceBrainStaminaMaxSub(const float arg);
+
+    static void ReduceBodyStaminaCurrent(const float arg);
+    static void ReduceBodyStaminaMaxSub(const float arg);
 
 private:
 

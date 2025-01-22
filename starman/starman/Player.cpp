@@ -1181,6 +1181,8 @@ void Player::SetJump()
 
         m_move.y = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
+
+        Common::Inventory()->ReduceEquipBagDurability();
     }
 }
 

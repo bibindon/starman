@@ -19,5 +19,7 @@ public:
 private:
 
     NSMenulib::MenuLib m_menu;
+
+    bool IsBagEquiped(const int id, const int subId);
 };
 

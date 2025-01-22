@@ -2246,28 +2246,28 @@ void SeqBattle::UpdatePerSecond()
                 }
             }
 
-            auto startEvent = SharedObj::GetQuestSystem()->GetQuestStartEvent(startQuest.at(0));
-            if (startEvent.empty() == false)
-            {
-                // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
-                if (startEvent.at(0).find("<talk>") != std::string::npos)
-                {
-                    std::string work = startEvent.at(0);
-                    std::string::size_type it = work.find("<talk>");
-                    work = work.erase(it, 6);
+auto startEvent = SharedObj::GetQuestSystem()->GetQuestStartEvent(startQuest.at(0));
+if (startEvent.empty() == false)
+{
+    // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
+    if (startEvent.at(0).find("<talk>") != std::string::npos)
+    {
+        std::string work = startEvent.at(0);
+        std::string::size_type it = work.find("<talk>");
+        work = work.erase(it, 6);
 
-                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
-                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
-                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+        NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+        NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+        NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
-                    m_talk = NEW NSTalkLib2::Talk();
-                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                                 "res\\image\\textBack.png", "res\\image\\black.png",
-                                 Common::DeployMode());
+        m_talk = NEW NSTalkLib2::Talk();
+        m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
+                     "res\\image\\textBack.png", "res\\image\\black.png",
+                     Common::DeployMode());
 
-                    m_eState = eBattleState::TALK;
-                }
-            }
+        m_eState = eBattleState::TALK;
+    }
+}
 
         }
 
@@ -2341,6 +2341,30 @@ void SeqBattle::UpdatePerSecond()
 
             SharedObj::GetQuestSystem()->SetStorehouseContent(itemList);
         }
+    }
+
+    //-------------------------------------
+    // 最大積載量を超えていたらメッセージを表示
+    //-------------------------------------
+    {
+        static float previousVol = 0.f;
+        static float previousVolMax = 0.f;
+
+        auto inventory = NSStarmanLib::Inventory::GetObj();
+
+        auto vol = inventory->GetVolume();
+        auto volMax = inventory->GetVolumeMax();
+
+        if (previousVol != vol ||
+            previousVolMax != volMax)
+        {
+            if (vol > volMax)
+            {
+                PopUp2::Get()->SetText("最大積載量を超えています。");
+            }
+        }
+        previousVol = vol;
+        previousVolMax = volMax;
     }
 }
 

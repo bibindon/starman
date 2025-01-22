@@ -230,4 +230,43 @@ std::string Common::ModExt(const std::string& filepath)
     return work;
 }
 
+NSStarmanLib::StatusManager* Common::Status()
+{
+    return NSStarmanLib::StatusManager::GetObj();
+}
+
+NSStarmanLib::Inventory* Common::Inventory()
+{
+    return NSStarmanLib::Inventory::GetObj();
+}
+
+NSStarmanLib::ItemManager* Common::ItemManager()
+{
+    return NSStarmanLib::ItemManager::GetObj();
+}
+
+void Common::ReduceBrainStaminaCurrent(const float arg)
+{
+    auto work = Status()->GetBrainStaminaCurrent();
+    Status()->SetBrainStaminaCurrent(work - arg);
+}
+
+void Common::ReduceBrainStaminaMaxSub(const float arg)
+{
+    auto work = Status()->GetBrainStaminaMaxSub();
+    Status()->SetBrainStaminaMaxSub(work - arg);
+}
+
+void Common::ReduceBodyStaminaCurrent(const float arg)
+{
+    auto work = Status()->GetBodyStaminaCurrent();
+    Status()->SetBodyStaminaCurrent(work - arg);
+}
+
+void Common::ReduceBodyStaminaMaxSub(const float arg)
+{
+    auto work = Status()->GetBodyStaminaMaxSub();
+    Status()->SetBodyStaminaMaxSub(work - arg);
+}
+
 
