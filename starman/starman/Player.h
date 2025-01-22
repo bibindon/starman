@@ -51,6 +51,7 @@ public:
 private:
     AnimMesh* m_AnimMesh2 = nullptr;
     std::unordered_map<std::string, Mesh*> m_weaponMesh;
+    std::unordered_map<NSStarmanLib::eBagPos, Mesh*> m_bagMesh;
 
     D3DXVECTOR3 m_loadingPos = D3DXVECTOR3(0.f, 0.f, 0.f);
     D3DXVECTOR3 m_rotate = D3DXVECTOR3(0.f, D3DX_PI, 0.f);

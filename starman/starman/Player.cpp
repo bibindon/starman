@@ -107,7 +107,7 @@ Player::Player()
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 
-    // 読み込み処理の前に走ってしまうので以下のような書き方ができない。
+    // 読み込み処理の前に走ってしまうので以下のような書き方でXファイルの名前を参照できない。
     // 考え物である
 //    auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
 //    auto weaponNameList = weaponManager->GetWeaponNameList();
@@ -203,6 +203,43 @@ Player::Player()
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["弓矢の矢"] = mesh;
+    }
+    
+    // 袋
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        mesh->Init();
+        m_bagMesh[NSStarmanLib::eBagPos::Back1] = mesh;
+    }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        mesh->Init();
+        m_bagMesh[NSStarmanLib::eBagPos::Back2] = mesh;
+    }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        mesh->Init();
+        m_bagMesh[NSStarmanLib::eBagPos::Front] = mesh;
+    }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        mesh->Init();
+        m_bagMesh[NSStarmanLib::eBagPos::Left] = mesh;
+    }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        mesh->Init();
+        m_bagMesh[NSStarmanLib::eBagPos::Right] = mesh;
     }
 
     float x = 0.f;
@@ -628,7 +665,11 @@ void Player::Update(Map* map)
     // もし100センチ移動しようとしていたら2で割ればよい。
     if (speed >= MAX_XZ_MOVE)
     {
-        float work = MAX_XZ_MOVE / speed;
+        float work = 0.f;
+        if (speed != 0.f)
+        {
+            work = MAX_XZ_MOVE / speed;
+        }
         move_XZ *= work;
         m_move.x = move_XZ.x;
         m_move.z = move_XZ.y;
@@ -779,6 +820,30 @@ void Player::Render()
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
         NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
         m_weaponMesh.at(itemDef.GetName())->Render();
+    }
+
+    auto bagState = Common::Status()->GetBagState();
+    for (auto it = bagState.begin(); it != bagState.end(); ++it)
+    {
+        if ((*it) == NSStarmanLib::eBagPos::Back1)
+        {
+            auto pos = m_loadingPos;
+            pos.y += 1.f;
+            pos.x += 1.f;
+
+            m_bagMesh[(*it)]->SetPos(pos);
+        }
+        else if ((*it) == NSStarmanLib::eBagPos::Back2)
+        {
+            auto pos = m_loadingPos;
+            pos.y += 1.f;
+            pos.x += 2.f;
+
+            m_bagMesh[(*it)]->SetPos(pos);
+
+        }
+        m_bagMesh[(*it)]->Render();
+
     }
 }
 
