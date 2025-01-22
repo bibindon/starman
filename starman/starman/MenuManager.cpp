@@ -1033,7 +1033,7 @@ std::string MenuManager::OperateMenu()
         work += "水分            ";
         work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
-        work += "\n";
+//        work += "\n";
         work += "状態異常       ";
         work += condition;
         work += "\n";
@@ -1108,7 +1108,28 @@ void MenuManager::DeleteItem(const int id, const int subId)
 {
     Common::ReduceBrainStaminaCurrent(0.1f);
     Common::Inventory()->ReduceEquipBagDurability();
+
     m_menu.DeleteItem(id, subId);
+
+    // 耐久度が下がったので更新
+    auto allBag = Common::Status()->GetAllBag();
+    for (auto it = allBag.begin(); it != allBag.end(); ++it)
+    {
+        if (it->GetId() == -1)
+        {
+            continue;
+        }
+
+        // NSMenulib::ItemInfoとNSStarmanLib::ItemInfoの変換
+        // レベルと装備状態と耐久度だけでいい
+        NSMenulib::ItemInfo itemInfo;
+        itemInfo.SetId(it->GetId());
+        itemInfo.SetSubId(it->GetSubId());
+        itemInfo.SetLevel(it->GetItemDef().GetLevel());
+        itemInfo.SetEquip(true);
+        itemInfo.SetDurability(it->GetDurabilityCurrent());
+        m_menu.UpdateItem(itemInfo);
+    }
 }
 
 void MenuManager::AddItem(const int id, const int subId, const int durability)
@@ -1172,6 +1193,26 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     Common::Inventory()->ReduceEquipBagDurability();
 
     m_menu.AddItem(itemInfoG);
+
+    // 耐久度が下がったので更新
+    auto allBag = Common::Status()->GetAllBag();
+    for (auto it = allBag.begin(); it != allBag.end(); ++it)
+    {
+        if (it->GetId() == -1)
+        {
+            continue;
+        }
+
+        // NSMenulib::ItemInfoとNSStarmanLib::ItemInfoの変換
+        // レベルと装備状態と耐久度だけでいい
+        NSMenulib::ItemInfo itemInfo;
+        itemInfo.SetId(it->GetId());
+        itemInfo.SetSubId(it->GetSubId());
+        itemInfo.SetLevel(it->GetItemDef().GetLevel());
+        itemInfo.SetEquip(true);
+        itemInfo.SetDurability(it->GetDurabilityCurrent());
+        m_menu.UpdateItem(itemInfo);
+    }
 }
 
 bool MenuManager::IsBagEquiped(const int id, const int subId)
