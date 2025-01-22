@@ -200,6 +200,11 @@ void Mesh::SetPos(const D3DXVECTOR3& pos)
     m_loadingPos = pos;
 }
 
+void Mesh::SetRotY(const float rotY)
+{
+    m_rotate.y = rotY;
+}
+
 D3DXVECTOR3 Mesh::GetPos()
 {
     return m_loadingPos;

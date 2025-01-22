@@ -828,18 +828,56 @@ void Player::Render()
         if ((*it) == NSStarmanLib::eBagPos::Back1)
         {
             auto pos = m_loadingPos;
-            pos.y += 1.f;
-            pos.x += 1.f;
+            pos.y += 0.6f;
+
+            pos.x += std::sin(m_rotate.y) * 0.1f;
+            pos.z += std::cos(m_rotate.y) * 0.1f;
 
             m_bagMesh[(*it)]->SetPos(pos);
+            m_bagMesh[(*it)]->SetRotY(m_rotate.y);
         }
         else if ((*it) == NSStarmanLib::eBagPos::Back2)
         {
             auto pos = m_loadingPos;
-            pos.y += 1.f;
-            pos.x += 2.f;
+            pos.y += 0.7f;
+            pos.x += std::sin(m_rotate.y) * 0.5f;
+            pos.z += std::cos(m_rotate.y) * 0.5f;
 
             m_bagMesh[(*it)]->SetPos(pos);
+            m_bagMesh[(*it)]->SetRotY(m_rotate.y);
+
+        }
+        else if ((*it) == NSStarmanLib::eBagPos::Front)
+        {
+            auto pos = m_loadingPos;
+            pos.y += 0.5f;
+            pos.x += std::sin(m_rotate.y + D3DX_PI) * 0.1f;
+            pos.z += std::cos(m_rotate.y + D3DX_PI) * 0.1f;
+
+            m_bagMesh[(*it)]->SetPos(pos);
+            m_bagMesh[(*it)]->SetRotY(m_rotate.y + D3DX_PI);
+
+        }
+        else if ((*it) == NSStarmanLib::eBagPos::Left)
+        {
+            auto pos = m_loadingPos;
+            pos.y += 0.1f;
+            pos.x += std::sin(m_rotate.y + (D3DX_PI/2.f)) * 0.5f;
+            pos.z += std::cos(m_rotate.y + (D3DX_PI/2.f)) * 0.5f;
+
+            m_bagMesh[(*it)]->SetPos(pos);
+            m_bagMesh[(*it)]->SetRotY(m_rotate.y + D3DX_PI + (D3DX_PI/2.f));
+
+        }
+        else if ((*it) == NSStarmanLib::eBagPos::Right)
+        {
+            auto pos = m_loadingPos;
+            pos.y += 0.1f;
+            pos.x += std::sin(m_rotate.y - (D3DX_PI/2.f)) * 0.5f;
+            pos.z += std::cos(m_rotate.y - (D3DX_PI/2.f)) * 0.5f;
+
+            m_bagMesh[(*it)]->SetPos(pos);
+            m_bagMesh[(*it)]->SetRotY(m_rotate.y + D3DX_PI - (D3DX_PI/2.f));
 
         }
         m_bagMesh[(*it)]->Render();
@@ -930,6 +968,12 @@ bool Player::SetAttack()
     }
 
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
+
+    // 右手にバッグを持っているときは攻撃できない。
+    if (statusManager->GetBag(NSStarmanLib::eBagPos::Right).GetId() != -1)
+    {
+        return false;
+    }
 
     statusManager->ConsumeAttackCost();
 
