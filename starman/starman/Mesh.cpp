@@ -222,6 +222,12 @@ void Mesh::Render()
         return;
     }
     D3DXVECTOR4 normal = Light::GetLightNormal();
+
+    float work = m_rotate.y *-1.f;
+    normal.x = std::sin(work + D3DX_PI);
+    normal.z = std::cos(work + D3DX_PI);
+    D3DXVec4Normalize(&normal, &normal);
+
     m_D3DEffect->SetVector("g_light_normal", &normal);
 
     SharedObj::GetPlayer();
