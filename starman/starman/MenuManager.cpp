@@ -1082,15 +1082,16 @@ std::string MenuManager::OperateMenu()
             }
         }
 
-        {
-            work += "ÏÚ—Ê         ";
-
-            auto vol = NSStarmanLib::Inventory::GetObj()->GetVolume();
-            work += Common::ToStringWithPrecision(vol, 2) + "/";
-
-            auto volMax = NSStarmanLib::Inventory::GetObj()->GetVolumeMax();
-            work += Common::ToStringWithPrecision(volMax, 2) + "\n";
-        }
+        // —v‚ç‚È‚¢‹C‚ª‚·‚é
+//        {
+//            work += "ÏÚ—Ê         ";
+//
+//            auto vol = NSStarmanLib::Inventory::GetObj()->GetVolume();
+//            work += Common::ToStringWithPrecision(vol, 2) + "/";
+//
+//            auto volMax = NSStarmanLib::Inventory::GetObj()->GetVolumeMax();
+//            work += Common::ToStringWithPrecision(volMax, 2) + "\n";
+//        }
 
         info.SetDetail(work);
         infoList.push_back(info);
@@ -1154,6 +1155,10 @@ void MenuManager::DeleteItem(const int id, const int subId)
         itemInfo.SetDurability(it->GetDurabilityCurrent());
         m_menu.UpdateItem(itemInfo);
     }
+
+    m_menu.SetWeightAll(Common::Inventory()->GetWeight());
+    m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
+    m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
 }
 
 void MenuManager::AddItem(const int id, const int subId, const int durability)
@@ -1240,6 +1245,10 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
         itemInfo.SetDurability(it->GetDurabilityCurrent());
         m_menu.UpdateItem(itemInfo);
     }
+
+    m_menu.SetWeightAll(Common::Inventory()->GetWeight());
+    m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
+    m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
 }
 
 bool MenuManager::IsBagEquiped(const int id, const int subId)
