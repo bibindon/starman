@@ -664,8 +664,6 @@ std::string MenuManager::OperateMenu()
 
                 if (UseItem(id, subId))
                 {
-                    NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                    inventory->RemoveItem(id, subId);
                     DeleteItem(id, subId);
                 }
             }
@@ -674,9 +672,6 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                inventory->RemoveItem(id, subId);
                 DeleteItem(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚·‚é")
@@ -740,8 +735,6 @@ std::string MenuManager::OperateMenu()
 
                 if (UseItem(id, subId))
                 {
-                    NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                    inventory->RemoveItem(id, subId);
                     DeleteItem(id, subId);
                 }
             }
@@ -750,9 +743,6 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                inventory->RemoveItem(id, subId);
                 DeleteItem(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚·‚é")
@@ -866,8 +856,6 @@ std::string MenuManager::OperateMenu()
 
                 if (UseItem(id, subId))
                 {
-                    NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                    inventory->RemoveItem(id, subId);
                     DeleteItem(id, subId);
                 }
             }
@@ -876,9 +864,6 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                inventory->RemoveItem(id, subId);
                 DeleteItem(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚·‚é")
@@ -1126,6 +1111,8 @@ void MenuManager::DeleteItem(const int id, const int subId)
             return;
         }
     }
+
+    Common::Inventory()->RemoveItem(id, subId);
 
     int brokenBagNum1 = 0;
     {
