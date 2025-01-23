@@ -316,6 +316,18 @@ void MenuManager::InitMenu()
                             itemInfoG.SetEquip(true);
                         }
                     }
+                    else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
+                    {
+                        itemInfoG.SetEquipEnable(true);
+
+                        auto weapon = Common::Status()->GetEquipWeapon();
+                        if (weapon.GetId() == itemInfo.GetId() &&
+                            weapon.GetSubId() == itemInfo.GetSubId())
+                        {
+                            itemInfoG.SetEquip(true);
+                        }
+                    }
+
                     itemInfoG.SetWeight(itemInfo.GetItemDef().GetWeight());
                     itemInfoG.SetVolume((int)itemInfo.GetItemDef().GetVolume());
 
@@ -671,13 +683,13 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-                EquipBag(id, subId);
+                Equip(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚ðŠO‚·")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-                UnequipBag(id, subId);
+                Unequip(id, subId);
             }
         }
         else if (vs.size() == 5 && vs.at(0) == "•Ší")
@@ -747,13 +759,13 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-                EquipBag(id, subId);
+                Equip(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚ðŠO‚·")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-                UnequipBag(id, subId);
+                Unequip(id, subId);
             }
         }
         else if (vs.size() == 5 && vs.at(0) == "•Ší")
@@ -873,13 +885,13 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-                EquipBag(id, subId);
+                Equip(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚ðŠO‚·")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-                UnequipBag(id, subId);
+                Unequip(id, subId);
             }
         }
         else if (vs.size() == 5 && vs.at(0) == "•Ší")
@@ -1227,6 +1239,17 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
             itemInfoG.SetEquip(true);
         }
     }
+    else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
+    {
+        itemInfoG.SetEquipEnable(true);
+
+        auto weapon = Common::Status()->GetEquipWeapon();
+        if (weapon.GetId() == id &&
+            weapon.GetSubId() == subId)
+        {
+            itemInfoG.SetEquip(true);
+        }
+    }
 
     itemInfoG.SetDetail(work_str);
 
@@ -1312,35 +1335,50 @@ bool MenuManager::IsBagEquiped(const int id, const int subId)
     }
 }
 
-void MenuManager::EquipBag(const int id, const int subId)
+void MenuManager::Equip(const int id, const int subId)
 {
-    // ‘Ü‚ð5ŒÂ‘•”õ‚µ‚Ä‚¢‚½‚ç‘•”õ‚µ‚È‚¢
-    if (Common::Status()->GetBagState().size() >= 5)
+    // ‘Ü‚©•Ší‰»
+    if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
-        PopUp2::Get()->SetText("‘Ü‚ð6ŒÂˆÈã‘•”õ‚·‚é‚±‚Æ‚Í‚Å‚«‚È‚¢");
-        return;
+        auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
+        Common::Status()->SetEquipWeapon(itemInfo);
+
+        NSMenulib::ItemInfo itemInfoG;
+        itemInfoG.SetId(id);
+        itemInfoG.SetSubId(subId);
+        itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+        itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+        itemInfoG.SetEquip(true);
+        m_menu.UpdateItem(itemInfoG);
     }
+    else
+    {
+        // ‘Ü‚ð5ŒÂ‘•”õ‚µ‚Ä‚¢‚½‚ç‘•”õ‚µ‚È‚¢
+        if (Common::Status()->GetBagState().size() >= 5)
+        {
+            PopUp2::Get()->SetText("‘Ü‚ð6ŒÂˆÈã‘•”õ‚·‚é‚±‚Æ‚Í‚Å‚«‚È‚¢");
+            return;
+        }
 
-    auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
-    Common::Status()->EquipBag(itemInfo);
+        auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
+        Common::Status()->EquipBag(itemInfo);
 
-    NSMenulib::ItemInfo itemInfoG;
-    itemInfoG.SetId(id);
-    itemInfoG.SetSubId(subId);
-    itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
-    itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
-    itemInfoG.SetEquip(true);
-    m_menu.UpdateItem(itemInfoG);
+        NSMenulib::ItemInfo itemInfoG;
+        itemInfoG.SetId(id);
+        itemInfoG.SetSubId(subId);
+        itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+        itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+        itemInfoG.SetEquip(true);
+        m_menu.UpdateItem(itemInfoG);
 
-    m_menu.SetWeightAll(Common::Inventory()->GetWeight());
-    m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
-    m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
+        m_menu.SetWeightAll(Common::Inventory()->GetWeight());
+        m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
+        m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
+    }
 }
 
-void MenuManager::UnequipBag(const int id, const int subId)
+void MenuManager::Unequip(const int id, const int subId)
 {
-    Common::Status()->UnequipBag(id, subId);
-
     auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
     NSMenulib::ItemInfo itemInfoG;
     itemInfoG.SetId(id);
@@ -1350,9 +1388,20 @@ void MenuManager::UnequipBag(const int id, const int subId)
     itemInfoG.SetEquip(false);
     m_menu.UpdateItem(itemInfoG);
 
-    m_menu.SetWeightAll(Common::Inventory()->GetWeight());
-    m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
-    m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
+    if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
+    {
+        NSStarmanLib::ItemInfo itemInfo;
+        itemInfo.SetId(-1);
+        Common::Status()->SetEquipWeapon(itemInfo);
+    }
+    else
+    {
+        Common::Status()->UnequipBag(id, subId);
+
+        m_menu.SetWeightAll(Common::Inventory()->GetWeight());
+        m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
+        m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
+    }
 }
 
 
