@@ -671,20 +671,7 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                auto itemInfo = inventory->GetItemInfo(id, subId);
-
-                auto statusManager = NSStarmanLib::StatusManager::GetObj();
-                statusManager->EquipBag(itemInfo);
-
-                NSMenulib::ItemInfo itemInfoG;
-                itemInfoG.SetId(id);
-                itemInfoG.SetSubId(subId);
-                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
-                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
-                itemInfoG.SetEquip(true);
-                m_menu.UpdateItem(itemInfoG);
+                EquipBag(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚ðŠO‚·")
             {
@@ -773,20 +760,7 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                auto itemInfo = inventory->GetItemInfo(id, subId);
-
-                auto statusManager = NSStarmanLib::StatusManager::GetObj();
-                statusManager->EquipBag(itemInfo);
-
-                NSMenulib::ItemInfo itemInfoG;
-                itemInfoG.SetId(id);
-                itemInfoG.SetSubId(subId);
-                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
-                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
-                itemInfoG.SetEquip(true);
-                m_menu.UpdateItem(itemInfoG);
+                EquipBag(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚ðŠO‚·")
             {
@@ -925,20 +899,7 @@ std::string MenuManager::OperateMenu()
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
-
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                auto itemInfo = inventory->GetItemInfo(id, subId);
-
-                auto statusManager = NSStarmanLib::StatusManager::GetObj();
-                statusManager->EquipBag(itemInfo);
-
-                NSMenulib::ItemInfo itemInfoG;
-                itemInfoG.SetId(id);
-                itemInfoG.SetSubId(subId);
-                itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
-                itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
-                itemInfoG.SetEquip(true);
-                m_menu.UpdateItem(itemInfoG);
+                EquipBag(id, subId);
             }
             else if (vs.at(4) == "‘•”õ‚ðŠO‚·")
             {
@@ -1300,3 +1261,26 @@ bool MenuManager::IsBagEquiped(const int id, const int subId)
         return false;
     }
 }
+
+void MenuManager::EquipBag(const int id, const int subId)
+{
+    // ‘Ü‚ð5ŒÂ‘•”õ‚µ‚Ä‚¢‚½‚ç‘•”õ‚µ‚È‚¢
+    if (Common::Status()->GetBagState().size() >= 5)
+    {
+        PopUp2::Get()->SetText("‘Ü‚ð6ŒÂˆÈã‘•”õ‚·‚é‚±‚Æ‚Í‚Å‚«‚È‚¢");
+        return;
+    }
+
+    auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
+    Common::Status()->EquipBag(itemInfo);
+
+    NSMenulib::ItemInfo itemInfoG;
+    itemInfoG.SetId(id);
+    itemInfoG.SetSubId(subId);
+    itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+    itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+    itemInfoG.SetEquip(true);
+    m_menu.UpdateItem(itemInfoG);
+}
+
+
