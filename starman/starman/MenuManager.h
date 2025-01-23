@@ -22,5 +22,6 @@ private:
 
     bool IsBagEquiped(const int id, const int subId);
     void EquipBag(const int id, const int subId);
+    void UnequipBag(const int id, const int subId);
 };
 
