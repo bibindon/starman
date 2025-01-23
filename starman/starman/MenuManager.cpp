@@ -305,6 +305,7 @@ void MenuManager::InitMenu()
 
                     itemInfoG.SetId(itemInfo.GetId());
                     itemInfoG.SetSubId(itemInfo.GetSubId());
+                    itemInfoG.SetDetail(work_str);
 
                     if (itemInfo.GetItemDef().GetName() == "‘Ü")
                     {
@@ -315,13 +316,18 @@ void MenuManager::InitMenu()
                             itemInfoG.SetEquip(true);
                         }
                     }
+                    itemInfoG.SetWeight(itemInfo.GetItemDef().GetWeight());
+                    itemInfoG.SetVolume((int)itemInfo.GetItemDef().GetVolume());
 
-                    itemInfoG.SetDetail(work_str);
                     itemInfoList.push_back(itemInfoG);
                 }
             }
         }
         m_menu.SetItem(itemInfoList);
+
+        m_menu.SetWeightAll(Common::Inventory()->GetWeight());
+        m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
+        m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
     }
 
     //------------------------------------------------------
@@ -1245,6 +1251,9 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     }
 
     itemInfoG.SetDetail(work_str);
+
+    itemInfoG.SetWeight(itemDef.GetWeight());
+    itemInfoG.SetVolume((int)itemDef.GetVolume());
 
     Common::ReduceBrainStaminaCurrent(0.1f);
     Common::Inventory()->ReduceEquipBagDurability();
