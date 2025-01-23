@@ -1170,6 +1170,11 @@ void MenuManager::DeleteItem(const int id, const int subId)
     m_menu.SetWeightAll(Common::Inventory()->GetWeight());
     m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
     m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
+
+    if (Common::ItemManager()->GetItemDef(id).GetName() == "家のカギ")
+    {
+        PopUp2::Get()->SetText("このゲームをクリアすることができなくなりました");
+    }
 }
 
 void MenuManager::AddItem(const int id, const int subId, const int durability)
