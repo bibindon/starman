@@ -1291,7 +1291,33 @@ void Player::SetJump()
         m_move.y = JUMP_INITIAL_VELOCITY;
         m_AnimMesh2->SetAnim("Jump", 0.f);
 
+        int brokenBagNum1 = 0;
+        int brokenBagNum2 = 0;
+        {
+            auto allBag = Common::Status()->GetAllBag();
+            brokenBagNum1 = std::count_if(allBag.begin(), allBag.end(),
+                                          [&](auto x)
+                                          {
+                                              return x.GetDurabilityCurrent() == 0;
+                                          });
+        }
+
         Common::Inventory()->ReduceEquipBagDurability();
+
+        // 新たに耐久値が0になった袋があったか
+        {
+            auto allBag = Common::Status()->GetAllBag();
+            brokenBagNum2 = std::count_if(allBag.begin(), allBag.end(),
+                                          [&](auto x)
+                                          {
+                                              return x.GetDurabilityCurrent() == 0;
+                                          });
+        }
+
+        if (brokenBagNum1 != brokenBagNum2)
+        {
+            PopUp2::Get()->SetText("（袋が壊れた気がする）");
+        }
     }
 }
 

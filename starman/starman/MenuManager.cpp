@@ -1092,29 +1092,80 @@ bool MenuManager::UseItem(const int id, const int subId)
 
 void MenuManager::DeleteItem(const int id, const int subId)
 {
+    // 装備中の袋だったら削除できないようにする
+    {
+        auto allBag = Common::Status()->GetAllBag();
+        for (auto it = allBag.begin(); it != allBag.end(); ++it)
+        {
+            if (it->GetId() == id && it->GetSubId() == subId)
+            {
+                PopUp2::Get()->SetText("装備中の袋を捨てることはできない");
+                return;
+            }
+        }
+    }
+
+    // 装備中の武器だったら削除できないようにする
+    {
+        auto weapon = Common::Status()->GetEquipWeapon();
+        if (weapon.GetId() == id && weapon.GetSubId() == subId)
+        {
+            PopUp2::Get()->SetText("装備中の武器を捨てることはできない");
+            return;
+        }
+    }
+
+    int brokenBagNum1 = 0;
+    {
+        auto allBag = Common::Status()->GetAllBag();
+        brokenBagNum1 = std::count_if(allBag.begin(), allBag.end(),
+                                      [&](auto x)
+                                      {
+                                          return x.GetDurabilityCurrent() == 0;
+                                      });
+    }
+
     Common::ReduceBrainStaminaCurrent(0.1f);
     Common::Inventory()->ReduceEquipBagDurability();
 
     m_menu.DeleteItem(id, subId);
 
     // 耐久度が下がったので更新
-    auto allBag = Common::Status()->GetAllBag();
-    for (auto it = allBag.begin(); it != allBag.end(); ++it)
     {
-        if (it->GetId() == -1)
+        auto allBag = Common::Status()->GetAllBag();
+        for (auto it = allBag.begin(); it != allBag.end(); ++it)
         {
-            continue;
-        }
+            if (it->GetId() == -1)
+            {
+                continue;
+            }
 
-        // NSMenulib::ItemInfoとNSStarmanLib::ItemInfoの変換
-        // レベルと装備状態と耐久度だけでいい
-        NSMenulib::ItemInfo itemInfo;
-        itemInfo.SetId(it->GetId());
-        itemInfo.SetSubId(it->GetSubId());
-        itemInfo.SetLevel(it->GetItemDef().GetLevel());
-        itemInfo.SetEquip(true);
-        itemInfo.SetDurability(it->GetDurabilityCurrent());
-        m_menu.UpdateItem(itemInfo);
+            // NSMenulib::ItemInfoとNSStarmanLib::ItemInfoの変換
+            // レベルと装備状態と耐久度だけでいい
+            NSMenulib::ItemInfo itemInfo;
+            itemInfo.SetId(it->GetId());
+            itemInfo.SetSubId(it->GetSubId());
+            itemInfo.SetLevel(it->GetItemDef().GetLevel());
+            itemInfo.SetEquip(true);
+            itemInfo.SetDurability(it->GetDurabilityCurrent());
+            m_menu.UpdateItem(itemInfo);
+        }
+    }
+
+    // 新たに耐久値が0になった袋があったか
+    int brokenBagNum2 = 0;
+    {
+        auto allBag = Common::Status()->GetAllBag();
+        brokenBagNum2 = std::count_if(allBag.begin(), allBag.end(),
+                                      [&](auto x)
+                                      {
+                                          return x.GetDurabilityCurrent() == 0;
+                                      });
+    }
+
+    if (brokenBagNum1 != brokenBagNum2)
+    {
+        PopUp2::Get()->SetText("（袋が壊れた気がする）");
     }
 
     m_menu.SetWeightAll(Common::Inventory()->GetWeight());
@@ -1183,28 +1234,57 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     itemInfoG.SetVolume((int)itemDef.GetVolume());
 
     Common::ReduceBrainStaminaCurrent(0.1f);
+
+    int brokenBagNum1 = 0;
+    {
+        auto allBag = Common::Status()->GetAllBag();
+        brokenBagNum1 = std::count_if(allBag.begin(), allBag.end(),
+                                      [&](auto x)
+                                      {
+                                          return x.GetDurabilityCurrent() == 0;
+                                      });
+    }
+
     Common::Inventory()->ReduceEquipBagDurability();
 
     m_menu.AddItem(itemInfoG);
 
-    // 耐久度が下がったので更新
-    auto allBag = Common::Status()->GetAllBag();
-    for (auto it = allBag.begin(); it != allBag.end(); ++it)
+    // 耐久値が下がったので更新
     {
-        if (it->GetId() == -1)
+        auto allBag = Common::Status()->GetAllBag();
+        for (auto it = allBag.begin(); it != allBag.end(); ++it)
         {
-            continue;
-        }
+            if (it->GetId() == -1)
+            {
+                continue;
+            }
 
-        // NSMenulib::ItemInfoとNSStarmanLib::ItemInfoの変換
-        // レベルと装備状態と耐久度だけでいい
-        NSMenulib::ItemInfo itemInfo;
-        itemInfo.SetId(it->GetId());
-        itemInfo.SetSubId(it->GetSubId());
-        itemInfo.SetLevel(it->GetItemDef().GetLevel());
-        itemInfo.SetEquip(true);
-        itemInfo.SetDurability(it->GetDurabilityCurrent());
-        m_menu.UpdateItem(itemInfo);
+            // NSMenulib::ItemInfoとNSStarmanLib::ItemInfoの変換
+            // レベルと装備状態と耐久度だけでいい
+            NSMenulib::ItemInfo itemInfo;
+            itemInfo.SetId(it->GetId());
+            itemInfo.SetSubId(it->GetSubId());
+            itemInfo.SetLevel(it->GetItemDef().GetLevel());
+            itemInfo.SetEquip(true);
+            itemInfo.SetDurability(it->GetDurabilityCurrent());
+            m_menu.UpdateItem(itemInfo);
+        }
+    }
+
+    // 新たに耐久値が0になった袋があったか
+    int brokenBagNum2 = 0;
+    {
+        auto allBag = Common::Status()->GetAllBag();
+        brokenBagNum2 = std::count_if(allBag.begin(), allBag.end(),
+                                      [&](auto x)
+                                      {
+                                          return x.GetDurabilityCurrent() == 0;
+                                      });
+    }
+
+    if (brokenBagNum1 != brokenBagNum2)
+    {
+        PopUp2::Get()->SetText("（袋が壊れた気がする）");
     }
 
     m_menu.SetWeightAll(Common::Inventory()->GetWeight());
