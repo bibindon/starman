@@ -175,6 +175,8 @@ StoryManager::StoryManager(const std::string& csvFile)
                              Common::ModExt(csvFile),
                              sprite,
                              Common::DeployMode());
+
+        bFinish = false;
     }
 }
 
@@ -226,4 +228,9 @@ void StoryManager::Render()
     {
         m_storyTelling->Render();
     }
+}
+
+bool StoryManager::IsFinish()
+{
+    return bFinish;
 }

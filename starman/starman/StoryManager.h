@@ -13,6 +13,8 @@ public:
     ~StoryManager();
     void Update();
     void Render();
+    bool IsFinish();
+
 private:
 
     NSStoryTelling::StoryTelling* m_storyTelling { nullptr };

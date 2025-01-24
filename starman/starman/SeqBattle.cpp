@@ -592,6 +592,12 @@ void SeqBattle::Update(eSequence* sequence)
 void SeqBattle::OperateStory()
 {
     m_story->Update();
+
+    if (m_story->IsFinish())
+    {
+        SAFE_DELETE(m_story);
+        m_eState = eBattleState::NORMAL;
+    }
 }
 
 void SeqBattle::OperateMenu(eSequence* sequence)
@@ -622,6 +628,7 @@ void SeqBattle::OperateTalk()
             SAFE_DELETE(m_talk);
             m_eState = eBattleState::NORMAL;
             Common::SetCursorVisibility(false);
+            return;
         }
     }
 
