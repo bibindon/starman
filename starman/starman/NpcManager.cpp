@@ -51,7 +51,7 @@ void NpcManager::SetTalkScript(const std::string& npcName, const std::string& ar
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     auto status = npcStatusMgr->GetNpcStatus(npcName);
-    status.SetTalkCsv(arg);
+    status.SetTalkCsv(Common::ModExt(arg));
     npcStatusMgr->SetNpcStatus(npcName, status);
 }
 
