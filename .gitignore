@@ -33,3 +33,5 @@
 /starman/starman/error.log
 /starman/starman/res/script/origin.enc
 /starman/starman/res/script/save.bak
+/starman/Installer/bin/Debug
+/starman/Installer/obj/Debug
