@@ -152,9 +152,6 @@ class SoundEffect : public ISoundEffect
 
 StoryManager::StoryManager(const std::string& csvFile)
 {
-    BGM::get_ton()->load("res\\sound\\ending.wav");
-    BGM::get_ton()->play(10);
-
     {
         NSStoryTelling::ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
         pSE->Init();
