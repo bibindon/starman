@@ -1493,6 +1493,9 @@ void SeqBattle::Confirm(eSequence* sequence)
                          Common::DeployMode());
 
             m_eState = eBattleState::TALK;
+
+            // ‰ï˜b‚µ‚½‚Ì‚Å‰ï˜b‰Â”\ó‘Ô‚ð‰ðœ‚·‚é
+            npcManager->SetTalkEnable(npcName, false);
         }
     }
     else if (m_bObtainWeapon)
