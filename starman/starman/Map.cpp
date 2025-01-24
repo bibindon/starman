@@ -19,6 +19,7 @@
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "SoundEffect.h"
+#include "Camera.h"
 
 Map::Map()
 {
@@ -108,13 +109,13 @@ void Map::Init()
         m_meshMap["sky"] = mesh;
     }
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(11.f, 490.7f, -572.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(11.f, 491.5f, -572.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = NEW Mesh("res\\shader\\mesh_shader_cull_none.fx",
                               "res\\model\\precision\\precision.x",
                               pos,
                               rot,
-                              1.f);
+                              1.3f);
         mesh->Init();
         m_meshMap["precision"] = mesh;
     }
@@ -1000,6 +1001,30 @@ void Map::Update()
                 else
                 {
                     ++it;
+                }
+            }
+
+            // プレイヤーが廃墟に近づいたらカメラモードを変える
+            {
+                float work = 0.f;
+                work = pos.x - m_meshMap["precision"]->GetPos().x;
+                work = std::abs(work);
+                if (work < 30.f)
+                {
+                    work = pos.z - m_meshMap["precision"]->GetPos().z;
+                    work = std::abs(work);
+                    if (work < 30.f)
+                    {
+                        Camera::SetHouseMode(true);
+                    }
+                    else
+                    {
+                        Camera::SetHouseMode(false);
+                    }
+                }
+                else
+                {
+                    Camera::SetHouseMode(false);
                 }
             }
 

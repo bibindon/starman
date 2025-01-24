@@ -26,6 +26,7 @@ public:
     static void SetCameraMode(const eCameraMode arg);
 
     static int MOVE_COUNT_MAX;
+    static void SetHouseMode(const bool arg);
 private:
 
     const static D3DXVECTOR3 UPWARD;
@@ -38,5 +39,7 @@ private:
 
     static eCameraMode m_eCameraMode;
     static int m_counter;
+
+    static bool m_houseMode;
 };
 

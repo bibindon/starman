@@ -15,6 +15,7 @@ float Camera::m_viewAngle { D3DX_PI / 4 };
 float Camera::m_radian { D3DX_PI * 3 / 2 };
 float Camera::m_y { 3.f };
 bool Camera::m_sleepMode { false };
+bool Camera::m_houseMode = false;
 
 eCameraMode Camera::m_eCameraMode;
 
@@ -112,23 +113,47 @@ void Camera::Update()
 
         float temp = m_lookAtPos.y + m_y + y;
 
-        if ( m_lookAtPos.y - 5.f < temp && temp < m_lookAtPos.y + 5.f)
+        if (!m_houseMode)
         {
-            m_y += y;
-        }
-        else if (temp <= m_lookAtPos.y - 5.f)
-        {
-            m_y = -5.f;
-        }
-        else if (m_lookAtPos.y + 5.f <= temp)
-        {
-            m_y = 5.f;
-        }
 
-        m_eyePos.y = m_lookAtPos.y + m_y;
+            if ( m_lookAtPos.y - 5.f < temp && temp < m_lookAtPos.y + 5.f)
+            {
+                m_y += y;
+            }
+            else if (temp <= m_lookAtPos.y - 5.f)
+            {
+                m_y = -5.f;
+            }
+            else if (m_lookAtPos.y + 5.f <= temp)
+            {
+                m_y = 5.f;
+            }
 
-        m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y/3)*(m_y/3)));
-        m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y/3)*(m_y/3)));
+            m_eyePos.y = m_lookAtPos.y + m_y;
+
+            m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(5-((m_y*0.44f)*(m_y*0.44f)));
+            m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(5-((m_y*0.44f)*(m_y*0.44f)));
+        }
+        else
+        {
+            if ( m_lookAtPos.y - 3.f < temp && temp < m_lookAtPos.y + 3.f)
+            {
+                m_y += y;
+            }
+            else if (temp <= m_lookAtPos.y - 3.f)
+            {
+                m_y = -3.f;
+            }
+            else if (m_lookAtPos.y + 3.f <= temp)
+            {
+                m_y = 3.f;
+            }
+
+            m_eyePos.y = m_lookAtPos.y + m_y;
+
+            m_eyePos.x = m_lookAtPos.x + std::cos(m_radian)*(3-((m_y*0.33f)*(m_y*0.33f)));
+            m_eyePos.z = m_lookAtPos.z + std::sin(m_radian)*(3-((m_y*0.33f)*(m_y*0.33f)));
+        }
     }
     else if (m_eCameraMode == eCameraMode::TITLE_TO_BATTLE)
     {
@@ -217,5 +242,10 @@ void Camera::SetCameraMode(const eCameraMode mode)
 {
     m_eCameraMode = mode;
     m_counter = 0;
+}
+
+void Camera::SetHouseMode(const bool arg)
+{
+    m_houseMode = arg;
 }
 
