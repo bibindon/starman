@@ -281,23 +281,25 @@ bool Common::IsRemoteSession()
 
     if (!checked)
     {
-        WTS_SESSION_INFO* pSessionInfo = nullptr;
-        DWORD sessionCount = 0;
-
-        // 現在のセッションを取得
-        if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, &pSessionInfo, &sessionCount))
-        {
-            for (DWORD i = 0; i < sessionCount; ++i)
-            {
-                std::string work(pSessionInfo[i].pWinStationName);
-                if (work.find("RDP") != std::string::npos)
-                {
-                    isRemote = true;
-                    break;
-                }
-            }
-            WTSFreeMemory(pSessionInfo);
-        }
+        // 正常動作せず
+        
+//        WTS_SESSION_INFO* pSessionInfo = nullptr;
+//        DWORD sessionCount = 0;
+//
+//        // 現在のセッションを取得
+//        if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, &pSessionInfo, &sessionCount))
+//        {
+//            for (DWORD i = 0; i < sessionCount; ++i)
+//            {
+//                std::string work(pSessionInfo[i].pWinStationName);
+//                if (work.find("RDP") != std::string::npos)
+//                {
+//                    isRemote = true;
+//                    break;
+//                }
+//            }
+//            WTSFreeMemory(pSessionInfo);
+//        }
         checked = true;
     }
     return isRemote; // 判定できない場合

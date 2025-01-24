@@ -277,7 +277,7 @@ Q25",,調べたら,-218:75:207:120,,"<talk>res\\script\\origin\\talkFinishQuest7.csv
 <npc><サンカクマン><talkScript>res\\script\\origin\\talkFinishQuest8.csv"
 Q26,"クエストが完了していたら
 クエストが完了していないなら","Q25
-Q26",,人と話したら,サンカクマン,,"<npc><ダイケイマン><pos>-11:490.7:-572
+Q26",,人と話したら,サンカクマン,,"<npc><ダイケイマン><pos>20:491.7:-563
 <npc><ダイケイマン><talkEnable>y
 <npc><ダイケイマン><talkScript>res\\script\\origin\\talkFinishQuest9.csv"
 Q27,"クエストが完了していたら
