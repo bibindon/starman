@@ -1,29 +1,344 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
-        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+	<Product Id="*" Name="starmanInstaller" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-        <MediaTemplate />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
 
-        <Feature Id="ProductFeature" Title="Installer" Level="1">
-            <ComponentGroupRef Id="ProductComponents" />
-        </Feature>
-    </Product>
+		<Feature Id="ProductFeature" Title="Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="MyAppFiles" />
+		</Feature>
+	</Product>
 
-    <Fragment>
-        <Directory Id="TARGETDIR" Name="SourceDir">
-            <Directory Id="ProgramFilesFolder">
-                <Directory Id="INSTALLFOLDER" Name="starman" />
-            </Directory>
-        </Directory>
-    </Fragment>
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramMenuFolder">
+			</Directory>
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="starman">
+					<Directory Id="RESOURCE" Name="res">
+						<Directory Id="IMAGE" Name="image"/>
+						<Directory Id="SHADER" Name="shader"/>
+						<Directory Id="MODEL" Name="model"/>
+						<Directory Id="SCRIPT_" Name="script">
+							<Directory Id="SCRIPT_ORIGIN" Name="model"/>
+						</Directory>
+						<Directory Id="SOUND" Name="sound"/>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
 
-    <Fragment>
-        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-            <Component Id="ProductComponent" Guid="D326FD62-81B3-4372-AE64-10F8200C323F">
-            <File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes"/>
-            </Component>
-        </ComponentGroup>
-    </Fragment>
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="ProductComponent" Guid="*">
+				<File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes">
+					<Shortcut Id="WixInstStartmenu" Directory="ProgramMenuFolder"
+							  Name="starman" WorkingDirectory="INSTALLFOLDER"
+							  Advertise="yes">
+						<Icon Id="WixInstIco.exe" SourceFile="$(var.starman.TargetPath)"/>
+					</Shortcut>
+				</File>
+			</Component>
+			<Component Guid="*">
+				<?if $(var.Configuration) = Debug ?>
+				<File Source="$(var.starman.TargetDir)d3dx9d_43.dll" KeyPath="yes"/>
+				<?else?>
+				<File Source="$(var.starman.TargetDir)d3dx9_43.dll" KeyPath="yes"/>
+				<?endif?>
+			</Component>
+			<Component Guid="*">
+				<File Source="$(var.starman.TargetDir)D3DCompiler_43.dll" KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
+
+
+		<ComponentGroup Id="MyAppFiles">
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/arrow.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/atlatl.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ax.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/background.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/black.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/board.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/bow.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/chara1.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/chara2.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/chara3.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/command_cursor.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/craftPanel.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/cursor.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/daikeiman00.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/dream01.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/dream02.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/dream03.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/enban00.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending01.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending02.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending03.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending04.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending05.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending06.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending07.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending08.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending09.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/ending10.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/examine.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/gameover.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/hoshiman00.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/hp_black.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/hp_black_p.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/hp_green.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/hp_green_p.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/human1.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/human2.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/human3.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/item1.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/item2.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/item3.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/loading.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/load_clock.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/menu_back.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/menu_cursor.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap1.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap10.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap11.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap12.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap2.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap3.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap4.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap5.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap6.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap7.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap8.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/narrowmap9.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/opening01.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/opening02.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/opening03.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/opening04.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/panel.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/panelLeft.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/pipe.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/PopupBack.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/poweregg.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/qc.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/rippoutai00.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/sankakuman00.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/shikakuman00.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/sphere00.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/starman.ico" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/starman.icon.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/status_back.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/status_front.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/status_middle.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/stick.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/stone.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/test.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/test2.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/textBack.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/title01.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/title03.back.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/title03.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/title04.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/titleLogo03.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/widemap.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/widemap1.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/widemap2.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/widemap3.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/widemap4.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/widemap5.png" />
+			</Component>
+			<Component Directory="IMAGE" Guid="*">
+				<File Source="../starman/res/image/xeoff00.png" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
 </Wix>

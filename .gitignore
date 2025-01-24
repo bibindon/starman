@@ -35,3 +35,5 @@
 /starman/starman/res/script/save.bak
 /starman/Installer/bin/Debug
 /starman/Installer/obj/Debug
+/starman/Installer/obj/Release
+/starman/Installer/bin/Release
