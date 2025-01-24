@@ -97,6 +97,8 @@ public:
     static void ReduceBodyStaminaCurrent(const float arg);
     static void ReduceBodyStaminaMaxSub(const float arg);
 
+    static bool IsRemoteSession();
+
 private:
 
     static eBuildMode m_buildMode;

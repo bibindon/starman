@@ -3,6 +3,10 @@
 #include <iomanip>
 #include "SharedObj.h"
 #include <cfloat>
+#include <wtsapi32.h>
+
+// リモート接続検出用
+#pragma comment(lib, "Wtsapi32.lib")
 
 #if defined(_DEBUG)
 eBuildMode Common::m_buildMode = eBuildMode::Debug;
@@ -267,6 +271,36 @@ void Common::ReduceBodyStaminaMaxSub(const float arg)
 {
     auto work = Status()->GetBodyStaminaMaxSub();
     Status()->SetBodyStaminaMaxSub(work - arg);
+}
+
+bool Common::IsRemoteSession()
+{
+    // 最初の一回目だけチェックして、2回目以降はチェックした内容を返すようにする。
+    static bool isRemote = false;
+    static bool checked = false;
+
+    if (!checked)
+    {
+        WTS_SESSION_INFO* pSessionInfo = nullptr;
+        DWORD sessionCount = 0;
+
+        // 現在のセッションを取得
+        if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, &pSessionInfo, &sessionCount))
+        {
+            for (DWORD i = 0; i < sessionCount; ++i)
+            {
+                std::string work(pSessionInfo[i].pWinStationName);
+                if (work.find("RDP") != std::string::npos)
+                {
+                    isRemote = true;
+                    break;
+                }
+            }
+            WTSFreeMemory(pSessionInfo);
+        }
+        checked = true;
+    }
+    return isRemote; // 判定できない場合
 }
 
 
