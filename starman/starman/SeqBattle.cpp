@@ -676,7 +676,17 @@ void SeqBattle::OperateStorehouse()
         m_storehouse->Up();
     }
 
+    if (KeyBoard::IsHold(DIK_UP))
+    {
+        m_storehouse->Up();
+    }
+
     if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
+    {
+        m_storehouse->Down();
+    }
+
+    if (KeyBoard::IsHold(DIK_DOWN))
     {
         m_storehouse->Down();
     }
@@ -742,12 +752,56 @@ void SeqBattle::OperateStorehouse()
     if (Mouse::IsDownLeft())
     {
         POINT p = Common::GetScreenPos();;
-        m_storehouse->Click(p.x, p.y);
+        result = m_storehouse->Click(p.x, p.y);
+
+        int id_ = 0;
+        int subId_ = 0;
+        int durability_ = 0;
+
+        id_ = std::stoi(vs.at(2));
+        subId_ = std::stoi(vs.at(3));
+
+        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+        if (vs.at(0) == "left")
+        {
+            NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            inventory->RemoveItem(id_, subId_);
+            storehouse->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+            m_menuManager.DeleteItem(id_, subId_);
+        }
+        else if (vs.at(0) == "right")
+        {
+            NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+            durability_ = itemInfo.GetDurabilityCurrent();
+            storehouse->RemoveItem(id_, subId_);
+            inventory->AddItemWithSubID(id_, subId_, durability_);
+            m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
+            m_menuManager.AddItem(id_, subId_, durability_);
+        }
+        else
+        {
+            throw std::exception();
+        }
     }
     else
     {
+        static POINT previousPoint = { 0, 0 };
         POINT p = Common::GetScreenPos();;
-        m_storehouse->CursorOn(p.x, p.y);
+
+        if (p.x == previousPoint.x &&
+            p.y == previousPoint.y)
+        {
+            // do nothing
+        }
+        else
+        {
+            m_storehouse->CursorOn(p.x, p.y);
+        }
+
+        previousPoint = p;
     }
 
     if (Mouse::GetZDelta() < 0)
