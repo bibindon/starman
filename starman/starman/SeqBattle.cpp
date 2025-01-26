@@ -830,6 +830,93 @@ void SeqBattle::OperateStorehouse()
     return;
 }
 
+void SeqBattle::ShowStorehouse()
+{
+    m_eState = eBattleState::STOREHOUSE;
+    delete m_storehouse;
+
+    Camera::SetCameraMode(eCameraMode::SLEEP);
+    Common::SetCursorVisibility(true);
+
+    // TODO 倉庫を表示する度に倉庫画面を作るのをやめる
+    m_storehouse = NEW NSStorehouseLib::StorehouseLib();
+
+    NSStorehouseLib::Sprite* sprCursor = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+    sprCursor->Load("res\\image\\menu_cursor.png");
+
+    NSStorehouseLib::Sprite* sprBackground = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+    sprBackground->Load("res\\image\\background.png");
+
+    NSStorehouseLib::Sprite* sprPanelLeft = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+    sprPanelLeft->Load("res\\image\\panelLeft.png");
+
+    NSStorehouseLib::Sprite* sprPanelTop = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
+    sprPanelTop->Load("res\\image\\craftPanel.png");
+
+    NSStorehouseLib::IFont* pFont = NEW NSStorehouseLib::Font(SharedObj::GetD3DDevice());
+    pFont->Init();
+
+    NSStorehouseLib::ISoundEffect* pSE = NEW NSStorehouseLib::SoundEffect();
+
+    m_storehouse->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
+    {
+        using namespace NSStarmanLib;
+        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+        NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+
+        std::vector<int> idList = itemManager->GetItemIdList();
+
+        std::vector<NSStorehouseLib::StoreItem> itemInfoList;
+        for (std::size_t i = 0; i < idList.size(); ++i)
+        {
+            NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(idList.at(i));
+            std::vector<int> subIdList = inventory->GetSubIdList(idList.at(i));
+            {
+                for (std::size_t j = 0; j < subIdList.size(); ++j)
+                {
+                    std::string work_str;
+
+                    NSStorehouseLib::StoreItem itemInfoG;
+
+                    itemInfoG.SetName(itemDef.GetName());
+                    itemInfoG.SetId(itemDef.GetId());
+                    itemInfoG.SetSubId(subIdList.at(j));
+                    itemInfoList.push_back(itemInfoG);
+                }
+            }
+        }
+        m_storehouse->SetInventoryList(itemInfoList);
+    }
+    {
+        using namespace NSStarmanLib;
+        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+        NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+
+        std::vector<int> idList = itemManager->GetItemIdList();
+
+        std::vector<NSStorehouseLib::StoreItem> itemInfoList;
+        for (std::size_t i = 0; i < idList.size(); ++i)
+        {
+            NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(idList.at(i));
+            std::vector<int> subIdList = storehouse->GetSubIdList(idList.at(i));
+            {
+                for (std::size_t j = 0; j < subIdList.size(); ++j)
+                {
+                    std::string work_str;
+
+                    NSStorehouseLib::StoreItem itemInfoG;
+
+                    itemInfoG.SetName(itemDef.GetName());
+                    itemInfoG.SetId(itemDef.GetId());
+                    itemInfoG.SetSubId(subIdList.at(j));
+                    itemInfoList.push_back(itemInfoG);
+                }
+            }
+        }
+        m_storehouse->SetStorehouseList(itemInfoList);
+    }
+}
+
 void SeqBattle::OperateCraft()
 {
     std::string result;
@@ -1523,6 +1610,10 @@ void SeqBattle::Confirm(eSequence* sequence)
         }
 
     }
+    else if (m_bShowStorehouse)
+    {
+        ShowStorehouse();
+    }
 }
 
 eBattleState SeqBattle::GetState() const
@@ -1603,7 +1694,7 @@ void SeqBattle::RenderNormal()
     PopUp::Get()->Render();
     D3DXVECTOR3 pos { 0.f, 0.f, 0.f };
 
-    if (m_bShowExamine || m_bObtainable || m_bTalkable || m_bObtainWeapon)
+    if (m_bShowExamine || m_bObtainable || m_bTalkable || m_bObtainWeapon || m_bShowStorehouse)
     {
         D3DXVECTOR3 pos { 720.f, 700.f, 0.f };
         m_spriteExamine->Render(pos);
@@ -2256,28 +2347,28 @@ void SeqBattle::UpdatePerSecond()
                 }
             }
 
-auto startEvent = SharedObj::GetQuestSystem()->GetQuestStartEvent(startQuest.at(0));
-if (startEvent.empty() == false)
-{
-    // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
-    if (startEvent.at(0).find("<talk>") != std::string::npos)
-    {
-        std::string work = startEvent.at(0);
-        std::string::size_type it = work.find("<talk>");
-        work = work.erase(it, 6);
+            auto startEvent = SharedObj::GetQuestSystem()->GetQuestStartEvent(startQuest.at(0));
+            if (startEvent.empty() == false)
+            {
+                // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
+                if (startEvent.at(0).find("<talk>") != std::string::npos)
+                {
+                    std::string work = startEvent.at(0);
+                    std::string::size_type it = work.find("<talk>");
+                    work = work.erase(it, 6);
 
-        NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
-        NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
-        NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
-        m_talk = NEW NSTalkLib2::Talk();
-        m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                     "res\\image\\textBack.png", "res\\image\\black.png",
-                     Common::DeployMode());
+                    m_talk = NEW NSTalkLib2::Talk();
+                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
+                                 "res\\image\\textBack.png", "res\\image\\black.png",
+                                 Common::DeployMode());
 
-        m_eState = eBattleState::TALK;
-    }
-}
+                    m_eState = eBattleState::TALK;
+                }
+            }
 
         }
 
@@ -2638,6 +2729,19 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     m_hudManager.Update();
+
+    // 近くにチェストがあったら倉庫機能が使える。
+    {
+        auto ppos = m_player->GetPos();
+        if (m_map->NearChest(ppos))
+        {
+            m_bShowStorehouse = true;
+        }
+        else
+        {
+            m_bShowStorehouse = false;
+        }
+    }
 }
 
 void SeqBattle::OperateTitle(eSequence* sequence)

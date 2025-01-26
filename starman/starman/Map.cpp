@@ -1595,6 +1595,11 @@ void Map::SetThrownMagic(const D3DXVECTOR3& pos,
     m_thrownMagicList.push_back(work);
 }
 
+bool Map::NearChest(const D3DXVECTOR3& pos)
+{
+    return Common::HitByBoundingBox(pos, m_meshMap["chest"]->GetPos(), 2.f);
+}
+
 D3DXVECTOR3 Map::WallSlideSub(
     const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit)
 {

@@ -67,6 +67,9 @@ public:
                         const NSStarmanLib::eMagicType& magicType,
                         const float power);
 
+    // ‘qŒÉ‚Ì‹ß‚­‚É‚¢‚é‚©
+    bool NearChest(const D3DXVECTOR3& pos);
+
 private:
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);

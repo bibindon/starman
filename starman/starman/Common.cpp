@@ -305,4 +305,25 @@ bool Common::IsRemoteSession()
     return isRemote; // îªíËÇ≈Ç´Ç»Ç¢èÍçá
 }
 
+bool Common::HitByBoundingBox(const D3DXVECTOR3& p1,
+                              const D3DXVECTOR3& p2,
+                              const float length)
+{
+    float work = 0.f;
+    work = std::abs(p1.x - p2.x);
+    if (work <= length)
+    {
+        work = std::abs(p1.y - p2.y);
+        if (work <= length)
+        {
+            work = std::abs(p1.z - p2.z);
+            if (work <= length)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 

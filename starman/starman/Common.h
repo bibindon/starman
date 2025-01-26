@@ -99,6 +99,11 @@ public:
 
     static bool IsRemoteSession();
 
+    // バウンディングボックスで衝突判定
+    static bool HitByBoundingBox(const D3DXVECTOR3& p1,
+                                 const D3DXVECTOR3& p2,
+                                 const float length);
+
 private:
 
     static eBuildMode m_buildMode;

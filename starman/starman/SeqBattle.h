@@ -115,6 +115,8 @@ private:
     //----------------------------------------------------------
     void OperateStorehouse();
     NSStorehouseLib::StorehouseLib* m_storehouse = nullptr;
+    bool m_bShowStorehouse = false;
+    void ShowStorehouse();
 
     //----------------------------------------------------------
     // ƒNƒ‰ƒtƒg‰æ–Ê
