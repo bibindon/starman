@@ -717,12 +717,42 @@ void SeqBattle::OperateStorehouse()
         NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
         if (vs.at(0) == "left")
         {
-            NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
-            durability_ = itemInfo.GetDurabilityCurrent();
-            inventory->RemoveItem(id_, subId_);
-            storehouse->AddItemWithSubID(id_, subId_, durability_);
-            m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
-            m_menuManager.DeleteItem(id_, subId_);
+            bool equipBagExist = false;
+            bool equipWeaponExist = false;
+
+            // ‘•”õ’†‚Ì‘Ü‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+            {
+                auto allBag = Common::Status()->GetAllBag();
+                for (auto it = allBag.begin(); it != allBag.end(); ++it)
+                {
+                    if (it->GetId() == id_ && it->GetSubId() == subId_)
+                    {
+                        PopUp2::Get()->SetText("‘•”õ’†‚Ì‘Ü‚ð‘qŒÉ‚ÉˆÚ“®‚·‚é‚±‚Æ‚Í‚Å‚«‚È‚¢");
+                        equipBagExist = true;
+                        break;
+                    }
+                }
+            }
+
+            // ‘•”õ’†‚Ì•Ší‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+            {
+                auto weapon = Common::Status()->GetEquipWeapon();
+                if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
+                {
+                    PopUp2::Get()->SetText("‘•”õ’†‚Ì•Ší‚ð‘qŒÉ‚ÉˆÚ“®‚·‚é‚±‚Æ‚Í‚Å‚«‚È‚¢");
+                    equipWeaponExist = true;
+                }
+            }
+            
+            if (!equipBagExist && !equipWeaponExist)
+            {
+                NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+                durability_ = itemInfo.GetDurabilityCurrent();
+                inventory->RemoveItem(id_, subId_);
+                storehouse->AddItemWithSubID(id_, subId_, durability_);
+                m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+                m_menuManager.DeleteItem(id_, subId_);
+            }
         }
         else if (vs.at(0) == "right")
         {
