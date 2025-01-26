@@ -754,6 +754,8 @@ void SeqBattle::OperateStorehouse()
         POINT p = Common::GetScreenPos();;
         result = m_storehouse->Click(p.x, p.y);
 
+        std::vector<std::string> vs = Common::split(result, ':');
+
         int id_ = 0;
         int subId_ = 0;
         int durability_ = 0;
