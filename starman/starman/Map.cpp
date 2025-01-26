@@ -119,6 +119,17 @@ void Map::Init()
         mesh->Init();
         m_meshMap["precision"] = mesh;
     }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(15.84f, 491.5f, -570.95f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
+        Mesh* mesh = NEW Mesh("res\\shader\\mesh_shader.fx",
+                              "res\\model\\chest\\chest.x",
+                              pos,
+                              rot,
+                              1.0f);
+        mesh->Init();
+        m_meshMap["chest"] = mesh;
+    }
     //{
     //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
     //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
