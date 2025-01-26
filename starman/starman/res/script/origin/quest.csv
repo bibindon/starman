@@ -280,7 +280,7 @@ Q26,"クエストが完了していたら
 Q26",,人と話したら,サンカクマン,,
 Q27,"クエストが完了していたら
 クエストが完了していないなら","Q26
-Q27",,位置,-1344:14:-594:30,,<talk>res\\script\\origin\\talkFinishQuest9-2.csv
+Q27",,位置,14:500:-569:40,,<talk>res\\script\\origin\\talkFinishQuest9-2.csv
 Q28,"クエストが完了していたら
 クエストが完了していないなら","Q27
 Q28",,調べたら,-1344:14:-594:2,,<talk>res\\script\\origin\\talkFinishQuest9-3.csv

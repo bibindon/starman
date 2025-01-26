@@ -2422,6 +2422,9 @@ void SeqBattle::UpdatePerSecond()
 
         // プレイヤーの現在座標で開始or完了できるクエストがあるなら
         auto startQuest = SharedObj::GetQuestSystem()->GetStartQuest();
+        // TODO
+        ここから
+        auto startQuest = SharedObj::GetQuestSystem()->GetStartQuest();
         if (startQuest.empty() == false)
         {
             {
