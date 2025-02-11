@@ -377,7 +377,14 @@ void SaveManager::Load()
         throw std::exception();
     }
 
-    qs->Init(CreateOriginFilePath("quest.csv"), CreateSaveFilePath("questSave.csv"), m_encrypt);
+    qs->Init(CreateOriginFilePath("quest.csv"),
+             CreateSaveFilePath("questSave.csv"), m_encrypt);
+
+    // クエスト開始時のイベントを再度行うために「開始済みクエスト」があったら「開始クエスト」に変更する。
+    // 例えば、クエスト開始時に敵を配置し、その敵を倒したらクエスト完了、としたとき
+    // クエストを開始してからセーブして、ゲームを再起動すると
+    // 敵の配置が行われないままゲームがスタートしクエストが完了できなくなる。
+    qs->ChangeStartedQuestToStartQuest();
 
     m_progress.store(100);
 

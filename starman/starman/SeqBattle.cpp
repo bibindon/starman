@@ -2425,6 +2425,7 @@ void SeqBattle::UpdatePerSecond()
         if (startQuest.empty() == false)
         {
             {
+                // TODO ƒ„ƒo‚·‚¬‚éˆ—
                 auto it = std::find(startQuest.begin(), startQuest.end(), "Q10");
                 if (it != startQuest.end())
                 {
