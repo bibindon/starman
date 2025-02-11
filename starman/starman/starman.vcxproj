@@ -284,6 +284,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PopUp.cpp" />
     <ClCompile Include="PopUp2.cpp" />
+    <ClCompile Include="QuestManager.cpp" />
     <ClCompile Include="SaveManager.cpp" />
     <ClCompile Include="SeqBattle.cpp" />
     <ClCompile Include="SeqEnding.cpp" />
@@ -331,6 +332,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="PopUp.h" />
     <ClInclude Include="PopUp2.h" />
+    <ClInclude Include="QuestManager.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SaveManager.h" />
     <ClInclude Include="SeqBattle.h" />
