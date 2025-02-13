@@ -154,18 +154,19 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     startX = (monitorWidth / 2) - (1600 / 2);
     startY = (monitorHeight / 2) - (900 / 2);
 
-    m_hWnd = CreateWindow(
-        TITLE.c_str(),
-        TITLE.c_str(),
-        WS_OVERLAPPEDWINDOW,
-        startX,
-        startY,
-        rect.right,
-        rect.bottom,
-        NULL,
-        NULL,
-        hInstance,
-        NULL);
+    m_hWnd = CreateWindow(TITLE.c_str(),
+                          TITLE.c_str(),
+                          /* ウィンドウサイズの変更をさせない。最小化はOK */
+                          WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME | WS_VISIBLE,
+                          startX,
+                          startY,
+                          rect.right,
+                          rect.bottom,
+                          NULL,
+                          NULL,
+                          hInstance,
+                          NULL);
+
     if (!m_hWnd)
     {
         throw std::exception("");
