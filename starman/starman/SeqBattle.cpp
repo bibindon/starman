@@ -23,6 +23,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include "QuestManager.h"
 
 using namespace NSQuestSystem;
 
@@ -1546,6 +1547,238 @@ void SeqBattle::RenderSleep()
     }
 }
 
+void SeqBattle::OperateQuest(eSequence* sequence)
+{
+    QuestManager::Get()->Update();
+
+    //------------------------------------------------
+    // クエスト開始処理
+    //------------------------------------------------
+    {
+        auto startQuest = QuestManager::Get()->GetStartQuest();
+        if (startQuest.empty() == false)
+        {
+            {
+                // TODO ヤバすぎる処理
+                auto it = std::find(startQuest.begin(), startQuest.end(), "Q10");
+                if (it != startQuest.end())
+                {
+                    int i = 0;
+                    ++i;
+                }
+            }
+
+            auto startEvent = QuestManager::Get()->GetQuestStartEvent(startQuest.at(0));
+            if (startEvent.empty() == false)
+            {
+                // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
+                if (startEvent.at(0).find("<talk>") != std::string::npos)
+                {
+                    std::string work = startEvent.at(0);
+                    std::string::size_type it = work.find("<talk>");
+                    work = work.erase(it, 6);
+
+                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+                    m_talk = NEW NSTalkLib2::Talk();
+                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
+                                 "res\\image\\textBack.png", "res\\image\\black.png",
+                                 Common::DeployMode());
+
+                    m_eState = eBattleState::TALK;
+                }
+            }
+        }
+    }
+
+    //------------------------------------------
+    // 終了クエスト
+    //------------------------------------------
+    {
+        std::vector<std::string> vs = QuestManager::Get()->GetFinishQuest();
+        for (std::size_t i = 0; i < vs.size(); ++i)
+        {
+            m_finishQuestQue.push_back(vs.at(i));
+        }
+
+        if (m_finishQuestQue.size() >= 1)
+        {
+            std::string questId = m_finishQuestQue.at(0);
+            std::vector<std::string> vs2 = QuestManager::Get()->GetQuestFinishEvent(questId);
+            m_finishQuestQue.pop_front();
+            for (size_t j = 0; j < vs2.size(); ++j)
+            {
+                if (vs2.at(j).find("<talk>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<talk>");
+                    work = work.erase(it, 6);
+
+                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
+                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
+
+                    m_talk = NEW NSTalkLib2::Talk();
+                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
+                                 "res\\image\\textBack.png", "res\\image\\black.png",
+                                 Common::DeployMode());
+
+                    m_eState = eBattleState::TALK;
+                }
+                else if (vs2.at(j).find("<hide>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<hide>");
+                    work = work.erase(it, 6);
+
+                    auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+                    std::vector<NSStarmanLib::stMapObj> mapObjs =
+                        mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
+
+                    for (int i = 0; i < (int)mapObjs.size(); ++i)
+                    {
+                        std::string xName = mapObjManager->GetModelName(mapObjs.at(i).m_modelId);
+
+                        if (xName == work)
+                        {
+                            mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
+                                                      mapObjs.at(i).m_frameZ,
+                                                      mapObjs.at(i).m_id,
+                                                      false);
+                            break;
+                        }
+                    }
+                }
+                else if (vs2.at(j).find("<sound>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<sound>");
+                    work = work.erase(it, 7);
+
+                    ::SoundEffect::get_ton()->load(work);
+                    ::SoundEffect::get_ton()->play(work);
+                }
+                else if (vs2.at(j).find("<ending>") != std::string::npos)
+                {
+                    *sequence = eSequence::ENDING;
+                }
+                else if (vs2.at(j).find("<finish>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<finish>");
+                    work = work.erase(it, 8);
+                    QuestManager::Get()->SetQuestFinish(work);
+                }
+                else if (vs2.at(j).find("<story>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<story>");
+                    work = work.erase(it, 7);
+                    m_story = NEW StoryManager(work);
+                    m_eState = eBattleState::STORY;
+                }
+                else if (vs2.at(j).find("<npc>") != std::string::npos)
+                {
+                    std::string work = vs2.at(j);
+                    std::string::size_type it = work.find("<npc>");
+                    work = work.erase(it, 5);
+                    std::string npcName;
+                    if (work.find("<ダイケイマン>") != std::string::npos)
+                    {
+                        npcName = "ダイケイマン";
+                    }
+                    else if (work.find("<サンカクマン>") != std::string::npos)
+                    {
+                        npcName = "サンカクマン";
+                    }
+                    else if (work.find("<シカクマン>") != std::string::npos)
+                    {
+                        npcName = "シカクマン";
+                    }
+                    work = Common::RemoveSubstring(work, "<" + npcName + ">");
+
+                    if (work.find("<pos>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<pos>");
+                        std::vector<std::string> vs = Common::split(work2, ':');
+                        float fx = std::stof(vs.at(0));
+                        float fy = std::stof(vs.at(1));
+                        float fz = std::stof(vs.at(2));
+                        NpcManager::Get()->SetPos(npcName, fx, fy, fz);
+                    }
+                    else if (work.find("<rot>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<rot>");
+                        float fRot = std::stof(work2);
+                        NpcManager::Get()->SetRot(npcName, fRot);
+                    }
+                    else if (work.find("<talkEnable>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<talkEnable>");
+                        if (work2 == "y")
+                        {
+                            NpcManager::Get()->SetTalkEnable(npcName, true);
+                        }
+                        else
+                        {
+                            NpcManager::Get()->SetTalkEnable(npcName, false);
+                        }
+                    }
+                    else if (work.find("<talkScript>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<talkScript>");
+                        NpcManager::Get()->SetTalkScript(npcName, work2);
+                    }
+                    else if (work.find("<enableFeature>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<enableFeature>");
+                        if (work2 == "y")
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, true);
+                        }
+                        else
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, false);
+                        }
+                    }
+                    else if (work.find("<showMenu>") != std::string::npos)
+                    {
+                        std::string work2;
+                        work2 = Common::RemoveSubstring(work, "<showMenu>");
+                        if (work2 == "y")
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, true);
+                        }
+                        else
+                        {
+                            NpcManager::Get()->SetEnableFeature(npcName, false);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // 「調べる」アクションができることをアイコンで知らせる。
+    std::string quest1 = QuestManager::Get()->GetQuestIdStartByExamine();
+    std::string quest2 = QuestManager::Get()->GetQuestIdFinishByExamine();
+    if (quest1.empty() == false || quest2.empty() == false)
+    {
+        m_bShowExamine = true;
+    }
+    else
+    {
+        m_bShowExamine = false;
+    }
+}
+
 void SeqBattle::Render()
 {
     RenderCommon();
@@ -1614,8 +1847,7 @@ void SeqBattle::Confirm(eSequence* sequence)
     if (m_bShowExamine)
     {
         m_bShowExamine = false;
-        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
-        SharedObj::GetQuestSystem()->SetExamine(playerPos.x, playerPos.y, playerPos.z);
+        QuestManager::Get()->SetExamine();
     }
     else if (m_bObtainable)
     {
@@ -2414,124 +2646,6 @@ void SeqBattle::UpdatePerSecond()
     }
 
     //-------------------------------------
-    // クエスト管理クラスにプレイヤーの現在地を知らせる。
-    //-------------------------------------
-    {
-        D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
-        SharedObj::GetQuestSystem()->SetPos(playerPos.x, playerPos.y, playerPos.z);
-
-        // プレイヤーの現在座標で開始or完了できるクエストがあるなら
-        auto startQuest = SharedObj::GetQuestSystem()->GetStartQuest();
-        if (startQuest.empty() == false)
-        {
-            {
-                // TODO ヤバすぎる処理
-                auto it = std::find(startQuest.begin(), startQuest.end(), "Q10");
-                if (it != startQuest.end())
-                {
-                    int i = 0;
-                    ++i;
-                }
-            }
-
-            auto startEvent = SharedObj::GetQuestSystem()->GetQuestStartEvent(startQuest.at(0));
-            if (startEvent.empty() == false)
-            {
-                // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
-                if (startEvent.at(0).find("<talk>") != std::string::npos)
-                {
-                    std::string work = startEvent.at(0);
-                    std::string::size_type it = work.find("<talk>");
-                    work = work.erase(it, 6);
-
-                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
-                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
-                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
-
-                    m_talk = NEW NSTalkLib2::Talk();
-                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                                 "res\\image\\textBack.png", "res\\image\\black.png",
-                                 Common::DeployMode());
-
-                    m_eState = eBattleState::TALK;
-                }
-            }
-
-        }
-
-
-        // 「調べる」アクションができることをアイコンで知らせる。
-        std::string quest1 = SharedObj::GetQuestSystem()->GetQuestIdStartByExamine(playerPos.x, playerPos.y, playerPos.z);
-        std::string quest2 = SharedObj::GetQuestSystem()->GetQuestIdFinishByExamine(playerPos.x, playerPos.y, playerPos.z);
-        if (quest1.empty() == false || quest2.empty() == false)
-        {
-            m_bShowExamine = true;
-        }
-        else
-        {
-            m_bShowExamine = false;
-        }
-
-        //---------------------------------------------------------------------
-        // 「話しかける」ができることをアイコンで知らせる
-        //---------------------------------------------------------------------
-
-        // 3メートル以内に話しかけられるNPCがいるか。
-        auto npcManager = NpcManager::Get();
-        bool exist = npcManager->GetNpcTalkable(playerPos);
-        if (exist)
-        {
-            m_bTalkable = true;
-        }
-        else
-        {
-            m_bTalkable = false;
-        }
-
-        //---------------------------------------------------------------------
-        // クエストシステムに登録されている所持品情報を更新
-        //---------------------------------------------------------------------
-
-        // インベントリ
-        {
-            auto inventory = NSStarmanLib::Inventory::GetObj();
-            auto itemManager = NSStarmanLib::ItemManager::GetObj();
-            auto allItem = inventory->GetAllItem();
-
-            std::vector<NSQuestSystem::ItemInfo> itemList;
-            for (auto it = allItem.begin(); it != allItem.end(); ++it)
-            {
-                NSQuestSystem::ItemInfo itemInfo;
-                auto itemDef = itemManager->GetItemDef(it->GetId());
-                itemInfo.m_itemName = itemDef.GetName();
-                itemInfo.m_level = itemDef.GetLevel();
-                itemList.push_back(itemInfo);
-            }
-
-            SharedObj::GetQuestSystem()->SetInventoryContent(itemList);
-        }
-
-        // 倉庫
-        {
-            auto storehouse = NSStarmanLib::Storehouse::GetObj();
-            auto itemManager = NSStarmanLib::ItemManager::GetObj();
-            auto allItem = storehouse->GetAllItem();
-
-            std::vector<NSQuestSystem::ItemInfo> itemList;
-            for (auto it = allItem.begin(); it != allItem.end(); ++it)
-            {
-                NSQuestSystem::ItemInfo itemInfo;
-                auto itemDef = itemManager->GetItemDef(it->GetId());
-                itemInfo.m_itemName = itemDef.GetName();
-                itemInfo.m_level = itemDef.GetLevel();
-                itemList.push_back(itemInfo);
-            }
-
-            SharedObj::GetQuestSystem()->SetStorehouseContent(itemList);
-        }
-    }
-
-    //-------------------------------------
     // 最大積載量を超えていたらメッセージを表示
     //-------------------------------------
     {
@@ -2643,176 +2757,8 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     // クエスト処理
-    // TODO QuestManagerでやるべし
     {
-        QuestSystem* qs = SharedObj::GetQuestSystem();
-        std::vector<std::string> vs = qs->GetFinishQuest();
-        for (std::size_t i = 0; i < vs.size(); ++i)
-        {
-            m_finishQuestQue.push_back(vs.at(i));
-        }
-
-        if (m_finishQuestQue.size() >= 1)
-        {
-            std::string questId = m_finishQuestQue.at(0);
-            std::vector<std::string> vs2 = qs->GetQuestFinishEvent(questId);
-            m_finishQuestQue.pop_front();
-            for (size_t j = 0; j < vs2.size(); ++j)
-            {
-                if (vs2.at(j).find("<talk>") != std::string::npos)
-                {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<talk>");
-                    work = work.erase(it, 6);
-
-                    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
-                    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
-                    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
-
-                    m_talk = NEW NSTalkLib2::Talk();
-                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                                 "res\\image\\textBack.png", "res\\image\\black.png",
-                                 Common::DeployMode());
-
-                    m_eState = eBattleState::TALK;
-                }
-                else if (vs2.at(j).find("<hide>") != std::string::npos)
-                {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<hide>");
-                    work = work.erase(it, 6);
-
-                    auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-                    std::vector<NSStarmanLib::stMapObj> mapObjs =
-                        mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
-
-                    for (int i = 0; i < (int)mapObjs.size(); ++i)
-                    {
-                        std::string xName = mapObjManager->GetModelName(mapObjs.at(i).m_modelId);
-
-                        if (xName == work)
-                        {
-                            mapObjManager->SetVisible(mapObjs.at(i).m_frameX,
-                                                      mapObjs.at(i).m_frameZ,
-                                                      mapObjs.at(i).m_id,
-                                                      false);
-                            break;
-                        }
-                    }
-                }
-                else if (vs2.at(j).find("<sound>") != std::string::npos)
-                {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<sound>");
-                    work = work.erase(it, 7);
-
-                    ::SoundEffect::get_ton()->load(work);
-                    ::SoundEffect::get_ton()->play(work);
-                }
-                else if (vs2.at(j).find("<ending>") != std::string::npos)
-                {
-                    *sequence = eSequence::ENDING;
-                }
-                else if (vs2.at(j).find("<finish>") != std::string::npos)
-                {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<finish>");
-                    work = work.erase(it, 8);
-                    qs->SetQuestFinish(work);
-                }
-                else if (vs2.at(j).find("<story>") != std::string::npos)
-                {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<story>");
-                    work = work.erase(it, 7);
-                    m_story = NEW StoryManager(work);
-                    m_eState = eBattleState::STORY;
-                }
-                else if (vs2.at(j).find("<npc>") != std::string::npos)
-                {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<npc>");
-                    work = work.erase(it, 5);
-                    std::string npcName;
-                    if (work.find("<ダイケイマン>") != std::string::npos)
-                    {
-                        npcName = "ダイケイマン";
-                    }
-                    else if (work.find("<サンカクマン>") != std::string::npos)
-                    {
-                        npcName = "サンカクマン";
-                    }
-                    else if (work.find("<シカクマン>") != std::string::npos)
-                    {
-                        npcName = "シカクマン";
-                    }
-                    work = Common::RemoveSubstring(work, "<" + npcName + ">");
-
-                    if (work.find("<pos>") != std::string::npos)
-                    {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<pos>");
-                        std::vector<std::string> vs = Common::split(work2, ':');
-                        float fx = std::stof(vs.at(0));
-                        float fy = std::stof(vs.at(1));
-                        float fz = std::stof(vs.at(2));
-                        NpcManager::Get()->SetPos(npcName, fx, fy, fz);
-                    }
-                    else if (work.find("<rot>") != std::string::npos)
-                    {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<rot>");
-                        float fRot = std::stof(work2);
-                        NpcManager::Get()->SetRot(npcName, fRot);
-                    }
-                    else if (work.find("<talkEnable>") != std::string::npos)
-                    {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<talkEnable>");
-                        if (work2 == "y")
-                        {
-                            NpcManager::Get()->SetTalkEnable(npcName, true);
-                        }
-                        else
-                        {
-                            NpcManager::Get()->SetTalkEnable(npcName, false);
-                        }
-                    }
-                    else if (work.find("<talkScript>") != std::string::npos)
-                    {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<talkScript>");
-                        NpcManager::Get()->SetTalkScript(npcName, work2);
-                    }
-                    else if (work.find("<enableFeature>") != std::string::npos)
-                    {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<enableFeature>");
-                        if (work2 == "y")
-                        {
-                            NpcManager::Get()->SetEnableFeature(npcName, true);
-                        }
-                        else
-                        {
-                            NpcManager::Get()->SetEnableFeature(npcName, false);
-                        }
-                    }
-                    else if (work.find("<showMenu>") != std::string::npos)
-                    {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<showMenu>");
-                        if (work2 == "y")
-                        {
-                            NpcManager::Get()->SetEnableFeature(npcName, true);
-                        }
-                        else
-                        {
-                            NpcManager::Get()->SetEnableFeature(npcName, false);
-                        }
-                    }
-                }
-            }
-        }
+        OperateQuest(sequence);
     }
 
     m_hudManager.Update();
@@ -2827,6 +2773,24 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         else
         {
             m_bShowStorehouse = false;
+        }
+    }
+
+    //---------------------------------------------------------------------
+    // 「話しかける」ができることをアイコンで知らせる
+    //---------------------------------------------------------------------
+    {
+        // 3メートル以内に話しかけられるNPCがいるか。
+        auto npcManager = NpcManager::Get();
+        auto playerPos = SharedObj::GetPlayer()->GetPos();
+        bool exist = npcManager->GetNpcTalkable(playerPos);
+        if (exist)
+        {
+            m_bTalkable = true;
+        }
+        else
+        {
+            m_bTalkable = false;
         }
     }
 }

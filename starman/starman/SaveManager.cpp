@@ -15,6 +15,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include "QuestManager.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -196,13 +197,7 @@ void SaveManager::Save()
     //mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), m_encrypt);
     mapObjManager->SaveWithBinary(GetSavefileMapPath());
 
-    auto qs = SharedObj::GetQuestSystem();
-    if (qs == nullptr)
-    {
-        throw std::exception();
-    }
-
-    qs->Save(CreateSaveFilePath("questSave.csv"), m_encrypt);
+    QuestManager::Get()->Save(CreateSaveFilePath("questSave.csv"));
 }
 
 void SaveManager::LoadOrigin()
@@ -283,13 +278,7 @@ void SaveManager::LoadOrigin()
     mapObjManager->InitWithBinary(GetOriginMapPath(),
                                   CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
 
-    auto qs = SharedObj::GetQuestSystem();
-    if (qs == nullptr)
-    {
-        throw std::exception();
-    }
-
-    qs->Init(CreateOriginFilePath("quest.csv"), "", m_encrypt);
+    QuestManager::Get()->Init(CreateOriginFilePath("quest.csv"), "");
 }
 
 void SaveManager::Load()
@@ -371,14 +360,8 @@ void SaveManager::Load()
 
     m_progress.store(90);
 
-    auto qs = SharedObj::GetQuestSystem();
-    if (qs == nullptr)
-    {
-        throw std::exception();
-    }
-
-    qs->Init(CreateOriginFilePath("quest.csv"),
-             CreateSaveFilePath("questSave.csv"), m_encrypt);
+    QuestManager::Get()->Init(CreateOriginFilePath("quest.csv"),
+                              CreateSaveFilePath("questSave.csv"));
 
     m_progress.store(100);
 

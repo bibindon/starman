@@ -26,8 +26,6 @@ void SharedObj::SetWindowHandle(const HWND hWnd)
 
 void SharedObj::Finalize()
 {
-    SAFE_DELETE(m_questSystem);
-
     SAFE_RELEASE(m_D3DDevice);
 }
 
@@ -44,11 +42,6 @@ Player* SharedObj::GetPlayer()
 void SharedObj::SetPlayer(Player* player)
 {
     m_player = player;
-}
-
-NSQuestSystem::QuestSystem* SharedObj::GetQuestSystem()
-{
-    return m_questSystem;
 }
 
 Map* SharedObj::GetMap()
@@ -80,7 +73,5 @@ void SharedObj::Init()
 {
     std::random_device seed_gen;
     m_Engine = std::mt19937(seed_gen());
-
-    m_questSystem = NEW NSQuestSystem::QuestSystem();
 }
 

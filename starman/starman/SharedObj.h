@@ -18,7 +18,6 @@ public:
     static int GetRandom();
     static Player* GetPlayer();
     static void SetPlayer(Player* player);
-    static NSQuestSystem::QuestSystem* GetQuestSystem();
     static Map* GetMap();
     static void SetMap(Map* map);
     static D3DXMATRIX GetRightHandMat();

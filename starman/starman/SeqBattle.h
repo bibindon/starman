@@ -197,5 +197,10 @@ private:
     int m_sleepFadeIn = 0;
 
     Sprite* m_sprBlack = nullptr;
+
+    //----------------------------------------------
+    // クエスト関連処理
+    //----------------------------------------------
+    void OperateQuest(eSequence* sequence);
 };
 
