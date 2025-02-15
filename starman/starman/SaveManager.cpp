@@ -16,6 +16,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "QuestManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/PatchTestManager.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -198,6 +199,10 @@ void SaveManager::Save()
     mapObjManager->SaveWithBinary(GetSavefileMapPath());
 
     QuestManager::Get()->Save(CreateSaveFilePath("questSave.csv"));
+
+    NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
+    patchTestManager->Save(CreateSaveFilePath("patchTestQueSave.csv"),
+                           CreateSaveFilePath("patchTestInfoSave.csv"));
 }
 
 void SaveManager::LoadOrigin()
@@ -279,6 +284,11 @@ void SaveManager::LoadOrigin()
                                   CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
 
     QuestManager::Get()->Init(CreateOriginFilePath("quest.csv"), "");
+
+    NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
+    patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
+                           "",
+                           "");
 }
 
 void SaveManager::Load()
@@ -363,7 +373,12 @@ void SaveManager::Load()
     QuestManager::Get()->Init(CreateOriginFilePath("quest.csv"),
                               CreateSaveFilePath("questSave.csv"));
 
-    m_progress.store(100);
+    m_progress.store(95);
+
+    NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
+    patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
+                           CreateSaveFilePath("patchTestQueSave.csv"),
+                           CreateSaveFilePath("patchTestInfoSave.csv"));
 
     m_savedataLoaded = true;
 }
