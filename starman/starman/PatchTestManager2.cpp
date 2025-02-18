@@ -15,6 +15,7 @@
 #include "GamePad.h"
 
 #include "PatchTestManager2.h"
+#include "PopUp2.h"
 
 namespace NSPatchTestLib
 {
@@ -444,8 +445,11 @@ void PatchTestManager2::CreateList()
             queList.at(i).GetDateTimeStart(&y, &M, &d, &h, &m, &s);
             itemInfo.SetDateStart(y, M, d, h, m, s);
 
-            queList.at(i).GetDateTimeEnd(&y, &M, &d, &h, &m, &s);
-            itemInfo.SetDateEnd(y, M, d, h, m, s);
+            if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::FINISHED)
+            {
+                queList.at(i).GetDateTimeEnd(&y, &M, &d, &h, &m, &s);
+                itemInfo.SetDateEnd(y, M, d, h, m, s);
+            }
 
             if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::NOT_START)
             {
@@ -493,6 +497,12 @@ void PatchTestManager2::QueueTest(const std::string& result)
 
         Common::Inventory()->RemoveItem(id, subId);
 
+        // リストを作り直す
+        CreateList();
+    }
+    else
+    {
+        PopUp2::Get()->SetText("パッチテストの予約は３件まで");
     }
 }
 
