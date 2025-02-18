@@ -474,6 +474,8 @@ void PatchTestManager2::CreateList()
             m_guiLib.AddQueueItem(itemInfo);
         }
     }
+
+    m_guiLib.UpdateCursorPos();
 }
 
 void PatchTestManager2::QueueTest(const std::string& result)
