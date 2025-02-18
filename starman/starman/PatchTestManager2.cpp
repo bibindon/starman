@@ -209,6 +209,7 @@ class SoundEffect : public ISoundEffect
 
 void PatchTestManager2::Finalize()
 {
+    m_guiLib.Finalize();
 }
 
 void PatchTestManager2::InitPatch()
