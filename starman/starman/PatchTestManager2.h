@@ -11,8 +11,11 @@ public:
     void InitPatch();
     std::string Operate();
     void Draw();
+    void CreateList();
 
 private:
+
+    void QueueTest(const std::string& result);
 
     NSStarmanLib::PatchTestManager* GetPatchLib();
 

@@ -230,6 +230,179 @@ void PatchTestManager2::InitPatch()
 
     m_guiLib.Init(pFont, pSE, sprCursor, sprBackground, sprVBar);
 
+    CreateList();
+}
+
+std::string PatchTestManager2::Operate()
+{
+    // 一秒に一回くらいの処理
+    {
+        static int work = 0;
+        ++work;
+
+        if (work >= 60)
+        {
+            work = 0;
+        }
+
+        if (work == 0)
+        {
+            auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
+            m_guiLib.UpdateDateTime(datetime->GetYear(),
+                                          datetime->GetMonth(),
+                                          datetime->GetDay(),
+                                          datetime->GetHour(),
+                                          datetime->GetMinute(),
+                                          datetime->GetSecond());
+
+            GetPatchLib()->Update();
+
+            // リストを作り直す
+            CreateList();
+        }
+    }
+
+    //-------------------------------------------------
+    // Mouse, Keyboard, GamePad
+    //-------------------------------------------------
+
+    std::string result;
+    std::string work_str;
+
+    if (KeyBoard::IsDownFirstFrame(DIK_UP))
+    {
+        m_guiLib.Up();
+    }
+
+    if (KeyBoard::IsHold(DIK_UP))
+    {
+        m_guiLib.Up();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
+    {
+        m_guiLib.Down();
+    }
+
+    if (KeyBoard::IsHold(DIK_DOWN))
+    {
+        m_guiLib.Down();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
+    {
+        m_guiLib.Left();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
+    {
+        m_guiLib.Right();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+    {
+        result = m_guiLib.Into();
+
+        QueueTest(result);
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    {
+        result = m_guiLib.Back();
+    }
+
+    if (KeyBoard::IsDownFirstFrame(DIK_BACK))
+    {
+        result = m_guiLib.Back();
+    }
+
+    if (Mouse::IsDownLeft())
+    {
+        POINT p = Common::GetScreenPos();;
+        result = m_guiLib.Click(p.x, p.y);
+
+        QueueTest(result);
+    }
+    else
+    {
+        static POINT previousPoint = { 0, 0 };
+        POINT p = Common::GetScreenPos();
+
+        if (p.x == previousPoint.x &&
+            p.y == previousPoint.y)
+        {
+            // do nothing
+        }
+        else
+        {
+            m_guiLib.CursorOn(p.x, p.y);
+        }
+        
+        previousPoint = p;
+    }
+
+    if (Mouse::GetZDelta() < 0)
+    {
+        m_guiLib.Next();
+    }
+    else if (Mouse::GetZDelta() > 0)
+    {
+        m_guiLib.Previous();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::UP))
+    {
+        m_guiLib.Up();
+    }
+
+    if (GamePad::IsHold(eGamePadButtonType::UP))
+    {
+        m_guiLib.Up();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    {
+        m_guiLib.Down();
+    }
+
+    if (GamePad::IsHold(eGamePadButtonType::DOWN))
+    {
+        m_guiLib.Down();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    {
+        m_guiLib.Left();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    {
+        m_guiLib.Right();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        result = m_guiLib.Into();
+        QueueTest(result);
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::B))
+    {
+        result = m_guiLib.Back();
+    }
+
+    return result;
+}
+
+void PatchTestManager2::Draw()
+{
+    m_guiLib.Draw();
+}
+
+void PatchTestManager2::CreateList()
+{
+    m_guiLib.ClearAll();
+
     // 左側のリストを作る
     // 現在所持している物で、パッチテスト対象のものを表示する
     // 同じアイテムを複数所持していたら複数表示する。
@@ -299,175 +472,28 @@ void PatchTestManager2::InitPatch()
     }
 }
 
-std::string PatchTestManager2::Operate()
+void PatchTestManager2::QueueTest(const std::string& result)
 {
-    // 一秒に一回くらいの処理
+    if (result.empty())
     {
-        static int work = 0;
-        ++work;
-
-        if (work >= 60)
-        {
-            work = 0;
-        }
-
-        if (work == 0)
-        {
-            auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
-            m_guiLib.UpdateDateTime(datetime->GetYear(),
-                                          datetime->GetMonth(),
-                                          datetime->GetDay(),
-                                          datetime->GetHour(),
-                                          datetime->GetMinute(),
-                                          datetime->GetSecond());
-        }
+        return;
     }
 
-    //-------------------------------------------------
-    // Mouse, Keyboard, GamePad
-    //-------------------------------------------------
+    std::vector<std::string> vs = Common::split(result, ':');
 
-    std::string result;
-    std::string work_str;
+    std::string name = vs.at(1);
 
-    if (KeyBoard::IsDownFirstFrame(DIK_UP))
+    // パッチテストをキューイングする
+    bool result2 = GetPatchLib()->QueuePatchTest(name);
+
+    if (result2)
     {
-        m_guiLib.Up();
-    }
+        int id = std::stoi(vs.at(2));
+        int subId = std::stoi(vs.at(3));
 
-    if (KeyBoard::IsHold(DIK_UP))
-    {
-        m_guiLib.Up();
-    }
-
-    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
-    {
-        m_guiLib.Down();
-    }
-
-    if (KeyBoard::IsHold(DIK_DOWN))
-    {
-        m_guiLib.Down();
-    }
-
-    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
-    {
-        m_guiLib.Left();
-    }
-
-    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
-    {
-        m_guiLib.Right();
-    }
-
-    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
-    {
-        result = m_guiLib.Into();
-
-        std::vector<std::string> vs = Common::split(result, ':');
-
-        // TODO 具体的な処理
-        // パッチテストをキューイングするなど
-    }
-
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
-    {
-        result = m_guiLib.Back();
-    }
-
-    if (KeyBoard::IsDownFirstFrame(DIK_BACK))
-    {
-        result = m_guiLib.Back();
-    }
-
-    if (Mouse::IsDownLeft())
-    {
-        POINT p = Common::GetScreenPos();;
-        result = m_guiLib.Click(p.x, p.y);
-
-        std::vector<std::string> vs = Common::split(result, ':');
-
-        // TODO 具体的な処理
-        // パッチテストをキューイングするなど
-    }
-    else
-    {
-        static POINT previousPoint = { 0, 0 };
-        POINT p = Common::GetScreenPos();
-
-        if (p.x == previousPoint.x &&
-            p.y == previousPoint.y)
-        {
-            // do nothing
-        }
-        else
-        {
-            m_guiLib.CursorOn(p.x, p.y);
-        }
-        
-        previousPoint = p;
-    }
-
-    if (Mouse::GetZDelta() < 0)
-    {
-        m_guiLib.Next();
-    }
-    else if (Mouse::GetZDelta() > 0)
-    {
-        m_guiLib.Previous();
-    }
-
-    if (GamePad::IsDown(eGamePadButtonType::UP))
-    {
-        m_guiLib.Up();
-    }
-
-    if (GamePad::IsHold(eGamePadButtonType::UP))
-    {
-        m_guiLib.Up();
-    }
-
-    if (GamePad::IsDown(eGamePadButtonType::DOWN))
-    {
-        m_guiLib.Down();
-    }
-
-    if (GamePad::IsHold(eGamePadButtonType::DOWN))
-    {
-        m_guiLib.Down();
-    }
-
-    if (GamePad::IsDown(eGamePadButtonType::LEFT))
-    {
-        m_guiLib.Left();
-    }
-
-    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
-    {
-        m_guiLib.Right();
-    }
-
-    if (GamePad::IsDown(eGamePadButtonType::A))
-    {
-        result = m_guiLib.Into();
-
-        std::vector<std::string> vs = Common::split(result, ':');
-
-        // TODO
+        Common::Inventory()->RemoveItem(id, subId);
 
     }
-
-    if (GamePad::IsDown(eGamePadButtonType::B))
-    {
-        result = m_guiLib.Back();
-    }
-
-    return result;
-}
-
-void PatchTestManager2::Draw()
-{
-    m_guiLib.Draw();
 }
 
 NSStarmanLib::PatchTestManager* PatchTestManager2::GetPatchLib()
