@@ -19,6 +19,7 @@
 #pragma comment(lib, "..\\..\\craftlib\\Release\\craftlib.lib")
 #pragma comment(lib, "..\\..\\hud\\Release\\hud.lib")
 #pragma comment(lib, "..\\..\\command\\Release\\command.lib")
+#pragma comment(lib, "..\\..\\patchTestLib\\Release\\patchTestLib.lib")
 #else
 #pragma comment(lib, "..\\..\\StoryTelling\\Debug\\StoryTelling.lib")
 #pragma comment(lib, "..\\..\\talklib2\\Debug\\talklib2.lib")
@@ -29,6 +30,7 @@
 #pragma comment(lib, "..\\..\\craftlib\\Debug\\craftlib.lib")
 #pragma comment(lib, "..\\..\\hud\\Debug\\hud.lib")
 #pragma comment(lib, "..\\..\\command\\Debug\\command.lib")
+#pragma comment(lib, "..\\..\\patchTestLib\\Debug\\patchTestLib.lib")
 #endif
 
 #include <windows.h>

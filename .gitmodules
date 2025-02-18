@@ -25,3 +25,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "command"]
 	path = command
 	url = https://github.com/bibindon/command.git
+[submodule "patchTestLib"]
+	path = patchTestLib
+	url = https://github.com/bibindon/patchTestLib.git
