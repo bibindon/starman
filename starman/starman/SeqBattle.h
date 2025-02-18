@@ -19,6 +19,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
 #include "..\..\storehouselib\storehouselib\StorehouseLib.h"
 #include "..\..\craftlib\craftlib\CraftLib.h"
+#include "..\..\patchTestLib\patchTestLib\patchTestLib.h"
 #include "MenuManager.h"
 #include "HudManager.h"
 #include "CommandManager.h"
@@ -29,6 +30,7 @@
 #include "Opening.h"
 #include "Title.h"
 #include "StoryManager.h"
+#include "PatchTestManager2.h"
 
 class Title;
 
@@ -202,5 +204,11 @@ private:
     // クエスト関連処理
     //----------------------------------------------
     void OperateQuest(eSequence* sequence);
+
+    //----------------------------------------------------
+    // パッチテスト画面
+    //----------------------------------------------------
+    void OperatePatch();
+    PatchTestManager2 m_patchManager2;
 };
 

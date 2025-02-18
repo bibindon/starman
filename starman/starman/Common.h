@@ -35,6 +35,7 @@ enum class eBattleState
     TALK,
     DEAD,
     SLEEP,
+    PATCH_TEST,
 };
 
 enum class eTitleMenu

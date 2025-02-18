@@ -546,6 +546,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateMenu(sequence);
     }
+    else if (m_eState == eBattleState::PATCH_TEST)
+    {
+        OperatePatch();
+    }
     else if (m_eState == eBattleState::OPENING)
     {
         OperateOpening();
@@ -1773,6 +1777,18 @@ void SeqBattle::OperateQuest(eSequence* sequence)
     }
 }
 
+void SeqBattle::OperatePatch()
+{
+    std::string result = m_patchManager2.Operate();
+
+    if (result == "EXIT")
+    {
+        m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+    }
+}
+
 void SeqBattle::Render()
 {
     RenderCommon();
@@ -1800,6 +1816,10 @@ void SeqBattle::Render()
     else if (m_eState == eBattleState::MENU)
     {
         m_menuManager.Draw();
+    }
+    else if (m_eState == eBattleState::PATCH_TEST)
+    {
+        m_patchManager2.Draw();
     }
     else if (m_eState == eBattleState::STOREHOUSE)
     {
@@ -2535,6 +2555,17 @@ void SeqBattle::UpdateDebug()
                 }
             }
         }
+    }
+
+    // パッチテスト機能
+    {
+        m_eState = eBattleState::PATCH_TEST;
+        Camera::SetCameraMode(eCameraMode::SLEEP);
+        Common::SetCursorVisibility(true);
+        m_patchManager2.Finalize();
+        m_patchManager2.InitPatch();
+
+        return;
     }
 }
 
