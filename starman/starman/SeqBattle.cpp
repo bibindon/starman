@@ -2559,13 +2559,18 @@ void SeqBattle::UpdateDebug()
 
     // パッチテスト機能
     {
-        m_eState = eBattleState::PATCH_TEST;
-        Camera::SetCameraMode(eCameraMode::SLEEP);
-        Common::SetCursorVisibility(true);
-        m_patchManager2.Finalize();
-        m_patchManager2.InitPatch();
+        if (KeyBoard::IsDownFirstFrame(DIK_F3))
+        {
+            if (m_eState == eBattleState::NORMAL)
+            {
+                m_eState = eBattleState::PATCH_TEST;
+                Camera::SetCameraMode(eCameraMode::SLEEP);
+                Common::SetCursorVisibility(true);
+                m_patchManager2.Finalize();
+                m_patchManager2.InitPatch();
 
-        return;
+            }
+        }
     }
 }
 

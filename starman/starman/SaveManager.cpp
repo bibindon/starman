@@ -377,8 +377,8 @@ void SaveManager::Load()
 
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
     patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
-                           CreateSaveFilePath("patchTestQueSave.csv"),
-                           CreateSaveFilePath("patchTestInfoSave.csv"));
+                           CreateSaveFilePath("patchTestInfoSave.csv"),
+                           CreateSaveFilePath("patchTestQueSave.csv"));
 
     m_savedataLoaded = true;
 }

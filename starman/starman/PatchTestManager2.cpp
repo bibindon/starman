@@ -229,6 +229,74 @@ void PatchTestManager2::InitPatch()
     pSE->Init();
 
     m_guiLib.Init(pFont, pSE, sprCursor, sprBackground, sprVBar);
+
+    // 左側のリストを作る
+    // 現在所持している物で、パッチテスト対象のものを表示する
+    // 同じアイテムを複数所持していたら複数表示する。
+    {
+        auto keyList = GetPatchLib()->GetKeyList();
+
+        for (size_t i = 0; i < keyList.size(); ++i)
+        {
+            auto itemDef = Common::ItemManager()->GetItemDef(keyList.at(i));
+            auto subIdList = Common::Inventory()->GetSubIdList(itemDef.GetId());
+
+            for (size_t j = 0; j < subIdList.size(); ++j)
+            {
+                NSPatchTestLib::TestItem testItem;
+
+                testItem.SetName(keyList.at(i));
+                testItem.SetId(itemDef.GetId());
+                testItem.SetSubId(subIdList.at(j));
+
+                m_guiLib.AddTestItem(testItem);
+            }
+        }
+    }
+
+    // 右側のリストを作る
+    {
+        auto queList = GetPatchLib()->GetQueue();
+
+        for (size_t i = 0; i < queList.size(); ++i)
+        {
+            NSPatchTestLib::QueuedTestItem itemInfo;
+
+            itemInfo.SetName(queList.at(i).GetItemName());
+
+            int y, M, d, h, m, s;
+            queList.at(i).GetDateTimeReq(&y, &M, &d, &h, &m, &s);
+            itemInfo.SetDateReq(y, M, d, h, m, s);
+
+            queList.at(i).GetDateTimeStart(&y, &M, &d, &h, &m, &s);
+            itemInfo.SetDateStart(y, M, d, h, m, s);
+
+            queList.at(i).GetDateTimeEnd(&y, &M, &d, &h, &m, &s);
+            itemInfo.SetDateEnd(y, M, d, h, m, s);
+
+            if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::NOT_START)
+            {
+                itemInfo.SetResult("未実施");
+            }
+            else if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::STARTED)
+            {
+                itemInfo.SetResult("テスト中");
+            }
+            else if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::FINISHED)
+            {
+                if (queList.at(i).GetResult() == NSStarmanLib::PatchTest::eResult::POISON)
+                {
+                    itemInfo.SetResult("毒");
+                }
+                else if (queList.at(i).GetResult() == NSStarmanLib::PatchTest::eResult::NOT_POISON)
+                {
+                    itemInfo.SetResult("毒ではない");
+                }
+            }
+
+            m_guiLib.AddQueueItem(itemInfo);
+        }
+    }
 }
 
 std::string PatchTestManager2::Operate()
