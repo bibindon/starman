@@ -125,11 +125,11 @@ namespace NSStorehouseLib
                 &m_pFont);
         }
 
-        virtual void DrawText_(const std::string& msg, const int x, const int y)
+        virtual void DrawText_(const std::string& msg, const int x, const int y, const int transparency)
         {
             RECT rect = { x, y, 0, 0 };
             m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
-                D3DCOLOR_ARGB(255, 255, 255, 255));
+                D3DCOLOR_ARGB(transparency, 255, 255, 255));
         }
 
         ~Font()
@@ -934,18 +934,12 @@ void SeqBattle::ShowStorehouse()
     NSStorehouseLib::Sprite* sprBackground = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load("res\\image\\background.png");
 
-    NSStorehouseLib::Sprite* sprPanelLeft = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-    sprPanelLeft->Load("res\\image\\panelLeft.png");
-
-    NSStorehouseLib::Sprite* sprPanelTop = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-    sprPanelTop->Load("res\\image\\craftPanel.png");
-
     NSStorehouseLib::IFont* pFont = NEW NSStorehouseLib::Font(SharedObj::GetD3DDevice());
     pFont->Init();
 
     NSStorehouseLib::ISoundEffect* pSE = NEW NSStorehouseLib::SoundEffect();
 
-    m_storehouse->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
+    m_storehouse->Init(pFont, pSE, sprCursor, sprBackground);
     {
         using namespace NSStarmanLib;
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -2118,18 +2112,12 @@ void SeqBattle::UpdateDebug()
                 NSStorehouseLib::Sprite* sprBackground = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
                 sprBackground->Load("res\\image\\background.png");
 
-                NSStorehouseLib::Sprite* sprPanelLeft = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-                sprPanelLeft->Load("res\\image\\panelLeft.png");
-
-                NSStorehouseLib::Sprite* sprPanelTop = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-                sprPanelTop->Load("res\\image\\craftPanel.png");
-
                 NSStorehouseLib::IFont* pFont = NEW NSStorehouseLib::Font(SharedObj::GetD3DDevice());
                 pFont->Init();
 
                 NSStorehouseLib::ISoundEffect* pSE = NEW NSStorehouseLib::SoundEffect();
 
-                m_storehouse->Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
+                m_storehouse->Init(pFont, pSE, sprCursor, sprBackground);
                 {
                     using namespace NSStarmanLib;
                     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
