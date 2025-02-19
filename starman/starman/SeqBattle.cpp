@@ -507,6 +507,12 @@ SeqBattle::SeqBattle()
     InitLoad();
 
     m_sprBlack = NEW Sprite("res\\image\\black.png");
+
+    if (Common::DebugMode())
+    {
+        NSTalkLib2::Talk::SetFastMode(true);
+        NSStoryTelling::StoryTelling::SetFastMode(true);
+    }
 }
 
 SeqBattle::~SeqBattle()
