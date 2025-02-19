@@ -589,6 +589,14 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateSleep();
     }
+    else if (m_eState == eBattleState::CUT_TREE)
+    {
+        OperateCutTree();
+    }
+    else if (m_eState == eBattleState::PICK_PLANT)
+    {
+        OperatePickPlant();
+    }
 
     if (Common::DebugMode())
     {
@@ -1139,6 +1147,40 @@ void SeqBattle::OperateCommand()
         D3DXVECTOR3 pos(-285.f, 16.f, 539.f);
         m_player->SetPos(pos);
     }
+    else if (result == "伐採")
+    {
+        // 石か石斧を装備していないと切れない
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        auto itemInfo = status->GetEquipWeapon();
+        auto name = itemInfo.GetItemDef().GetName();
+        if (name != "石斧" && name != "石" && name != "縦長の石")
+        {
+            PopUp2::Get()->SetText("適切な道具を装備し、食料を所持していないと木を伐採することはできない");
+        }
+        else
+        {
+            leave = true;
+
+            m_eState = eBattleState::CUT_TREE;
+            StartFadeInOut();
+        }
+    }
+    else if (result == "採取")
+    {
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        auto stamina = status->GetBodyStaminaCurrent();
+        if (stamina <= 6.f)
+        {
+            PopUp2::Get()->SetText("スタミナがある程度ないと採取を開始できない");
+        }
+        else
+        {
+            leave = true;
+
+            m_eState = eBattleState::PICK_PLANT;
+            StartFadeInOut();
+        }
+    }
 
     // コマンド画面を閉じる場合、脱出コマンドは削除する
     if (leave)
@@ -1463,94 +1505,114 @@ void SeqBattle::OperateOpening()
 
 void SeqBattle::OperateSleep()
 {
-    auto statusManager = NSStarmanLib::StatusManager::GetObj();
+    if (m_fadeBlackCount == 1)
     {
-        if (m_eSleepSeq == eSleepSeq::FadeOut)
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        status->Sleep();
+        if (status->GetLevelUpFire())
         {
-            ++m_sleepFadeOut;
-            if (m_sleepFadeOut >= 300)
-            {
-                m_eSleepSeq = eSleepSeq::Sleep;
-            }
+            PopUp2::Get()->SetText("炎魔法のレベルが上がった");
         }
-        else if (m_eSleepSeq == eSleepSeq::Sleep)
+
+        if (status->GetLevelUpIce())
         {
-            ++m_sleepBlack;
-            if (m_sleepBlack >= 60)
-            {
-                m_eSleepSeq = eSleepSeq::FadeIn;
-            }
-            else if (m_sleepBlack == 1)
-            {
-                auto status = NSStarmanLib::StatusManager::GetObj();
-                status->Sleep();
-                if (status->GetLevelUpFire())
-                {
-                    PopUp2::Get()->SetText("炎魔法のレベルが上がった");
-                }
-
-                if (status->GetLevelUpIce())
-                {
-                    PopUp2::Get()->SetText("氷魔法のレベルが上がった");
-                }
-
-                if (status->GetLevelUpDark())
-                {
-                    PopUp2::Get()->SetText("闇魔法のレベルが上がった");
-                }
-
-                if (status->GetLevelDownFire())
-                {
-                    PopUp2::Get()->SetText("炎魔法のレベルが下がった");
-                }
-
-                if (status->GetLevelDownIce())
-                {
-                    PopUp2::Get()->SetText("氷魔法のレベルが下がった");
-                }
-
-                if (status->GetLevelDownDark())
-                {
-                    PopUp2::Get()->SetText("闇魔法のレベルが下がった");
-                }
-            }
+            PopUp2::Get()->SetText("氷魔法のレベルが上がった");
         }
-        else if (m_eSleepSeq == eSleepSeq::FadeIn)
+
+        if (status->GetLevelUpDark())
         {
-            ++m_sleepFadeIn;
-            if (m_sleepFadeIn >= 60)
-            {
-                m_eSleepSeq = eSleepSeq::Finish;
-            }
+            PopUp2::Get()->SetText("闇魔法のレベルが上がった");
         }
-        else if (m_eSleepSeq == eSleepSeq::Finish)
+
+        if (status->GetLevelDownFire())
         {
-            m_eState = eBattleState::NORMAL;
-            m_player->SetSleep(false);
-            m_eSleepSeq = eSleepSeq::NotStart;
-            m_sleepFadeOut = 0;
-            m_sleepBlack = 0;
-            m_sleepFadeIn = 0;
+            PopUp2::Get()->SetText("炎魔法のレベルが下がった");
         }
+
+        if (status->GetLevelDownIce())
+        {
+            PopUp2::Get()->SetText("氷魔法のレベルが下がった");
+        }
+
+        if (status->GetLevelDownDark())
+        {
+            PopUp2::Get()->SetText("闇魔法のレベルが下がった");
+        }
+    }
+
+    if (m_eFadeSeq == eFadeSeq::Finish)
+    {
+        m_eState = eBattleState::NORMAL;
+        m_player->SetSleep(false);
     }
 }
 
 void SeqBattle::RenderSleep()
 {
+    // do nothing
+}
+
+void SeqBattle::StartFadeInOut()
+{
+    m_eFadeSeq = eFadeSeq::FadeOut;
+    m_fadeOutCount = 0;
+    m_fadeBlackCount = 0;
+    m_fadeInCount = 0;
+}
+
+void SeqBattle::UpdateFadeInOut()
+{
+    {
+        if (m_eFadeSeq == eFadeSeq::FadeOut)
+        {
+            ++m_fadeOutCount;
+            if (m_fadeOutCount >= 300)
+            {
+                m_eFadeSeq = eFadeSeq::Sleep;
+            }
+        }
+        else if (m_eFadeSeq == eFadeSeq::Sleep)
+        {
+            ++m_fadeBlackCount;
+            if (m_fadeBlackCount >= 60)
+            {
+                m_eFadeSeq = eFadeSeq::FadeIn;
+            }
+        }
+        else if (m_eFadeSeq == eFadeSeq::FadeIn)
+        {
+            ++m_fadeInCount;
+            if (m_fadeInCount >= 60)
+            {
+                m_eFadeSeq = eFadeSeq::Finish;
+            }
+        }
+        else if (m_eFadeSeq == eFadeSeq::Finish)
+        {
+            m_eFadeSeq = eFadeSeq::NotStart;
+            m_fadeOutCount = 0;
+            m_fadeBlackCount = 0;
+            m_fadeInCount = 0;
+        }
+    }
+}
+
+void SeqBattle::DrawFadeInOut()
+{
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
     int transparency = 0;
-    if (m_eSleepSeq == eSleepSeq::FadeOut)
+    if (m_eFadeSeq == eFadeSeq::FadeOut)
     {
-        transparency = m_sleepFadeOut * 255 / 300;
+        transparency = m_fadeOutCount * 255 / 300;
         m_sprBlack->Render(pos, transparency);
     }
-    else if (m_eSleepSeq == eSleepSeq::Sleep)
+    else if (m_eFadeSeq == eFadeSeq::Sleep)
     {
         m_sprBlack->Render(pos);
     }
-    else if (m_eSleepSeq == eSleepSeq::FadeIn)
+    else if (m_eFadeSeq == eFadeSeq::FadeIn)
     {
-        transparency = 255 - (m_sleepFadeIn * 255 / 60);
+        transparency = 255 - (m_fadeInCount * 255 / 60);
         m_sprBlack->Render(pos, transparency);
     }
 }
@@ -1799,6 +1861,36 @@ void SeqBattle::OperatePatch()
     }
 }
 
+void SeqBattle::OperatePickPlant()
+{
+    if (m_eFadeSeq == eFadeSeq::Finish)
+    {
+
+    }
+}
+
+void SeqBattle::RenderPickPlant()
+{
+}
+
+void SeqBattle::OperateCutTree()
+{
+    if (m_eFadeSeq == eFadeSeq::Finish)
+    {
+        PopUp2::Get()->SetText("細い木の幹を手に入れた。");
+
+        // 斧がないと切れない、という処理
+        
+        // 6時間経過させる処理
+
+        // 木を消す処理
+    }
+}
+
+void SeqBattle::RenderCutTree()
+{
+}
+
 void SeqBattle::Render()
 {
     RenderCommon();
@@ -1854,6 +1946,14 @@ void SeqBattle::Render()
     else if (m_eState == eBattleState::SLEEP)
     {
         RenderSleep();
+    }
+    else if (m_eState == eBattleState::PICK_PLANT)
+    {
+        RenderPickPlant();
+    }
+    else if (m_eState == eBattleState::CUT_TREE)
+    {
+        RenderCutTree();
     }
 
     RenderCommon2D();
@@ -1997,6 +2097,9 @@ void SeqBattle::UpdateCommon()
             UpdatePerSecond();
         }
     }
+
+    UpdateFadeInOut();
+
 }
 
 void SeqBattle::RenderCommon()
@@ -2013,6 +2116,8 @@ void SeqBattle::RenderCommon()
     {
         m_player->Render();
         m_map->Render();
+
+        DrawFadeInOut();
     }
 }
 
@@ -2631,18 +2736,16 @@ void SeqBattle::UpdatePerSecond()
     //-------------------------------------
     // 睡眠・気絶チェック
     //-------------------------------------
-    if (m_eSleepSeq == eSleepSeq::NotStart)
+    if (m_eFadeSeq == eFadeSeq::NotStart)
     {
         bool sleep = statusManager->GetSleep();
         if (sleep)
         {
             m_eState = eBattleState::SLEEP;
-            m_eSleepSeq = eSleepSeq::FadeOut;
-            m_sleepFadeOut = 0;
-            m_sleepBlack = 0;
-            m_sleepFadeIn = 0;
             m_player->SetSleep(true);
             PopUp2::Get()->SetText("睡眠・気絶");
+
+            StartFadeInOut();
         }
     }
 
@@ -2823,18 +2926,33 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 }
             }
         }
-        else if (work == 15)
+        else if (work == 5)
         {
             // 近くに植物があるか
             {
                 auto ppos = m_player->GetPos();
                 if (m_map->NearPlant(ppos))
                 {
-                    m_commandShowPlant = true;
+                    m_commandManager.Upsert("採取", true);
                 }
                 else
                 {
-                    m_commandShowPlant = false;
+                    m_commandManager.Upsert("採取", false);
+                }
+            }
+        }
+        else if (work == 10)
+        {
+            // 近くに木があるか
+            {
+                auto ppos = m_player->GetPos();
+                if (m_map->NearTree(ppos))
+                {
+                    m_commandManager.Upsert("伐採", true);
+                }
+                else
+                {
+                    m_commandManager.Upsert("伐採", false);
                 }
             }
         }

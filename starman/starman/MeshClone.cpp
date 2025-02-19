@@ -390,4 +390,18 @@ float MeshClone::GetRadius() const
     return m_radius;
 }
 
+std::string MeshClone::GetMeshName()
+{
+    return m_meshName;
+}
+
+bool MeshClone::ContainMeshName(const std::string& arg)
+{
+    if (m_meshName.find(arg) != std::string::npos)
+    {
+        return true;
+    }
+    return false;
+}
+
 

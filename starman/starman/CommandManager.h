@@ -6,11 +6,15 @@
 class CommandManager
 {
 public:
+
     void Init(std::vector<std::string> commands, std::vector<bool> visibles);
     std::string Operate();
     void Draw();
     void Finalize();
+    void Upsert(const std::string name, const bool visible);
+
 private:
+
     NSCommand::CommandLib* m_commandLib = nullptr;
 };
 

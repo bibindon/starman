@@ -137,7 +137,7 @@ private:
     bool m_commandShowEscape = false;
 
     // 植物の採取
-    bool m_commandShowPlant = false;
+//    bool m_commandShowPlant = false;
 
     // 木の伐採
     bool m_commandShowTree = false;
@@ -190,19 +190,28 @@ private:
     //----------------------------------------------------------
     void OperateSleep();
     void RenderSleep();
-    enum class eSleepSeq
+
+    //-------------------------------------------------------
+    // フェードイン・アウト処理
+    //-------------------------------------------------------
+
+    void StartFadeInOut();
+    void UpdateFadeInOut();
+    void DrawFadeInOut();
+
+    enum class eFadeSeq
     {
         NotStart, // 睡眠中ではない
         FadeOut, // 5秒かけてフェードアウト
-        Sleep, // 睡眠。黒背景
+        Sleep, // 黒背景
         FadeIn, // 目覚め。フェードイン
         Finish, // 完了
     };
 
-    eSleepSeq m_eSleepSeq = eSleepSeq::NotStart;
-    int m_sleepFadeOut = 0;
-    int m_sleepBlack = 0;
-    int m_sleepFadeIn = 0;
+    eFadeSeq m_eFadeSeq = eFadeSeq::NotStart;
+    int m_fadeOutCount = 0;
+    int m_fadeBlackCount = 0;
+    int m_fadeInCount = 0;
 
     Sprite* m_sprBlack = nullptr;
 
@@ -216,5 +225,17 @@ private:
     //----------------------------------------------------
     void OperatePatch();
     PatchTestManager2 m_patchManager2;
+
+    //----------------------------------------------------
+    // 植物採取
+    //----------------------------------------------------
+    void OperatePickPlant();
+    void RenderPickPlant();
+
+    //----------------------------------------------------
+    // 伐採
+    //----------------------------------------------------
+    void OperateCutTree();
+    void RenderCutTree();
 };
 

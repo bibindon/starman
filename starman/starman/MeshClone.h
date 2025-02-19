@@ -33,6 +33,9 @@ public:
 
     float GetRadius() const;
 
+    std::string GetMeshName();
+    bool ContainMeshName(const std::string& arg);
+
 private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
 

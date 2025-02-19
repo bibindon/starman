@@ -247,3 +247,10 @@ void CommandManager::Finalize()
     m_commandLib->Finalize();
     SAFE_DELETE(m_commandLib);
 }
+
+void CommandManager::Upsert(const std::string name, const bool visible)
+{
+    m_commandLib->UpsertCommand(name, visible);
+}
+
+

@@ -36,6 +36,8 @@ enum class eBattleState
     DEAD,
     SLEEP,
     PATCH_TEST,
+    PICK_PLANT,
+    CUT_TREE,
 };
 
 enum class eTitleMenu

@@ -1605,10 +1605,21 @@ bool Map::NearPlant(const D3DXVECTOR3& pos)
     bool isHit = false;
     for (auto& pair : m_meshCloneMap)
     {
-        isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
-        if (isHit)
+        if (pair.second->ContainMeshName("plant.x"))
         {
-            break;
+            isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
+            if (isHit)
+            {
+                break;
+            }
+        }
+        else if (pair.second->ContainMeshName("grass.x"))
+        {
+            isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
+            if (isHit)
+            {
+                break;
+            }
         }
     }
     return isHit;
@@ -1616,7 +1627,19 @@ bool Map::NearPlant(const D3DXVECTOR3& pos)
 
 bool Map::NearTree(const D3DXVECTOR3& pos)
 {
-    return false;
+    bool isHit = false;
+    for (auto& pair : m_meshCloneMap)
+    {
+        if (pair.second->ContainMeshName("tree"))
+        {
+            isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
+            if (isHit)
+            {
+                break;
+            }
+        }
+    }
+    return isHit;
 }
 
 D3DXVECTOR3 Map::WallSlideSub(
