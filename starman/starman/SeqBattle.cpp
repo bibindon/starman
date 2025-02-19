@@ -1163,7 +1163,7 @@ void SeqBattle::OperateCommand()
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
         auto name = itemInfo.GetItemDef().GetName();
-        if (name != "石斧" && name != "石" && name != "縦長の石")
+        if (name != "石斧" && name != "縦長の石")
         {
             PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
         }
@@ -1190,7 +1190,7 @@ void SeqBattle::OperateCommand()
     {
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto stamina = status->GetBodyStaminaCurrent();
-        if (stamina <= 6.f)
+        if (stamina <= 16.f)
         {
             PopUp2::Get()->SetText("スタミナがある程度ないと採取を開始できない");
         }
@@ -1885,7 +1885,96 @@ void SeqBattle::OperatePickPlant()
 {
     if (m_eFadeSeq == eFadeSeq::Finish)
     {
+        int rand = SharedObj::GetRandom();
 
+        std::string pick;
+
+        // TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
+        if (rand % 100 < 10)
+        {
+            pick = "謎の草１";
+        }
+        else if (rand % 100 < 20)
+        {
+            pick = "謎の草２";
+        }
+        else if (rand % 100 < 30)
+        {
+            pick = "謎の草３";
+        }
+        else if (rand % 100 < 40)
+        {
+            pick = "謎の草４";
+        }
+        else if (rand % 100 < 45)
+        {
+            pick = "謎の草５";
+        }
+        else if (rand % 100 < 50)
+        {
+            pick = "赤い実";
+        }
+        else if (rand % 100 < 55)
+        {
+            pick = "ツクシ";
+        }
+        else if (rand % 100 < 60)
+        {
+            pick = "ハイビスカス";
+        }
+        else if (rand % 100 < 65)
+        {
+            pick = "タンポポ";
+        }
+        else if (rand % 100 < 70)
+        {
+            pick = "ニラ、もしくはスイセン";
+        }
+        else if (rand % 100 < 75)
+        {
+            pick = "キノコ";
+        }
+        else if (rand % 100 < 80)
+        {
+            pick = "パパイヤ";
+        }
+        else if (rand % 100 < 85)
+        {
+            pick = "マンゴー";
+        }
+        else if (rand % 100 < 90)
+        {
+            pick = "バナナ";
+        }
+        else if (rand % 100 < 95)
+        {
+            pick = "ツタ";
+        }
+        else if (rand % 100 < 100)
+        {
+            pick = "木の枝";
+        }
+
+        PopUp2::Get()->SetText(pick + "を手に入れた。");
+
+        // 30分経過させる処理
+        auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+        dateTime->IncreaseDateTime(0, 0, 0, 30, 0);
+
+        // 体力を消費
+        // 装備武器で消費する時間や体力が変わる
+        Common::Status()->PickPlant();
+
+        // アイテムをインベントリに追加
+        auto itemDef = Common::ItemManager()->GetItemDef(pick);
+        Common::Inventory()->AddItem(itemDef.GetId());
+
+        // 草を消す処理
+        m_map->DeletePlant(m_player->GetPos());
+
+        m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
     }
 }
 
@@ -1900,13 +1989,69 @@ void SeqBattle::OperateCutTree()
         PopUp2::Get()->SetText("細い木の幹を手に入れた。");
 
         // 6時間経過させる処理
-        // TODO 装備武器で消費する時間や体力が変わる
+        // 装備武器で消費する時間や体力が変わる
+        // 
+
+        auto status = NSStarmanLib::StatusManager::GetObj();
+        auto itemInfo = status->GetEquipWeapon();
+        auto name = itemInfo.GetItemDef().GetName();
+        auto level = itemInfo.GetItemDef().GetLevel();
+
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
-        dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
+
+        if (name == "縦長の石")
+        {
+            dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
+        }
+        else if (name == "石斧")
+        {
+            auto durability = itemInfo.GetDurabilityCurrent();
+
+            // 時間を経過させ、石斧の耐久値を減らす
+            if (level == 0 || level == -1)
+            {
+                dateTime->IncreaseDateTime(0, 0, 8, 0, 0);
+                durability -= 1000;
+            }
+            else if (level == 1)
+            {
+                dateTime->IncreaseDateTime(0, 0, 5, 30, 0);
+                durability -= 900;
+            }
+            else if (level == 2)
+            {
+                dateTime->IncreaseDateTime(0, 0, 5, 0, 0);
+                durability -= 800;
+            }
+            else if (level == 3)
+            {
+                dateTime->IncreaseDateTime(0, 0, 4, 30, 0);
+                durability -= 700;
+            }
+            else if (level == 4)
+            {
+                dateTime->IncreaseDateTime(0, 0, 4, 0, 0);
+                durability -= 600;
+            }
+            else if (level == 5)
+            {
+                dateTime->IncreaseDateTime(0, 0, 3, 30, 0);
+                durability -= 500;
+            }
+
+            if (durability <= -1)
+            {
+                durability = 0;
+            }
+
+            Common::Inventory()->SetItemDurability(itemInfo.GetId(),
+                                                   itemInfo.GetSubId(),
+                                                   durability);
+        }
 
         // 体力を消費
-        // TODO 装備武器で消費する時間や体力が変わる
-        //Common::Status()->CutTree();
+        // 装備武器で消費する時間や体力が変わる
+        Common::Status()->CutTree(name, level);
 
         // アイテムをインベントリに追加
         auto itemDef = Common::ItemManager()->GetItemDef("細い木の幹");
@@ -2037,6 +2182,10 @@ void SeqBattle::Confirm(eSequence* sequence)
     {
         // 会話を開始
         m_bTalkable = false;
+
+        // 会話による体力の消費
+        Common::Status()->Talk();
+
         auto npcManager = NpcManager::Get();
         std::string npcName;
         D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();

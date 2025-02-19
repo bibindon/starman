@@ -1603,25 +1603,23 @@ bool Map::NearChest(const D3DXVECTOR3& pos)
 bool Map::NearPlant(const D3DXVECTOR3& pos)
 {
     bool isHit = false;
-    for (auto& pair : m_meshCloneMap)
+
+    auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int modelId = MapLib()->GetModelId("plant.x");
+    int modelId2 = MapLib()->GetModelId("grass.x");
+
+    for (size_t i = 0; i < list.size(); ++i)
     {
-        if (pair.second->ContainMeshName("plant.x"))
+        if (list.at(i).m_modelId == modelId || list.at(i).m_modelId == modelId2)
         {
-            isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
-            if (isHit)
+            if (list.at(i).m_visible)
             {
-                break;
-            }
-        }
-        else if (pair.second->ContainMeshName("grass.x"))
-        {
-            isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
-            if (isHit)
-            {
-                break;
+                isHit = true;
             }
         }
     }
+
     return isHit;
 }
 
@@ -1653,6 +1651,26 @@ void Map::DeleteTree(const D3DXVECTOR3& pos)
     for (size_t i = 0; i < mapObjs.size(); ++i)
     {
         if (id == mapObjs.at(i).m_modelId)
+        {
+            MapLib()->SetVisible(mapObjs.at(i).m_frameX,
+                                 mapObjs.at(i).m_frameZ,
+                                 mapObjs.at(i).m_id,
+                                 false);
+            break;
+        }
+    }
+}
+
+void Map::DeletePlant(const D3DXVECTOR3& pos)
+{
+    std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int modelId1 = MapLib()->GetModelId("plant.x");
+    int modelId2 = MapLib()->GetModelId("grass.x");
+
+    for (size_t i = 0; i < mapObjs.size(); ++i)
+    {
+        if (modelId1 == mapObjs.at(i).m_modelId || modelId2 == mapObjs.at(i).m_modelId)
         {
             MapLib()->SetVisible(mapObjs.at(i).m_frameX,
                                  mapObjs.at(i).m_frameZ,
