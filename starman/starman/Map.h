@@ -70,6 +70,12 @@ public:
     // ëqå…ÇÃãﬂÇ≠Ç…Ç¢ÇÈÇ©
     bool NearChest(const D3DXVECTOR3& pos);
 
+    // ëêÇÃãﬂÇ≠Ç…Ç¢ÇÈÇ©
+    bool NearPlant(const D3DXVECTOR3& pos);
+
+    // ñÿÇÃãﬂÇ≠Ç…Ç¢ÇÈÇ©
+    bool NearTree(const D3DXVECTOR3& pos);
+
 private:
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);

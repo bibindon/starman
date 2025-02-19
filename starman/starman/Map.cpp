@@ -1600,6 +1600,25 @@ bool Map::NearChest(const D3DXVECTOR3& pos)
     return Common::HitByBoundingBox(pos, m_meshMap["chest"]->GetPos(), 2.f);
 }
 
+bool Map::NearPlant(const D3DXVECTOR3& pos)
+{
+    bool isHit = false;
+    for (auto& pair : m_meshCloneMap)
+    {
+        isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
+        if (isHit)
+        {
+            break;
+        }
+    }
+    return isHit;
+}
+
+bool Map::NearTree(const D3DXVECTOR3& pos)
+{
+    return false;
+}
+
 D3DXVECTOR3 Map::WallSlideSub(
     const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit)
 {

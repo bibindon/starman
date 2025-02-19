@@ -475,7 +475,10 @@ SeqBattle::SeqBattle()
         std::vector<bool> vb;
 
         vs.push_back("伐採");
-        vb.push_back(true);
+        vb.push_back(false);
+
+        vs.push_back("採取");
+        vb.push_back(false);
 
         vs.push_back("横になる");
         vb.push_back(true);
@@ -1137,6 +1140,7 @@ void SeqBattle::OperateCommand()
         m_player->SetPos(pos);
     }
 
+    // コマンド画面を閉じる場合、脱出コマンドは削除する
     if (leave)
     {
         m_eState = eBattleState::NORMAL;
@@ -1152,7 +1156,10 @@ void SeqBattle::OperateCommand()
             std::vector<bool> vb;
 
             vs.push_back("伐採");
-            vb.push_back(true);
+            vb.push_back(false);
+
+            vs.push_back("採取");
+            vb.push_back(false);
 
             vs.push_back("横になる");
             vb.push_back(true);
@@ -1186,7 +1193,10 @@ void SeqBattle::OperateCommand()
             std::vector<bool> vb;
 
             vs.push_back("伐採");
-            vb.push_back(true);
+            vb.push_back(false);
+
+            vs.push_back("採取");
+            vb.push_back(false);
 
             vs.push_back("横になる");
             vb.push_back(true);
@@ -2787,16 +2797,46 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
     m_hudManager.Update();
 
-    // 近くにチェストがあったら倉庫機能が使える。
+    //-------------------------------------------------
+    // 0.5秒に1回くらいの処理
+    //-------------------------------------------------
     {
-        auto ppos = m_player->GetPos();
-        if (m_map->NearChest(ppos))
+        static int work = 0;
+        ++work;
+        if (work >= 30)
         {
-            m_bShowStorehouse = true;
+            work = 0;
         }
-        else
+
+        if (work == 0)
         {
-            m_bShowStorehouse = false;
+            // 近くにチェストがあったら倉庫機能が使える。
+            {
+                auto ppos = m_player->GetPos();
+                if (m_map->NearChest(ppos))
+                {
+                    m_bShowStorehouse = true;
+                }
+                else
+                {
+                    m_bShowStorehouse = false;
+                }
+            }
+        }
+        else if (work == 15)
+        {
+            // 近くに植物があるか
+            {
+                auto ppos = m_player->GetPos();
+                if (m_map->NearPlant(ppos))
+                {
+                    m_commandShowPlant = true;
+                }
+                else
+                {
+                    m_commandShowPlant = false;
+                }
+            }
         }
     }
 

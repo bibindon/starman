@@ -136,6 +136,12 @@ private:
     int m_commandCounter = 0;
     bool m_commandShowEscape = false;
 
+    // A•¨‚ÌÌæ
+    bool m_commandShowPlant = false;
+
+    // –Ø‚Ì”°Ì
+    bool m_commandShowTree = false;
+
     //----------------------------------------------------------
     // ƒ^ƒCƒgƒ‹‰æ–Ê
     //----------------------------------------------------------
