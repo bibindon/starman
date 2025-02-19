@@ -100,7 +100,7 @@ void Camera::Update()
         x *= -1; // 正負を逆にする
 
         // xとyを10分の1にすればリモートデスクトップでもまともに操作できる
-        if (Common::IsRemoteSession())
+//        if (Common::IsRemoteSession())
         {
             x /= 20;
             y /= 20;

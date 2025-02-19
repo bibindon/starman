@@ -1628,18 +1628,45 @@ bool Map::NearPlant(const D3DXVECTOR3& pos)
 bool Map::NearTree(const D3DXVECTOR3& pos)
 {
     bool isHit = false;
-    for (auto& pair : m_meshCloneMap)
+
+    auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int modelId = MapLib()->GetModelId("tree1.x");
+
+    for (size_t i = 0; i < list.size(); ++i)
     {
-        if (pair.second->ContainMeshName("tree"))
+        if (list.at(i).m_modelId == modelId && list.at(i).m_visible)
         {
-            isHit = Common::HitByBoundingBox(pos, pair.second->GetPos(), 2.f);
-            if (isHit)
-            {
-                break;
-            }
+            isHit = true;
         }
     }
+
     return isHit;
+}
+
+void Map::DeleteTree(const D3DXVECTOR3& pos)
+{
+    std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int id = MapLib()->GetModelId("tree1.x");
+
+    for (size_t i = 0; i < mapObjs.size(); ++i)
+    {
+        if (id == mapObjs.at(i).m_modelId)
+        {
+            MapLib()->SetVisible(mapObjs.at(i).m_frameX,
+                                 mapObjs.at(i).m_frameZ,
+                                 mapObjs.at(i).m_id,
+                                 false);
+            break;
+        }
+    }
+}
+
+NSStarmanLib::MapObjManager* Map::MapLib()
+{
+    auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
+    return mapObjManager;
 }
 
 D3DXVECTOR3 Map::WallSlideSub(

@@ -7,6 +7,7 @@
 #include "MeshClone.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/ItemManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 
 class Map
 {
@@ -76,7 +77,12 @@ public:
     // –Ø‚Ì‹ß‚­‚É‚¢‚é‚©
     bool NearTree(const D3DXVECTOR3& pos);
 
+    // ‚Qƒ[ƒgƒ‹ˆÈ“à‚Ì–Ø‚ğ‚P–{Á‚·
+    void DeleteTree(const D3DXVECTOR3& pos);
+
 private:
+    NSStarmanLib::MapObjManager* MapLib();
+
     D3DXVECTOR3 WallSlideSub(
         const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
 

@@ -1136,22 +1136,26 @@ void SeqBattle::OperateCommand()
     if (result == "EXIT")
     {
         leave = true;
+        m_eState = eBattleState::NORMAL;
     }
     else if (result == "座る")
     {
         leave = true;
         m_player->SetSit();
+        m_eState = eBattleState::NORMAL;
     }
     else if (result == "横になる")
     {
         leave = true;
         m_player->SetLieDown();
+        m_eState = eBattleState::NORMAL;
     }
     else if (result == "脱出")
     {
         leave = true;
         D3DXVECTOR3 pos(-285.f, 16.f, 539.f);
         m_player->SetPos(pos);
+        m_eState = eBattleState::NORMAL;
     }
     else if (result == "伐採")
     {
@@ -1161,14 +1165,25 @@ void SeqBattle::OperateCommand()
         auto name = itemInfo.GetItemDef().GetName();
         if (name != "石斧" && name != "石" && name != "縦長の石")
         {
-            PopUp2::Get()->SetText("適切な道具を装備し、食料を所持していないと木を伐採することはできない");
+            PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
         }
         else
         {
-            leave = true;
+            if (status->GetBodyStaminaCurrent() < 30.f)
+            {
+                PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
+            }
+            else if (status->GetWaterCurrent() < 0.95f)
+            {
+                PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
+            }
+            else
+            {
+                leave = true;
 
-            m_eState = eBattleState::CUT_TREE;
-            StartFadeInOut();
+                m_eState = eBattleState::CUT_TREE;
+                StartFadeInOut();
+            }
         }
     }
     else if (result == "採取")
@@ -1191,7 +1206,6 @@ void SeqBattle::OperateCommand()
     // コマンド画面を閉じる場合、脱出コマンドは削除する
     if (leave)
     {
-        m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
 
@@ -1572,7 +1586,7 @@ void SeqBattle::UpdateFadeInOut()
         if (m_eFadeSeq == eFadeSeq::FadeOut)
         {
             ++m_fadeOutCount;
-            if (m_fadeOutCount >= 300)
+            if (m_fadeOutCount >= 30)
             {
                 m_eFadeSeq = eFadeSeq::Sleep;
             }
@@ -1588,7 +1602,7 @@ void SeqBattle::UpdateFadeInOut()
         else if (m_eFadeSeq == eFadeSeq::FadeIn)
         {
             ++m_fadeInCount;
-            if (m_fadeInCount >= 60)
+            if (m_fadeInCount >= 30)
             {
                 m_eFadeSeq = eFadeSeq::Finish;
             }
@@ -1609,7 +1623,7 @@ void SeqBattle::DrawFadeInOut()
     int transparency = 0;
     if (m_eFadeSeq == eFadeSeq::FadeOut)
     {
-        transparency = m_fadeOutCount * 255 / 300;
+        transparency = m_fadeOutCount * 255 / 30;
         m_sprBlack->Render(pos, transparency);
     }
     else if (m_eFadeSeq == eFadeSeq::Sleep)
@@ -1618,7 +1632,7 @@ void SeqBattle::DrawFadeInOut()
     }
     else if (m_eFadeSeq == eFadeSeq::FadeIn)
     {
-        transparency = 255 - (m_fadeInCount * 255 / 60);
+        transparency = 255 - (m_fadeInCount * 255 / 30);
         m_sprBlack->Render(pos, transparency);
     }
 }
@@ -1885,11 +1899,25 @@ void SeqBattle::OperateCutTree()
     {
         PopUp2::Get()->SetText("細い木の幹を手に入れた。");
 
-        // 斧がないと切れない、という処理
-        
         // 6時間経過させる処理
+        // TODO 装備武器で消費する時間や体力が変わる
+        auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+        dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
+
+        // 体力を消費
+        // TODO 装備武器で消費する時間や体力が変わる
+        //Common::Status()->CutTree();
+
+        // アイテムをインベントリに追加
+        auto itemDef = Common::ItemManager()->GetItemDef("細い木の幹");
+        Common::Inventory()->AddItem(itemDef.GetId());
 
         // 木を消す処理
+        m_map->DeleteTree(m_player->GetPos());
+
+        m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
     }
 }
 
