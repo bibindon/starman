@@ -166,8 +166,8 @@ void SaveManager::Save()
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
     inventory->Save(CreateSaveFilePath("inventory.csv"), m_encrypt);
 
-    NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
-    storehouse->Save(CreateSaveFilePath("storehouse.csv"), m_encrypt);
+    auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
+    storehouseManager->Save("storehouseListSave.csv", SAVEDATA_FOLDER);
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Save(CreateSaveFilePath("weaponSave.csv"), m_encrypt);
@@ -215,7 +215,7 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::MapInfoManager::Destroy();
         NSStarmanLib::ItemManager::Destroy();
         NSStarmanLib::Inventory::Destroy();
-        NSStarmanLib::Storehouse::Destroy();
+        NSStarmanLib::StorehouseManager::Destroy();
         NSStarmanLib::WeaponManager::Destroy();
         NSStarmanLib::EnemyInfoManager::Destroy();
         NSStarmanLib::SkillManager::Destroy();
@@ -247,8 +247,8 @@ void SaveManager::LoadOrigin()
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
     inventory->Init(CreateOriginFilePath("inventory.csv"), m_encrypt);
 
-    NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
-    storehouse->Init(CreateOriginFilePath("storehouse.csv"), m_encrypt);
+    auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
+    storehouseManager->Init(CreateOriginFilePath("storehouseListOrigin.csv"));
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Init(CreateOriginFilePath("weapon.csv"),
@@ -321,8 +321,9 @@ void SaveManager::Load()
     inventory->Init(CreateSaveFilePath("inventory.csv"), m_encrypt);
 
     m_progress.store(20);
-    NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
-    storehouse->Init(CreateSaveFilePath("storehouse.csv"), m_encrypt);
+
+    auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
+    storehouseManager->Init(CreateSaveFilePath("storehouseListSave.csv"));
 
     m_progress.store(25);
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();

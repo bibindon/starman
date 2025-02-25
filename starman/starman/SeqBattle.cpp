@@ -736,7 +736,11 @@ void SeqBattle::OperateStorehouse()
         subId_ = std::stoi(vs.at(3));
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+
+        // TODO
+        // 倉庫の複数化対応
+        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
         if (vs.at(0) == "left")
         {
             bool equipBagExist = false;
@@ -816,7 +820,11 @@ void SeqBattle::OperateStorehouse()
         subId_ = std::stoi(vs.at(3));
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+
+        // TODO
+        // 倉庫の複数化対応
+        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
         if (vs.at(0) == "left")
         {
             NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
@@ -904,7 +912,10 @@ void SeqBattle::OperateStorehouse()
         subId_ = std::stoi(vs.at(3));
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+
+        // TODO 倉庫の複数化対応
+        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
         if (vs.at(0) == "left")
         {
             NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
@@ -991,7 +1002,10 @@ void SeqBattle::ShowStorehouse()
     }
     {
         using namespace NSStarmanLib;
-        NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+
+        // TODO 倉庫の複数化対応
+        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
         std::vector<int> idList = itemManager->GetItemIdList();
@@ -2466,7 +2480,10 @@ void SeqBattle::UpdateDebug()
                 }
                 {
                     using namespace NSStarmanLib;
-                    NSStarmanLib::Storehouse* storehouse = NSStarmanLib::Storehouse::GetObj();
+
+                    // TODO 倉庫の複数化対応
+                    auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
                     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
                     std::vector<int> idList = itemManager->GetItemIdList();

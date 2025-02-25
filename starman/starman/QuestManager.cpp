@@ -106,20 +106,26 @@ void QuestManager::Update()
 
     // ‘qŒÉ
     {
-        auto storehouse = NSStarmanLib::Storehouse::GetObj();
+        auto storehouseIdList = NSStarmanLib::StorehouseManager::Get()->GetStorehouseIdList();
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
-        auto allItem = storehouse->GetAllItem();
 
-        std::vector<NSQuestSystem::ItemInfo> itemList;
-        for (auto it = allItem.begin(); it != allItem.end(); ++it)
+        for (size_t i = 0; i < storehouseIdList.size(); ++i)
         {
-            NSQuestSystem::ItemInfo itemInfo;
-            auto itemDef = itemManager->GetItemDef(it->GetId());
-            itemInfo.m_itemName = itemDef.GetName();
-            itemInfo.m_level = itemDef.GetLevel();
-            itemList.push_back(itemInfo);
-        }
+            auto id = storehouseIdList.at(i);
+            auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(id);
+            auto allItem = storehouse->GetAllItem();
 
-        m_questSystem.SetStorehouseContent(itemList);
+            std::vector<NSQuestSystem::ItemInfo> itemList;
+            for (auto it = allItem.begin(); it != allItem.end(); ++it)
+            {
+                NSQuestSystem::ItemInfo itemInfo;
+                auto itemDef = itemManager->GetItemDef(it->GetId());
+                itemInfo.m_itemName = itemDef.GetName();
+                itemInfo.m_level = itemDef.GetLevel();
+                itemList.push_back(itemInfo);
+            }
+
+            m_questSystem.SetStorehouseContent(id, itemList);
+        }
     }
 }

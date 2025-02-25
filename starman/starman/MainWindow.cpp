@@ -42,7 +42,7 @@ static void Finalize()
     NSStarmanLib::MapInfoManager::Destroy();
     NSStarmanLib::ItemManager::Destroy();
     NSStarmanLib::Inventory::Destroy();
-    NSStarmanLib::Storehouse::Destroy();
+    NSStarmanLib::StorehouseManager::Destroy();
     NSStarmanLib::WeaponManager::Destroy();
     NSStarmanLib::EnemyInfoManager::Destroy();
     NSStarmanLib::SkillManager::Destroy();
