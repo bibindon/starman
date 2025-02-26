@@ -17,6 +17,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "QuestManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PatchTestManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Voyage.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -203,6 +204,10 @@ void SaveManager::Save()
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
     patchTestManager->Save(CreateSaveFilePath("patchTestQueSave.csv"),
                            CreateSaveFilePath("patchTestInfoSave.csv"));
+
+    auto voyage = NSStarmanLib::Voyage::Get();
+    voyage->Save(CreateSaveFilePath("voyageSave.csv"),
+                 CreateSaveFilePath("raftSave.csv"));
 }
 
 void SaveManager::LoadOrigin()
@@ -289,6 +294,10 @@ void SaveManager::LoadOrigin()
     patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
                            "",
                            "");
+
+    auto voyage = NSStarmanLib::Voyage::Get();
+    voyage->Save(CreateOriginFilePath("voyageOrigin.csv"),
+                 "");
 }
 
 void SaveManager::Load()
@@ -380,6 +389,10 @@ void SaveManager::Load()
     patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
                            CreateSaveFilePath("patchTestInfoSave.csv"),
                            CreateSaveFilePath("patchTestQueSave.csv"));
+
+    auto voyage = NSStarmanLib::Voyage::Get();
+    voyage->Save(CreateSaveFilePath("voyageSave.csv"),
+                 CreateSaveFilePath("raftSave.csv"));
 
     m_savedataLoaded = true;
 }
