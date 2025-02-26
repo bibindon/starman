@@ -38,6 +38,7 @@ enum class eBattleState
     PATCH_TEST,
     PICK_PLANT,
     CUT_TREE,
+    VOYAGE,
 };
 
 enum class eTitleMenu

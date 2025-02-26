@@ -31,6 +31,7 @@
 #include "Title.h"
 #include "StoryManager.h"
 #include "PatchTestManager2.h"
+#include "VoyageManager.h"
 
 class Title;
 
@@ -237,5 +238,12 @@ private:
     //----------------------------------------------------
     void OperateCutTree();
     void RenderCutTree();
+
+    //----------------------------------------------------
+    // çqäCã@î\
+    //----------------------------------------------------
+    void OperateVoyage();
+    VoyageManager m_voyage;
+
 };
 

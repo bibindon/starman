@@ -603,6 +603,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperatePickPlant();
     }
+    else if (m_eState == eBattleState::VOYAGE)
+    {
+        OperateVoyage();
+    }
 
     if (Common::DebugMode())
     {
@@ -1215,6 +1219,35 @@ void SeqBattle::OperateCommand()
             m_eState = eBattleState::PICK_PLANT;
             StartFadeInOut();
         }
+    }
+    else if (result == "帆を張る")
+    {
+        auto voyage = NSStarmanLib::Voyage::Get();
+        voyage->SetSailCurrentRaft(true);
+    }
+    else if (result == "帆を畳む")
+    {
+        auto voyage = NSStarmanLib::Voyage::Get();
+        voyage->SetSailCurrentRaft(false);
+    }
+    else if (result == "３時間漕ぐ")
+    {
+        auto voyage = NSStarmanLib::Voyage::Get();
+        voyage->Set3HoursAuto();
+    }
+    else if (result == "立ち上がる")
+    {
+        auto voyage = NSStarmanLib::Voyage::Get();
+        voyage->SetRaftMode(false);
+    }
+    else if (result == "イカダに乗る")
+    {
+        auto voyage = NSStarmanLib::Voyage::Get();
+        voyage->SetRaftMode(true);
+    }
+    else if (result == "イカダの袋を見る")
+    {
+        // TODO
     }
 
     // コマンド画面を閉じる場合、脱出コマンドは削除する
@@ -2082,6 +2115,17 @@ void SeqBattle::OperateCutTree()
 
 void SeqBattle::RenderCutTree()
 {
+}
+
+void SeqBattle::OperateVoyage()
+{
+    m_voyage.Update(&m_eState);
+
+    if (m_eState == eBattleState::COMMAND)
+    {
+        m_commandManager.Upsert("立ち上がる", true);
+        m_commandManager.Upsert("３時間漕ぐ", true);
+    }
 }
 
 void SeqBattle::Render()

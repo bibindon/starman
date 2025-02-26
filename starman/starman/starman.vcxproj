@@ -297,6 +297,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="StackBackTrace.cpp" />
+    <ClCompile Include="VoyageManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationStrategy.h" />
@@ -347,6 +348,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="StackBackTrace.h" />
+    <ClInclude Include="VoyageManager.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="res\shader\animation_mesh_shader.fx">
