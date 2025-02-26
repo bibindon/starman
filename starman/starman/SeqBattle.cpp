@@ -1230,7 +1230,7 @@ void SeqBattle::OperateCommand()
         auto voyage = NSStarmanLib::Voyage::Get();
         voyage->SetSailCurrentRaft(false);
     }
-    else if (result == "３時間漕ぐ")
+    else if (result == "現在の方角に３時間漕ぐ")
     {
         auto voyage = NSStarmanLib::Voyage::Get();
         voyage->Set3HoursAuto();
@@ -1243,7 +1243,17 @@ void SeqBattle::OperateCommand()
     else if (result == "イカダに乗る")
     {
         auto voyage = NSStarmanLib::Voyage::Get();
-        voyage->SetRaftMode(true);
+
+        // 袋を装備していたらイカダに乗ることはできない
+        auto bagState = Common::Status()->GetBagState();
+        if (bagState.empty())
+        {
+            voyage->SetRaftMode(true);
+        }
+        else
+        {
+            PopUp2::Get()->SetText("袋を装備していたらイカダに乗ることはできない");
+        }
     }
     else if (result == "イカダの袋を見る")
     {

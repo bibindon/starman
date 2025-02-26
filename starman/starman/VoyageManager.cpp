@@ -110,6 +110,21 @@ void VoyageManager::Update(eBattleState* state)
     // ゲームパッド操作
     //----------------------------------------------------
 
+
+
+
+
+
+
+    // 風の強さと方向により流される
+
+
+    // 潮の強さと方向により流される
+
+
+    // オールを漕いだことによりイカダが進む
+
+    // 
 }
 
 NSStarmanLib::Voyage* VoyageManager::Voyage()
