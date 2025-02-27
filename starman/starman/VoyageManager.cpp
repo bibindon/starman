@@ -2,6 +2,7 @@
 #include "KeyBoard.h"
 #include "SharedObj.h"
 #include "Mouse.h"
+#include "GamePad.h"
 
 void VoyageManager::Update(eBattleState* state)
 {
@@ -62,6 +63,44 @@ void VoyageManager::Update(eBattleState* state)
         }
     }
 
+    //----------------------------------------------------
+    // ゲームパッド操作
+    //----------------------------------------------------
+
+    if (GamePad::IsDown(eGamePadButtonType::L1))
+    {
+        counterLeft = 0;
+        pendingLeft = true;
+
+        if (pendingRight)
+        {
+            bothClick = true;
+        }
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::R1))
+    {
+        counterRight = 0;
+        pendingRight = true;
+
+        if (pendingLeft)
+        {
+            bothClick = true;
+        }
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::BACK))
+    {
+        *state = eBattleState::COMMAND;
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::B))
+    {
+        *state = eBattleState::NORMAL;
+
+        Voyage()->SetRaftMode(false);
+    }
+
     if (pendingLeft)
     {
         ++counterLeft;
@@ -106,14 +145,6 @@ void VoyageManager::Update(eBattleState* state)
         }
     }
 
-    //----------------------------------------------------
-    // ゲームパッド操作
-    //----------------------------------------------------
-
-
-
-
-
 
 
     // 風の強さと方向により流される
@@ -124,7 +155,14 @@ void VoyageManager::Update(eBattleState* state)
 
     // オールを漕いだことによりイカダが進む
 
-    // 
+    // 衝突判定
+
+    // イカダで川を進むことも出来ることに注意
+}
+
+void VoyageManager::Draw()
+{
+    // TODO
 }
 
 NSStarmanLib::Voyage* VoyageManager::Voyage()

@@ -7,6 +7,7 @@ class VoyageManager
 {
 public:
     void Update(eBattleState* state);
+    void Draw();
 
 private:
 

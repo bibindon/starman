@@ -2202,6 +2202,10 @@ void SeqBattle::Render()
     {
         RenderCutTree();
     }
+    else if (m_eState == eBattleState::VOYAGE)
+    {
+        m_voyage.Draw();
+    }
 
     RenderCommon2D();
 }
