@@ -8,7 +8,7 @@ class Raft2
 {
 public:
 
-    void Init();
+    void Init(const int id);
     void Finalize();
     void Update();
     void Draw();
@@ -26,6 +26,8 @@ public:
     void SetRotate(const D3DXVECTOR3& rot);
 
 private:
+
+    int m_id = 0;
 
     AnimMesh* m_meshRaft = nullptr;
     AnimMesh* m_meshOarLeft = nullptr;

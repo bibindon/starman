@@ -17,7 +17,7 @@ void VoyageManager::Init()
     {
         auto id = it->GetId();
         Raft2 raft;
-        raft.Init();
+        raft.Init(id);
         m_raftMap[id] = raft;
     }
 }
@@ -105,11 +105,17 @@ void VoyageManager::SetRaftMode(const bool arg)
     Voyage()->SetRaftMode(arg);
 }
 
-void Raft2::Init()
+void Raft2::Init(const int id)
 {
-    // temporary
-    D3DXVECTOR3 pos = D3DXVECTOR3(-285.f, 26.f, 539.f);
-    D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+    m_id = id;
+
+    auto raft = Voyage()->GetRaft(id);
+    float x, y, z;
+    raft.GetXYZ(&x, &y, &z);
+    m_pos = D3DXVECTOR3(x, y, z);
+
+    D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+    D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
     {
         AnimSetMap animSetMap;
         {

@@ -391,7 +391,7 @@ void SaveManager::Load()
                            CreateSaveFilePath("patchTestQueSave.csv"));
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Save(CreateSaveFilePath("voyageSave.csv"),
+    voyage->Init(CreateSaveFilePath("voyageSave.csv"),
                  CreateSaveFilePath("raftSave.csv"));
 
     m_savedataLoaded = true;
