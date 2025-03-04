@@ -4,6 +4,11 @@
 #include "Mouse.h"
 #include "GamePad.h"
 
+NSStarmanLib::Voyage* Voyage()
+{
+    return NSStarmanLib::Voyage::Get();
+}
+
 void VoyageManager::Init()
 {
     auto raftList = Voyage()->GetRaftList();
@@ -27,15 +32,13 @@ void VoyageManager::Finalize()
 
 void VoyageManager::Update(eBattleState* state)
 {
-    auto ppos = SharedObj::GetPlayer()->GetPos();
-
     // 乗船中ではない。
     if (!Voyage()->GetRaftMode())
     {
         return;
     }
 
-    Voyage()->SetCurrentRaftCoord(ppos.x, ppos.y, ppos.z);
+    Voyage()->Update();
 
     //----------------------------------------------------
     // マウス・キーボード操作
@@ -52,69 +55,9 @@ void VoyageManager::Update(eBattleState* state)
         Voyage()->SetRaftMode(false);
     }
 
-    //--------------------------------------------
-    // 右クリックで右のオールを漕ぐ
-    // 左クリックで左のオールを漕ぐ
-    // 左右同時押しで両方のオールを漕ぐ
-    // 同時押しの猶予を0.33秒持たせる。
-    // 長押しは扱わない。一回漕ぐたびに一回クリックする必要がある。
-    //--------------------------------------------
-
-    static int counterLeft = 0;
-    static int counterRight = 0;
-
-    static bool pendingLeft = false;
-    static bool pendingRight = false;
-
-    bool bothClick = false;
-
-    if (Mouse::IsDownLeft())
-    {
-        counterLeft = 0;
-        pendingLeft = true;
-
-        if (pendingRight)
-        {
-            bothClick = true;
-        }
-    }
-
-    if (Mouse::IsDownRight())
-    {
-        counterRight = 0;
-        pendingRight = true;
-
-        if (pendingLeft)
-        {
-            bothClick = true;
-        }
-    }
-
     //----------------------------------------------------
     // ゲームパッド操作
     //----------------------------------------------------
-
-    if (GamePad::IsDown(eGamePadButtonType::L1))
-    {
-        counterLeft = 0;
-        pendingLeft = true;
-
-        if (pendingRight)
-        {
-            bothClick = true;
-        }
-    }
-
-    if (GamePad::IsDown(eGamePadButtonType::R1))
-    {
-        counterRight = 0;
-        pendingRight = true;
-
-        if (pendingLeft)
-        {
-            bothClick = true;
-        }
-    }
 
     if (GamePad::IsDown(eGamePadButtonType::BACK))
     {
@@ -129,69 +72,7 @@ void VoyageManager::Update(eBattleState* state)
     }
 
     auto id = Voyage()->GetRaftCurrentId();
-
-    if (pendingLeft)
-    {
-        ++counterLeft;
-        if (counterLeft >= 20)
-        {
-            if (bothClick)
-            {
-                Voyage()->PullBothOar();
-                m_raftMap[id].PullOarBoth();
-            }
-            else
-            {
-                Voyage()->PullLeftOar();
-                m_raftMap[id].PullOarLeft();
-            }
-
-            pendingLeft = false;
-            counterLeft = 0;
-
-            pendingRight = false;
-            counterRight = 0;
-        }
-    }
-
-    if (pendingRight)
-    {
-        ++counterRight;
-        if (counterRight >= 20)
-        {
-            if (bothClick)
-            {
-                Voyage()->PullBothOar();
-                m_raftMap[id].PullOarBoth();
-            }
-            else
-            {
-                Voyage()->PullRightOar();
-                m_raftMap[id].PullOarRight();
-            }
-
-            pendingLeft = false;
-            counterLeft = 0;
-
-            pendingRight = false;
-            counterRight = 0;
-        }
-    }
-
-
-
-    // 風の強さと方向により流される
-
-
-    // 潮の強さと方向により流される
-
-
-    // オールを漕いだことによりイカダが進む
-
-    // 衝突判定
-    // 島と設置していたら停止
-
-    // イカダで川を進むことも出来ることに注意
+    m_raftMap[id].Update();
 }
 
 void VoyageManager::Draw()
@@ -212,11 +93,6 @@ void VoyageManager::SetSail(const bool arg)
 bool VoyageManager::GetSail() const
 {
     return Voyage()->GetSailCurrentRaft();
-}
-
-NSStarmanLib::Voyage* VoyageManager::Voyage() const
-{
-    return NSStarmanLib::Voyage::Get();
 }
 
 void Raft2::Init()
@@ -303,8 +179,165 @@ void Raft2::Finalize()
     SAFE_DELETE(m_meshRaft);
 }
 
-void Raft2::Update(eBattleState* state)
+void Raft2::Update()
 {
+    m_move /= 2.f;
+    m_moveRot /= 2.f;
+
+    auto ppos = SharedObj::GetPlayer()->GetPos();
+
+    Voyage()->SetCurrentRaftCoord(ppos.x, ppos.y, ppos.z);
+
+    //----------------------------------------------------
+    // マウス・キーボード操作
+    //----------------------------------------------------
+
+    //--------------------------------------------
+    // 右クリックで右のオールを漕ぐ
+    // 左クリックで左のオールを漕ぐ
+    // 左右同時押しで両方のオールを漕ぐ
+    // 同時押しの猶予を0.33秒持たせる。
+    // 長押しは扱わない。一回漕ぐたびに一回クリックする必要がある。
+    //--------------------------------------------
+
+    static int counterLeft = 0;
+    static int counterRight = 0;
+
+    static bool pendingLeft = false;
+    static bool pendingRight = false;
+
+    bool bothClick = false;
+
+    if (Mouse::IsDownLeft())
+    {
+        counterLeft = 0;
+        pendingLeft = true;
+
+        if (pendingRight)
+        {
+            bothClick = true;
+        }
+    }
+
+    if (Mouse::IsDownRight())
+    {
+        counterRight = 0;
+        pendingRight = true;
+
+        if (pendingLeft)
+        {
+            bothClick = true;
+        }
+    }
+
+    //----------------------------------------------------
+    // ゲームパッド操作
+    //----------------------------------------------------
+
+    if (GamePad::IsDown(eGamePadButtonType::L1))
+    {
+        counterLeft = 0;
+        pendingLeft = true;
+
+        if (pendingRight)
+        {
+            bothClick = true;
+        }
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::R1))
+    {
+        counterRight = 0;
+        pendingRight = true;
+
+        if (pendingLeft)
+        {
+            bothClick = true;
+        }
+    }
+
+    auto id = Voyage()->GetRaftCurrentId();
+
+    if (pendingLeft)
+    {
+        ++counterLeft;
+        if (counterLeft >= 20)
+        {
+            if (bothClick)
+            {
+                Voyage()->PullBothOar();
+                PullOarBoth();
+            }
+            else
+            {
+                Voyage()->PullLeftOar();
+                PullOarLeft();
+            }
+
+            pendingLeft = false;
+            counterLeft = 0;
+
+            pendingRight = false;
+            counterRight = 0;
+        }
+    }
+
+    if (pendingRight)
+    {
+        ++counterRight;
+        if (counterRight >= 20)
+        {
+            if (bothClick)
+            {
+                Voyage()->PullBothOar();
+                PullOarBoth();
+            }
+            else
+            {
+                Voyage()->PullRightOar();
+                PullOarRight();
+            }
+
+            pendingLeft = false;
+            counterLeft = 0;
+
+            pendingRight = false;
+            counterRight = 0;
+        }
+    }
+
+    // 風の強さと方向により流される
+    {
+        float x, z;
+        Voyage()->GetWindXZ(&x, &z);
+
+        if (Voyage()->GetSailCurrentRaft())
+        {
+            m_move.x += x/10;
+            m_move.z += z/10;
+        }
+        else
+        {
+            m_move.x += x/100;
+            m_move.z += z/100;
+        }
+    }
+
+    // 潮の強さと方向により流される
+    {
+        float x, z;
+        Voyage()->GetTideXZ(&x, &z);
+        m_move.x += x;
+        m_move.z += z;
+    }
+
+    m_pos += m_move;
+    m_rotate += m_moveRot;
+
+    // 衝突判定
+    // 島と設置していたら停止
+
+    // イカダで川を進むことも出来ることに注意
 }
 
 void Raft2::Draw()
@@ -322,7 +355,10 @@ void Raft2::Draw()
     m_meshOarRight->Render();
 
     m_meshCord->SetPos(m_pos);
+
+    // TODO 風向き
     m_meshCord->SetRotate(m_rotate);
+
     m_meshCord->Render();
 }
 
@@ -347,14 +383,40 @@ void Raft2::PullOarBoth()
 {
     m_meshOarLeft->SetAnim("Pull");
     m_meshOarRight->SetAnim("Pull");
+
+    m_move.x += std::sin(m_rotate.y);
+    m_move.z += std::cos(m_rotate.y);
 }
 
 void Raft2::PullOarLeft()
 {
     m_meshOarLeft->SetAnim("Pull");
+    m_moveRot.y += 0.1f;
 }
 
 void Raft2::PullOarRight()
 {
     m_meshOarRight->SetAnim("Pull");
+    m_moveRot.y += -0.1f;
 }
+
+auto Raft2::GetPos() const
+{
+    return m_pos;
+}
+
+void Raft2::SetPos(const D3DXVECTOR3& pos)
+{
+    m_pos = pos;
+}
+
+auto Raft2::GetRotate() const
+{
+    return m_rotate;
+}
+
+void Raft2::SetRotate(const D3DXVECTOR3& rot)
+{
+    m_rotate = rot;
+}
+
