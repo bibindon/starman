@@ -52,6 +52,10 @@ public:
     void SetSail(const bool arg);
     bool GetSail() const;
 
+    // Œ»İ‚Ì•ûŠp‚É‚RŠÔ‘†‚®
+    void Set3HoursAuto();
+    void SetRaftMode(const bool arg);
+
 private:
 
     // ƒCƒJƒ_‚Í•¡”‘¶İ‚Å‚«‚é

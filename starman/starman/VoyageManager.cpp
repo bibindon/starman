@@ -95,6 +95,16 @@ bool VoyageManager::GetSail() const
     return Voyage()->GetSailCurrentRaft();
 }
 
+void VoyageManager::Set3HoursAuto()
+{
+    Voyage()->Set3HoursAuto();
+}
+
+void VoyageManager::SetRaftMode(const bool arg)
+{
+    Voyage()->SetRaftMode(arg);
+}
+
 void Raft2::Init()
 {
     // temporary

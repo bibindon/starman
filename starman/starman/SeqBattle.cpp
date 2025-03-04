@@ -537,6 +537,8 @@ SeqBattle::~SeqBattle()
 
     SAFE_DELETE(m_sprLoadClock);
     SAFE_DELETE(m_sprLoadLoading);
+
+    m_voyage.Finalize();
 }
 
 void SeqBattle::Update(eSequence* sequence)
@@ -955,6 +957,17 @@ void SeqBattle::OperateStorehouse()
 
 void SeqBattle::ShowStorehouse()
 {
+    using namespace NSStarmanLib;
+    // 倉庫は複数存在できる。
+    // 距離が近い倉庫を対象とする
+    auto ppos = SharedObj::GetPlayer()->GetPos();
+    auto storehouse = StorehouseManager::Get()->GetNearStorehouse(ppos.x, ppos.z);
+
+    if (storehouse == nullptr)
+    {
+        return;
+    }
+
     m_eState = eBattleState::STOREHOUSE;
     delete m_storehouse;
 
@@ -977,7 +990,6 @@ void SeqBattle::ShowStorehouse()
 
     m_storehouse->Init(pFont, pSE, sprCursor, sprBackground);
     {
-        using namespace NSStarmanLib;
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
@@ -1005,11 +1017,6 @@ void SeqBattle::ShowStorehouse()
         m_storehouse->SetInventoryList(itemInfoList);
     }
     {
-        using namespace NSStarmanLib;
-
-        // TODO 倉庫の複数化対応
-        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
         std::vector<int> idList = itemManager->GetItemIdList();
@@ -1222,33 +1229,27 @@ void SeqBattle::OperateCommand()
     }
     else if (result == "帆を張る")
     {
-        auto voyage = NSStarmanLib::Voyage::Get();
-        voyage->SetSailCurrentRaft(true);
+        m_voyage.SetSail(true);
     }
     else if (result == "帆を畳む")
     {
-        auto voyage = NSStarmanLib::Voyage::Get();
-        voyage->SetSailCurrentRaft(false);
+        m_voyage.SetSail(false);
     }
     else if (result == "現在の方角に３時間漕ぐ")
     {
-        auto voyage = NSStarmanLib::Voyage::Get();
-        voyage->Set3HoursAuto();
+        m_voyage.Set3HoursAuto();
     }
     else if (result == "立ち上がる")
     {
-        auto voyage = NSStarmanLib::Voyage::Get();
-        voyage->SetRaftMode(false);
+        m_voyage.SetRaftMode(false);
     }
     else if (result == "イカダに乗る")
     {
-        auto voyage = NSStarmanLib::Voyage::Get();
-
         // 袋を装備していたらイカダに乗ることはできない
         auto bagState = Common::Status()->GetBagState();
         if (bagState.empty())
         {
-            voyage->SetRaftMode(true);
+            m_voyage.SetRaftMode(true);
         }
         else
         {
@@ -1257,7 +1258,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == "イカダの袋を見る")
     {
-        // TODO
+        m_bShowStorehouse = true;
     }
 
     // コマンド画面を閉じる場合、脱出コマンドは削除する
@@ -1451,6 +1452,8 @@ void SeqBattle::InitializeAfterLoad()
     Camera::SetLookAtPos(pos);
 
     Camera::SetCameraMode(eCameraMode::TITLE);
+
+    m_voyage.Init();
 }
 
 void SeqBattle::RenderLoad()
@@ -2204,7 +2207,8 @@ void SeqBattle::Render()
     }
     else if (m_eState == eBattleState::VOYAGE)
     {
-        m_voyage.Draw();
+        // イカダは乗っていても乗っていなくても常に表示するべきものなので
+        // ここでは何もしない。
     }
 
     RenderCommon2D();
@@ -2371,6 +2375,7 @@ void SeqBattle::RenderCommon()
     {
         m_player->Render();
         m_map->Render();
+        m_voyage.Draw();
 
         DrawFadeInOut();
     }
