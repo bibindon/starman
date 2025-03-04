@@ -12,6 +12,7 @@ public:
     void Draw();
     void Finalize();
     void Upsert(const std::string name, const bool visible);
+    void BuildCommand();
 
 private:
 

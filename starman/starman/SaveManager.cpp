@@ -296,7 +296,7 @@ void SaveManager::LoadOrigin()
                            "");
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Save(CreateOriginFilePath("voyageOrigin.csv"),
+    voyage->Init(CreateOriginFilePath("voyageOrigin.csv"),
                  "");
 }
 

@@ -3102,6 +3102,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
             m_commandCounter = 0;
+            m_commandManager.BuildCommand();
         }
     }
 
@@ -3138,6 +3139,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
             m_commandCounter = 0;
+            m_commandManager.BuildCommand();
         }
     }
 
@@ -3196,6 +3198,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 auto ppos = m_player->GetPos();
                 if (m_map->NearPlant(ppos))
                 {
+                    // TODO CƒL[‚ğ‰Ÿ‚µ‚½‚Æ‚«‚É’²‚×‚ê‚Î‚¢‚¢˜b‚Ì‚Í‚¸
                     m_commandManager.Upsert("Ìæ", true);
                 }
                 else

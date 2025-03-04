@@ -176,6 +176,9 @@ void CommandManager::Init(std::vector<std::string> commands,
 
 std::string CommandManager::Operate()
 {
+    // 20秒経過したら脱出コマンドを追加
+
+
     std::string result;
     std::string work_str;
 
@@ -253,4 +256,21 @@ void CommandManager::Upsert(const std::string name, const bool visible)
     m_commandLib->UpsertCommand(name, visible);
 }
 
+void CommandManager::BuildCommand()
+{
+    //---------------------------------------------------
+    // 伐採・・・近くに木があるときに表示される。イカダモードの時は表示されない。
+    // 採取・・・近くに草があるときに表示される。イカダモードの時は表示されない。
+    // 横になる・・・常に表示される
+    // 座る・・・常に表示される
+    // 脱出・・・20秒コマンドが表示されたら
+    // 帆を張る・・・イカダモードの時
+    // 帆を畳む・・・イカダモードの時。「帆を張る」と「帆を畳む」はどちらかが表示される。
+    // 現在の方向に３時間漕ぐ・・・イカダモードの時、川ではなく海にいるとき
+    // 立ち上がる・・・イカダモードの時。イカダモードが解除される。
+    // イカダに乗る・・・イカダが近くにある時
+    // イカダの袋を見る・・・イカダモードの時
+    //---------------------------------------------------
+
+}
 
