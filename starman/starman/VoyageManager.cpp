@@ -4,9 +4,36 @@
 #include "Mouse.h"
 #include "GamePad.h"
 
+void VoyageManager::Init()
+{
+    auto raftList = Voyage()->GetRaftList();
+
+    for (auto it = raftList.begin(); it != raftList.end(); ++it)
+    {
+        auto id = it->GetId();
+        Raft2 raft;
+        raft.Init();
+        m_raftMap[id] = raft;
+    }
+}
+
+void VoyageManager::Finalize()
+{
+    for (auto it = m_raftMap.begin(); it != m_raftMap.end(); ++it)
+    {
+        it->second.Finalize();
+    }
+}
+
 void VoyageManager::Update(eBattleState* state)
 {
     auto ppos = SharedObj::GetPlayer()->GetPos();
+
+    // 乗船中ではない。
+    if (!Voyage()->GetRaftMode())
+    {
+        return;
+    }
 
     Voyage()->SetCurrentRaftCoord(ppos.x, ppos.y, ppos.z);
 
@@ -101,6 +128,8 @@ void VoyageManager::Update(eBattleState* state)
         Voyage()->SetRaftMode(false);
     }
 
+    auto id = Voyage()->GetRaftCurrentId();
+
     if (pendingLeft)
     {
         ++counterLeft;
@@ -109,10 +138,12 @@ void VoyageManager::Update(eBattleState* state)
             if (bothClick)
             {
                 Voyage()->PullBothOar();
+                m_raftMap[id].PullOarBoth();
             }
             else
             {
                 Voyage()->PullLeftOar();
+                m_raftMap[id].PullOarLeft();
             }
 
             pendingLeft = false;
@@ -131,10 +162,12 @@ void VoyageManager::Update(eBattleState* state)
             if (bothClick)
             {
                 Voyage()->PullBothOar();
+                m_raftMap[id].PullOarBoth();
             }
             else
             {
                 Voyage()->PullRightOar();
+                m_raftMap[id].PullOarRight();
             }
 
             pendingLeft = false;
@@ -156,16 +189,172 @@ void VoyageManager::Update(eBattleState* state)
     // オールを漕いだことによりイカダが進む
 
     // 衝突判定
+    // 島と設置していたら停止
 
     // イカダで川を進むことも出来ることに注意
 }
 
 void VoyageManager::Draw()
 {
-    // TODO
+    for (auto it = m_raftMap.begin(); it != m_raftMap.end(); ++it)
+    {
+        it->second.Draw();
+    }
 }
 
-NSStarmanLib::Voyage* VoyageManager::Voyage()
+void VoyageManager::SetSail(const bool arg)
+{
+    Voyage()->SetSailCurrentRaft(arg);
+    auto id = Voyage()->GetRaftCurrentId();
+    m_raftMap[id].SetSail(arg);
+}
+
+bool VoyageManager::GetSail() const
+{
+    return Voyage()->GetSailCurrentRaft();
+}
+
+NSStarmanLib::Voyage* VoyageManager::Voyage() const
 {
     return NSStarmanLib::Voyage::Get();
+}
+
+void Raft2::Init()
+{
+    // temporary
+    D3DXVECTOR3 pos = D3DXVECTOR3(-285.f, 26.f, 539.f);
+    D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+    {
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.0f;
+            animSetting.m_duration = 0.97f;
+            animSetting.m_loop = true;
+            animSetMap["SailOn"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 1.0f;
+            animSetting.m_duration = 0.97f;
+            animSetting.m_loop = true;
+            animSetMap["SailOff"] = animSetting;
+        }
+        m_meshRaft = NEW AnimMesh("res\\model\\raft\\raft.x", pos, rot, 1.f, animSetMap);
+        m_meshRaft->SetAnim("SailOff");
+    }
+    {
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.0f;
+            animSetting.m_duration = 0.49f;
+            animSetting.m_loop = false;
+            animSetMap["Pull"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.5f;
+            animSetting.m_duration = 0.49f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        m_meshOarLeft = NEW AnimMesh("res\\model\\raft\\oarLeft.x", pos, rot, 1.f, animSetMap);
+        m_meshOarLeft->SetAnim("Idle");
+    }
+    {
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.0f;
+            animSetting.m_duration = 0.49f;
+            animSetting.m_loop = false;
+            animSetMap["Pull"] = animSetting;
+        }
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.5f;
+            animSetting.m_duration = 0.49f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        m_meshOarRight = NEW AnimMesh("res\\model\\raft\\oarRight.x", pos, rot, 1.f, animSetMap);
+        m_meshOarRight->SetAnim("Idle");
+    }
+    {
+        AnimSetMap animSetMap;
+        {
+            AnimSetting animSetting { };
+            animSetting.m_startPos = 0.f;
+            animSetting.m_duration = 1.f;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
+        }
+        m_meshCord = NEW AnimMesh("res\\model\\raft\\cord.x", pos, rot, 1.f, animSetMap);
+        m_meshCord->SetAnim("Idle");
+    }
+}
+
+void Raft2::Finalize()
+{
+    SAFE_DELETE(m_meshCord);
+    SAFE_DELETE(m_meshOarRight);
+    SAFE_DELETE(m_meshOarLeft);
+    SAFE_DELETE(m_meshRaft);
+}
+
+void Raft2::Update(eBattleState* state)
+{
+}
+
+void Raft2::Draw()
+{
+    m_meshRaft->SetPos(m_pos);
+    m_meshRaft->SetRotate(m_rotate);
+    m_meshRaft->Render();
+
+    m_meshOarLeft->SetPos(m_pos);
+    m_meshOarLeft->SetRotate(m_rotate);
+    m_meshOarLeft->Render();
+
+    m_meshOarRight->SetPos(m_pos);
+    m_meshOarRight->SetRotate(m_rotate);
+    m_meshOarRight->Render();
+
+    m_meshCord->SetPos(m_pos);
+    m_meshCord->SetRotate(m_rotate);
+    m_meshCord->Render();
+}
+
+void Raft2::SetSail(const bool arg)
+{
+    if (arg)
+    {
+        m_meshRaft->SetAnim("SailOn");
+    }
+    else
+    {
+        m_meshRaft->SetAnim("SailOff");
+    }
+}
+
+bool Raft2::GetSail() const
+{
+    return false;
+}
+
+void Raft2::PullOarBoth()
+{
+    m_meshOarLeft->SetAnim("Pull");
+    m_meshOarRight->SetAnim("Pull");
+}
+
+void Raft2::PullOarLeft()
+{
+    m_meshOarLeft->SetAnim("Pull");
+}
+
+void Raft2::PullOarRight()
+{
+    m_meshOarRight->SetAnim("Pull");
 }
