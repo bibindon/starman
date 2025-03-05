@@ -68,12 +68,16 @@ public:
 
     // イカダが2メートル以内にあるか？
     bool CheckNearRaft(const D3DXVECTOR3& pos);
+    int GetNearRaftId(const D3DXVECTOR3& pos);
 
     // イカダをいくつ所有しているか
     int GetRaftCount();
 
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
     D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+
+    D3DXVECTOR3 GetRaftXYZ(const int id);
+    float GetRaftRotateY(const int id);
 
 private:
 

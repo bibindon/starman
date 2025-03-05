@@ -1217,6 +1217,8 @@ void SeqBattle::OperateCommand()
         if (bagState.empty())
         {
             SharedObj::Voyage()->SetRaftMode(true);
+            m_eState = eBattleState::VOYAGE;
+            m_player->RideRaft();
         }
         else
         {

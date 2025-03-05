@@ -50,6 +50,11 @@ void VoyageManager::Update(eBattleState* state)
         return;
     }
 
+    // 主人公をイカダの中央に座らせる
+
+    // イカダで移動しているとき、移動しているのはイカダであり、
+    // 主人公はイカダについてきている、と考える。
+
     Voyage()->Update();
 
     //----------------------------------------------------
@@ -139,6 +144,13 @@ bool VoyageManager::CheckNearRaft(const D3DXVECTOR3& pos)
     return Voyage()->CheckNearRaft(pos.x, pos.y, pos.z);
 }
 
+int VoyageManager::GetNearRaftId(const D3DXVECTOR3& pos)
+{
+    int id = 0;
+    Voyage()->CheckNearRaft(pos.x, pos.y, pos.z, &id);
+    return id;
+}
+
 int VoyageManager::GetRaftCount()
 {
     return (int)Voyage()->GetRaftList().size();
@@ -172,6 +184,16 @@ D3DXVECTOR3 VoyageManager::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& 
         result = WallSlideSub(pos, pair.second.GetAnimMesh(), result);
     }
     return result;
+}
+
+D3DXVECTOR3 VoyageManager::GetRaftXYZ(const int id)
+{
+    return m_raftMap.at(id).GetPos();
+}
+
+float VoyageManager::GetRaftRotateY(const int id)
+{
+    return m_raftMap.at(id).GetRotate().y;
 }
 
 D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos, AnimMesh* mesh, const D3DXVECTOR3& move)
@@ -337,10 +359,6 @@ void Raft2::Update()
     m_move /= 2.f;
     m_moveRot /= 2.f;
 
-    auto ppos = SharedObj::GetPlayer()->GetPos();
-
-    Voyage()->SetCurrentRaftCoord(ppos.x, ppos.y, ppos.z);
-
     //----------------------------------------------------
     // マウス・キーボード操作
     //----------------------------------------------------
@@ -487,8 +505,14 @@ void Raft2::Update()
     m_pos += m_move;
     m_rotate += m_moveRot;
 
+    // 主人公はイカダに追従させる
+    auto ppos = m_pos;
+    ppos.y += 0.2f;
+    SharedObj::GetPlayer()->SetPos(ppos);
+    SharedObj::GetPlayer()->SetRotate(m_rotate);
+
     // 衝突判定
-    // 島と設置していたら停止
+    // 陸地と接触していたら停止
 
     // イカダで川を進むことも出来ることに注意
 }

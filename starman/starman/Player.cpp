@@ -1382,6 +1382,20 @@ void Player::SetExamine()
     // 
 }
 
+void Player::RideRaft()
+{
+    auto id = SharedObj::Voyage()->GetNearRaftId(m_loadingPos);
+
+    auto pos = SharedObj::Voyage()->GetRaftXYZ(id);
+    m_loadingPos = pos;
+    m_loadingPos.y += 0.2f;
+
+    auto rotateY = SharedObj::Voyage()->GetRaftRotateY(id);
+    m_rotate.y = rotateY;
+
+    m_AnimMesh2->SetAnim("Sit", 0.f);
+}
+
 void Player::Throw()
 {
     //-------------------------------------------------------------
