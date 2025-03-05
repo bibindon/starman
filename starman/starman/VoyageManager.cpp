@@ -144,6 +144,104 @@ int VoyageManager::GetRaftCount()
     return (int)Voyage()->GetRaftList().size();
 }
 
+bool VoyageManager::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+{
+    // 新しい主人公の位置
+    auto newPpos = pos + move;
+    bool bHit = false;
+
+    for (const auto& it : m_raftMap)
+    {
+        auto posRaft = it.second.GetPos();
+        bool bHitWork = Common::HitByBoundingBox(newPpos, posRaft, 2.f);
+        if (bHitWork)
+        {
+            bHit = true;
+            break;
+        }
+    }
+
+    return bHit;
+}
+
+D3DXVECTOR3 VoyageManager::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+{
+    D3DXVECTOR3 result = move;
+    for (auto& pair : m_raftMap)
+    {
+        result = WallSlideSub(pos, pair.second.GetAnimMesh(), result);
+    }
+    return result;
+}
+
+D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos, AnimMesh* mesh, const D3DXVECTOR3& move)
+{
+    D3DXVECTOR3 result {move};
+    D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+    targetPos /= mesh->GetScale();
+    LPD3DXMESH d3dmesh = mesh->GetD3DMesh();
+    float fLandDistance;
+    DWORD dwHitIndex = -1;
+    BOOL  bIsHit = false;
+    float fHitU;
+    float fHitV;
+    D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
+    D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
+        &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+    float judgeDistance = 2.f / mesh->GetScale();
+    if (bIsHit && fLandDistance <= judgeDistance)
+    {
+        // ----- キャラY座標補正 -----
+        // 当たったインデックスバッファ取得
+        WORD dwHitVertexNo[3] = {};
+        WORD* pIndex = nullptr;
+        HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
+
+        for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
+        {
+            dwHitVertexNo[nIdxIdx] = pIndex[dwHitIndex * 3 + nIdxIdx];
+        }
+
+        d3dmesh->UnlockIndexBuffer();
+
+        // 当たったポリゴン取得
+        struct VERTEX
+        {
+            FLOAT x, y, z; // 頂点の座標
+            FLOAT normX, normY, normZ; // 法線の座標
+            FLOAT u, v;   // 頂点の色
+        };
+        VERTEX* pVertex = nullptr;
+        hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
+
+        // 地面の高さに合わせる
+        D3DXVECTOR3 p1 { pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z };
+        D3DXVECTOR3 p2 { pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z };
+        D3DXVECTOR3 p3 { pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z };
+
+        D3DXVECTOR3 v1 = p2 - p1;
+        D3DXVECTOR3 v2 = p3 - p1;
+
+        D3DXVECTOR3 normal;
+
+        D3DXVec3Cross(&normal, &v1, &v2);
+        D3DXVECTOR3 normal_n;
+        D3DXVec3Normalize(&normal_n, &normal);
+
+        D3DXVECTOR3 front;
+        front = move;
+
+        result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+
+        d3dmesh->UnlockVertexBuffer();
+    }
+    else
+    {
+        result = move;
+    }
+    return result;
+}
+
 void Raft2::Init(const int id)
 {
     m_id = id;
@@ -455,7 +553,7 @@ void Raft2::PullOarRight()
     m_moveRot.y += -0.1f;
 }
 
-auto Raft2::GetPos() const
+D3DXVECTOR3 Raft2::GetPos() const
 {
     return m_pos;
 }
@@ -465,7 +563,7 @@ void Raft2::SetPos(const D3DXVECTOR3& pos)
     m_pos = pos;
 }
 
-auto Raft2::GetRotate() const
+D3DXVECTOR3 Raft2::GetRotate() const
 {
     return m_rotate;
 }
@@ -473,6 +571,11 @@ auto Raft2::GetRotate() const
 void Raft2::SetRotate(const D3DXVECTOR3& rot)
 {
     m_rotate = rot;
+}
+
+AnimMesh* Raft2::GetAnimMesh()
+{
+    return m_meshRaft;
 }
 
 VoyageManager::VoyageManager()

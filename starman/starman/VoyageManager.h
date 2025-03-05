@@ -19,16 +19,19 @@ public:
     void PullOarLeft();
     void PullOarRight();
 
-    auto GetPos() const;
+    D3DXVECTOR3 GetPos() const;
     void SetPos(const D3DXVECTOR3& pos);
 
-    auto GetRotate() const;
+    D3DXVECTOR3 GetRotate() const;
     void SetRotate(const D3DXVECTOR3& rot);
+
+    AnimMesh* GetAnimMesh();
 
 private:
 
     int m_id = 0;
 
+    // TODO AnimMeshではなく、Meshとしたほうが衝突判定の都合が良いかも
     AnimMesh* m_meshRaft = nullptr;
     AnimMesh* m_meshOarLeft = nullptr;
     AnimMesh* m_meshOarRight = nullptr;
@@ -69,7 +72,14 @@ public:
     // イカダをいくつ所有しているか
     int GetRaftCount();
 
+    bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+
 private:
+
+    D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
+                             AnimMesh* mesh,
+                             const D3DXVECTOR3& move);
 
     static VoyageManager* m_obj;
 
