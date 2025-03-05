@@ -482,6 +482,8 @@ SeqBattle::SeqBattle()
         NSTalkLib2::Talk::SetFastMode(true);
         NSStoryTelling::StoryTelling::SetFastMode(true);
     }
+
+    m_commandManager.Init(CommandManager::eType::Main);
 }
 
 SeqBattle::~SeqBattle()

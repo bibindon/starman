@@ -149,8 +149,7 @@ class SoundEffect : public ISoundEffect
 };
 }
 
-void CommandManager::Init(std::vector<std::string> commands,
-                          std::vector<bool> visibles)
+void CommandManager::Init(const eType type)
 {
     if (m_commandLib != nullptr)
     {
@@ -169,23 +168,30 @@ void CommandManager::Init(std::vector<std::string> commands,
 
     m_commandLib->Init(pFont, pSE, sprCursor);
 
-    for (int i = 0; i < (int)commands.size(); ++i)
+    if (type == eType::Title)
     {
-        m_commandLib->UpsertCommand(commands.at(i), visibles.at(i));
+        BuildOpeningCommand();
+    }
+    else if (type == eType::Main)
+    {
+        BuildCommand();
     }
 }
 
 std::string CommandManager::Operate()
 {
-    // 20秒経過したら脱出コマンドを追加
-    ++m_counter;
-
-    // 0.3秒おきに更新
-    // 20で割った余りが1であるとき、とすることで、
-    // 0.33秒おきに更新されるとともに、初めてこの関数が呼ばれたときにも更新呼ばれる。
-    if (m_counter % 20 == 1)
+    if (m_eType == eType::Main)
     {
-        BuildCommand();
+        // 20秒経過したら脱出コマンドを追加
+        ++m_counter;
+
+        // 0.3秒おきに更新
+        // 20で割った余りが1であるとき、とすることで、
+        // 0.33秒おきに更新されるとともに、初めてこの関数が呼ばれたときにも更新呼ばれる。
+        if (m_counter % 20 == 1)
+        {
+            BuildCommand();
+        }
     }
 
     std::string result;
@@ -414,5 +420,19 @@ void CommandManager::BuildCommand()
             }
         }
     }
+}
+
+void CommandManager::BuildOpeningCommand()
+{
+    //---------------------------------------------------
+    // Start
+    // Continue
+    // Exit
+    //---------------------------------------------------
+
+    m_commandLib->RemoveAll();
+    m_commandLib->UpsertCommand("Start", true);
+    m_commandLib->UpsertCommand("Continue", true);
+    m_commandLib->UpsertCommand("Exit", true);
 }
 

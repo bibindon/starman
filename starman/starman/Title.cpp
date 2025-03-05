@@ -51,7 +51,7 @@ Title::Title(const bool blackFadeIn)
         vb.push_back(true);
 
         m_titleCommand = NEW CommandManager();
-        m_titleCommand->Init(vs, vb);
+        m_titleCommand->Init(CommandManager::eType::Title);
     }
 
     m_sprBack = NEW Sprite("res\\image\\black.png");
