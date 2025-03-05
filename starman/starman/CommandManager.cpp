@@ -284,7 +284,7 @@ void CommandManager::BuildCommand()
     // 現在の方向に３時間漕ぐ・・・イカダモードの時、川ではなく海にいるとき
     // 立ち上がる・・・イカダモードの時。イカダモードが解除される。
     // イカダに乗る・・・イカダが近くにある時
-    // イカダの袋を見る・・・イカダモードの時
+    // イカダの袋を見る・・・イカダが近くにある時
     //---------------------------------------------------
 
     m_commandLib->RemoveAll();
@@ -391,10 +391,28 @@ void CommandManager::BuildCommand()
         }
     }
 
-    // イカダの袋を見る・・・イカダモードの時
-    if (raftMode)
+    // イカダの袋を見る・・・イカダが近くにある時
+    //
+    // イカダを所有していないとき、非表示
+    // イカダを所有していて、イカダが近くにあるとき、活性で表示する
+    // イカダを所有していて、イカダが近くにないとき、非活性で表示する
+    if (!raftMode)
     {
-        m_commandLib->UpsertCommand("イカダの袋を見る", true);
+        if (voyage->GetRaftCount() == 0)
+        {
+            // do nothing
+        }
+        else
+        {
+            if (voyage->CheckNearRaft(ppos))
+            {
+                m_commandLib->UpsertCommand("イカダの袋を見る", true);
+            }
+            else
+            {
+                m_commandLib->UpsertCommand("イカダの袋を見る", false);
+            }
+        }
     }
 }
 
