@@ -168,6 +168,7 @@ void CommandManager::Init(const eType type)
 
     m_commandLib->Init(pFont, pSE, sprCursor);
 
+    m_eType = type;
     if (type == eType::Title)
     {
         BuildOpeningCommand();
@@ -287,7 +288,7 @@ void CommandManager::BuildCommand()
     // 脱出・・・20秒コマンドが表示されたら
     // 帆を張る・・・イカダモードの時
     // 帆を畳む・・・イカダモードの時。「帆を張る」と「帆を畳む」はどちらかが表示される。
-    // 現在の方向に３時間漕ぐ・・・イカダモードの時、川ではなく海にいるとき
+    // ３時間漕ぐ・・・イカダモードの時、川ではなく海にいるとき
     // 立ち上がる・・・イカダモードの時。イカダモードが解除される。
     // イカダに乗る・・・イカダが近くにある時
     // イカダの袋を見る・・・イカダが近くにある時
@@ -354,16 +355,16 @@ void CommandManager::BuildCommand()
         }
     }
 
-    // 現在の方向に３時間漕ぐ・・・イカダモードの時、川ではなく海にいるとき
+    // ３時間漕ぐ・・・イカダモードの時、川ではなく海にいるとき
     if (raftMode)
     {
         if (voyage->GetPosType() == NSStarmanLib::Raft::ePosType::Sea)
         {
-            m_commandLib->UpsertCommand("現在の方向に３時間漕ぐ", true);
+            m_commandLib->UpsertCommand("３時間漕ぐ", true);
         }
         else
         {
-            m_commandLib->UpsertCommand("現在の方向に３時間漕ぐ", false);
+            m_commandLib->UpsertCommand("３時間漕ぐ", false);
         }
     }
 
@@ -382,7 +383,7 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetRaftCount() == 0)
         {
-            // do nothing
+            m_commandLib->RemoveCommand("イカダに乗る");
         }
         else
         {
@@ -406,7 +407,7 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetRaftCount() == 0)
         {
-            // do nothing
+            m_commandLib->RemoveCommand("イカダの袋を見る");
         }
         else
         {
