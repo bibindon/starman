@@ -5,6 +5,7 @@
 #include "Player.h"
 
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
+#include "VoyageManager.h"
 
 class SharedObj
 {
@@ -22,6 +23,8 @@ public:
     static void SetMap(Map* map);
     static D3DXMATRIX GetRightHandMat();
     static void SetRightHandMat(D3DXMATRIX mat);
+
+    static VoyageManager* Voyage();
 
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;

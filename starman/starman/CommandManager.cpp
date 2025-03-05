@@ -6,6 +6,7 @@
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "GamePad.h"
+#include "VoyageManager.h"
 
 namespace NSCommand
 {
@@ -177,7 +178,15 @@ void CommandManager::Init(std::vector<std::string> commands,
 std::string CommandManager::Operate()
 {
     // 20秒経過したら脱出コマンドを追加
+    ++m_counter;
 
+    // 0.3秒おきに更新
+    // 20で割った余りが1であるとき、とすることで、
+    // 0.33秒おきに更新されるとともに、初めてこの関数が呼ばれたときにも更新呼ばれる。
+    if (m_counter % 20 == 1)
+    {
+        BuildCommand();
+    }
 
     std::string result;
     std::string work_str;
@@ -237,6 +246,12 @@ std::string CommandManager::Operate()
         result = "EXIT";
     }
 
+    // resultが空ではないならコマンドメニューを一度閉じる、ということ
+    if (!result.empty())
+    {
+        m_counter = 0;
+    }
+
     return result;
 }
 
@@ -272,5 +287,114 @@ void CommandManager::BuildCommand()
     // イカダの袋を見る・・・イカダモードの時
     //---------------------------------------------------
 
+    m_commandLib->RemoveAll();
+    auto voyage = VoyageManager::Get();
+    auto raftMode = voyage->GetRaftMode();
+    auto ppos = SharedObj::GetPlayer()->GetPos();
+
+    // 伐採・・・近くに木があるときに表示される。イカダモードの時は表示されない。
+    if (!raftMode)
+    {
+        if (SharedObj::GetMap()->NearTree(ppos))
+        {
+            m_commandLib->UpsertCommand("伐採", true);
+        }
+        else
+        {
+            m_commandLib->UpsertCommand("伐採", false);
+        }
+    }
+
+    // 採取・・・近くに草があるときに表示される。イカダモードの時は表示されない。
+    if (!raftMode)
+    {
+        if (SharedObj::GetMap()->NearPlant(ppos))
+        {
+            m_commandLib->UpsertCommand("採取", true);
+        }
+        else
+        {
+            m_commandLib->UpsertCommand("採取", false);
+        }
+    }
+
+    // 横になる・・・常に表示される
+    m_commandLib->UpsertCommand("横になる", true);
+
+    // 座る・・・常に表示される
+    m_commandLib->UpsertCommand("座る", true);
+
+    // 脱出・・・20秒コマンドが表示されたら
+    if (m_counter > (60 * 20))
+    {
+        m_commandLib->UpsertCommand("脱出", true);
+    }
+
+    // 帆を張る・・・イカダモードの時
+    if (raftMode)
+    {
+        if (!voyage->GetSail())
+        {
+            m_commandLib->UpsertCommand("帆を張る", true);
+        }
+    }
+
+    // 帆を畳む・・・イカダモードの時。「帆を張る」と「帆を畳む」はどちらかが表示される。
+    if (raftMode)
+    {
+        if (voyage->GetSail())
+        {
+            m_commandLib->UpsertCommand("帆を畳む", true);
+        }
+    }
+
+    // 現在の方向に３時間漕ぐ・・・イカダモードの時、川ではなく海にいるとき
+    if (raftMode)
+    {
+        if (voyage->GetPosType() == NSStarmanLib::Raft::ePosType::Sea)
+        {
+            m_commandLib->UpsertCommand("現在の方向に３時間漕ぐ", true);
+        }
+        else
+        {
+            m_commandLib->UpsertCommand("現在の方向に３時間漕ぐ", false);
+        }
+    }
+
+    // 立ち上がる・・・イカダモードの時。イカダモードが解除される。
+    if (raftMode)
+    {
+        m_commandLib->UpsertCommand("立ち上がる", true);
+    }
+
+    // イカダに乗る・・・イカダが近くにある時
+    //
+    // イカダを所有していないとき、非表示
+    // イカダを所有していて、イカダが近くにあるとき、活性で表示する
+    // イカダを所有していて、イカダが近くにないとき、非活性で表示する
+    if (!raftMode)
+    {
+        if (voyage->GetRaftCount() == 0)
+        {
+            // do nothing
+        }
+        else
+        {
+            if (voyage->CheckNearRaft(ppos))
+            {
+                m_commandLib->UpsertCommand("イカダに乗る", true);
+            }
+            else
+            {
+                m_commandLib->UpsertCommand("イカダに乗る", false);
+            }
+        }
+    }
+
+    // イカダの袋を見る・・・イカダモードの時
+    if (raftMode)
+    {
+        m_commandLib->UpsertCommand("イカダの袋を見る", true);
+    }
 }
 

@@ -64,6 +64,11 @@ void SharedObj::SetRightHandMat(D3DXMATRIX mat)
     m_rightHandMat = mat;
 }
 
+VoyageManager* SharedObj::Voyage()
+{
+    return VoyageManager::Get();
+}
+
 void SharedObj::SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice)
 {
     m_D3DDevice = D3DDevice;

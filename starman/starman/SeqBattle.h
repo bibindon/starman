@@ -133,16 +133,6 @@ private:
     void OperateCommand();
     CommandManager m_commandManager;
 
-    // コマンド画面が1分表示されていたら脱出コマンドを追加する
-    int m_commandCounter = 0;
-    bool m_commandShowEscape = false;
-
-    // 植物の採取
-//    bool m_commandShowPlant = false;
-
-    // 木の伐採
-    bool m_commandShowTree = false;
-
     //----------------------------------------------------------
     // タイトル画面
     //----------------------------------------------------------
@@ -243,7 +233,5 @@ private:
     // 航海機能
     //----------------------------------------------------
     void OperateVoyage();
-    VoyageManager m_voyage;
-
 };
 

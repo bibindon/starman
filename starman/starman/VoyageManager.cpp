@@ -9,6 +9,18 @@ NSStarmanLib::Voyage* Voyage()
     return NSStarmanLib::Voyage::Get();
 }
 
+VoyageManager* VoyageManager::m_obj = nullptr;
+
+VoyageManager* VoyageManager::Get()
+{
+    if (m_obj == nullptr)
+    {
+        m_obj = NEW VoyageManager();
+    }
+
+    return m_obj;
+}
+
 void VoyageManager::Init()
 {
     auto raftList = Voyage()->GetRaftList();
@@ -103,6 +115,33 @@ void VoyageManager::Set3HoursAuto()
 void VoyageManager::SetRaftMode(const bool arg)
 {
     Voyage()->SetRaftMode(arg);
+}
+
+bool VoyageManager::GetRaftMode() const
+{
+    return Voyage()->GetRaftMode();
+}
+
+NSStarmanLib::Raft::ePosType VoyageManager::GetPosType()
+{
+    auto id = Voyage()->GetRaftCurrentId();
+    return Voyage()->GetRaft(id).GetPosType();
+}
+
+void VoyageManager::SetPosType(const NSStarmanLib::Raft::ePosType arg)
+{
+    auto id = Voyage()->GetRaftCurrentId();
+    Voyage()->GetRaft(id).SetPosType(arg);
+}
+
+bool VoyageManager::CheckNearRaft(const D3DXVECTOR3& pos)
+{
+    return Voyage()->CheckNearRaft(pos.x, pos.y, pos.z);
+}
+
+int VoyageManager::GetRaftCount()
+{
+    return (int)Voyage()->GetRaftList().size();
 }
 
 void Raft2::Init(const int id)
@@ -434,5 +473,10 @@ auto Raft2::GetRotate() const
 void Raft2::SetRotate(const D3DXVECTOR3& rot)
 {
     m_rotate = rot;
+}
+
+VoyageManager::VoyageManager()
+{
+
 }
 

@@ -47,6 +47,7 @@ private:
 class VoyageManager
 {
 public:
+    static VoyageManager* Get();
     void Init();
     void Finalize();
     void Update(eBattleState* state);
@@ -57,8 +58,22 @@ public:
     // 現在の方角に３時間漕ぐ
     void Set3HoursAuto();
     void SetRaftMode(const bool arg);
+    bool GetRaftMode() const;
+
+    NSStarmanLib::Raft::ePosType GetPosType();
+    void SetPosType(const NSStarmanLib::Raft::ePosType arg);
+
+    // イカダが2メートル以内にあるか？
+    bool CheckNearRaft(const D3DXVECTOR3& pos);
+
+    // イカダをいくつ所有しているか
+    int GetRaftCount();
 
 private:
+
+    static VoyageManager* m_obj;
+
+    VoyageManager();
 
     // イカダは複数存在できる
     std::map<int, Raft2> m_raftMap;

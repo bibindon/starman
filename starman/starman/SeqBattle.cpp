@@ -470,37 +470,6 @@ SeqBattle::SeqBattle()
 
     m_hudManager.Init();
 
-    {
-        std::vector<std::string> vs;
-        std::vector<bool> vb;
-
-        vs.push_back("伐採");
-        vb.push_back(false);
-
-        vs.push_back("採取");
-        vb.push_back(false);
-
-        vs.push_back("横になる");
-        vb.push_back(true);
-
-        vs.push_back("座る");
-        vb.push_back(true);
-
-        vs.push_back("採集");
-        vb.push_back(true);
-
-        vs.push_back("加工");
-        vb.push_back(false);
-
-        vs.push_back("調理");
-        vb.push_back(false);
-
-        vs.push_back("釣り");
-        vb.push_back(true);
-
-        m_commandManager.Init(vs, vb);
-    }
-
     Common::SetCursorVisibility(false);
 
     m_eState = eBattleState::LOAD;
@@ -538,7 +507,7 @@ SeqBattle::~SeqBattle()
     SAFE_DELETE(m_sprLoadClock);
     SAFE_DELETE(m_sprLoadLoading);
 
-    m_voyage.Finalize();
+    SharedObj::Voyage()->Finalize();
 }
 
 void SeqBattle::Update(eSequence* sequence)
@@ -1152,8 +1121,6 @@ void SeqBattle::OperateCraft()
 
 void SeqBattle::OperateCommand()
 {
-    ++m_commandCounter;
-
     std::string result = m_commandManager.Operate();
 
     bool leave = false;
@@ -1229,19 +1196,19 @@ void SeqBattle::OperateCommand()
     }
     else if (result == "帆を張る")
     {
-        m_voyage.SetSail(true);
+        SharedObj::Voyage()->SetSail(true);
     }
     else if (result == "帆を畳む")
     {
-        m_voyage.SetSail(false);
+        SharedObj::Voyage()->SetSail(false);
     }
     else if (result == "現在の方角に３時間漕ぐ")
     {
-        m_voyage.Set3HoursAuto();
+        SharedObj::Voyage()->Set3HoursAuto();
     }
     else if (result == "立ち上がる")
     {
-        m_voyage.SetRaftMode(false);
+        SharedObj::Voyage()->SetRaftMode(false);
     }
     else if (result == "イカダに乗る")
     {
@@ -1249,7 +1216,7 @@ void SeqBattle::OperateCommand()
         auto bagState = Common::Status()->GetBagState();
         if (bagState.empty())
         {
-            m_voyage.SetRaftMode(true);
+            SharedObj::Voyage()->SetRaftMode(true);
         }
         else
         {
@@ -1261,86 +1228,11 @@ void SeqBattle::OperateCommand()
         m_bShowStorehouse = true;
     }
 
-    // コマンド画面を閉じる場合、脱出コマンドは削除する
+    // コマンド画面を閉じる場合
     if (leave)
     {
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
-
-        m_commandCounter = 0;
-
-        if (m_commandShowEscape)
-        {
-            m_commandShowEscape = false;
-            std::vector<std::string> vs;
-            std::vector<bool> vb;
-
-            vs.push_back("伐採");
-            vb.push_back(false);
-
-            vs.push_back("採取");
-            vb.push_back(false);
-
-            vs.push_back("横になる");
-            vb.push_back(true);
-
-            vs.push_back("座る");
-            vb.push_back(true);
-
-            vs.push_back("採集");
-            vb.push_back(true);
-
-            vs.push_back("加工");
-            vb.push_back(false);
-
-            vs.push_back("調理");
-            vb.push_back(false);
-
-            vs.push_back("釣り");
-            vb.push_back(true);
-
-            m_commandManager.Init(vs, vb);
-        }
-    }
-
-    // コマンド画面が1分表示されていたら脱出コマンドを表示する
-    if (m_commandCounter >= 60 * 20)
-    {
-        if (m_commandShowEscape == false)
-        {
-            m_commandShowEscape = true;
-            std::vector<std::string> vs;
-            std::vector<bool> vb;
-
-            vs.push_back("伐採");
-            vb.push_back(false);
-
-            vs.push_back("採取");
-            vb.push_back(false);
-
-            vs.push_back("横になる");
-            vb.push_back(true);
-
-            vs.push_back("座る");
-            vb.push_back(true);
-
-            vs.push_back("採集");
-            vb.push_back(true);
-
-            vs.push_back("加工");
-            vb.push_back(false);
-
-            vs.push_back("調理");
-            vb.push_back(false);
-
-            vs.push_back("釣り");
-            vb.push_back(true);
-
-            vs.push_back("脱出");
-            vb.push_back(true);
-
-            m_commandManager.Init(vs, vb);
-        }
     }
 }
 
@@ -1453,7 +1345,7 @@ void SeqBattle::InitializeAfterLoad()
 
     Camera::SetCameraMode(eCameraMode::TITLE);
 
-    m_voyage.Init();
+    SharedObj::Voyage()->Init();
 }
 
 void SeqBattle::RenderLoad()
@@ -2132,13 +2024,7 @@ void SeqBattle::RenderCutTree()
 
 void SeqBattle::OperateVoyage()
 {
-    m_voyage.Update(&m_eState);
-
-    if (m_eState == eBattleState::COMMAND)
-    {
-        m_commandManager.Upsert("立ち上がる", true);
-        m_commandManager.Upsert("３時間漕ぐ", true);
-    }
+    SharedObj::Voyage()->Update(&m_eState);
 }
 
 void SeqBattle::Render()
@@ -2375,7 +2261,7 @@ void SeqBattle::RenderCommon()
     {
         m_player->Render();
         m_map->Render();
-        m_voyage.Draw();
+        SharedObj::Voyage()->Draw();
 
         DrawFadeInOut();
     }
@@ -3101,8 +2987,6 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
-            m_commandCounter = 0;
-            m_commandManager.BuildCommand();
         }
     }
 
@@ -3138,8 +3022,6 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
-            m_commandCounter = 0;
-            m_commandManager.BuildCommand();
         }
     }
 
@@ -3188,37 +3070,6 @@ void SeqBattle::OperateNormal(eSequence* sequence)
                 else
                 {
                     m_bShowStorehouse = false;
-                }
-            }
-        }
-        else if (work == 5)
-        {
-            // 近くに植物があるか
-            {
-                auto ppos = m_player->GetPos();
-                if (m_map->NearPlant(ppos))
-                {
-                    // TODO Cキーを押したときに調べればいい話のはず
-                    m_commandManager.Upsert("採取", true);
-                }
-                else
-                {
-                    m_commandManager.Upsert("採取", false);
-                }
-            }
-        }
-        else if (work == 10)
-        {
-            // 近くに木があるか
-            {
-                auto ppos = m_player->GetPos();
-                if (m_map->NearTree(ppos))
-                {
-                    m_commandManager.Upsert("伐採", true);
-                }
-                else
-                {
-                    m_commandManager.Upsert("伐採", false);
                 }
             }
         }
