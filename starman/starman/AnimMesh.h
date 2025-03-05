@@ -31,8 +31,6 @@ public:
     void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
     void SetTrackPos(const DOUBLE& pos);
 
-    LPD3DXMESH GetD3DMesh();
-
 private:
 
     struct frame_root_deleter_object
@@ -73,7 +71,5 @@ private:
     D3DXHANDLE m_brightnessHandle { nullptr };
 
     AnimController m_animCtrlr;
-
-    LPD3DXMESH m_D3DXMesh = nullptr;
 };
 

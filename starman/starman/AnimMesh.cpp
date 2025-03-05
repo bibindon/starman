@@ -84,6 +84,7 @@ AnimMesh::AnimMesh(
     {
         throw std::exception("Failed to load a x-file.");
     }
+
     if (temp_animation_controller == nullptr)
     {
         throw std::exception("Failed to load a x-file.2");
@@ -93,10 +94,6 @@ AnimMesh::AnimMesh(
     m_animCtrlr.Init(temp_animation_controller, animSetMap);
 
     m_scale = scale;
-
-    // TODO 疑惑の処理。
-    // 数あるメッシュデータのうちの一つしかない、となるか？
-    m_D3DXMesh = temp_root_frame->pMeshContainer->MeshData.pMesh;
 }
 
 AnimMesh::~AnimMesh()
@@ -165,11 +162,6 @@ void AnimMesh::SetTrackPos(const DOUBLE& pos)
     // TODO remove
 //    m_animationStrategy->SetTrackPos(pos);
 //    m_animCtrlr.SetTrackPos();
-}
-
-LPD3DXMESH AnimMesh::GetD3DMesh()
-{
-    return m_D3DXMesh;
 }
 
 void AnimMesh::UpdateFrameMatrix(const LPD3DXFRAME frameBase, const LPD3DXMATRIX parentMatrix)

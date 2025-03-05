@@ -3,6 +3,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Voyage.h"
 #include "Common.h"
 #include "AnimMesh.h"
+#include "Mesh.h"
 
 class Raft2
 {
@@ -25,14 +26,14 @@ public:
     D3DXVECTOR3 GetRotate() const;
     void SetRotate(const D3DXVECTOR3& rot);
 
-    AnimMesh* GetAnimMesh();
+    Mesh* GetMesh();
 
 private:
 
     int m_id = 0;
 
-    // TODO AnimMeshÇ≈ÇÕÇ»Ç≠ÅAMeshÇ∆ÇµÇΩÇŸÇ§Ç™è’ìÀîªíËÇÃìsçáÇ™ó«Ç¢Ç©Ç‡
-    AnimMesh* m_meshRaft = nullptr;
+    Mesh* m_meshRaft = nullptr;
+    AnimMesh* m_meshSail = nullptr;
     AnimMesh* m_meshOarLeft = nullptr;
     AnimMesh* m_meshOarRight = nullptr;
     AnimMesh* m_meshCord = nullptr;
@@ -88,7 +89,7 @@ public:
 private:
 
     D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
-                             AnimMesh* mesh,
+                             Mesh* mesh,
                              const D3DXVECTOR3& move);
 
     static VoyageManager* m_obj;

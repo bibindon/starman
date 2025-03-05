@@ -181,7 +181,7 @@ D3DXVECTOR3 VoyageManager::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& 
     D3DXVECTOR3 result = move;
     for (auto& pair : m_raftMap)
     {
-        result = WallSlideSub(pos, pair.second.GetAnimMesh(), result);
+        result = WallSlideSub(pos, pair.second.GetMesh(), result);
     }
     return result;
 }
@@ -208,7 +208,9 @@ int VoyageManager::GetRaftLevel()
     return raft.GetLevel();
 }
 
-D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos, AnimMesh* mesh, const D3DXVECTOR3& move)
+D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
+                                        Mesh* mesh,
+                                        const D3DXVECTOR3& move)
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -287,6 +289,10 @@ void Raft2::Init(const int id)
 
     D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
     D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+
+    {
+        m_meshRaft = NEW Mesh("res\\model\\raft\\raft.x", pos, rot, 1.f);
+    }
     {
         AnimSetMap animSetMap;
         {
@@ -303,8 +309,8 @@ void Raft2::Init(const int id)
             animSetting.m_loop = true;
             animSetMap["SailOff"] = animSetting;
         }
-        m_meshRaft = NEW AnimMesh("res\\model\\raft\\raft.x", pos, rot, 1.f, animSetMap);
-        m_meshRaft->SetAnim("SailOff");
+        m_meshSail = NEW AnimMesh("res\\model\\raft\\sail.x", pos, rot, 1.f, animSetMap);
+        m_meshSail->SetAnim("SailOff");
     }
     {
         AnimSetMap animSetMap;
@@ -363,6 +369,7 @@ void Raft2::Finalize()
     SAFE_DELETE(m_meshCord);
     SAFE_DELETE(m_meshOarRight);
     SAFE_DELETE(m_meshOarLeft);
+    SAFE_DELETE(m_meshSail);
     SAFE_DELETE(m_meshRaft);
 }
 
@@ -532,8 +539,12 @@ void Raft2::Update()
 void Raft2::Draw()
 {
     m_meshRaft->SetPos(m_pos);
-    m_meshRaft->SetRotate(m_rotate);
+    m_meshRaft->SetRotY(m_rotate.y);
     m_meshRaft->Render();
+
+    m_meshSail->SetPos(m_pos);
+    m_meshSail->SetRotate(m_rotate);
+    m_meshSail->Render();
 
     m_meshOarLeft->SetPos(m_pos);
     m_meshOarLeft->SetRotate(m_rotate);
@@ -555,11 +566,11 @@ void Raft2::SetSail(const bool arg)
 {
     if (arg)
     {
-        m_meshRaft->SetAnim("SailOn");
+        m_meshSail->SetAnim("SailOn");
     }
     else
     {
-        m_meshRaft->SetAnim("SailOff");
+        m_meshSail->SetAnim("SailOff");
     }
 }
 
@@ -609,7 +620,7 @@ void Raft2::SetRotate(const D3DXVECTOR3& rot)
     m_rotate = rot;
 }
 
-AnimMesh* Raft2::GetAnimMesh()
+Mesh* Raft2::GetMesh()
 {
     return m_meshRaft;
 }
