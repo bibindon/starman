@@ -79,6 +79,12 @@ public:
     D3DXVECTOR3 GetRaftXYZ(const int id);
     float GetRaftRotateY(const int id);
 
+    // 乗船中のイカダの耐久値
+    int GetRaftDurability();
+
+    // 乗船中のイカダの強化値
+    int GetRaftLevel();
+
 private:
 
     D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,

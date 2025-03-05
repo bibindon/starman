@@ -906,7 +906,7 @@ std::string MenuManager::OperateMenu()
         result = m_menu.Back();
     }
 
-    // 表示内容を更新
+    // ステータス画面の表示内容を更新
     {
         using namespace NSMenulib;
         std::vector<StatusInfo> infoList;
@@ -1053,7 +1053,30 @@ std::string MenuManager::OperateMenu()
 
         info.SetDetail(work);
         infoList.push_back(info);
-        m_menu.SetStatus(infoList);
+
+        //----------------------------------------------------
+        // イカダのステータス
+        //----------------------------------------------------
+        {
+            if (SharedObj::Voyage()->GetRaftMode())
+            {
+                // イカダは複数個持つことができるが、ステータスに表示するのは乗船中のイカダだけ
+                // ・耐久度
+                // ・強化値
+                StatusInfo info;
+                info.SetName("イカダ");
+                NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                sprItem->Load("res\\image\\raft.png");
+                info.SetSprite(sprItem);
+                std::string work;
+                work += "現在の耐久値\n";
+                work += std::to_string(SharedObj::Voyage()->GetRaftDurability()) + "\n";
+                work += "現在の強化値\n";
+                work += std::to_string(SharedObj::Voyage()->GetRaftLevel()) + "\n";
+
+                m_menu.SetStatus(infoList);
+            }
+        }
     }
     return result;
 }

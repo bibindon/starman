@@ -196,6 +196,18 @@ float VoyageManager::GetRaftRotateY(const int id)
     return m_raftMap.at(id).GetRotate().y;
 }
 
+int VoyageManager::GetRaftDurability()
+{
+    auto raft = Voyage()->GetRaftCurrent();
+    return raft.GetDurability();
+}
+
+int VoyageManager::GetRaftLevel()
+{
+    auto raft = Voyage()->GetRaftCurrent();
+    return raft.GetLevel();
+}
+
 D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos, AnimMesh* mesh, const D3DXVECTOR3& move)
 {
     D3DXVECTOR3 result {move};
