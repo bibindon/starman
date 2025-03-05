@@ -18,6 +18,7 @@
 #include "QuestManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PatchTestManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Voyage.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -208,6 +209,9 @@ void SaveManager::Save()
     auto voyage = NSStarmanLib::Voyage::Get();
     voyage->Save(CreateSaveFilePath("voyageSave.csv"),
                  CreateSaveFilePath("raftSave.csv"));
+
+    auto activityBase = NSStarmanLib::ActivityBase::Get();
+    activityBase->Save(CreateSaveFilePath("activityBase.csv"));
 }
 
 void SaveManager::LoadOrigin()
@@ -228,6 +232,7 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::Guide::Destroy();
         NSStarmanLib::PowereggDateTime::Destroy();
         NSStarmanLib::MapObjManager::Destroy();
+        NSStarmanLib::ActivityBase::Get()->Finalize();
     }
 
     auto rynen = NSStarmanLib::Rynen::GetObj();
@@ -298,6 +303,9 @@ void SaveManager::LoadOrigin()
     auto voyage = NSStarmanLib::Voyage::Get();
     voyage->Init(CreateOriginFilePath("voyageOrigin.csv"),
                  "");
+
+    auto activityBase = NSStarmanLib::ActivityBase::Get();
+    activityBase->Init(CreateOriginFilePath("activityBase.csv"));
 }
 
 void SaveManager::Load()
@@ -393,6 +401,9 @@ void SaveManager::Load()
     auto voyage = NSStarmanLib::Voyage::Get();
     voyage->Init(CreateSaveFilePath("voyageSave.csv"),
                  CreateSaveFilePath("raftSave.csv"));
+
+    auto activityBase = NSStarmanLib::ActivityBase::Get();
+    activityBase->Init(CreateSaveFilePath("activityBase.csv"));
 
     m_savedataLoaded = true;
 }
