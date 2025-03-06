@@ -19,6 +19,8 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/PatchTestManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Voyage.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -211,6 +213,9 @@ void SaveManager::Save()
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
     activityBase->Save(CreateSaveFilePath("activityBase.csv"));
+
+    NSStarmanLib::CraftSystem::GetObj()->Save(CreateSaveFilePath("craftsmanSkillSave.csv"),
+                                              CreateSaveFilePath("craftsmanQueueSave.csv"));
 }
 
 void SaveManager::LoadOrigin()
@@ -232,6 +237,8 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::PowereggDateTime::Destroy();
         NSStarmanLib::MapObjManager::Destroy();
         NSStarmanLib::ActivityBase::Get()->Finalize();
+        NSStarmanLib::CraftInfoManager::Destroy();
+        NSStarmanLib::CraftSystem::Destroy();
     }
 
     auto rynen = NSStarmanLib::Rynen::GetObj();
@@ -304,6 +311,11 @@ void SaveManager::LoadOrigin()
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
     activityBase->Init(CreateOriginFilePath("activityBase.csv"));
+
+    NSStarmanLib::CraftInfoManager::GetObj()->Init(CreateOriginFilePath("craftDef.csv"));
+
+    NSStarmanLib::CraftSystem::GetObj()->Init(CreateOriginFilePath("craftsmanSkill.csv"),
+                                              CreateOriginFilePath("craftsmanQueue.csv"));
 }
 
 void SaveManager::Load()
@@ -401,6 +413,11 @@ void SaveManager::Load()
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
     activityBase->Init(CreateSaveFilePath("activityBase.csv"));
+
+    NSStarmanLib::CraftInfoManager::GetObj()->Init(CreateOriginFilePath("craftDef.csv"));
+
+    NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath("craftsmanSkill.csv"),
+                                              CreateSaveFilePath("craftsmanQueue.csv"));
 
     m_savedataLoaded = true;
 }

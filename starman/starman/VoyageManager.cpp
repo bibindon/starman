@@ -151,6 +151,16 @@ int VoyageManager::GetNearRaftId(const D3DXVECTOR3& pos)
     return id;
 }
 
+void VoyageManager::Ride()
+{
+    auto pos = SharedObj::GetPlayer()->GetPos();
+    auto id = GetNearRaftId(pos);
+    Voyage()->SetRaftCurrentId(id);
+    Voyage()->SetRaftMode(true);
+
+    SharedObj::GetPlayer()->RideRaft();
+}
+
 int VoyageManager::GetRaftCount()
 {
     return (int)Voyage()->GetRaftList().size();
@@ -292,6 +302,7 @@ void Raft2::Init(const int id)
 
     {
         m_meshRaft = NEW Mesh("res\\model\\raft\\raft.x", pos, rot, 1.f);
+        m_meshRaft->Init();
     }
     {
         AnimSetMap animSetMap;
@@ -572,11 +583,6 @@ void Raft2::SetSail(const bool arg)
     {
         m_meshSail->SetAnim("SailOff");
     }
-}
-
-bool Raft2::GetSail() const
-{
-    return false;
 }
 
 void Raft2::PullOarBoth()

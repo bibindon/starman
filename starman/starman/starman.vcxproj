@@ -257,6 +257,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="CraftManager.cpp" />
     <ClCompile Include="EnemyBigCube.cpp" />
     <ClCompile Include="EnemyCube.cpp" />
     <ClCompile Include="EnemyBase.cpp" />
@@ -308,6 +309,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="CraftManager.h" />
     <ClInclude Include="EnemyBigCube.h" />
     <ClInclude Include="EnemyCube.h" />
     <ClInclude Include="EnemyBase.h" />

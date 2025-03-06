@@ -14,7 +14,6 @@ public:
     void Update();
     void Draw();
     void SetSail(const bool arg);
-    bool GetSail() const;
 
     void PullOarBoth();
     void PullOarLeft();
@@ -70,6 +69,10 @@ public:
     // イカダが2メートル以内にあるか？
     bool CheckNearRaft(const D3DXVECTOR3& pos);
     int GetNearRaftId(const D3DXVECTOR3& pos);
+
+    // 乗船しているイカダのID
+    // -1は乗船していないを意味する？
+    void Ride();
 
     // イカダをいくつ所有しているか
     int GetRaftCount();

@@ -32,6 +32,7 @@
 #include "StoryManager.h"
 #include "PatchTestManager2.h"
 #include "VoyageManager.h"
+#include "CraftManager.h"
 
 class Title;
 
@@ -125,7 +126,7 @@ private:
     // クラフト画面
     //----------------------------------------------------------
     void OperateCraft();
-    NSCraftLib::CraftLib* m_craft = nullptr;
+    CraftManager m_craft;
 
     //----------------------------------------------------------
     // コマンド画面
