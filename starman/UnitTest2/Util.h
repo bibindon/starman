@@ -16,7 +16,15 @@
 class Util
 {
 public:
+
     // ウィンドウ作成とDirctX9の初期化、DirectInputの初期化を行う
     static void InitWin_DX9_DI8();
+    static void ReleaseWin_DX9_DI8();
+
+private:
+
+    static LPDIRECT3D9 m_D3D;
+    static LPDIRECTINPUT8 m_directInput;
+
 };
 

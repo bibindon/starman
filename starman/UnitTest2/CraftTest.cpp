@@ -1,6 +1,7 @@
 #include "CppUnitTest.h"
 #include "../starman/CraftManager.h"
 #include "../starman/MainWindow.h"
+#include "Util.h"
 
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d9.lib")
@@ -25,11 +26,12 @@ namespace UnitTest2
         
         TEST_METHOD(TestMethod02)
         {
-            auto hInstance = GetModuleHandle(NULL);
-            MainWindow window(hInstance);
+            Util::InitWin_DX9_DI8();
             CraftManager craft;
 
             craft.Init();
+
+            Util::ReleaseWin_DX9_DI8();
         }
     };
 }

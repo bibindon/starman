@@ -20,6 +20,14 @@ namespace UnitTest2
     {
     public:
 
+        TEST_CLASS_INITIALIZE(Initialize)
+        {
+        }
+
+        TEST_CLASS_CLEANUP(CleanUp)
+        {
+        }
+
         void Init()
         {
         }
@@ -42,6 +50,9 @@ namespace UnitTest2
 
             // Target
             raft.Init(1);
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -68,6 +79,11 @@ namespace UnitTest2
 
             // Target
             raft.Update();
+
+            delete player;
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -77,11 +93,23 @@ namespace UnitTest2
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
+            auto player = NEW Player();
+            SharedObj::SetPlayer(player);
+
             Raft2 raft;
             raft.Init(1);
 
+            SharedObj::GetD3DDevice()->BeginScene();
+
             // Target
             raft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+
+            delete player;
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -97,6 +125,9 @@ namespace UnitTest2
             // Target
             raft.SetSail(true);
             raft.SetSail(false);
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -111,6 +142,9 @@ namespace UnitTest2
 
             // Target
             raft.PullOarBoth();
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -125,6 +159,9 @@ namespace UnitTest2
 
             // Target
             raft.PullOarLeft();
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -139,6 +176,9 @@ namespace UnitTest2
 
             // Target
             raft.PullOarRight();
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -153,6 +193,9 @@ namespace UnitTest2
 
             // Target
             raft.GetPos();
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -168,6 +211,9 @@ namespace UnitTest2
             // Target
             D3DXVECTOR3 pos;
             raft.SetPos(pos);
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -182,6 +228,9 @@ namespace UnitTest2
 
             // Target
             raft.GetRotate();
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -197,6 +246,9 @@ namespace UnitTest2
             // Target
             D3DXVECTOR3 rot;
             raft.SetRotate(rot);
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -211,6 +263,9 @@ namespace UnitTest2
 
             // Target
             raft.GetMesh();
+
+            raft.Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
     };
 
@@ -228,19 +283,28 @@ namespace UnitTest2
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
         TEST_METHOD(TestMethod02)
         {
+            Util::InitWin_DX9_DI8();
+
             auto voyageMgr = VoyageManager::Get();
 
             // Target
             voyageMgr->Init();
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
         TEST_METHOD(TestMethod03)
         {
+            Util::InitWin_DX9_DI8();
             auto voyageMgr = VoyageManager::Get();
+            voyageMgr->Init();
 
             // Target
             voyageMgr->Finalize();
+
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -257,14 +321,25 @@ namespace UnitTest2
         TEST_METHOD(TestMethod05)
         {
             Util::InitWin_DX9_DI8();
+            auto player = NEW Player();
+            SharedObj::SetPlayer(player);
+
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
             voyageMgr->Init();
 
+            SharedObj::GetD3DDevice()->BeginScene();
+
             // Target
             voyageMgr->Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+
+            delete player;
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -279,6 +354,9 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetSail();
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -294,6 +372,9 @@ namespace UnitTest2
             // Target
             voyageMgr->SetSail(true);
             voyageMgr->SetSail(false);
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -307,6 +388,9 @@ namespace UnitTest2
 
             // Target
             voyageMgr->Set3HoursAuto();
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -339,6 +423,9 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetPosType();
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -353,6 +440,9 @@ namespace UnitTest2
             // Target
             voyageMgr->SetPosType(NSStarmanLib::Raft::ePosType::River);
             voyageMgr->SetPosType(NSStarmanLib::Raft::ePosType::Sea);
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -398,6 +488,8 @@ namespace UnitTest2
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
         TEST_METHOD(TestMethod19)
         {
+            Util::InitWin_DX9_DI8();
+
             auto voyageMgr = VoyageManager::Get();
             voyageMgr->Init();
 
@@ -405,6 +497,9 @@ namespace UnitTest2
             D3DXVECTOR3 pos;
             D3DXVECTOR3 move;
             voyageMgr->WallSlide(pos, move);
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -418,6 +513,9 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetRaftXYZ(1);
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -431,6 +529,9 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetRaftRotateY(1);
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -444,6 +545,9 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetRaftDurability();
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -457,6 +561,9 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetRaftLevel();
+
+            voyageMgr->Finalize();
+            Util::ReleaseWin_DX9_DI8();
         }
     };
 }

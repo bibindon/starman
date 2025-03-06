@@ -230,7 +230,6 @@ void Mesh::Render()
 
     m_D3DEffect->SetVector("g_light_normal", &normal);
 
-    SharedObj::GetPlayer();
     D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
     D3DXVECTOR4 ppos2;
     ppos2.x = ppos.x;
