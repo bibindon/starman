@@ -207,8 +207,7 @@ void SaveManager::Save()
                            CreateSaveFilePath("patchTestInfoSave.csv"));
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Save(CreateSaveFilePath("voyageSave.csv"),
-                 CreateSaveFilePath("raftSave.csv"));
+    voyage->Save(CreateSaveFilePath("raftSave.csv"));
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
     activityBase->Save(CreateSaveFilePath("activityBase.csv"));
@@ -301,8 +300,7 @@ void SaveManager::LoadOrigin()
                            "");
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Init(CreateOriginFilePath("voyageOrigin.csv"),
-                 "");
+    voyage->Init("");
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
     activityBase->Init(CreateOriginFilePath("activityBase.csv"));
@@ -399,8 +397,7 @@ void SaveManager::Load()
                            CreateSaveFilePath("patchTestQueSave.csv"));
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Init(CreateSaveFilePath("voyageSave.csv"),
-                 CreateSaveFilePath("raftSave.csv"));
+    voyage->Init(CreateSaveFilePath("raftSave.csv"));
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
     activityBase->Init(CreateSaveFilePath("activityBase.csv"));
