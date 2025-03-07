@@ -6,6 +6,7 @@
 #include "SoundEffect.h"
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
 #include "PopUp2.h"
 
 namespace NSCraftLib
@@ -283,6 +284,26 @@ void CraftManager::Operate(eBattleState* state)
             *state = eBattleState::NORMAL;
             Camera::SetCameraMode(eCameraMode::BATTLE);
             Common::SetCursorVisibility(false);
+        }
+        // イカダの場合は活動拠点の船着き場にイカダがないかチェック
+        else if (result == "イカダ")
+        {
+            bool raftExist = NSStarmanLib::ActivityBase::Get()->CheckRaftExist();
+
+            if (raftExist)
+            {
+                PopUp2::Get()->SetText("船着き場にイカダがある");
+                PopUp2::Get()->SetText("イカダを移動してから依頼しよう");
+            }
+            else
+            {
+                // クラフト開始
+                bool started = craftSys->QueueCraftRequest(result);
+                if (!started)
+                {
+                    PopUp2::Get()->SetText("クラフト用の素材が足りない");
+                }
+            }
         }
         else
         {
