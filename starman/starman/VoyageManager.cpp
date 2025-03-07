@@ -55,7 +55,9 @@ void VoyageManager::Update(eBattleState* state)
     // イカダで移動しているとき、移動しているのはイカダであり、
     // 主人公はイカダについてきている、と考える。
 
-    Voyage()->Update();
+    Voyage()->Update(SharedObj::GetPlayer()->GetPos().x,
+                     SharedObj::GetPlayer()->GetPos().y,
+                     SharedObj::GetPlayer()->GetPos().z);
 
     //----------------------------------------------------
     // マウス・キーボード操作
