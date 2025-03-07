@@ -6,6 +6,7 @@
 #include "SoundEffect.h"
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
 #include "PopUp2.h"
 
@@ -384,7 +385,7 @@ void CraftManager::Build()
                 work += "ê¨â ï®ÇÃã≠âªìxÅF" + std::to_string(output.GetLevel()) + "\n";
                 work += "\n";
 
-                auto materials = req.GetCraftInfo().GetCraftMaterial();
+                auto materials = req.GetCraftInfo().GetCraftMaterialDef();
 
                 int i = 1;
                 for (auto& material : materials)
