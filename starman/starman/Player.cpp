@@ -1394,7 +1394,7 @@ void Player::RideRaft()
     auto rotateY = SharedObj::Voyage()->GetRaftRotateY(id);
     m_rotate.y = rotateY;
 
-    m_AnimMesh2->SetAnim("Sit", 0.f);
+    m_AnimMesh2->SetAnim("Sit");
 }
 
 void Player::Throw()
