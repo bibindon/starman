@@ -6,6 +6,7 @@
 #include "SoundEffect.h"
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
+#include "PopUp2.h"
 
 namespace NSCraftLib
 {
@@ -173,6 +174,8 @@ void CraftManager::Finalize()
 
 void CraftManager::Operate(eBattleState* state)
 {
+    auto craftSys = NSStarmanLib::CraftSystem::GetObj();
+
     // 定期的に画面を作り直す。
     static int counter = 0;
     ++counter;
@@ -180,7 +183,7 @@ void CraftManager::Operate(eBattleState* state)
     // 1秒に一回
     if (counter % 60 == 1)
     {
-        NSStarmanLib::CraftSystem::GetObj()->UpdateCraftStatus();
+        craftSys->UpdateCraftStatus();
 
         // 画面更新
         Build();
@@ -210,7 +213,7 @@ void CraftManager::Operate(eBattleState* state)
 
     if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
     {
-        m_gui.Into();
+        result = m_gui.Into();
     }
 
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
@@ -226,7 +229,7 @@ void CraftManager::Operate(eBattleState* state)
     if (Mouse::IsDownLeft())
     {
         POINT p = Common::GetScreenPos();
-        m_gui.Click(p.x, p.y);
+        result = m_gui.Click(p.x, p.y);
     }
     else
     {
@@ -265,7 +268,7 @@ void CraftManager::Operate(eBattleState* state)
 
     if (GamePad::IsDown(eGamePadButtonType::A))
     {
-        m_gui.Into();
+        result = m_gui.Into();
     }
 
     if (GamePad::IsDown(eGamePadButtonType::B))
@@ -273,11 +276,23 @@ void CraftManager::Operate(eBattleState* state)
         result = m_gui.Back();
     }
 
-    if (result == "EXIT")
+    if (!result.empty())
     {
-        *state = eBattleState::NORMAL;
-        Camera::SetCameraMode(eCameraMode::BATTLE);
-        Common::SetCursorVisibility(false);
+        if (result == "EXIT")
+        {
+            *state = eBattleState::NORMAL;
+            Camera::SetCameraMode(eCameraMode::BATTLE);
+            Common::SetCursorVisibility(false);
+        }
+        else
+        {
+            // クラフト開始
+            bool started = craftSys->QueueCraftRequest(result);
+            if (!started)
+            {
+                PopUp2::Get()->SetText("クラフト用の素材が足りない");
+            }
+        }
     }
 }
 
