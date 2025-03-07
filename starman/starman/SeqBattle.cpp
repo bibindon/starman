@@ -1001,7 +1001,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == "イカダの袋を見る")
     {
-        m_bShowStorehouse = true;
+        ShowStorehouse();
     }
 
     // コマンド画面を閉じる場合
