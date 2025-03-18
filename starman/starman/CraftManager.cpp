@@ -13,183 +13,183 @@
 
 namespace NSCraftLib
 {
-    class Sprite : public ISprite
+class Sprite : public ISprite
+{
+public:
+
+    Sprite(LPDIRECT3DDEVICE9 dev)
+        : m_pD3DDevice(dev)
     {
-    public:
+    }
 
-        Sprite(LPDIRECT3DDEVICE9 dev)
-            : m_pD3DDevice(dev)
+    void DrawImage(const int x, const int y, const int transparency) override
+    {
+        D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
+        m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
+        RECT rect = {
+            0,
+            0,
+            static_cast<LONG>(m_width),
+            static_cast<LONG>(m_height) };
+        D3DXVECTOR3 center { 0, 0, 0 };
+        m_D3DSprite->Draw(
+            m_texMap.at(m_filepath),
+            &rect,
+            &center,
+            &pos,
+            D3DCOLOR_ARGB(transparency, 255, 255, 255));
+        m_D3DSprite->End();
+
+    }
+
+    void Load(const std::string& filepath) override
+    {
+        // スプライトは一つのみ確保し使いまわす
+        if (m_D3DSprite == NULL)
         {
+            if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+            {
+                throw std::exception("Failed to create a sprite.");
+            }
         }
 
-        void DrawImage(const int x, const int y, const int transparency) override
+        m_filepath = filepath;
+
+        // 同じ画像ファイルで作られたテクスチャが既にあるなら、
+        // 画像のサイズだけ確保しテクスチャの作成を行わない
+        auto it = m_texMap.find(filepath);
+        if (it != m_texMap.end())
         {
-            D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
-            m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-            RECT rect = {
-                0,
-                0,
-                static_cast<LONG>(m_width),
-                static_cast<LONG>(m_height) };
-            D3DXVECTOR3 center { 0, 0, 0 };
-            m_D3DSprite->Draw(
-                m_texMap.at(m_filepath),
-                &rect,
-                &center,
-                &pos,
-                D3DCOLOR_ARGB(transparency, 255, 255, 255));
-            m_D3DSprite->End();
-
-        }
-
-        void Load(const std::string& filepath) override
-        {
-            // スプライトは一つのみ確保し使いまわす
-            if (m_D3DSprite == NULL)
-            {
-                if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
-                {
-                    throw std::exception("Failed to create a sprite.");
-                }
-            }
-
-            m_filepath = filepath;
-
-            // 同じ画像ファイルで作られたテクスチャが既にあるなら、
-            // 画像のサイズだけ確保しテクスチャの作成を行わない
-            auto it = m_texMap.find(filepath);
-            if (it != m_texMap.end())
-            {
-                D3DSURFACE_DESC desc { };
-                if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
-                {
-                    throw std::exception("Failed to create a texture.");
-                }
-                m_width = desc.Width;
-                m_height = desc.Height;
-                it->second->AddRef();
-                return;
-            }
-
-            // テクスチャの作成
-            LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
-            HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
-            if (FAILED(hr))
-            {
-                std::string work;
-                work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
-                throw std::exception(work.c_str());
-            }
-
-            m_texMap[filepath] = pD3DTexture;
-
-
             D3DSURFACE_DESC desc { };
-            if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
+            if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
             {
                 throw std::exception("Failed to create a texture.");
             }
             m_width = desc.Width;
             m_height = desc.Height;
+            it->second->AddRef();
+            return;
         }
 
-        ~Sprite()
+        // テクスチャの作成
+        LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
+        HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
+        if (FAILED(hr))
         {
-            ULONG refCnt = m_texMap.at(m_filepath)->Release();
-            if (refCnt == 0)
-            {
-                m_texMap.erase(m_filepath);
-            }
-
-            if (m_texMap.empty())
-            {
-                SAFE_RELEASE(m_D3DSprite);
-            }
+            std::string work;
+            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
+            throw std::exception(work.c_str());
         }
 
-    private:
+        m_texMap[filepath] = pD3DTexture;
 
-        LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
 
-        // スプライトは一つを使いまわす
-        static LPD3DXSPRITE m_D3DSprite;
-        std::string m_filepath;
+        D3DSURFACE_DESC desc { };
+        if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
+        {
+            throw std::exception("Failed to create a texture.");
+        }
+        m_width = desc.Width;
+        m_height = desc.Height;
+    }
 
-        UINT m_width = 0;
-        UINT m_height = 0;
-
-        // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
-        static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
-    };
-
-    LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
-    std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
-
-    class Font : public IFont
+    ~Sprite()
     {
-    public:
-
-        Font(LPDIRECT3DDEVICE9 pD3DDevice)
-            : m_pD3DDevice(pD3DDevice)
+        ULONG refCnt = m_texMap.at(m_filepath)->Release();
+        if (refCnt == 0)
         {
+            m_texMap.erase(m_filepath);
         }
 
-        void Init()
+        if (m_texMap.empty())
         {
-            HRESULT hr = D3DXCreateFont(m_pD3DDevice,
-                                        24,
-                                        0,
-                                        FW_NORMAL,
-                                        1,
-                                        false,
-                                        SHIFTJIS_CHARSET,
-                                        OUT_TT_ONLY_PRECIS,
-                                        ANTIALIASED_QUALITY,
-                                        FF_DONTCARE,
-                                        "ＭＳ 明朝",
-                                        &m_pFont);
+            SAFE_RELEASE(m_D3DSprite);
         }
+    }
 
-        virtual void DrawText_(const std::string& msg, const int x, const int y)
-        {
-            RECT rect = { x, y, 0, 0 };
-            m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
-                D3DCOLOR_ARGB(255, 255, 255, 255));
-        }
+private:
 
-        ~Font()
-        {
-            m_pFont->Release();
-        }
+    LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
 
-    private:
+    // スプライトは一つを使いまわす
+    static LPD3DXSPRITE m_D3DSprite;
+    std::string m_filepath;
 
-        LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
-        LPD3DXFONT m_pFont = NULL;
-    };
+    UINT m_width = 0;
+    UINT m_height = 0;
 
+    // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
+    static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
+};
 
-    class SoundEffect : public ISoundEffect
+LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
+std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
+
+class Font : public IFont
+{
+public:
+
+    Font(LPDIRECT3DDEVICE9 pD3DDevice)
+        : m_pD3DDevice(pD3DDevice)
     {
-        virtual void PlayMove() override
-        {
-            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
-        }
-        virtual void PlayClick() override
-        {
-            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
-        }
-        virtual void PlayBack() override
-        {
-            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
-        }
-        virtual void Init() override
-        {
-            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
-            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
-            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
-        }
-    };
+    }
+
+    void Init()
+    {
+        HRESULT hr = D3DXCreateFont(m_pD3DDevice,
+                                    24,
+                                    0,
+                                    FW_NORMAL,
+                                    1,
+                                    false,
+                                    SHIFTJIS_CHARSET,
+                                    OUT_TT_ONLY_PRECIS,
+                                    ANTIALIASED_QUALITY,
+                                    FF_DONTCARE,
+                                    "ＭＳ 明朝",
+                                    &m_pFont);
+    }
+
+    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    {
+        RECT rect = { x, y, 0, 0 };
+        m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
+            D3DCOLOR_ARGB(255, 255, 255, 255));
+    }
+
+    ~Font()
+    {
+        m_pFont->Release();
+    }
+
+private:
+
+    LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
+    LPD3DXFONT m_pFont = NULL;
+};
+
+
+class SoundEffect : public ISoundEffect
+{
+    virtual void PlayMove() override
+    {
+        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+    }
+    virtual void PlayClick() override
+    {
+        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+    }
+    virtual void PlayBack() override
+    {
+        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+    }
+    virtual void Init() override
+    {
+        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
+        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
+        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+    }
+};
 }
 
 void CraftManager::Init()
@@ -244,7 +244,17 @@ void CraftManager::Operate(eBattleState* state)
         m_gui.Up();
     }
 
+    if (KeyBoard::IsHold(DIK_UP))
+    {
+        m_gui.Up();
+    }
+
     if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
+    {
+        m_gui.Down();
+    }
+
+    if (KeyBoard::IsHold(DIK_DOWN))
     {
         m_gui.Down();
     }
@@ -281,8 +291,20 @@ void CraftManager::Operate(eBattleState* state)
     }
     else
     {
-        POINT p = Common::GetScreenPos();;
-        m_gui.CursorOn(p.x, p.y);
+        static POINT previousPoint = { 0, 0 };
+        POINT p = Common::GetScreenPos();
+
+        if (p.x == previousPoint.x &&
+            p.y == previousPoint.y)
+        {
+            // do nothing
+        }
+        else
+        {
+            m_gui.CursorOn(p.x, p.y);
+        }
+
+        previousPoint = p;
     }
 
     if (Mouse::GetZDelta() < 0)
@@ -299,7 +321,17 @@ void CraftManager::Operate(eBattleState* state)
         m_gui.Up();
     }
 
+    if (GamePad::IsHold(eGamePadButtonType::UP))
+    {
+        m_gui.Up();
+    }
+
     if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    {
+        m_gui.Down();
+    }
+
+    if (GamePad::IsHold(eGamePadButtonType::DOWN))
     {
         m_gui.Down();
     }
