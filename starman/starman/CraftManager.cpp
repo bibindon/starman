@@ -342,7 +342,7 @@ void CraftManager::Build()
             auto level = info.GetLevel();
             if (level >= 1)
             {
-                name += "+" + level;
+                name += "+" + std::to_string(level);
             }
             vs.push_back(name);
         }
