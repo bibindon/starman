@@ -377,7 +377,14 @@ void CraftManager::Operate(eBattleState* state)
             else
             {
                 // クラフト開始
-                bool started = craftSys->QueueCraftRequest(result);
+                std::string work = result;
+                auto index = work.find("+");
+                if (index != std::string::npos)
+                {
+                    work.erase(index);
+                }
+
+                bool started = craftSys->QueueCraftRequest(work);
                 if (!started)
                 {
                     PopUp2::Get()->SetText("クラフト用の素材が足りない");
@@ -387,7 +394,14 @@ void CraftManager::Operate(eBattleState* state)
         else
         {
             // クラフト開始
-            bool started = craftSys->QueueCraftRequest(result);
+            std::string work = result;
+            auto index = work.find("+");
+            if (index != std::string::npos)
+            {
+                work.erase(index);
+            }
+
+            bool started = craftSys->QueueCraftRequest(work);
             if (!started)
             {
                 PopUp2::Get()->SetText("クラフト用の素材が足りない");
