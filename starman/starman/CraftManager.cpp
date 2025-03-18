@@ -493,7 +493,7 @@ void CraftManager::Build()
                 auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
                 auto imagePath = itemDef.GetImagePath();
 
-                m_gui.SetOutputImage(info.GetName(), imagePath, sprite1);
+                m_gui.SetOutputImage(work2, imagePath, sprite1);
             }
 
         }
