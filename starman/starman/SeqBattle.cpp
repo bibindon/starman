@@ -2248,6 +2248,7 @@ void SeqBattle::UpdateDebug()
 
                 Camera::SetCameraMode(eCameraMode::SLEEP);
                 Common::SetCursorVisibility(true);
+                m_craft.Build();
             }
         }
     }

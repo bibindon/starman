@@ -8,6 +8,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "PopUp2.h"
 
 namespace NSCraftLib
@@ -168,6 +169,8 @@ void CraftManager::Init()
     NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect();
 
     m_gui.Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
+
+    Build();
 }
 
 void CraftManager::Finalize()
@@ -359,6 +362,7 @@ void CraftManager::Build()
         vs.clear();
 
         // 2”Ô–ÚˆÈ~‚ğ—\–ñƒŠƒXƒg‚É•\¦
+        if (reqList.size() >= 2)
         {
             std::string name;
             auto it = reqList.begin();

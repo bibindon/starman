@@ -13,10 +13,10 @@ public:
     void Operate(eBattleState* state);
     void Draw();
 
-private:
-
-    // 非表示から表示状態に変わるときに画面を作り直す。
+    // 画面を作り直す。
     void Build();
+
+private:
 
     NSCraftLib::CraftLib m_gui;
 };
