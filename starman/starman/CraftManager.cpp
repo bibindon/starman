@@ -381,15 +381,16 @@ void CraftManager::Build()
         {
             std::string work;
 
-            for (auto& req : reqList)
+            auto allCraftList = craftInfo->GetCraftItemList();
+
+            for (auto& info : allCraftList)
             {
-                auto output = req.GetCraftInfo().GetOutput();
-                work += "成果物の名前：" + output.GetName() + "\n";
-                work += "成果物の数：" + std::to_string(output.GetNumber()) + "\n";
-                work += "成果物の強化度：" + std::to_string(output.GetLevel()) + "\n";
+                work += "成果物の名前：" + info.GetName() + "\n";
+                work += "成果物の数：" + std::to_string(info.GetNumber()) + "\n";
+                work += "成果物の強化度：" + std::to_string(info.GetLevel()) + "\n";
                 work += "\n";
 
-                auto materials = req.GetCraftInfo().GetCraftMaterialDef();
+                auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();
 
                 int i = 1;
                 for (auto& material : materials)
@@ -404,13 +405,20 @@ void CraftManager::Build()
 
                     ++i;
                 }
-                m_gui.SetOutputInfo(output.GetName(), work);
+
+                std::string work2 = info.GetName();
+
+                if (info.GetLevel() >= 1)
+                {
+                    work2 += "+" + std::to_string(info.GetLevel());
+                }
+                m_gui.SetOutputInfo(work2, work);
 
                 NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
-                auto itemDef = Common::ItemManager()->GetItemDef(output.GetName(), output.GetLevel());
+                auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
                 auto imagePath = itemDef.GetImagePath();
 
-                m_gui.SetOutputImage(output.GetName(), imagePath, sprite1);
+                m_gui.SetOutputImage(info.GetName(), imagePath, sprite1);
             }
 
         }
