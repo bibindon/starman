@@ -492,13 +492,19 @@ void CraftManager::Build()
 
         auto infoList = craftInfo->GetCraftItemList();
 
+        // クラフト可能リストにはクラフト可能なアイテムを一覧で表示する。
+        // イカダは強化値10まであり、イカダ、イカダ+1、イカダ+2・・・イカダ+10をクラフトできるが
+        // リストに表示されるのは「イカダ」だけ
+        // 絵の上手い人が下手な絵を描くことが困難なように、自動でクラフト可能な強化値が選ばれるため
+        // 強化値を選択できる必要はない？
         for (auto& info : infoList)
         {
             auto name = info.GetName();
             auto level = info.GetLevel();
             if (level >= 1)
             {
-                name += "+" + std::to_string(level);
+                continue;
+//                name += "+" + std::to_string(level);
             }
             vs.push_back(name);
         }
@@ -539,11 +545,21 @@ void CraftManager::Build()
 
             auto allCraftList = craftInfo->GetCraftItemList();
 
+            // クラフトマンの熟練度に応じて成果物の強化値を変更
+            auto craftSys = NSStarmanLib::CraftSystem::GetObj();
+
             for (auto& info : allCraftList)
             {
+                auto skill = craftSys->GetCraftsmanSkill(info.GetName());
+
+                if (skill != info.GetLevel())
+                {
+                    continue;
+                }
+
                 work += "成果物の名前：" + info.GetName() + "\n";
                 work += "成果物の数：" + std::to_string(info.GetNumber()) + "\n";
-                work += "成果物の強化度：" + std::to_string(info.GetLevel()) + "\n";
+                work += "成果物の強化値：" + std::to_string(info.GetLevel()) + "\n";
                 work += "\n";
 
                 auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();

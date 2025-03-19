@@ -27,6 +27,10 @@ PopUp2::~PopUp2()
 
 std::string PopUp2::ForTest_GetText()
 {
+    if (m_textQ.empty())
+    {
+        return "";
+    }
     return m_textQ.front();
 }
 
