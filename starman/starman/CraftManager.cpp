@@ -586,6 +586,7 @@ void CraftManager::Build()
                 }
 
                 m_gui.SetOutputInfo(info.GetName(), work);
+                work.clear();
 
                 NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
                 auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
