@@ -4,6 +4,10 @@ LPDIRECTINPUTDEVICE8 KeyBoard::m_keyboard;
 BYTE KeyBoard::m_key[256];
 BYTE KeyBoard::m_keyPrev[256];
 std::deque<std::vector<BYTE>> KeyBoard::m_keyDeque;
+bool KeyBoard::m_testMode = false;
+bool KeyBoard::m_keyIsDown[256] = {0};
+bool KeyBoard::m_keyIsDownFirstFrame[256] = {0};
+bool KeyBoard::m_keyIsHold[256] = {0};
 
 void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {
@@ -49,6 +53,11 @@ void KeyBoard::Finalize()
 
 bool KeyBoard::IsDown(int keyCode)
 {
+    if (m_testMode)
+    {
+        return m_keyIsDown[keyCode];
+    }
+
     if (m_key[keyCode] & 0x80)
     {
         return true;
@@ -58,6 +67,11 @@ bool KeyBoard::IsDown(int keyCode)
 
 bool KeyBoard::IsDownFirstFrame(int keyCode)
 {
+    if (m_testMode)
+    {
+        return m_keyIsDownFirstFrame[keyCode];
+    }
+
     if (m_key[keyCode] & 0x80)
     {
         if ((m_keyPrev[keyCode] & 0x80) == 0)
@@ -70,6 +84,11 @@ bool KeyBoard::IsDownFirstFrame(int keyCode)
 
 bool KeyBoard::IsHold(int keyCode)
 {
+    if (m_testMode)
+    {
+        return m_keyIsHold[keyCode];
+    }
+    
     // 500É~Éäïbà»è„âüÇ≥ÇÍÇƒÇ¢ÇΩÇÁí∑âüÇµÇ∆îªífÇ∑ÇÈ
     if (m_keyDeque.size() <= 30)
     {
@@ -97,3 +116,31 @@ bool KeyBoard::IsHold(int keyCode)
 
     return isHold;
 }
+
+void KeyBoard::ForTest_SetTestMode()
+{
+    m_testMode = true;
+}
+
+void KeyBoard::ForTest_SetIsDown(int keyCode)
+{
+    m_keyIsDown[keyCode] = true;
+}
+
+void KeyBoard::ForTest_SetIsDownFirstFrame(int keyCode)
+{
+    m_keyIsDownFirstFrame[keyCode] = true;
+}
+
+void KeyBoard::ForTest_SetIsHold(int keyCode)
+{
+    m_keyIsHold[keyCode] = true;
+}
+
+void KeyBoard::ForTest_Clear()
+{
+    std::fill(&m_keyIsDown[0], &m_keyIsDown[256], false);
+    std::fill(&m_keyIsDownFirstFrame[0], &m_keyIsDownFirstFrame[256], false);
+    std::fill(&m_keyIsHold[0], &m_keyIsHold[256], false);
+}
+

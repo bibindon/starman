@@ -25,6 +25,11 @@ PopUp2::~PopUp2()
     SAFE_RELEASE(m_D3DFont);
 }
 
+std::string PopUp2::ForTest_GetText()
+{
+    return m_textQ.front();
+}
+
 void PopUp2::Init()
 {
     m_singleTonObj = NEW PopUp2();

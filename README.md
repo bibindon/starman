@@ -42,4 +42,5 @@ vector::push_back関数を呼ぶだけでも簡単にポインターのコピー
 クラスの使用者も気を付けないといけないことが発生する。
 Finalize関数を呼ぶようにしたほうが簡単。
 
-
+* WiX ToolSetをインストールする必要がある
+https://wixtoolset.org/releases/v3.11/stable

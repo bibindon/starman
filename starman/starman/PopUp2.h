@@ -21,6 +21,9 @@ public:
     void Cancel();
     ~PopUp2();
 
+    // テスト用
+    std::string ForTest_GetText();
+
 private:
     static PopUp2* m_singleTonObj;
 

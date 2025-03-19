@@ -17,13 +17,19 @@ class Sprite : public ISprite
 {
 public:
 
-    Sprite(LPDIRECT3DDEVICE9 dev)
+    Sprite(LPDIRECT3DDEVICE9 dev, bool testMode)
         : m_pD3DDevice(dev)
+        , m_testMode(testMode)
     {
     }
 
     void DrawImage(const int x, const int y, const int transparency) override
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
         m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
         RECT rect = {
@@ -44,6 +50,11 @@ public:
 
     void Load(const std::string& filepath) override
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         // スプライトは一つのみ確保し使いまわす
         if (m_D3DSprite == NULL)
         {
@@ -95,6 +106,11 @@ public:
 
     ~Sprite()
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         ULONG refCnt = m_texMap.at(m_filepath)->Release();
         if (refCnt == 0)
         {
@@ -120,6 +136,8 @@ private:
 
     // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
     static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
+
+    bool m_testMode = false;
 };
 
 LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
@@ -129,13 +147,19 @@ class Font : public IFont
 {
 public:
 
-    Font(LPDIRECT3DDEVICE9 pD3DDevice)
+    Font(LPDIRECT3DDEVICE9 pD3DDevice, bool testMode)
         : m_pD3DDevice(pD3DDevice)
+        , m_testMode(testMode)
     {
     }
 
     void Init()
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         HRESULT hr = D3DXCreateFont(m_pD3DDevice,
                                     24,
                                     0,
@@ -152,6 +176,11 @@ public:
 
     virtual void DrawText_(const std::string& msg, const int x, const int y)
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
             D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -159,6 +188,11 @@ public:
 
     ~Font()
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         m_pFont->Release();
     }
 
@@ -166,50 +200,83 @@ private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
     LPD3DXFONT m_pFont = NULL;
+
+    bool m_testMode = false;
 };
 
 
 class SoundEffect : public ISoundEffect
 {
+public:
+    SoundEffect(bool testMode)
+        : m_testMode(testMode)
+    {
+    }
+
     virtual void PlayMove() override
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
     }
+
     virtual void PlayClick() override
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
     }
+
     virtual void PlayBack() override
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
     }
+
     virtual void Init() override
     {
+        if (m_testMode)
+        {
+            return;
+        }
+
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
     }
+private:
+    bool m_testMode = false;
 };
 }
 
 void CraftManager::Init()
 {
-    NSCraftLib::Sprite* sprCursor = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+    NSCraftLib::Sprite* sprCursor = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
     sprCursor->Load("res\\image\\menu_cursor.png");
 
-    NSCraftLib::Sprite* sprBackground = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+    NSCraftLib::Sprite* sprBackground = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
     sprBackground->Load("res\\image\\background.png");
 
-    NSCraftLib::Sprite* sprPanelLeft = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+    NSCraftLib::Sprite* sprPanelLeft = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
     sprPanelLeft->Load("res\\image\\panelLeft.png");
 
-    NSCraftLib::Sprite* sprPanelTop = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+    NSCraftLib::Sprite* sprPanelTop = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
     sprPanelTop->Load("res\\image\\craftPanel.png");
 
-    NSCraftLib::IFont* pFont = NEW NSCraftLib::Font(SharedObj::GetD3DDevice());
+    NSCraftLib::IFont* pFont = NEW NSCraftLib::Font(SharedObj::GetD3DDevice(), m_testMode);
     pFont->Init();
 
-    NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect();
+    NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect(m_testMode);
 
     m_gui.Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
 
@@ -503,7 +570,7 @@ void CraftManager::Build()
                 }
                 m_gui.SetOutputInfo(work2, work);
 
-                NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
+                NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
                 auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
                 auto imagePath = itemDef.GetImagePath();
 
@@ -512,5 +579,10 @@ void CraftManager::Build()
 
         }
     }
+}
+
+void CraftManager::SetTestMode()
+{
+    m_testMode = true;
 }
 
