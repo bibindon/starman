@@ -496,7 +496,7 @@ void CraftManager::Build()
         // イカダは強化値10まであり、イカダ、イカダ+1、イカダ+2・・・イカダ+10をクラフトできるが
         // リストに表示されるのは「イカダ」だけ
         // 絵の上手い人が下手な絵を描くことが困難なように、自動でクラフト可能な強化値が選ばれるため
-        // 強化値を選択できる必要はない？
+        // 強化値を選択できる必要はない
         for (auto& info : infoList)
         {
             auto name = info.GetName();
@@ -504,7 +504,6 @@ void CraftManager::Build()
             if (level >= 1)
             {
                 continue;
-//                name += "+" + std::to_string(level);
             }
             vs.push_back(name);
         }
@@ -519,6 +518,10 @@ void CraftManager::Build()
             auto progress = craftSys->GetProgress();
 
             m_gui.SetCraftingItem(outputName, progress);
+        }
+        else
+        {
+            m_gui.SetCraftingItem("", 0);
         }
 
         vs.clear();
@@ -536,6 +539,10 @@ void CraftManager::Build()
                 vs.push_back(name);
             }
 
+            m_gui.SetCraftQue(vs);
+        }
+        else
+        {
             m_gui.SetCraftQue(vs);
         }
 
@@ -578,19 +585,13 @@ void CraftManager::Build()
                     ++i;
                 }
 
-                std::string work2 = info.GetName();
-
-                if (info.GetLevel() >= 1)
-                {
-                    work2 += "+" + std::to_string(info.GetLevel());
-                }
-                m_gui.SetOutputInfo(work2, work);
+                m_gui.SetOutputInfo(info.GetName(), work);
 
                 NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
                 auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
                 auto imagePath = itemDef.GetImagePath();
 
-                m_gui.SetOutputImage(work2, imagePath, sprite1);
+                m_gui.SetOutputImage(info.GetName(), imagePath, sprite1);
             }
 
         }
