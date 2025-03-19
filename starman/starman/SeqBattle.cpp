@@ -409,10 +409,6 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateStorehouse();
     }
-    else if (m_eState == eBattleState::CRAFT)
-    {
-        OperateCraft();
-    }
     else if (m_eState == eBattleState::COMMAND)
     {
         OperateCommand();
@@ -2021,6 +2017,8 @@ void SeqBattle::UpdateCommon()
 
     UpdateFadeInOut();
 
+    // クラフトはクラフト画面が表示されていなくても更新処理が行われる必要がある。
+    OperateCraft();
 }
 
 void SeqBattle::RenderCommon()

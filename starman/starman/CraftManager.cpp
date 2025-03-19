@@ -287,6 +287,7 @@ void CraftManager::Finalize()
 {
 }
 
+// この関数はクラフト画面が表示されていないときも呼ばれることに気を付ける
 void CraftManager::Operate(eBattleState* state)
 {
     auto craftSys = NSStarmanLib::CraftSystem::GetObj();
@@ -300,8 +301,16 @@ void CraftManager::Operate(eBattleState* state)
     {
         craftSys->UpdateCraftStatus();
 
-        // 画面更新
-        Build();
+        if (*state == eBattleState::CRAFT)
+        {
+            // 画面更新
+            Build();
+        }
+    }
+
+    if (*state != eBattleState::CRAFT)
+    {
+        return;
     }
 
     std::string result;
@@ -451,10 +460,15 @@ void CraftManager::Operate(eBattleState* state)
                     work.erase(index);
                 }
 
-                bool started = craftSys->QueueCraftRequest(work);
+                std::string errMsg;
+                bool started = craftSys->QueueCraftRequest(work, &errMsg);
                 if (!started)
                 {
-                    PopUp2::Get()->SetText("クラフト用の素材が足りない");
+                    PopUp2::Get()->SetText(errMsg);
+                }
+                else
+                {
+                    Build();
                 }
             }
         }
@@ -468,10 +482,15 @@ void CraftManager::Operate(eBattleState* state)
                 work.erase(index);
             }
 
-            bool started = craftSys->QueueCraftRequest(work);
+            std::string errMsg;
+            bool started = craftSys->QueueCraftRequest(work, &errMsg);
             if (!started)
             {
-                PopUp2::Get()->SetText("クラフト用の素材が足りない");
+                PopUp2::Get()->SetText(errMsg);
+            }
+            else
+            {
+                Build();
             }
         }
     }
