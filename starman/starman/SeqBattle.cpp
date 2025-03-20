@@ -437,10 +437,6 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperatePickPlant();
     }
-    else if (m_eState == eBattleState::VOYAGE)
-    {
-        OperateVoyage();
-    }
 
     if (Common::DebugMode())
     {
@@ -2019,6 +2015,9 @@ void SeqBattle::UpdateCommon()
 
     // クラフトはクラフト画面が表示されていなくても更新処理が行われる必要がある。
     OperateCraft();
+
+    // クラフトによってイカダが生成されることがあるため、航海中でなくても更新処理を行う。
+    OperateVoyage();
 }
 
 void SeqBattle::RenderCommon()

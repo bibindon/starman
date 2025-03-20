@@ -26,6 +26,7 @@ public:
     void SetRotate(const D3DXVECTOR3& rot);
 
     Mesh* GetMesh();
+    int GetId();
 
 private:
 

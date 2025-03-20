@@ -42,8 +42,46 @@ void VoyageManager::Finalize()
     }
 }
 
+// この関数は航海中でなくても常に呼ばれる。
+// イカダを表示するため
 void VoyageManager::Update(eBattleState* state)
 {
+    // イカダは増えることがあるためm_raftMapは更新されなければいけない。
+    // 具体的にはイカダをクラフトしたときに増える
+    static int counter = 0;
+    counter++;
+    if (counter > 60)
+    {
+        counter = 0;
+        auto raftList = Voyage()->GetRaftList();
+
+        for (auto it = raftList.begin(); it != raftList.end(); ++it)
+        {
+            auto id = it->GetId();
+            bool find_ = false;
+            for (auto it2 = m_raftMap.begin(); it2 != m_raftMap.end(); ++it2)
+            {
+                if (it2->second.GetId() == id)
+                {
+                    find_ = true;
+                    break;
+                }
+            }
+
+            if (!find_)
+            {
+                Raft2 raft2;
+                raft2.Init(id);
+                m_raftMap[id] = raft2;
+            }
+        }
+    }
+
+    if (*state != eBattleState::VOYAGE)
+    {
+        return;
+    }
+
     // 乗船中ではない。
     if (!Voyage()->GetRaftMode())
     {
@@ -631,6 +669,11 @@ void Raft2::SetRotate(const D3DXVECTOR3& rot)
 Mesh* Raft2::GetMesh()
 {
     return m_meshRaft;
+}
+
+int Raft2::GetId()
+{
+    return m_id;
 }
 
 VoyageManager::VoyageManager()
