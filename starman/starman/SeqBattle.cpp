@@ -646,40 +646,43 @@ void SeqBattle::OperateStorehouse()
 
         std::vector<std::string> vs = Common::split(result, ':');
 
-        int id_ = 0;
-        int subId_ = 0;
-        int durability_ = 0;
-
-        id_ = std::stoi(vs.at(2));
-        subId_ = std::stoi(vs.at(3));
-
-        NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-
-        // TODO
-        // ‘qŒÉ‚Ì•¡”‰»‘Î‰ž
-        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-
-        if (vs.at(0) == "left")
+        if (!vs.empty())
         {
-            NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
-            durability_ = itemInfo.GetDurabilityCurrent();
-            inventory->RemoveItem(id_, subId_);
-            storehouse->AddItemWithSubID(id_, subId_, durability_);
-            m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
-            m_menuManager.DeleteItem(id_, subId_);
-        }
-        else if (vs.at(0) == "right")
-        {
-            NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
-            durability_ = itemInfo.GetDurabilityCurrent();
-            storehouse->RemoveItem(id_, subId_);
-            inventory->AddItemWithSubID(id_, subId_, durability_);
-            m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
-            m_menuManager.AddItem(id_, subId_, durability_);
-        }
-        else
-        {
-            throw std::exception();
+            int id_ = 0;
+            int subId_ = 0;
+            int durability_ = 0;
+
+            id_ = std::stoi(vs.at(2));
+            subId_ = std::stoi(vs.at(3));
+
+            NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
+
+            // TODO
+            // ‘qŒÉ‚Ì•¡”‰»‘Î‰ž
+            auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
+            if (vs.at(0) == "left")
+            {
+                NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+                durability_ = itemInfo.GetDurabilityCurrent();
+                inventory->RemoveItem(id_, subId_);
+                storehouse->AddItemWithSubID(id_, subId_, durability_);
+                m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+                m_menuManager.DeleteItem(id_, subId_);
+            }
+            else if (vs.at(0) == "right")
+            {
+                NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+                durability_ = itemInfo.GetDurabilityCurrent();
+                storehouse->RemoveItem(id_, subId_);
+                inventory->AddItemWithSubID(id_, subId_, durability_);
+                m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
+                m_menuManager.AddItem(id_, subId_, durability_);
+            }
+            else
+            {
+                throw std::exception();
+            }
         }
     }
     else
