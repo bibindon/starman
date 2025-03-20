@@ -2197,6 +2197,16 @@ void SeqBattle::UpdateDebug()
                                 itemInfoG.SetName(itemDef.GetName());
                                 itemInfoG.SetId(itemDef.GetId());
                                 itemInfoG.SetSubId(subIdList.at(j));
+                                if (itemDef.GetLevel() != -1)
+                                {
+                                    itemInfoG.SetLevel(subIdList.at(j));
+                                }
+
+                                auto info = inventory->GetItemInfo(itemDef.GetId(), subIdList.at(j));
+                                if (info.GetDurabilityCurrent() != -1)
+                                {
+                                    itemInfoG.SetDurability(info.GetDurabilityCurrent());
+                                }
                                 itemInfoList.push_back(itemInfoG);
                             }
                         }
@@ -2228,6 +2238,16 @@ void SeqBattle::UpdateDebug()
                                 itemInfoG.SetName(itemDef.GetName());
                                 itemInfoG.SetId(itemDef.GetId());
                                 itemInfoG.SetSubId(subIdList.at(j));
+                                if (itemDef.GetLevel() != -1)
+                                {
+                                    itemInfoG.SetLevel(subIdList.at(j));
+                                }
+
+                                auto info = storehouse->GetItemInfo(itemDef.GetId(), subIdList.at(j));
+                                if (info.GetDurabilityCurrent() != -1)
+                                {
+                                    itemInfoG.SetDurability(info.GetDurabilityCurrent());
+                                }
                                 itemInfoList.push_back(itemInfoG);
                             }
                         }
