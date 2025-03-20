@@ -369,15 +369,15 @@ void Raft2::Init(const int id)
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.0f;
             animSetting.m_duration = 0.49f;
-            animSetting.m_loop = false;
-            animSetMap["Pull"] = animSetting;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.5f;
             animSetting.m_duration = 0.49f;
-            animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetting.m_loop = false;
+            animSetMap["Pull"] = animSetting;
         }
         m_meshOarLeft = NEW AnimMesh("res\\model\\raft\\oarLeft.x", pos, rot, 1.f, animSetMap);
         m_meshOarLeft->SetAnim("Idle");
@@ -388,15 +388,15 @@ void Raft2::Init(const int id)
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.0f;
             animSetting.m_duration = 0.49f;
-            animSetting.m_loop = false;
-            animSetMap["Pull"] = animSetting;
+            animSetting.m_loop = true;
+            animSetMap["Idle"] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.5f;
             animSetting.m_duration = 0.49f;
-            animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetting.m_loop = false;
+            animSetMap["Pull"] = animSetting;
         }
         m_meshOarRight = NEW AnimMesh("res\\model\\raft\\oarRight.x", pos, rot, 1.f, animSetMap);
         m_meshOarRight->SetAnim("Idle");

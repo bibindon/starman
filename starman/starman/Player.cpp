@@ -62,8 +62,8 @@ Player::Player()
     }
     {
         AnimSetting animSetting { };
-        animSetting.m_startPos = 7.1f;
-        animSetting.m_duration = 0.5f;
+        animSetting.m_startPos = 7.0f;
+        animSetting.m_duration = 0.66f;
         animSetting.m_loop = true;
         animSetMap["Sit"] = animSetting;
     }
