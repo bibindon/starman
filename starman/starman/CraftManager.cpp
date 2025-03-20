@@ -585,7 +585,14 @@ void CraftManager::Build()
 
                 work += "成果物の名前：" + info.GetName() + "\n";
                 work += "成果物の数：" + std::to_string(info.GetNumber()) + "\n";
-                work += "成果物の強化値：" + std::to_string(info.GetLevel()) + "\n";
+                if (info.GetLevel() != -1)
+                {
+                    work += "成果物の強化値：" + std::to_string(info.GetLevel()) + "\n";
+                }
+                else
+                {
+                    work += "成果物の強化値：---\n";
+                }
                 work += "\n";
 
                 auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();
