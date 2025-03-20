@@ -42,7 +42,7 @@ private:
     D3DXVECTOR3 m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
 
     // à⁄ìÆó ÅiâÒì]Åj
-    D3DXVECTOR3 m_moveRot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
+    D3DXVECTOR3 m_moveRot = D3DXVECTOR3(0.f, 0.f, 0.f);
 
     D3DXVECTOR3 m_pos = D3DXVECTOR3(0.f, 0.f, 0.f);
     D3DXVECTOR3 m_rotate = D3DXVECTOR3(0.f, D3DX_PI, 0.f);

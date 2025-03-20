@@ -426,8 +426,8 @@ void Raft2::Finalize()
 
 void Raft2::Update()
 {
-    m_move /= 2.f;
-    m_moveRot /= 2.f;
+    m_move *= 0.97f;
+    m_moveRot *= 0.97f;
 
     //----------------------------------------------------
     // マウス・キーボード操作
@@ -578,8 +578,12 @@ void Raft2::Update()
     // 主人公はイカダに追従させる
     auto ppos = m_pos;
     ppos.y += 0.2f;
+
+    auto workRotate = m_rotate;
+    workRotate.y += D3DX_PI;
+
     SharedObj::GetPlayer()->SetPos(ppos);
-    SharedObj::GetPlayer()->SetRotate(m_rotate);
+    SharedObj::GetPlayer()->SetRotate(workRotate);
 
     // 衝突判定
     // 陸地と接触していたら停止
@@ -637,13 +641,13 @@ void Raft2::PullOarBoth()
 void Raft2::PullOarLeft()
 {
     m_meshOarLeft->SetAnim("Pull");
-    m_moveRot.y += 0.1f;
+    m_moveRot.y += 0.01f;
 }
 
 void Raft2::PullOarRight()
 {
     m_meshOarRight->SetAnim("Pull");
-    m_moveRot.y += -0.1f;
+    m_moveRot.y += -0.01f;
 }
 
 D3DXVECTOR3 Raft2::GetPos() const
