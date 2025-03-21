@@ -638,8 +638,8 @@ void Raft2::PullOarBoth()
     m_meshOarLeft->SetAnim("Pull");
     m_meshOarRight->SetAnim("Pull");
 
-    m_move.x += std::sin(m_rotate.y);
-    m_move.z += std::cos(m_rotate.y);
+    m_move.x += std::sin(m_rotate.y) * -0.3f;
+    m_move.z += std::cos(m_rotate.y) * -0.3f;
 
     OutputDebugString("PullOarBoth\n");
 }

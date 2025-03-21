@@ -2022,6 +2022,13 @@ void SeqBattle::UpdateCommon()
 
     // クラフトによってイカダが生成されることがあるため、航海中でなくても更新処理を行う。
     OperateVoyage();
+
+    // Camera
+    {
+        D3DXVECTOR3 pos = m_player->GetPos();
+        pos.y += 1.f;
+        Camera::SetLookAtPos(pos);
+    }
 }
 
 void SeqBattle::RenderCommon()
@@ -2485,13 +2492,6 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     m_player->Update(m_map);
-
-    // Camera
-    {
-        D3DXVECTOR3 pos = m_player->GetPos();
-        pos.y += 1.f;
-        Camera::SetLookAtPos(pos);
-    }
 
     // クエスト処理
     {
