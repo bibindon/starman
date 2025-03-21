@@ -349,19 +349,28 @@ void Raft2::Init(const int id)
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.0f;
-            animSetting.m_duration = 0.97f;
+            animSetting.m_duration = 0.47f;
             animSetting.m_loop = true;
+            animSetting.m_stopEnd = true;
             animSetMap["SailOn"] = animSetting;
         }
         {
             AnimSetting animSetting { };
-            animSetting.m_startPos = 1.0f;
-            animSetting.m_duration = 0.97f;
+            animSetting.m_startPos = 0.5f;
+            animSetting.m_duration = 0.47f;
             animSetting.m_loop = true;
+            animSetting.m_stopEnd = true;
             animSetMap["SailOff"] = animSetting;
         }
         m_meshSail = NEW AnimMesh("res\\model\\raft\\sail.x", pos, rot, 1.f, animSetMap);
-        m_meshSail->SetAnim("SailOff");
+        if (raft.GetSail())
+        {
+            m_meshSail->SetAnim("SailOn");
+        }
+        else
+        {
+            m_meshSail->SetAnim("SailOff");
+        }
     }
     {
         AnimSetMap animSetMap;
@@ -553,64 +562,32 @@ void Raft2::Update()
 
     // •—‚Ì‹­‚³‚Æ•ûŒü‚É‚æ‚è—¬‚³‚ê‚é
     {
-        float x, z, x2, z2;
+        float x, z;
         Voyage()->GetWindXZ(&x, &z);
-
-        x2 = x / 3600;
-        z2 = z / 3600;
+        x /= 10;
+        z /= 10;
 
         if (Voyage()->GetSailCurrentRaft())
         {
-            m_move.x += x2;
-            m_move.z += z2;
-
-            if (m_move.x > x / 10)
-            {
-                m_move.x = x/10;
-            }
-
-            if (m_move.z > z / 10)
-            {
-                m_move.z = z/10;
-            }
+            m_move.x += (m_move.x - x) / (60 * 20);
+            m_move.z += (m_move.z - z) / (60 * 20);
         }
         else
         {
-            m_move.x += x2;
-            m_move.z += z2;
-
-            if (m_move.x > x / 100)
-            {
-                m_move.x = x/100;
-            }
-
-            if (m_move.z > z / 100)
-            {
-                m_move.z = z/100;
-            }
+            m_move.x += (m_move.x - x) / (60 * 60);
+            m_move.z += (m_move.z - z) / (60 * 60);
         }
     }
 
     // ’ª‚Ì‹­‚³‚Æ•ûŒü‚É‚æ‚è—¬‚³‚ê‚é
     {
-        float x, z, x2, z2;
+        float x, z;
         Voyage()->GetTideXZ(&x, &z);
+        x /= 10;
+        z /= 10;
 
-        x2 = x / 3600;
-        z2 = z / 3600;
-
-        m_move.x += x2;
-        m_move.z += z2;
-
-        if (m_move.x > x)
-        {
-            m_move.x = x;
-        }
-
-        if (m_move.z > z)
-        {
-            m_move.z = z;
-        }
+        m_move.x += (m_move.x - x) / (60 * 20);
+        m_move.z += (m_move.z - z) / (60 * 20);
     }
 
     m_pos += m_move;

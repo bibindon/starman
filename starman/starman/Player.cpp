@@ -1386,6 +1386,10 @@ void Player::SetExamine()
 void Player::RideRaft()
 {
     auto id = SharedObj::Voyage()->GetNearRaftId(m_loadingPos);
+    if (id == 0)
+    {
+        return;
+    }
 
     auto pos = SharedObj::Voyage()->GetRaftXYZ(id);
     m_loadingPos = pos;
