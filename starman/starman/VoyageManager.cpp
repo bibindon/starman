@@ -553,36 +553,64 @@ void Raft2::Update()
 
     // •—‚Ì‹­‚³‚Æ•ûŒü‚É‚æ‚è—¬‚³‚ê‚é
     {
-        float x, z;
+        float x, z, x2, z2;
         Voyage()->GetWindXZ(&x, &z);
 
-        // 60fps‚È‚Ì‚Å
-        x /= 60;
-        z /= 60;
+        x2 = x / 3600;
+        z2 = z / 3600;
 
         if (Voyage()->GetSailCurrentRaft())
         {
-            m_move.x += x/10;
-            m_move.z += z/10;
+            m_move.x += x2;
+            m_move.z += z2;
+
+            if (m_move.x > x / 10)
+            {
+                m_move.x = x/10;
+            }
+
+            if (m_move.z > z / 10)
+            {
+                m_move.z = z/10;
+            }
         }
         else
         {
-            m_move.x += x/100;
-            m_move.z += z/100;
+            m_move.x += x2;
+            m_move.z += z2;
+
+            if (m_move.x > x / 100)
+            {
+                m_move.x = x/100;
+            }
+
+            if (m_move.z > z / 100)
+            {
+                m_move.z = z/100;
+            }
         }
     }
 
     // ’ª‚Ì‹­‚³‚Æ•ûŒü‚É‚æ‚è—¬‚³‚ê‚é
     {
-        float x, z;
+        float x, z, x2, z2;
         Voyage()->GetTideXZ(&x, &z);
 
-        // 60fps‚È‚Ì‚Å
-        x /= 60;
-        z /= 60;
+        x2 = x / 3600;
+        z2 = z / 3600;
 
-        m_move.x += x;
-        m_move.z += z;
+        m_move.x += x2;
+        m_move.z += z2;
+
+        if (m_move.x > x)
+        {
+            m_move.x = x;
+        }
+
+        if (m_move.z > z)
+        {
+            m_move.z = z;
+        }
     }
 
     m_pos += m_move;
