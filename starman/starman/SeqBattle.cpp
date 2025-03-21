@@ -988,6 +988,7 @@ void SeqBattle::OperateCommand()
         {
             m_eState = eBattleState::VOYAGE;
             VoyageManager::Get()->Ride();
+            leave = true;
         }
         else
         {
