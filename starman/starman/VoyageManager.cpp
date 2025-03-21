@@ -556,6 +556,10 @@ void Raft2::Update()
         float x, z;
         Voyage()->GetWindXZ(&x, &z);
 
+        // 60fps‚È‚Ì‚Å
+        x /= 60;
+        z /= 60;
+
         if (Voyage()->GetSailCurrentRaft())
         {
             m_move.x += x/10;
@@ -572,6 +576,11 @@ void Raft2::Update()
     {
         float x, z;
         Voyage()->GetTideXZ(&x, &z);
+
+        // 60fps‚È‚Ì‚Å
+        x /= 60;
+        z /= 60;
+
         m_move.x += x;
         m_move.z += z;
     }
