@@ -447,7 +447,7 @@ void Raft2::Update()
     static bool pendingLeft = false;
     static bool pendingRight = false;
 
-    bool bothClick = false;
+    static bool bothClick = false;
 
     if (Mouse::IsDownLeft())
     {
@@ -515,6 +515,8 @@ void Raft2::Update()
                 PullOarLeft();
             }
 
+            bothClick = false;
+
             pendingLeft = false;
             counterLeft = 0;
 
@@ -538,6 +540,8 @@ void Raft2::Update()
                 Voyage()->PullRightOar();
                 PullOarRight();
             }
+
+            bothClick = false;
 
             pendingLeft = false;
             counterLeft = 0;
@@ -636,6 +640,8 @@ void Raft2::PullOarBoth()
 
     m_move.x += std::sin(m_rotate.y);
     m_move.z += std::cos(m_rotate.y);
+
+    OutputDebugString("PullOarBoth\n");
 }
 
 void Raft2::PullOarLeft()
