@@ -26,7 +26,11 @@ void BGM::initialize(HWND hwnd)
 
 void BGM::finalize()
 {
-    SAFE_RELEASE(single_ton_->dx8sound_buffer_);
+    for (auto& pair : single_ton_->dx8sound_buffers_)
+    {
+        SAFE_RELEASE(pair.second);
+    }
+
     SAFE_RELEASE(single_ton_->dx8sound_);
     SAFE_DELETE(single_ton_);
 }
@@ -35,6 +39,12 @@ void BGM::finalize()
 // http://marupeke296.com/DSSMP_No2_GetSoundFromWave.html
 bool BGM::load(const std::string& filename)
 {
+    // Already loaded.
+    if (dx8sound_buffers_.find(filename) != dx8sound_buffers_.end())
+    {
+        return true;
+    }
+
     // Open wave file.
     WAVEFORMATEX _waveformatex { };
     vector<char> _wave_data;
@@ -62,33 +72,46 @@ bool BGM::load(const std::string& filename)
     {
         return false;
     }
-    SAFE_RELEASE(dx8sound_buffer_);
-    dx8sound_buffer_ = _temp_buffer8;
+    LPDIRECTSOUNDBUFFER8 temp_shared_buff { _temp_buffer8 };
+    dx8sound_buffers_[filename] = temp_shared_buff;
 
     // Write wave data to secondary buffer.
     LPVOID secondary_buffer { nullptr };
     DWORD _length { 0 };
-    if (DS_OK == dx8sound_buffer_->Lock(
+    if (DS_OK == dx8sound_buffers_.at(filename)->Lock(
         0, 0, &secondary_buffer, &_length, nullptr, nullptr, DSBLOCK_ENTIREBUFFER))
     {
         memcpy(secondary_buffer, &_wave_data.at(0), _length);
-        dx8sound_buffer_->Unlock(secondary_buffer, _length, nullptr, 0);
+        dx8sound_buffers_.at(filename)->Unlock(secondary_buffer, _length, nullptr, 0);
     }
 
     return true;
 }
 
-void BGM::play(const int a_volume)
+void BGM::play(const string& filename, const int a_volume)
 {
+    // Transform volume
+    // 0 ~ 100 -> -10000 ~ 0
     int volume { 0 };
-    volume = per_to_decibel(a_volume);
-    dx8sound_buffer_->SetVolume(volume);
-    dx8sound_buffer_->Play(0, 0, DSBPLAY_LOOPING);
+    volume = a_volume;
+    volume *= 100;
+    volume -= 10000;
+    dx8sound_buffers_.at(filename)->SetVolume(volume);
+    dx8sound_buffers_.at(filename)->SetCurrentPosition(0);
+    dx8sound_buffers_.at(filename)->Play(0, 0, DSBPLAY_LOOPING);
 }
 
-void BGM::stop()
+void BGM::stop(const string& filename)
 {
-    dx8sound_buffer_->Stop();
+    dx8sound_buffers_.at(filename)->Stop();
+}
+
+void BGM::StopAll()
+{
+    for (auto it = dx8sound_buffers_.begin(); it != dx8sound_buffers_.end(); it++)
+    {
+        it->second->Stop();
+    }
 }
 
 BGM::BGM(HWND hwnd)
@@ -100,8 +123,11 @@ BGM::BGM(HWND hwnd)
     dx8sound_ = _dx8sound;
     dx8sound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
 }
-bool BGM::open_wave(
-    const std::string& filepath, WAVEFORMATEX& waveformatex, vector<char>* buff, DWORD& wave_size)
+
+bool BGM::open_wave(const std::string& filepath,
+                    WAVEFORMATEX& waveformatex,
+                    vector<char>* buff,
+                    DWORD& wave_size)
 {
     if (filepath.empty())
     {
@@ -171,6 +197,7 @@ bool BGM::open_wave(
 
     return true;
 }
+
 // convert percent to decibel.
 // https://katze.hatenablog.jp/entry/2013/07/01/000343
 int BGM::per_to_decibel(int percent)

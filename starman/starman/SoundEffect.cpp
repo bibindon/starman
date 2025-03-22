@@ -30,6 +30,7 @@ void SoundEffect::finalize()
     {
         SAFE_RELEASE(pair.second);
     }
+
     SAFE_RELEASE(single_ton_->dx8sound_);
     SAFE_DELETE(single_ton_);
 }
@@ -115,8 +116,11 @@ SoundEffect::SoundEffect(HWND hwnd)
     dx8sound_ = _dx8sound;
     dx8sound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
 }
-bool SoundEffect::open_wave(
-    const std::string& filepath, WAVEFORMATEX& waveformatex, vector<char>* buff, DWORD& wave_size)
+
+bool SoundEffect::open_wave(const std::string& filepath,
+                            WAVEFORMATEX& waveformatex,
+                            vector<char>* buff,
+                            DWORD& wave_size)
 {
     if (filepath.empty())
     {
@@ -186,6 +190,7 @@ bool SoundEffect::open_wave(
 
     return true;
 }
+
 int SoundEffect::per_to_decibel(int percent)
 {
     int decibel { 0 };

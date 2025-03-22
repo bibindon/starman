@@ -318,7 +318,8 @@ SeqBattle::SeqBattle()
     D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
 
     BGM::get_ton()->load("res\\sound\\title.wav");
-    BGM::get_ton()->play(10);
+    BGM::get_ton()->StopAll();
+    BGM::get_ton()->play("res\\sound\\title.wav", 10);
 
     ::SoundEffect::get_ton()->load("res\\sound\\drink.wav");
 
@@ -1254,7 +1255,8 @@ void SeqBattle::OperateOpening()
         Common::SetCursorVisibility(false);
 
         BGM::get_ton()->load("res\\sound\\novel.wav");
-        BGM::get_ton()->play(10);
+        BGM::get_ton()->StopAll();
+        BGM::get_ton()->play("res\\sound\\novel.wav", 10);
     }
 }
 
@@ -2580,7 +2582,8 @@ void SeqBattle::OperateTitle(eSequence* sequence)
         Common::SetCursorVisibility(false);
 
         BGM::get_ton()->load("res\\sound\\novel.wav");
-        BGM::get_ton()->play(10);
+        BGM::get_ton()->StopAll();
+        BGM::get_ton()->play("res\\sound\\novel.wav", 10);
     }
 }
 

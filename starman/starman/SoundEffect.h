@@ -15,6 +15,7 @@ public:
     bool load(const std::string& filename);
     void play(const std::string& filename, const int a_volume = 100);
     void stop(const std::string& filename);
+
 private:
     static SoundEffect* single_ton_;
     // hide ctor
