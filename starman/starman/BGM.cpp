@@ -93,9 +93,7 @@ void BGM::play(const string& filename, const int a_volume)
     // Transform volume
     // 0 ~ 100 -> -10000 ~ 0
     int volume { 0 };
-    volume = a_volume;
-    volume *= 100;
-    volume -= 10000;
+    volume = per_to_decibel(a_volume);
     dx8sound_buffers_.at(filename)->SetVolume(volume);
     dx8sound_buffers_.at(filename)->SetCurrentPosition(0);
     dx8sound_buffers_.at(filename)->Play(0, 0, DSBPLAY_LOOPING);

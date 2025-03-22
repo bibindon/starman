@@ -317,9 +317,17 @@ SeqBattle::SeqBattle()
 
     D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
 
-    BGM::get_ton()->load("res\\sound\\title.wav");
     BGM::get_ton()->StopAll();
+    BGM::get_ton()->load("res\\sound\\title.wav");
     BGM::get_ton()->play("res\\sound\\title.wav", 10);
+
+    {
+        BGM::get_ton()->load("res\\sound\\forest.wav");
+        BGM::get_ton()->play("res\\sound\\forest.wav", 10);
+
+        BGM::get_ton()->load("res\\sound\\sea.wav");
+        BGM::get_ton()->play("res\\sound\\sea.wav", 10);
+    }
 
     ::SoundEffect::get_ton()->load("res\\sound\\drink.wav");
 
@@ -1254,9 +1262,17 @@ void SeqBattle::OperateOpening()
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
 
-        BGM::get_ton()->load("res\\sound\\novel.wav");
         BGM::get_ton()->StopAll();
+        BGM::get_ton()->load("res\\sound\\novel.wav");
         BGM::get_ton()->play("res\\sound\\novel.wav", 10);
+
+        {
+            BGM::get_ton()->load("res\\sound\\forest.wav");
+            BGM::get_ton()->play("res\\sound\\forest.wav", 10);
+
+            BGM::get_ton()->load("res\\sound\\sea.wav");
+            BGM::get_ton()->play("res\\sound\\sea.wav", 10);
+        }
     }
 }
 
@@ -2581,9 +2597,17 @@ void SeqBattle::OperateTitle(eSequence* sequence)
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
 
-        BGM::get_ton()->load("res\\sound\\novel.wav");
         BGM::get_ton()->StopAll();
+        BGM::get_ton()->load("res\\sound\\novel.wav");
         BGM::get_ton()->play("res\\sound\\novel.wav", 10);
+
+        {
+            BGM::get_ton()->load("res\\sound\\forest.wav");
+            BGM::get_ton()->play("res\\sound\\forest.wav", 10);
+
+            BGM::get_ton()->load("res\\sound\\sea.wav");
+            BGM::get_ton()->play("res\\sound\\sea.wav", 10);
+        }
     }
 }
 
