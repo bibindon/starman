@@ -25,7 +25,7 @@ public:
     D3DXVECTOR3 GetRotate() const;
     void SetRotate(const D3DXVECTOR3& rot);
 
-    Mesh* GetMesh();
+    Mesh* GetCollisionMesh();
     int GetId();
 
 private:
@@ -33,6 +33,7 @@ private:
     int m_id = 0;
 
     Mesh* m_meshRaft = nullptr;
+    Mesh* m_meshRaftCollision = nullptr;
     AnimMesh* m_meshSail = nullptr;
     AnimMesh* m_meshOarLeft = nullptr;
     AnimMesh* m_meshOarRight = nullptr;
@@ -54,7 +55,8 @@ public:
     static VoyageManager* Get();
     void Init();
     void Finalize();
-    void Update(eBattleState* state);
+    void Update();
+    void Operate(eBattleState* state);
     void Draw();
     void SetSail(const bool arg);
     bool GetSail() const;

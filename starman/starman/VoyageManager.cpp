@@ -44,9 +44,10 @@ void VoyageManager::Finalize()
 
 // この関数は航海中でなくても常に呼ばれる。
 // イカダを表示するため
-void VoyageManager::Update(eBattleState* state)
+void VoyageManager::Update()
 {
-    // イカダは増えることがあるためm_raftMapは更新されなければいけない。
+    // イカダは増えることがあるため、イカダに乗っていなくても
+    // m_raftMapは更新されなければいけない。
     // 具体的にはイカダをクラフトしたときに増える
     static int counter = 0;
     counter++;
@@ -76,12 +77,10 @@ void VoyageManager::Update(eBattleState* state)
             }
         }
     }
+}
 
-    if (*state != eBattleState::VOYAGE)
-    {
-        return;
-    }
-
+void VoyageManager::Operate(eBattleState* state)
+{
     // 乗船中ではない。
     if (!Voyage()->GetRaftMode())
     {
@@ -107,9 +106,7 @@ void VoyageManager::Update(eBattleState* state)
 
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
-        *state = eBattleState::NORMAL;
-
-        Voyage()->SetRaftMode(false);
+        *state = eBattleState::MENU;
     }
 
     //----------------------------------------------------
@@ -231,7 +228,7 @@ D3DXVECTOR3 VoyageManager::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& 
     D3DXVECTOR3 result = move;
     for (auto& pair : m_raftMap)
     {
-        result = WallSlideSub(pos, pair.second.GetMesh(), result);
+        result = WallSlideSub(pos, pair.second.GetCollisionMesh(), result);
     }
     return result;
 }
@@ -345,6 +342,10 @@ void Raft2::Init(const int id)
         m_meshRaft->Init();
     }
     {
+        m_meshRaftCollision = NEW Mesh("res\\model\\raft\\raftCollision.x", pos, rot, 1.f);
+        m_meshRaftCollision->Init();
+    }
+    {
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -430,6 +431,7 @@ void Raft2::Finalize()
     SAFE_DELETE(m_meshOarRight);
     SAFE_DELETE(m_meshOarLeft);
     SAFE_DELETE(m_meshSail);
+    SAFE_DELETE(m_meshRaftCollision);
     SAFE_DELETE(m_meshRaft);
 }
 
@@ -615,6 +617,11 @@ void Raft2::Draw()
     m_meshRaft->SetRotY(m_rotate.y);
     m_meshRaft->Render();
 
+    m_meshRaftCollision->SetPos(m_pos);
+    m_meshRaftCollision->SetRotY(m_rotate.y);
+// 描画する必要はない？
+    m_meshRaftCollision->Render();
+
     m_meshSail->SetPos(m_pos);
     m_meshSail->SetRotate(m_rotate);
     m_meshSail->Render();
@@ -661,13 +668,13 @@ void Raft2::PullOarBoth()
 void Raft2::PullOarLeft()
 {
     m_meshOarLeft->SetAnim("Pull");
-    m_moveRot.y += 0.01f;
+    m_moveRot.y += -0.01f;
 }
 
 void Raft2::PullOarRight()
 {
     m_meshOarRight->SetAnim("Pull");
-    m_moveRot.y += -0.01f;
+    m_moveRot.y += 0.01f;
 }
 
 D3DXVECTOR3 Raft2::GetPos() const
@@ -690,9 +697,9 @@ void Raft2::SetRotate(const D3DXVECTOR3& rot)
     m_rotate = rot;
 }
 
-Mesh* Raft2::GetMesh()
+Mesh* Raft2::GetCollisionMesh()
 {
-    return m_meshRaft;
+    return m_meshRaftCollision;
 }
 
 int Raft2::GetId()

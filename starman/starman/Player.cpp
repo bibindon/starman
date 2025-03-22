@@ -1233,6 +1233,12 @@ void Player::SetWalk()
     }
 }
 
+void Player::SetIdle()
+{
+    m_AnimMesh2->SetAnim("Idle");
+    Common::Status()->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::STAND);
+}
+
 void Player::SetDamaged()
 {
     if (NSStarmanLib::StatusManager::GetObj()->GetDead() == false)

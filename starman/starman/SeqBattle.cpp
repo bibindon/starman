@@ -437,6 +437,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperatePickPlant();
     }
+    else if (m_eState == eBattleState::VOYAGE)
+    {
+        OperateVoyage();
+    }
 
     if (Common::DebugMode())
     {
@@ -979,6 +983,8 @@ void SeqBattle::OperateCommand()
     else if (result == "立ち上がる")
     {
         SharedObj::Voyage()->SetRaftMode(false);
+        m_eState = eBattleState::NORMAL;
+        SharedObj::GetPlayer()->SetIdle();
     }
     else if (result == "イカダに乗る")
     {
@@ -1796,7 +1802,7 @@ void SeqBattle::RenderCutTree()
 
 void SeqBattle::OperateVoyage()
 {
-    SharedObj::Voyage()->Update(&m_eState);
+    SharedObj::Voyage()->Operate(&m_eState);
 }
 
 void SeqBattle::Render()
@@ -2021,7 +2027,7 @@ void SeqBattle::UpdateCommon()
     OperateCraft();
 
     // クラフトによってイカダが生成されることがあるため、航海中でなくても更新処理を行う。
-    OperateVoyage();
+    SharedObj::Voyage()->Update();
 
     // Camera
     {

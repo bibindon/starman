@@ -31,6 +31,7 @@ public:
     bool SetAttackArrow();
     bool SetAttackAtlatl();
     void SetWalk();
+    void SetIdle();
     void SetDamaged();
 
     void SetDead();

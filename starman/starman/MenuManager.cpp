@@ -1074,9 +1074,12 @@ std::string MenuManager::OperateMenu()
                 work += "Œ»Ý‚Ì‹­‰»’l\n";
                 work += std::to_string(SharedObj::Voyage()->GetRaftLevel()) + "\n";
 
-                m_menu.SetStatus(infoList);
+                info.SetDetail(work);
+                infoList.push_back(info);
             }
         }
+
+        m_menu.SetStatus(infoList);
     }
     return result;
 }
