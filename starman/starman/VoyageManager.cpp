@@ -3,6 +3,7 @@
 #include "SharedObj.h"
 #include "Mouse.h"
 #include "GamePad.h"
+#include "Camera.h"
 
 NSStarmanLib::Voyage* Voyage()
 {
@@ -107,6 +108,8 @@ void VoyageManager::Operate(eBattleState* state)
     if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
     {
         *state = eBattleState::MENU;
+        Camera::SetCameraMode(eCameraMode::SLEEP);
+        Common::SetCursorVisibility(true);
     }
 
     //----------------------------------------------------
@@ -120,9 +123,9 @@ void VoyageManager::Operate(eBattleState* state)
 
     if (GamePad::IsDown(eGamePadButtonType::B))
     {
-        *state = eBattleState::NORMAL;
-
-        Voyage()->SetRaftMode(false);
+        *state = eBattleState::MENU;
+        Camera::SetCameraMode(eCameraMode::SLEEP);
+        Common::SetCursorVisibility(true);
     }
 
     auto id = Voyage()->GetRaftCurrentId();
