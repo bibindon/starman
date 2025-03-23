@@ -122,6 +122,12 @@ void AnimMesh::Render()
         D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
         worldMatrix *= mat;
 
+        D3DXMatrixRotationYawPitchRoll(&mat, m_rotateLocal.y, m_rotateLocal.x, m_rotateLocal.z);
+        worldMatrix *= mat;
+
+        D3DXMatrixTranslation(&mat, m_centerPos.x, m_centerPos.y, m_centerPos.z);
+        worldMatrix *= mat;
+
         D3DXMatrixRotationYawPitchRoll(&mat, m_rotation.y, m_rotation.x, m_rotation.z);
         worldMatrix *= mat;
 
@@ -162,6 +168,16 @@ void AnimMesh::SetTrackPos(const DOUBLE& pos)
     // TODO remove
 //    m_animationStrategy->SetTrackPos(pos);
 //    m_animCtrlr.SetTrackPos();
+}
+
+void AnimMesh::SetCenterPos(const D3DXVECTOR3& pos)
+{
+    m_centerPos = pos;
+}
+
+void AnimMesh::SetRotateLocal(const D3DXVECTOR3& rotate)
+{
+    m_rotateLocal = rotate;
 }
 
 void AnimMesh::UpdateFrameMatrix(const LPD3DXFRAME frameBase, const LPD3DXMATRIX parentMatrix)

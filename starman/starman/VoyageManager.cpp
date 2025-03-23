@@ -426,6 +426,8 @@ void Raft2::Init(const int id)
         }
         m_meshCord = NEW AnimMesh("res\\model\\raft\\cord.x", pos, rot, 1.f, animSetMap);
         m_meshCord->SetAnim("Idle");
+        D3DXVECTOR3 centerPos(0.584f, 1.554f, 1.140f);
+        m_meshCord->SetCenterPos(centerPos);
     }
 }
 
@@ -639,9 +641,18 @@ void Raft2::Draw()
     m_meshOarRight->Render();
 
     m_meshCord->SetPos(m_pos);
-
-    // TODO •—Œü‚«
     m_meshCord->SetRotate(m_rotate);
+
+    // •—‚Åƒnƒ“ƒJƒ`‚ª‚½‚È‚Ñ‚­
+    {
+        float x, z;
+        Voyage()->GetWindXZ(&x, &z);
+        D3DXVECTOR3 tempRot(0.f, 0.f, 0.f);
+        tempRot.y = std::atan2(x, z);
+        tempRot.y -= m_rotate.y;
+        tempRot.y += D3DX_PI;
+        m_meshCord->SetRotateLocal(tempRot);
+    }
 
     m_meshCord->Render();
 }

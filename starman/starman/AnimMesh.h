@@ -30,6 +30,8 @@ public:
     void SetRotate(const D3DXVECTOR3& rotate);
     void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
     void SetTrackPos(const DOUBLE& pos);
+    void SetCenterPos(const D3DXVECTOR3& pos);
+    void SetRotateLocal(const D3DXVECTOR3& rotate);
 
 private:
 
@@ -49,6 +51,7 @@ private:
     D3DXMATRIX m_projMatrix;
 
     D3DXVECTOR3 m_centerPos;
+    D3DXVECTOR3 m_rotateLocal{0.f, 0.f, 0.f};
 
     LPD3DXEFFECT m_D3DEffect { nullptr };
 
