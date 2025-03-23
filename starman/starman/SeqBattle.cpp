@@ -998,6 +998,11 @@ void SeqBattle::OperateCommand()
         SharedObj::Voyage()->SetRaftMode(false);
         m_eState = eBattleState::NORMAL;
         SharedObj::GetPlayer()->SetIdle();
+
+        BGM::get_ton()->StopAll();
+
+        BGM::get_ton()->load("res\\sound\\field.wav");
+        BGM::get_ton()->play("res\\sound\\field.wav", 10, true);
     }
     else if (result == "ƒCƒJƒ_‚Éæ‚é")
     {
@@ -1008,6 +1013,14 @@ void SeqBattle::OperateCommand()
             m_eState = eBattleState::VOYAGE;
             VoyageManager::Get()->Ride();
             leave = true;
+
+            BGM::get_ton()->StopAll();
+
+            BGM::get_ton()->load("res\\sound\\voyage.wav");
+            BGM::get_ton()->play("res\\sound\\voyage.wav", 10, true);
+
+            BGM::get_ton()->load("res\\sound\\sea.wav");
+            BGM::get_ton()->play("res\\sound\\sea.wav", 5);
         }
         else
         {

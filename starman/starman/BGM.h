@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
+#include <thread>
 
 class BGM
 {
@@ -13,7 +14,7 @@ public:
     static void finalize(); // For memory leak check.
 
     bool load(const std::string& filename);
-    void play(const std::string& filename, const int a_volume = 100);
+    void play(const std::string& filename, const int a_volume = 100, const bool fadeIn = false);
     void stop(const std::string& filename);
     void StopAll();
 
@@ -37,5 +38,7 @@ private:
     LPDIRECTSOUND8 dx8sound_ { nullptr };
     std::unordered_map<std::string, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
     std::unordered_map<std::string, bool> m_isPlayMap;
+
+    std::thread* m_th1 = nullptr;
 };
 

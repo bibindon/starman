@@ -1056,7 +1056,7 @@ void Map::Update()
                 {
                     if (!isPlay)
                     {
-                        BGM::get_ton()->play("res\\sound\\sea.wav", 10);
+                        BGM::get_ton()->play("res\\sound\\sea.wav", 5);
                     }
                 }
                 else

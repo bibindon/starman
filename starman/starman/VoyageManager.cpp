@@ -4,6 +4,7 @@
 #include "Mouse.h"
 #include "GamePad.h"
 #include "Camera.h"
+#include "BGM.h"
 
 NSStarmanLib::Voyage* Voyage()
 {

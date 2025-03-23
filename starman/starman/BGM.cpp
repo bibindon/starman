@@ -6,6 +6,7 @@
 #include "Common.h"
 
 #include <mmsystem.h>
+#include <thread>
 
 using std::vector;
 using std::string;
@@ -88,7 +89,7 @@ bool BGM::load(const std::string& filename)
     return true;
 }
 
-void BGM::play(const string& filename, const int a_volume)
+void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
 {
     // Transform volume
     // 0 ~ 100 -> -10000 ~ 0
@@ -99,6 +100,21 @@ void BGM::play(const string& filename, const int a_volume)
     dx8sound_buffers_.at(filename)->Play(0, 0, DSBPLAY_LOOPING);
 
     m_isPlayMap[filename] = true;
+
+    if (fadeIn)
+    {
+        LPDIRECTSOUNDBUFFER8 soundBuffer = dx8sound_buffers_.at(filename);
+        m_th1 = new std::thread([=]
+                                {
+                                    // 10âÒÇ…ï™ÇØÇƒâπó Ç1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
+                                    for (int i = 0; i < 10; ++i)
+                                    {
+                                        int volume2 = per_to_decibel(a_volume*i/10);
+                                        soundBuffer->SetVolume(volume2);
+                                        Sleep(1000);
+                                    }
+                                });
+    }
 }
 
 void BGM::stop(const string& filename)
