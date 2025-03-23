@@ -450,6 +450,23 @@ void SeqBattle::Update(eSequence* sequence)
         OperateVoyage();
     }
 
+    // Camera
+    // OperateVoyage関数はプレイヤーの位置を変更する。
+    // OperateVoyage関数のようにプレイヤーの位置が変更する処理が行われてから
+    // カメラの更新を行う必要があるため
+    // Update関数の最後に実施する必要がある
+    {
+        if (m_eState != eBattleState::LOAD &&
+            m_eState != eBattleState::TITLE &&
+            m_eState != eBattleState::TALK)
+        {
+            D3DXVECTOR3 pos = m_player->GetPos();
+            pos.y += 1.f;
+            Camera::SetLookAtPos(pos);
+            Camera::Update();
+        }
+    }
+
     if (Common::DebugMode())
     {
         UpdateDebug();
@@ -2062,13 +2079,6 @@ void SeqBattle::UpdateCommon()
 
     // クラフトによってイカダが生成されることがあるため、航海中でなくても更新処理を行う。
     SharedObj::Voyage()->Update();
-
-    // Camera
-    {
-        D3DXVECTOR3 pos = m_player->GetPos();
-        pos.y += 1.f;
-        Camera::SetLookAtPos(pos);
-    }
 }
 
 void SeqBattle::RenderCommon()
