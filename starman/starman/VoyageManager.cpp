@@ -519,7 +519,7 @@ void Raft2::Update()
     if (pendingLeft)
     {
         ++counterLeft;
-        if (counterLeft >= 20)
+        if (counterLeft >= 10)
         {
             if (bothClick)
             {
@@ -545,7 +545,7 @@ void Raft2::Update()
     if (pendingRight)
     {
         ++counterRight;
-        if (counterRight >= 20)
+        if (counterRight >= 10)
         {
             if (bothClick)
             {
