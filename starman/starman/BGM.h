@@ -17,6 +17,8 @@ public:
     void stop(const std::string& filename);
     void StopAll();
 
+    bool IsPlay(const std::string& filename);
+
 private:
     static BGM* single_ton_;
     // hide ctor
@@ -34,5 +36,6 @@ private:
 
     LPDIRECTSOUND8 dx8sound_ { nullptr };
     std::unordered_map<std::string, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
+    std::unordered_map<std::string, bool> m_isPlayMap;
 };
 

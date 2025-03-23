@@ -97,11 +97,14 @@ void BGM::play(const string& filename, const int a_volume)
     dx8sound_buffers_.at(filename)->SetVolume(volume);
     dx8sound_buffers_.at(filename)->SetCurrentPosition(0);
     dx8sound_buffers_.at(filename)->Play(0, 0, DSBPLAY_LOOPING);
+
+    m_isPlayMap[filename] = true;
 }
 
 void BGM::stop(const string& filename)
 {
     dx8sound_buffers_.at(filename)->Stop();
+    m_isPlayMap.at(filename) = false;
 }
 
 void BGM::StopAll()
@@ -110,6 +113,16 @@ void BGM::StopAll()
     {
         it->second->Stop();
     }
+
+    for (auto it = m_isPlayMap.begin(); it != m_isPlayMap.end(); it++)
+    {
+        it->second = false;
+    }
+}
+
+bool BGM::IsPlay(const std::string& filename)
+{
+    return m_isPlayMap[filename];
 }
 
 BGM::BGM(HWND hwnd)

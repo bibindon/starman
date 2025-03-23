@@ -20,6 +20,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "SoundEffect.h"
 #include "Camera.h"
+#include "BGM.h"
 
 Map::Map()
 {
@@ -1044,6 +1045,27 @@ void Map::Update()
                 std::string work;
                 work = "m_vecEnemy.size(): " + std::to_string(m_vecEnemy.size()) + "\n";
                 OutputDebugString(work.c_str());
+            }
+
+            // プレイヤーの位置が低くなったら海のBGMを流す
+            {
+                auto isPlay = BGM::get_ton()->IsPlay("res\\sound\\sea.wav");
+
+                auto ppos = SharedObj::GetPlayer()->GetPos();
+                if (ppos.y <= 20.f)
+                {
+                    if (!isPlay)
+                    {
+                        BGM::get_ton()->play("res\\sound\\sea.wav", 10);
+                    }
+                }
+                else
+                {
+                    if (isPlay)
+                    {
+                        BGM::get_ton()->stop("res\\sound\\sea.wav");
+                    }
+                }
             }
         }
     }

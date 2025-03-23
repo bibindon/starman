@@ -326,7 +326,6 @@ SeqBattle::SeqBattle()
         BGM::get_ton()->play("res\\sound\\forest.wav", 10);
 
         BGM::get_ton()->load("res\\sound\\sea.wav");
-        BGM::get_ton()->play("res\\sound\\sea.wav", 10);
     }
 
     ::SoundEffect::get_ton()->load("res\\sound\\drink.wav");
@@ -1271,7 +1270,6 @@ void SeqBattle::OperateOpening()
             BGM::get_ton()->play("res\\sound\\forest.wav", 10);
 
             BGM::get_ton()->load("res\\sound\\sea.wav");
-            BGM::get_ton()->play("res\\sound\\sea.wav", 10);
         }
     }
 }
@@ -2606,7 +2604,6 @@ void SeqBattle::OperateTitle(eSequence* sequence)
             BGM::get_ton()->play("res\\sound\\forest.wav", 10);
 
             BGM::get_ton()->load("res\\sound\\sea.wav");
-            BGM::get_ton()->play("res\\sound\\sea.wav", 10);
         }
     }
 }
