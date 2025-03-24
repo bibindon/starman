@@ -27,11 +27,14 @@ public:
     void SetAnimSettings(const AnimSetMap& animSetMap);
     void Update();
     void Finalize();
+    void SetAnimSpeed(const float speed);
 
 private:
     LPD3DXANIMATIONCONTROLLER m_controller { nullptr };
     float m_animationTime { 0.f };
     AnimSetMap m_animSettingMap;
     std::string m_animName { };
+    float m_animSpeed = 0.f;
+
 };
 

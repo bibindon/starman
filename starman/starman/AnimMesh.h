@@ -29,6 +29,7 @@ public:
 
     void SetRotate(const D3DXVECTOR3& rotate);
     void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
+    void SetAnimSpeed(const float speed);
     void SetTrackPos(const DOUBLE& pos);
     void SetCenterPos(const D3DXVECTOR3& pos);
     void SetRotateLocal(const D3DXVECTOR3& rotate);

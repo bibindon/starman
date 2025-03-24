@@ -163,6 +163,11 @@ void AnimMesh::SetAnim(const std::string& animName, const DOUBLE& pos)
     m_animCtrlr.SetAnim(animName, pos);
 }
 
+void AnimMesh::SetAnimSpeed(const float speed)
+{
+    m_animCtrlr.SetAnimSpeed(speed);
+}
+
 void AnimMesh::SetTrackPos(const DOUBLE& pos)
 {
     // TODO remove

@@ -3,6 +3,7 @@
 
 AnimController::AnimController()
 {
+    m_animSpeed = Common::ANIMATION_SPEED;
 }
 
 AnimController::~AnimController()
@@ -32,12 +33,12 @@ void AnimController::SetAnimSettings(const AnimSetMap& animSetMap)
 void AnimController::Update()
 {
     float workAnimTime = 0.f;
-    workAnimTime = m_animationTime + Common::ANIMATION_SPEED;
+    workAnimTime = m_animationTime + m_animSpeed;
 
     // 通常の更新処理。アニメを進める
     if (workAnimTime < m_animSettingMap[m_animName].m_duration)
     {
-        m_animationTime += Common::ANIMATION_SPEED;
+        m_animationTime += m_animSpeed;
         m_controller->SetTrackPosition(0, m_animSettingMap[m_animName].m_startPos);
         m_controller->AdvanceTime(m_animationTime, nullptr);
     }
@@ -80,4 +81,9 @@ void AnimController::Update()
 void AnimController::Finalize()
 {
     SAFE_RELEASE(m_controller);
+}
+
+void AnimController::SetAnimSpeed(const float speed)
+{
+    m_animSpeed = speed;
 }

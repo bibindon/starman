@@ -625,7 +625,8 @@ void Raft2::Draw()
 
     m_meshRaftCollision->SetPos(m_pos);
     m_meshRaftCollision->SetRotY(m_rotate.y);
-// •`‰æ‚·‚é•K—v‚Í‚È‚¢H
+    // •`‰æ‚·‚é•K—v‚ª‚ ‚éB
+    // •`‰æ‚µ‚È‚¢‚ÆÕ“Ë”»’è‚ª“­‚©‚È‚¢B
     m_meshRaftCollision->Render();
 
     m_meshSail->SetPos(m_pos);
@@ -652,6 +653,12 @@ void Raft2::Draw()
         tempRot.y -= m_rotate.y;
         tempRot.y += D3DX_PI;
         m_meshCord->SetRotateLocal(tempRot);
+
+        // •—‘¬‚É‚æ‚èƒAƒjƒ[ƒVƒ‡ƒ“‘¬“x‚ğ•Ï‚¦‚é
+        // •—‘¬4m/s‚Å1”{‘¬A8m/s‚Å2”{‘¬A2m/s‚Å0.5”{‘¬
+        float windSpeed = std::sqrt(x*x + z*z);
+        float animSpeed = windSpeed/4;
+        m_meshCord->SetAnimSpeed(animSpeed);
     }
 
     m_meshCord->Render();
