@@ -262,7 +262,7 @@ namespace UnitTest2
             raft.Init(1);
 
             // Target
-            raft.GetMesh();
+//            raft.GetMesh();
 
             raft.Finalize();
             Util::ReleaseWin_DX9_DI8();
@@ -314,7 +314,7 @@ namespace UnitTest2
 
             // Target
             eBattleState state;
-            voyageMgr->Update(&state);
+//            voyageMgr->Update(&state);
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ

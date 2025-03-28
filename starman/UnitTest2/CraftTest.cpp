@@ -7,6 +7,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
 #include "../starman/PopUp2.h"
+#include "../starman/SharedObj.h"
 
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d9.lib")
@@ -182,8 +183,7 @@ namespace UnitTest2
         // キューに追加されること
         TEST_METHOD(CraftRaftTest03)
         {
-            Util::InitWin_DX9_DI8();
-            KeyBoard::ForTest_SetTestMode();
+            Util::InitWin_DX9_DI8(true);
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
@@ -206,13 +206,33 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            eBattleState state;
+            eBattleState state = eBattleState::CRAFT;
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+			INPUT input = {};
+			input.type = INPUT_KEYBOARD;
+			input.ki.wScan = MapVirtualKey(VK_RETURN, 0);
+			input.ki.dwFlags = KEYEVENTF_SCANCODE;
+
+			// キー押下
+			SendInput(1, &input, sizeof(INPUT));
+            Sleep(10);
+            KeyBoard::Update();
+
             craft.Operate(&state);
             craft.Draw();
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+			// キー解放
+			input.ki.dwFlags |= KEYEVENTF_KEYUP;
+			SendInput(1, &input, sizeof(INPUT));
+            Sleep(10);
+            KeyBoard::Update();
+
+			// キー押下
+			input.ki.dwFlags = KEYEVENTF_SCANCODE;
+			SendInput(1, &input, sizeof(INPUT));
+            Sleep(10);
+			KeyBoard::Update();
+
             craft.Operate(&state);
             craft.Draw();
 

@@ -9,7 +9,7 @@
 LPDIRECT3D9 Util::m_D3D = nullptr;
 LPDIRECTINPUT8 Util::m_directInput = nullptr;
 
-void Util::InitWin_DX9_DI8()
+void Util::InitWin_DX9_DI8(const bool bShow)
 {
     WNDCLASS wc = {};
     wc.lpfnWndProc = DefWindowProc;
@@ -32,6 +32,11 @@ void Util::InitWin_DX9_DI8()
                              NULL);
 
     SharedObj::SetWindowHandle(hWnd);
+
+    if (bShow)
+    {
+		ShowWindow(SharedObj::GetWindowHandle(), SW_SHOW);
+    }
 
     // Direct3DÇÃèâä˙âª
     m_D3D = nullptr;

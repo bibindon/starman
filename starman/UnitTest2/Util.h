@@ -18,7 +18,7 @@ class Util
 public:
 
     // ウィンドウ作成とDirctX9の初期化、DirectInputの初期化を行う
-    static void InitWin_DX9_DI8();
+    static void InitWin_DX9_DI8(const bool bShow = false);
     static void ReleaseWin_DX9_DI8();
 
 private:
