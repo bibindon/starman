@@ -47,6 +47,8 @@ Finalize関数を呼ぶようにしたほうが簡単。
 例外を飛ばしまくるソフトはすぐにソフトが落ちてしまうが
 そのほうが結果的には早くちゃんと動くようになる。
 
+  → Assertのほうがいい。
+
 * WiX ToolSetをインストールする必要がある
 https://wixtoolset.org/releases/v3.11/stable
 
