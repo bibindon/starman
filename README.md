@@ -49,3 +49,5 @@ Finalize関数を呼ぶようにしたほうが簡単。
 
 * WiX ToolSetをインストールする必要がある
 https://wixtoolset.org/releases/v3.11/stable
+
+* Rendererというクラスを作って、描画をRendererクラスだけが行うようにすればもっとよかった。
