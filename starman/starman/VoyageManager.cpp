@@ -658,6 +658,7 @@ void Raft2::Draw()
         // •—‘¬4m/s‚Å1”{‘¬A8m/s‚Å2”{‘¬A2m/s‚Å0.5”{‘¬
         float windSpeed = std::sqrt(x*x + z*z);
         float animSpeed = windSpeed/4;
+        animSpeed /= 60.f; // 60fps
         m_meshCord->SetAnimSpeed(animSpeed);
     }
 
