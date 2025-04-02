@@ -366,7 +366,7 @@ void Map::Init()
     {
 
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 547.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -424,13 +424,13 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim\\vim.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim\\vim.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ビム"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 549.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -488,13 +488,13 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vsco\\vsco.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vsco\\vsco.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ブイエスコ"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 551.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -552,13 +552,13 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\webnin\\webnin.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\webnin\\webnin.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ウェブニン"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 533.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -567,13 +567,13 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["Idle"] = animSetting;
         }
-        //AnimMesh* animMesh = NEW AnimMesh("res\\model\\xeoff\\xeoff.x", b, rot, 1.5f, animSetMap);
+        //AnimMesh* animMesh = NEW AnimMesh("res\\model\\xeoff\\xeoff.x", b, move, 1.5f, animSetMap);
         //animMesh->SetAnim("Idle");
         //m_NPC["ジーオフ"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 555.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -631,13 +631,13 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\gain\\gain.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\gain\\gain.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ガイン"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 557.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -695,13 +695,13 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\nes\\nes.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\nes\\nes.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ネス"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 559.f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -759,7 +759,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\noble\\noble.x", b, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\noble\\noble.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ノーブル"] = animMesh;
     }
@@ -1277,7 +1277,7 @@ void Map::SetEnemy(const std::vector<EnemyBase*>& vecEnemy)
     m_vecEnemy = vecEnemy;
 }
 
-bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh)
+bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* mesh)
 {
     BOOL  bIsHit = false;
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -1288,7 +1288,7 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mes
     DWORD dwHitIndex = -1;
     float fHitU;
     float fHitV;
-    D3DXIntersect(d3dmesh, &targetPos, &rot, &bIsHit, &dwHitIndex,
+    D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
         &fHitU, &fHitV, &fLandDistance, NULL, NULL);
     float judgeDistance = 1.f / mesh->GetScale();
     if (bIsHit && (fLandDistance <= judgeDistance))
@@ -1347,13 +1347,13 @@ bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
     return bIsHit;
 }
 
-bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
     // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
     for (auto& pair : m_meshMap)
     {
-        bIsHit = IntersectSub(pos, rot, pair.second);
+        bIsHit = IntersectSub(pos, move, pair.second);
         if (bIsHit)
         {
             break;
@@ -1363,7 +1363,7 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
     BOOL  bIsHit2 = false;
     for (auto& pair : m_meshCloneMap)
     {
-        bIsHit2 = IntersectSub(pos, rot, pair.second);
+        bIsHit2 = IntersectSub(pos, move, pair.second);
         if (bIsHit2)
         {
             break;

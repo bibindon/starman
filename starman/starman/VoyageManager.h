@@ -19,6 +19,8 @@ public:
     void PullOarLeft();
     void PullOarRight();
 
+    void Pull3Hours();
+
     D3DXVECTOR3 GetPos() const;
     void SetPos(const D3DXVECTOR3& pos);
 
@@ -91,6 +93,8 @@ public:
 
     // 乗船中のイカダの強化値
     int GetRaftLevel();
+
+    bool Can3HoursAuto();
 
 private:
 

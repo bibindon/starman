@@ -449,6 +449,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateVoyage();
     }
+    else if (m_eState == eBattleState::VOYAGE3HOURS)
+    {
+        OperateVoyage3Hours();
+    }
 
     // Camera
     // OperateVoyageŠÖ”‚ÍƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ð•ÏX‚·‚éB
@@ -1006,9 +1010,18 @@ void SeqBattle::OperateCommand()
     {
         SharedObj::Voyage()->SetSail(false);
     }
-    else if (result == "Œ»Ý‚Ì•ûŠp‚É‚RŽžŠÔ‘†‚®")
+    else if (result == "‚RŽžŠÔ‘†‚®")
     {
-        SharedObj::Voyage()->Set3HoursAuto();
+        if (!SharedObj::Voyage()->Can3HoursAuto())
+        {
+            PopUp2::Get()->SetText("‚»‚Ì•ûŠp‚É‚RŽžŠÔ‘†‚®‚±‚Æ‚Í‚Å‚«‚È‚¢B");
+        }
+        else
+        {
+            leave = true;
+            StartFadeInOut();
+            m_eState = eBattleState::VOYAGE3HOURS;
+        }
     }
     else if (result == "—§‚¿ã‚ª‚é")
     {
@@ -1854,6 +1867,19 @@ void SeqBattle::RenderCutTree()
 void SeqBattle::OperateVoyage()
 {
     SharedObj::Voyage()->Operate(&m_eState);
+}
+
+void SeqBattle::OperateVoyage3Hours()
+{
+    if (m_eFadeSeq == eFadeSeq::Sleep)
+    {
+        // 3ŽžŠÔŒã‚ÌˆÊ’u‚Éƒ[ƒv
+        SharedObj::Voyage()->Set3HoursAuto();
+
+        m_eState = eBattleState::VOYAGE;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+    }
 }
 
 void SeqBattle::Render()

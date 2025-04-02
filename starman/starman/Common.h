@@ -39,6 +39,7 @@ enum class eBattleState
     PICK_PLANT,
     CUT_TREE,
     VOYAGE,
+    VOYAGE3HOURS,
 };
 
 enum class eTitleMenu

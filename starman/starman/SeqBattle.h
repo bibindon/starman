@@ -234,5 +234,8 @@ private:
     // qŠC‹@”\
     //----------------------------------------------------
     void OperateVoyage();
+
+    // 3ŠÔqŠC
+    void OperateVoyage3Hours();
 };
 

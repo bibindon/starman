@@ -156,6 +156,9 @@ bool VoyageManager::GetSail() const
 void VoyageManager::Set3HoursAuto()
 {
     Voyage()->Set3HoursAuto();
+    
+    auto id = Voyage()->GetRaftCurrentId();
+    m_raftMap[id].Pull3Hours();
 }
 
 void VoyageManager::SetRaftMode(const bool arg)
@@ -257,6 +260,26 @@ int VoyageManager::GetRaftLevel()
 {
     auto raft = Voyage()->GetRaftCurrent();
     return raft.GetLevel();
+}
+
+bool VoyageManager::Can3HoursAuto()
+{
+    auto id = Voyage()->GetRaftCurrentId();
+    D3DXVECTOR3 rotate = m_raftMap[id].GetRotate();
+    D3DXVECTOR3 move(0.f, 0.f, 0.f);
+
+    // TODO Ç¢Ç¢ä¥Ç∂Ç…
+    move.x = std::sin(rotate.y) * -10000.f;
+    move.z = std::cos(rotate.y) * -10000.f;
+    bool bHit = SharedObj::GetMap()->Intersect(SharedObj::GetPlayer()->GetPos(), move);
+    if (bHit)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
@@ -698,6 +721,13 @@ void Raft2::PullOarRight()
 {
     m_meshOarRight->SetAnim("Pull");
     m_moveRot.y += 0.01f;
+}
+
+void Raft2::Pull3Hours()
+{
+    // TODO ìKêÿÇ»ílÇ…
+    m_pos.x += std::sin(m_rotate.y) * -10000.f;
+    m_pos.z += std::cos(m_rotate.y) * -10000.f;
 }
 
 D3DXVECTOR3 Raft2::GetPos() const
