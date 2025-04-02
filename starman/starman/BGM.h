@@ -40,5 +40,8 @@ private:
     std::unordered_map<std::string, bool> m_isPlayMap;
 
     std::thread* m_th1 = nullptr;
+    std::thread* m_th2 = nullptr;
+    bool m_cancel1 = false;
+    bool m_cancel2 = false;
 };
 

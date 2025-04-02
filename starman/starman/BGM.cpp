@@ -104,16 +104,47 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
     if (fadeIn)
     {
         LPDIRECTSOUNDBUFFER8 soundBuffer = dx8sound_buffers_.at(filename);
-        m_th1 = new std::thread([=]
-                                {
-                                    // 10âÒÇ…ï™ÇØÇƒâπó Ç1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
-                                    for (int i = 0; i < 10; ++i)
+
+        if (m_th1 == nullptr)
+        {
+            m_cancel1 = false;
+            m_cancel2 = true;
+            m_th2 = nullptr;
+            m_th1 = new std::thread([=]
                                     {
-                                        int volume2 = per_to_decibel(a_volume*i/10);
-                                        soundBuffer->SetVolume(volume2);
-                                        Sleep(1000);
-                                    }
-                                });
+                                        // 10âÒÇ…ï™ÇØÇƒâπó Ç1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
+                                        for (int i = 0; i < 10; ++i)
+                                        {
+                                            int volume2 = per_to_decibel(a_volume*i/10);
+                                            soundBuffer->SetVolume(volume2);
+                                            Sleep(1000);
+                                            if (this->m_cancel1)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    });
+        }
+        else if (m_th2 == nullptr)
+        {
+            m_cancel1 = true;
+            m_cancel2 = false;
+            m_th1 = nullptr;
+            m_th2 = new std::thread([=]
+                                    {
+                                        // 10âÒÇ…ï™ÇØÇƒâπó Ç1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
+                                        for (int i = 0; i < 10; ++i)
+                                        {
+                                            int volume2 = per_to_decibel(a_volume*i/10);
+                                            soundBuffer->SetVolume(volume2);
+                                            Sleep(1000);
+                                            if (this->m_cancel2)
+                                            {
+                                                break;
+                                            }
+                                        }
+                                    });
+        }
     }
 }
 
