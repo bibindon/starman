@@ -230,12 +230,17 @@ bool VoyageManager::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
     return bHit;
 }
 
-D3DXVECTOR3 VoyageManager::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
+D3DXVECTOR3 VoyageManager::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit)
 {
     D3DXVECTOR3 result = move;
     for (auto& pair : m_raftMap)
     {
-        result = WallSlideSub(pos, pair.second.GetCollisionMesh(), result);
+        bool bHit2 = false;
+        result = WallSlideSub(pos, pair.second.GetCollisionMesh(), result, &bHit2);
+        if (bHit2)
+        {
+            *bHit = true;
+        }
     }
     return result;
 }
@@ -284,7 +289,8 @@ bool VoyageManager::Can3HoursAuto()
 
 D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
                                         Mesh* mesh,
-                                        const D3DXVECTOR3& move)
+                                        const D3DXVECTOR3& move,
+                                        bool* bHit)
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -296,11 +302,23 @@ D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
     float fHitU;
     float fHitV;
     D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
-    D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
-        &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+
+    D3DXIntersect(d3dmesh,
+                  &targetPos,
+                  &move,
+                  &bIsHit,
+                  &dwHitIndex,
+                  &fHitU,
+                  &fHitV,
+                  &fLandDistance,
+                  NULL,
+                  NULL);
+
     float judgeDistance = 2.f / mesh->GetScale();
     if (bIsHit && fLandDistance <= judgeDistance)
     {
+        *bHit = true;
+
         // ----- キャラY座標補正 -----
         // 当たったインデックスバッファ取得
         WORD dwHitVertexNo[3] = {};

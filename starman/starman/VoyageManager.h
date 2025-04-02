@@ -83,7 +83,7 @@ public:
     int GetRaftCount();
 
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
-    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
+    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit);
 
     D3DXVECTOR3 GetRaftXYZ(const int id);
     float GetRaftRotateY(const int id);
@@ -100,7 +100,8 @@ private:
 
     D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
                              Mesh* mesh,
-                             const D3DXVECTOR3& move);
+                             const D3DXVECTOR3& move,
+                             bool* bHit);
 
     static VoyageManager* m_obj;
 

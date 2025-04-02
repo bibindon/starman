@@ -792,7 +792,17 @@ void Player::Update(Map* map)
     // イカダとの衝突判定
     // ぶつかっていたら移動量をゼロにする、のではなく、壁ずりを行う。
     // イカダの上を歩ける必要があるため。
-    m_move = SharedObj::Voyage()->WallSlide(m_loadingPos, m_move);
+    bool bHitRaft = false;
+    m_move = SharedObj::Voyage()->WallSlide(m_loadingPos, m_move, &bHitRaft);
+
+    if (bHitRaft)
+    {
+        if (m_bJump)
+        {
+            m_bJump = false;
+            m_bJumpEnable = true;
+        }
+    }
 
     m_loadingPos += m_move;
 
