@@ -17,19 +17,13 @@ class Sprite : public ISprite
 {
 public:
 
-    Sprite(LPDIRECT3DDEVICE9 dev, bool testMode)
+    Sprite(LPDIRECT3DDEVICE9 dev)
         : m_pD3DDevice(dev)
-        , m_testMode(testMode)
     {
     }
 
     void DrawImage(const int x, const int y, const int transparency) override
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
         m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
         RECT rect = {
@@ -147,19 +141,13 @@ class Font : public IFont
 {
 public:
 
-    Font(LPDIRECT3DDEVICE9 pD3DDevice, bool testMode)
+    Font(LPDIRECT3DDEVICE9 pD3DDevice)
         : m_pD3DDevice(pD3DDevice)
-        , m_testMode(testMode)
     {
     }
 
     void Init()
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         HRESULT hr = D3DXCreateFont(m_pD3DDevice,
                                     24,
                                     0,
@@ -208,48 +196,27 @@ private:
 class SoundEffect : public ISoundEffect
 {
 public:
-    SoundEffect(bool testMode)
-        : m_testMode(testMode)
+    SoundEffect()
     {
     }
 
     virtual void PlayMove() override
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
     }
 
     virtual void PlayClick() override
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
     }
 
     virtual void PlayBack() override
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
     }
 
     virtual void Init() override
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
@@ -261,22 +228,22 @@ private:
 
 void CraftManager::Init()
 {
-    NSCraftLib::Sprite* sprCursor = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
+    NSCraftLib::Sprite* sprCursor = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
     sprCursor->Load("res\\image\\menu_cursor.png");
 
-    NSCraftLib::Sprite* sprBackground = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
+    NSCraftLib::Sprite* sprBackground = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load("res\\image\\background.png");
 
-    NSCraftLib::Sprite* sprPanelLeft = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
+    NSCraftLib::Sprite* sprPanelLeft = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
     sprPanelLeft->Load("res\\image\\panelLeft.png");
 
-    NSCraftLib::Sprite* sprPanelTop = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
+    NSCraftLib::Sprite* sprPanelTop = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
     sprPanelTop->Load("res\\image\\craftPanel.png");
 
-    NSCraftLib::IFont* pFont = NEW NSCraftLib::Font(SharedObj::GetD3DDevice(), m_testMode);
+    NSCraftLib::IFont* pFont = NEW NSCraftLib::Font(SharedObj::GetD3DDevice());
     pFont->Init();
 
-    NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect(m_testMode);
+    NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect();
 
     m_gui.Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
 
@@ -614,7 +581,7 @@ void CraftManager::Build()
                 m_gui.SetOutputInfo(info.GetName(), work);
                 work.clear();
 
-                NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice(), m_testMode);
+                NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                 auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
                 auto imagePath = itemDef.GetImagePath();
 
@@ -623,10 +590,5 @@ void CraftManager::Build()
 
         }
     }
-}
-
-void CraftManager::SetTestMode()
-{
-    m_testMode = true;
 }
 
