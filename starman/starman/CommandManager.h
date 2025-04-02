@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Common.h"
 #include "..\..\command\command\command.h"
 #include <string>
 
@@ -17,6 +18,8 @@ public:
     void Draw();
     void Finalize();
     void Upsert(const std::string name, const bool visible);
+    void SetPreviousState(const eBattleState previousState);
+    eBattleState GetPreviousState() const;
 
 private:
 
@@ -31,5 +34,7 @@ private:
     int m_counter = 0;
 
     eType m_eType = eType::Title;
+
+    eBattleState m_previousState = eBattleState::NONE;
 };
 

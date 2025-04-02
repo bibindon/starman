@@ -936,7 +936,14 @@ void SeqBattle::OperateCommand()
     if (result == "EXIT")
     {
         leave = true;
-        m_eState = eBattleState::NORMAL;
+        if (m_commandManager.GetPreviousState() == eBattleState::NORMAL)
+        {
+            m_eState = eBattleState::NORMAL;
+        }
+        else if (m_commandManager.GetPreviousState() == eBattleState::VOYAGE)
+        {
+            m_eState = eBattleState::VOYAGE;
+        }
     }
     else if (result == "À‚é")
     {
@@ -1867,6 +1874,10 @@ void SeqBattle::RenderCutTree()
 void SeqBattle::OperateVoyage()
 {
     SharedObj::Voyage()->Operate(&m_eState);
+    if (m_eState == eBattleState::COMMAND)
+    {
+        m_commandManager.SetPreviousState(eBattleState::VOYAGE);
+    }
 }
 
 void SeqBattle::OperateVoyage3Hours()
@@ -2523,6 +2534,8 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
+
+            m_commandManager.SetPreviousState(eBattleState::NORMAL);
         }
     }
 
@@ -2558,6 +2571,8 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
+
+            m_commandManager.SetPreviousState(eBattleState::NORMAL);
         }
     }
 

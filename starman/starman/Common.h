@@ -40,6 +40,7 @@ enum class eBattleState
     CUT_TREE,
     VOYAGE,
     VOYAGE3HOURS,
+    NONE,
 };
 
 enum class eTitleMenu

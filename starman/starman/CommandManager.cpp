@@ -278,6 +278,16 @@ void CommandManager::Upsert(const std::string name, const bool visible)
     m_commandLib->UpsertCommand(name, visible);
 }
 
+void CommandManager::SetPreviousState(const eBattleState previousState)
+{
+    m_previousState = previousState;
+}
+
+eBattleState CommandManager::GetPreviousState() const
+{
+    return m_previousState;
+}
+
 void CommandManager::BuildCommand()
 {
     //---------------------------------------------------
