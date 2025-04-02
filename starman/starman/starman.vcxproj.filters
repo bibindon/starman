@@ -335,6 +335,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="..\..\README.md" />
+    <None Include="..\..\.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="starman.rc">
