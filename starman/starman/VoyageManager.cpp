@@ -652,14 +652,27 @@ void Raft2::Update()
         _move.z += (_move.z - z) / (60 * 20);
     }
     
-    // TODO
     // d—Í
+    _move.y += -0.01f;
 
     // Õ“Ë”»’è
-    // —¤’n‚ÆÚG‚µ‚Ä‚¢‚½‚ç’âŽ~
-    bool isHit = SharedObj::GetMap()->CollisionGround(m_pos, _move);
 
-    if (!isHit)
+    // ŠC‚ÆÚG‚µ‚Ä‚¢‚½‚ç‚»‚êˆÈãA—Ž‰º‚³‚¹‚È‚¢
+    D3DXVECTOR3 _pos = m_pos;
+
+    // ­‚µ•‚‚¢‚Ä‚¢‚Ä‚Ù‚µ‚¢‚Ì‚Å20ƒZƒ“ƒ`‰º‚Ì•”•ª‚ðÚ’n”»’è‚ÉŽg—p‚·‚é
+    _pos.y += -0.2f;
+    bool isHit1 = SharedObj::GetMap()->IntersectWater(_pos, _move);
+
+    if (isHit1)
+    {
+        _move.y = 0.f;
+    }
+
+    // —¤’n‚ÆÚG‚µ‚Ä‚¢‚½‚ç’âŽ~
+    bool isHit2 = SharedObj::GetMap()->CollisionGround(m_pos, _move);
+
+    if (!isHit2)
     {
         m_move = _move;
         m_pos += m_move;

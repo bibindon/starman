@@ -1339,11 +1339,11 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
     return bIsHit;
 }
 
-bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
     BOOL  bIsHit = false;
     auto sea = m_meshMap["sea"];
-    bIsHit = IntersectSub(pos, rot, sea);
+    bIsHit = IntersectSub(pos, move, sea);
     return bIsHit;
 }
 

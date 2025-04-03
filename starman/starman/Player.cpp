@@ -282,8 +282,10 @@ void Player::Update(Map* map)
 {
     // ŠC‚ÆÚ‚µ‚Ä‚¢‚é‚©
     {
-        D3DXVECTOR3 down(0.f, -1.f, 0.f);
-        m_bUnderwater = map->IntersectWater(m_loadingPos, down);
+        D3DXVECTOR3 pos = m_loadingPos;
+        D3DXVECTOR3 down(0.f, -0.1f, 0.f);
+        
+        m_bUnderwater = map->IntersectWater(pos, down);
         if (m_bUnderwater)
         {
             m_AnimMesh2->SetAnim("IdleWater");
