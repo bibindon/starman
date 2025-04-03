@@ -15,7 +15,7 @@ public:
     void Draw();
     void SetSail(const bool arg);
 
-    void PullOarBoth();
+    void PullOarBoth(D3DXVECTOR3* move);
     void PullOarLeft();
     void PullOarRight();
 
@@ -49,6 +49,9 @@ private:
 
     D3DXVECTOR3 m_pos = D3DXVECTOR3(0.f, 0.f, 0.f);
     D3DXVECTOR3 m_rotate = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
+
+    // ÉIÅ[ÉãÇëÜÇÆä‘äu
+    int m_coolTime = 0;
 };
 
 class VoyageManager

@@ -5,6 +5,7 @@
 #include "GamePad.h"
 #include "Camera.h"
 #include "BGM.h"
+#include "SoundEffect.h"
 
 NSStarmanLib::Voyage* Voyage()
 {
@@ -18,6 +19,9 @@ VoyageManager* VoyageManager::Get()
     if (m_obj == nullptr)
     {
         m_obj = NEW VoyageManager();
+        SoundEffect::get_ton()->load("res\\sound\\pullOar.wav");
+        SoundEffect::get_ton()->load("res\\sound\\pullOar2.wav");
+        SoundEffect::get_ton()->load("res\\sound\\collideRaft.wav");
     }
 
     return m_obj;
@@ -484,12 +488,10 @@ void Raft2::Finalize()
 
 void Raft2::Update()
 {
-    m_move *= 0.97f;
-    m_moveRot *= 0.97f;
+    D3DXVECTOR3 _move = m_move;
 
-    //----------------------------------------------------
-    // マウス・キーボード操作
-    //----------------------------------------------------
+    _move *= 0.97f;
+    m_moveRot *= 0.97f;
 
     //--------------------------------------------
     // 右クリックで右のオールを漕ぐ
@@ -507,51 +509,58 @@ void Raft2::Update()
 
     static bool bothClick = false;
 
-    if (Mouse::IsDownLeft())
+    m_coolTime++;
+    if (m_coolTime > 60)
     {
-        counterLeft = 0;
-        pendingLeft = true;
-
-        if (pendingRight)
+        //----------------------------------------------------
+        // マウス・キーボード操作
+        //----------------------------------------------------
+        if (Mouse::IsDownLeft())
         {
-            bothClick = true;
+            counterLeft = 0;
+            pendingLeft = true;
+
+            if (pendingRight)
+            {
+                bothClick = true;
+            }
         }
-    }
 
-    if (Mouse::IsDownRight())
-    {
-        counterRight = 0;
-        pendingRight = true;
-
-        if (pendingLeft)
+        if (Mouse::IsDownRight())
         {
-            bothClick = true;
+            counterRight = 0;
+            pendingRight = true;
+
+            if (pendingLeft)
+            {
+                bothClick = true;
+            }
         }
-    }
 
-    //----------------------------------------------------
-    // ゲームパッド操作
-    //----------------------------------------------------
+        //----------------------------------------------------
+        // ゲームパッド操作
+        //----------------------------------------------------
 
-    if (GamePad::IsDown(eGamePadButtonType::L1))
-    {
-        counterLeft = 0;
-        pendingLeft = true;
-
-        if (pendingRight)
+        if (GamePad::IsDown(eGamePadButtonType::L1))
         {
-            bothClick = true;
+            counterLeft = 0;
+            pendingLeft = true;
+
+            if (pendingRight)
+            {
+                bothClick = true;
+            }
         }
-    }
 
-    if (GamePad::IsDown(eGamePadButtonType::R1))
-    {
-        counterRight = 0;
-        pendingRight = true;
-
-        if (pendingLeft)
+        if (GamePad::IsDown(eGamePadButtonType::R1))
         {
-            bothClick = true;
+            counterRight = 0;
+            pendingRight = true;
+
+            if (pendingLeft)
+            {
+                bothClick = true;
+            }
         }
     }
 
@@ -565,7 +574,7 @@ void Raft2::Update()
             if (bothClick)
             {
                 Voyage()->PullBothOar();
-                PullOarBoth();
+                PullOarBoth(&_move);
             }
             else
             {
@@ -580,6 +589,8 @@ void Raft2::Update()
 
             pendingRight = false;
             counterRight = 0;
+
+            m_coolTime = 0;
         }
     }
 
@@ -591,7 +602,7 @@ void Raft2::Update()
             if (bothClick)
             {
                 Voyage()->PullBothOar();
-                PullOarBoth();
+                PullOarBoth(&_move);
             }
             else
             {
@@ -606,6 +617,8 @@ void Raft2::Update()
 
             pendingRight = false;
             counterRight = 0;
+
+            m_coolTime = 0;
         }
     }
 
@@ -618,13 +631,13 @@ void Raft2::Update()
 
         if (Voyage()->GetSailCurrentRaft())
         {
-            m_move.x += (m_move.x - x) / (60 * 20);
-            m_move.z += (m_move.z - z) / (60 * 20);
+            _move.x += (_move.x - x) / (60 * 20);
+            _move.z += (_move.z - z) / (60 * 20);
         }
         else
         {
-            m_move.x += (m_move.x - x) / (60 * 60);
-            m_move.z += (m_move.z - z) / (60 * 60);
+            _move.x += (_move.x - x) / (60 * 60);
+            _move.z += (_move.z - z) / (60 * 60);
         }
     }
 
@@ -635,11 +648,37 @@ void Raft2::Update()
         x /= 10;
         z /= 10;
 
-        m_move.x += (m_move.x - x) / (60 * 20);
-        m_move.z += (m_move.z - z) / (60 * 20);
+        _move.x += (_move.x - x) / (60 * 20);
+        _move.z += (_move.z - z) / (60 * 20);
+    }
+    
+    // TODO
+    // 重力
+
+    // 衝突判定
+    // 陸地と接触していたら停止
+    bool isHit = SharedObj::GetMap()->CollisionGround(m_pos, _move);
+
+    if (!isHit)
+    {
+        m_move = _move;
+        m_pos += m_move;
+        FLOAT speed = D3DXVec3Length(&_move);
+        speed += 1.f;
+    }
+    // 激突
+    else
+    {
+        // スピードが出ていたか
+        FLOAT speed = D3DXVec3Length(&m_move);
+        if (speed >= 0.1f)
+        {
+            Voyage()->CollideGround();
+            SoundEffect::get_ton()->play("res\\sound\\collideRaft.wav");
+        }
+        m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
     }
 
-    m_pos += m_move;
     m_rotate += m_moveRot;
 
     // 主人公はイカダに追従させる
@@ -651,9 +690,6 @@ void Raft2::Update()
 
     SharedObj::GetPlayer()->SetPos(ppos);
     SharedObj::GetPlayer()->SetRotate(workRotate);
-
-    // 衝突判定
-    // 陸地と接触していたら停止
 
     // イカダで川を進むことも出来ることに注意
 }
@@ -718,27 +754,34 @@ void Raft2::SetSail(const bool arg)
     }
 }
 
-void Raft2::PullOarBoth()
+void Raft2::PullOarBoth(D3DXVECTOR3* _move)
 {
     m_meshOarLeft->SetAnim("Pull");
     m_meshOarRight->SetAnim("Pull");
 
-    m_move.x += std::sin(m_rotate.y) * -0.3f;
-    m_move.z += std::cos(m_rotate.y) * -0.3f;
+    _move->x += std::sin(m_rotate.y) * -0.3f;
+    _move->z += std::cos(m_rotate.y) * -0.3f;
 
-    OutputDebugString("PullOarBoth\n");
+    SoundEffect::get_ton()->play("res\\sound\\pullOar.wav", 80);
+    SoundEffect::get_ton()->play("res\\sound\\pullOar2.wav", 80);
 }
 
 void Raft2::PullOarLeft()
 {
     m_meshOarLeft->SetAnim("Pull");
     m_moveRot.y += -0.01f;
+
+    SoundEffect::get_ton()->play("res\\sound\\pullOar.wav", 80);
+    SoundEffect::get_ton()->play("res\\sound\\pullOar2.wav", 80);
 }
 
 void Raft2::PullOarRight()
 {
     m_meshOarRight->SetAnim("Pull");
     m_moveRot.y += 0.01f;
+
+    SoundEffect::get_ton()->play("res\\sound\\pullOar.wav", 80);
+    SoundEffect::get_ton()->play("res\\sound\\pullOar2.wav", 80);
 }
 
 void Raft2::Pull3Hours()

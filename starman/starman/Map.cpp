@@ -1374,16 +1374,8 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 
 bool Map::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
-    // ステージ上のオブジェクトを原点としたときのposの位置
     BOOL  bIsHit = false;
-    for (auto& pair : m_meshMap)
-    {
-        bIsHit = IntersectSub(pos, move, pair.second);
-        if (bIsHit)
-        {
-            break;
-        }
-    }
+    bIsHit = IntersectSub(pos, move, m_meshMap["Map"]);
     return bIsHit;
 }
 
