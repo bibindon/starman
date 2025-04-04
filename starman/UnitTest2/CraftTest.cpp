@@ -28,6 +28,7 @@ namespace UnitTest2
         // 単純にpublic関数を呼ぶだけのテスト
         TEST_METHOD(TestMethod01)
         {
+            // Target
             CraftManager craft;
         }
         
@@ -37,6 +38,7 @@ namespace UnitTest2
             Util::InitWin_DX9_DI8();
             CraftManager craft;
 
+            // Target
             craft.Init();
 
             Util::ReleaseWin_DX9_DI8();
@@ -48,6 +50,7 @@ namespace UnitTest2
             Util::InitWin_DX9_DI8();
             CraftManager craft;
 
+            // Target
             craft.Finalize();
 
             Util::ReleaseWin_DX9_DI8();
@@ -58,10 +61,12 @@ namespace UnitTest2
         {
             Util::InitWin_DX9_DI8();
             CraftManager craft;
-
             eBattleState state;
+
+            // Target
             craft.Operate(&state);
 
+            craft.Finalize();
             Util::ReleaseWin_DX9_DI8();
         }
         
@@ -69,15 +74,14 @@ namespace UnitTest2
         TEST_METHOD(TestMethod05)
         {
             Util::InitWin_DX9_DI8();
-
             SaveManager::Get()->Load();
-
             CraftManager craft;
-
             craft.Init();
 
+            // Target
             craft.Draw();
 
+            craft.Finalize();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -87,8 +91,10 @@ namespace UnitTest2
             Util::InitWin_DX9_DI8();
             CraftManager craft;
 
+            // Target
             craft.Build();
 
+            craft.Finalize();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -130,6 +136,7 @@ namespace UnitTest2
             craft.Draw();
             PopUp2::Get()->Render();
 
+            // Target
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
                 Assert::AreEqual(true, reqList.empty());
@@ -257,6 +264,7 @@ namespace UnitTest2
         // 警告を拠点のイカダを移動させるように促すポップアップが表示されること
         TEST_METHOD(CraftRaftTest04)
         {
+            NSStarmanLib::CraftSystem::Destroy();
             Util::InitWin_DX9_DI8();
 
             SaveManager::Get()->Load();
