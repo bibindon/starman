@@ -47,33 +47,31 @@ Mesh::~Mesh()
 
 void Mesh::Init()
 {
-    HRESULT result { 0 };
-    D3DXCreateEffectFromFile(
-        SharedObj::GetD3DDevice(),
-        SHADER_FILENAME.c_str(),
-        nullptr,
-        nullptr,
-        0,
-        nullptr,
-        &m_D3DEffect,
-        nullptr);
+    HRESULT result = E_FAIL;
+    result = D3DXCreateEffectFromFile(SharedObj::GetD3DDevice(),
+                                      SHADER_FILENAME.c_str(),
+                                      nullptr,
+                                      nullptr,
+                                      0,
+                                      nullptr,
+                                      &m_D3DEffect,
+                                      nullptr);
     if (FAILED(result))
     {
         throw std::exception("Failed to create an effect file.");
     }
 
-    LPD3DXBUFFER adjacencyBuffer { nullptr };
-    LPD3DXBUFFER materialBuffer { nullptr };
+    LPD3DXBUFFER adjacencyBuffer = nullptr;
+    LPD3DXBUFFER materialBuffer = nullptr;
 
-    result = D3DXLoadMeshFromX(
-        m_meshName.c_str(),
-        D3DXMESH_SYSTEMMEM,
-        SharedObj::GetD3DDevice(),
-        &adjacencyBuffer,
-        &materialBuffer,
-        nullptr,
-        &m_materialCount,
-        &m_D3DMesh);
+    result = D3DXLoadMeshFromX(m_meshName.c_str(),
+                               D3DXMESH_SYSTEMMEM,
+                               SharedObj::GetD3DDevice(),
+                               &adjacencyBuffer,
+                               &materialBuffer,
+                               nullptr,
+                               &m_materialCount,
+                               &m_D3DMesh);
 
     if (FAILED(result))
     {
