@@ -418,6 +418,7 @@ void Raft2::Init(const int id)
         {
             m_meshSail->SetAnim("SailOff");
         }
+        m_meshSail->SetAnimSpeed(0.2f / 60.f);
     }
     {
         AnimSetMap animSetMap;
@@ -437,6 +438,7 @@ void Raft2::Init(const int id)
         }
         m_meshOarLeft = NEW AnimMesh("res\\model\\raft\\oarLeft.x", pos, rot, 1.f, animSetMap);
         m_meshOarLeft->SetAnim("Idle");
+        m_meshOarLeft->SetAnimSpeed(0.5f / 60.f);
     }
     {
         AnimSetMap animSetMap;
@@ -456,6 +458,7 @@ void Raft2::Init(const int id)
         }
         m_meshOarRight = NEW AnimMesh("res\\model\\raft\\oarRight.x", pos, rot, 1.f, animSetMap);
         m_meshOarRight->SetAnim("Idle");
+        m_meshOarRight->SetAnimSpeed(0.5f / 60.f);
     }
     {
         AnimSetMap animSetMap;
