@@ -250,7 +250,7 @@ void AnimMesh::RenderMeshContainer(
 
     m_D3DEffect->Begin(nullptr, 0);
 
-    HRESULT result = FAILED(m_D3DEffect->BeginPass(0));
+    HRESULT result = m_D3DEffect->BeginPass(0);
     if (FAILED(result))
     {
         m_D3DEffect->End();
