@@ -190,6 +190,7 @@ namespace UnitTest2
 
             Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
 
+            craft.Finalize();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -247,6 +248,7 @@ namespace UnitTest2
 
             Assert::AreEqual("", font.GetShowText().c_str());
 
+            craft.Finalize();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -307,6 +309,7 @@ namespace UnitTest2
 
             Assert::AreEqual("船着き場にイカダがある", font.GetShowText().c_str());
 
+            craft.Finalize();
             Util::ReleaseWin_DX9_DI8();
         }
 
