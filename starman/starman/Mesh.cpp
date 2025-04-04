@@ -347,8 +347,11 @@ void Mesh::Render()
         result = m_D3DEffect->SetVector("g_diffuse", &m_vecDiffuse.at(i));
         assert(result == S_OK);
 
-        result = m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
-        assert(result == S_OK);
+        if (i < m_vecTexture.size())
+        {
+            result = m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
+            assert(result == S_OK);
+        }
 
         result = m_D3DEffect->CommitChanges();
         assert(result == S_OK);
