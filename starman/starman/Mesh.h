@@ -9,6 +9,7 @@
 class Mesh
 {
 public:
+
     Mesh(const std::string&,
          const D3DXVECTOR3&,
          const D3DXVECTOR3&,

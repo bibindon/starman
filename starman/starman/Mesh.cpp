@@ -1,3 +1,4 @@
+#include <cassert>
 #include "Mesh.h"
 #include "Light.h"
 #include "Common.h"
@@ -334,7 +335,7 @@ void Mesh::Render()
 
     if (FAILED(result))
     {
-        m_D3DEffect->End();
+        result = m_D3DEffect->End();
         throw std::exception("Failed 'BeginPass' function.");
     }
 
@@ -343,14 +344,24 @@ void Mesh::Render()
     //--------------------------------------------------------
     for (DWORD i = 0; i < m_materialCount; ++i)
     {
-        m_D3DEffect->SetVector("g_diffuse", &m_vecDiffuse.at(i));
-        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
-        m_D3DEffect->CommitChanges();
-        m_D3DMesh->DrawSubset(i);
+        result = m_D3DEffect->SetVector("g_diffuse", &m_vecDiffuse.at(i));
+        assert(result == S_OK);
+
+        result = m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
+        assert(result == S_OK);
+
+        result = m_D3DEffect->CommitChanges();
+        assert(result == S_OK);
+
+        result = m_D3DMesh->DrawSubset(i);
+        assert(result == S_OK);
     }
 
-    m_D3DEffect->EndPass();
-    m_D3DEffect->End();
+    result = m_D3DEffect->EndPass();
+    assert(result == S_OK);
+
+    result = m_D3DEffect->End();
+    assert(result == S_OK);
 }
 
 LPD3DXMESH Mesh::GetD3DMesh() const

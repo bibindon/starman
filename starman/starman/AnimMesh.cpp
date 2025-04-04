@@ -99,6 +99,7 @@ AnimMesh::AnimMesh(
 AnimMesh::~AnimMesh()
 {
     m_animCtrlr.Finalize();
+    SAFE_RELEASE(m_D3DEffect);
 }
 
 void AnimMesh::Render()
@@ -249,9 +250,11 @@ void AnimMesh::RenderMeshContainer(
 
     m_D3DEffect->Begin(nullptr, 0);
 
-    if (FAILED(m_D3DEffect->BeginPass(0)))
+    HRESULT result = FAILED(m_D3DEffect->BeginPass(0));
+    if (FAILED(result))
     {
         m_D3DEffect->End();
+        throw std::exception("Failed 'BeginPass' function.");
         //THROW_WITH_TRACE("Failed 'BeginPass' function.");
         // TODO return false;
     }

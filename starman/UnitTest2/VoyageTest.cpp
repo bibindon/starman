@@ -340,7 +340,7 @@ namespace UnitTest2
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
         TEST_METHOD(TestMethod05)
         {
-            Util::InitWin_DX9_DI8();
+            Util::InitWin_DX9_DI8(true);
             auto player = NEW Player();
             SharedObj::SetPlayer(player);
 
