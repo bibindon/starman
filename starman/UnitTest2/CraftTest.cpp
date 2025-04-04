@@ -112,7 +112,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            eBattleState state;
+            eBattleState state = eBattleState::CRAFT;
 
             Util::KeyDown(DIK_RETURN);
 
@@ -159,7 +159,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            eBattleState state;
+            eBattleState state = eBattleState::CRAFT;
 
             Util::KeyDown(DIK_RETURN);
 
@@ -267,7 +267,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            eBattleState state;
+            eBattleState state = eBattleState::CRAFT;
 
             Util::KeyDown(DIK_RETURN);
 
