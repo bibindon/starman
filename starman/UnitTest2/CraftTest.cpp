@@ -97,7 +97,7 @@ namespace UnitTest2
         // キューに追加されず、クラフト用の素材が足りない、というポップアップが表示されること
         TEST_METHOD(CraftRaftTest01)
         {
-            Util::InitWin_DX9_DI8(true);
+            Util::InitWin_DX9_DI8();
 
             SaveManager::Get()->Load();
             MockPopUpFont font;
@@ -137,6 +137,7 @@ namespace UnitTest2
 
             Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
 
+            craft.Finalize();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -145,7 +146,7 @@ namespace UnitTest2
         // キューに追加されず、クラフト用の素材が足りない、というポップアップが表示されること
         TEST_METHOD(CraftRaftTest02)
         {
-            Util::InitWin_DX9_DI8(true);
+            Util::InitWin_DX9_DI8();
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
@@ -260,7 +261,7 @@ namespace UnitTest2
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
 
             NSStarmanLib::Raft raft;
-            raft.SetXYZ(-305.f, 11.f, 540.f);
+            raft.SetXYZ(-317.f, 11.f, 540.f);
             NSStarmanLib::Voyage::Get()->AddRaft(raft);
 
             for (int i = 0; i < 100; ++i)

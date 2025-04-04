@@ -94,12 +94,12 @@ void Util::InitWin_DX9_DI8(const bool bShow)
 
 void Util::ReleaseWin_DX9_DI8()
 {
-    SharedObj::Finalize();
     Mouse::Finalize();
     GamePad::Finalize();
     BGM::finalize();
     SoundEffect::finalize();
 
+    SharedObj::Finalize();
     SAFE_RELEASE(m_D3D);
     SAFE_RELEASE(m_directInput);
 }

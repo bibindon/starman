@@ -44,11 +44,6 @@ public:
 
     void Load(const std::string& filepath) override
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         // スプライトは一つのみ確保し使いまわす
         if (m_D3DSprite == NULL)
         {
@@ -100,11 +95,6 @@ public:
 
     ~Sprite()
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         ULONG refCnt = m_texMap.at(m_filepath)->Release();
         if (refCnt == 0)
         {
@@ -130,8 +120,6 @@ private:
 
     // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
     static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
-
-    bool m_testMode = false;
 };
 
 LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
@@ -164,11 +152,6 @@ public:
 
     virtual void DrawText_(const std::string& msg, const int x, const int y)
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
             D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -176,11 +159,6 @@ public:
 
     ~Font()
     {
-        if (m_testMode)
-        {
-            return;
-        }
-
         m_pFont->Release();
     }
 
@@ -188,8 +166,6 @@ private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
     LPD3DXFONT m_pFont = NULL;
-
-    bool m_testMode = false;
 };
 
 
@@ -221,8 +197,6 @@ public:
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
         ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
     }
-private:
-    bool m_testMode = false;
 };
 }
 
@@ -253,6 +227,7 @@ void CraftManager::Init()
 
 void CraftManager::Finalize()
 {
+    m_gui.Finalize();
 }
 
 // この関数はクラフト画面が表示されていないときも呼ばれることに気を付ける
