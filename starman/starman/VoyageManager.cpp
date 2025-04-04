@@ -479,12 +479,13 @@ void Raft2::Init(const int id)
 
 void Raft2::Finalize()
 {
+    // ‚È‚º‚©m_meshRaft‚Æm_meshRaftCollision‚ğÅ‰‚Éíœ‚µ‚È‚¢‚Æ—‚¿‚é
+    SAFE_DELETE(m_meshRaft);
+    SAFE_DELETE(m_meshRaftCollision);
     SAFE_DELETE(m_meshCord);
     SAFE_DELETE(m_meshOarRight);
     SAFE_DELETE(m_meshOarLeft);
     SAFE_DELETE(m_meshSail);
-    SAFE_DELETE(m_meshRaftCollision);
-    SAFE_DELETE(m_meshRaft);
 }
 
 void Raft2::Update()
