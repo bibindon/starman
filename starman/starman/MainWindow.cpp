@@ -53,7 +53,7 @@ static void Finalize()
     SaveManager::Destroy();
     PopUp::Finalize();
     PopUp2::Finalize();
-    KeyBoard::Finalize();
+    SharedObj::KeyBoard()->Finalize();
     Mouse::Finalize();
     GamePad::Finalize();
 }
@@ -109,7 +109,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
     return DefWindowProc(hWnd, mes, wParam, lParam);
 }
 
-MainWindow::MainWindow(const HINSTANCE& hInstance)
+MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 {
     SharedObj::Init();
 
@@ -250,7 +250,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
         (LPVOID*)&m_directInput, NULL);
 
-    KeyBoard::Init(m_directInput, m_hWnd);
+    keyboard->Init(m_directInput, m_hWnd);
+    SharedObj::SetKeyBoard(keyboard);
+
     Mouse::Init(m_directInput, m_hWnd);
     GamePad::Init(m_directInput, m_hWnd);
     BGM::initialize(m_hWnd);
@@ -381,7 +383,7 @@ int MainWindow::MainLoop()
             }
         }
 
-        KeyBoard::Update();
+        SharedObj::KeyBoard()->Update();
         Mouse::Update();
         GamePad::Update();
         Camera::Update();
@@ -523,11 +525,11 @@ int MainWindow::MainLoop()
 
         if (Common::DebugMode() || Common::ReleaseMode())
         {
-            if (KeyBoard::IsDownFirstFrame(DIK_F4))
+            if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F4))
             {
                 PostMessage(m_hWnd, WM_CLOSE, 0, 0);
             }
-            if (KeyBoard::IsDownFirstFrame(DIK_Q))
+            if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_Q))
             {
                 PostMessage(m_hWnd, WM_CLOSE, 0, 0);
             }

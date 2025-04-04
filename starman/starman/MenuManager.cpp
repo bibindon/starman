@@ -619,37 +619,37 @@ std::string MenuManager::OperateMenu()
     std::string result;
     std::string work_str;
 
-    if (KeyBoard::IsDownFirstFrame(DIK_UP))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
         m_menu.Up();
     }
 
-    if (KeyBoard::IsHold(DIK_UP))
+    if (SharedObj::KeyBoard()->IsHold(DIK_UP))
     {
         m_menu.Up();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
     {
         m_menu.Down();
     }
 
-    if (KeyBoard::IsHold(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
     {
         m_menu.Down();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
     {
         m_menu.Left();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RIGHT))
     {
         m_menu.Right();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         result = m_menu.Into();
 
@@ -709,12 +709,12 @@ std::string MenuManager::OperateMenu()
         }
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_menu.Back();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_BACK))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_BACK))
     {
         result = m_menu.Back();
     }

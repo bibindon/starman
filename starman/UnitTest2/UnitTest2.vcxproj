@@ -211,6 +211,7 @@
     <ClCompile Include="..\starman\VoyageManager.cpp" />
     <ClCompile Include="CameraTest.cpp" />
     <ClCompile Include="CraftTest.cpp" />
+    <ClCompile Include="MainWindowTest.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="VoyageTest.cpp" />
   </ItemGroup>

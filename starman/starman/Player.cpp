@@ -307,7 +307,7 @@ void Player::Update(Map* map)
     float radian = Camera::GetRadian();
     float yaw = -1.f * (radian - (D3DX_PI / 2));
 
-    if (KeyBoard::IsDown(DIK_W))
+    if (SharedObj::KeyBoard()->IsDown(DIK_W))
     {
         move.x += -std::sin(radian + D3DX_PI / 2);
         move.z += std::sin(radian + D3DX_PI);
@@ -319,7 +319,7 @@ void Player::Update(Map* map)
 
     if (Common::DebugMode())
     {
-        if (KeyBoard::IsDown(DIK_G))
+        if (SharedObj::KeyBoard()->IsDown(DIK_G))
         {
             // デバッグ目的でGキーだけ移動速度アップ
             move.x += -std::sin(radian + (D3DX_PI / 2)) * 50;
@@ -332,7 +332,7 @@ void Player::Update(Map* map)
         }
     }
 
-    if (KeyBoard::IsDown(DIK_A))
+    if (SharedObj::KeyBoard()->IsDown(DIK_A))
     {
         move.x += -std::sin(radian + D3DX_PI);
         move.z += std::sin(radian + D3DX_PI * 3 / 2);
@@ -342,7 +342,7 @@ void Player::Update(Map* map)
         SetWalk();
     }
 
-    if (KeyBoard::IsDown(DIK_S))
+    if (SharedObj::KeyBoard()->IsDown(DIK_S))
     {
         move.x += -std::sin(radian + D3DX_PI * 3 / 2);
         move.z += std::sin(radian);
@@ -352,7 +352,7 @@ void Player::Update(Map* map)
         SetWalk();
     }
 
-    if (KeyBoard::IsDown(DIK_D))
+    if (SharedObj::KeyBoard()->IsDown(DIK_D))
     {
         move.x += -std::sin(radian);
         move.z += std::sin(radian + D3DX_PI / 2);
@@ -362,20 +362,20 @@ void Player::Update(Map* map)
         SetWalk();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
     {
         if (m_bUnderwater == false)
         {
             // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
-//            if (KeyBoard::IsDown(DIK_A))
+//            if (SharedObj::KeyBoard()->IsDown(DIK_A))
 //            {
 //                SetStep(eDir::LEFT);
 //            }
-//            else if (KeyBoard::IsDown(DIK_S))
+//            else if (SharedObj::KeyBoard()->IsDown(DIK_S))
 //            {
 //                SetStep(eDir::BACK);
 //            }
-//            else if (KeyBoard::IsDown(DIK_D))
+//            else if (SharedObj::KeyBoard()->IsDown(DIK_D))
 //            {
 //                SetStep(eDir::RIGHT);
 //            }
@@ -389,7 +389,7 @@ void Player::Update(Map* map)
     if (Common::DebugMode())
     {
         // スーパージャンプ
-        if (KeyBoard::IsDownFirstFrame(DIK_J))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_J))
         {
             m_bJump = true;
             m_move.y = JUMP_INITIAL_VELOCITY*5;
@@ -397,7 +397,7 @@ void Player::Update(Map* map)
         }
 
         // 木を消す
-        if (KeyBoard::IsDownFirstFrame(DIK_Z))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_Z))
         {
             auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
             std::vector<NSStarmanLib::stMapObj> mapObjs =
@@ -413,7 +413,7 @@ void Player::Update(Map* map)
         }
 
         // 敵を消す
-        if (KeyBoard::IsDownFirstFrame(DIK_X))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_X))
         {
             std::vector<EnemyBase*> vecEnemy = SharedObj::GetMap()->GetEnemy();
 
@@ -436,9 +436,9 @@ void Player::Update(Map* map)
     }
 
     // Shift + F → もの投げ
-    if (KeyBoard::IsDownFirstFrame(DIK_F))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F))
     {
-        if (KeyBoard::IsDown(DIK_LSHIFT))
+        if (SharedObj::KeyBoard()->IsDown(DIK_LSHIFT))
         {
             Throw();
         }
@@ -450,7 +450,7 @@ void Player::Update(Map* map)
 
     if (Mouse::IsDownLeft())
     {
-        if (KeyBoard::IsDown(DIK_LSHIFT) == false)
+        if (SharedObj::KeyBoard()->IsDown(DIK_LSHIFT) == false)
         {
             bool ret = SetAttack();
         }

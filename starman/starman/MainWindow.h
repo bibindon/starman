@@ -20,11 +20,12 @@
 #include "SeqBattle.h"
 #include "Opening.h"
 #include "SeqEnding.h"
+#include "KeyBoard.h"
 
 class MainWindow
 {
 public:
-    explicit MainWindow(const HINSTANCE&);
+    explicit MainWindow(const HINSTANCE&, IKeyBoard* keyboard);
     ~MainWindow();
     int MainLoop();
 

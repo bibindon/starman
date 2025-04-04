@@ -8,26 +8,44 @@
 #include <deque>
 #include <vector>
 
-class KeyBoard
+class IKeyBoard
 {
 public:
-    static void Init(LPDIRECTINPUT8 directInput, HWND hWnd);
-    static void Update();
-    static void Finalize();
+    virtual void Init(LPDIRECTINPUT8 directInput, HWND hWnd) = 0;
+    virtual void Update() = 0;
+    virtual void Finalize() = 0;
 
     // 押されている
-    static bool IsDown(int keyCode);
+    virtual bool IsDown(int keyCode) = 0;
 
     // 押されていて、その直前まで押されていなかった
-    static bool IsDownFirstFrame(int keyCode);
+    virtual bool IsDownFirstFrame(int keyCode) = 0;
 
     // 0.5秒以上長押ししていた
-    static bool IsHold(int keyCode);
+    virtual bool IsHold(int keyCode) = 0;
+
+};
+
+class KeyBoard : public IKeyBoard
+{
+public:
+    void Init(LPDIRECTINPUT8 directInput, HWND hWnd);
+    void Update();
+    void Finalize();
+
+    // 押されている
+    bool IsDown(int keyCode);
+
+    // 押されていて、その直前まで押されていなかった
+    bool IsDownFirstFrame(int keyCode);
+
+    // 0.5秒以上長押ししていた
+    bool IsHold(int keyCode);
 
 private:
-    static LPDIRECTINPUTDEVICE8 m_keyboard;
-    static BYTE m_key[256];
-    static BYTE m_keyPrev[256];
-    static std::deque<std::vector<BYTE>> m_keyDeque;
+    LPDIRECTINPUTDEVICE8 m_keyboard;
+    BYTE m_key[256];
+    BYTE m_keyPrev[256];
+    std::deque<std::vector<BYTE>> m_keyDeque;
 };
 

@@ -244,6 +244,7 @@ void CraftManager::Init()
     pFont->Init();
 
     NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect();
+    pSE->Init();
 
     m_gui.Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
 
@@ -282,47 +283,47 @@ void CraftManager::Operate(eBattleState* state)
 
     std::string result;
 
-    if (KeyBoard::IsDownFirstFrame(DIK_UP))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
         m_gui.Up();
     }
 
-    if (KeyBoard::IsHold(DIK_UP))
+    if (SharedObj::KeyBoard()->IsHold(DIK_UP))
     {
         m_gui.Up();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
     {
         m_gui.Down();
     }
 
-    if (KeyBoard::IsHold(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
     {
         m_gui.Down();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
     {
         m_gui.Left();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RIGHT))
     {
         m_gui.Right();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         result = m_gui.Into();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_gui.Back();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_BACK))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_BACK))
     {
         result = m_gui.Back();
     }

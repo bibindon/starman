@@ -6,6 +6,7 @@
 
 #include "..\..\quest-system\QuestSystem\QuestSystem\QuestSystem.h"
 #include "VoyageManager.h"
+#include "KeyBoard.h"
 
 class SharedObj
 {
@@ -26,6 +27,9 @@ public:
 
     static VoyageManager* Voyage();
 
+    static void SetKeyBoard(IKeyBoard* keyboard);
+    static IKeyBoard* KeyBoard();
+
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;
     static HWND m_hWnd;
@@ -34,5 +38,7 @@ private:
     static NSQuestSystem::QuestSystem* m_questSystem;
     static Map* m_map;
     static D3DXMATRIX m_rightHandMat;
+
+    static IKeyBoard* m_keyBoard;
 };
 

@@ -1,10 +1,5 @@
 #include "KeyBoard.h"
 
-LPDIRECTINPUTDEVICE8 KeyBoard::m_keyboard;
-BYTE KeyBoard::m_key[256];
-BYTE KeyBoard::m_keyPrev[256];
-std::deque<std::vector<BYTE>> KeyBoard::m_keyDeque;
-
 void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {
     HRESULT ret = directInput->CreateDevice(GUID_SysKeyboard, &m_keyboard, NULL);

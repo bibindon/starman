@@ -103,6 +103,9 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
+            MockKeyBoard keyboard;
+            SharedObj::SetKeyBoard(&keyboard);
+
             CraftManager craft;
 
             craft.Init();
@@ -114,23 +117,25 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            Util::KeyDown(DIK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
 
-            Util::KeyUp(DIK_RETURN);
-            Util::KeyDown(DIK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
+            PopUp2::Get()->Render();
 
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("クラフト用の素材が足りない", font.GetShowText().c_str());
+            Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
 
             Util::ReleaseWin_DX9_DI8();
         }
@@ -150,6 +155,9 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
+            MockKeyBoard keyboard;
+            SharedObj::SetKeyBoard(&keyboard);
+
             CraftManager craft;
 
             craft.Init();
@@ -161,23 +169,25 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            Util::KeyDown(DIK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
 
-            Util::KeyUp(DIK_RETURN);
-            Util::KeyDown(DIK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
+            PopUp2::Get()->Render();
 
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("クラフト用の素材が足りない", font.GetShowText().c_str());
+            Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
 
             Util::ReleaseWin_DX9_DI8();
         }
@@ -201,6 +211,9 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
+            MockKeyBoard keyboard;
+            SharedObj::SetKeyBoard(&keyboard);
+
             CraftManager craft;
 
             craft.Init();
@@ -212,17 +225,18 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            Util::KeyDown(VK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
 
-            Util::KeyUp(VK_RETURN);
-
-            Util::KeyDown(VK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
+            PopUp2::Get()->Render();
 
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
@@ -240,7 +254,7 @@ namespace UnitTest2
         // 警告を拠点のイカダを移動させるように促すポップアップが表示されること
         TEST_METHOD(CraftRaftTest04)
         {
-            Util::InitWin_DX9_DI8(true);
+            Util::InitWin_DX9_DI8();
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
@@ -258,6 +272,9 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
+            MockKeyBoard keyboard;
+            SharedObj::SetKeyBoard(&keyboard);
+
             CraftManager craft;
 
             craft.Init();
@@ -269,16 +286,18 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            Util::KeyDown(DIK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
 
-            Util::KeyUp(DIK_RETURN);
-            Util::KeyDown(DIK_RETURN);
+            keyboard.ClearAll();
+            keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
+            PopUp2::Get()->Render();
 
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();

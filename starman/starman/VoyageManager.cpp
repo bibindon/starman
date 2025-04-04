@@ -102,12 +102,12 @@ void VoyageManager::Operate(eBattleState* state)
     //----------------------------------------------------
     // マウス・キーボード操作
     //----------------------------------------------------
-    if (KeyBoard::IsDownFirstFrame(DIK_C))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_C))
     {
         *state = eBattleState::COMMAND;
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         *state = eBattleState::MENU;
         Camera::SetCameraMode(eCameraMode::SLEEP);

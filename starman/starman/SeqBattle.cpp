@@ -521,12 +521,12 @@ void SeqBattle::OperateTalk()
         }
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
     {
         m_talk->Next();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         m_talk->Next();
     }
@@ -552,7 +552,7 @@ void SeqBattle::OperateStorehouse()
 
     if (Common::DeployMode() == false)
     {
-        if (KeyBoard::IsDownFirstFrame(DIK_F1))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F1))
         {
             m_eState = eBattleState::STOREHOUSE;
             Camera::SetCameraMode(eCameraMode::SLEEP);
@@ -560,37 +560,37 @@ void SeqBattle::OperateStorehouse()
         }
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_UP))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
         m_storehouse->Up();
     }
 
-    if (KeyBoard::IsHold(DIK_UP))
+    if (SharedObj::KeyBoard()->IsHold(DIK_UP))
     {
         m_storehouse->Up();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
     {
         m_storehouse->Down();
     }
 
-    if (KeyBoard::IsHold(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
     {
         m_storehouse->Down();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
     {
         m_storehouse->Left();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RIGHT))
     {
         m_storehouse->Right();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         result = m_storehouse->Into();
         std::vector<std::string> vs = Common::split(result, ':');
@@ -667,7 +667,7 @@ void SeqBattle::OperateStorehouse()
         }
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_storehouse->Back();
         m_eState = eBattleState::NORMAL;
@@ -915,7 +915,7 @@ void SeqBattle::ShowStorehouse()
 
 void SeqBattle::OperateCraft()
 {
-    if (KeyBoard::IsDownFirstFrame(DIK_F2))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F2))
     {
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::SLEEP);
@@ -2206,7 +2206,7 @@ void SeqBattle::UpdateDebug()
 {
     // PopUp Sample
     {
-        if (KeyBoard::IsDownFirstFrame(DIK_F7))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F7))
         {
             std::vector<std::vector<std::string>> vvs;
             std::vector<std::string> vs;
@@ -2230,12 +2230,12 @@ void SeqBattle::UpdateDebug()
             PopUp::Get()->SetText(vvs);
         }
 
-        if (KeyBoard::IsDownFirstFrame(DIK_F8))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F8))
         {
             PopUp::Get()->Next();
         }
 
-        if (KeyBoard::IsDownFirstFrame(DIK_F9))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F9))
         {
             PopUp::Get()->Cancel();
         }
@@ -2245,7 +2245,7 @@ void SeqBattle::UpdateDebug()
 
     // 倉庫機能
     {
-        if (KeyBoard::IsDownFirstFrame(DIK_F1))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F1))
         {
             if (m_eState == eBattleState::NORMAL)
             {
@@ -2355,7 +2355,7 @@ void SeqBattle::UpdateDebug()
 
     // クラフト機能
     {
-        if (KeyBoard::IsDownFirstFrame(DIK_F2))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F2))
         {
             if (m_eState == eBattleState::NORMAL)
             {
@@ -2370,7 +2370,7 @@ void SeqBattle::UpdateDebug()
 
     // パッチテスト機能
     {
-        if (KeyBoard::IsDownFirstFrame(DIK_F3))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F3))
         {
             if (m_eState == eBattleState::NORMAL)
             {
@@ -2514,7 +2514,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     //--------------------------------------------
 
     // メニュー機能
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         m_eState = eBattleState::MENU;
         Camera::SetCameraMode(eCameraMode::SLEEP);
@@ -2526,7 +2526,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     // コマンド機能
-    if (KeyBoard::IsDownFirstFrame(DIK_C))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_C))
     {
         if (m_eState == eBattleState::NORMAL)
         {
@@ -2540,7 +2540,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     // 確定操作
-    if (KeyBoard::IsDownFirstFrame(DIK_E))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_E))
     {
         Confirm(sequence);
     }
@@ -2692,7 +2692,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
         if (rynen->GetReviveEnable() == false)
         {
             // 確定操作
-            if (KeyBoard::IsDownFirstFrame(DIK_E))
+            if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_E))
             {
                 if (m_nDeadCounter >= 120)
                 {

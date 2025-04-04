@@ -271,49 +271,49 @@ std::string PatchTestManager2::Operate()
     std::string result;
     std::string work_str;
 
-    if (KeyBoard::IsDownFirstFrame(DIK_UP))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
         m_guiLib.Up();
     }
 
-    if (KeyBoard::IsHold(DIK_UP))
+    if (SharedObj::KeyBoard()->IsHold(DIK_UP))
     {
         m_guiLib.Up();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
     {
         m_guiLib.Down();
     }
 
-    if (KeyBoard::IsHold(DIK_DOWN))
+    if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
     {
         m_guiLib.Down();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
     {
         m_guiLib.Left();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RIGHT))
     {
         m_guiLib.Right();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         result = m_guiLib.Into();
 
         QueueTest(result);
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_guiLib.Back();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_BACK))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_BACK))
     {
         result = m_guiLib.Back();
     }

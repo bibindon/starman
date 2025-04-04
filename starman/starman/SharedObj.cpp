@@ -9,6 +9,8 @@ NSQuestSystem::QuestSystem* SharedObj::m_questSystem { nullptr };
 Map* SharedObj::m_map { nullptr };
 D3DXMATRIX SharedObj::m_rightHandMat;
 
+IKeyBoard* SharedObj::m_keyBoard = nullptr;
+
 LPDIRECT3DDEVICE9 SharedObj::GetD3DDevice()
 {
     return m_D3DDevice;
@@ -67,6 +69,16 @@ void SharedObj::SetRightHandMat(D3DXMATRIX mat)
 VoyageManager* SharedObj::Voyage()
 {
     return VoyageManager::Get();
+}
+
+void SharedObj::SetKeyBoard(IKeyBoard* keyboard)
+{
+    m_keyBoard = keyboard;
+}
+
+IKeyBoard* SharedObj::KeyBoard()
+{
+    return m_keyBoard;
 }
 
 void SharedObj::SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice)

@@ -198,22 +198,22 @@ std::string CommandManager::Operate()
     std::string result;
     std::string work_str;
 
-    if (KeyBoard::IsDownFirstFrame(DIK_LEFT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
     {
         m_commandLib->Previous();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RIGHT))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RIGHT))
     {
         m_commandLib->Next();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         result = m_commandLib->Into();
     }
 
-    if (KeyBoard::IsDownFirstFrame(DIK_ESCAPE))
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         result = "EXIT";
     }

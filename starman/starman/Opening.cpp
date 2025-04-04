@@ -245,13 +245,13 @@ void Opening::Update(eBattleState* eState)
             m_firstPage = false;
         }
 
-        if (KeyBoard::IsDownFirstFrame(DIK_SPACE))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
         {
             m_storyTelling->Next();
             m_firstPage = false;
         }
 
-        if (KeyBoard::IsDownFirstFrame(DIK_RETURN))
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
         {
             m_storyTelling->Next();
             m_firstPage = false;

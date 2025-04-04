@@ -86,7 +86,6 @@ void Util::InitWin_DX9_DI8(const bool bShow)
                                      (LPVOID*)&m_directInput,
                                      NULL);
 
-    KeyBoard::Init(m_directInput, hWnd);
     Mouse::Init(m_directInput, hWnd);
     GamePad::Init(m_directInput, hWnd);
     BGM::initialize(hWnd);
@@ -96,7 +95,6 @@ void Util::InitWin_DX9_DI8(const bool bShow)
 void Util::ReleaseWin_DX9_DI8()
 {
     SharedObj::Finalize();
-    KeyBoard::Finalize();
     Mouse::Finalize();
     GamePad::Finalize();
     BGM::finalize();
@@ -104,32 +102,6 @@ void Util::ReleaseWin_DX9_DI8()
 
     SAFE_RELEASE(m_D3D);
     SAFE_RELEASE(m_directInput);
-}
-
-void Util::KeyDown(const int keyCode)
-{
-	INPUT input = {};
-	input.type = INPUT_KEYBOARD;
-	input.ki.wScan = MapVirtualKey(keyCode, 0);
-	input.ki.dwFlags = KEYEVENTF_SCANCODE;
-
-	// キー押下
-	SendInput(1, &input, sizeof(INPUT));
-	Sleep(10);
-	KeyBoard::Update();
-}
-
-void Util::KeyUp(const int keyCode)
-{
-	INPUT input = {};
-	input.type = INPUT_KEYBOARD;
-	input.ki.wScan = MapVirtualKey(keyCode, 0);
-	input.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
-
-	// キー解放
-	SendInput(1, &input, sizeof(INPUT));
-	Sleep(10);
-	KeyBoard::Update();
 }
 
 void MockPopUpFont::Draw(const std::string& text, const int transparent)
@@ -142,3 +114,51 @@ std::string MockPopUpFont::GetShowText()
     return m_text;
 }
 
+void MockKeyBoard::Init(LPDIRECTINPUT8, HWND)
+{
+}
+
+void MockKeyBoard::Update()
+{
+}
+
+void MockKeyBoard::Finalize()
+{
+}
+
+bool MockKeyBoard::IsDown(int keyCode)
+{
+    return m_bDown[keyCode];
+}
+
+bool MockKeyBoard::IsDownFirstFrame(int keyCode)
+{
+    return m_bDownFirst[keyCode];
+}
+
+bool MockKeyBoard::IsHold(int keyCode)
+{
+    return m_bHold[keyCode];
+}
+
+void MockKeyBoard::SetKeyDown(int keyCode)
+{
+    m_bDown[keyCode] = true;
+}
+
+void MockKeyBoard::SetKeyDownFirst(int keyCode)
+{
+    m_bDownFirst[keyCode] = true;
+}
+
+void MockKeyBoard::SetKeyHold(int keyCode)
+{
+    m_bHold[keyCode] = true;
+}
+
+void MockKeyBoard::ClearAll()
+{
+    std::fill(&m_bDown[0], &m_bDown[256], false);
+    std::fill(&m_bDownFirst[0], &m_bDownFirst[256], false);
+    std::fill(&m_bHold[0], &m_bHold[256], false);
+}
