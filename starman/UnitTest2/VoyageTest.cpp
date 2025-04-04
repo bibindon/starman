@@ -3,6 +3,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Voyage.h"
 #include "../starman/SharedObj.h"
 #include "Util.h"
+#include "../starman/SaveManager.h"
 
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d9.lib")
@@ -45,7 +46,6 @@ namespace UnitTest2
             auto voyage = NSStarmanLib::Voyage::Get();
             voyage->Init("raft1.csv");
 
-
             Raft2 raft;
 
             // Target
@@ -68,6 +68,11 @@ namespace UnitTest2
         TEST_METHOD(TestMethod04)
         {
             Util::InitWin_DX9_DI8();
+            SaveManager::Get()->Load();
+            Map* map = NEW Map();
+            map->Init();
+            SharedObj::SetMap(map);
+
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
@@ -134,6 +139,11 @@ namespace UnitTest2
         TEST_METHOD(TestMethod07)
         {
             Util::InitWin_DX9_DI8();
+            SaveManager::Get()->Load();
+            Map* map = NEW Map();
+            map->Init();
+            SharedObj::SetMap(map);
+
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
@@ -152,6 +162,11 @@ namespace UnitTest2
         TEST_METHOD(TestMethod08)
         {
             Util::InitWin_DX9_DI8();
+            SaveManager::Get()->Load();
+            Map* map = NEW Map();
+            map->Init();
+            SharedObj::SetMap(map);
+
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
@@ -169,6 +184,11 @@ namespace UnitTest2
         TEST_METHOD(TestMethod09)
         {
             Util::InitWin_DX9_DI8();
+            SaveManager::Get()->Load();
+            Map* map = NEW Map();
+            map->Init();
+            SharedObj::SetMap(map);
+
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 

@@ -13,6 +13,8 @@
 #include <string>
 #include <chrono>
 
+#include "..\\starman\PopUp2.h"
+
 class Util
 {
 public:
@@ -29,5 +31,17 @@ private:
     static LPDIRECT3D9 m_D3D;
     static LPDIRECTINPUT8 m_directInput;
 
+};
+
+class MockPopUpFont : public IPopUpFont
+{
+public:
+
+    void Draw(const std::string& text, const int transparent);
+    std::string GetShowText();
+
+private:
+
+    std::string m_text;
 };
 

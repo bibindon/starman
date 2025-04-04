@@ -132,5 +132,13 @@ void Util::KeyUp(const int keyCode)
 	KeyBoard::Update();
 }
 
+void MockPopUpFont::Draw(const std::string& text, const int transparent)
+{
+    m_text = text;
+}
 
+std::string MockPopUpFont::GetShowText()
+{
+    return m_text;
+}
 

@@ -1,7 +1,9 @@
+#include <cassert>
+
 #include "PopUp2.h"
 #include "SharedObj.h"
 
-PopUp2* PopUp2::m_singleTonObj { nullptr };
+PopUp2* PopUp2::m_singleTonObj = nullptr;
 
 PopUp2* PopUp2::Get()
 {
@@ -22,36 +24,14 @@ void PopUp2::SetText(const std::string& arg)
 
 PopUp2::~PopUp2()
 {
-    SAFE_RELEASE(m_D3DFont);
+    delete m_font;
 }
 
-std::string PopUp2::ForTest_GetText()
-{
-    if (m_textQ.empty())
-    {
-        return "";
-    }
-    return m_textQ.front();
-}
-
-void PopUp2::Init()
+void PopUp2::Init(IPopUpFont* font)
 {
     m_singleTonObj = NEW PopUp2();
 
-    LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
-    D3DXCreateFont(
-        D3DDevice,
-        26,
-        0,
-        FW_NORMAL,
-        1,
-        false,
-        SHIFTJIS_CHARSET,
-        OUT_TT_ONLY_PRECIS,
-        ANTIALIASED_QUALITY,
-        FF_DONTCARE,
-        "‚l‚r –¾’©",
-        &m_singleTonObj->m_D3DFont);
+    m_singleTonObj->m_font = font;
 }
 
 bool PopUp2::IsShow()
@@ -110,20 +90,48 @@ void PopUp2::Render()
 {
     if (m_textQ.size() >= 1)
     {
-        D3DXVECTOR3 pos { 0.0f, 0.0f, 0.0f };
-        RECT rect;
-        rect.top = 700;
-        rect.bottom = 700 + 100;
-        rect.left = 0;
-        rect.right = 1600;
-
-        m_D3DFont->DrawText(
-            NULL,
-            m_textQ.front().c_str(),
-            -1,
-            &rect,
-            DT_CENTER | DT_VCENTER,
-            D3DCOLOR_ARGB(m_transparent, 255, 255, 255));
+        m_font->Draw(m_textQ.front(), m_transparent);
     }
+}
+
+PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device)
+{
+    LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
+    HRESULT hresult = D3DXCreateFont(D3DDevice,
+                                     26,
+                                     0,
+                                     FW_NORMAL,
+                                     1,
+                                     false,
+                                     SHIFTJIS_CHARSET,
+                                     OUT_TT_ONLY_PRECIS,
+                                     ANTIALIASED_QUALITY,
+                                     FF_DONTCARE,
+                                     "‚l‚r –¾’©",
+                                     &m_D3DFont);
+
+    assert(hresult == S_OK);
+}
+
+void PopUpFont::Draw(const std::string& text, const int transparent)
+{
+	D3DXVECTOR3 pos(0.0f, 0.0f, 0.0f);
+	RECT rect;
+	rect.top = 700;
+	rect.bottom = 700 + 100;
+	rect.left = 0;
+	rect.right = 1600;
+
+	m_D3DFont->DrawText(NULL,
+                        text.c_str(),
+                        -1,
+                        &rect,
+                        DT_CENTER | DT_VCENTER,
+                        D3DCOLOR_ARGB(transparent, 255, 255, 255));
+}
+
+PopUpFont::~PopUpFont()
+{
+    SAFE_RELEASE(m_D3DFont);
 }
 

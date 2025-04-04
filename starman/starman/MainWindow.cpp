@@ -256,7 +256,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance)
     BGM::initialize(m_hWnd);
     SoundEffect::initialize(m_hWnd);
     PopUp::Init();
-    PopUp2::Init();
+
+    IPopUpFont* popUpFont = NEW PopUpFont(D3DDevice);
+    PopUp2::Init(popUpFont);
 
     m_sequence = eSequence::BATTLE;
     m_seqBattle = NEW SeqBattle();

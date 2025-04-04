@@ -5,13 +5,31 @@
 #include <string>
 #include <queue>
 
+class IPopUpFont
+{
+public:
+    virtual void Draw(const std::string& text, const int transparent) = 0;
+    virtual ~IPopUpFont() { };
+};
+
+class PopUpFont : public IPopUpFont
+{
+public:
+    PopUpFont(LPDIRECT3DDEVICE9 device);
+    void Draw(const std::string& text, const int transparent);
+    ~PopUpFont();
+
+private:
+    LPD3DXFONT m_D3DFont = nullptr;
+};
+
 // アイテムを拾ったときの演出
 // 文字列を1.5秒表示する
 // 表示が終わる前に次の文字列が渡されたらキューイングされる
 class PopUp2
 {
 public:
-    static void Init();
+    static void Init(IPopUpFont* font);
     static PopUp2* Get();
     static void Finalize();
     void SetText(const std::string& arg);
@@ -21,13 +39,9 @@ public:
     void Cancel();
     ~PopUp2();
 
-    // テスト用
-    std::string ForTest_GetText();
-
 private:
     static PopUp2* m_singleTonObj;
 
-    LPD3DXFONT m_D3DFont { nullptr };
     std::queue<std::string> m_textQ;
     int m_counter { 0 };
     bool m_isShow { false };
@@ -35,6 +49,8 @@ private:
     const int SHOW = 30;
     const int FADE_OUT= 30;
     int m_transparent = 0;
+
+    IPopUpFont* m_font = nullptr;
 };
 
 

@@ -19,9 +19,6 @@ VoyageManager* VoyageManager::Get()
     if (m_obj == nullptr)
     {
         m_obj = NEW VoyageManager();
-        SoundEffect::get_ton()->load("res\\sound\\pullOar.wav");
-        SoundEffect::get_ton()->load("res\\sound\\pullOar2.wav");
-        SoundEffect::get_ton()->load("res\\sound\\collideRaft.wav");
     }
 
     return m_obj;
@@ -474,6 +471,10 @@ void Raft2::Init(const int id)
         D3DXVECTOR3 centerPos(0.584f, 1.554f, 1.140f);
         m_meshCord->SetCenterPos(centerPos);
     }
+
+	SoundEffect::get_ton()->load("res\\sound\\pullOar.wav");
+	SoundEffect::get_ton()->load("res\\sound\\pullOar2.wav");
+	SoundEffect::get_ton()->load("res\\sound\\collideRaft.wav");
 }
 
 void Raft2::Finalize()

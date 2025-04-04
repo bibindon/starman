@@ -100,7 +100,8 @@ namespace UnitTest2
             Util::InitWin_DX9_DI8(true);
 
             SaveManager::Get()->Load();
-            PopUp2::Init();
+            MockPopUpFont font;
+            PopUp2::Init(&font);
 
             CraftManager craft;
 
@@ -129,7 +130,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("クラフト用の素材が足りない", PopUp2::Get()->ForTest_GetText().c_str());
+            Assert::AreEqual("クラフト用の素材が足りない", font.GetShowText().c_str());
 
             Util::ReleaseWin_DX9_DI8();
         }
@@ -145,7 +146,9 @@ namespace UnitTest2
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
             storehouse->AddItem("細い木の幹");
             storehouse->AddItem("ツタ");
-            PopUp2::Init();
+
+            MockPopUpFont font;
+            PopUp2::Init(&font);
 
             CraftManager craft;
 
@@ -174,7 +177,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("クラフト用の素材が足りない", PopUp2::Get()->ForTest_GetText().c_str());
+            Assert::AreEqual("クラフト用の素材が足りない", font.GetShowText().c_str());
 
             Util::ReleaseWin_DX9_DI8();
         }
@@ -195,7 +198,8 @@ namespace UnitTest2
                 storehouse->AddItem("ツタ");
             }
 
-            PopUp2::Init();
+            MockPopUpFont font;
+            PopUp2::Init(&font);
 
             CraftManager craft;
 
@@ -226,7 +230,7 @@ namespace UnitTest2
                 Assert::AreEqual("イカダ", reqList.front().GetName().c_str());
             }
 
-            Assert::AreEqual("", PopUp2::Get()->ForTest_GetText().c_str());
+            Assert::AreEqual("", font.GetShowText().c_str());
 
             Util::ReleaseWin_DX9_DI8();
         }
@@ -251,7 +255,8 @@ namespace UnitTest2
                 storehouse->AddItem("ツタ");
             }
 
-            PopUp2::Init();
+            MockPopUpFont font;
+            PopUp2::Init(&font);
 
             CraftManager craft;
 
@@ -280,7 +285,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("船着き場にイカダがある", PopUp2::Get()->ForTest_GetText().c_str());
+            Assert::AreEqual("船着き場にイカダがある", font.GetShowText().c_str());
 
             Util::ReleaseWin_DX9_DI8();
         }
