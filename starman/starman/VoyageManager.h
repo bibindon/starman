@@ -58,6 +58,7 @@ class VoyageManager
 {
 public:
     static VoyageManager* Get();
+    static void Destroy();
     void Init();
     void Finalize();
     void Update();

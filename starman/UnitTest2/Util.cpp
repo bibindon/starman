@@ -5,6 +5,16 @@
 #include "../starman/BGM.h"
 #include "../starman/Mouse.h"
 #include "../starman/KeyBoard.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/SkillManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
+#include "../starman/SaveManager.h"
 
 LPDIRECT3D9 Util::m_D3D = nullptr;
 LPDIRECTINPUT8 Util::m_directInput = nullptr;
@@ -35,7 +45,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
 
     if (bShow)
     {
-		ShowWindow(SharedObj::GetWindowHandle(), SW_SHOW);
+        ShowWindow(SharedObj::GetWindowHandle(), SW_SHOW);
     }
 
     // Direct3DÇÃèâä˙âª
@@ -102,6 +112,8 @@ void Util::ReleaseWin_DX9_DI8()
     SharedObj::Finalize();
     SAFE_RELEASE(m_D3D);
     SAFE_RELEASE(m_directInput);
+
+    DestroyWindow(SharedObj::GetWindowHandle());
 }
 
 void MockPopUpFont::Draw(const std::string& text, const int transparent)
@@ -161,4 +173,22 @@ void MockKeyBoard::ClearAll()
     std::fill(&m_bDown[0], &m_bDown[256], false);
     std::fill(&m_bDownFirst[0], &m_bDownFirst[256], false);
     std::fill(&m_bHold[0], &m_bHold[256], false);
+}
+
+void Util::DestroyLibData()
+{
+    NSStarmanLib::Rynen::Destroy();
+    NSStarmanLib::HumanInfoManager::Destroy();
+    NSStarmanLib::MapInfoManager::Destroy();
+    NSStarmanLib::ItemManager::Destroy();
+    NSStarmanLib::Inventory::Destroy();
+    NSStarmanLib::StorehouseManager::Destroy();
+    NSStarmanLib::WeaponManager::Destroy();
+    NSStarmanLib::EnemyInfoManager::Destroy();
+    NSStarmanLib::SkillManager::Destroy();
+    NSStarmanLib::StatusManager::Destroy();
+    NSStarmanLib::Guide::Destroy();
+    NSStarmanLib::PowereggDateTime::Destroy();
+    NSStarmanLib::MapObjManager::Destroy();
+    SaveManager::Destroy();
 }

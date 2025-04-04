@@ -24,6 +24,14 @@ VoyageManager* VoyageManager::Get()
     return m_obj;
 }
 
+void VoyageManager::Destroy()
+{
+    VoyageManager::m_obj->Finalize();
+
+    delete VoyageManager::m_obj;
+    VoyageManager::m_obj = nullptr;
+}
+
 void VoyageManager::Init()
 {
     auto raftList = Voyage()->GetRaftList();
@@ -43,6 +51,7 @@ void VoyageManager::Finalize()
     {
         it->second.Finalize();
     }
+    m_raftMap.clear();
 }
 
 // ‚±‚ÌŠÖ”‚ÍqŠC’†‚Å‚È‚­‚Ä‚àí‚ÉŒÄ‚Î‚ê‚éB
@@ -475,20 +484,19 @@ void Raft2::Init(const int id)
         m_meshCord->SetCenterPos(centerPos);
     }
 
-	SoundEffect::get_ton()->load("res\\sound\\pullOar.wav");
-	SoundEffect::get_ton()->load("res\\sound\\pullOar2.wav");
-	SoundEffect::get_ton()->load("res\\sound\\collideRaft.wav");
+    SoundEffect::get_ton()->load("res\\sound\\pullOar.wav");
+    SoundEffect::get_ton()->load("res\\sound\\pullOar2.wav");
+    SoundEffect::get_ton()->load("res\\sound\\collideRaft.wav");
 }
 
 void Raft2::Finalize()
 {
-    // ‚È‚º‚©m_meshRaft‚Æm_meshRaftCollision‚ğÅ‰‚Éíœ‚µ‚È‚¢‚Æ—‚¿‚é
-    SAFE_DELETE(m_meshRaft);
-    SAFE_DELETE(m_meshRaftCollision);
     SAFE_DELETE(m_meshCord);
     SAFE_DELETE(m_meshOarRight);
     SAFE_DELETE(m_meshOarLeft);
     SAFE_DELETE(m_meshSail);
+    SAFE_DELETE(m_meshRaft);
+    SAFE_DELETE(m_meshRaftCollision);
 }
 
 void Raft2::Update()

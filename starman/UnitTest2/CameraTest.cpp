@@ -72,6 +72,8 @@ namespace UnitTest2
 
             GamePad::Init(m_directInput, hWnd);
             Camera::Update();
+
+            DestroyWindow(hWnd);
         }
 
         TEST_METHOD(TestMethod8)

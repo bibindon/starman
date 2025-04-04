@@ -36,11 +36,14 @@ namespace UnitTest2
         TEST_METHOD(TestMethod02)
         {
             Util::InitWin_DX9_DI8();
+            SaveManager::Get()->Load();
             CraftManager craft;
 
             // Target
             craft.Init();
 
+            craft.Finalize();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
         
@@ -73,28 +76,44 @@ namespace UnitTest2
         // 単純にpublic関数を呼ぶだけのテスト
         TEST_METHOD(TestMethod05)
         {
-            Util::InitWin_DX9_DI8();
+            Util::InitWin_DX9_DI8(true);
             SaveManager::Get()->Load();
             CraftManager craft;
             craft.Init();
 
             // Target
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
 
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
+
             craft.Finalize();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
         // 単純にpublic関数を呼ぶだけのテスト
         TEST_METHOD(TestMethod06)
         {
-            Util::InitWin_DX9_DI8();
+            Util::InitWin_DX9_DI8(true);
+            SaveManager::Get()->Load();
             CraftManager craft;
 
             // Target
             craft.Build();
 
             craft.Finalize();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -103,7 +122,7 @@ namespace UnitTest2
         // キューに追加されず、クラフト用の素材が足りない、というポップアップが表示されること
         TEST_METHOD(CraftRaftTest01)
         {
-            Util::InitWin_DX9_DI8();
+            Util::InitWin_DX9_DI8(true);
 
             SaveManager::Get()->Load();
             MockPopUpFont font;
@@ -127,13 +146,40 @@ namespace UnitTest2
             keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
+
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
             PopUp2::Get()->Render();
 
             // Target
@@ -145,6 +191,7 @@ namespace UnitTest2
             Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
 
             craft.Finalize();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -181,13 +228,40 @@ namespace UnitTest2
             keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
+
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
             PopUp2::Get()->Render();
 
             {
@@ -198,6 +272,7 @@ namespace UnitTest2
             Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
 
             craft.Finalize();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -238,13 +313,39 @@ namespace UnitTest2
             keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
             PopUp2::Get()->Render();
 
             {
@@ -256,6 +357,7 @@ namespace UnitTest2
             Assert::AreEqual("", font.GetShowText().c_str());
 
             craft.Finalize();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -301,7 +403,20 @@ namespace UnitTest2
             keyboard.SetKeyDownFirst(DIK_RETURN);
 
             craft.Operate(&state);
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
             craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
@@ -318,6 +433,7 @@ namespace UnitTest2
             Assert::AreEqual("船着き場にイカダがある", font.GetShowText().c_str());
 
             craft.Finalize();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 

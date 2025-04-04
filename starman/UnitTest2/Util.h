@@ -24,6 +24,7 @@ public:
     static void InitWin_DX9_DI8(const bool bShow = false);
     static void ReleaseWin_DX9_DI8();
 
+    static void DestroyLibData();
 private:
 
     static LPDIRECT3D9 m_D3D;

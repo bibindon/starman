@@ -52,6 +52,7 @@ namespace UnitTest2
             raft.Init(1);
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -85,9 +86,11 @@ namespace UnitTest2
             // Target
             raft.Update();
 
-            delete player;
-
             raft.Finalize();
+            delete player;
+            NSStarmanLib::Voyage::Destroy();
+            delete map;
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -114,6 +117,7 @@ namespace UnitTest2
             delete player;
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -132,6 +136,7 @@ namespace UnitTest2
             raft.SetSail(false);
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -155,6 +160,9 @@ namespace UnitTest2
             raft.PullOarBoth(&_move);
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
+            delete map;
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -177,6 +185,8 @@ namespace UnitTest2
             raft.PullOarLeft();
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -199,6 +209,9 @@ namespace UnitTest2
             raft.PullOarRight();
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
+            delete map;
+            Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -216,6 +229,7 @@ namespace UnitTest2
             raft.GetPos();
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -234,6 +248,7 @@ namespace UnitTest2
             raft.SetPos(pos);
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -251,6 +266,7 @@ namespace UnitTest2
             raft.GetRotate();
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -269,6 +285,7 @@ namespace UnitTest2
             raft.SetRotate(rot);
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -286,6 +303,7 @@ namespace UnitTest2
 //            raft.GetMesh();
 
             raft.Finalize();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
     };
@@ -299,6 +317,8 @@ namespace UnitTest2
         {
             // Target
             auto voyageMgr = VoyageManager::Get();
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -311,7 +331,7 @@ namespace UnitTest2
             // Target
             voyageMgr->Init();
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -325,6 +345,7 @@ namespace UnitTest2
             // Target
             voyageMgr->Finalize();
 
+            VoyageManager::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -335,6 +356,8 @@ namespace UnitTest2
 
             // Target
             voyageMgr->Update();
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -366,7 +389,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             delete player;
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -383,7 +407,8 @@ namespace UnitTest2
             // Target
             voyageMgr->GetSail();
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -401,7 +426,8 @@ namespace UnitTest2
             voyageMgr->SetSail(true);
             voyageMgr->SetSail(false);
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -417,7 +443,8 @@ namespace UnitTest2
             // Target
             voyageMgr->Set3HoursAuto();
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -429,6 +456,8 @@ namespace UnitTest2
             // Target
             voyageMgr->SetRaftMode(true);
             voyageMgr->SetRaftMode(false);
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -438,6 +467,8 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetRaftMode();
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -452,7 +483,8 @@ namespace UnitTest2
             // Target
             voyageMgr->GetPosType();
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -469,7 +501,8 @@ namespace UnitTest2
             voyageMgr->SetPosType(NSStarmanLib::Raft::ePosType::River);
             voyageMgr->SetPosType(NSStarmanLib::Raft::ePosType::Sea);
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -481,6 +514,8 @@ namespace UnitTest2
             // Target
             D3DXVECTOR3 pos;
             voyageMgr->CheckNearRaft(pos);
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -491,6 +526,8 @@ namespace UnitTest2
             // Target
             D3DXVECTOR3 pos;
             voyageMgr->GetNearRaftId(pos);
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -500,6 +537,8 @@ namespace UnitTest2
 
             // Target
             voyageMgr->GetRaftCount();
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -511,6 +550,8 @@ namespace UnitTest2
             D3DXVECTOR3 pos;
             D3DXVECTOR3 move;
             voyageMgr->Intersect(pos, move);
+
+            VoyageManager::Destroy();
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
@@ -518,6 +559,7 @@ namespace UnitTest2
         {
             Util::InitWin_DX9_DI8();
 
+            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             auto voyageMgr = VoyageManager::Get();
             voyageMgr->Init();
 
@@ -526,7 +568,7 @@ namespace UnitTest2
             D3DXVECTOR3 move;
             voyageMgr->WallSlide(pos, move);
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -538,11 +580,12 @@ namespace UnitTest2
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
+            voyageMgr->Init();
 
             // Target
             voyageMgr->GetRaftXYZ(1);
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -554,11 +597,12 @@ namespace UnitTest2
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
+            voyageMgr->Init();
 
             // Target
             voyageMgr->GetRaftRotateY(1);
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -570,11 +614,13 @@ namespace UnitTest2
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
+            voyageMgr->Init();
 
             // Target
             voyageMgr->GetRaftDurability();
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -586,11 +632,13 @@ namespace UnitTest2
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
+            voyageMgr->Init();
 
             // Target
             voyageMgr->GetRaftLevel();
 
-            voyageMgr->Finalize();
+            VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
     };
