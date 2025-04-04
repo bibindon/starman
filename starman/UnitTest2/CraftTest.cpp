@@ -74,7 +74,6 @@ namespace UnitTest2
 
             CraftManager craft;
 
-            craft.SetTestMode();
             craft.Init();
 
             craft.Draw();
@@ -98,15 +97,13 @@ namespace UnitTest2
         // キューに追加されず、クラフト用の素材が足りない、というポップアップが表示されること
         TEST_METHOD(CraftRaftTest01)
         {
-            Util::InitWin_DX9_DI8();
-            KeyBoard::ForTest_SetTestMode();
+            Util::InitWin_DX9_DI8(true);
 
             SaveManager::Get()->Load();
             PopUp2::Init();
 
             CraftManager craft;
 
-            craft.SetTestMode();
             craft.Init();
 
             {
@@ -116,11 +113,14 @@ namespace UnitTest2
 
             eBattleState state;
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+            Util::KeyDown(DIK_RETURN);
+
             craft.Operate(&state);
             craft.Draw();
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+            Util::KeyUp(DIK_RETURN);
+            Util::KeyDown(DIK_RETURN);
+
             craft.Operate(&state);
             craft.Draw();
 
@@ -139,8 +139,7 @@ namespace UnitTest2
         // キューに追加されず、クラフト用の素材が足りない、というポップアップが表示されること
         TEST_METHOD(CraftRaftTest02)
         {
-            Util::InitWin_DX9_DI8();
-            KeyBoard::ForTest_SetTestMode();
+            Util::InitWin_DX9_DI8(true);
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
@@ -150,7 +149,6 @@ namespace UnitTest2
 
             CraftManager craft;
 
-            craft.SetTestMode();
             craft.Init();
 
             {
@@ -160,11 +158,14 @@ namespace UnitTest2
 
             eBattleState state;
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+            Util::KeyDown(DIK_RETURN);
+
             craft.Operate(&state);
             craft.Draw();
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+            Util::KeyUp(DIK_RETURN);
+            Util::KeyDown(DIK_RETURN);
+
             craft.Operate(&state);
             craft.Draw();
 
@@ -198,7 +199,6 @@ namespace UnitTest2
 
             CraftManager craft;
 
-            craft.SetTestMode();
             craft.Init();
 
             {
@@ -208,30 +208,14 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-			INPUT input = {};
-			input.type = INPUT_KEYBOARD;
-			input.ki.wScan = MapVirtualKey(VK_RETURN, 0);
-			input.ki.dwFlags = KEYEVENTF_SCANCODE;
-
-			// キー押下
-			SendInput(1, &input, sizeof(INPUT));
-            Sleep(10);
-            KeyBoard::Update();
+            Util::KeyDown(VK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
 
-			// キー解放
-			input.ki.dwFlags |= KEYEVENTF_KEYUP;
-			SendInput(1, &input, sizeof(INPUT));
-            Sleep(10);
-            KeyBoard::Update();
+            Util::KeyUp(VK_RETURN);
 
-			// キー押下
-			input.ki.dwFlags = KEYEVENTF_SCANCODE;
-			SendInput(1, &input, sizeof(INPUT));
-            Sleep(10);
-			KeyBoard::Update();
+            Util::KeyDown(VK_RETURN);
 
             craft.Operate(&state);
             craft.Draw();
@@ -252,8 +236,7 @@ namespace UnitTest2
         // 警告を拠点のイカダを移動させるように促すポップアップが表示されること
         TEST_METHOD(CraftRaftTest04)
         {
-            Util::InitWin_DX9_DI8();
-            KeyBoard::ForTest_SetTestMode();
+            Util::InitWin_DX9_DI8(true);
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
@@ -272,7 +255,6 @@ namespace UnitTest2
 
             CraftManager craft;
 
-            craft.SetTestMode();
             craft.Init();
 
             {
@@ -282,11 +264,14 @@ namespace UnitTest2
 
             eBattleState state;
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+            Util::KeyDown(DIK_RETURN);
+
             craft.Operate(&state);
             craft.Draw();
 
-            KeyBoard::ForTest_SetIsDownFirstFrame(DIK_RETURN);
+            Util::KeyUp(DIK_RETURN);
+            Util::KeyDown(DIK_RETURN);
+
             craft.Operate(&state);
             craft.Draw();
 

@@ -106,5 +106,31 @@ void Util::ReleaseWin_DX9_DI8()
     SAFE_RELEASE(m_directInput);
 }
 
+void Util::KeyDown(const int keyCode)
+{
+	INPUT input = {};
+	input.type = INPUT_KEYBOARD;
+	input.ki.wScan = MapVirtualKey(keyCode, 0);
+	input.ki.dwFlags = KEYEVENTF_SCANCODE;
+
+	// キー押下
+	SendInput(1, &input, sizeof(INPUT));
+	Sleep(10);
+	KeyBoard::Update();
+}
+
+void Util::KeyUp(const int keyCode)
+{
+	INPUT input = {};
+	input.type = INPUT_KEYBOARD;
+	input.ki.wScan = MapVirtualKey(keyCode, 0);
+	input.ki.dwFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP;
+
+	// キー解放
+	SendInput(1, &input, sizeof(INPUT));
+	Sleep(10);
+	KeyBoard::Update();
+}
+
 
 
