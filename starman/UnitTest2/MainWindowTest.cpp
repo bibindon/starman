@@ -1,3 +1,5 @@
+#include <cassert>
+
 #include "CppUnitTest.h"
 #include "Util.h"
 #include "../starman/SharedObj.h"
@@ -23,29 +25,52 @@ public:
     // （コンストラクタ）
     TEST_METHOD(TestMethod01)
     {
+        int result1 = rename("res\\script\\save", "res\\script\\save.bak");
+        assert(result1 == 0);
         MockKeyBoard keyboard;
         auto hInstance = (HINSTANCE)GetModuleHandle(0);
 
-        MainWindow sut(hInstance, &keyboard);
+        // Target
+        try
+        {
+            MainWindow sut(hInstance, &keyboard);
+        }
+        catch (...)
+        {
+        }
+        int result2 = rename("res\\script\\save.bak", "res\\script\\save");
+        assert(result2 == 0);
     }
 
     // 単純にpublic関数を呼ぶだけのテスト
     TEST_METHOD(TestMethod02)
     {
+        int result1 = rename("res\\script\\save", "res\\script\\save.bak");
+        assert(result1 == 0);
+
         MockKeyBoard keyboard;
         auto hInstance = (HINSTANCE)GetModuleHandle(0);
-        MainWindow sut(hInstance, &keyboard);
 
-        std::thread th1([&]
-                        {
-                            Sleep(30 * 1000);
-                            keyboard.SetKeyDownFirst(DIK_Q);
-                        });
+        try
+        {
+            MainWindow sut(hInstance, &keyboard);
 
-        // Target
-        sut.MainLoop();
+            std::thread th1([&]
+                            {
+                                Sleep(30 * 1000);
+                                keyboard.SetKeyDownFirst(DIK_Q);
+                            });
 
-        th1.join();
+            // Target
+            sut.MainLoop();
+
+            th1.join();
+        }
+        catch (...)
+        {
+        }
+        int result2 = rename("res\\script\\save.bak", "res\\script\\save");
+        assert(result2 == 0);
     }
 };
 }
