@@ -30,6 +30,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include <cassert>
 
 SeqBattle* MainWindow::m_seqBattle = nullptr;
 
@@ -132,11 +133,14 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         NULL,
         (HBRUSH)(COLOR_WINDOW + 1),
         NULL,
-        TITLE.c_str(), NULL
+        TITLE.c_str(),
+        NULL
     };
 
-    if (!RegisterClassEx(&wcex))
+    auto result = RegisterClassEx(&wcex);
+    if (!result)
     {
+        DWORD err = GetLastError();
         throw std::exception("");
     } 
 
@@ -303,6 +307,13 @@ MainWindow::~MainWindow()
     SharedObj::Finalize();
 
     SAFE_RELEASE(m_D3D);
+
+    BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
+    assert(result == 1);
+
+    auto hInstance = (HINSTANCE)GetModuleHandle(0);
+    BOOL result2 = UnregisterClass(TITLE.c_str(), hInstance);
+    assert(result2 == 1);
 
     timeEndPeriod(1);
 }

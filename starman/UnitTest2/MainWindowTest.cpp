@@ -37,6 +37,9 @@ public:
         }
         catch (...)
         {
+            int result2 = rename("res\\script\\save.bak", "res\\script\\save");
+            assert(result2 == 0);
+            Assert::Fail();
         }
         int result2 = rename("res\\script\\save.bak", "res\\script\\save");
         assert(result2 == 0);
@@ -68,6 +71,9 @@ public:
         }
         catch (...)
         {
+            int result2 = rename("res\\script\\save.bak", "res\\script\\save");
+            assert(result2 == 0);
+            Assert::Fail();
         }
         int result2 = rename("res\\script\\save.bak", "res\\script\\save");
         assert(result2 == 0);
