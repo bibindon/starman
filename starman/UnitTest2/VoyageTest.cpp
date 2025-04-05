@@ -186,6 +186,7 @@ namespace UnitTest2
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
+            delete map;
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
@@ -364,14 +365,14 @@ namespace UnitTest2
         TEST_METHOD(TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
-            auto player = NEW Player();
-            SharedObj::SetPlayer(player);
-
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
             voyageMgr->Init();
+
+            auto player = NEW Player();
+            SharedObj::SetPlayer(player);
 
             SharedObj::GetD3DDevice()->Clear(0,
                                              NULL,
@@ -569,6 +570,7 @@ namespace UnitTest2
             voyageMgr->WallSlide(pos, move);
 
             VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -586,6 +588,7 @@ namespace UnitTest2
             voyageMgr->GetRaftXYZ(1);
 
             VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 
@@ -603,6 +606,7 @@ namespace UnitTest2
             voyageMgr->GetRaftRotateY(1);
 
             VoyageManager::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::ReleaseWin_DX9_DI8();
         }
 

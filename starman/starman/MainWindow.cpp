@@ -50,6 +50,7 @@ static void Finalize()
     NSStarmanLib::Guide::Destroy();
     NSStarmanLib::PowereggDateTime::Destroy();
     NSStarmanLib::MapObjManager::Destroy();
+    NSStarmanLib::Voyage::Destroy();
     SaveManager::Destroy();
     PopUp::Finalize();
     PopUp2::Finalize();
