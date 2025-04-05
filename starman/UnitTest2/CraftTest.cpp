@@ -1,7 +1,7 @@
 #include "CppUnitTest.h"
+#include "Util.h"
 #include "../starman/CraftManager.h"
 #include "../starman/MainWindow.h"
-#include "Util.h"
 #include "../starman/SaveManager.h"
 #include "../starman/KeyBoard.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"

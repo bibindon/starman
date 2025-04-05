@@ -190,5 +190,6 @@ void Util::DestroyLibData()
     NSStarmanLib::Guide::Destroy();
     NSStarmanLib::PowereggDateTime::Destroy();
     NSStarmanLib::MapObjManager::Destroy();
+    NSStarmanLib::Voyage::Destroy();
     SaveManager::Destroy();
 }
