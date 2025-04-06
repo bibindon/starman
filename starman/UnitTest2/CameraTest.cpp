@@ -18,17 +18,17 @@ namespace UnitTest2
     {
     public:
         
-        TEST_METHOD(TestMethod1)
+        TEST_METHOD(CameraTest_TestMethod1)
         {
             D3DXMATRIX viewMat = Camera::GetViewMatrix();
         }
 
-        TEST_METHOD(TestMethod2)
+        TEST_METHOD(CameraTest_TestMethod2)
         {
             D3DXMATRIX projMat = Camera::GetProjMatrix();
         }
 
-        TEST_METHOD(TestMethod3)
+        TEST_METHOD(CameraTest_TestMethod3)
         {
             D3DXVECTOR3 eyePos { 0.0f, 2.0f, -2.0f };
             D3DXVECTOR3 lookAtPos { 0.0f, 0.0f, 0.0f };
@@ -36,22 +36,22 @@ namespace UnitTest2
             Camera::SetLookAtPos(lookAtPos);
         }
 
-        TEST_METHOD(TestMethod4)
+        TEST_METHOD(CameraTest_TestMethod4)
         {
             Camera::GetEyePos();
         }
 
-        TEST_METHOD(TestMethod5)
+        TEST_METHOD(CameraTest_TestMethod5)
         {
             Camera::GetRadian();
         }
 
-        TEST_METHOD(TestMethod6)
+        TEST_METHOD(CameraTest_TestMethod6)
         {
             Camera::SetRadian(1.f);
         }
 
-        TEST_METHOD(TestMethod7)
+        TEST_METHOD(CameraTest_TestMethod7)
         {
             LPDIRECTINPUT8 m_directInput = nullptr;
             auto hInstance = (HINSTANCE)GetModuleHandle(0);
@@ -76,19 +76,19 @@ namespace UnitTest2
             DestroyWindow(hWnd);
         }
 
-        TEST_METHOD(TestMethod8)
+        TEST_METHOD(CameraTest_TestMethod8)
         {
             D3DXVECTOR3 world = {};
             Camera::GetScreenPos(world);
         }
 
-        TEST_METHOD(TestMethod9)
+        TEST_METHOD(CameraTest_TestMethod9)
         {
             eCameraMode mode = eCameraMode::BATTLE;
             Camera::SetCameraMode(mode);
         }
 
-        TEST_METHOD(TestMethod10)
+        TEST_METHOD(CameraTest_TestMethod10)
         {
             Camera::SetHouseMode(true);
             Camera::SetHouseMode(false);

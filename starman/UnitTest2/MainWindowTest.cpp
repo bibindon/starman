@@ -23,7 +23,7 @@ public:
 
     // 単純にpublic関数を呼ぶだけのテスト
     // （コンストラクタ）
-    TEST_METHOD(TestMethod01)
+    TEST_METHOD(MainWindowTest_TestMethod01)
     {
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
@@ -46,7 +46,7 @@ public:
     }
 
     // 単純にpublic関数を呼ぶだけのテスト
-    TEST_METHOD(TestMethod02)
+    TEST_METHOD(MainWindowTest_TestMethod02)
     {
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);

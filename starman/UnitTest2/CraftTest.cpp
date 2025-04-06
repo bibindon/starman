@@ -26,14 +26,14 @@ namespace UnitTest2
     public:
         
         // 単純にpublic関数を呼ぶだけのテスト
-        TEST_METHOD(TestMethod01)
+        TEST_METHOD(CraftTest_TestMethod01)
         {
             // Target
             CraftManager craft;
         }
         
         // 単純にpublic関数を呼ぶだけのテスト
-        TEST_METHOD(TestMethod02)
+        TEST_METHOD(CraftTest_TestMethod02)
         {
             Util::InitWin_DX9_DI8();
             SaveManager::Get()->Load();
@@ -48,7 +48,7 @@ namespace UnitTest2
         }
         
         // 単純にpublic関数を呼ぶだけのテスト
-        TEST_METHOD(TestMethod03)
+        TEST_METHOD(CraftTest_TestMethod03)
         {
             Util::InitWin_DX9_DI8();
             CraftManager craft;
@@ -60,7 +60,7 @@ namespace UnitTest2
         }
         
         // 単純にpublic関数を呼ぶだけのテスト
-        TEST_METHOD(TestMethod04)
+        TEST_METHOD(CraftTest_TestMethod04)
         {
             Util::InitWin_DX9_DI8();
             CraftManager craft;
@@ -74,7 +74,7 @@ namespace UnitTest2
         }
         
         // 単純にpublic関数を呼ぶだけのテスト
-        TEST_METHOD(TestMethod05)
+        TEST_METHOD(CraftTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
             SaveManager::Get()->Load();
@@ -103,7 +103,7 @@ namespace UnitTest2
         }
 
         // 単純にpublic関数を呼ぶだけのテスト
-        TEST_METHOD(TestMethod06)
+        TEST_METHOD(CraftTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8(true);
             SaveManager::Get()->Load();
@@ -120,7 +120,7 @@ namespace UnitTest2
         // イカダをクラフト
         // クラフト用の素材が足りないケース。
         // キューに追加されず、クラフト用の素材が足りない、というポップアップが表示されること
-        TEST_METHOD(CraftRaftTest01)
+        TEST_METHOD(CraftTest_CraftRaftTest01)
         {
             Util::InitWin_DX9_DI8(true);
 
@@ -198,7 +198,7 @@ namespace UnitTest2
         // イカダをクラフト
         // クラフト用の素材が足りないケース2。
         // キューに追加されず、クラフト用の素材が足りない、というポップアップが表示されること
-        TEST_METHOD(CraftRaftTest02)
+        TEST_METHOD(CraftTest_CraftRaftTest02)
         {
             Util::InitWin_DX9_DI8();
 
@@ -279,7 +279,7 @@ namespace UnitTest2
         // イカダをクラフト
         // クラフト用の素材が足りているケース。
         // キューに追加されること
-        TEST_METHOD(CraftRaftTest03)
+        TEST_METHOD(CraftTest_CraftRaftTest03)
         {
             Util::InitWin_DX9_DI8(true);
 
@@ -364,7 +364,7 @@ namespace UnitTest2
         // イカダをクラフト
         // イカダが拠点にすでにある場合は、クラフトが開始されないこと
         // 警告を拠点のイカダを移動させるように促すポップアップが表示されること
-        TEST_METHOD(CraftRaftTest04)
+        TEST_METHOD(CraftTest_CraftRaftTest04)
         {
             NSStarmanLib::CraftSystem::Destroy();
             Util::InitWin_DX9_DI8();
@@ -441,7 +441,7 @@ namespace UnitTest2
         // キューに追加され、２４時間後、クラフトが完了すること。
         // 倉庫に追加されないこと
         // イカダが拠点に配置されること
-        TEST_METHOD(CraftRaftTest05)
+        TEST_METHOD(CraftTest_CraftRaftTest05)
         {
 
         }
