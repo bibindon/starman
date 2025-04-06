@@ -60,7 +60,11 @@ public:
 
             std::thread th1([&]
                             {
+#ifdef _DEBUG
                                 Sleep(30 * 1000);
+#else
+                                Sleep(10 * 1000);
+#endif
                                 keyboard.SetKeyDownFirst(DIK_Q);
                             });
 
