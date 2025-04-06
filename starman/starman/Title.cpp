@@ -14,45 +14,8 @@
 
 Title::Title(const bool blackFadeIn)
 {
-    {
-        std::vector<std::string> vs;
-        std::vector<bool> vb;
-
-        vs.push_back("Start");
-        vb.push_back(true);
-
-        vs.push_back("Continue");
-
-        // セーブデータがあるか否か
-        BOOL saveExist = 0;
-        if (Common::DeployMode())
-        {
-            saveExist = PathFileExists("res\\script\\save");
-        }
-        else
-        {
-            // 廃止
-            // saveExist = PathFileExists("res\\script\\save_debug");
-            saveExist = PathFileExists("res\\script\\save");
-        }
-
-        if (saveExist == TRUE)
-        {
-            m_bSavedataExists = true;
-            vb.push_back(true);
-        }
-        else
-        {
-            m_bSavedataExists = false;
-            vb.push_back(false);
-        }
-
-        vs.push_back("Exit");
-        vb.push_back(true);
-
-        m_titleCommand = NEW CommandManager();
-        m_titleCommand->Init(CommandManager::eType::Title);
-    }
+    m_titleCommand = NEW CommandManager();
+    m_titleCommand->Init(CommandManager::eType::Title);
 
     m_sprBack = NEW Sprite("res\\image\\black.png");
     m_sprLogo = NEW Sprite("res\\image\\title01.png");

@@ -41,6 +41,10 @@ public:
             assert(result2 == 0);
             Assert::Fail();
         }
+
+        BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
+        assert(result == 1);
+
         int result2 = rename("res\\script\\save.bak", "res\\script\\save");
         assert(result2 == 0);
     }

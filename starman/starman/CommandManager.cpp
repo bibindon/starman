@@ -441,9 +441,20 @@ void CommandManager::BuildOpeningCommand()
     // Exit
     //---------------------------------------------------
 
+    BOOL saveExist = PathFileExists("res\\script\\save");
+    bool enable = false;
+    if (saveExist == TRUE)
+    {
+        enable = true;
+    }
+    else
+    {
+        enable = false;
+    }
+
     m_commandLib->RemoveAll();
     m_commandLib->UpsertCommand("Start", true);
-    m_commandLib->UpsertCommand("Continue", true);
+    m_commandLib->UpsertCommand("Continue", enable);
     m_commandLib->UpsertCommand("Exit", true);
 }
 
