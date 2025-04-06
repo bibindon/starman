@@ -45,8 +45,12 @@ public:
         BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
         assert(result == 1);
 
-        int result2 = rename("res\\script\\save.bak", "res\\script\\save");
-        assert(result2 == 0);
+        hInstance = (HINSTANCE)GetModuleHandle(0);
+        BOOL result2 = UnregisterClass("ホシマン", hInstance);
+        assert(result2 == 1);
+
+        int result3 = rename("res\\script\\save.bak", "res\\script\\save");
+        assert(result3 == 0);
     }
 
     // 単純にpublic関数を呼ぶだけのテスト
@@ -83,8 +87,16 @@ public:
             assert(result2 == 0);
             Assert::Fail();
         }
-        int result2 = rename("res\\script\\save.bak", "res\\script\\save");
-        assert(result2 == 0);
+
+        BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
+        assert(result == 1);
+
+        hInstance = (HINSTANCE)GetModuleHandle(0);
+        BOOL result2 = UnregisterClass("ホシマン", hInstance);
+        assert(result2 == 1);
+
+        int result3 = rename("res\\script\\save.bak", "res\\script\\save");
+        assert(result3 == 0);
     }
 };
 }

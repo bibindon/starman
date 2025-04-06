@@ -308,10 +308,6 @@ MainWindow::~MainWindow()
 
     SAFE_RELEASE(m_D3D);
 
-    auto hInstance = (HINSTANCE)GetModuleHandle(0);
-    BOOL result2 = UnregisterClass(TITLE.c_str(), hInstance);
-    assert(result2 == 1);
-
     timeEndPeriod(1);
 }
 
