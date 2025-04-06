@@ -193,3 +193,4 @@ void Util::DestroyLibData()
     NSStarmanLib::Voyage::Destroy();
     SaveManager::Destroy();
 }
+
