@@ -314,7 +314,7 @@ namespace UnitTest2
     public:
         
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod01)
+        TEST_METHOD(VoyageTest_TestMethod01)
         {
             // Target
             auto voyageMgr = VoyageManager::Get();
@@ -323,7 +323,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod02)
+        TEST_METHOD(VoyageTest_TestMethod02)
         {
             Util::InitWin_DX9_DI8();
 
@@ -337,7 +337,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod03)
+        TEST_METHOD(VoyageTest_TestMethod03)
         {
             Util::InitWin_DX9_DI8();
             auto voyageMgr = VoyageManager::Get();
@@ -351,7 +351,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod04)
+        TEST_METHOD(VoyageTest_TestMethod04)
         {
             auto voyageMgr = VoyageManager::Get();
 
@@ -362,7 +362,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod05)
+        TEST_METHOD(VoyageTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -396,7 +396,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod06)
+        TEST_METHOD(VoyageTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -414,7 +414,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod07)
+        TEST_METHOD(VoyageTest_TestMethod07)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -433,7 +433,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod08)
+        TEST_METHOD(VoyageTest_TestMethod08)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -450,7 +450,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod09)
+        TEST_METHOD(VoyageTest_TestMethod09)
         {
             auto voyageMgr = VoyageManager::Get();
 
@@ -462,7 +462,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod10)
+        TEST_METHOD(VoyageTest_TestMethod10)
         {
             auto voyageMgr = VoyageManager::Get();
 
@@ -473,7 +473,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod11)
+        TEST_METHOD(VoyageTest_TestMethod11)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -490,7 +490,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod12)
+        TEST_METHOD(VoyageTest_TestMethod12)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -508,7 +508,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod13)
+        TEST_METHOD(VoyageTest_TestMethod13)
         {
             auto voyageMgr = VoyageManager::Get();
 
@@ -520,7 +520,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod14)
+        TEST_METHOD(VoyageTest_TestMethod14)
         {
             auto voyageMgr = VoyageManager::Get();
 
@@ -532,7 +532,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod17)
+        TEST_METHOD(VoyageTest_TestMethod17)
         {
             auto voyageMgr = VoyageManager::Get();
 
@@ -543,7 +543,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod18)
+        TEST_METHOD(VoyageTest_TestMethod18)
         {
             auto voyageMgr = VoyageManager::Get();
 
@@ -556,7 +556,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod19)
+        TEST_METHOD(VoyageTest_TestMethod19)
         {
             Util::InitWin_DX9_DI8();
 
@@ -575,7 +575,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod20)
+        TEST_METHOD(VoyageTest_TestMethod20)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -593,7 +593,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod21)
+        TEST_METHOD(VoyageTest_TestMethod21)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -611,7 +611,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod22)
+        TEST_METHOD(VoyageTest_TestMethod22)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
@@ -629,7 +629,7 @@ namespace UnitTest2
         }
 
         // 通常ケースで例外が起きないことを確認するテスト。単純にpublic関数を実行するだけ
-        TEST_METHOD(RaftTest_TestMethod23)
+        TEST_METHOD(VoyageTest_TestMethod23)
         {
             Util::InitWin_DX9_DI8();
             NSStarmanLib::Voyage::Get()->Init("raft1.csv");
