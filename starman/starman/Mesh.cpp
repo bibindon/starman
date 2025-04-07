@@ -47,11 +47,12 @@ Mesh::~Mesh()
 
 void Mesh::Init()
 {
+    HRESULT hResult = E_FAIL;
+
     //--------------------------------------------------------
     // エフェクトの作成
     //--------------------------------------------------------
-    HRESULT result = E_FAIL;
-    result = D3DXCreateEffectFromFile(SharedObj::GetD3DDevice(),
+    hResult = D3DXCreateEffectFromFile(SharedObj::GetD3DDevice(),
                                       SHADER_FILENAME.c_str(),
                                       nullptr,
                                       nullptr,
@@ -60,10 +61,7 @@ void Mesh::Init()
                                       &m_D3DEffect,
                                       nullptr);
 
-    if (FAILED(result))
-    {
-        throw std::exception("Failed to create an effect file.");
-    }
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // Xファイルの読み込み
@@ -71,7 +69,7 @@ void Mesh::Init()
     LPD3DXBUFFER adjacencyBuffer = nullptr;
     LPD3DXBUFFER materialBuffer = nullptr;
 
-    result = D3DXLoadMeshFromX(m_meshName.c_str(),
+    hResult = D3DXLoadMeshFromX(m_meshName.c_str(),
                                D3DXMESH_SYSTEMMEM,
                                SharedObj::GetD3DDevice(),
                                &adjacencyBuffer,
@@ -80,10 +78,7 @@ void Mesh::Init()
                                &m_materialCount,
                                &m_D3DMesh);
 
-    if (FAILED(result))
-    {
-        throw std::exception("Failed to load a x-file.");
-    }
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // 法線情報をもつメッシュファイルに変換
@@ -116,15 +111,12 @@ void Mesh::Init()
 
 
     LPD3DXMESH tempMesh = nullptr;
-    result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED,
+    hResult = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED,
                                   decl,
                                   SharedObj::GetD3DDevice(),
                                   &tempMesh);
 
-    if (FAILED(result))
-    {
-        throw std::exception("Failed 'CloneMesh' function.");
-    }
+    assert(hResult == S_OK);
 
     SAFE_RELEASE(m_D3DMesh);
     m_D3DMesh = tempMesh;
@@ -138,29 +130,21 @@ void Mesh::Init()
     // フラットシェーディングを行う場合、再計算しない
     if (!FLAT_SHADING)
     {
-        result = D3DXComputeNormals(m_D3DMesh, adjacencyList);
-
-        if (FAILED(result))
-        {
-            throw std::exception("Failed 'D3DXComputeNormals' function.");
-        }
+        hResult = D3DXComputeNormals(m_D3DMesh, adjacencyList);
+        assert(hResult == S_OK);
     }
 
     //--------------------------------------------------------
     // 面と頂点を並べ替えてメッシュを生成し、描画パフォーマンスを最適化
     //--------------------------------------------------------
-    result = m_D3DMesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE,
+    hResult = m_D3DMesh->OptimizeInplace(D3DXMESHOPT_COMPACT | D3DXMESHOPT_ATTRSORT | D3DXMESHOPT_VERTEXCACHE,
                                         adjacencyList,
                                         nullptr,
                                         nullptr,
                                         nullptr);
 
     SAFE_RELEASE(adjacencyBuffer);
-
-    if (FAILED(result))
-    {
-        throw std::exception("Failed 'OptimizeInplace' function.");
-    }
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // マテリアル情報の読み込み
@@ -193,14 +177,11 @@ void Mesh::Init()
             std::string texturePath = xFileDir;
             texturePath += materialList[i].pTextureFilename;
             LPDIRECT3DTEXTURE9 tempTexture = nullptr;
-            result = D3DXCreateTextureFromFile(SharedObj::GetD3DDevice(),
+            hResult = D3DXCreateTextureFromFile(SharedObj::GetD3DDevice(),
                                                texturePath.c_str(),
                                                &tempTexture);
 
-            if (FAILED(result))
-            {
-                throw std::exception("texture file is not found.");
-            }
+            assert(hResult == S_OK);
 
             m_vecTexture.push_back(tempTexture);
         }
@@ -233,6 +214,8 @@ float Mesh::GetScale()
 
 void Mesh::Render()
 {
+    HRESULT hResult = E_FAIL;
+
     //--------------------------------------------------------
     // 初期化が終わっていないなら描画しない
     // （別スレッドで初期化を行う場合を考慮）
@@ -252,7 +235,8 @@ void Mesh::Render()
     normal.z = std::cos(work + D3DX_PI);
     D3DXVec4Normalize(&normal, &normal);
 
-    m_D3DEffect->SetVector("g_light_normal", &normal);
+    hResult = m_D3DEffect->SetVector("g_light_normal", &normal);
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // ポイントライトの位置を設定（未使用）
@@ -264,12 +248,14 @@ void Mesh::Render()
     ppos2.z = ppos.z;
     ppos2.w = 0;
 
-    m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+    hResult = m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // 光源の明るさを設定
     //--------------------------------------------------------
-    m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
+    hResult = m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // ワールド変換行列を設定
@@ -303,7 +289,8 @@ void Mesh::Render()
         }
     }
 
-    m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
+    hResult = m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // カメラの位置を設定
@@ -314,7 +301,8 @@ void Mesh::Render()
     cameraPos.z = Camera::GetEyePos().z;
     cameraPos.w = 0.f;
 
-    m_D3DEffect->SetVector("g_cameraPos", &cameraPos);
+    hResult = m_D3DEffect->SetVector("g_cameraPos", &cameraPos);
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // ワールドビュー射影変換行列を設定
@@ -322,49 +310,44 @@ void Mesh::Render()
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
-    m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
+    hResult = m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // 描画開始
     //--------------------------------------------------------
-    m_D3DEffect->Begin(nullptr, 0);
+    hResult = m_D3DEffect->Begin(nullptr, 0);
+    assert(hResult == S_OK);
 
-    HRESULT result = E_FAIL;
-
-    result = m_D3DEffect->BeginPass(0);
-
-    if (FAILED(result))
-    {
-        result = m_D3DEffect->End();
-        throw std::exception("Failed 'BeginPass' function.");
-    }
+    hResult = m_D3DEffect->BeginPass(0);
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // マテリアルの数だけ色とテクスチャを設定して描画
     //--------------------------------------------------------
     for (DWORD i = 0; i < m_materialCount; ++i)
     {
-        result = m_D3DEffect->SetVector("g_diffuse", &m_vecDiffuse.at(i));
-        assert(result == S_OK);
+        hResult = m_D3DEffect->SetVector("g_diffuse", &m_vecDiffuse.at(i));
+        assert(hResult == S_OK);
 
         if (i < m_vecTexture.size())
         {
-            result = m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
-            assert(result == S_OK);
+            hResult = m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
+            assert(hResult == S_OK);
         }
 
-        result = m_D3DEffect->CommitChanges();
-        assert(result == S_OK);
+        hResult = m_D3DEffect->CommitChanges();
+        assert(hResult == S_OK);
 
-        result = m_D3DMesh->DrawSubset(i);
-        assert(result == S_OK);
+        hResult = m_D3DMesh->DrawSubset(i);
+        assert(hResult == S_OK);
     }
 
-    result = m_D3DEffect->EndPass();
-    assert(result == S_OK);
+    hResult = m_D3DEffect->EndPass();
+    assert(hResult == S_OK);
 
-    result = m_D3DEffect->End();
-    assert(result == S_OK);
+    hResult = m_D3DEffect->End();
+    assert(hResult == S_OK);
 }
 
 LPD3DXMESH Mesh::GetD3DMesh() const
