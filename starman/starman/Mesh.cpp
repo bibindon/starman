@@ -88,32 +88,32 @@ void Mesh::Init()
     //--------------------------------------------------------
     // 法線情報をもつメッシュファイルに変換
     //--------------------------------------------------------
-    D3DVERTEXELEMENT9 decl[] = {
-        {
-            0,
-            0,
-            D3DDECLTYPE_FLOAT3,
-            D3DDECLMETHOD_DEFAULT,
-            D3DDECLUSAGE_POSITION,
-            0},
-        {
-            0,
-            12,
-            D3DDECLTYPE_FLOAT3,
-            D3DDECLMETHOD_DEFAULT,
-            D3DDECLUSAGE_NORMAL,
-            0
-        },
-        {
-            0,
-            24,
-            D3DDECLTYPE_FLOAT2,
-            D3DDECLMETHOD_DEFAULT,
-            D3DDECLUSAGE_TEXCOORD,
-            0
-        },
-        D3DDECL_END(),
-    };
+    D3DVERTEXELEMENT9 decl[4];
+    {
+        decl[0].Stream = 0;
+        decl[0].Offset = 0;
+        decl[0].Type = D3DDECLTYPE_FLOAT3;
+        decl[0].Method = D3DDECLMETHOD_DEFAULT;
+        decl[0].Usage = D3DDECLUSAGE_POSITION;
+        decl[0].UsageIndex = 0;
+
+        decl[1].Stream = 0;
+        decl[1].Offset = 12;
+        decl[1].Type = D3DDECLTYPE_FLOAT3;
+        decl[1].Method = D3DDECLMETHOD_DEFAULT;
+        decl[1].Usage = D3DDECLUSAGE_NORMAL;
+        decl[1].UsageIndex = 0;
+
+        decl[2].Stream = 0;
+        decl[2].Offset = 24;
+        decl[2].Type = D3DDECLTYPE_FLOAT2;
+        decl[2].Method = D3DDECLMETHOD_DEFAULT;
+        decl[2].Usage = D3DDECLUSAGE_TEXCOORD;
+        decl[2].UsageIndex = 0;
+
+        decl[3] = D3DDECL_END();
+    }
+
 
     LPD3DXMESH tempMesh = nullptr;
     result = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED,
