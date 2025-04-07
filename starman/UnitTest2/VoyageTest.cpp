@@ -107,12 +107,19 @@ namespace UnitTest2
             Raft2 raft;
             raft.Init(1);
 
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
             SharedObj::GetD3DDevice()->BeginScene();
 
             // Target
             raft.Draw();
 
             SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             delete player;
 
