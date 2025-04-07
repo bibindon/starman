@@ -66,3 +66,13 @@ prolitan2.blend
 /starman/UnitTest2/Output/Deploy/d3dx11_43.dll
 /starman/UnitTest2/Output/Deploy/d3dx10_43.dll
 /starman/UnitTest2/Output/Deploy/D3DCompiler_43.dll
+/starman/DeployEncrypt
+/starman/starman/DeployEncrypt
+/starman/starman/x64/Release
+/starman/starman/x64/DeployEncrypt
+/starman/starman/x64/Deploy
+/starman/UnitTest2/Output/DeployEncrypt
+/starman/UnitTest2/DeployEncrypt
+/starman/UnitTest2/x64/Release
+/starman/UnitTest2/x64/Deploy
+/starman/x64/Release

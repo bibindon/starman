@@ -1319,11 +1319,11 @@ void Player::SetJump()
         int brokenBagNum2 = 0;
         {
             auto allBag = Common::Status()->GetAllBag();
-            brokenBagNum1 = std::count_if(allBag.begin(), allBag.end(),
-                                          [&](auto x)
-                                          {
-                                              return x.GetDurabilityCurrent() == 0;
-                                          });
+            brokenBagNum1 = (int)std::count_if(allBag.begin(), allBag.end(),
+                                               [&](auto x)
+                                               {
+                                                   return x.GetDurabilityCurrent() == 0;
+                                               });
         }
 
         Common::Inventory()->ReduceEquipBagDurability();
@@ -1331,11 +1331,11 @@ void Player::SetJump()
         // V‚½‚É‘Ï‹v’l‚ª0‚É‚È‚Á‚½‘Ü‚ª‚ ‚Á‚½‚©
         {
             auto allBag = Common::Status()->GetAllBag();
-            brokenBagNum2 = std::count_if(allBag.begin(), allBag.end(),
-                                          [&](auto x)
-                                          {
-                                              return x.GetDurabilityCurrent() == 0;
-                                          });
+            brokenBagNum2 = (int)std::count_if(allBag.begin(), allBag.end(),
+                                               [&](auto x)
+                                               {
+                                                   return x.GetDurabilityCurrent() == 0;
+                                               });
         }
 
         if (brokenBagNum1 != brokenBagNum2)

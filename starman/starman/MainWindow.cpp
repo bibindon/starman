@@ -367,7 +367,7 @@ int MainWindow::MainLoop()
         system_clock::time_point tempTime { system_clock::now() };
 
         m_vecTime.push_back(tempTime);
-        const int removeCnt = m_vecTime.size() - 300;
+        const int removeCnt = (int)m_vecTime.size() - 300;
         if (removeCnt >= 1)
         {
             m_vecTime.erase(m_vecTime.begin(), m_vecTime.begin() + removeCnt);
