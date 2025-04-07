@@ -15,6 +15,8 @@ Global
 		Debug|x86 = Debug|x86
 		Deploy|x64 = Deploy|x64
 		Deploy|x86 = Deploy|x86
+		DeployEncrypt|x64 = DeployEncrypt|x64
+		DeployEncrypt|x86 = DeployEncrypt|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
@@ -27,6 +29,10 @@ Global
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Deploy|x64.Build.0 = Deploy|x64
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Deploy|x86.ActiveCfg = Deploy|Win32
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Deploy|x86.Build.0 = Deploy|Win32
+		{6DD95551-4853-454C-9F8F-E15464132F19}.DeployEncrypt|x64.ActiveCfg = DeployEncrypt|x64
+		{6DD95551-4853-454C-9F8F-E15464132F19}.DeployEncrypt|x64.Build.0 = DeployEncrypt|x64
+		{6DD95551-4853-454C-9F8F-E15464132F19}.DeployEncrypt|x86.ActiveCfg = DeployEncrypt|Win32
+		{6DD95551-4853-454C-9F8F-E15464132F19}.DeployEncrypt|x86.Build.0 = DeployEncrypt|Win32
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Release|x64.ActiveCfg = Release|x64
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Release|x64.Build.0 = Release|x64
 		{6DD95551-4853-454C-9F8F-E15464132F19}.Release|x86.ActiveCfg = Release|Win32
@@ -38,6 +44,8 @@ Global
 		{B9747D8D-4045-4589-B83C-3FEA057EE296}.Deploy|x64.Build.0 = Debug|x86
 		{B9747D8D-4045-4589-B83C-3FEA057EE296}.Deploy|x86.ActiveCfg = Debug|x86
 		{B9747D8D-4045-4589-B83C-3FEA057EE296}.Deploy|x86.Build.0 = Debug|x86
+		{B9747D8D-4045-4589-B83C-3FEA057EE296}.DeployEncrypt|x64.ActiveCfg = Release|x86
+		{B9747D8D-4045-4589-B83C-3FEA057EE296}.DeployEncrypt|x86.ActiveCfg = Debug|x86
 		{B9747D8D-4045-4589-B83C-3FEA057EE296}.Release|x64.ActiveCfg = Release|x86
 		{B9747D8D-4045-4589-B83C-3FEA057EE296}.Release|x86.ActiveCfg = Release|x86
 		{B9747D8D-4045-4589-B83C-3FEA057EE296}.Release|x86.Build.0 = Release|x86
@@ -47,8 +55,12 @@ Global
 		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Debug|x86.Build.0 = Debug|Win32
 		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Deploy|x64.ActiveCfg = Debug|x64
 		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Deploy|x64.Build.0 = Debug|x64
-		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Deploy|x86.ActiveCfg = Debug|Win32
-		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Deploy|x86.Build.0 = Debug|Win32
+		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Deploy|x86.ActiveCfg = Deploy|Win32
+		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Deploy|x86.Build.0 = Deploy|Win32
+		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.DeployEncrypt|x64.ActiveCfg = DeployEncrypt|x64
+		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.DeployEncrypt|x64.Build.0 = DeployEncrypt|x64
+		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.DeployEncrypt|x86.ActiveCfg = DeployEncrypt|Win32
+		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.DeployEncrypt|x86.Build.0 = DeployEncrypt|Win32
 		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Release|x64.ActiveCfg = Release|x64
 		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Release|x64.Build.0 = Release|x64
 		{68EF5F22-589B-4A66-8B6E-B54144629AF5}.Release|x86.ActiveCfg = Release|Win32

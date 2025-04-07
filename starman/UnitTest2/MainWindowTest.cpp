@@ -75,7 +75,12 @@ public:
 #else
                                 Sleep(10 * 1000);
 #endif
+
+#ifdef DEPLOY
+                                keyboard.SetAltF4();
+#else
                                 keyboard.SetKeyDownFirst(DIK_Q);
+#endif
                             });
 
             // Target

@@ -174,7 +174,7 @@ StoryManager::StoryManager(const std::string& csvFile)
                              sprFade, 
                              Common::ModExt(csvFile),
                              sprite,
-                             Common::DeployMode());
+                             Common::DeployEncryptMode());
 
         bFinish = false;
     }

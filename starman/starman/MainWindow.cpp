@@ -100,7 +100,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
             if (seq->GetState() == eBattleState::NORMAL ||
                 seq->GetState() == eBattleState::MENU)
             {
-                if (Common::DeployMode())
+                if (Common::DeployMode() || Common::DeployEncryptMode())
                 {
                     SaveManager::Get()->Save();
                 }

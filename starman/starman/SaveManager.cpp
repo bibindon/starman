@@ -30,8 +30,7 @@ SaveManager* SaveManager::Get()
     {
         m_obj = NEW SaveManager();
 
-        // 通常はデプロイモードは暗号化する
-        if (Common::DeployMode())
+        if (Common::DeployEncryptMode())
         {
             m_obj->m_encrypt = true;
         }
@@ -52,16 +51,11 @@ void SaveManager::Destroy()
 std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 {
     std::string originDataPath;
-    if (Common::DebugMode() || Common::ReleaseMode())
-    {
-        originDataPath = ORIGIN_DATA_PATH_DEBUG;
-        originDataPath += filename;
-    }
-    else
-    {
-        originDataPath = ORIGIN_DATA_PATH;
-        originDataPath += filename;
 
+    originDataPath = ORIGIN_DATA_PATH;
+    originDataPath += filename;
+    if (Common::DeployEncryptMode())
+    {
         if (m_encrypt)
         {
             originDataPath.replace(originDataPath.size() - 3, 3, "enc");
@@ -73,16 +67,11 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 {
     std::string saveDataPath;
-    if (Common::DebugMode() || Common::ReleaseMode())
-    {
-        saveDataPath = SAVEDATA_PATH_DEBUG;
-        saveDataPath += filename;
-    }
-    else
-    {
-        saveDataPath = SAVEDATA_PATH;
-        saveDataPath += filename;
+    saveDataPath = SAVEDATA_PATH;
+    saveDataPath += filename;
 
+    if (Common::DeployEncryptMode())
+    {
         if (m_encrypt)
         {
             saveDataPath.replace(saveDataPath.size() - 3, 3, "enc");
@@ -93,55 +82,20 @@ std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 
 std::string SaveManager::GetOriginMapPath()
 {
-    std::string saveDataPath;
-    if (Common::DeployMode())
-    {
-        saveDataPath = ORIGIN_DATA_PATH;
-        saveDataPath += "map_obj.bin";
-    }
-    else
-    {
-        saveDataPath = ORIGIN_DATA_PATH_DEBUG;
-        saveDataPath += "map_obj.bin";
-    }
-    return saveDataPath;
+    std::string path= ORIGIN_DATA_PATH + "map_obj.bin";
+    return path;
 }
 
 std::string SaveManager::GetSavefileMapPath()
 {
-    std::string saveDataPath;
-    if (Common::DeployMode())
-    {
-        saveDataPath = SAVEDATA_PATH;
-        saveDataPath += "map_obj.bin";
-    }
-    else
-    {
-        saveDataPath = SAVEDATA_PATH_DEBUG;
-        saveDataPath += "map_obj.bin";
-    }
-    return saveDataPath;
+    std::string path = SAVEDATA_PATH + "map_obj.bin";
+    return path;
 }
 
 void SaveManager::Save()
 {
-    if (Common::DeployMode() == false)
-    {
-//        return;
-    }
-
     // フォルダがなければ作る
-    std::string savedir;
-    if (Common::DeployMode())
-    {
-        savedir = "res\\script\\save";
-    }
-    else
-    {
-        // 廃止
-        // savedir = "res\\script\\save_debug";
-        savedir = "res\\script\\save";
-    }
+    std::string savedir = "res\\script\\save";
 
     if (PathFileExists(savedir.c_str()) == FALSE)
     {
@@ -495,14 +449,7 @@ bool SaveManager::DeleteFolder(const std::string& folderPath)
 
 void SaveManager::DeleteSavedata()
 {
-    if (Common::DeployMode())
-    {
-        DeleteFolder(SAVEDATA_FOLDER);
-    }
-    else
-    {
-        DeleteFolder(SAVEDATA_FOLDER_DEBUG);
-    }
+    DeleteFolder(SAVEDATA_FOLDER);
 }
 
 int SaveManager::GetProgress()

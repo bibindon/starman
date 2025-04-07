@@ -12,6 +12,8 @@
 eBuildMode Common::m_buildMode = eBuildMode::Debug;
 #elif defined(DEPLOY)
 eBuildMode Common::m_buildMode = eBuildMode::Deploy;
+#elif defined(DEPLOY_ENCRYPT)
+eBuildMode Common::m_buildMode = eBuildMode::DeployEncrypt;
 #else
 eBuildMode Common::m_buildMode = eBuildMode::Release;
 #endif
@@ -74,6 +76,15 @@ bool Common::ReleaseMode()
 bool Common::DeployMode()
 {
     if (m_buildMode == eBuildMode::Deploy)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool Common::DeployEncryptMode()
+{
+    if (m_buildMode == eBuildMode::DeployEncrypt)
     {
         return true;
     }
@@ -226,7 +237,7 @@ float Common::PointToSegmentDistance(const D3DXVECTOR3& p1, const D3DXVECTOR3& p
 std::string Common::ModExt(const std::string& filepath)
 {
     std::string work = filepath;
-    if (Common::DeployMode())
+    if (Common::DeployEncryptMode())
     {
         work = work.replace(work.size() - 3, 3, "enc");
     }

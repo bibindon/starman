@@ -132,6 +132,11 @@ void MockKeyBoard::Init(LPDIRECTINPUT8, HWND)
 
 void MockKeyBoard::Update()
 {
+    if (m_bAltF4)
+    {
+        PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+        m_bAltF4 = false;
+    }
 }
 
 void MockKeyBoard::Finalize()
@@ -173,6 +178,11 @@ void MockKeyBoard::ClearAll()
     std::fill(&m_bDown[0], &m_bDown[256], false);
     std::fill(&m_bDownFirst[0], &m_bDownFirst[256], false);
     std::fill(&m_bHold[0], &m_bHold[256], false);
+}
+
+void MockKeyBoard::SetAltF4()
+{
+    m_bAltF4 = true;
 }
 
 void Util::DestroyLibData()

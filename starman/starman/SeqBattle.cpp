@@ -550,7 +550,7 @@ void SeqBattle::OperateStorehouse()
     // KeyBoard
     //---------------------------------------------------------
 
-    if (Common::DeployMode() == false)
+    if (Common::DebugMode() || Common::ReleaseMode())
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F1))
         {
@@ -1080,17 +1080,7 @@ void SeqBattle::OperateCommand()
 void SeqBattle::InitLoad()
 {
     // セーブデータがあるか否か
-    int saveExist = 0;
-    if (Common::DeployMode())
-    {
-        saveExist = PathFileExists("res\\script\\save");
-    }
-    else
-    {
-        // 廃止
-        // saveExist = PathFileExists("res\\script\\save_debug");
-        saveExist = PathFileExists("res\\script\\save");
-    }
+    int saveExist = PathFileExists("res\\script\\save");
 
     if (saveExist == FALSE)
     {
@@ -1099,7 +1089,7 @@ void SeqBattle::InitLoad()
         m_loadThread = NEW std::thread(
             [&]
             {
-                if (Common::DeployMode())
+                if (Common::DeployMode() || Common::DeployEncryptMode())
                 {
                     try
                     {
@@ -1127,7 +1117,7 @@ void SeqBattle::InitLoad()
         m_loadThread = NEW std::thread(
             [&]
             {
-                if (Common::DeployMode())
+                if (Common::DeployMode() || Common::DeployEncryptMode())
                 {
                     try
                     {
@@ -1476,7 +1466,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
                                  "res\\image\\textBack.png", "res\\image\\black.png",
-                                 Common::DeployMode());
+                                 Common::DeployEncryptMode());
 
                     m_eState = eBattleState::TALK;
                 }
@@ -1514,7 +1504,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
                                  "res\\image\\textBack.png", "res\\image\\black.png",
-                                 Common::DeployMode());
+                                 Common::DeployEncryptMode());
 
                     m_eState = eBattleState::TALK;
                 }
@@ -2030,7 +2020,7 @@ void SeqBattle::Confirm(eSequence* sequence)
             m_talk = NEW NSTalkLib2::Talk();
             m_talk->Init(Common::ModExt(csvfile), pFont, pSE, sprite,
                          "res\\image\\textBack.png", "res\\image\\black.png",
-                         Common::DeployMode());
+                         Common::DeployEncryptMode());
 
             m_eState = eBattleState::TALK;
 
@@ -2678,7 +2668,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
 
     if (m_nDeadCounter == 1)
     {
-        if (Common::DeployMode())
+        if (Common::DeployMode() || Common::DeployEncryptMode())
         {
             SaveManager::Get()->DeleteSavedata();
         }

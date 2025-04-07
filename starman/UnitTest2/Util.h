@@ -59,12 +59,14 @@ public:
     void SetKeyDownFirst(int keyCode);
     void SetKeyHold(int keyCode);
     void ClearAll();
+    void SetAltF4();
 
 private:
 
     bool m_bDown[256] = { };
     bool m_bDownFirst[256] = { };
     bool m_bHold[256] = { };
+    bool m_bAltF4 = false;
 
 };
 

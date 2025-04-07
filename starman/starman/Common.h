@@ -56,6 +56,7 @@ enum class eBuildMode
     Debug,
     Release,
     Deploy,
+    DeployEncrypt,
 };
 
 class Common
@@ -76,6 +77,7 @@ public:
     static bool DebugMode();
     static bool ReleaseMode();
     static bool DeployMode();
+    static bool DeployEncryptMode();
 
     static void SetCursorVisibility(const bool visibility);
     static POINT GetScreenPos();
