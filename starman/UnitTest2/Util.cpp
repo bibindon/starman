@@ -194,3 +194,55 @@ void Util::DestroyLibData()
     SaveManager::Destroy();
 }
 
+BOOL Util::DeleteDirectory(LPCTSTR dirPath)
+{
+    TCHAR searchPath[MAX_PATH];
+    WIN32_FIND_DATA findData;
+    HANDLE hFind;
+
+    // パス + "\*" を作成
+    lstrcpy(searchPath, dirPath);
+    lstrcat(searchPath, _T("\\*"));
+
+    hFind = FindFirstFile(searchPath, &findData);
+    if (hFind == INVALID_HANDLE_VALUE)
+    {
+        return FALSE;
+    }
+
+    do
+    {
+        // "." と ".." はスキップ
+        if (lstrcmp(findData.cFileName, _T(".")) == 0 ||
+            lstrcmp(findData.cFileName, _T("..")) == 0)
+        {
+            continue;
+        }
+
+        // フルパスを作成
+        TCHAR fullPath[MAX_PATH];
+        lstrcpy(fullPath, dirPath);
+        lstrcat(fullPath, _T("\\"));
+        lstrcat(fullPath, findData.cFileName);
+
+        // ディレクトリなら再帰
+        if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
+        {
+            DeleteDirectory(fullPath);
+        }
+        else
+        {
+            // ファイル属性を標準に戻してから削除
+            SetFileAttributes(fullPath, FILE_ATTRIBUTE_NORMAL);
+            DeleteFile(fullPath);
+        }
+
+    } while (FindNextFile(hFind, &findData));
+
+    FindClose(hFind);
+
+    // 最後にこのフォルダ自身を削除
+    SetFileAttributes(dirPath, FILE_ATTRIBUTE_NORMAL);
+    return RemoveDirectory(dirPath);
+}
+

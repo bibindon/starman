@@ -15,6 +15,8 @@ public:
 
     TEST_CLASS_INITIALIZE(Initialize)
     {
+        // Ç†Ç¡ÇΩÇÁè¡Ç∑
+        Util::DeleteDirectory("res\\script\\save.bak");
     }
 
     TEST_CLASS_CLEANUP(CleanUp)

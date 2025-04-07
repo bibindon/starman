@@ -25,6 +25,7 @@ public:
     static void ReleaseWin_DX9_DI8();
 
     static void DestroyLibData();
+    static BOOL DeleteDirectory(LPCTSTR lpPathName);
 private:
 
     static LPDIRECT3D9 m_D3D;
