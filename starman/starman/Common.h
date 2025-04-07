@@ -72,12 +72,15 @@ public:
 
     static constexpr int KEY_DEQUE_MAX_SIZE { 300 };
     static constexpr int SIMULTANEOUS_ALLOW_FRAME { 3 };
+
     static constexpr float ANIMATION_SPEED { 1.0f / 60 };
 
     static bool DebugMode();
     static bool ReleaseMode();
     static bool DeployMode();
     static bool DeployEncryptMode();
+
+    static bool X64Bit();
 
     static void SetCursorVisibility(const bool visibility);
     static POINT GetScreenPos();
@@ -115,6 +118,7 @@ public:
 private:
 
     static eBuildMode m_buildMode;
+    static bool m_x64Bit;
 };
 
 template <typename T>

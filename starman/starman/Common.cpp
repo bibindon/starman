@@ -18,6 +18,12 @@ eBuildMode Common::m_buildMode = eBuildMode::DeployEncrypt;
 eBuildMode Common::m_buildMode = eBuildMode::Release;
 #endif
 
+#ifdef _WIN64
+bool Common::m_x64Bit = true;
+#else
+bool Common::m_x64Bit = false;
+#endif
+
 std::vector<char> Common::get_model_texture_resource(
     const std::string& model_name, const std::string& texture_name)
 {
@@ -89,6 +95,11 @@ bool Common::DeployEncryptMode()
         return true;
     }
     return false;
+}
+
+bool Common::X64Bit()
+{
+    return m_x64Bit;
 }
 
 void Common::SetCursorVisibility(const bool visibility)

@@ -4,6 +4,11 @@
 AnimController::AnimController()
 {
     m_animSpeed = Common::ANIMATION_SPEED;
+
+    if (Common::X64Bit())
+    {
+        m_animSpeed /= 80;
+    }
 }
 
 AnimController::~AnimController()
@@ -14,6 +19,16 @@ void AnimController::Init(const LPD3DXANIMATIONCONTROLLER controller, const Anim
 {
     m_controller = controller;
     m_animSettingMap = animSetMap;
+
+    // DirectX9Ç64bitÇ≈ÉrÉãÉhÇ∑ÇÈÇ∆80î{ë¨Ç…Ç»Ç¡ÇƒÇµÇ‹Ç§ÇΩÇﬂí≤êﬂÇ∑ÇÈ
+    if (Common::X64Bit())
+    {
+        for (auto& animSetting : m_animSettingMap)
+        {
+            animSetting.second.m_startPos /= 80;
+            animSetting.second.m_duration /= 80;
+        }
+    }
 }
 
 void AnimController::SetAnim(const std::string& animName, const DOUBLE& pos)
@@ -28,6 +43,15 @@ void AnimController::SetAnim(const std::string& animName, const DOUBLE& pos)
 void AnimController::SetAnimSettings(const AnimSetMap& animSetMap)
 {
     m_animSettingMap = animSetMap;
+
+    if (Common::X64Bit())
+    {
+        for (auto& animSetting : m_animSettingMap)
+        {
+            animSetting.second.m_startPos /= 80;
+            animSetting.second.m_duration /= 80;
+        }
+    }
 }
 
 void AnimController::Update()
@@ -85,5 +109,12 @@ void AnimController::Finalize()
 
 void AnimController::SetAnimSpeed(const float speed)
 {
-    m_animSpeed = speed;
+    if (!Common::X64Bit())
+    {
+        m_animSpeed = speed;
+    }
+    else
+    {
+        m_animSpeed = speed / 80;
+    }
 }

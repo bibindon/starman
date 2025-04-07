@@ -17,6 +17,7 @@ struct AnimSetting
     bool m_stopEnd = false;
 };
 
+// DirectX9は64bitでビルドするとアニメーションが80倍速になってしまうことに超注意
 class AnimController
 {
 public:
