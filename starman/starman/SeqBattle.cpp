@@ -462,7 +462,9 @@ void SeqBattle::Update(eSequence* sequence)
     {
         if (m_eState != eBattleState::LOAD &&
             m_eState != eBattleState::TITLE &&
-            m_eState != eBattleState::TALK)
+            m_eState != eBattleState::TALK &&
+            m_eState != eBattleState::OPENING
+            )
         {
             D3DXVECTOR3 pos = m_player->GetPos();
             pos.y += 1.f;
