@@ -391,7 +391,6 @@ int MainWindow::MainLoop()
         SharedObj::KeyBoard()->Update();
         Mouse::Update();
         GamePad::Update();
-        Camera::Update();
 
         if (m_sequence == eSequence::BATTLE)
         {
