@@ -9,14 +9,19 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace UnitTest2
 {
+
+TEST_MODULE_INITIALIZE(ModuleInit)
+{
+    // Ç†Ç¡ÇΩÇÁè¡Ç∑
+    Util::DeleteDirectory("res\\script\\save.bak");
+}
+
 TEST_CLASS(MainWindowTest)
 {
 public:
 
     TEST_CLASS_INITIALIZE(Initialize)
     {
-        // Ç†Ç¡ÇΩÇÁè¡Ç∑
-        Util::DeleteDirectory("res\\script\\save.bak");
     }
 
     TEST_CLASS_CLEANUP(CleanUp)
