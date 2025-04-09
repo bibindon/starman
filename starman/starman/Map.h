@@ -72,9 +72,6 @@ public:
                         const NSStarmanLib::eMagicType& magicType,
                         const float power);
 
-    // ëqå…ÇÃãﬂÇ≠Ç…Ç¢ÇÈÇ©
-    bool NearChest(const D3DXVECTOR3& pos);
-
     // ëêÇÃãﬂÇ≠Ç…Ç¢ÇÈÇ©
     bool NearPlant(const D3DXVECTOR3& pos);
 

@@ -601,7 +601,6 @@ void SeqBattle::OperateStorehouse()
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-        // TODO
         // 倉庫の複数化対応
         float x_ = SharedObj::GetPlayer()->GetPos().x;
         float z_ = SharedObj::GetPlayer()->GetPos().z;
@@ -2598,7 +2597,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             // 近くにチェストがあったら倉庫機能が使える。
             {
                 auto ppos = m_player->GetPos();
-                if (m_map->NearChest(ppos))
+                auto storehouse = 
+                    NSStarmanLib::StorehouseManager::Get()-> GetNearStorehouse(ppos.x, ppos.z);
+                if (storehouse != nullptr)
                 {
                     m_bShowStorehouse = true;
                 }

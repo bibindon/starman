@@ -21,6 +21,7 @@
 #include "SoundEffect.h"
 #include "Camera.h"
 #include "BGM.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
 
 Map::Map()
 {
@@ -1607,11 +1608,6 @@ void Map::SetThrownMagic(const D3DXVECTOR3& pos,
     work.m_counter = 0;
 
     m_thrownMagicList.push_back(work);
-}
-
-bool Map::NearChest(const D3DXVECTOR3& pos)
-{
-    return Common::HitByBoundingBox(pos, m_meshMap["chest"]->GetPos(), 2.f);
 }
 
 bool Map::NearPlant(const D3DXVECTOR3& pos)
