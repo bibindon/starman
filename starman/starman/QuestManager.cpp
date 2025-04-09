@@ -30,6 +30,11 @@ void QuestManager::SetExamine()
     m_questSystem.SetExamine(playerPos.x, playerPos.y, playerPos.z);
 }
 
+void QuestManager::SetTalk(const std::string& npc)
+{
+    m_questSystem.SetTalk(npc);
+}
+
 std::string QuestManager::GetQuestIdStartByExamine()
 {
     D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();

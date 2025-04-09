@@ -2025,6 +2025,8 @@ void SeqBattle::Confirm(eSequence* sequence)
 
             // ‰ï˜b‚µ‚½‚Ì‚Å‰ï˜b‰Â”\ó‘Ô‚ð‰ðœ‚·‚é
             npcManager->SetTalkEnable(npcName, false);
+
+            QuestManager::Get()->SetTalk(npcName);
         }
     }
     else if (m_bObtainWeapon)

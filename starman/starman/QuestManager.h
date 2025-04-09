@@ -13,6 +13,7 @@ public:
     void Save(const std::string& originFile);
 
     void SetExamine();
+    void SetTalk(const std::string& npc);
     std::string GetQuestIdStartByExamine();
     std::string GetQuestIdFinishByExamine();
 
