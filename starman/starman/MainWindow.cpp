@@ -543,7 +543,7 @@ int MainWindow::CalcFPS()
 
     int fps = 0;
 
-    const int TIME_RECORD_LENGTH = 300;
+    const int TIME_RECORD_LENGTH = 150;
 
     system_clock::time_point tempTime = system_clock::now();
 

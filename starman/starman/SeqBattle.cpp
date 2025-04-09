@@ -454,23 +454,18 @@ void SeqBattle::Update(eSequence* sequence)
         OperateVoyage3Hours();
     }
 
-    // Camera
-    // OperateVoyage関数はプレイヤーの位置を変更する。
-    // OperateVoyage関数のようにプレイヤーの位置が変更する処理が行われてから
-    // カメラの更新を行う必要があるため
-    // Update関数の最後に実施する必要がある
+    //-----------------------------------------------------
+    // カメラの更新処理
+    //
+    // カメラの更新処理はUpdate関数の最後に実施する必要がある。
+    // OperateVoyage関数のようにプレイヤーの位置を変更する関数があり、
+    // その場合は、プレイヤーの位置が変更されてからカメラの更新を行う必要があるため。
+    //-----------------------------------------------------
     {
-        if (m_eState != eBattleState::LOAD &&
-            m_eState != eBattleState::TITLE &&
-            m_eState != eBattleState::TALK &&
-            m_eState != eBattleState::OPENING
-            )
-        {
-            D3DXVECTOR3 pos = m_player->GetPos();
-            pos.y += 1.f;
-            Camera::SetLookAtPos(pos);
-            Camera::Update();
-        }
+        D3DXVECTOR3 pos = m_player->GetPos();
+        pos.y += 1.f;
+        Camera::SetLookAtPos(pos);
+        Camera::Update();
     }
 
     if (Common::DebugMode())
@@ -1147,6 +1142,8 @@ void SeqBattle::InitLoad()
     m_sprLoadLoading = NEW Sprite("res\\image\\loading.png");
 
     Common::SetCursorVisibility(false);
+
+    Camera::SetCameraMode(eCameraMode::TITLE);
 }
 
 void SeqBattle::UpdateLoad()
