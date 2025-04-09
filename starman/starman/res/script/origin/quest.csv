@@ -280,10 +280,10 @@ Q26,"クエストが完了していたら
 Q26",,人と話したら,サンカクマン,,
 Q27,"クエストが完了していたら
 クエストが完了していないなら","Q26
-Q27",,位置,14:500:-569:40,,<talk>res\\script\\origin\\talkFinishQuest9-2.csv
+Q27",,位置,14:500:-594:40,,<talk>res\\script\\origin\\talkFinishQuest9-2.csv
 Q28,"クエストが完了していたら
 クエストが完了していないなら","Q27
-Q28",,調べたら,24:492:-594:2,,<talk>res\\script\\origin\\talkFinishQuest9-3.csv
+Q28",,調べたら,24:492:-569:2,,<talk>res\\script\\origin\\talkFinishQuest9-3.csv
 Q29,"クエストが完了していたら
 クエストが完了していないなら","Q28
 Q29",,位置,11:492:-559:2,,"<npc><ダイケイマン><pos>20:491.7:-563
@@ -292,7 +292,7 @@ Q29",,位置,11:492:-559:2,,"<npc><ダイケイマン><pos>20:491.7:-563
 <talk>res\\script\\origin\\talkFinishQuest9-4.csv"
 Q30,"クエストが完了していたら
 クエストが完了していないなら","Q29
-Q30",,調べたら,11:492:-559:2,,"<npc><ダイケイマン><talkEnable>y
+Q30",,調べたら,-1365:12:-581:10,,"<npc><ダイケイマン><talkEnable>y
 <npc><ダイケイマン><talkScript>res\\script\\origin\\talkFinishQuest11.csv
 <talk>res\\script\\origin\\talkFinishQuest10.csv"
 Q31,"クエストが完了していたら
