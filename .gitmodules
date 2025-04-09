@@ -28,3 +28,6 @@ url=https://github.com/bibindon/menulib.git
 [submodule "patchTestLib"]
 	path = patchTestLib
 	url = https://github.com/bibindon/patchTestLib.git
+[submodule "cutscenelib"]
+	path = cutscenelib
+	url = https://github.com/bibindon/cutscenelib.git
