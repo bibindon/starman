@@ -25,32 +25,39 @@
 class MainWindow
 {
 public:
+
     explicit MainWindow(const HINSTANCE&, IKeyBoard* keyboard);
     ~MainWindow();
     int MainLoop();
 
+    // WM_CLOSEメッセージを受信したときに対処する必要するための関数
     static SeqBattle* GetBattleSequence();
 
 private:
+
     const std::string TITLE = "ホシマン";
-    MSG m_msg {};
-    HWND m_hWnd = NULL;
+    MSG m_msg { };
+    HWND m_hWnd = nullptr;
     LPDIRECT3D9 m_D3D = nullptr;
-    D3DLIGHT9 light;
+    LPDIRECTINPUT8 m_directInput = nullptr;
 
-    LPDIRECTINPUT8 m_directInput { nullptr };
-    Sprite* m_sprite { nullptr };
+    eSequence m_sequence = eSequence::BATTLE;
 
-    eSequence m_sequence;
-
-    // WM_CLOSEメッセージを受信したときに対処する必要があるためstatic
+    // WM_CLOSEメッセージを受信したときに対処する必要があるためstaticにする
     static SeqBattle* m_seqBattle;
 
-    SeqEnding* m_seqEnding { nullptr };
+    SeqEnding* m_seqEnding = nullptr;
 
-    LPD3DXFONT m_D3DFont { nullptr };
+    // デバッグ用
+    void ShowDebugInfo(const int fps);
+
+    // デバッグ用
+    int CalcFPS();
+
+    // デバッグ用
     std::vector<std::chrono::system_clock::time_point> m_vecTime;
 
-    std::string m_GPUName;
+    // デバッグ用
+    LPD3DXFONT m_D3DFont = nullptr;
 };
 

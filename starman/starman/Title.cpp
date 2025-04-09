@@ -256,6 +256,19 @@ void Title::Render()
         pos = D3DXVECTOR3(800 - 40, 450 - 10, 0.0f);
         m_sprLoading->Render(pos, temp);
     }
+
+    // GPU–¼‚ð•\Ž¦
+    {
+        std::string GPUName = Common::GetGPUName();
+        RECT rect { };
+        SetRect(&rect, 10, 850, 500, 890);
+        m_font->DrawText(NULL,
+                         GPUName.c_str(),
+                         -1,
+                         &rect,
+                         DT_LEFT | DT_BOTTOM,
+                         D3DCOLOR_ARGB(32, 255, 255, 255));
+    }
 }
 
 bool Title::GetLoading() const

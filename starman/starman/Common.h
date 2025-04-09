@@ -115,10 +115,14 @@ public:
                                  const D3DXVECTOR3& p2,
                                  const float length);
 
+    static void SetGPUName(const std::string& GPUName);
+    static std::string GetGPUName();
+
 private:
 
     static eBuildMode m_buildMode;
     static bool m_x64Bit;
+    static std::string m_GPUName;
 };
 
 template <typename T>

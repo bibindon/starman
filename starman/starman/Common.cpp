@@ -24,6 +24,8 @@ bool Common::m_x64Bit = true;
 bool Common::m_x64Bit = false;
 #endif
 
+std::string Common::m_GPUName;
+
 std::vector<char> Common::get_model_texture_resource(
     const std::string& model_name, const std::string& texture_name)
 {
@@ -346,6 +348,16 @@ bool Common::HitByBoundingBox(const D3DXVECTOR3& p1,
         }
     }
     return false;
+}
+
+void Common::SetGPUName(const std::string& GPUName)
+{
+    m_GPUName = GPUName;
+}
+
+std::string Common::GetGPUName()
+{
+    return m_GPUName;
 }
 
 

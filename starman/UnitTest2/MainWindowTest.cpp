@@ -12,8 +12,11 @@ namespace UnitTest2
 
 TEST_MODULE_INITIALIZE(ModuleInit)
 {
-    // あったら消す
-    Util::DeleteDirectory("res\\script\\save.bak");
+    // テストの一番最初にsave.bakフォルダをsaveフォルダにリネームする。
+    //
+    // 前回、テストに失敗した場合、saveフォルダがsave.bakにリネームされたままで
+    // saveフォルダがない、という状況が起こりえるため。
+    int result1 = rename("res\\script\\save.bak", "res\\script\\save");
 }
 
 TEST_CLASS(MainWindowTest)
@@ -34,6 +37,7 @@ public:
     {
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
+
         MockKeyBoard keyboard;
         auto hInstance = (HINSTANCE)GetModuleHandle(0);
 
