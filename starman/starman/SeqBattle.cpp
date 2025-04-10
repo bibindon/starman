@@ -674,6 +674,8 @@ void SeqBattle::OperateStorehouse()
     {
         result = m_storehouse->Back();
         m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
     }
 
     //---------------------------------------------------------
@@ -903,6 +905,8 @@ void SeqBattle::OperateStorehouse()
     {
         result = m_storehouse->Back();
         m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
     }
 
     return;
@@ -1002,7 +1006,7 @@ void SeqBattle::OperateCraft()
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F2))
     {
         m_eState = eBattleState::NORMAL;
-        Camera::SetCameraMode(eCameraMode::SLEEP);
+        Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
     }
 

@@ -663,7 +663,7 @@ void Player::Update(Map* map)
     D3DXVECTOR2 move_XZ(m_move.x, m_move.z);
     FLOAT speed = D3DXVec2Length(&move_XZ);
 
-    MAX_XZ_MOVE *= statusManager->GetWalkSpeed();
+    //MAX_XZ_MOVE *= statusManager->GetWalkSpeed();
 
     // ‚à‚µ100ƒZƒ“ƒ`ˆÚ“®‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚½‚ç2‚ÅŠ„‚ê‚Î‚æ‚¢B
     if (speed >= MAX_XZ_MOVE)
