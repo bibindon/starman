@@ -606,6 +606,11 @@ void SeqBattle::OperateStorehouse()
         float z_ = SharedObj::GetPlayer()->GetPos().z;
         auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
 
+        if (Common::DebugMode() || Common::ReleaseMode())
+        {
+            storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+        }
+
         if (storehouse != nullptr)
         {
             if (vs.at(0) == "left")
@@ -637,6 +642,7 @@ void SeqBattle::OperateStorehouse()
                     }
                 }
                 
+                // 装備中の袋ではないし、装備中の武器でもない。
                 if (!equipBagExist && !equipWeaponExist)
                 {
                     NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
@@ -691,31 +697,71 @@ void SeqBattle::OperateStorehouse()
 
             NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-            // TODO
             // 倉庫の複数化対応
-            auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+            float x_ = SharedObj::GetPlayer()->GetPos().x;
+            float z_ = SharedObj::GetPlayer()->GetPos().z;
+            auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
 
-            if (vs.at(0) == "left")
+            if (Common::DebugMode() || Common::ReleaseMode())
             {
-                NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
-                durability_ = itemInfo.GetDurabilityCurrent();
-                inventory->RemoveItem(id_, subId_);
-                storehouse->AddItemWithSubID(id_, subId_, durability_);
-                m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
-                m_menuManager.DeleteItem(id_, subId_);
+                storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
             }
-            else if (vs.at(0) == "right")
+
+            if (storehouse != nullptr)
             {
-                NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
-                durability_ = itemInfo.GetDurabilityCurrent();
-                storehouse->RemoveItem(id_, subId_);
-                inventory->AddItemWithSubID(id_, subId_, durability_);
-                m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
-                m_menuManager.AddItem(id_, subId_, durability_);
-            }
-            else
-            {
-                throw std::exception();
+                if (vs.at(0) == "left")
+                {
+                    bool equipBagExist = false;
+                    bool equipWeaponExist = false;
+
+                    // 装備中の袋だったら削除できないようにする
+                    {
+                        auto allBag = Common::Status()->GetAllBag();
+                        for (auto it = allBag.begin(); it != allBag.end(); ++it)
+                        {
+                            if (it->GetId() == id_ && it->GetSubId() == subId_)
+                            {
+                                PopUp2::Get()->SetText("装備中の袋を倉庫に移動することはできない");
+                                equipBagExist = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    // 装備中の武器だったら削除できないようにする
+                    {
+                        auto weapon = Common::Status()->GetEquipWeapon();
+                        if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
+                        {
+                            PopUp2::Get()->SetText("装備中の武器を倉庫に移動することはできない");
+                            equipWeaponExist = true;
+                        }
+                    }
+                    
+                    // 装備中の袋ではないし、装備中の武器でもない。
+                    if (!equipBagExist && !equipWeaponExist)
+                    {
+                        NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+                        durability_ = itemInfo.GetDurabilityCurrent();
+                        inventory->RemoveItem(id_, subId_);
+                        storehouse->AddItemWithSubID(id_, subId_, durability_);
+                        m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+                        m_menuManager.DeleteItem(id_, subId_);
+                    }
+                }
+                else if (vs.at(0) == "right")
+                {
+                    NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+                    durability_ = itemInfo.GetDurabilityCurrent();
+                    storehouse->RemoveItem(id_, subId_);
+                    inventory->AddItemWithSubID(id_, subId_, durability_);
+                    m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
+                    m_menuManager.AddItem(id_, subId_, durability_);
+                }
+                else
+                {
+                    throw std::exception();
+                }
             }
         }
     }
@@ -784,30 +830,71 @@ void SeqBattle::OperateStorehouse()
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-        // TODO 倉庫の複数化対応
-        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+        // 倉庫の複数化対応
+        float x_ = SharedObj::GetPlayer()->GetPos().x;
+        float z_ = SharedObj::GetPlayer()->GetPos().z;
+        auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
 
-        if (vs.at(0) == "left")
+        if (Common::DebugMode() || Common::ReleaseMode())
         {
-            NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
-            durability_ = itemInfo.GetDurabilityCurrent();
-            inventory->RemoveItem(id_, subId_);
-            storehouse->AddItemWithSubID(id_, subId_, durability_);
-            m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
-            m_menuManager.DeleteItem(id_, subId_);
+            storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
         }
-        else if (vs.at(0) == "right")
+
+        if (storehouse != nullptr)
         {
-            NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
-            durability_ = itemInfo.GetDurabilityCurrent();
-            storehouse->RemoveItem(id_, subId_);
-            inventory->AddItemWithSubID(id_, subId_, durability_);
-            m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
-            m_menuManager.AddItem(id_, subId_, durability_);
-        }
-        else
-        {
-            throw std::exception();
+            if (vs.at(0) == "left")
+            {
+                bool equipBagExist = false;
+                bool equipWeaponExist = false;
+
+                // 装備中の袋だったら削除できないようにする
+                {
+                    auto allBag = Common::Status()->GetAllBag();
+                    for (auto it = allBag.begin(); it != allBag.end(); ++it)
+                    {
+                        if (it->GetId() == id_ && it->GetSubId() == subId_)
+                        {
+                            PopUp2::Get()->SetText("装備中の袋を倉庫に移動することはできない");
+                            equipBagExist = true;
+                            break;
+                        }
+                    }
+                }
+
+                // 装備中の武器だったら削除できないようにする
+                {
+                    auto weapon = Common::Status()->GetEquipWeapon();
+                    if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
+                    {
+                        PopUp2::Get()->SetText("装備中の武器を倉庫に移動することはできない");
+                        equipWeaponExist = true;
+                    }
+                }
+                
+                // 装備中の袋ではないし、装備中の武器でもない。
+                if (!equipBagExist && !equipWeaponExist)
+                {
+                    NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
+                    durability_ = itemInfo.GetDurabilityCurrent();
+                    inventory->RemoveItem(id_, subId_);
+                    storehouse->AddItemWithSubID(id_, subId_, durability_);
+                    m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
+                    m_menuManager.DeleteItem(id_, subId_);
+                }
+            }
+            else if (vs.at(0) == "right")
+            {
+                NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
+                durability_ = itemInfo.GetDurabilityCurrent();
+                storehouse->RemoveItem(id_, subId_);
+                inventory->AddItemWithSubID(id_, subId_, durability_);
+                m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
+                m_menuManager.AddItem(id_, subId_, durability_);
+            }
+            else
+            {
+                throw std::exception();
+            }
         }
     }
 
