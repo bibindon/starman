@@ -2041,11 +2041,6 @@ void SeqBattle::Render()
     RenderCommon2D();
 }
 
-void SeqBattle::InputR1()
-{
-    bool ret = m_player->SetAttack();
-}
-
 void SeqBattle::Confirm(eSequence* sequence)
 {
     // ’²‚×‚éƒRƒ}ƒ“ƒh
@@ -2850,13 +2845,5 @@ void SeqBattle::OperateGameover(eSequence* sequence)
             status->SetDead(false);
         }
     }
-}
-
-void SeqBattle::SaveLastStage(const int stageNum)
-{
-    std::ofstream outputfile(".savedata");
-    outputfile << stageNum;
-    outputfile.close();
-    SetFileAttributes(".savedata", FILE_ATTRIBUTE_HIDDEN);
 }
 

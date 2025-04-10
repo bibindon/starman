@@ -65,6 +65,7 @@ private:
 
     bool m_bDown[256] = { };
     bool m_bDownFirst[256] = { };
+    bool m_bDownFirstReserve[256] = { };
     bool m_bHold[256] = { };
     bool m_bAltF4 = false;
 

@@ -43,11 +43,10 @@ public:
     ~SeqBattle();
     void Update(eSequence* sequence);
     void Render();
-    void InputR1();
-    void Confirm(eSequence* sequence);
 
     eBattleState GetState() const;
 private:
+    void Confirm(eSequence* sequence);
     void UpdateCommon();
     void RenderCommon();
 
@@ -65,8 +64,6 @@ private:
 
     Map* m_map = nullptr;
     EnemyManager* m_enemyManager = nullptr;
-
-    void SaveLastStage(const int);
 
     std::deque<std::string> m_finishQuestQue;
 

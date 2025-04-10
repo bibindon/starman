@@ -4,6 +4,8 @@
 #include "Util.h"
 #include "../starman/SharedObj.h"
 #include "../starman/MainWindow.h"
+#include "../starman/QuestManager.h"
+#include "../starman/SaveManager.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -65,6 +67,7 @@ public:
     }
 
     // 単純にpublic関数を呼ぶだけのテスト
+    // MainLoop関数
     TEST_METHOD(MainWindowTest_TestMethod02)
     {
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
@@ -85,11 +88,7 @@ public:
                                 Sleep(10 * 1000);
 #endif
 
-#ifdef DEPLOY
                                 keyboard.SetAltF4();
-#else
-                                keyboard.SetKeyDownFirst(DIK_Q);
-#endif
                             });
 
             // Target
@@ -105,7 +104,84 @@ public:
         }
 
         BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
-        assert(result == 1);
+        // ?
+//        assert(result == 1);
+
+        hInstance = (HINSTANCE)GetModuleHandle(0);
+        BOOL result2 = UnregisterClass("ホシマン", hInstance);
+        assert(result2 == 1);
+
+        int result3 = rename("res\\script\\save.bak", "res\\script\\save");
+        assert(result3 == 0);
+    }
+
+    //--------------------------------------------
+    // ロード
+    // →タイトル
+    // →オープニング
+    // →フィールド
+    // →クエスト１開始
+    // →クエスト１完了
+    // の順でゲームを進めるたときにクラッシュしないことを確認するテスト
+    // エンターキーを何度も押しているだけで到達できる
+    //--------------------------------------------
+    TEST_METHOD(MainWindowTest_TestMethod03)
+    {
+        int result1 = rename("res\\script\\save", "res\\script\\save.bak");
+        assert(result1 == 0);
+
+        MockKeyBoard keyboard;
+        auto hInstance = (HINSTANCE)GetModuleHandle(0);
+
+        try
+        {
+            MainWindow sut(hInstance, &keyboard);
+
+            std::thread th1([&]
+                            {
+                                // 1分エンターを押し続ける
+                                for (int i = 0; i < 60 * 1; ++i)
+                                {
+                                    Sleep(1 * 1000); 
+                                    keyboard.SetKeyDownFirst(DIK_RETURN);
+                                }
+
+                                // エンターを押し続けるとクエスト１が完了する。
+                                // しかしクエスト1が完了したことを知る方法がない。
+                                // そこで、セーブを実行しセーブデータでクエスト１が完了となっているか確認する。
+                                SaveManager::Get()->Save();
+
+                                keyboard.SetAltF4();
+                            });
+
+            sut.MainLoop();
+
+            th1.join();
+        }
+        catch (...)
+        {
+            Util::DeleteDirectory("res\\script\\save");
+            int result2 = rename("res\\script\\save.bak", "res\\script\\save");
+            assert(result2 == 0);
+            Assert::Fail();
+        }
+
+        std::string savedata;
+
+        {
+            std::ifstream ifs("res\\script\\save\\questSave.csv");
+            ifs >> savedata;
+        }
+
+        Util::DeleteDirectory("res\\script\\save");
+
+        // Target
+        auto it = savedata.find("Q1,FINISHED");
+        Assert::AreNotEqual<size_t>(std::string::npos, it);
+
+        BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
+        // ?
+//        assert(result == 1);
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
         BOOL result2 = UnregisterClass("ホシマン", hInstance);

@@ -137,6 +137,9 @@ void MockKeyBoard::Update()
         PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
         m_bAltF4 = false;
     }
+
+    std::copy(&m_bDownFirstReserve[0], &m_bDownFirstReserve[256], &m_bDownFirst[0]);
+    std::fill(&m_bDownFirstReserve[0], &m_bDownFirstReserve[256], false);
 }
 
 void MockKeyBoard::Finalize()
@@ -165,7 +168,7 @@ void MockKeyBoard::SetKeyDown(int keyCode)
 
 void MockKeyBoard::SetKeyDownFirst(int keyCode)
 {
-    m_bDownFirst[keyCode] = true;
+    m_bDownFirstReserve[keyCode] = true;
 }
 
 void MockKeyBoard::SetKeyHold(int keyCode)
@@ -177,6 +180,7 @@ void MockKeyBoard::ClearAll()
 {
     std::fill(&m_bDown[0], &m_bDown[256], false);
     std::fill(&m_bDownFirst[0], &m_bDownFirst[256], false);
+    std::fill(&m_bDownFirstReserve[0], &m_bDownFirstReserve[256], false);
     std::fill(&m_bHold[0], &m_bHold[256], false);
 }
 

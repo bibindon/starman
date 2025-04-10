@@ -142,8 +142,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
 
@@ -162,8 +162,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -224,8 +224,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
 
@@ -244,8 +244,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -309,8 +309,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -328,8 +328,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -399,8 +399,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -418,8 +418,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.ClearAll();
             keyboard.SetKeyDownFirst(DIK_RETURN);
+            keyboard.Update();
 
             craft.Operate(&state);
             craft.Draw();
