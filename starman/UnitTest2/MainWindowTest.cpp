@@ -14,11 +14,18 @@ namespace UnitTest2
 
 TEST_MODULE_INITIALIZE(ModuleInit)
 {
-    // テストの一番最初にsave.bakフォルダをsaveフォルダにリネームする。
-    //
-    // 前回、テストに失敗した場合、saveフォルダがsave.bakにリネームされたままで
-    // saveフォルダがない、という状況が起こりえるため。
-    int result1 = rename("res\\script\\save.bak", "res\\script\\save");
+    bool exist1 = Util::IsDirectory("res\\script\\save");
+    bool exist2 = Util::IsDirectory("res\\script\\save.bak");
+
+    if (exist1 && exist2)
+    {
+        Util::DeleteDirectory("res\\script\\save");
+        int result1 = rename("res\\script\\save.bak", "res\\script\\save");
+    }
+    else if (!exist1 && exist2)
+    {
+        int result1 = rename("res\\script\\save.bak", "res\\script\\save");
+    }
 }
 
 TEST_CLASS(MainWindowTest)
@@ -92,7 +99,7 @@ public:
             std::thread th1([&]
                             {
 #ifdef _DEBUG
-                                Sleep(30 * 1000);
+                                Sleep(20 * 1000);
 #else
                                 Sleep(10 * 1000);
 #endif
@@ -116,8 +123,20 @@ public:
         BOOL result2 = UnregisterClass("ホシマン", hInstance);
         assert(result2 == 1);
 
-        int result3 = rename("res\\script\\save.bak", "res\\script\\save");
-        assert(result3 == 0);
+        bool exist1 = Util::IsDirectory("res\\script\\save");
+        bool exist2 = Util::IsDirectory("res\\script\\save.bak");
+
+        if (exist1 && exist2)
+        {
+            Util::DeleteDirectory("res\\script\\save");
+            int result1 = rename("res\\script\\save.bak", "res\\script\\save");
+            assert(result1 == 0);
+        }
+        else if (!exist1 && exist2)
+        {
+            int result1 = rename("res\\script\\save.bak", "res\\script\\save");
+            assert(result1 == 0);
+        }
     }
 
     //--------------------------------------------
@@ -145,9 +164,9 @@ public:
             std::thread th1([&]
                             {
                                 // 1分エンターを押し続ける
-                                for (int i = 0; i < 60 * 1; ++i)
+                                for (int i = 0; i < 60; ++i)
                                 {
-                                    Sleep(1 * 1000); 
+                                    Sleep(1000 * 1); 
                                     keyboard.SetKeyDownFirst(DIK_RETURN);
                                 }
 
@@ -178,7 +197,8 @@ public:
             ifs >> savedata;
         }
 
-        Util::DeleteDirectory("res\\script\\save");
+        BOOL result4 = Util::DeleteDirectory("res\\script\\save");
+        assert(result4 == TRUE);
 
         // Target
         auto it = savedata.find("Q1,FINISHED");

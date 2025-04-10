@@ -18,6 +18,7 @@
 #include "PopUp2.h"
 #include "SaveManager.h"
 #include "resource.h"
+#include "QuestManager.h"
 
 #include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
@@ -331,6 +332,7 @@ MainWindow::~MainWindow()
     SaveManager::Destroy();
 
     NSStarmanLib::Voyage::Destroy();
+    NSStarmanLib::PatchTestManager::Destroy();
     NSStarmanLib::MapObjManager::Destroy();
     NSStarmanLib::PowereggDateTime::Destroy();
     NSStarmanLib::Guide::Destroy();
@@ -344,6 +346,8 @@ MainWindow::~MainWindow()
     NSStarmanLib::MapInfoManager::Destroy();
     NSStarmanLib::HumanInfoManager::Destroy();
     NSStarmanLib::Rynen::Destroy();
+
+    QuestManager::Finalize();
 
     PopUp2::Finalize();
     PopUp::Finalize();

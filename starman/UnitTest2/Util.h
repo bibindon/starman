@@ -26,6 +26,9 @@ public:
 
     static void DestroyLibData();
     static BOOL DeleteDirectory(LPCTSTR lpPathName);
+
+    static bool IsDirectory(const std::string& path);
+
 private:
 
     static LPDIRECT3D9 m_D3D;

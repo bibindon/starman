@@ -383,6 +383,7 @@ SeqBattle::~SeqBattle()
     SAFE_DELETE(m_sprLoadLoading);
 
     SharedObj::Voyage()->Finalize();
+    m_patchManager2.Finalize();
 }
 
 void SeqBattle::Update(eSequence* sequence)

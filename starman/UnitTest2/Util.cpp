@@ -268,3 +268,9 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
     return RemoveDirectory(dirPath);
 }
 
+bool Util::IsDirectory(const std::string& path)
+{
+    DWORD attribs = GetFileAttributes(path.c_str());
+    return (attribs != INVALID_FILE_ATTRIBUTES && (attribs & FILE_ATTRIBUTE_DIRECTORY));
+}
+

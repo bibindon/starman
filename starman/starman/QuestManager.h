@@ -8,6 +8,7 @@ class QuestManager
 public:
 
     static QuestManager* Get();
+    static void Finalize();
 
     void Init(const std::string& originFile, const std::string& saveFile);
     void Save(const std::string& originFile);

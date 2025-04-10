@@ -24,6 +24,12 @@ QuestManager* QuestManager::Get()
     return m_single;
 }
 
+void QuestManager::Finalize()
+{
+    SAFE_DELETE(m_single);
+    return ;
+}
+
 void QuestManager::SetExamine()
 {
     D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
