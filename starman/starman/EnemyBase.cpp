@@ -187,17 +187,32 @@ void EnemyBase::Render()
     m_AnimMesh->SetPos(m_loadingPos);
     m_AnimMesh->SetRotate(m_rotate);
     m_AnimMesh->Render();
+
     POINT screenPos = Camera::GetScreenPos(m_loadingPos);
-    if (screenPos.x >= 0)
+
+    //-----------------------------------------------------------------
+    // カメラと敵の距離が近ければ表示する
+    //
+    // カメラとプレイヤーの距離ではないことに注意。
+    // 「カメラとプレイヤーの距離が近ければ表示」としてしまうと、
+    // カメラがプレイヤーから離れたときも表示されてしまう。
+    //-----------------------------------------------------------------
+    auto eyePos = Camera::GetEyePos();
+
+    bool nBear = Common::HitByBoundingBox(m_loadingPos, eyePos, 25.f);
+
+    if (nBear)
     {
-        m_spriteHPBack->Render(
-            D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f });
-        if (m_HP >= 0)
+        if (screenPos.x >= 0)
         {
-            m_spriteHP->Render(
-                D3DXVECTOR3 { (FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f },
-                255,
-                (m_HP*128/100));
+            D3DXVECTOR3 pos ((FLOAT)screenPos.x - 64, (FLOAT)screenPos.y - 128, 0.f);
+
+            m_spriteHPBack->Render(pos);
+
+            if (m_HP >= 0)
+            {
+                m_spriteHP->Render(pos, 255, (m_HP * 128 / 100));
+            }
         }
     }
 }
