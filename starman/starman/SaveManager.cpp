@@ -174,6 +174,7 @@ void SaveManager::Save()
 
 void SaveManager::LoadOrigin()
 {
+    m_progress.store(0);
     if (m_savedataLoaded)
     {
         NSStarmanLib::Rynen::Destroy();
@@ -198,6 +199,7 @@ void SaveManager::LoadOrigin()
     auto rynen = NSStarmanLib::Rynen::GetObj();
     rynen->Init(CreateOriginFilePath("rynen.csv"), m_encrypt);
 
+    m_progress.store(10);
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
     mgr->Init(CreateOriginFilePath("npcStatus.csv"), m_encrypt);
 
@@ -206,6 +208,7 @@ void SaveManager::LoadOrigin()
               CreateOriginFilePath("humanInfoSub.csv"),
               m_encrypt);
 
+    m_progress.store(20);
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
     mapManager->Init(CreateOriginFilePath("mapInfo.csv"), m_encrypt);
 
@@ -214,6 +217,7 @@ void SaveManager::LoadOrigin()
                       CreateOriginFilePath("item_pos.csv"),
                       m_encrypt);
 
+    m_progress.store(30);
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
     inventory->Init(CreateOriginFilePath("inventory.csv"), m_encrypt);
 
@@ -225,6 +229,7 @@ void SaveManager::LoadOrigin()
                         CreateOriginFilePath("weaponSave.csv"),
                         m_encrypt);
 
+    m_progress.store(40);
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Init(CreateOriginFilePath("enemyDef.csv"),
                            CreateOriginFilePath("enemy.csv"),
@@ -237,6 +242,7 @@ void SaveManager::LoadOrigin()
                        CreateOriginFilePath("skillSub.csv"),
                         m_encrypt);
             
+    m_progress.store(50);
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     statusManager->Init(CreateOriginFilePath("status.csv"), m_encrypt);
 
@@ -246,6 +252,7 @@ void SaveManager::LoadOrigin()
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Init(CreateOriginFilePath("datetime.csv"), m_encrypt);
 
+    m_progress.store(60);
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
 //    mapObjManager->Init(CreateOriginFilePath("map_obj.csv"),
 //                        CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
@@ -255,6 +262,7 @@ void SaveManager::LoadOrigin()
 
     QuestManager::Get()->Init(CreateOriginFilePath("quest.csv"), "");
 
+    m_progress.store(70);
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
     patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
                            "",
@@ -263,6 +271,7 @@ void SaveManager::LoadOrigin()
     auto voyage = NSStarmanLib::Voyage::Get();
     voyage->Init("");
 
+    m_progress.store(80);
     auto activityBase = NSStarmanLib::ActivityBase::Get();
     activityBase->Init(CreateOriginFilePath("activityBase.csv"));
 

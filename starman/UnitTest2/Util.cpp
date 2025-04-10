@@ -114,6 +114,14 @@ void Util::ReleaseWin_DX9_DI8()
     SAFE_RELEASE(m_directInput);
 
     DestroyWindow(SharedObj::GetWindowHandle());
+
+    // DestroyWindowを行った後、メッセージ処理が完了するのを待つ
+    MSG msg = { 0 };
+    while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+    {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+    }
 }
 
 void MockPopUpFont::Draw(const std::string& text, const int transparent)

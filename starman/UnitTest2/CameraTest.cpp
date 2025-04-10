@@ -74,6 +74,14 @@ namespace UnitTest2
             Camera::Update();
 
             DestroyWindow(hWnd);
+
+            // DestroyWindowを行った後、メッセージ処理が完了するのを待つ
+            MSG msg = { 0 };
+            while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
 
         TEST_METHOD(CameraTest_TestMethod8)

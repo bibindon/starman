@@ -6,15 +6,15 @@
 #include "GamePad.h"
 #include <string>
 
-const D3DXVECTOR3 Camera::UPWARD { 0.0f, 1.0f, 0.0f };
+const D3DXVECTOR3 Camera::UPWARD (0.0f, 1.0f, 0.0f);
 // m_eyePosに何をセットしても視点は変わらない。視点はm_radianによって決まる。
-D3DXVECTOR3 Camera::m_eyePos { 0.f, 0.f, 0.f };
-D3DXVECTOR3 Camera::m_lookAtPos { 0.0f, 0.0f, 0.0f };
-float Camera::m_viewAngle { D3DX_PI / 4 };
+D3DXVECTOR3 Camera::m_eyePos(0.f, 0.f, 0.f);
+D3DXVECTOR3 Camera::m_lookAtPos(0.0f, 0.0f, 0.0f);
+float Camera::m_viewAngle = D3DX_PI / 4;
 // m_radian == D3DX_PI * 3 / 2の時（270度の時）カメラは正面を向く
-float Camera::m_radian { D3DX_PI * 3 / 2 };
-float Camera::m_y { 3.f };
-bool Camera::m_sleepMode { false };
+float Camera::m_radian = D3DX_PI * 3 / 2;
+float Camera::m_y = 3.f;
+bool Camera::m_sleepMode = false;
 bool Camera::m_houseMode = false;
 
 eCameraMode Camera::m_eCameraMode;
@@ -25,22 +25,19 @@ int Camera::MOVE_COUNT_MAX = 240;
 D3DXMATRIX Camera::GetViewMatrix()
 {
     D3DXMATRIX viewMatrix { };
-    D3DXMatrixLookAtLH(&viewMatrix,
-        &m_eyePos,
-        &m_lookAtPos,
-        &UPWARD);
+    D3DXMatrixLookAtLH(&viewMatrix, &m_eyePos, &m_lookAtPos, &UPWARD);
     return viewMatrix;
 }
 
 D3DXMATRIX Camera::GetProjMatrix()
 {
     D3DXMATRIX projection_matrix { };
-    D3DXMatrixPerspectiveFovLH(
-        &projection_matrix,
-        m_viewAngle,
-        static_cast<float>(1920) / 1080, /* TODO */
-        0.1f,
-        20000.0f);
+    D3DXMatrixPerspectiveFovLH(&projection_matrix,
+                               m_viewAngle,
+                               static_cast<float>(1920) / 1080, /* TODO */
+                               0.1f,
+                               20000.0f);
+
     return projection_matrix;
 }
 

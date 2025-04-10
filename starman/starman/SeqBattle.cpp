@@ -1266,8 +1266,7 @@ void SeqBattle::InitializeAfterLoad()
 
 void SeqBattle::RenderLoad()
 {
-    D3DXVECTOR3 pos;
-    pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+    D3DXVECTOR3 pos(0.f, 0.f, 0.f);
     m_sprLoadBack->Render(pos);
 
     // ‚­‚é‚­‚é‚ð•\Ž¦
@@ -2194,10 +2193,14 @@ void SeqBattle::RenderCommon()
 {
     if (m_eState == eBattleState::LOAD)
     {
+        int i = 0;
+        i++;
         // do nothing
     }
     else if (m_eState == eBattleState::TITLE && m_title->GetLoading())
     {
+        int i = 0;
+        i++;
         // do nothing
     }
     else

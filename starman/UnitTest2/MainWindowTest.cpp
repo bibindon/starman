@@ -55,8 +55,17 @@ public:
             Assert::Fail();
         }
 
-        BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
+        auto hWnd = SharedObj::GetWindowHandle();
+        BOOL result = DestroyWindow(hWnd);
         assert(result == 1);
+
+        // DestroyWindowを行った後、メッセージ処理が完了するのを待つ
+        MSG msg = { 0 };
+        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
+        {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        }
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
         BOOL result2 = UnregisterClass("ホシマン", hInstance);
@@ -102,10 +111,6 @@ public:
             assert(result2 == 0);
             Assert::Fail();
         }
-
-        BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
-        // ?
-//        assert(result == 1);
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
         BOOL result2 = UnregisterClass("ホシマン", hInstance);
@@ -177,11 +182,7 @@ public:
 
         // Target
         auto it = savedata.find("Q1,FINISHED");
-        Assert::AreNotEqual<size_t>(std::string::npos, it);
-
-        BOOL result = DestroyWindow(SharedObj::GetWindowHandle());
-        // ?
-//        assert(result == 1);
+        Assert::AreNotEqual(std::string::npos, it);
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
         BOOL result2 = UnregisterClass("ホシマン", hInstance);
