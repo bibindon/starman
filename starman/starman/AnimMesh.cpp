@@ -172,7 +172,7 @@ void AnimMesh::SetAnimSpeed(const float speed)
 void AnimMesh::SetTrackPos(const DOUBLE& pos)
 {
     // TODO remove
-//    m_animationStrategy->SetTrackPos(pos);
+//    m_animationStrategy->SetTrackPos(m_pos);
 //    m_animCtrlr.SetTrackPos();
 }
 

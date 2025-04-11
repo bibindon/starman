@@ -22,6 +22,7 @@
 #include "Camera.h"
 #include "BGM.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
+#include "Rain.h"
 
 Map::Map()
 {
@@ -768,6 +769,7 @@ void Map::Init()
     SoundEffect::get_ton()->load("res\\sound\\fireHit.wav");
     SoundEffect::get_ton()->load("res\\sound\\iceHit.wav");
     SoundEffect::get_ton()->load("res\\sound\\darkHit.wav");
+
 }
 
 void Map::Update()
@@ -1215,6 +1217,9 @@ void Map::Update()
             ++it;
         }
     }
+
+    // ‰J‚Ì•\Ž¦
+    Rain::Get()->Update();
 }
 
 void Map::Render()
@@ -1266,6 +1271,9 @@ void Map::Render()
     {
         it->m_mesh->Render();
     }
+
+    // ‰J‚Ì•\Ž¦
+    Rain::Get()->Draw();
 }
 
 std::vector<EnemyBase*> Map::GetEnemy()

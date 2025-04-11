@@ -10,7 +10,7 @@ public:
     Sprite(std::string filename);
     ~Sprite();
 
-    // ??? pos.x shows z-order. That should be 0.0f ~ 1.0f.
+    // ??? m_pos.x shows z-order. That should be 0.0f ~ 1.0f.
     void Render(const D3DXVECTOR3& pos, const BYTE transparency = 255, const LONG width = -1);
     void SetFill(const bool isFill);
 private:

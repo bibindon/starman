@@ -33,6 +33,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/RainModel.h"
 
 SeqBattle* MainWindow::m_seqBattle = nullptr;
 
@@ -346,6 +347,7 @@ MainWindow::~MainWindow()
     NSStarmanLib::MapInfoManager::Destroy();
     NSStarmanLib::HumanInfoManager::Destroy();
     NSStarmanLib::Rynen::Destroy();
+    NSStarmanLib::RainModel::Get()->Destroy();
 
     QuestManager::Finalize();
 

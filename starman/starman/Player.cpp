@@ -116,9 +116,9 @@ Player::Player()
 //    {
 //        auto weaponName = weaponManager->GetXfilename(*it);
 //
-//        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        D3DXVECTOR3 m_pos = D3DXVECTOR3(0.f, 0.f, 0.f);
 //        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-//        Mesh* mesh = NEW Mesh(weaponName, pos, rot, 0.1f);
+//        Mesh* mesh = NEW Mesh(weaponName, m_pos, rot, 0.1f);
 //        mesh->Init();
 //        mesh->SetWeapon(true);
 //        m_weaponMesh[*it] = mesh;
