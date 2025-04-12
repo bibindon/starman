@@ -638,8 +638,8 @@ void Player::Update(Map* map)
     {
         if (m_bUnderwater == false)
         {
-//            MAX_XZ_MOVE = 5.0f;
-            MAX_XZ_MOVE = 1.5f;
+            MAX_XZ_MOVE = 500.0f;
+//            MAX_XZ_MOVE = 1.5f;
 //            MAX_XZ_MOVE = 5000.0f;
         }
         else

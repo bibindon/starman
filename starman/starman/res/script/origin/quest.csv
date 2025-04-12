@@ -286,7 +286,7 @@ Q28,"クエストが完了していたら
 Q28",,調べたら,24:492:-569:2,,<talk>res\\script\\origin\\talkFinishQuest9-3.csv
 Q29,"クエストが完了していたら
 クエストが完了していないなら","Q28
-Q29",,位置,11:492:-559:2,,"<npc><ダイケイマン><pos>20:491.7:-563
+Q29",,位置,11:492:-559:3,,"<npc><ダイケイマン><pos>20:491.7:-563
 <npc><ダイケイマン><talkEnable>y
 <npc><ダイケイマン><talkScript>res\\script\\origin\\talkFinishQuest9-5.csv
 <talk>res\\script\\origin\\talkFinishQuest9-4.csv"
@@ -316,8 +316,12 @@ Q35",,調べたら,-206:106:198:10,,"
 <talk>res\\script\\origin\\talkFinishQuest15.csv"
 Q36,"クエストが完了していたら
 クエストが完了していないなら","Q35
-Q36",,位置,-11:490.7:-572:20,,"
+Q36",,位置,11:492:-559:20,,"
 <talk>res\\script\\origin\\talkFinishQuest16.csv"
+Q37,"クエストが完了していたら
+クエストが完了していないなら","Q36
+Q37",,位置,-1365:12:-581:10,,"
+<talk>res\\script\\origin\\talkFinishQuest17.csv"
 Q98,"クエストが完了していたら
 クエストが完了していないなら","Q97
 Q98",,位置,1172.0:16.0:330.0:20.0,,<talk>res\\script\\origin\\talkFinishQuest99.csv

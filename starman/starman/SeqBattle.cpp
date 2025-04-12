@@ -24,6 +24,7 @@
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "QuestManager.h"
+#include "Rain.h"
 
 using namespace NSQuestSystem;
 
@@ -515,9 +516,15 @@ void SeqBattle::OperateTalk()
             SAFE_DELETE(m_talk);
             m_eState = eBattleState::NORMAL;
             Common::SetCursorVisibility(false);
+            Rain::Get()->SetShow(true);
             return;
         }
     }
+
+    // 暫定的対処
+    // 根本的な欠陥がある
+    // マップクラスに二つのモードがあるべき
+    Rain::Get()->SetShow(false);
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
     {

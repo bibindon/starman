@@ -125,7 +125,7 @@ void SaveManager::Save()
     inventory->Save(CreateSaveFilePath("inventory.csv"), m_encrypt);
 
     auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
-    storehouseManager->Save("storehouseListSave.csv", SAVEDATA_FOLDER);
+    storehouseManager->Save(CreateSaveFilePath("storehouseListSave.csv"), SAVEDATA_FOLDER);
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Save(CreateSaveFilePath("weaponSave.csv"), m_encrypt);
@@ -159,8 +159,8 @@ void SaveManager::Save()
     QuestManager::Get()->Save(CreateSaveFilePath("questSave.csv"));
 
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
-    patchTestManager->Save(CreateSaveFilePath("patchTestQueSave.csv"),
-                           CreateSaveFilePath("patchTestInfoSave.csv"));
+    patchTestManager->Save(CreateSaveFilePath("patchTestInfoSave.csv"),
+                           CreateSaveFilePath("patchTestQueSave.csv"));
 
     auto voyage = NSStarmanLib::Voyage::Get();
     voyage->Save(CreateSaveFilePath("raftSave.csv"));
@@ -379,8 +379,8 @@ void SaveManager::Load()
 
     NSStarmanLib::CraftInfoManager::GetObj()->Init(CreateOriginFilePath("craftDef.csv"));
 
-    NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath("craftsmanSkill.csv"),
-                                              CreateSaveFilePath("craftsmanQueue.csv"));
+    NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath("craftsmanSkillSave.csv"),
+                                              CreateSaveFilePath("craftsmanQueueSave.csv"));
 
     m_savedataLoaded = true;
 }

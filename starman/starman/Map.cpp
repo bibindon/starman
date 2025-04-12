@@ -148,6 +148,17 @@ void Map::Init()
         m_meshMap["cottage"] = mesh;
     }
 
+    //------------------------------------------
+    // ƒrƒ€‚ª“oê‚·‚é‚Æ‚«‚ÌŠâ
+    //------------------------------------------
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(-1425.4f, 20.1f, -598.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\rock2\\rock2.x", pos, rot, 10.f);
+        mesh->Init();
+        m_meshMap["rock2"] = mesh;
+    }
+
     //--------------------------------------------
     // ‘¾—z
     //--------------------------------------------
