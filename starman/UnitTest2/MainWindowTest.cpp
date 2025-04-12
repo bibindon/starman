@@ -44,10 +44,11 @@ public:
     // （コンストラクタ）
     TEST_METHOD(MainWindowTest_TestMethod01)
     {
-        Sleep(1000);
+        Sleep(500);
 
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
+        Sleep(500);
 
         MockKeyBoard keyboard;
         auto hInstance = (HINSTANCE)GetModuleHandle(0);
@@ -61,6 +62,7 @@ public:
         {
             int result2 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result2 == 0);
+            Sleep(500);
             Assert::Fail();
         }
 
@@ -82,16 +84,18 @@ public:
 
         int result3 = rename("res\\script\\save.bak", "res\\script\\save");
         assert(result3 == 0);
+        Sleep(500);
     }
 
     // 単純にpublic関数を呼ぶだけのテスト
     // MainLoop関数
     TEST_METHOD(MainWindowTest_TestMethod02)
     {
-        Sleep(1000);
+        Sleep(500);
 
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
+        Sleep(500);
 
         MockKeyBoard keyboard;
         auto hInstance = (HINSTANCE)GetModuleHandle(0);
@@ -120,6 +124,7 @@ public:
         {
             int result2 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result2 == 0);
+            Sleep(500);
             Assert::Fail();
         }
 
@@ -135,11 +140,13 @@ public:
             Util::DeleteDirectory("res\\script\\save");
             int result1 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result1 == 0);
+            Sleep(500);
         }
         else if (!exist1 && exist2)
         {
             int result1 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result1 == 0);
+            Sleep(500);
         }
     }
 
@@ -180,6 +187,7 @@ public:
                                 // しかしクエスト1が完了したことを知る方法がない。
                                 // そこで、セーブを実行しセーブデータでクエスト１が完了となっているか確認する。
                                 SaveManager::Get()->Save();
+                                Sleep(500);
 
                                 keyboard.SetAltF4();
                             });
@@ -193,6 +201,7 @@ public:
             Util::DeleteDirectory("res\\script\\save");
             int result2 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result2 == 0);
+            Sleep(500);
             Assert::Fail();
         }
 
@@ -206,6 +215,7 @@ public:
         Sleep(1000);
         BOOL result4 = Util::DeleteDirectory("res\\script\\save");
         assert(result4 == TRUE);
+        Sleep(500);
 
         // Target
         auto it = savedata.find("Q1,FINISHED");
@@ -217,6 +227,7 @@ public:
 
         int result3 = rename("res\\script\\save.bak", "res\\script\\save");
         assert(result3 == 0);
+        Sleep(500);
     }
 };
 }
