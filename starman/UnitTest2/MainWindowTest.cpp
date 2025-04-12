@@ -44,6 +44,8 @@ public:
     // （コンストラクタ）
     TEST_METHOD(MainWindowTest_TestMethod01)
     {
+        Sleep(1000);
+
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
 
@@ -86,6 +88,8 @@ public:
     // MainLoop関数
     TEST_METHOD(MainWindowTest_TestMethod02)
     {
+        Sleep(1000);
+
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
 
@@ -151,6 +155,8 @@ public:
     //--------------------------------------------
     TEST_METHOD(MainWindowTest_TestMethod03)
     {
+        Sleep(1000);
+
         int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
 
