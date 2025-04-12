@@ -112,12 +112,12 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
             m_th2 = nullptr;
             m_th1 = new std::thread([=]
                                     {
-                                        // 10âÒÇ…ï™ÇØÇƒâπó Ç1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
-                                        for (int i = 0; i < 10; ++i)
+                                        // 100âÒÇ…ï™ÇØÇƒâπó Ç0.1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
+                                        for (int i = 0; i < 100; ++i)
                                         {
-                                            int volume2 = per_to_decibel(a_volume*i/10);
+                                            int volume2 = per_to_decibel(a_volume*i/100);
                                             soundBuffer->SetVolume(volume2);
-                                            Sleep(1000);
+                                            Sleep(100);
                                             if (this->m_cancel1)
                                             {
                                                 break;
@@ -132,12 +132,12 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
             m_th1 = nullptr;
             m_th2 = new std::thread([=]
                                     {
-                                        // 10âÒÇ…ï™ÇØÇƒâπó Ç1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
-                                        for (int i = 0; i < 10; ++i)
+                                        // 100âÒÇ…ï™ÇØÇƒâπó Ç0.1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
+                                        for (int i = 0; i < 100; ++i)
                                         {
-                                            int volume2 = per_to_decibel(a_volume*i/10);
+                                            int volume2 = per_to_decibel(a_volume*i/100);
                                             soundBuffer->SetVolume(volume2);
-                                            Sleep(1000);
+                                            Sleep(100);
                                             if (this->m_cancel2)
                                             {
                                                 break;

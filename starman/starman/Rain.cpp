@@ -6,6 +6,7 @@
 
 #include "Common.h"
 #include "SharedObj.h"
+#include "BGM.h"
 
 Rain* Rain::m_obj = nullptr;
 
@@ -44,6 +45,8 @@ void Rain::Init()
         m_pos.at(i).y = (float)(rand() % 900) - 1000.f;
     }
 
+    BGM::get_ton()->load("res\\sound\\rain.wav");
+
     m_bShow = true;
 }
 
@@ -75,6 +78,39 @@ void Rain::Update()
             m_pos.at(i).x = (float)(rand() % 1600);
         }
     }
+
+    // âJÇ™ç~ÇËénÇﬂÇΩÇÁâJÇÃâπÇÃBGMÇäJén
+    // âJÇ™é~ÇÒÇæÇÁâJÇÃâπÇÃBGMÇí‚é~
+    {
+        bool bRain = NSStarmanLib::RainModel::Get()->IsRain();
+
+        // TODO è¡Ç∑
+        {
+            static int counter = 0;
+            counter++;
+
+            if ((counter % 3600) < 1800)
+            {
+                bRain = true;
+            }
+            else
+            {
+                bRain = false;
+            }
+        }
+
+        if (!m_bPreviousRain && bRain)
+        {
+            BGM::get_ton()->play("res\\sound\\rain.wav", 70, true);
+        }
+
+        if (m_bPreviousRain && !bRain)
+        {
+            BGM::get_ton()->stop("res\\sound\\rain.wav");
+        }
+
+        m_bPreviousRain = bRain;
+    }
 }
 
 void Rain::Draw()
@@ -88,6 +124,21 @@ void Rain::Draw()
     }
     
     bool isRain = NSStarmanLib::RainModel::Get()->IsRain();
+
+    // TODO è¡Ç∑
+    {
+        static int counter = 0;
+        counter++;
+
+        if ((counter % 3600) < 1800)
+        {
+            isRain = true;
+        }
+        else
+        {
+            isRain = false;
+        }
+    }
 
     if (isRain)
     {
