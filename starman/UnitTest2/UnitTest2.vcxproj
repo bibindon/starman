@@ -368,6 +368,7 @@
     <ClCompile Include="..\starman\PopUp.cpp" />
     <ClCompile Include="..\starman\PopUp2.cpp" />
     <ClCompile Include="..\starman\QuestManager.cpp" />
+    <ClCompile Include="..\starman\Rain.cpp" />
     <ClCompile Include="..\starman\SaveManager.cpp" />
     <ClCompile Include="..\starman\SeqBattle.cpp" />
     <ClCompile Include="..\starman\SeqEnding.cpp" />
@@ -424,6 +425,7 @@
     <ClInclude Include="..\starman\PopUp.h" />
     <ClInclude Include="..\starman\PopUp2.h" />
     <ClInclude Include="..\starman\QuestManager.h" />
+    <ClInclude Include="..\starman\Rain.h" />
     <ClInclude Include="..\starman\resource.h" />
     <ClInclude Include="..\starman\SaveManager.h" />
     <ClInclude Include="..\starman\SeqBattle.h" />
