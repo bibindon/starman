@@ -28,7 +28,6 @@ TEST_MODULE_INITIALIZE(ModuleInit)
     }
 }
 
-/*
 TEST_CLASS(MainWindowTest)
 {
 public:
@@ -231,6 +230,5 @@ public:
         Sleep(500);
     }
 };
-*/
 }
 
