@@ -3,6 +3,8 @@
 #include "Common.h"
 #include "Camera.h"
 #include "SharedObj.h"
+#include <cassert>
+#include "Rain.h"
 
 using std::string;
 using std::vector;
@@ -343,6 +345,47 @@ void MeshClone::Render() const
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
     m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
+
+    //--------------------------------------------------------
+    // 雨だったら霧を濃くする
+    //--------------------------------------------------------
+    HRESULT hResult = E_FAIL;
+    D3DXVECTOR4 fog_color;
+
+    if (!Rain::Get()->IsRain())
+    {
+        fog_color.x = 0.5f;
+        fog_color.y = 0.3f;
+        fog_color.z = 0.2f;
+        fog_color.w = 1.0f;
+
+        // 霧をサポートしないシェーダーがセットされている可能性があるので
+        // mesh_shader.fxの時だけ適用する
+        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        {
+            hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
+            assert(hResult == S_OK);
+        }
+    }
+    else
+    {
+        fog_color.x = 0.3f;
+        fog_color.y = 0.3f;
+        fog_color.z = 0.5f;
+        fog_color.w = 1.0f;
+
+        // 雨だったら霧を100倍強くする。
+        // 霧をサポートしないシェーダーがセットされている可能性があるので
+        // mesh_shader.fxの時だけ適用する
+        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        {
+            hResult = m_D3DEffect->SetFloat("g_fog_strength", 100.0f);
+            assert(hResult == S_OK);
+        }
+    }
+
+    hResult = m_D3DEffect->SetVector("fog_color", &fog_color);
+    assert(hResult == S_OK);
 
     m_D3DEffect->Begin(nullptr, 0);
 

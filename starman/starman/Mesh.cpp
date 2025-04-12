@@ -4,6 +4,7 @@
 #include "Common.h"
 #include "Camera.h"
 #include "SharedObj.h"
+#include "Rain.h"
 
 Mesh::Mesh(const std::string& xFilename,
            const D3DXVECTOR3& position,
@@ -255,6 +256,46 @@ void Mesh::Render()
     // 光源の明るさを設定
     //--------------------------------------------------------
     hResult = m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
+    assert(hResult == S_OK);
+
+    //--------------------------------------------------------
+    // 雨だったら霧を濃くする
+    //--------------------------------------------------------
+    D3DXVECTOR4 fog_color;
+
+    if (!Rain::Get()->IsRain())
+    {
+        fog_color.x = 0.5f;
+        fog_color.y = 0.3f;
+        fog_color.z = 0.2f;
+        fog_color.w = 1.0f;
+
+        // 霧をサポートしないシェーダーがセットされている可能性があるので
+        // mesh_shader.fxの時だけ適用する
+        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        {
+            hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
+            assert(hResult == S_OK);
+        }
+    }
+    else
+    {
+        fog_color.x = 0.3f;
+        fog_color.y = 0.3f;
+        fog_color.z = 0.5f;
+        fog_color.w = 1.0f;
+
+        // 雨だったら霧を3倍強くする。
+        // 霧をサポートしないシェーダーがセットされている可能性があるので
+        // mesh_shader.fxの時だけ適用する
+        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        {
+            hResult = m_D3DEffect->SetFloat("g_fog_strength", 100.0f);
+            assert(hResult == S_OK);
+        }
+    }
+
+    hResult = m_D3DEffect->SetVector("fog_color", &fog_color);
     assert(hResult == S_OK);
 
     //--------------------------------------------------------

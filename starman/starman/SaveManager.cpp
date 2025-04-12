@@ -393,13 +393,13 @@ bool SaveManager::DeleteFolderContents(const std::string& folderPath)
     WIN32_FIND_DATA findFileData;
     HANDLE hFind = FindFirstFile(searchPath.c_str(), &findFileData);
 
-    if (hFind == INVALID_HANDLE_VALUE) {
-        work = "Error: Unable to access directory: " + folderPath + "\n";
+    if (hFind == INVALID_HANDLE_VALUE)
+    {
         throw std::exception(work.c_str());
-        return false;
     }
 
-    do {
+    do
+    {
         std::string fileName = findFileData.cFileName;
 
         // スキップする項目 ("." と "..")
@@ -458,6 +458,15 @@ bool SaveManager::DeleteFolder(const std::string& folderPath)
 
 void SaveManager::DeleteSavedata()
 {
+    // セーブデータがなければセーブデータの削除は行わない（行えない）
+    // セーブデータがないのにセーブデータの削除を行う関数が呼ばれることは問題ない。
+    BOOL result = PathIsDirectory(SAVEDATA_FOLDER.c_str());
+
+    if (result == FALSE)
+    {
+        return;
+    }
+
     DeleteFolder(SAVEDATA_FOLDER);
 }
 

@@ -84,21 +84,6 @@ void Rain::Update()
     {
         bool bRain = NSStarmanLib::RainModel::Get()->IsRain();
 
-        // TODO è¡Ç∑
-        {
-            static int counter = 0;
-            counter++;
-
-            if ((counter % 3600) < 1800)
-            {
-                bRain = true;
-            }
-            else
-            {
-                bRain = false;
-            }
-        }
-
         if (!m_bPreviousRain && bRain)
         {
             BGM::get_ton()->play("res\\sound\\rain.wav", 70, true);
@@ -124,21 +109,6 @@ void Rain::Draw()
     }
     
     bool isRain = NSStarmanLib::RainModel::Get()->IsRain();
-
-    // TODO è¡Ç∑
-    {
-        static int counter = 0;
-        counter++;
-
-        if ((counter % 3600) < 1800)
-        {
-            isRain = true;
-        }
-        else
-        {
-            isRain = false;
-        }
-    }
 
     if (isRain)
     {
