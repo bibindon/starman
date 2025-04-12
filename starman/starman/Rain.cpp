@@ -43,6 +43,8 @@ void Rain::Init()
         // 上のほうに表示しておく
         m_pos.at(i).y = (float)(rand() % 900) - 1000.f;
     }
+
+    m_bShow = true;
 }
 
 void Rain::Finalize()
@@ -77,9 +79,16 @@ void Rain::Update()
 
 void Rain::Draw()
 {
+    if (!m_bShow)
+    {
+        for (auto& x : m_pos)
+        {
+            x.y = -100.f;
+        }
+    }
+    
     bool isRain = NSStarmanLib::RainModel::Get()->IsRain();
 
-    isRain = true;
     if (isRain)
     {
         m_sprite->Begin(D3DXSPRITE_ALPHABLEND);
@@ -105,3 +114,12 @@ bool Rain::IsRain()
 {
     return NSStarmanLib::RainModel::Get()->IsRain();
 }
+
+// タイトル画面を表示している、など、何らかの理由で雨の描画をしないでおきたいときに呼ぶ。
+// 雨が降っている・いないこととは関係ない。
+void Rain::SetShow(const bool bShow)
+{
+    m_bShow = bShow;
+}
+
+

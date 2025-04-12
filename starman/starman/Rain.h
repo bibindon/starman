@@ -16,6 +16,10 @@ public:
     void Draw();
     bool IsRain();
 
+    // タイトル画面を表示している、など、何らかの理由で雨の描画をしないでおきたいときに呼ぶ。
+    // 雨が降っている・いないこととは関係ない。
+    void SetShow(const bool bShow);
+
 private:
 
     void Init();
@@ -27,5 +31,6 @@ private:
     static constexpr int RAINDROP = 6;
     std::array<D3DXVECTOR3, RAINDROP> m_pos;
 
+    bool m_bShow = false;
 };
 

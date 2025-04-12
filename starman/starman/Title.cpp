@@ -11,6 +11,7 @@
 #include "SaveManager.h"
 #include <Shlwapi.h>
 #include "Camera.h"
+#include "Rain.h"
 
 Title::Title(const bool blackFadeIn)
 {
@@ -56,10 +57,14 @@ Title::Title(const bool blackFadeIn)
         auto map = SharedObj::GetMap();
         map->Update();
     }
+
+    Rain::Get()->SetShow(false);
 }
 
 Title::~Title()
 {
+    Rain::Get()->SetShow(true);
+
     m_titleCommand->Finalize();
     SAFE_DELETE(m_titleCommand);
     SAFE_DELETE(m_sprBack);
@@ -153,6 +158,8 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
                         m_loaded.store(true);
                     });
             }
+
+            Rain::Get()->SetShow(true);
         }
         else if (result == "Continue")
         {
@@ -165,6 +172,8 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             auto ppos = SharedObj::GetPlayer()->GetPos();
             ppos.y += 1.0f;
             Camera::SetLookAtPos(ppos);
+
+            Rain::Get()->SetShow(true);
         }
         else if (result == "Exit")
         {
