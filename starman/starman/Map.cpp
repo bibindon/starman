@@ -375,11 +375,10 @@ void Map::Init()
         shikakuman->SetAnim("Sit");
         m_NPC["シカクマン"] = shikakuman;
     }
-    /*
     {
-
-        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 547.f);
-        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
+        auto status = npcManager->GetNpcStatus("ビム");
+        D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
@@ -437,10 +436,11 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim\\vim.x", b, move, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim\\vim.x", pos, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC["ビム"] = animMesh;
     }
+    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 549.f);
         D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);

@@ -1674,6 +1674,11 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     {
                         npcName = "シカクマン";
                     }
+                    else if (work.find("<ビム>") != std::string::npos)
+                    {
+                        npcName = "ビム";
+                    }
+
                     work = Common::RemoveSubstring(work, "<" + npcName + ">");
 
                     if (work.find("<pos>") != std::string::npos)

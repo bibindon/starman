@@ -320,7 +320,7 @@ Q36",,位置,11:492:-559:20,,"
 <talk>res\\script\\origin\\talkFinishQuest16.csv"
 Q37,"クエストが完了していたら
 クエストが完了していないなら","Q36
-Q37",,位置,-1365:12:-581:10,,"
+Q37",,位置,-1365:12:-581:20,,"
 <talk>res\\script\\origin\\talkFinishQuest17.csv
 <npc><ビム><pos>-1425.1:51.2:-595.9
 <npc><ビム><rot>1.57"
