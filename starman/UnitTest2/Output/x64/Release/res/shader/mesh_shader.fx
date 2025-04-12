@@ -9,6 +9,8 @@ float4 g_ambient = { 0.1f, 0.1f, 0.1f, 0.0f };
 float4 g_cameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 texture g_mesh_texture;
 
+float g_fog_strength;
+
 void vertex_shader(
     in  float4 in_position  : POSITION,
     in  float4 in_normal    : NORMAL0,
@@ -38,7 +40,10 @@ void vertex_shader(
     // カメラからの距離をワールド空間で計算
     float distance = length(worldPos.xyz - g_cameraPos.xyz);
 
-    float work = 1.0f - ((3000 - distance) / 3000);
+    float work = 1.0f - ((10000 - distance) / 10000);
+
+    work *= g_fog_strength;
+
     if (work >= 0.6f)
     {
         work = 0.6f;
