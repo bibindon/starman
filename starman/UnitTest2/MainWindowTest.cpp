@@ -197,6 +197,7 @@ public:
             ifs >> savedata;
         }
 
+        Sleep(1000);
         BOOL result4 = Util::DeleteDirectory("res\\script\\save");
         assert(result4 == TRUE);
 

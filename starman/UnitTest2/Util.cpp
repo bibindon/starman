@@ -15,6 +15,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 #include "../starman/SaveManager.h"
+#include <cassert>
 
 LPDIRECT3D9 Util::m_D3D = nullptr;
 LPDIRECTINPUT8 Util::m_directInput = nullptr;
@@ -264,7 +265,10 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
     FindClose(hFind);
 
     // 最後にこのフォルダ自身を削除
-    SetFileAttributes(dirPath, FILE_ATTRIBUTE_NORMAL);
+    BOOL result = SetFileAttributes(dirPath, FILE_ATTRIBUTE_NORMAL);
+
+    assert(result == TRUE);
+
     return RemoveDirectory(dirPath);
 }
 
