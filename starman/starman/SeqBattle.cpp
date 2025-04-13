@@ -1754,6 +1754,21 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     float fz = std::stof(vs.at(2));
                     m_player->SetPos(D3DXVECTOR3(fx, fy, fz));
                 }
+                else if (vs2.at(j).find("<rynenContract>") != std::string::npos)
+                {
+                    auto rynen = NSStarmanLib::Rynen::GetObj();
+                    rynen->SetContracted(true);
+
+                    auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
+                    rynen->SetContractDate(datetime->GetYear(),
+                                           datetime->GetMonth(),
+                                           datetime->GetDay());
+                }
+                else if (vs2.at(j).find("<drinkWordBress>") != std::string::npos)
+                {
+                    auto pos = m_player->GetPos();
+                    Common::Status()->DrinkWordBress(pos.x, pos.y, pos.z);
+                }
             }
         }
     }

@@ -333,7 +333,9 @@ Q39,"クエストが完了していたら
 Q38",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest19.csv
 Q40,"クエストが完了していたら
 クエストが完了していないなら","Q38
-Q39",,体の体力がX以下だったら,30,,<talk>res\\script\\origin\\talkFinishQuest20.csv
+Q39",,位置が範囲外,11:492:-559:300,,"<talk>res\\script\\origin\\talkFinishQuest20.csv
+<rynenContract>
+<drinkWordBress>"
 Q98,"クエストが完了していたら
 クエストが完了していないなら","Q97
 Q98",,位置,1172.0:16.0:330.0:20.0,,<talk>res\\script\\origin\\talkFinishQuest99.csv
