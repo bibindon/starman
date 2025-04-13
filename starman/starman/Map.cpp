@@ -1729,8 +1729,17 @@ D3DXVECTOR3 Map::WallSlideSub(
     float fHitU;
     float fHitV;
     D3DXVECTOR3 rot2 { 0.f, 0.2f, 0.f };
-    D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
-        &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+    D3DXIntersect(d3dmesh,
+                  &targetPos,
+                  &move,
+                  &bIsHit,
+                  &dwHitIndex,
+                  &fHitU,
+                  &fHitV,
+                  &fLandDistance,
+                  NULL,
+                  NULL);
+
     float judgeDistance = 2.f / mesh->GetScale();
     if (bIsHit && fLandDistance <= judgeDistance)
     {
@@ -1776,7 +1785,18 @@ D3DXVECTOR3 Map::WallSlideSub(
         D3DXVECTOR3 front;
         front = move;
 
-        result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+        // 内側から外側への衝突判定だった場合は無視する
+        // 岩の中に入ってしまって、岩から外に出ようとしている場合など。
+        float dot = D3DXVec3Dot(&front, &normal_n);
+
+        if (dot < 0)
+        {
+            result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+        }
+        else
+        {
+            result = move;
+        }
 
         d3dmesh->UnlockVertexBuffer();
     }
