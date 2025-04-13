@@ -2769,6 +2769,8 @@ void SeqBattle::OperateTitle(eSequence* sequence)
     if (m_eState == eBattleState::OPENING)
     {
         SAFE_DELETE(m_title);
+        InitializeAfterLoad();
+        FinalizeLoad();
         m_Opening = NEW Opening();
     }
     else if (m_eState == eBattleState::NORMAL)

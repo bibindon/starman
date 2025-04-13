@@ -147,16 +147,18 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             m_fadeOutCount = 0;
             Common::SetCursorVisibility(false);
 
-            if (m_bSavedataExists)
+            int saveExist = PathFileExists("res\\script\\save");
+
+            if (saveExist == TRUE)
             {
                 m_bLoading = true;
                 SAFE_DELETE(m_thread);
-                m_thread = NEW std::thread(
-                    [&]
-                    {
-                        SaveManager::Get()->LoadOrigin();
-                        m_loaded.store(true);
-                    });
+                m_loaded.store(false);
+                m_thread = NEW std::thread([&]
+                                           {
+                                               SaveManager::Get()->LoadOrigin();
+                                               m_loaded.store(true);
+                                           });
             }
 
             Rain::Get()->SetShow(true);

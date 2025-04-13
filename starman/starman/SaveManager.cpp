@@ -194,6 +194,7 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::ActivityBase::Get()->Finalize();
         NSStarmanLib::CraftInfoManager::Destroy();
         NSStarmanLib::CraftSystem::Destroy();
+        QuestManager::Finalize();
     }
 
     auto rynen = NSStarmanLib::Rynen::GetObj();

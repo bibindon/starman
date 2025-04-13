@@ -45,8 +45,6 @@ private:
     Sprite* m_sprLoading = nullptr;
     LPD3DXFONT m_font = nullptr;
 
-    bool m_bSavedataExists = false;
-
     const int FADE_IN = 60;
     bool m_bFadeIn = false;
     int m_fadeInCount = 0;
