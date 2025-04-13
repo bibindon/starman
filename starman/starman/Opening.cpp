@@ -146,7 +146,7 @@ class SoundEffect : public ISoundEffect
 
 Opening::Opening()
 {
-    BGM::get_ton()->load("res\\sound\\novel.wav");
+    BGM::get_ton()->load("res\\sound\\opening.wav");
 
     {
         ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
@@ -265,7 +265,8 @@ void Opening::Update(eBattleState* eState)
 
         if (m_firstPage == false && m_bPlay == false)
         {
-            //BGM::get_ton()->play();
+            BGM::get_ton()->StopAll();
+            BGM::get_ton()->play("res\\sound\\opening.wav", 80, true);
             m_bPlay = true;
         }
 
