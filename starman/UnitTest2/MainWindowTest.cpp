@@ -229,6 +229,95 @@ public:
         assert(result3 == 0);
         Sleep(500);
     }
+
+    /*
+    // セーブデータを保存して読み込んだとき落ちないかを確認するテスト
+    TEST_METHOD(MainWindowTest_TestMethod04)
+    {
+        Sleep(1000);
+
+        int result1 = rename("res\\script\\save", "res\\script\\save.bak");
+        assert(result1 == 0);
+
+        MockKeyBoard keyboard;
+        auto hInstance = (HINSTANCE)GetModuleHandle(0);
+
+        try
+        {
+            MainWindow sut(hInstance, &keyboard);
+
+            std::thread th1([&]
+                            {
+                                // 1分エンターを押し続ける
+                                for (int i = 0; i < 60; ++i)
+                                {
+                                    Sleep(1000 * 1); 
+                                    keyboard.SetKeyDownFirst(DIK_RETURN);
+                                }
+
+                                // エンターを押し続けるとクエスト１が完了する。
+                                // しかしクエスト1が完了したことを知る方法がない。
+                                // そこで、セーブを実行しセーブデータでクエスト１が完了となっているか確認する。
+                                SaveManager::Get()->Save();
+                                Sleep(500);
+
+                                keyboard.SetAltF4();
+                            });
+
+            sut.MainLoop();
+
+            th1.join();
+        }
+        catch (...)
+        {
+            Util::DeleteDirectory("res\\script\\save");
+            int result2 = rename("res\\script\\save.bak", "res\\script\\save");
+            assert(result2 == 0);
+            Sleep(500);
+            Assert::Fail();
+        }
+
+        try
+        {
+            MainWindow sut(hInstance, &keyboard);
+
+            std::thread th1([&]
+                            {
+                                // 1分エンターを押し続ける
+                                for (int i = 0; i < 60; ++i)
+                                {
+                                    Sleep(1000 * 1); 
+                                    keyboard.SetKeyDownFirst(DIK_RETURN);
+                                }
+
+                                keyboard.SetAltF4();
+                            });
+
+            sut.MainLoop();
+
+            th1.join();
+        }
+        catch (...)
+        {
+            Util::DeleteDirectory("res\\script\\save");
+            int result2 = rename("res\\script\\save.bak", "res\\script\\save");
+            assert(result2 == 0);
+            Sleep(500);
+            Assert::Fail();
+        }
+
+        hInstance = (HINSTANCE)GetModuleHandle(0);
+        BOOL result2 = UnregisterClass("ホシマン", hInstance);
+        assert(result2 == 1);
+
+        Util::DeleteDirectory("res\\script\\save");
+        Sleep(500);
+
+        int result3 = rename("res\\script\\save.bak", "res\\script\\save");
+        assert(result3 == 0);
+        Sleep(500);
+    }
+    */
 };
 }
 
