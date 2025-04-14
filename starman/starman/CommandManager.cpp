@@ -7,6 +7,8 @@
 #include "Mouse.h"
 #include "GamePad.h"
 #include "VoyageManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
 namespace NSCommand
 {
@@ -428,6 +430,49 @@ void CommandManager::BuildCommand()
             else
             {
                 m_commandLib->UpsertCommand("イカダの袋を見る", false);
+            }
+        }
+    }
+
+    //----------------------------------------------
+    // 松明を作る
+    //
+    // 魔法を使えるようになっているとき表示される
+    // 木の棒を装備していると活性状態になる。
+    //----------------------------------------------
+    {
+        auto enableMagic = NSStarmanLib::Rynen::GetObj()->GetContracted();
+        if (enableMagic)
+        {
+            if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == "木の棒")
+            {
+                m_commandLib->UpsertCommand("松明を作る", true);
+            }
+            else
+            {
+                m_commandLib->UpsertCommand("松明を作る", false);
+            }
+        }
+    }
+
+    //----------------------------------------------
+    // 松明に火をつける
+    // 松明を装備していて、松明に火がついていないときに表示される
+    //
+    // 松明の火を消す
+    // 松明を装備していて、松明に火がついているときに表示される
+    //----------------------------------------------
+    {
+        if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == "松明")
+        {
+            auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+            if (lit)
+            {
+                m_commandLib->UpsertCommand("松明に火をつける", true);
+            }
+            else
+            {
+                m_commandLib->UpsertCommand("松明の火を消す", true);
             }
         }
     }

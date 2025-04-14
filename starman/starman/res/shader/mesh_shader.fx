@@ -1,15 +1,16 @@
 float4x4 g_world;
 float4x4 g_world_view_projection;
-float4 g_point_light_pos = { 1, 1, 1, 0};
 float4 g_light_normal;
 float g_light_brightness;
 float4 g_diffuse;
-//float4 g_ambient = { 0.45f, 0.4f, 0.3f, 0.0f };
 float4 g_ambient = { 0.1f, 0.1f, 0.1f, 0.0f };
 float4 g_cameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 texture g_mesh_texture;
 
 float g_fog_strength;
+
+float4 g_point_light_pos = { 1, 1, 1, 0};
+bool pointLightEnable = false;
 
 void vertex_shader(
     in  float4 in_position  : POSITION,
@@ -24,6 +25,28 @@ void vertex_shader(
     out_position  = mul(in_position, g_world_view_projection);
 
     float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
+
+    // ポイントライト
+    if (pointLightEnable)
+    {
+        float4 pointLightVector = g_point_light_pos - in_position;
+        float len = length(pointLightVector);
+
+        // １０メートル以内だったら距離が近いほど強く照らす
+        len = 10.f - len;
+        if (len > 0.f)
+        {
+            pointLightVector = normalize(pointLightVector);
+
+            // 近いほど強く照らす、といっても必ずそうするわけではない。
+            // 近くても陰になっていたら明るくしない。
+            // むしろ陰になっていたらより暗くする。
+            float _dot = dot(in_normal, lightDir)
+
+            light_intensity *= (len*_dot);
+        }
+    }
+
     out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
     out_diffuse.r *= 0.9f; // 暗くしてみる
     out_diffuse.gb *= 0.6f; // 暗くしてみる

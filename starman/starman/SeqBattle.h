@@ -234,5 +234,7 @@ private:
 
     // 3ŠÔqŠC
     void OperateVoyage3Hours();
+
+    void OperateCreateTorch();
 };
 

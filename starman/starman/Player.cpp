@@ -1042,6 +1042,14 @@ bool Player::SetAttack()
 
             float attackPower = statusManager->GetAttackPower();
             vecEnemy.at(i)->SetHP(hp - (int)attackPower);
+
+            // ¼–¾‚¾‚Á‚½‚çˆê“x‚Å‰ó‚ê‚éB‰Î‚àÁ‚¦‚é
+            auto itemInfo = Common::Status()->GetEquipWeapon();
+            if (itemInfo.GetItemDef().GetName() == "¼–¾")
+            {
+                NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
+                Common::Inventory()->SetItemDurability(itemInfo.GetId(), itemInfo.GetSubId(), 0);
+            }
         }
     }
 

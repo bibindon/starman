@@ -1,10 +1,14 @@
-#include <cassert>
 #include "Mesh.h"
+
+#include <cassert>
+
 #include "Light.h"
 #include "Common.h"
 #include "Camera.h"
 #include "SharedObj.h"
 #include "Rain.h"
+
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
 Mesh::Mesh(const std::string& xFilename,
            const D3DXVECTOR3& position,
@@ -240,17 +244,32 @@ void Mesh::Render()
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
-    // ポイントライトの位置を設定（未使用）
+    // ポイントライトの位置を設定
     //--------------------------------------------------------
-    D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
-    D3DXVECTOR4 ppos2;
-    ppos2.x = ppos.x;
-    ppos2.y = ppos.y+2;
-    ppos2.z = ppos.z;
-    ppos2.w = 0;
 
-    hResult = m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
-    assert(hResult == S_OK);
+    bool isLit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+
+    // 松明の点灯状態が変わったらシェーダーにポイントライトのON/OFFを設定する
+    if (isLit != m_bPointLightEnablePrevious)
+    {
+        hResult = m_D3DEffect->SetBool("pointLightEnable", isLit);
+        assert(hResult == S_OK);
+    }
+
+    m_bPointLightEnablePrevious = isLit;
+
+    if (isLit)
+    {
+        D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
+        D3DXVECTOR4 ppos2;
+        ppos2.x = ppos.x;
+        ppos2.y = ppos.y+2;
+        ppos2.z = ppos.z;
+        ppos2.w = 0;
+
+        hResult = m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+        assert(hResult == S_OK);
+    }
 
     //--------------------------------------------------------
     // 光源の明るさを設定

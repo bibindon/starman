@@ -456,6 +456,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateVoyage3Hours();
     }
+    else if (m_eState == eBattleState::CREATE_TORCH)
+    {
+        OperateCreateTorch();
+    }
 
     //-----------------------------------------------------
     // カメラの更新処理
@@ -1163,6 +1167,31 @@ void SeqBattle::OperateCommand()
     else if (result == "イカダの袋を見る")
     {
         ShowStorehouse();
+    }
+    else if (result == "松明を作る")
+    {
+        StartFadeInOut();
+        m_eState = eBattleState::CREATE_TORCH;
+        leave = true;
+    }
+    else if (result == "松明に火をつける")
+    {
+        // 松明の耐久値が０の場合、エラーメッセージを表示し点火しない。
+        auto weapon = Common::Status()->GetEquipWeapon();
+        if (weapon.GetDurabilityCurrent() == 0)
+        {
+            PopUp2::Get()->SetText("松明の耐久値が０の時は点灯できない");
+        }
+        else
+        {
+            NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(true);
+            leave = true;
+        }
+    }
+    else if (result == "松明の火を消す")
+    {
+        NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
+        leave = true;
     }
 
     // コマンド画面を閉じる場合
@@ -2008,6 +2037,31 @@ void SeqBattle::OperateVoyage3Hours()
         SharedObj::Voyage()->Set3HoursAuto();
 
         m_eState = eBattleState::VOYAGE;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+    }
+}
+
+void SeqBattle::OperateCreateTorch()
+{
+    if (m_eFadeSeq == eFadeSeq::Sleep)
+    {
+        //-----------------------------------------------
+        // 装備中の木の棒を削除し、松明を生成。
+        // そして、松明を装備する
+        //-----------------------------------------------
+
+        // 装備中の木の棒を削除
+        auto weapon = Common::Status()->GetEquipWeapon();
+        Common::Inventory()->RemoveItem(weapon.GetId(), weapon.GetSubId());
+
+        auto itemDef = Common::ItemManager()->GetItemDef("松明");
+        auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
+
+        auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), newSubId);
+        Common::Status()->SetEquipWeapon(itemInfo);
+
+        m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
     }

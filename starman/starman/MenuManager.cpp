@@ -676,15 +676,34 @@ std::string MenuManager::OperateMenu()
             }
             else if (vs.at(4) == "装備する")
             {
-                int id = std::stoi(vs.at(2));
-                int subId = std::stoi(vs.at(3));
-                Equip(id, subId);
+                // 火のついた松明を装備していたら武器を装備できない。袋も装備できない。
+                bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+
+                if (lit)
+                {
+                    PopUp2::Get()->SetText("点灯中の松明を装備していたら武器を装備できない。袋も装備できない。");
+                }
+                else
+                {
+                    int id = std::stoi(vs.at(2));
+                    int subId = std::stoi(vs.at(3));
+                    Equip(id, subId);
+                }
             }
             else if (vs.at(4) == "装備を外す")
             {
-                int id = std::stoi(vs.at(2));
-                int subId = std::stoi(vs.at(3));
-                Unequip(id, subId);
+                // 点灯中の松明の装備を外すことはできない。
+                bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+                if (lit)
+                {
+                    PopUp2::Get()->SetText("点灯中の松明の装備を外すことはできない。");
+                }
+                else
+                {
+                    int id = std::stoi(vs.at(2));
+                    int subId = std::stoi(vs.at(3));
+                    Unequip(id, subId);
+                }
             }
         }
         else if (vs.size() == 5 && vs.at(0) == "武器")
@@ -1355,7 +1374,11 @@ bool MenuManager::IsBagEquiped(const int id, const int subId)
 
 void MenuManager::Equip(const int id, const int subId)
 {
-    // 袋か武器化
+    //--------------------------------------
+    // 袋か武器か
+    //--------------------------------------
+
+    // 武器だったら
     if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
         auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
@@ -1369,6 +1392,7 @@ void MenuManager::Equip(const int id, const int subId)
         itemInfoG.SetEquip(true);
         m_menu.UpdateItem(itemInfoG);
     }
+    // 袋だったら
     else
     {
         // 袋を5個装備していたら装備しない

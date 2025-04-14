@@ -1,3 +1,7 @@
+// 開発初期に適当に作ったまま
+// そろそろちゃんとしたほうがいい気がする。
+
+
 #include "Camera.h"
 
 #include "SharedObj.h"

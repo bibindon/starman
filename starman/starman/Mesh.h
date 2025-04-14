@@ -62,6 +62,8 @@ private:
     bool m_bLoaded = false;
 
     bool m_bWeapon = false;
+
+    bool m_bPointLightEnablePrevious = false;
 };
 
 
