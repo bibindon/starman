@@ -1184,9 +1184,18 @@ void SeqBattle::OperateCommand()
         }
         else
         {
-            NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(true);
-            leave = true;
-            m_eState = eBattleState::NORMAL;
+            auto rain = Rain::Get()->IsRain();
+
+            if (rain)
+            {
+                PopUp2::Get()->SetText("‰J‚Ì‚Í");
+            }
+            else
+            {
+                NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(true);
+                leave = true;
+                m_eState = eBattleState::NORMAL;
+            }
         }
     }
     else if (result == "¼–¾‚Ì‰Î‚ğÁ‚·")

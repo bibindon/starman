@@ -54,25 +54,6 @@ void vertex_shader(
     fog_strength = work;
 }
 
-/*
-// point light
-{
-    out_position  = mul(in_position, g_world_view_projection);
-
-    float4 lightDir = g_point_light_pos - in_position;
-    float len = length(lightDir);
-    lightDir = normalize(lightDir);
-    float light_intensity = dot(in_normal, lightDir);
-    out_diffuse = g_diffuse * min(max(0, (25/len)), 25) + g_ambient;
-    out_diffuse.r *= 0.6f; // ˆÃ‚­‚µ‚Ä‚İ‚é
-    out_diffuse.gb *= 0.3f; // ˆÃ‚­‚µ‚Ä‚İ‚é
-    out_diffuse.a = 1.0f;
-
-    out_texcood = in_texcood;
-}
-
-*/
-
 float4 fog_color = { 0.5f, 0.3f, 0.2f, 1.0f };
 
 sampler mesh_texture_sampler = sampler_state {
@@ -109,7 +90,7 @@ void pixel_shader(
     out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
 
     // –é‹ó‚ÍÂF‚É‚µ‚½‚¢
-    out_diffuse.r *= (g_light_brightness*1.414f);
+    out_diffuse.rg *= (g_light_brightness*1.414f);
     out_diffuse.b *= (2.f - g_light_brightness);
 
     //------------------------------------------------------
@@ -117,14 +98,17 @@ void pixel_shader(
     //
     // –¶‚Ì•`‰æ‚Ì‹t‚ğ‚â‚ê‚Î‚æ‚¢
     //------------------------------------------------------
-    if (fog <= 0.0016f)
+    if (pointLightEnable)
     {
-        float work = fog * 625.f;
-        if (work >= 0.f)
+        if (fog <= 0.0016f)
         {
-            // ‰©F‚­‚·‚é
-            out_diffuse.r += (1 - (work*work))/2;
-            out_diffuse.g += (1 - (work*work))/4.f;
+            float work = fog * 625.f;
+            if (work >= 0.f)
+            {
+                // ©•ª‚Ìü‚è‚ğ‰©F‚­‚·‚é
+                out_diffuse.r += (1 - (work*work))/2;
+                out_diffuse.g += (1 - (work*work))/4.f;
+            }
         }
     }
 }
