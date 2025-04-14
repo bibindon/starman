@@ -444,13 +444,22 @@ void CommandManager::BuildCommand()
         auto enableMagic = NSStarmanLib::Rynen::GetObj()->GetContracted();
         if (enableMagic)
         {
-            if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == "–Ø‚Ì–_")
+            auto weapon = Common::Status()->GetEquipWeapon();
+
+            if (weapon.GetId() == -1 || weapon.GetId() == 0)
             {
-                m_commandLib->UpsertCommand("¼–¾‚ğì‚é", true);
+                m_commandLib->UpsertCommand("¼–¾‚ğì‚é", false);
             }
             else
             {
-                m_commandLib->UpsertCommand("¼–¾‚ğì‚é", false);
+                if (weapon.GetItemDef().GetName() == "–Ø‚Ì–_")
+                {
+                    m_commandLib->UpsertCommand("¼–¾‚ğì‚é", true);
+                }
+                else
+                {
+                    m_commandLib->UpsertCommand("¼–¾‚ğì‚é", false);
+                }
             }
         }
     }
