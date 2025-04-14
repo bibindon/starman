@@ -181,8 +181,8 @@ void Camera::Update()
         float temp = std::sin((float)m_counter / MOVE_COUNT_MAX * D3DX_PI / 2);
 
         float x = playerPos.x - ((playerPos.x - (-4000))  * temp);
-        float z = playerPos.z - ((playerPos.x - (-1000))  * temp);
-        float y = playerPos.y - ((playerPos.x - 300)  * temp);
+        float z = playerPos.z - ((playerPos.z - (-1000))  * temp);
+        float y = playerPos.y - ((playerPos.y - 300)  * temp);
 
         m_eyePos.x = x;
         m_eyePos.z = z;
