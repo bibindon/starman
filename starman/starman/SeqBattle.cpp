@@ -1178,7 +1178,7 @@ void SeqBattle::OperateCommand()
     {
         // 松明の耐久値が０の場合、エラーメッセージを表示し点火しない。
         auto weapon = Common::Status()->GetEquipWeapon();
-        if (weapon.GetDurabilityCurrent() == 0)
+        if (weapon.GetDurabilityCurrent() <= 0)
         {
             PopUp2::Get()->SetText("松明の耐久値が０の時は点灯できない");
         }
@@ -1188,13 +1188,15 @@ void SeqBattle::OperateCommand()
 
             if (rain)
             {
-                PopUp2::Get()->SetText("雨の時は");
+                PopUp2::Get()->SetText("雨の時は松明を点灯できない");
             }
             else
             {
                 NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(true);
                 leave = true;
                 m_eState = eBattleState::NORMAL;
+                BGM::get_ton()->load("res\\sound\\torch.wav");
+                BGM::get_ton()->play("res\\sound\\torch.wav", 10, true);
             }
         }
     }
@@ -1203,6 +1205,7 @@ void SeqBattle::OperateCommand()
         NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         leave = true;
         m_eState = eBattleState::NORMAL;
+        BGM::get_ton()->stop("res\\sound\\torch.wav");
     }
 
     // コマンド画面を閉じる場合
@@ -2585,7 +2588,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 1, 10, 0); // 1秒で1時間とか経過させたい時用
+        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1秒で1時間とか経過させたい時用
         //dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
 
@@ -2686,6 +2689,35 @@ void SeqBattle::UpdatePerSecond()
         }
         previousVol = vol;
         previousVolMax = volMax;
+    }
+    //-------------------------------------
+    // 松明を使用していたら松明の耐久値を低下
+    //-------------------------------------
+    {
+        auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+        if (lit)
+        {
+            auto weapon = Common::Status()->GetEquipWeapon();
+            auto dura = weapon.GetDurabilityCurrent() - 1;
+            if (dura < 0)
+            {
+                dura = 0;
+                NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
+                BGM::get_ton()->stop("res\\sound\\torch.wav");
+            }
+
+            Common::Inventory()->SetItemDurability(weapon.GetId(), weapon.GetSubId(), dura);
+            weapon.SetDurabilityCurrent(dura);
+            Common::Status()->SetEquipWeapon(weapon);
+        }
+        else
+        {
+            auto isPlay = BGM::get_ton()->IsPlay("res\\sound\\torch.wav");
+            if (isPlay)
+            {
+                BGM::get_ton()->stop("res\\sound\\torch.wav");
+            }
+        }
     }
 }
 

@@ -5,6 +5,7 @@
 #include "SharedObj.h"
 #include <cassert>
 #include "Rain.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
 using std::string;
 using std::vector;
@@ -262,7 +263,7 @@ float MeshClone::GetScale() const
     return m_scale;
 }
 
-void MeshClone::Render() const
+void MeshClone::Render()
 {
     if (m_bIsInit == false)
     {
@@ -277,14 +278,41 @@ void MeshClone::Render() const
 
     m_D3DEffect->SetVector("g_light_normal", &normal);
 
-    SharedObj::GetPlayer();
-    D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
-    D3DXVECTOR4 ppos2;
-    ppos2.x = ppos.x;
-    ppos2.y = ppos.y+2;
-    ppos2.z = ppos.z;
-    ppos2.w = 0;
-    m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+    //--------------------------------------------------------
+    // ポイントライトの位置を設定
+    //--------------------------------------------------------
+    HRESULT hResult = E_FAIL;
+    bool isLit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+
+    // 松明の点灯状態が変わったらシェーダーにポイントライトのON/OFFを設定する
+    if (isLit != m_bPointLightEnablePrevious)
+    {
+        if (isLit)
+        {
+            hResult = m_D3DEffect->SetBool("pointLightEnable", TRUE);
+            assert(hResult == S_OK);
+        }
+        else
+        {
+            hResult = m_D3DEffect->SetBool("pointLightEnable", FALSE);
+            assert(hResult == S_OK);
+        }
+    }
+
+    m_bPointLightEnablePrevious = isLit;
+
+    if (isLit)
+    {
+        D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
+        D3DXVECTOR4 ppos2;
+        ppos2.x = ppos.x;
+        ppos2.y = ppos.y + 2;
+        ppos2.z = ppos.z;
+        ppos2.w = 0;
+
+        hResult = m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+        assert(hResult == S_OK);
+    }
 
     m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
 
@@ -349,7 +377,6 @@ void MeshClone::Render() const
     //--------------------------------------------------------
     // 雨だったら霧を濃くする
     //--------------------------------------------------------
-    HRESULT hResult = E_FAIL;
     D3DXVECTOR4 fog_color;
 
     if (!Rain::Get()->IsRain())

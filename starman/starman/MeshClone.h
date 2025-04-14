@@ -25,7 +25,7 @@ public:
     void SetPos(const D3DXVECTOR3& pos);
     D3DXVECTOR3 GetPos() const;
     float GetScale() const;
-    void Render() const;
+    void Render();
 
     LPD3DXMESH GetD3DMesh() const;
 
@@ -57,5 +57,7 @@ private:
     bool m_bIsInit { false };
 
     bool m_bWeapon = false;
+
+    bool m_bPointLightEnablePrevious = false;
 };
 
