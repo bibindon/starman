@@ -1186,12 +1186,14 @@ void SeqBattle::OperateCommand()
         {
             NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(true);
             leave = true;
+            m_eState = eBattleState::NORMAL;
         }
     }
     else if (result == "松明の火を消す")
     {
         NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         leave = true;
+        m_eState = eBattleState::NORMAL;
     }
 
     // コマンド画面を閉じる場合
@@ -2574,7 +2576,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1秒で1時間とか経過させたい時用
+        dateTime->IncreaseDateTime(0, 0, 1, 10, 0); // 1秒で1時間とか経過させたい時用
         //dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
 

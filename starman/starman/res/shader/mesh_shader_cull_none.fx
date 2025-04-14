@@ -8,6 +8,7 @@ float4 g_diffuse;
 float4 g_ambient = { 0.1f, 0.1f, 0.1f, 0.0f };
 float4 g_cameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 texture g_mesh_texture;
+bool pointLightEnable;
 
 void vertex_shader(
     in  float4 in_position  : POSITION,

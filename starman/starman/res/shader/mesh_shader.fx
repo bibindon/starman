@@ -10,7 +10,7 @@ texture g_mesh_texture;
 float g_fog_strength;
 
 float4 g_point_light_pos = { 1, 1, 1, 0};
-bool pointLightEnable = false;
+bool pointLightEnable;
 
 void vertex_shader(
     in  float4 in_position  : POSITION,
@@ -25,27 +25,6 @@ void vertex_shader(
     out_position  = mul(in_position, g_world_view_projection);
 
     float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
-
-    // ポイントライト
-    if (pointLightEnable)
-    {
-        float4 pointLightVector = g_point_light_pos - in_position;
-        float len = length(pointLightVector);
-
-        // １０メートル以内だったら距離が近いほど強く照らす
-        len = 10.f - len;
-        if (len > 0.f)
-        {
-            pointLightVector = normalize(pointLightVector);
-
-            // 近いほど強く照らす、といっても必ずそうするわけではない。
-            // 近くても陰になっていたら明るくしない。
-            // むしろ陰になっていたらより暗くする。
-            float _dot = dot(in_normal, lightDir)
-
-            light_intensity *= (len*_dot);
-        }
-    }
 
     out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
     out_diffuse.r *= 0.9f; // 暗くしてみる
@@ -104,8 +83,8 @@ sampler mesh_texture_sampler = sampler_state {
 };
 
 void pixel_shader(
-    in  float4 in_diffuse  : COLOR0,
-    in  float2 in_texcood  : TEXCOORD0,
+    in float4 in_diffuse  : COLOR0,
+    in float2 in_texcood  : TEXCOORD0,
     in float   fog : TEXCOORD1,
     out float4 out_diffuse : COLOR0
     )
@@ -118,13 +97,36 @@ void pixel_shader(
         out_diffuse = in_diffuse;
     }
 
+    //------------------------------------------------------
     // 霧の描画
-    //======================================================
+    //
     // 霧はピクセルシェーダーでやらないと意味がない。
     // 頂点シェーダーでやると、遠いほど輝いて見えるようになってしまう
-    //======================================================
+    //------------------------------------------------------
     float4 fog_color2 = fog_color * g_light_brightness;
+
+
     out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
+
+    // 夜空は青色にしたい
+    out_diffuse.r *= (g_light_brightness*1.414f);
+    out_diffuse.b *= (2.f - g_light_brightness);
+
+    //------------------------------------------------------
+    // ポイントライト
+    //
+    // 霧の描画の逆をやればよい
+    //------------------------------------------------------
+    if (fog <= 0.0016f)
+    {
+        float work = fog * 625.f;
+        if (work >= 0.f)
+        {
+            // 黄色くする
+            out_diffuse.r += (1 - (work*work))/2;
+            out_diffuse.g += (1 - (work*work))/4.f;
+        }
+    }
 }
 
 technique technique_

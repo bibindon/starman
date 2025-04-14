@@ -116,7 +116,7 @@ void Mesh::Init()
 
 
     LPD3DXMESH tempMesh = nullptr;
-    hResult = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED,
+    hResult = m_D3DMesh->CloneMesh(D3DXMESH_MANAGED | D3DXMESH_32BIT,
                                   decl,
                                   SharedObj::GetD3DDevice(),
                                   &tempMesh);
@@ -252,8 +252,16 @@ void Mesh::Render()
     // 松明の点灯状態が変わったらシェーダーにポイントライトのON/OFFを設定する
     if (isLit != m_bPointLightEnablePrevious)
     {
-        hResult = m_D3DEffect->SetBool("pointLightEnable", isLit);
-        assert(hResult == S_OK);
+        if (isLit)
+        {
+            hResult = m_D3DEffect->SetBool("pointLightEnable", TRUE);
+            assert(hResult == S_OK);
+        }
+        else
+        {
+            hResult = m_D3DEffect->SetBool("pointLightEnable", FALSE);
+            assert(hResult == S_OK);
+        }
     }
 
     m_bPointLightEnablePrevious = isLit;

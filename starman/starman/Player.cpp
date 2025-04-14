@@ -204,6 +204,14 @@ Player::Player()
         mesh->SetWeapon(true);
         m_weaponMesh["ã|ñÓÇÃñÓ"] = mesh;
     }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
+        Mesh * mesh = NEW Mesh("res\\model\\stick\\stick.x", pos, rot, 1.f);
+        mesh->Init();
+        mesh->SetWeapon(true);
+        m_weaponMesh["èºñæ"] = mesh;
+    }
     
     // ë‹
     {

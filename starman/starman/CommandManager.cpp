@@ -463,16 +463,22 @@ void CommandManager::BuildCommand()
     // ¼–¾‚ğ‘•”õ‚µ‚Ä‚¢‚ÄA¼–¾‚É‰Î‚ª‚Â‚¢‚Ä‚¢‚é‚Æ‚«‚É•\¦‚³‚ê‚é
     //----------------------------------------------
     {
-        if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == "¼–¾")
+        auto weapon = Common::Status()->GetEquipWeapon();
+
+        // ‰½‚©‚µ‚ç‚Í‘•”õ‚µ‚Ä‚¢‚éB
+        if (weapon.GetId() != 0 && weapon.GetId() != -1)
         {
-            auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
-            if (lit)
+            if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == "¼–¾")
             {
-                m_commandLib->UpsertCommand("¼–¾‚É‰Î‚ğ‚Â‚¯‚é", true);
-            }
-            else
-            {
-                m_commandLib->UpsertCommand("¼–¾‚Ì‰Î‚ğÁ‚·", true);
+                auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+                if (!lit)
+                {
+                    m_commandLib->UpsertCommand("¼–¾‚É‰Î‚ğ‚Â‚¯‚é", true);
+                }
+                else
+                {
+                    m_commandLib->UpsertCommand("¼–¾‚Ì‰Î‚ğÁ‚·", true);
+                }
             }
         }
     }
