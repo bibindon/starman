@@ -1069,7 +1069,13 @@ void SeqBattle::OperateCommand()
         // 石か石斧を装備していないと切れない
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
-        auto name = itemInfo.GetItemDef().GetName();
+
+        std::string name;
+        if (itemInfo.GetId() != -1 && itemInfo.GetId() != 0)
+        {
+            name = itemInfo.GetItemDef().GetName();
+        }
+
         if (name != "石斧" && name != "縦長の石")
         {
             PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
