@@ -107,9 +107,9 @@ public:
             std::thread th1([&]
                             {
 #ifdef _DEBUG
-                                Sleep(20 * 1000);
+                                Sleep(40 * 1000);
 #else
-                                Sleep(10 * 1000);
+                                Sleep(20 * 1000);
 #endif
 
                                 keyboard.SetAltF4();
@@ -177,7 +177,7 @@ public:
             std::thread th1([&]
                             {
                                 // 1•ªƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‘±‚¯‚é
-                                for (int i = 0; i < 60; ++i)
+                                for (int i = 0; i <120; ++i)
                                 {
                                     Sleep(1000 * 1); 
                                     keyboard.SetKeyDownFirst(DIK_RETURN);
