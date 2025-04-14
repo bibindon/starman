@@ -230,7 +230,6 @@ public:
         Sleep(500);
     }
 
-    /*
     // セーブデータを保存して読み込んだとき落ちないかを確認するテスト
     TEST_METHOD(MainWindowTest_TestMethod04)
     {
@@ -249,17 +248,18 @@ public:
             std::thread th1([&]
                             {
                                 // 1分エンターを押し続ける
-                                for (int i = 0; i < 60; ++i)
+                                for (int i = 0; i < 120; ++i)
                                 {
                                     Sleep(1000 * 1); 
                                     keyboard.SetKeyDownFirst(DIK_RETURN);
                                 }
 
+#ifndef DEPLOY
                                 // エンターを押し続けるとクエスト１が完了する。
                                 // しかしクエスト1が完了したことを知る方法がない。
                                 // そこで、セーブを実行しセーブデータでクエスト１が完了となっているか確認する。
                                 SaveManager::Get()->Save();
-                                Sleep(500);
+#endif
 
                                 keyboard.SetAltF4();
                             });
@@ -277,18 +277,27 @@ public:
             Assert::Fail();
         }
 
+        Sleep(2000);
+        hInstance = (HINSTANCE)GetModuleHandle(0);
+        BOOL result2 = UnregisterClass("ホシマン", hInstance);
+        assert(result2 == 1);
+        Sleep(500);
+
         try
         {
             MainWindow sut(hInstance, &keyboard);
 
             std::thread th1([&]
                             {
-                                // 1分エンターを押し続ける
-                                for (int i = 0; i < 60; ++i)
-                                {
-                                    Sleep(1000 * 1); 
-                                    keyboard.SetKeyDownFirst(DIK_RETURN);
-                                }
+                                Sleep(1000 * 30); 
+
+                                keyboard.SetKeyDownFirst(DIK_RIGHT);
+
+                                Sleep(1000 * 1); 
+
+                                keyboard.SetKeyDownFirst(DIK_RETURN);
+
+                                Sleep(1000 * 30); 
 
                                 keyboard.SetAltF4();
                             });
@@ -307,17 +316,17 @@ public:
         }
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
-        BOOL result2 = UnregisterClass("ホシマン", hInstance);
-        assert(result2 == 1);
+        BOOL result3 = UnregisterClass("ホシマン", hInstance);
+        assert(result3 == 1);
+        Sleep(500);
 
         Util::DeleteDirectory("res\\script\\save");
         Sleep(500);
 
-        int result3 = rename("res\\script\\save.bak", "res\\script\\save");
-        assert(result3 == 0);
+        int result4 = rename("res\\script\\save.bak", "res\\script\\save");
+        assert(result4 == 0);
         Sleep(500);
     }
-    */
 };
 }
 

@@ -233,10 +233,10 @@ MenuManager::~MenuManager()
 void MenuManager::InitMenu()
 {
     using namespace NSMenulib;
-    NSMenulib::Sprite* sprCursor = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+    NSMenulib::ISprite* sprCursor = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprCursor->Load("res\\image\\menu_cursor.png");
 
-    NSMenulib::Sprite* sprBackground = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+    NSMenulib::ISprite* sprBackground = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load("res\\image\\menu_back.png");
 
     NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice());

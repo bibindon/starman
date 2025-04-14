@@ -362,6 +362,7 @@ SeqBattle::~SeqBattle()
 {
     m_loadThread->join();
 
+    SAFE_DELETE(m_menuManager);
     m_hudManager.Finalize();
     m_commandManager.Finalize();
     SAFE_DELETE(m_loadThread);
@@ -490,7 +491,7 @@ void SeqBattle::OperateStory()
 
 void SeqBattle::OperateMenu(eSequence* sequence)
 {
-    std::string result = m_menuManager.OperateMenu();
+    std::string result = m_menuManager->OperateMenu();
     if (result == "タイトルに戻る")
     {
         m_eState = eBattleState::TITLE;
@@ -658,7 +659,7 @@ void SeqBattle::OperateStorehouse()
                     inventory->RemoveItem(id_, subId_);
                     storehouse->AddItemWithSubID(id_, subId_, durability_);
                     m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
-                    m_menuManager.DeleteItem(id_, subId_);
+                    m_menuManager->DeleteItem(id_, subId_);
                 }
             }
             else if (vs.at(0) == "right")
@@ -668,7 +669,7 @@ void SeqBattle::OperateStorehouse()
                 storehouse->RemoveItem(id_, subId_);
                 inventory->AddItemWithSubID(id_, subId_, durability_);
                 m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
-                m_menuManager.AddItem(id_, subId_, durability_);
+                m_menuManager->AddItem(id_, subId_, durability_);
             }
             else
             {
@@ -756,7 +757,7 @@ void SeqBattle::OperateStorehouse()
                         inventory->RemoveItem(id_, subId_);
                         storehouse->AddItemWithSubID(id_, subId_, durability_);
                         m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
-                        m_menuManager.DeleteItem(id_, subId_);
+                        m_menuManager->DeleteItem(id_, subId_);
                     }
                 }
                 else if (vs.at(0) == "right")
@@ -766,7 +767,7 @@ void SeqBattle::OperateStorehouse()
                     storehouse->RemoveItem(id_, subId_);
                     inventory->AddItemWithSubID(id_, subId_, durability_);
                     m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
-                    m_menuManager.AddItem(id_, subId_, durability_);
+                    m_menuManager->AddItem(id_, subId_, durability_);
                 }
                 else
                 {
@@ -889,7 +890,7 @@ void SeqBattle::OperateStorehouse()
                     inventory->RemoveItem(id_, subId_);
                     storehouse->AddItemWithSubID(id_, subId_, durability_);
                     m_storehouse->MoveFromInventoryToStorehouse(id_, subId_);
-                    m_menuManager.DeleteItem(id_, subId_);
+                    m_menuManager->DeleteItem(id_, subId_);
                 }
             }
             else if (vs.at(0) == "right")
@@ -899,7 +900,7 @@ void SeqBattle::OperateStorehouse()
                 storehouse->RemoveItem(id_, subId_);
                 inventory->AddItemWithSubID(id_, subId_, durability_);
                 m_storehouse->MoveFromStorehouseToInventory(id_, subId_);
-                m_menuManager.AddItem(id_, subId_, durability_);
+                m_menuManager->AddItem(id_, subId_, durability_);
             }
             else
             {
@@ -1257,7 +1258,9 @@ void SeqBattle::UpdateLoad()
 
 void SeqBattle::InitializeAfterLoad()
 {
-    m_menuManager.InitMenu();
+    delete m_menuManager;
+    m_menuManager = NEW MenuManager();
+    m_menuManager->InitMenu();
 
     m_map = NEW Map();
     SharedObj::SetMap(m_map);
@@ -2035,7 +2038,7 @@ void SeqBattle::Render()
     }
     else if (m_eState == eBattleState::MENU)
     {
-        m_menuManager.Draw();
+        m_menuManager->Draw();
     }
     else if (m_eState == eBattleState::PATCH_TEST)
     {
@@ -2110,7 +2113,7 @@ void SeqBattle::Confirm(eSequence* sequence)
             // 代わりに、まともに歩いたりできなくなる。
             auto inventory = NSStarmanLib::Inventory::GetObj();
             int newSubID = inventory->AddItem(itemPos.GetItemDefId());
-            m_menuManager.AddItem(itemPos.GetItemDefId(), newSubID);
+            m_menuManager->AddItem(itemPos.GetItemDefId(), newSubID);
 
             std::string work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
             SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
@@ -2168,7 +2171,7 @@ void SeqBattle::Confirm(eSequence* sequence)
             // 代わりに、まともに歩いたりできなくなる。
             auto inventory = NSStarmanLib::Inventory::GetObj();
             int newSubID = inventory->AddItem(thrownItem.GetId());
-            m_menuManager.AddItem(thrownItem.GetId(), newSubID);
+            m_menuManager->AddItem(thrownItem.GetId(), newSubID);
 
             std::string work = itemManager->GetItemDef(thrownItem.GetId()).GetName();
             SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
@@ -2636,8 +2639,10 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         m_eState = eBattleState::MENU;
         Camera::SetCameraMode(eCameraMode::SLEEP);
         Common::SetCursorVisibility(true);
-        m_menuManager.Finalize();
-        m_menuManager.InitMenu();
+
+        delete m_menuManager;
+        m_menuManager = NEW MenuManager();
+        m_menuManager->InitMenu();
 
         return;
     }
@@ -2674,8 +2679,10 @@ void SeqBattle::OperateNormal(eSequence* sequence)
             m_eState = eBattleState::MENU;
             Camera::SetCameraMode(eCameraMode::SLEEP);
             Common::SetCursorVisibility(true);
-            m_menuManager.Finalize();
-            m_menuManager.InitMenu();
+
+            delete m_menuManager;
+            m_menuManager = NEW MenuManager();
+            m_menuManager->InitMenu();
         }
     }
 

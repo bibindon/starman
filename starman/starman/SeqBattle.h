@@ -104,7 +104,7 @@ private:
     // メニュー
     //----------------------------------------------------------
     void OperateMenu(eSequence* sequence);
-    MenuManager m_menuManager;
+    MenuManager* m_menuManager = nullptr;
 
     //----------------------------------------------------------
     // ステータス表示
