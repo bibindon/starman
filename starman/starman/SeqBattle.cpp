@@ -1262,6 +1262,7 @@ void SeqBattle::InitializeAfterLoad()
     m_menuManager = NEW MenuManager();
     m_menuManager->InitMenu();
 
+    SAFE_DELETE(m_map);
     m_map = NEW Map();
     SharedObj::SetMap(m_map);
     m_map->Init();

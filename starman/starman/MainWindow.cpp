@@ -34,6 +34,8 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/RainModel.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
 
 SeqBattle* MainWindow::m_seqBattle = nullptr;
 
@@ -348,6 +350,8 @@ MainWindow::~MainWindow()
     NSStarmanLib::HumanInfoManager::Destroy();
     NSStarmanLib::Rynen::Destroy();
     NSStarmanLib::RainModel::Get()->Destroy();
+    NSStarmanLib::CraftInfoManager::Destroy();
+    NSStarmanLib::CraftSystem::Destroy();
 
     QuestManager::Finalize();
 

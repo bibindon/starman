@@ -179,7 +179,7 @@ public:
                                 // 1•ªƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‘±‚¯‚é
                                 for (int i = 0; i <120; ++i)
                                 {
-                                    Sleep(1000 * 1); 
+                                    Sleep(1000 * 1);
                                     keyboard.SetKeyDownFirst(DIK_RETURN);
                                 }
 

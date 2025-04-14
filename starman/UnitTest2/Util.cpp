@@ -16,6 +16,8 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 #include "../starman/SaveManager.h"
 #include <cassert>
+#include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
 
 LPDIRECT3D9 Util::m_D3D = nullptr;
 LPDIRECTINPUT8 Util::m_directInput = nullptr;
@@ -214,6 +216,8 @@ void Util::DestroyLibData()
     NSStarmanLib::PowereggDateTime::Destroy();
     NSStarmanLib::MapObjManager::Destroy();
     NSStarmanLib::Voyage::Destroy();
+    NSStarmanLib::CraftInfoManager::Destroy();
+    NSStarmanLib::CraftSystem::Destroy();
     SaveManager::Destroy();
 }
 
