@@ -25,6 +25,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "QuestManager.h"
 #include "Rain.h"
+#include <cassert>
 
 using namespace NSQuestSystem;
 
@@ -1822,6 +1823,24 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto pos = m_player->GetPos();
                     Common::Status()->DrinkWordBress(pos.x, pos.y, pos.z);
                 }
+                // アイテムを取得
+                else if (vs2.at(j).find("<item>") != std::string::npos)
+                {
+                    std::string work2 = Common::RemoveSubstring(vs2.at(j), "<item>");
+                    auto itemDef = Common::ItemManager()->GetItemDef(work2);
+                    auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
+                }
+                // 武器を装備
+                else if (vs2.at(j).find("<equip>") != std::string::npos)
+                {
+                    std::string work2 = Common::RemoveSubstring(vs2.at(j), "<equip>");
+                    auto itemDef = Common::ItemManager()->GetItemDef(work2);
+                    auto subIdList = Common::Inventory()->GetSubIdList(itemDef.GetId());
+                    assert(subIdList.size() >= 1);
+
+                    auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), subIdList.at(0));
+                    Common::Status()->SetEquipWeapon(itemInfo);
+                }
             }
         }
     }
@@ -2594,7 +2613,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1秒で1時間とか経過させたい時用
+        dateTime->IncreaseDateTime(0, 0, 0, 30, 0); // 1秒で1時間とか経過させたい時用
         //dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
 
