@@ -1841,6 +1841,40 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), subIdList.at(0));
                     Common::Status()->SetEquipWeapon(itemInfo);
                 }
+                else if (vs2.at(j).find("<sotetsu>") != std::string::npos)
+                {
+                    auto status = Common::Status();
+                    status->SetDehydration(true);
+                    status->SetHeadache(true);
+                    status->SetStomachache(true);
+                    status->SetSuperStress();
+                    status->SetWaterCurrent(92.f);
+
+                    if (status->GetBodyStaminaCurrent() > 20.f)
+                    {
+                        status->SetBodyStaminaCurrent(20.f);
+                    }
+
+                    if (status->GetBrainStaminaCurrent() > 20.f)
+                    {
+                        status->SetBrainStaminaCurrent(20.f);
+                    }
+
+                    if (status->GetMineralCurrent() > 20.f)
+                    {
+                        status->SetMineralCurrent(20.f);
+                    }
+
+                    if (status->GetVitaminCurrent() > 20.f)
+                    {
+                        status->SetVitaminCurrent(20.f);
+                    }
+
+                    if (status->GetMuscleCurrent() > 20.f)
+                    {
+                        status->SetMuscleCurrent(20.f);
+                    }
+                }
             }
         }
     }
@@ -2613,7 +2647,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 0, 30, 0); // 1•b‚Å1ŽžŠÔ‚Æ‚©Œo‰ß‚³‚¹‚½‚¢Žž—p
+        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1•b‚Å1ŽžŠÔ‚Æ‚©Œo‰ß‚³‚¹‚½‚¢Žž—p
         //dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
 
