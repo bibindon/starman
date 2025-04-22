@@ -9,6 +9,7 @@
 #include "VoyageManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 
 namespace NSCommand
 {
@@ -487,6 +488,74 @@ void CommandManager::BuildCommand()
                 else
                 {
                     m_commandLib->UpsertCommand("松明の火を消す", true);
+                }
+            }
+        }
+    }
+    // NPCの機能を表示
+    //
+    // NPCとの距離が近ければ表示する。
+    // ダイケイマンの場合、パッチテストとクラフト
+    // サンカクマンとシカクマンはお手伝い
+    // もし、万が一、サンカクマンとシカクマンの両方の近くにいた場合、
+    // サンカクマンを優先して表示する
+    {
+        // ダイケイマン
+        {
+            auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
+            auto status = npcMgr->GetNpcStatus("ダイケイマン");
+            auto enable = status.GetFeatureEnable();
+            if (enable)
+            {
+                auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+                auto ppos = SharedObj::GetPlayer()->GetPos();
+                auto _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
+
+                if (_near)
+                {
+                    m_commandLib->UpsertCommand("クラフト", true);
+                    m_commandLib->UpsertCommand("パッチテスト", true);
+                }
+            }
+        }
+
+        // サンカクマン
+        bool bShowSankakuHelp = false;
+        {
+            auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
+            auto status = npcMgr->GetNpcStatus("サンカクマン");
+            auto enable = status.GetFeatureEnable();
+            if (enable)
+            {
+                auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+                auto ppos = SharedObj::GetPlayer()->GetPos();
+                auto _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
+
+                if (_near)
+                {
+                    m_commandLib->UpsertCommand("お手伝い", true);
+                    bShowSankakuHelp = true;
+                }
+            }
+        }
+
+        // シカクマン
+        {
+            if (!bShowSankakuHelp)
+            {
+                auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
+                auto status = npcMgr->GetNpcStatus("シカクマン");
+                auto enable = status.GetFeatureEnable();
+                if (enable)
+                {
+                    auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+                    auto ppos = SharedObj::GetPlayer()->GetPos();
+                    auto _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
+
+                    if (_near)
+                    {
+                        m_commandLib->UpsertCommand("お手伝い", true);
+                    }
                 }
             }
         }
