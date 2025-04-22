@@ -10,6 +10,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 
 namespace NSCommand
 {
@@ -533,8 +534,12 @@ void CommandManager::BuildCommand()
 
                 if (_near)
                 {
-                    m_commandLib->UpsertCommand("‚¨Žè“`‚¢", true);
-                    bShowSankakuHelp = true;
+                    bool canReceive = NSStarmanLib::Help::Get()->CanReceive("ƒTƒ“ƒJƒNƒ}ƒ“");
+                    if (canReceive)
+                    {
+                        m_commandLib->UpsertCommand("‚¨Žè“`‚¢", true);
+                        bShowSankakuHelp = true;
+                    }
                 }
             }
         }
@@ -554,7 +559,12 @@ void CommandManager::BuildCommand()
 
                     if (_near)
                     {
-                        m_commandLib->UpsertCommand("‚¨Žè“`‚¢", true);
+                        bool canReceive = NSStarmanLib::Help::Get()->CanReceive("ƒVƒJƒNƒ}ƒ“");
+                        if (canReceive)
+                        {
+                            m_commandLib->UpsertCommand("‚¨Žè“`‚¢", true);
+                            bShowSankakuHelp = true;
+                        }
                     }
                 }
             }

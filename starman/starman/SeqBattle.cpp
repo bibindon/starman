@@ -23,6 +23,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 #include "QuestManager.h"
 #include "Rain.h"
 #include <cassert>
@@ -1213,6 +1214,66 @@ void SeqBattle::OperateCommand()
         leave = true;
         m_eState = eBattleState::NORMAL;
         BGM::get_ton()->stop("res\\sound\\torch.wav");
+    }
+    else if (result == "クラフト")
+    {
+        m_eState = eBattleState::CRAFT;
+
+        Common::SetCursorVisibility(true);
+        m_craft.Build();
+        leave = true;
+    }
+    else if (result == "パッチテスト")
+    {
+        m_eState = eBattleState::PATCH_TEST;
+
+        Common::SetCursorVisibility(true);
+        m_patchManager2.Finalize();
+        m_patchManager2.InitPatch();
+        leave = true;
+    }
+    else if (result == "お手伝い")
+    {
+        // サンカクマンかシカクマンのどちらかと近くにいなくてはならない。
+        // どちらも近くにいる場合、サンカクマンを優先する
+        auto npcManager = NSStarmanLib::NpcStatusManager::GetObj();
+        auto status = npcManager->GetNpcStatus("サンカクマン");
+        auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+        auto ppos = m_player->GetPos();
+
+        auto _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
+        if (!_near)
+        {
+            status = npcManager->GetNpcStatus("シカクマン");
+            npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
+            ppos = m_player->GetPos();
+            _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
+        }
+
+        if (_near)
+        {
+            auto npcName = status.GetName();
+            auto help = NSStarmanLib::Help::Get();
+            auto enable = help->CanReceive(npcName);
+
+            if (enable)
+            {
+                m_eState = eBattleState::NORMAL;
+
+                Common::SetCursorVisibility(true);
+                leave = true;
+
+                auto items = help->ReceiveItems(npcName);
+
+                for (auto& item : items)
+                {
+                    Common::Inventory()->AddItem(item.GetId());
+                    auto name = item.GetName();
+
+                    PopUp2::Get()->SetText(name + "をもらった。");
+                }
+            }
+        }
     }
 
     // コマンド画面を閉じる場合
