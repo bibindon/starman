@@ -36,6 +36,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/RainModel.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 
 SeqBattle* MainWindow::m_seqBattle = nullptr;
 
@@ -352,6 +353,7 @@ MainWindow::~MainWindow()
     NSStarmanLib::RainModel::Get()->Destroy();
     NSStarmanLib::CraftInfoManager::Destroy();
     NSStarmanLib::CraftSystem::Destroy();
+    NSStarmanLib::Help::Destroy();
 
     QuestManager::Finalize();
 

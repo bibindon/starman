@@ -21,6 +21,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 
 SaveManager* SaveManager::m_obj = nullptr;
 
@@ -170,6 +171,8 @@ void SaveManager::Save()
 
     NSStarmanLib::CraftSystem::GetObj()->Save(CreateSaveFilePath("craftsmanSkillSave.csv"),
                                               CreateSaveFilePath("craftsmanQueueSave.csv"));
+
+    NSStarmanLib::Help::Get()->Save(CreateSaveFilePath("helpSave.csv"));
 }
 
 void SaveManager::LoadOrigin()
@@ -194,6 +197,8 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::ActivityBase::Get()->Finalize();
         NSStarmanLib::CraftInfoManager::Destroy();
         NSStarmanLib::CraftSystem::Destroy();
+        NSStarmanLib::Help::Destroy();
+
         QuestManager::Finalize();
     }
 
@@ -280,6 +285,8 @@ void SaveManager::LoadOrigin()
 
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateOriginFilePath("craftsmanSkill.csv"),
                                               CreateOriginFilePath("craftsmanQueue.csv"));
+
+    NSStarmanLib::Help::Get()->Init(CreateOriginFilePath("help.csv"));
 }
 
 void SaveManager::Load()
@@ -382,6 +389,8 @@ void SaveManager::Load()
 
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath("craftsmanSkillSave.csv"),
                                               CreateSaveFilePath("craftsmanQueueSave.csv"));
+
+    NSStarmanLib::Help::Get()->Init(CreateSaveFilePath("helpSave.csv"));
 
     m_savedataLoaded = true;
 }
