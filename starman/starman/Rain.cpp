@@ -7,6 +7,7 @@
 #include "Common.h"
 #include "SharedObj.h"
 #include "BGM.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
 Rain* Rain::m_obj = nullptr;
 
@@ -87,6 +88,7 @@ void Rain::Update()
         if (!m_bPreviousRain && bRain)
         {
             BGM::get_ton()->play("res\\sound\\rain.wav", 70, true);
+            NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         }
 
         if (m_bPreviousRain && !bRain)
