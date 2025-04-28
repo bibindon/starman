@@ -2708,7 +2708,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1•b‚Å1ŽžŠÔ‚Æ‚©Œo‰ß‚³‚¹‚½‚¢Žž—p
+        dateTime->IncreaseDateTime(0, 0, 1, 10, 0); // 1•b‚Å1ŽžŠÔ‚Æ‚©Œo‰ß‚³‚¹‚½‚¢Žž—p
         //dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
 
@@ -2838,6 +2838,10 @@ void SeqBattle::UpdatePerSecond()
                 BGM::get_ton()->stop("res\\sound\\torch.wav");
             }
         }
+    }
+    {
+        auto help = NSStarmanLib::Help::Get();
+        help->Update();
     }
 }
 
