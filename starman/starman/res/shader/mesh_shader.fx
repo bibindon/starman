@@ -20,7 +20,11 @@ void vertex_shader(
     out float4 out_position : POSITION,
     out float4 out_diffuse  : COLOR0,
     out float4 out_texcood  : TEXCOORD0,
-    out float fog_strength : TEXCOORD1)
+    out float fog_strength : TEXCOORD1,
+    out float3 out_worldPos : TEXCOORD2,
+    out float3 out_normal : TEXCOORD3
+
+    )
 {
     out_position  = mul(in_position, g_world_view_projection);
 
@@ -52,9 +56,14 @@ void vertex_shader(
     }
 
     fog_strength = work;
+
+
+    out_worldPos = mul(in_position, g_world).xyz;
+    out_normal = mul(in_normal, g_world).xyz;
 }
 
 float4 fog_color = { 0.5f, 0.3f, 0.2f, 1.0f };
+float4 light_color = { 0.5f, 0.25f, 0.0f, 1.0f };
 
 sampler mesh_texture_sampler = sampler_state {
     Texture   = (g_mesh_texture);
@@ -67,6 +76,8 @@ void pixel_shader(
     in float4 in_diffuse  : COLOR0,
     in float2 in_texcood  : TEXCOORD0,
     in float   fog : TEXCOORD1,
+    in float3 in_worldPos : TEXCOORD2,
+    in float3 in_normal : TEXCOORD3,
     out float4 out_diffuse : COLOR0
     )
 {
@@ -100,6 +111,7 @@ void pixel_shader(
     //------------------------------------------------------
     if (pointLightEnable)
     {
+        /*
         if (fog <= 0.0016f)
         {
             float work = fog * 625.f;
@@ -110,7 +122,28 @@ void pixel_shader(
                 out_diffuse.g += (1 - (work*work))/4.f;
             }
         }
+        */
+
+        // 法線を正規化
+        float3 N = normalize(in_normal);
+
+        // ライト方向を計算
+        float3 L = normalize(g_point_light_pos - in_worldPos);
+
+        // 距離減衰の計算
+        float distance = length(g_point_light_pos - in_worldPos);
+
+        // 適当に2乗減衰
+        float attenuation = 50.0 / (distance * distance);
+        attenuation = min(attenuation, 1.0);
+
+        // ライトの強さ（ランバート反射）
+        float NdotL = max(dot(N, L), 0);
+
+        // 最終カラー
+        out_diffuse += light_color * NdotL * attenuation;
     }
+
 }
 
 technique technique_
