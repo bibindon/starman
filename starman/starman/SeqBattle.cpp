@@ -2708,7 +2708,7 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-        dateTime->IncreaseDateTime(0, 0, 0, 10, 0); // 1•b‚Å1ŽžŠÔ‚Æ‚©Œo‰ß‚³‚¹‚½‚¢Žž—p
+        dateTime->IncreaseDateTime(0, 0, 0, 30, 0); // 1•b‚Å1ŽžŠÔ‚Æ‚©Œo‰ß‚³‚¹‚½‚¢Žž—p
         //dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
 
