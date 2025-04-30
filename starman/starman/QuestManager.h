@@ -28,10 +28,15 @@ public:
 
     void Update();
 
+    void SetHint(const std::string& hint);
+    std::string GetHint() const;
+
 private:
 
     static QuestManager* m_single;
     NSQuestSystem::QuestSystem m_questSystem;
+
+    std::string m_hint;
 
 };
 

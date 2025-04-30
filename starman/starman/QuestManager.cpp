@@ -140,3 +140,14 @@ void QuestManager::Update()
         }
     }
 }
+
+void QuestManager::SetHint(const std::string& hint)
+{
+    m_hint = hint;
+}
+
+std::string QuestManager::GetHint() const
+{
+    return m_hint;
+}
+

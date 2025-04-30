@@ -236,5 +236,12 @@ private:
     void OperateVoyage3Hours();
 
     void OperateCreateTorch();
+
+    //----------------------------------------------------
+    // ポップアップ機能
+    //----------------------------------------------------
+    void OperatePopUp();
+    void RenderPopUp();
+
 };
 

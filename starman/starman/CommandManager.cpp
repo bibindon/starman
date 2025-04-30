@@ -345,6 +345,9 @@ void CommandManager::BuildCommand()
     // 座る・・・常に表示される
     m_commandLib->UpsertCommand("座る", true);
 
+    // 瞑想・・・常に表示される
+    m_commandLib->UpsertCommand("瞑想", true);
+
     // 脱出・・・20秒コマンドが表示されたら
     if (m_counter > (60 * 20))
     {

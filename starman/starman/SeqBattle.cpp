@@ -462,6 +462,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateCreateTorch();
     }
+    else if (m_eState == eBattleState::POPUP)
+    {
+        OperatePopUp();
+    }
 
     //-----------------------------------------------------
     // カメラの更新処理
@@ -1058,6 +1062,31 @@ void SeqBattle::OperateCommand()
         leave = true;
         m_player->SetLieDown();
         m_eState = eBattleState::NORMAL;
+    }
+    else if (result == "瞑想")
+    {
+        leave = true;
+        m_player->SetLieDown();
+        m_eState = eBattleState::NORMAL;
+
+        {
+            std::vector<std::vector<std::string>> vvs;
+            std::vector<std::string> vs;
+            vs.push_back("「私が次にやるべきことはなんだ？」");
+            vvs.push_back(vs);
+            vs.clear();
+            auto hint = QuestManager::Get()->GetHint();
+            if (hint.empty())
+            {
+                vs.push_back("「何も思いつかない・・・。いったいどうすれば・・・。」");
+            }
+            else
+            {
+                vs.push_back(hint);
+            }
+            vvs.push_back(vs);
+            PopUp::Get()->SetText(vvs);
+        }
     }
     else if (result == "脱出")
     {
@@ -1681,6 +1710,12 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     m_eState = eBattleState::TALK;
                 }
+                else if (startEvent.at(0).find("<hint>") != std::string::npos)
+                {
+                    std::string work = startEvent.at(0);
+                    work = Common::RemoveSubstring(work, "<hint>");
+                    QuestManager::Get()->SetHint(work);
+                }
             }
         }
     }
@@ -2270,6 +2305,10 @@ void SeqBattle::Render()
         // イカダは乗っていても乗っていなくても常に表示するべきものなので
         // ここでは何もしない。
     }
+    else if (m_eState == eBattleState::POPUP)
+    {
+        RenderPopUp();
+    }
 
     RenderCommon2D();
 }
@@ -2549,7 +2588,7 @@ void SeqBattle::UpdateDebug()
             PopUp::Get()->Cancel();
         }
 
-        PopUp::Get()->Update();
+        // PopUp::Get()->Update();
     }
 
     // 倉庫機能
@@ -3122,4 +3161,41 @@ void SeqBattle::OperateGameover(eSequence* sequence)
         }
     }
 }
+
+void SeqBattle::OperatePopUp()
+{
+    PopUp::Get()->Update();
+
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
+    {
+        PopUp::Get()->Next();
+    }
+
+    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
+    {
+        PopUp::Get()->Next();
+    }
+
+    if (Mouse::IsDownLeft())
+    {
+        PopUp::Get()->Next();
+    }
+
+    if (GamePad::IsDown(eGamePadButtonType::A))
+    {
+        PopUp::Get()->Next();
+    }
+
+    bool isShow = PopUp::Get()->IsShow();
+    if (!isShow)
+    {
+        m_eState = eBattleState::NORMAL;
+    }
+}
+
+void SeqBattle::RenderPopUp()
+{
+    PopUp::Get()->Render();
+}
+
 
