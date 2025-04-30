@@ -1066,22 +1066,24 @@ void SeqBattle::OperateCommand()
     else if (result == "瞑想")
     {
         leave = true;
-        m_player->SetLieDown();
-        m_eState = eBattleState::NORMAL;
+        m_eState = eBattleState::POPUP;
 
         {
             std::vector<std::vector<std::string>> vvs;
             std::vector<std::string> vs;
+            vs.push_back("");
             vs.push_back("「私が次にやるべきことはなんだ？」");
             vvs.push_back(vs);
             vs.clear();
             auto hint = QuestManager::Get()->GetHint();
             if (hint.empty())
             {
+                vs.push_back("");
                 vs.push_back("「何も思いつかない・・・。いったいどうすれば・・・。」");
             }
             else
             {
+                vs.push_back("");
                 vs.push_back(hint);
             }
             vvs.push_back(vs);
@@ -1679,6 +1681,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
         auto startQuest = QuestManager::Get()->GetStartQuest();
         if (startQuest.empty() == false)
         {
+            QuestManager::Get()->SetHint("");
+
             {
                 // TODO ヤバすぎる処理
                 auto it = std::find(startQuest.begin(), startQuest.end(), "Q10");
