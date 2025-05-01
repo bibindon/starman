@@ -83,6 +83,7 @@ public:
     static bool DeployEncryptMode();
 
     static bool FasterMode();
+    static bool StrongMode();
 
     static bool X64Bit();
 

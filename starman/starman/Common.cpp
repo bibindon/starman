@@ -104,6 +104,11 @@ bool Common::FasterMode()
     return false;
 }
 
+bool Common::StrongMode()
+{
+    return true;
+}
+
 bool Common::X64Bit()
 {
     return m_x64Bit;

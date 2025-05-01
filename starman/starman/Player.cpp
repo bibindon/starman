@@ -1290,6 +1290,15 @@ void Player::SetDamaged()
         m_bDamaged = true;
     }
 
+    // UŒ‚H‚ç‚Á‚½‚ç‰ñ•œ
+    if (Common::StrongMode() && Common::DebugMode())
+    {
+        Common::Status()->SetMuscleCurrent(100);
+        Common::Status()->SetBodyStaminaCurrent(100);
+        Common::Status()->SetBrainStaminaCurrent(100);
+        Common::Status()->SetWaterCurrent(100);
+    }
+
     // ‡–°’†‚ÉUŒ‚‚³‚ê‚½‚ç‘¦Ž€
     if (NSStarmanLib::StatusManager::GetObj()->GetSleep())
     {
