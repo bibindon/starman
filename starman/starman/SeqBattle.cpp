@@ -140,9 +140,9 @@ namespace NSStorehouseLib
                                     false,
                                     ANSI_CHARSET,
                                     OUT_TT_ONLY_PRECIS,
-                                    ANTIALIASED_QUALITY,
+                                    CLEARTYPE_QUALITY,
                                     FF_DONTCARE,
-                                    "Times New Roman",
+                                    "Courier New",
                                     &m_pFont);
             }
 
@@ -277,20 +277,42 @@ public:
     {
     }
 
-    void Init()
+    void Init(const bool bEnglish)
     {
-        HRESULT hr = D3DXCreateFont(m_pD3DDevice,
-            24,
-            0,
-            FW_NORMAL,
-            1,
-            false,
-            SHIFTJIS_CHARSET,
-            OUT_TT_ONLY_PRECIS,
-            ANTIALIASED_QUALITY,
-            FF_DONTCARE,
-            "‚l‚r –¾’©",
-            &m_pFont);
+        HRESULT hr = S_FALSE;
+
+        if (!bEnglish)
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                24,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                SHIFTJIS_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                ANTIALIASED_QUALITY,
+                                FF_DONTCARE,
+                                "‚l‚r –¾’©",
+                                &m_pFont);
+        }
+        else
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                24,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                DEFAULT_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                CLEARTYPE_QUALITY,
+                                FF_DONTCARE,
+                                "Courier New",
+                                &m_pFont);
+        }
+
+        assert(hr == S_OK);
     }
 
     virtual void DrawText_(const std::string& msg, const int x, const int y)
@@ -1731,7 +1753,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
                                  "res\\image\\textBack.png", "res\\image\\black.png",
-                                 Common::DeployEncryptMode());
+                                 Common::DeployEncryptMode(),
+                                 SharedObj::IsEnglish());
 
                     m_eState = eBattleState::TALK;
                 }
@@ -1775,7 +1798,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
                                  "res\\image\\textBack.png", "res\\image\\black.png",
-                                 Common::DeployEncryptMode());
+                                 Common::DeployEncryptMode(),
+                                 SharedObj::IsEnglish());
 
                     m_eState = eBattleState::TALK;
                 }
@@ -2397,7 +2421,8 @@ void SeqBattle::Confirm(eSequence* sequence)
             m_talk = NEW NSTalkLib2::Talk();
             m_talk->Init(Common::ModExt(csvfile), pFont, pSE, sprite,
                          "res\\image\\textBack.png", "res\\image\\black.png",
-                         Common::DeployEncryptMode());
+                         Common::DeployEncryptMode(),
+                         SharedObj::IsEnglish());
 
             m_eState = eBattleState::TALK;
 
