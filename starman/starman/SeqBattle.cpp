@@ -550,7 +550,7 @@ void SeqBattle::OperateMenu(eSequence* sequence)
         m_eState = eBattleState::TITLE;
         Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
         Common::SetCursorVisibility(true);
-        m_title = NEW Title(false);
+        m_title = NEW Title(false, false);
     }
     else if (result == "EXIT")
     {
@@ -1437,7 +1437,7 @@ void SeqBattle::UpdateLoad()
         InitializeAfterLoad();
         FinalizeLoad();
         m_eState = eBattleState::TITLE;
-        m_title = NEW Title(true);
+        m_title = NEW Title(true, true);
     }
 }
 
@@ -3088,6 +3088,7 @@ void SeqBattle::OperateTitle(eSequence* sequence)
     {
         SAFE_DELETE(m_title);
         InitializeAfterLoad();
+
         FinalizeLoad();
         m_Opening = NEW Opening();
     }
@@ -3138,7 +3139,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
                     m_eState = eBattleState::TITLE;
                     Camera::SetCameraMode(eCameraMode::TITLE);
                     Common::SetCursorVisibility(true);
-                    m_title = NEW Title(true);
+                    m_title = NEW Title(true, false);
                 }
             }
 
@@ -3150,7 +3151,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
                     m_eState = eBattleState::TITLE;
                     Camera::SetCameraMode(eCameraMode::TITLE);
                     Common::SetCursorVisibility(true);
-                    m_title = NEW Title(true);
+                    m_title = NEW Title(true, false);
                 }
             }
         }

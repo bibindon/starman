@@ -178,7 +178,11 @@ void SaveManager::Save()
 void SaveManager::LoadOrigin()
 {
     m_progress.store(0);
-    if (m_savedataLoaded)
+
+    // 「ゲームをはじめからスタート→死亡→もう一度オープニングから」
+    // この操作を行うとセーブデータがないのに死亡したステータスが記録されている。
+    // 必ず初期化しないといけない。
+//    if (m_savedataLoaded)
     {
         NSStarmanLib::Rynen::Destroy();
         NSStarmanLib::NpcStatusManager::Destroy();

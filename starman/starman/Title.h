@@ -24,7 +24,7 @@ class Title
 {
 public:
     // blackFadeIn: 暗転によるフェードインか、カメラによるフェードインか。
-    Title(const bool blackFadeIn);
+    Title(const bool blackFadeIn, const bool bFirst);
     ~Title();
     void Update(eSequence* sequence, eBattleState* eState);
     void Render();
@@ -67,5 +67,7 @@ private:
 
     eTitleMenu m_eMenu = eTitleMenu::NOT_DECIDE;
 
+    // 起動してから初めてタイトル画面が表示された。
+    bool m_bFirst = true;
 };
 

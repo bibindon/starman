@@ -1,4 +1,3 @@
-// TODO カメラ移動時、ちょっとビクンと動く。
 
 #include "Title.h"
 #include "KeyBoard.h"
@@ -13,8 +12,10 @@
 #include "Camera.h"
 #include "Rain.h"
 
-Title::Title(const bool blackFadeIn)
+Title::Title(const bool blackFadeIn, const bool bFirst)
 {
+    m_bFirst = bFirst;
+
     m_titleCommand = NEW CommandManager();
     m_titleCommand->Init(CommandManager::eType::Title);
 
@@ -149,7 +150,10 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             int saveExist = PathFileExists("res\\script\\save");
 
-            if (saveExist == TRUE)
+            // セーブデータがあったら初期データを読む。
+            // セーブデータがなくても、一度ゲームを開始してから
+            // タイトル画面に戻ってきたなら再読み込みをする。
+            if (saveExist == TRUE || !m_bFirst)
             {
                 m_bLoading = true;
                 SAFE_DELETE(m_thread);
@@ -162,6 +166,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             }
 
             Rain::Get()->SetShow(true);
+            m_bFirst = false;
         }
         else if (result == "Continue")
         {
@@ -176,6 +181,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             Camera::SetLookAtPos(ppos);
 
             Rain::Get()->SetShow(true);
+            m_bFirst = false;
         }
         else if (result == "Exit")
         {
