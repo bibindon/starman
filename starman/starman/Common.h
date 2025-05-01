@@ -82,6 +82,8 @@ public:
     static bool DeployMode();
     static bool DeployEncryptMode();
 
+    static bool FasterMode();
+
     static bool X64Bit();
 
     static void SetCursorVisibility(const bool visibility);

@@ -646,14 +646,25 @@ void Player::Update(Map* map)
     {
         if (m_bUnderwater == false)
         {
-            MAX_XZ_MOVE = 500.0f;
-//            MAX_XZ_MOVE = 1.5f;
-//            MAX_XZ_MOVE = 5000.0f;
+            if (Common::FasterMode())
+            {
+                MAX_XZ_MOVE = 500.0f;
+            }
+            else
+            {
+                MAX_XZ_MOVE = 0.5f;
+            }
         }
         else
         {
-            MAX_XZ_MOVE = 1.1f;
- //           MAX_XZ_MOVE = 10000.0f;
+            if (Common::FasterMode())
+            {
+                MAX_XZ_MOVE = 1.1f;
+            }
+            else
+            {
+                MAX_XZ_MOVE = 0.1f;
+            }
         }
     }
     else

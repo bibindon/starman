@@ -99,6 +99,11 @@ bool Common::DeployEncryptMode()
     return false;
 }
 
+bool Common::FasterMode()
+{
+    return false;
+}
+
 bool Common::X64Bit()
 {
     return m_x64Bit;
