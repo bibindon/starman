@@ -3,6 +3,7 @@
 #include <d3dx9math.h>
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
+#include <cassert>
 
 namespace NSHud
 {
@@ -84,21 +85,41 @@ public:
     {
     }
 
-    void Init()
+    void Init(const bool bEnglish)
     {
-        HRESULT hr = D3DXCreateFont(
-            m_pD3DDevice,
-            20,
-            0,
-            FW_THIN,
-            1,
-            false,
-            SHIFTJIS_CHARSET,
-            OUT_TT_ONLY_PRECIS,
-            ANTIALIASED_QUALITY,
-            FF_DONTCARE,
-            "游明朝",
-            &m_pFont);
+        HRESULT hr = S_OK;
+
+        if (!bEnglish)
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                20,
+                                0,
+                                FW_THIN,
+                                1,
+                                false,
+                                SHIFTJIS_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                ANTIALIASED_QUALITY,
+                                FF_DONTCARE,
+                                "游明朝",
+                                &m_pFont);
+        }
+        else
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                20,
+                                0,
+                                FW_BOLD,
+                                1,
+                                false,
+                                DEFAULT_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                CLEARTYPE_QUALITY,
+                                FF_DONTCARE,
+                                "Courier New",
+                                &m_pFont);
+        }
+        assert(hr == S_OK);
     }
 
     virtual void DrawText_(const std::string& msg, const int x, const int y)
@@ -131,7 +152,6 @@ void HudManager::Init()
         }
         m_hud = NEW NSHud::hud();
         NSHud::IFont* pFont = NEW NSHud::Font(SharedObj::GetD3DDevice());
-        pFont->Init();
 
         NSHud::ISprite* sprBack = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
         sprBack->Load("res\\image\\status_back.png");
@@ -142,7 +162,7 @@ void HudManager::Init()
         NSHud::ISprite* sprFront = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
         sprFront->Load("res\\image\\status_front.png");
 
-        m_hud->Init(pFont, sprBack, sprMiddle, sprFront);
+        m_hud->Init(pFont, sprBack, sprMiddle, sprFront, SharedObj::IsEnglish());
 
         m_hud->UpsertStatus("身体のスタミナ", 100, 100, true);
         m_hud->UpsertStatus("脳のスタミナ", 100, 100, true);
