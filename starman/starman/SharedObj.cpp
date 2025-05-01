@@ -10,6 +10,7 @@ Map* SharedObj::m_map { nullptr };
 D3DXMATRIX SharedObj::m_rightHandMat;
 
 IKeyBoard* SharedObj::m_keyBoard = nullptr;
+bool SharedObj::m_bEnglish = false;
 
 LPDIRECT3DDEVICE9 SharedObj::GetD3DDevice()
 {
@@ -79,6 +80,16 @@ void SharedObj::SetKeyBoard(IKeyBoard* keyboard)
 IKeyBoard* SharedObj::KeyBoard()
 {
     return m_keyBoard;
+}
+
+void SharedObj::SetEnglish(const bool bEnglish)
+{
+    m_bEnglish = bEnglish;
+}
+
+bool SharedObj::IsEnglish()
+{
+    return m_bEnglish;
 }
 
 void SharedObj::SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice)

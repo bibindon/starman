@@ -30,6 +30,9 @@ public:
     static void SetKeyBoard(IKeyBoard* keyboard);
     static IKeyBoard* KeyBoard();
 
+    static void SetEnglish(const bool bEnglish);
+    static bool IsEnglish();
+
 private:
     static LPDIRECT3DDEVICE9 m_D3DDevice;
     static HWND m_hWnd;
@@ -40,5 +43,6 @@ private:
     static D3DXMATRIX m_rightHandMat;
 
     static IKeyBoard* m_keyBoard;
+    static bool m_bEnglish;
 };
 
