@@ -128,10 +128,10 @@ void pixel_shader(
         float3 N = normalize(in_normal);
 
         // ライト方向を計算
-        float3 L = normalize(g_point_light_pos - in_worldPos);
+        float3 L = normalize((float3)g_point_light_pos - in_worldPos);
 
         // 距離減衰の計算
-        float distance = length(g_point_light_pos - in_worldPos);
+        float distance = length((float3)g_point_light_pos - in_worldPos);
 
         // 適当に2乗減衰
         float attenuation = 50.0 / (distance * distance);
