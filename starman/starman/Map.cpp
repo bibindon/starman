@@ -781,6 +781,7 @@ void Map::Init()
     SoundEffect::get_ton()->load("res\\sound\\iceHit.wav");
     SoundEffect::get_ton()->load("res\\sound\\darkHit.wav");
 
+    MapLib()->ResetShow();
 }
 
 void Map::Update()

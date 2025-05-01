@@ -3019,11 +3019,6 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
     m_player->Update(m_map);
 
-    // クエスト処理
-    {
-        OperateQuest(sequence);
-    }
-
     m_hudManager.Update();
 
     //-------------------------------------------------
@@ -3039,6 +3034,11 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
         if (work == 0)
         {
+            // クエスト処理
+            {
+                OperateQuest(sequence);
+            }
+
             // 近くにチェストがあったら倉庫機能が使える。
             {
                 auto ppos = m_player->GetPos();
