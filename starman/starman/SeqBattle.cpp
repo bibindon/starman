@@ -1946,7 +1946,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find("<move>") != std::string::npos)
                 {
                     std::string work = vs2.at(j);
-                    std::string work2 = Common::RemoveSubstring(work, "<showMenu>");
+                    std::string work2 = Common::RemoveSubstring(work, "<move>");
                     std::vector<std::string> vs = Common::split(work2, ':');
                     float fx = std::stof(vs.at(0));
                     float fy = std::stof(vs.at(1));

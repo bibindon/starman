@@ -101,7 +101,7 @@ bool Common::DeployEncryptMode()
 
 bool Common::FasterMode()
 {
-    return false;
+    return true;
 }
 
 bool Common::StrongMode()
