@@ -370,4 +370,12 @@ std::string Common::GetGPUName()
     return m_GPUName;
 }
 
+std::string Common::LoadString_(const UINT resID)
+{
+    TCHAR buf[1024];
+    HMODULE hInstance = GetModuleHandle(NULL);
+    LoadString(hInstance, resID, buf, 1024);
+    return std::string(buf);
+}
+
 

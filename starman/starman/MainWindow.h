@@ -35,7 +35,7 @@ public:
 
 private:
 
-    const std::string TITLE = "ƒzƒVƒ}ƒ“";
+    std::string m_title;
     MSG m_msg { };
     HWND m_hWnd = nullptr;
     LPDIRECT3D9 m_D3D = nullptr;

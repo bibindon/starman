@@ -100,6 +100,34 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
 
 MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 {
+    //-------------------------------------------------
+    // 言語設定
+    // 英語と日本語のみ
+    // システムが日本語だったら日本語、それ以外だったら英語
+    //-------------------------------------------------
+    {
+        // システムのUI言語
+        bool bJapan = false;
+        LANGID langId = GetUserDefaultUILanguage();
+        if (langId == MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN))
+        {
+            bJapan = true;
+        }
+
+        if (bJapan)
+        {
+            SetThreadLocale(MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN), SORT_DEFAULT));
+            SetThreadUILanguage(MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN));
+        }
+        else
+        {
+            SetThreadLocale(MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT));
+            SetThreadUILanguage(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US));
+        }
+
+        m_title = Common::LoadString_(IDS_STRING101);
+    }
+
     SharedObj::Init();
 
     //-------------------------------------------------
@@ -124,7 +152,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     wcex.hCursor = nullptr;
     wcex.hbrBackground = GetSysColorBrush(COLOR_WINDOW);
     wcex.lpszMenuName = nullptr;
-    wcex.lpszClassName = TITLE.c_str();
+    wcex.lpszClassName = m_title.c_str();
     wcex.hIconSm = nullptr;
 
     auto result = RegisterClassEx(&wcex);
@@ -156,8 +184,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         int startX = (monitorWidth / 2) - (1600 / 2);
         int startY = (monitorHeight / 2) - (900 / 2);
 
-        m_hWnd = CreateWindow(TITLE.c_str(),
-                              TITLE.c_str(),
+        m_hWnd = CreateWindow(m_title.c_str(),
+                              m_title.c_str(),
                               /* ウィンドウサイズの変更をさせない。最小化はOK */
                               WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME | WS_VISIBLE,
                               startX,

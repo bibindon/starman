@@ -123,6 +123,8 @@ public:
     static void SetGPUName(const std::string& GPUName);
     static std::string GetGPUName();
 
+    static std::string LoadString_(const UINT resID);
+
 private:
 
     static eBuildMode m_buildMode;
