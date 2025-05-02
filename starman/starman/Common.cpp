@@ -4,6 +4,7 @@
 #include "SharedObj.h"
 #include <cfloat>
 #include <wtsapi32.h>
+#include "resource.h"
 
 // リモート接続検出用
 #pragma comment(lib, "Wtsapi32.lib")
@@ -188,7 +189,9 @@ POINT Common::GetScreenPos()
 {
     POINT p;
     GetCursorPos(&p);
-    ScreenToClient(FindWindow("ホシマン", nullptr), &p);
+
+    ScreenToClient(FindWindow(LoadString_(IDS_STRING101).c_str(), nullptr), &p);
+
     return p;
 }
 

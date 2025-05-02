@@ -48,6 +48,24 @@
 #define IDS_STRING143                   143
 #define IDS_STRING144                   144
 #define IDS_STRING145                   145
+#define IDS_STRING146                   146
+#define IDS_STRING147                   147
+#define IDS_STRING148                   148
+#define IDS_STRING149                   149
+#define IDS_STRING150                   150
+#define IDS_STRING151                   151
+#define IDS_STRING152                   152
+#define IDS_STRING153                   153
+#define IDS_STRING154                   154
+#define IDS_STRING155                   155
+#define IDS_STRING156                   156
+#define IDS_STRING157                   157
+#define IDS_STRING158                   158
+#define IDS_STRING159                   159
+#define IDS_STRING160                   160
+#define IDS_STRING161                   161
+#define IDS_STRING162                   162
+#define IDS_STRING163                   163
 
 // Next default values for new objects
 // 

@@ -111,7 +111,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         LANGID langId = GetUserDefaultUILanguage();
         if (langId == MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN))
         {
-            bJapan = true;
+        //    bJapan = true;
         }
 
         SharedObj::SetEnglish(!bJapan);
@@ -311,11 +311,11 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
                                  FW_NORMAL,
                                  1,
                                  false,
-                                 SHIFTJIS_CHARSET,
+                                 DEFAULT_CHARSET,
                                  OUT_TT_ONLY_PRECIS,
-                                 ANTIALIASED_QUALITY,
+                                 CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 "‚l‚r –¾’©",
+                                 "Courier New",
                                  &m_D3DFont);
 
         assert(hResult == S_OK);

@@ -4,6 +4,7 @@
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include <cassert>
+#include "resource.h"
 
 namespace NSHud
 {
@@ -109,12 +110,12 @@ public:
             hr = D3DXCreateFont(m_pD3DDevice,
                                 20,
                                 0,
-                                FW_BOLD,
+                                FW_NORMAL,
                                 1,
                                 false,
                                 DEFAULT_CHARSET,
                                 OUT_TT_ONLY_PRECIS,
-                                CLEARTYPE_QUALITY,
+                                CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
                                 "Courier New",
                                 &m_pFont);
@@ -164,8 +165,8 @@ void HudManager::Init()
 
         m_hud->Init(pFont, sprBack, sprMiddle, sprFront, SharedObj::IsEnglish());
 
-        m_hud->UpsertStatus("身体のスタミナ", 100, 100, true);
-        m_hud->UpsertStatus("脳のスタミナ", 100, 100, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING146), 100, 100, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING147), 100, 100, true);
     }
 }
 
@@ -186,7 +187,7 @@ void HudManager::Update()
     work2 = statusManager->GetBodyStaminaMaxSub();
     work3 = statusManager->GetBodyStaminaCurrent();
 
-    m_hud->UpsertStatus("身体のスタミナ",
+    m_hud->UpsertStatus(Common::LoadString_(IDS_STRING146),
                         (int)(work3 * 100 / work1),
                         (int)(work2 * 100 / work1),
                         true);
@@ -195,7 +196,7 @@ void HudManager::Update()
     work2 = statusManager->GetBrainStaminaMaxSub();
     work3 = statusManager->GetBrainStaminaCurrent();
 
-    m_hud->UpsertStatus("脳のスタミナ",
+    m_hud->UpsertStatus(Common::LoadString_(IDS_STRING147),
                         (int)(work3 * 100 / work1),
                         (int)(work2 * 100 / work1),
                         true);
@@ -208,11 +209,11 @@ void HudManager::Update()
     // 98%以下なら表示する
     if ((int)work3 <= 98)
     {
-        m_hud->UpsertStatus("水分", (int)work3, (int)work3, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING148), (int)work3, (int)work3, true);
     }
     else
     {
-        m_hud->RemoveStatus("水分");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING148));
     }
 
     // 肉体の修復度
@@ -223,146 +224,146 @@ void HudManager::Update()
 
     if ((int)work3 <= 90)
     {
-        m_hud->UpsertStatus("肉体の修復度",
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING149),
                             (int)(work3 * 100 / work1),
                             (int)(work2 * 100 / work1),
                             true);
     }
     else
     {
-        m_hud->RemoveStatus("肉体の修復度");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING149));
     }
 
     // 10％以下なら表示する
     work1 = statusManager->GetCarboCurrent() * 100 / statusManager->GetCarboMax();
     if (work1 <= 10.f)
     {
-        m_hud->UpsertStatus("糖質", (int)work1, (int)work1, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING150), (int)work1, (int)work1, true);
     }
     else
     {
-        m_hud->RemoveStatus("糖質");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING150));
     }
 
     work1 = statusManager->GetProteinCurrent() * 100 / statusManager->GetProteinMax();
     if (work1 <= 10.f)
     {
-        m_hud->UpsertStatus("タンパク質", (int)work1, (int)work1, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING151), (int)work1, (int)work1, true);
     }
     else
     {
-        m_hud->RemoveStatus("タンパク質");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING151));
     }
 
     work1 = statusManager->GetLipidCurrent() * 100 / statusManager->GetLipidMax();
     if (work1 <= 10.f)
     {
-        m_hud->UpsertStatus("脂質", (int)work1, (int)work1, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING152), (int)work1, (int)work1, true);
     }
     else
     {
-        m_hud->RemoveStatus("脂質");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING152));
     }
 
     work1 = statusManager->GetVitaminCurrent() * 100 / statusManager->GetVitaminMax();
     if (work1 <= 10.f)
     {
-        m_hud->UpsertStatus("ビタミン", (int)work1, (int)work1, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING153), (int)work1, (int)work1, true);
     }
     else
     {
-        m_hud->RemoveStatus("ビタミン");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING153));
     }
 
     work1 = statusManager->GetMineralCurrent() * 100 / statusManager->GetMineralMax();
     if (work1 <= 10.f)
     {
-        m_hud->UpsertStatus("ミネラル", (int)work1, (int)work1, true);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING154), (int)work1, (int)work1, true);
     }
     else
     {
-        m_hud->RemoveStatus("ミネラル");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING154));
     }
 
     if (statusManager->GetFractureArm())
     {
-        m_hud->UpsertStatus("腕骨折", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING155), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("腕骨折");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING155));
     }
 
     if (statusManager->GetFractureLeg())
     {
-        m_hud->UpsertStatus("足骨折", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING156), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("足骨折");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING156));
     }
 
     if (statusManager->GetHeadache())
     {
-        m_hud->UpsertStatus("頭痛", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING157), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("頭痛");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING157));
     }
 
     if (statusManager->GetCold())
     {
-        m_hud->UpsertStatus("風邪", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING158), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("風邪");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING158));
     }
 
     if (statusManager->GetStomachache())
     {
-        m_hud->UpsertStatus("腹痛", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING159), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("腹痛");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING159));
     }
 
     if (statusManager->GetSleep())
     {
-        m_hud->UpsertStatus("睡眠・気絶", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING160), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("睡眠・気絶");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING160));
     }
 
     if (statusManager->GetDehydration())
     {
-        m_hud->UpsertStatus("脱水症状", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING161), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("脱水症状");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING161));
     }
 
     if (statusManager->GetLackOfSleep())
     {
-        m_hud->UpsertStatus("睡眠不足", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING162), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("睡眠不足");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING162));
     }
 
     if (statusManager->GetDead())
     {
-        m_hud->UpsertStatus("死亡", 0, 0, false);
+        m_hud->UpsertStatus(Common::LoadString_(IDS_STRING163), 0, 0, false);
     }
     else
     {
-        m_hud->RemoveStatus("死亡");
+        m_hud->RemoveStatus(Common::LoadString_(IDS_STRING163));
     }
 }
 
