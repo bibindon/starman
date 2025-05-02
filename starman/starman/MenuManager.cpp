@@ -18,6 +18,7 @@
 #include "GamePad.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "PopUp2.h"
+#include <cassert>
 
 namespace NSMenulib
 {
@@ -144,20 +145,42 @@ public:
     {
     }
 
-    void Init()
+    void Init(const bool bEnglish)
     {
-        HRESULT hr = D3DXCreateFont(m_pD3DDevice,
-                                    20,
-                                    0,
-                                    FW_NORMAL,
-                                    1,
-                                    false,
-                                    SHIFTJIS_CHARSET,
-                                    OUT_TT_ONLY_PRECIS,
-                                    ANTIALIASED_QUALITY,
-                                    FF_DONTCARE,
-                                    "‚l‚r –¾’©",
-                                    &m_pFont);
+        HRESULT hr = S_OK;
+
+        if (!bEnglish)
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                20,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                SHIFTJIS_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                ANTIALIASED_QUALITY,
+                                FF_DONTCARE,
+                                "‚l‚r –¾’©",
+                                &m_pFont);
+        }
+        else
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                20,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                DEFAULT_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                CLEARTYPE_NATURAL_QUALITY,
+                                FF_DONTCARE,
+                                "Courier New",
+                                &m_pFont);
+        }
+
+        assert(hr == S_OK);
     }
 
     virtual void DrawText_(const std::string& msg,
@@ -240,12 +263,10 @@ void MenuManager::InitMenu()
     sprBackground->Load("res\\image\\menu_back.png");
 
     NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice());
-    pFont->Init();
 
     NSMenulib::ISoundEffect* pSE = NEW NSMenulib::SoundEffect();
-    pSE->Init();
 
-    m_menu.Init("", pFont, pSE, sprCursor, sprBackground);
+    m_menu.Init("", pFont, pSE, sprCursor, sprBackground, SharedObj::IsEnglish());
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
