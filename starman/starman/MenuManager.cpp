@@ -1029,60 +1029,75 @@ std::string MenuManager::OperateMenu()
         NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
         sprItem->Load("res\\image\\hoshiman00.png");
         info.SetSprite(sprItem);
+
+        char buf[1024];
         std::string work;
         work =  Common::LoadString_(IDS_STRING210) + "\n";
 
-        work += Common::LoadString_(IDS_STRING146) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING146).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING147) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING147).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING209) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING209).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
 
-        work += Common::LoadString_(IDS_STRING149) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING149).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING150) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING151) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING152) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING153) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING154) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
 
-        work += Common::LoadString_(IDS_STRING148) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
 //        work += "\n";
 
-        work += Common::LoadString_(IDS_STRING213) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING213).c_str());
+        work += buf;
         work += condition;
         work += "\n";
 
-        work += Common::LoadString_(IDS_STRING214) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING214).c_str());
+        work += buf;
         work += weaponName;
         work += "\n";
 
-        work += Common::LoadString_(IDS_STRING215) + "\t";
+        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING215).c_str());
+        work += buf;
         work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + "\n";
 
         auto rynen = NSStarmanLib::Rynen::GetObj();
