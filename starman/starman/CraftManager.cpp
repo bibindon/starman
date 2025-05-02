@@ -11,6 +11,8 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "PopUp2.h"
 #include <cassert>
+#include "Common.h"
+#include "resource.h"
 
 namespace NSCraftLib
 {
@@ -405,14 +407,14 @@ void CraftManager::Operate(eBattleState* state)
             Common::SetCursorVisibility(false);
         }
         // イカダの場合は活動拠点の船着き場にイカダがないかチェック
-        else if (result == "イカダ")
+        else if (result == Common::LoadString_(IDS_STRING169))
         {
             bool raftExist = NSStarmanLib::ActivityBase::Get()->CheckRaftExist();
 
             if (raftExist)
             {
-                PopUp2::Get()->SetText("船着き場にイカダがある");
-                PopUp2::Get()->SetText("イカダを移動してから依頼しよう");
+                PopUp2::Get()->SetText(IDS_STRING170);
+                PopUp2::Get()->SetText(IDS_STRING171);
             }
             else
             {
@@ -547,15 +549,15 @@ void CraftManager::Build()
                     continue;
                 }
 
-                work += "成果物の名前：" + info.GetName() + "\n";
-                work += "成果物の数：" + std::to_string(info.GetNumber()) + "\n";
+                work += Common::LoadString_(IDS_STRING172) + info.GetName() + "\n";
+                work += Common::LoadString_(IDS_STRING173) + std::to_string(info.GetNumber()) + "\n";
                 if (info.GetLevel() != -1)
                 {
-                    work += "成果物の強化値：" + std::to_string(info.GetLevel()) + "\n";
+                    work += Common::LoadString_(IDS_STRING174) + std::to_string(info.GetLevel()) + "\n";
                 }
                 else
                 {
-                    work += "成果物の強化値：---\n";
+                    work += Common::LoadString_(IDS_STRING174) + "---\n";
                 }
                 work += "\n";
 
@@ -564,11 +566,11 @@ void CraftManager::Build()
                 int i = 1;
                 for (auto& material : materials)
                 {
-                    work += "素材" + std::to_string(i) + "の名前：" + material.GetName() + "\n";
-                    work += "素材" + std::to_string(i) + "の必要数：" + std::to_string(material.GetNumber()) + "\n";
+                    work += Common::LoadStringWithArg(IDS_STRING175, std::to_string(i)) + material.GetName() + "\n";
+                    work += Common::LoadStringWithArg(IDS_STRING176, std::to_string(i)) + std::to_string(material.GetNumber()) + "\n";
                     if (material.GetLevel() >= 1)
                     {
-                        work += "素材" + std::to_string(i) + "の必要強化値：" + std::to_string(material.GetLevel()) + "\n";
+                        work += Common::LoadStringWithArg(IDS_STRING177, std::to_string(i)) + std::to_string(material.GetLevel()) + "\n";
                     }
                     work += "\n";
 

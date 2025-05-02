@@ -66,6 +66,20 @@
 #define IDS_STRING161                   161
 #define IDS_STRING162                   162
 #define IDS_STRING163                   163
+#define IDS_STRING164                   164
+#define IDS_STRING165                   165
+#define IDS_STRING166                   166
+#define IDS_STRING167                   167
+#define IDS_STRING168                   168
+#define IDS_STRING169                   169
+#define IDS_STRING170                   170
+#define IDS_STRING171                   171
+#define IDS_STRING172                   172
+#define IDS_STRING173                   173
+#define IDS_STRING174                   174
+#define IDS_STRING175                   175
+#define IDS_STRING176                   176
+#define IDS_STRING177                   177
 
 // Next default values for new objects
 // 

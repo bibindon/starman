@@ -16,6 +16,7 @@
 
 #include "PatchTestManager2.h"
 #include "PopUp2.h"
+#include "resource.h"
 
 namespace NSPatchTestLib
 {
@@ -472,21 +473,21 @@ void PatchTestManager2::CreateList()
 
             if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::NOT_START)
             {
-                itemInfo.SetResult("未実施");
+                itemInfo.SetResult(Common::LoadString_(IDS_STRING164));
             }
             else if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::STARTED)
             {
-                itemInfo.SetResult("テスト中");
+                itemInfo.SetResult(Common::LoadString_(IDS_STRING165));
             }
             else if (queList.at(i).GetState() == NSStarmanLib::PatchTest::eState::FINISHED)
             {
                 if (queList.at(i).GetResult() == NSStarmanLib::PatchTest::eResult::POISON)
                 {
-                    itemInfo.SetResult("毒");
+                    itemInfo.SetResult(Common::LoadString_(IDS_STRING166));
                 }
                 else if (queList.at(i).GetResult() == NSStarmanLib::PatchTest::eResult::NOT_POISON)
                 {
-                    itemInfo.SetResult("毒ではない");
+                    itemInfo.SetResult(Common::LoadString_(IDS_STRING167));
                 }
             }
 
@@ -523,7 +524,7 @@ void PatchTestManager2::QueueTest(const std::string& result)
     }
     else
     {
-        PopUp2::Get()->SetText("パッチテストの予約は３件まで");
+        PopUp2::Get()->SetText(IDS_STRING168);
     }
 }
 
