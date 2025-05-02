@@ -262,19 +262,18 @@ Player::Player()
     SoundEffect::get_ton()->load("res\\sound\\iceSet.wav");
     SoundEffect::get_ton()->load("res\\sound\\darkSet.wav");
 
-    D3DXCreateFont(
-        SharedObj::GetD3DDevice(),
-        32,
-        0,
-        FW_NORMAL,
-        1,
-        false,
-        SHIFTJIS_CHARSET,
-        OUT_TT_ONLY_PRECIS,
-        ANTIALIASED_QUALITY,
-        FF_DONTCARE,
-        "‚l‚r –¾’©",
-        &m_D3DFont);
+    D3DXCreateFont(SharedObj::GetD3DDevice(),
+                   32,
+                   0,
+                   FW_NORMAL,
+                   1,
+                   false,
+                   SHIFTJIS_CHARSET,
+                   OUT_TT_ONLY_PRECIS,
+                   ANTIALIASED_QUALITY,
+                   FF_DONTCARE,
+                   "‚l‚r –¾’©",
+                   &m_D3DFont);
 }
 
 Player::~Player()
@@ -933,21 +932,21 @@ void Player::Render2D()
         }
         int transparency = 255 - (m_switchMagicCounter * 255 / 60);
 
-        std::string magicType = "–³";
+        std::string magicType = Common::LoadString_(IDS_STRING137);
 
         auto statusManager = NSStarmanLib::StatusManager::GetObj();
         auto equipMagic = statusManager->GetMagicType();
         if (equipMagic == NSStarmanLib::eMagicType::Fire)
         {
-            magicType = "‰Š";
+            magicType = Common::LoadString_(IDS_STRING138);
         }
         else if (equipMagic == NSStarmanLib::eMagicType::Ice)
         {
-            magicType = "•X";
+            magicType = Common::LoadString_(IDS_STRING139);
         }
         else if (equipMagic == NSStarmanLib::eMagicType::Dark)
         {
-            magicType = "ˆÅ";
+            magicType = Common::LoadString_(IDS_STRING140);
         }
 
         RECT rect;
@@ -1020,12 +1019,12 @@ bool Player::SetAttack()
     {
         auto itemDef = itemManager->GetItemDef(weaponId);
         auto weaponName = itemDef.GetName();
-        if (weaponName == "‹|–î‚Ì‹|")
+        if (weaponName == Common::LoadString_(IDS_STRING141))
         {
             SetAttackArrow();
             return true;
         }
-        else if (weaponName == "ƒAƒgƒ‰ƒgƒ‹")
+        else if (weaponName == Common::LoadString_(IDS_STRING142))
         {
             SetAttackAtlatl();
             return true;
@@ -1066,7 +1065,7 @@ bool Player::SetAttack()
             auto itemInfo = Common::Status()->GetEquipWeapon();
             if (itemInfo.GetId() != -1)
             {
-                if (itemInfo.GetItemDef().GetName() == "¼–¾")
+                if (itemInfo.GetItemDef().GetName() == Common::LoadString_(IDS_STRING133))
                 {
                     NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
                     Common::Inventory()->SetItemDurability(itemInfo.GetId(), itemInfo.GetSubId(), 0);
@@ -1088,7 +1087,7 @@ bool Player::SetAttackArrow()
 
     // ‹­‰»’l‚Ì‹­‚¢–î‚Ì‚Ù‚¤‚©‚ç‚È‚­‚È‚é
     int arrowCnt = 0;
-    arrowCnt = inventory->CountItem("‹|–î‚Ì–î", 1);
+    arrowCnt = inventory->CountItem(Common::LoadString_(IDS_STRING143), 1);
 
     int arrowLevel = 0;
 
@@ -1097,7 +1096,7 @@ bool Player::SetAttackArrow()
 
     if (arrowCnt > 0)
     {
-        itemDef = itemManager->GetItemDef("‹|–î‚Ì–î", 1);
+        itemDef = itemManager->GetItemDef(Common::LoadString_(IDS_STRING143), 1);
 
         auto subIdList = inventory->GetSubIdList(itemDef.GetId());
 
@@ -1108,10 +1107,10 @@ bool Player::SetAttackArrow()
     }
     else
     {
-        arrowCnt = inventory->CountItem("‹|–î‚Ì–î", -1);
+        arrowCnt = inventory->CountItem(Common::LoadString_(IDS_STRING143), -1);
         if (arrowCnt > 0)
         {
-            itemDef = itemManager->GetItemDef("‹|–î‚Ì–î", -1);
+            itemDef = itemManager->GetItemDef(Common::LoadString_(IDS_STRING143), -1);
 
             auto subIdList = inventory->GetSubIdList(itemDef.GetId());
 
@@ -1162,7 +1161,7 @@ bool Player::SetAttackArrow()
         power = 0.01f;
         power += (bowLevel * 0.2f) + (arrowLevel * 10.f);
 
-        SharedObj::GetMap()->AddThrownItem(pos, norm, "‹|–î‚Ì–î", itemInfo, 1.f, power, m_rotate.y);
+        SharedObj::GetMap()->AddThrownItem(pos, norm, Common::LoadString_(IDS_STRING143), itemInfo, 1.f, power, m_rotate.y);
     }
 
     // ‘Ì—Í‚ðÁ–Õ‚·‚é
@@ -1184,7 +1183,7 @@ bool Player::SetAttackAtlatl()
     int arrowLevel = 0;
     for (int i = 5; ;)
     {
-        int arrowCnt = inventory->CountItem("ƒAƒgƒ‰ƒgƒ‹‚ÉŽg‚¤‘„", i);
+        int arrowCnt = inventory->CountItem(Common::LoadString_(IDS_STRING144), i);
         if (arrowCnt >= 1)
         {
             arrowLevel = i;
@@ -1212,7 +1211,7 @@ bool Player::SetAttackAtlatl()
 
     // ƒCƒ“ƒxƒ“ƒgƒŠ‚©‚ç‘„‚ðˆê‚ÂŒ¸‚ç‚·
     {
-        itemDef = itemManager->GetItemDef("ƒAƒgƒ‰ƒgƒ‹‚ÉŽg‚¤‘„", arrowLevel);
+        itemDef = itemManager->GetItemDef(Common::LoadString_(IDS_STRING144), arrowLevel);
         auto subIdList = inventory->GetSubIdList(itemDef.GetId());
         itemInfo = inventory->GetItemInfo(itemDef.GetId(), subIdList.at(0));
         inventory->RemoveItem(itemDef.GetId(), subIdList.at(0));
@@ -1244,7 +1243,7 @@ bool Player::SetAttackAtlatl()
         power = 20.f;
         power += (arrowLevel * 5.f);
 
-        SharedObj::GetMap()->AddThrownItem(pos, norm, "ƒAƒgƒ‰ƒgƒ‹‚ÉŽg‚¤‘„", itemInfo, 2.f, power, m_rotate.y);
+        SharedObj::GetMap()->AddThrownItem(pos, norm, Common::LoadString_(IDS_STRING144), itemInfo, 2.f, power, m_rotate.y);
     }
 
     // ‘Ì—Í‚ðÁ–Õ‚·‚é
@@ -1379,7 +1378,7 @@ void Player::SetJump()
 
         if (brokenBagNum1 != brokenBagNum2)
         {
-            PopUp2::Get()->SetText("i‘Ü‚ª‰ó‚ê‚½‹C‚ª‚·‚éj");
+            PopUp2::Get()->SetText(Common::LoadString_(IDS_STRING145));
         }
     }
 }
