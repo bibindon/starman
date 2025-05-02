@@ -23,6 +23,7 @@
 #include "BGM.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
 #include "Rain.h"
+#include "resource.h"
 
 Map::Map()
 {
@@ -173,7 +174,7 @@ void Map::Init()
     //--------------------------------------------
     auto npcManager = NpcManager::Get();
     {
-        auto status = npcManager->GetNpcStatus("ダイケイマン");
+        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING121));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -239,10 +240,10 @@ void Map::Init()
                                            1.f,
                                            animSetMap);
         daikeiman->SetAnim("LieDown");
-        m_NPC["ダイケイマン"] = daikeiman;
+        m_NPC[Common::LoadString_(IDS_STRING121)] = daikeiman;
     }
     {
-        auto status = npcManager->GetNpcStatus("サンカクマン");
+        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING112));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -304,10 +305,10 @@ void Map::Init()
         }
         AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman\\sankakuman.x", pos, rot, 0.66f, animSetMap);
         sankakuman->SetAnim("Sit");
-        m_NPC["サンカクマン"] = sankakuman;
+        m_NPC[Common::LoadString_(IDS_STRING112)] = sankakuman;
     }
     {
-        auto status = npcManager->GetNpcStatus("シカクマン");
+        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING113));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -373,10 +374,10 @@ void Map::Init()
                                             0.66f,
                                             animSetMap);
         shikakuman->SetAnim("Sit");
-        m_NPC["シカクマン"] = shikakuman;
+        m_NPC[Common::LoadString_(IDS_STRING113)] = shikakuman;
     }
     {
-        auto status = npcManager->GetNpcStatus("ビム");
+        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING122));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -438,7 +439,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim\\vim.x", pos, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
-        m_NPC["ビム"] = animMesh;
+        m_NPC[Common::LoadString_(IDS_STRING122)] = animMesh;
     }
     /*
     {

@@ -99,6 +99,18 @@
 #define IDS_STRING194                   194
 #define IDS_STRING195                   195
 #define IDS_STRING196                   196
+#define IDS_STRING197                   197
+#define IDS_STRING198                   198
+#define IDS_STRING199                   199
+#define IDS_STRING200                   200
+#define IDS_STRING201                   201
+#define IDS_STRING202                   202
+#define IDS_STRING203                   203
+#define IDS_STRING204                   204
+#define IDS_STRING205                   205
+#define IDS_STRING206                   206
+#define IDS_STRING207                   207
+#define IDS_STRING208                   208
 
 // Next default values for new objects
 // 

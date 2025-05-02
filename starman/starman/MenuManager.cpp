@@ -19,6 +19,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "PopUp2.h"
 #include <cassert>
+#include "resource.h"
 
 namespace NSMenulib
 {
@@ -675,10 +676,10 @@ std::string MenuManager::OperateMenu()
         result = m_menu.Into();
 
         std::vector<std::string> vs = Common::split(result, ':');
-        if (vs.size() == 5 && vs.at(0) == "アイテム")
+        if (vs.size() == 5 && vs.at(0) == "Item")
         {
             // アイテムを使う
-            if (vs.at(4) == "使う")
+            if (vs.at(4) == "Use")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -689,20 +690,20 @@ std::string MenuManager::OperateMenu()
                 }
             }
             // アイテムを捨てる
-            else if (vs.at(4) == "捨てる")
+            else if (vs.at(4) == "Discard")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
-            else if (vs.at(4) == "装備する")
+            else if (vs.at(4) == "Equip")
             {
                 // 火のついた松明を装備していたら武器を装備できない。袋も装備できない。
                 bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
 
                 if (lit)
                 {
-                    PopUp2::Get()->SetText("点灯中の松明を装備していたら武器を装備できない。袋も装備できない。");
+                    PopUp2::Get()->SetText(IDS_STRING197);
                 }
                 else
                 {
@@ -711,13 +712,13 @@ std::string MenuManager::OperateMenu()
                     Equip(id, subId);
                 }
             }
-            else if (vs.at(4) == "装備を外す")
+            else if (vs.at(4) == "Unequip")
             {
                 // 点灯中の松明の装備を外すことはできない。
                 bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
                 if (lit)
                 {
-                    PopUp2::Get()->SetText("点灯中の松明の装備を外すことはできない。");
+                    PopUp2::Get()->SetText(IDS_STRING198);
                 }
                 else
                 {
@@ -727,9 +728,9 @@ std::string MenuManager::OperateMenu()
                 }
             }
         }
-        else if (vs.size() == 5 && vs.at(0) == "武器")
+        else if (vs.size() == 5 && vs.at(0) == "Weapon")
         {
-            if (vs.at(4) == "装備")
+            if (vs.at(4) == "Equip")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -741,7 +742,7 @@ std::string MenuManager::OperateMenu()
                 statusManager->SetEquipWeapon(itemInfo);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == "セーブして終了")
+        else if (vs.size() >= 1 && vs.at(0) == "Save and Exit")
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
@@ -765,10 +766,10 @@ std::string MenuManager::OperateMenu()
         result = m_menu.Click(p.x, p.y);
 
         std::vector<std::string> vs = Common::split(result, ':');
-        if (vs.size() == 5 && vs.at(0) == "アイテム")
+        if (vs.size() == 5 && vs.at(0) == "Item")
         {
             // アイテムを使う
-            if (vs.at(4) == "使う")
+            if (vs.at(4) == "Use")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -779,28 +780,28 @@ std::string MenuManager::OperateMenu()
                 }
             }
             // アイテムを捨てる
-            else if (vs.at(4) == "捨てる")
+            else if (vs.at(4) == "Discard")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
-            else if (vs.at(4) == "装備する")
+            else if (vs.at(4) == "Equip")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
-            else if (vs.at(4) == "装備を外す")
+            else if (vs.at(4) == "Unequip")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
         }
-        else if (vs.size() == 5 && vs.at(0) == "武器")
+        else if (vs.size() == 5 && vs.at(0) == "Weapon")
         {
-            if (vs.at(4) == "装備")
+            if (vs.at(4) == "Equip")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -812,7 +813,7 @@ std::string MenuManager::OperateMenu()
                 statusManager->SetEquipWeapon(itemInfo);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == "セーブして終了")
+        else if (vs.size() >= 1 && vs.at(0) == "Save and Exit")
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
@@ -886,10 +887,10 @@ std::string MenuManager::OperateMenu()
         result = m_menu.Into();
 
         std::vector<std::string> vs = Common::split(result, ':');
-        if (vs.size() == 5 && vs.at(0) == "アイテム")
+        if (vs.size() == 5 && vs.at(0) == "Item")
         {
             // アイテムを使う
-            if (vs.at(4) == "使う")
+            if (vs.at(4) == "Use")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -900,28 +901,28 @@ std::string MenuManager::OperateMenu()
                 }
             }
             // アイテムを捨てる
-            else if (vs.at(4) == "捨てる")
+            else if (vs.at(4) == "Discard")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
-            else if (vs.at(4) == "装備する")
+            else if (vs.at(4) == "Equip")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
-            else if (vs.at(4) == "装備を外す")
+            else if (vs.at(4) == "Unequip")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
         }
-        else if (vs.size() == 5 && vs.at(0) == "武器")
+        else if (vs.size() == 5 && vs.at(0) == "Weapon")
         {
-            if (vs.at(4) == "装備")
+            if (vs.at(4) == "Equip")
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -933,7 +934,7 @@ std::string MenuManager::OperateMenu()
                 statusManager->SetEquipWeapon(itemInfo);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == "セーブして終了")
+        else if (vs.size() >= 1 && vs.at(0) == "Save and Exit")
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
@@ -1162,7 +1163,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
         {
             if (it->GetId() == id && it->GetSubId() == subId)
             {
-                PopUp2::Get()->SetText("装備中の袋を捨てることはできない");
+                PopUp2::Get()->SetText(IDS_STRING199);
                 return;
             }
         }
@@ -1173,7 +1174,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
         auto weapon = Common::Status()->GetEquipWeapon();
         if (weapon.GetId() == id && weapon.GetSubId() == subId)
         {
-            PopUp2::Get()->SetText("装備中の武器を捨てることはできない");
+            PopUp2::Get()->SetText(IDS_STRING200);
             return;
         }
     }
@@ -1230,7 +1231,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
 
     if (brokenBagNum1 != brokenBagNum2)
     {
-        PopUp2::Get()->SetText("（袋が壊れた気がする）");
+        PopUp2::Get()->SetText(IDS_STRING145);
     }
 
     m_menu.SetWeightAll(Common::Inventory()->GetWeight());
@@ -1239,7 +1240,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
 
     if (Common::ItemManager()->GetItemDef(id).GetName() == "家のカギ")
     {
-        PopUp2::Get()->SetText("このゲームをクリアすることができなくなりました");
+        PopUp2::Get()->SetText(IDS_STRING201);
     }
 }
 
@@ -1365,7 +1366,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
 
     if (brokenBagNum1 != brokenBagNum2)
     {
-        PopUp2::Get()->SetText("（袋が壊れた気がする）");
+        PopUp2::Get()->SetText(IDS_STRING145);
     }
 
     m_menu.SetWeightAll(Common::Inventory()->GetWeight());
@@ -1419,7 +1420,7 @@ void MenuManager::Equip(const int id, const int subId)
         // 袋を5個装備していたら装備しない
         if (Common::Status()->GetBagState().size() >= 5)
         {
-            PopUp2::Get()->SetText("袋を6個以上装備することはできない");
+            PopUp2::Get()->SetText(IDS_STRING202);
             return;
         }
 
