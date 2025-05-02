@@ -27,6 +27,7 @@
 #include "QuestManager.h"
 #include "Rain.h"
 #include <cassert>
+#include "resource.h"
 
 using namespace NSQuestSystem;
 
@@ -687,7 +688,7 @@ void SeqBattle::OperateStorehouse()
                     {
                         if (it->GetId() == id_ && it->GetSubId() == subId_)
                         {
-                            PopUp2::Get()->SetText("装備中の袋を倉庫に移動することはできない");
+                            PopUp2::Get()->SetText(IDS_STRING102);
                             equipBagExist = true;
                             break;
                         }
@@ -699,7 +700,7 @@ void SeqBattle::OperateStorehouse()
                     auto weapon = Common::Status()->GetEquipWeapon();
                     if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
                     {
-                        PopUp2::Get()->SetText("装備中の武器を倉庫に移動することはできない");
+                        PopUp2::Get()->SetText(IDS_STRING103);
                         equipWeaponExist = true;
                     }
                 }
@@ -785,7 +786,7 @@ void SeqBattle::OperateStorehouse()
                         {
                             if (it->GetId() == id_ && it->GetSubId() == subId_)
                             {
-                                PopUp2::Get()->SetText("装備中の袋を倉庫に移動することはできない");
+                                PopUp2::Get()->SetText(IDS_STRING102);
                                 equipBagExist = true;
                                 break;
                             }
@@ -797,7 +798,7 @@ void SeqBattle::OperateStorehouse()
                         auto weapon = Common::Status()->GetEquipWeapon();
                         if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
                         {
-                            PopUp2::Get()->SetText("装備中の武器を倉庫に移動することはできない");
+                            PopUp2::Get()->SetText(IDS_STRING103);
                             equipWeaponExist = true;
                         }
                     }
@@ -918,7 +919,7 @@ void SeqBattle::OperateStorehouse()
                     {
                         if (it->GetId() == id_ && it->GetSubId() == subId_)
                         {
-                            PopUp2::Get()->SetText("装備中の袋を倉庫に移動することはできない");
+                            PopUp2::Get()->SetText(IDS_STRING102);
                             equipBagExist = true;
                             break;
                         }
@@ -930,7 +931,7 @@ void SeqBattle::OperateStorehouse()
                     auto weapon = Common::Status()->GetEquipWeapon();
                     if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
                     {
-                        PopUp2::Get()->SetText("装備中の武器を倉庫に移動することはできない");
+                        PopUp2::Get()->SetText(IDS_STRING103);
                         equipWeaponExist = true;
                     }
                 }
@@ -1115,14 +1116,14 @@ void SeqBattle::OperateCommand()
             std::vector<std::vector<std::string>> vvs;
             std::vector<std::string> vs;
             vs.push_back("");
-            vs.push_back("「私が次にやるべきことはなんだ？」");
+            vs.push_back(Common::LoadString_(IDS_STRING104));
             vvs.push_back(vs);
             vs.clear();
             auto hint = QuestManager::Get()->GetHint();
             if (hint.empty())
             {
                 vs.push_back("");
-                vs.push_back("「何も思いつかない・・・。いったいどうすれば・・・。」");
+                vs.push_back(Common::LoadString_(IDS_STRING105));
             }
             else
             {
@@ -1154,17 +1155,17 @@ void SeqBattle::OperateCommand()
 
         if (name != "石斧" && name != "縦長の石")
         {
-            PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
+            PopUp2::Get()->SetText(IDS_STRING106);
         }
         else
         {
             if (status->GetBodyStaminaCurrent() < 30.f)
             {
-                PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
+                PopUp2::Get()->SetText(IDS_STRING106);
             }
             else if (status->GetWaterCurrent() < 0.95f)
             {
-                PopUp2::Get()->SetText("適切な道具を装備し、スタミナ等がある程度ないと伐採を開始できない");
+                PopUp2::Get()->SetText(IDS_STRING106);
             }
             else
             {
@@ -1181,7 +1182,7 @@ void SeqBattle::OperateCommand()
         auto stamina = status->GetBodyStaminaCurrent();
         if (stamina <= 16.f)
         {
-            PopUp2::Get()->SetText("スタミナがある程度ないと採取を開始できない");
+            PopUp2::Get()->SetText(IDS_STRING107);
         }
         else
         {
@@ -1203,7 +1204,7 @@ void SeqBattle::OperateCommand()
     {
         if (!SharedObj::Voyage()->Can3HoursAuto())
         {
-            PopUp2::Get()->SetText("その方角に３時間漕ぐことはできない。");
+            PopUp2::Get()->SetText(IDS_STRING108);
         }
         else
         {
@@ -1243,7 +1244,7 @@ void SeqBattle::OperateCommand()
         }
         else
         {
-            PopUp2::Get()->SetText("袋を装備していたらイカダに乗ることはできない");
+            PopUp2::Get()->SetText(IDS_STRING110);
         }
     }
     else if (result == "イカダの袋を見る")
@@ -1262,7 +1263,7 @@ void SeqBattle::OperateCommand()
         auto weapon = Common::Status()->GetEquipWeapon();
         if (weapon.GetDurabilityCurrent() <= 0)
         {
-            PopUp2::Get()->SetText("松明の耐久値が０の時は点灯できない");
+            PopUp2::Get()->SetText(IDS_STRING110);
         }
         else
         {
@@ -1270,7 +1271,7 @@ void SeqBattle::OperateCommand()
 
             if (rain)
             {
-                PopUp2::Get()->SetText("雨の時は松明を点灯できない");
+                PopUp2::Get()->SetText(IDS_STRING111);
             }
             else
             {
@@ -1311,14 +1312,14 @@ void SeqBattle::OperateCommand()
         // サンカクマンかシカクマンのどちらかと近くにいなくてはならない。
         // どちらも近くにいる場合、サンカクマンを優先する
         auto npcManager = NSStarmanLib::NpcStatusManager::GetObj();
-        auto status = npcManager->GetNpcStatus("サンカクマン");
+        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING112));
         auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         auto ppos = m_player->GetPos();
 
         auto _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
         if (!_near)
         {
-            status = npcManager->GetNpcStatus("シカクマン");
+            status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING113));
             npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
             ppos = m_player->GetPos();
             _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
@@ -1344,7 +1345,8 @@ void SeqBattle::OperateCommand()
                     Common::Inventory()->AddItem(item.GetId());
                     auto name = item.GetName();
 
-                    PopUp2::Get()->SetText(name + "をもらった。");
+                    std::string work = Common::LoadStringWithArg(IDS_STRING114, name);
+                    PopUp2::Get()->SetText(work);
                 }
             }
         }
@@ -1607,32 +1609,32 @@ void SeqBattle::OperateSleep()
         status->Sleep();
         if (status->GetLevelUpFire())
         {
-            PopUp2::Get()->SetText("炎魔法のレベルが上がった");
+            PopUp2::Get()->SetText(IDS_STRING115);
         }
 
         if (status->GetLevelUpIce())
         {
-            PopUp2::Get()->SetText("氷魔法のレベルが上がった");
+            PopUp2::Get()->SetText(IDS_STRING116);
         }
 
         if (status->GetLevelUpDark())
         {
-            PopUp2::Get()->SetText("闇魔法のレベルが上がった");
+            PopUp2::Get()->SetText(DS_STRING117);
         }
 
         if (status->GetLevelDownFire())
         {
-            PopUp2::Get()->SetText("炎魔法のレベルが下がった");
+            PopUp2::Get()->SetText(IDS_STRING118);
         }
 
         if (status->GetLevelDownIce())
         {
-            PopUp2::Get()->SetText("氷魔法のレベルが下がった");
+            PopUp2::Get()->SetText(IDS_STRING119);
         }
 
         if (status->GetLevelDownDark())
         {
-            PopUp2::Get()->SetText("闇魔法のレベルが下がった");
+            PopUp2::Get()->SetText(IDS_STRING120);
         }
     }
 
@@ -1861,21 +1863,21 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::string::size_type it = work.find("<npc>");
                     work = work.erase(it, 5);
                     std::string npcName;
-                    if (work.find("<ダイケイマン>") != std::string::npos)
+                    if (work.find("<" + Common::LoadString_(IDS_STRING121) + ">") != std::string::npos)
                     {
-                        npcName = "ダイケイマン";
+                        npcName = Common::LoadString_(IDS_STRING121);
                     }
-                    else if (work.find("<サンカクマン>") != std::string::npos)
+                    else if (work.find("<" + Common::LoadString_(IDS_STRING112) + ">") != std::string::npos)
                     {
-                        npcName = "サンカクマン";
+                        npcName = Common::LoadString_(IDS_STRING112);
                     }
-                    else if (work.find("<シカクマン>") != std::string::npos)
+                    else if (work.find("<" + Common::LoadString_(IDS_STRING113) + ">") != std::string::npos)
                     {
-                        npcName = "シカクマン";
+                        npcName = Common::LoadString_(IDS_STRING113);
                     }
-                    else if (work.find("<ビム>") != std::string::npos)
+                    else if (work.find("<" + Common::LoadString_(IDS_STRING122) + ">") != std::string::npos)
                     {
-                        npcName = "ビム";
+                        npcName = Common::LoadString_(IDS_STRING122);
                     }
 
                     work = Common::RemoveSubstring(work, "<" + npcName + ">");
@@ -2058,25 +2060,26 @@ void SeqBattle::OperatePickPlant()
         std::string pick;
 
         // TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
+        // リソースファイルから取得するのではなく、CSVファイルから取得すべき
         if (rand % 100 < 10)
         {
-            pick = "謎の草１";
+            pick = Common::LoadString_(IDS_STRING123);
         }
         else if (rand % 100 < 20)
         {
-            pick = "謎の草２";
+            pick = Common::LoadString_(IDS_STRING124);
         }
         else if (rand % 100 < 30)
         {
-            pick = "謎の草３";
+            pick = Common::LoadString_(IDS_STRING125);
         }
         else if (rand % 100 < 40)
         {
-            pick = "謎の草４";
+            pick = Common::LoadString_(IDS_STRING126);
         }
         else if (rand % 100 < 45)
         {
-            pick = "謎の草５";
+            pick = Common::LoadString_(IDS_STRING127);
         }
         else if (rand % 100 < 50)
         {
@@ -2123,7 +2126,7 @@ void SeqBattle::OperatePickPlant()
             pick = "木の枝";
         }
 
-        PopUp2::Get()->SetText(pick + "を手に入れた。");
+        PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
 
         // 30分経過させる処理
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
@@ -2154,7 +2157,7 @@ void SeqBattle::OperateCutTree()
 {
     if (m_eFadeSeq == eFadeSeq::Finish)
     {
-        PopUp2::Get()->SetText("細い木の幹を手に入れた。");
+        PopUp2::Get()->SetText(IDS_STRING129);
 
         // 6時間経過させる処理
         // 装備武器で消費する時間や体力が変わる
@@ -2167,11 +2170,11 @@ void SeqBattle::OperateCutTree()
 
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
-        if (name == "縦長の石")
+        if (name == Common::LoadString_(IDS_STRING130))
         {
             dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
         }
-        else if (name == "石斧")
+        else if (name == Common::LoadString_(IDS_STRING131))
         {
             auto durability = itemInfo.GetDurabilityCurrent();
 
@@ -2222,7 +2225,7 @@ void SeqBattle::OperateCutTree()
         Common::Status()->CutTree(name, level);
 
         // アイテムをインベントリに追加
-        auto itemDef = Common::ItemManager()->GetItemDef("細い木の幹");
+        auto itemDef = Common::ItemManager()->GetItemDef(Common::LoadString_(IDS_STRING132));
         Common::Inventory()->AddItem(itemDef.GetId());
 
         // 木を消す処理
@@ -2273,7 +2276,7 @@ void SeqBattle::OperateCreateTorch()
         auto weapon = Common::Status()->GetEquipWeapon();
         Common::Inventory()->RemoveItem(weapon.GetId(), weapon.GetSubId());
 
-        auto itemDef = Common::ItemManager()->GetItemDef("松明");
+        auto itemDef = Common::ItemManager()->GetItemDef(Common::LoadString_(IDS_STRING133));
         auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
 
         auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), newSubId);
@@ -2394,7 +2397,7 @@ void SeqBattle::Confirm(eSequence* sequence)
 
             std::string work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
             SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
-            PopUp2::Get()->SetText(work + " を手に入れた。");
+            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, work));
         }
     }
     else if (m_bTalkable)
@@ -2453,7 +2456,7 @@ void SeqBattle::Confirm(eSequence* sequence)
 
             std::string work = itemManager->GetItemDef(thrownItem.GetId()).GetName();
             SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
-            PopUp2::Get()->SetText(work + " を手に入れた。");
+            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, work));
         }
 
     }
@@ -2821,7 +2824,7 @@ void SeqBattle::UpdatePerSecond()
             auto rynen = NSStarmanLib::Rynen::GetObj();
             if (rynen->GetReviveEnable())
             {
-                PopUp2::Get()->SetText("死亡。ワードブレスを飲んだ場所で復活します。");
+                PopUp2::Get()->SetText(IDS_STRING134);
             }
         }
         return;
@@ -2837,7 +2840,7 @@ void SeqBattle::UpdatePerSecond()
         {
             m_eState = eBattleState::SLEEP;
             m_player->SetSleep(true);
-            PopUp2::Get()->SetText("睡眠・気絶");
+            PopUp2::Get()->SetText(IDS_STRING135);
 
             StartFadeInOut();
         }
@@ -2893,7 +2896,7 @@ void SeqBattle::UpdatePerSecond()
         {
             if (vol > volMax)
             {
-                PopUp2::Get()->SetText("最大積載量を超えています。");
+                PopUp2::Get()->SetText(IDS_STRING136);
             }
         }
         previousVol = vol;

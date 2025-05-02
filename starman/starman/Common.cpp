@@ -378,4 +378,18 @@ std::string Common::LoadString_(const UINT resID)
     return std::string(buf);
 }
 
+std::string Common::LoadStringWithArg(const UINT resID, const std::string& arg1)
+{
+    // u"%s"‚ğó‚¯æ‚Á‚½v‚İ‚½‚¢‚È•¶š—ñ
+    TCHAR buf[1024];
+    HMODULE hInstance = GetModuleHandle(NULL);
+    LoadString(hInstance, resID, buf, 1024);
+    std::string work(buf);
+
+    char buffer[1024];
+    std::snprintf(buffer, sizeof(buffer), work.c_str(), arg1.c_str());
+    std::string message(buffer);
+    return message;
+}
+
 

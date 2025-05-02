@@ -22,6 +22,11 @@ void PopUp2::SetText(const std::string& arg)
     m_counter = 0;
 }
 
+void PopUp2::SetText(const UINT resID)
+{
+    SetText(Common::LoadString_(resID));
+}
+
 PopUp2::~PopUp2()
 {
     delete m_font;

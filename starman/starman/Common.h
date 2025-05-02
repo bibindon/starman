@@ -124,6 +124,7 @@ public:
     static std::string GetGPUName();
 
     static std::string LoadString_(const UINT resID);
+    static std::string LoadStringWithArg(const UINT resID, const std::string& arg1);
 
 private:
 

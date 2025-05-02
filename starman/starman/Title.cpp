@@ -32,11 +32,11 @@ Title::Title(const bool blackFadeIn, const bool bFirst)
                                  FW_NORMAL,
                                  1,
                                  false,
-                                 SHIFTJIS_CHARSET,
+                                 DEFAULT_CHARSET,
                                  OUT_TT_ONLY_PRECIS,
-                                 ANTIALIASED_QUALITY,
+                                 CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 "‚l‚r –¾’©",
+                                 "Courier New",
                                  &m_font);
 
     if (blackFadeIn)

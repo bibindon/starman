@@ -33,6 +33,7 @@ public:
     static PopUp2* Get();
     static void Finalize();
     void SetText(const std::string& arg);
+    void SetText(const UINT res);
     bool IsShow();
     void Update();
     void Render();
