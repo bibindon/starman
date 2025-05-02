@@ -335,10 +335,10 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     }
 
     // PopUpクラスの初期化
-    PopUp::Init();
+    PopUp::Init(SharedObj::IsEnglish());
 
     // PopUp2クラスの初期化
-    IPopUpFont* popUpFont = NEW PopUpFont(SharedObj::GetD3DDevice());
+    IPopUpFont* popUpFont = NEW PopUpFont(SharedObj::GetD3DDevice(), SharedObj::IsEnglish());
     PopUp2::Init(popUpFont);
 
     //-------------------------------------------------

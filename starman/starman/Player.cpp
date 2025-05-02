@@ -11,6 +11,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "PopUp2.h"
+#include "resource.h"
 
 Player::Player()
 {

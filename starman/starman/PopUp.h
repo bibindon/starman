@@ -7,7 +7,7 @@
 class PopUp
 {
 public:
-    static void Init();
+    static void Init(const bool bEnglish);
     static PopUp* Get();
     static void Finalize();
     void SetText(const std::vector<std::vector<std::string>>& arg);

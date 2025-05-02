@@ -1619,7 +1619,7 @@ void SeqBattle::OperateSleep()
 
         if (status->GetLevelUpDark())
         {
-            PopUp2::Get()->SetText(DS_STRING117);
+            PopUp2::Get()->SetText(IDS_STRING117);
         }
 
         if (status->GetLevelDownFire())

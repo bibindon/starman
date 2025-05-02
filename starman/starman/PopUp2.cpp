@@ -99,21 +99,41 @@ void PopUp2::Render()
     }
 }
 
-PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device)
+PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
 {
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
-    HRESULT hresult = D3DXCreateFont(D3DDevice,
-                                     26,
-                                     0,
-                                     FW_NORMAL,
-                                     1,
-                                     false,
-                                     SHIFTJIS_CHARSET,
-                                     OUT_TT_ONLY_PRECIS,
-                                     ANTIALIASED_QUALITY,
-                                     FF_DONTCARE,
-                                     "‚l‚r –¾’©",
-                                     &m_D3DFont);
+    HRESULT hresult = S_OK;
+
+    if (!bEnglish)
+    {
+        hresult = D3DXCreateFont(D3DDevice,
+                                 26,
+                                 0,
+                                 FW_NORMAL,
+                                 1,
+                                 false,
+                                 SHIFTJIS_CHARSET,
+                                 OUT_TT_ONLY_PRECIS,
+                                 ANTIALIASED_QUALITY,
+                                 FF_DONTCARE,
+                                 "‚l‚r –¾’©",
+                                 &m_D3DFont);
+    }
+    else
+    {
+        hresult = D3DXCreateFont(D3DDevice,
+                                 26,
+                                 0,
+                                 FW_NORMAL,
+                                 1,
+                                 false,
+                                 DEFAULT_CHARSET,
+                                 OUT_TT_ONLY_PRECIS,
+                                 CLEARTYPE_NATURAL_QUALITY,
+                                 FF_DONTCARE,
+                                 "Courier New",
+                                 &m_D3DFont);
+    }
 
     assert(hresult == S_OK);
 }

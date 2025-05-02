@@ -19,26 +19,44 @@ PopUp::~PopUp()
     SAFE_DELETE(m_sprBack);
 }
 
-void PopUp::Init()
+void PopUp::Init(const bool bEnglish)
 {
     m_singleTonObj = NEW PopUp();
 
     m_singleTonObj->m_sprBack = NEW Sprite("res\\image\\PopupBack.png");
 
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
-    D3DXCreateFont(
-        D3DDevice,
-        30,
-        0,
-        FW_NORMAL,
-        1,
-        false,
-        SHIFTJIS_CHARSET,
-        OUT_TT_ONLY_PRECIS,
-        ANTIALIASED_QUALITY,
-        FF_DONTCARE,
-        "‚l‚r –¾’©",
-        &m_singleTonObj->m_D3DFont);
+
+    if (!bEnglish)
+    {
+        D3DXCreateFont(D3DDevice,
+                       30,
+                       0,
+                       FW_NORMAL,
+                       1,
+                       false,
+                       SHIFTJIS_CHARSET,
+                       OUT_TT_ONLY_PRECIS,
+                       ANTIALIASED_QUALITY,
+                       FF_DONTCARE,
+                       "‚l‚r –¾’©",
+                       &m_singleTonObj->m_D3DFont);
+    }
+    else
+    {
+        D3DXCreateFont(D3DDevice,
+                       30,
+                       0,
+                       FW_NORMAL,
+                       1,
+                       false,
+                       DEFAULT_CHARSET,
+                       OUT_TT_ONLY_PRECIS,
+                       CLEARTYPE_NATURAL_QUALITY,
+                       FF_DONTCARE,
+                       "Courier New",
+                       &m_singleTonObj->m_D3DFont);
+    }
 
 }
 

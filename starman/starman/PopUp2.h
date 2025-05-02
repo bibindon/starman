@@ -15,7 +15,7 @@ public:
 class PopUpFont : public IPopUpFont
 {
 public:
-    PopUpFont(LPDIRECT3DDEVICE9 device);
+    PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish);
     void Draw(const std::string& text, const int transparent);
     ~PopUpFont();
 
