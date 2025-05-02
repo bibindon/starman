@@ -329,7 +329,12 @@ void MenuManager::InitMenu()
                     itemInfoG.SetSubId(itemInfo.GetSubId());
                     itemInfoG.SetDetail(work_str);
 
-                    if (itemInfo.GetItemDef().GetName() == "袋")
+                    // ID : 28 ~ 32 == 袋
+                    if (itemInfo.GetItemDef().GetId() == 28 ||
+                        itemInfo.GetItemDef().GetId() == 29 ||
+                        itemInfo.GetItemDef().GetId() == 30 ||
+                        itemInfo.GetItemDef().GetId() == 31 ||
+                        itemInfo.GetItemDef().GetId() == 32)
                     {
                         itemInfoG.SetEquipEnable(true);
 
@@ -542,7 +547,7 @@ void MenuManager::InitMenu()
         sprItem->Load("res\\image\\test.png");
         info.SetSprite(sprItem);
         std::string work;
-        work = "パラメータ　　　現在値/回復可能値/最大値\n";
+//        work = "パラメータ　　　現在値/回復可能値/最大値\n";
         /*
         work += "体のスタミナ:\t";
         work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
@@ -969,47 +974,47 @@ std::string MenuManager::OperateMenu()
         {
             if (statusManager->GetFractureArm())
             {
-                condition += "腕骨折/";
+                condition += Common::LoadString_(IDS_STRING155)+ "/";
             }
 
             if (statusManager->GetFractureLeg())
             {
-                condition += "足骨折/";
+                condition += Common::LoadString_(IDS_STRING156)+ "/";
             }
 
             if (statusManager->GetHeadache())
             {
-                condition += "頭痛/";
+                condition += Common::LoadString_(IDS_STRING157)+ "/";
             }
 
             if (statusManager->GetCold())
             {
-                condition += "風邪/";
+                condition += Common::LoadString_(IDS_STRING158)+ "/";
             }
 
             if (statusManager->GetStomachache())
             {
-                condition += "腹痛/";
+                condition += Common::LoadString_(IDS_STRING159)+ "/";
             }
 
             if (statusManager->GetSleep())
             {
-                condition += "睡眠・気絶/";
+                condition += Common::LoadString_(IDS_STRING160)+ "/";
             }
 
             if (statusManager->GetDehydration())
             {
-                condition += "脱水症状/";
+                condition += Common::LoadString_(IDS_STRING161)+ "/";
             }
 
             if (statusManager->GetLackOfSleep())
             {
-                condition += "睡眠不足/";
+                condition += Common::LoadString_(IDS_STRING162)+ "/";
             }
 
             if (statusManager->GetDead())
             {
-                condition += "死亡/";
+                condition += Common::LoadString_(IDS_STRING163)+ "/";
             }
 
             if (condition.empty() == false)
@@ -1019,51 +1024,65 @@ std::string MenuManager::OperateMenu()
         }
 
         StatusInfo info;
-        info.SetName("ホシマン");
+        info.SetName(Common::LoadString_(IDS_STRING211));
+
         NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
         sprItem->Load("res\\image\\hoshiman00.png");
         info.SetSprite(sprItem);
         std::string work;
-        work =  "パラメータ      現在値/回復可能値/最大値\n";
-        work += "体のスタミナ    ";
+        work =  Common::LoadString_(IDS_STRING210) + "\n";
+
+        work += Common::LoadString_(IDS_STRING146) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
-        work += "脳のスタミナ    ";
+
+        work += Common::LoadString_(IDS_STRING147) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
         work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
-        work += "瞬発力          ";
+
+        work += Common::LoadString_(IDS_STRING209) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
-        work += "肉体の修復度    ";
+
+        work += Common::LoadString_(IDS_STRING149) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
-        work += "糖質            ";
+
+        work += Common::LoadString_(IDS_STRING150) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
-        work += "タンパク質      ";
+
+        work += Common::LoadString_(IDS_STRING151) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
-        work += "脂質            ";
+
+        work += Common::LoadString_(IDS_STRING152) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
-        work += "ビタミン        ";
+
+        work += Common::LoadString_(IDS_STRING153) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
-        work += "ミネラル        ";
+
+        work += Common::LoadString_(IDS_STRING154) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
-        work += "水分            ";
+
+        work += Common::LoadString_(IDS_STRING148) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
         work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
 //        work += "\n";
-        work += "状態異常       ";
+
+        work += Common::LoadString_(IDS_STRING213) + "\t";
         work += condition;
         work += "\n";
-        work += "装備武器       ";
+
+        work += Common::LoadString_(IDS_STRING214) + "\t";
         work += weaponName;
         work += "\n";
-        work += "攻撃力         ";
+
+        work += Common::LoadString_(IDS_STRING215) + "\t";
         work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + "\n";
 
         auto rynen = NSStarmanLib::Rynen::GetObj();
