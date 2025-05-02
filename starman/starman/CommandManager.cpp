@@ -11,6 +11,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
+#include <cassert>
 
 namespace NSCommand
 {
@@ -92,21 +93,42 @@ public:
     {
     }
 
-    void Init()
+    void Init(const bool bEnglish)
     {
-        HRESULT hr = D3DXCreateFont(
-            m_pD3DDevice,
-            20,
-            0,
-            FW_THIN,
-            1,
-            false,
-            SHIFTJIS_CHARSET,
-            OUT_TT_ONLY_PRECIS,
-            ANTIALIASED_QUALITY,
-            FF_DONTCARE,
-            "Ÿà–¾’©",
-            &m_pFont);
+        HRESULT hr = S_OK;
+
+        if (!bEnglish)
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                20,
+                                0,
+                                FW_THIN,
+                                1,
+                                false,
+                                SHIFTJIS_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                ANTIALIASED_QUALITY,
+                                FF_DONTCARE,
+                                "Ÿà–¾’©",
+                                &m_pFont);
+        }
+        else
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                20,
+                                0,
+                                FW_THIN,
+                                1,
+                                false,
+                                DEFAULT_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                CLEARTYPE_NATURAL_QUALITY,
+                                FF_DONTCARE,
+                                "Courier New",
+                                &m_pFont);
+        }
+
+        assert(hr == S_OK);
     }
 
     virtual void DrawText_(const std::string& msg,
@@ -165,12 +187,10 @@ void CommandManager::Init(const eType type)
     sprCursor->Load("res\\image\\command_cursor.png");
 
     NSCommand::IFont* pFont = NEW NSCommand::Font(SharedObj::GetD3DDevice());
-    pFont->Init();
 
     NSCommand::ISoundEffect* pSE = NEW NSCommand::SoundEffect();
-    pSE->Init();
 
-    m_commandLib->Init(pFont, pSE, sprCursor);
+    m_commandLib->Init(pFont, pSE, sprCursor, SharedObj::IsEnglish());
 
     m_eType = type;
     if (type == eType::Title)
