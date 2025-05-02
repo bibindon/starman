@@ -114,6 +114,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
             bJapan = true;
         }
 
+        SharedObj::SetEnglish(!bJapan);
+
         if (bJapan)
         {
             SetThreadLocale(MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN), SORT_DEFAULT));
