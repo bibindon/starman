@@ -7,6 +7,7 @@
 #include "BGM.h"
 #include "SoundEffect.h"
 #include "Camera.h"
+#include <cassert>
 
 using namespace NSStoryTelling;
 
@@ -95,28 +96,47 @@ public:
     {
     }
 
-    void Init()
+    void Init(const bool bEnglish)
     {
-        HRESULT hr = D3DXCreateFont(
-            m_pD3DDevice,
-            24,
-            0,
-            FW_NORMAL,
-            1,
-            false,
-            SHIFTJIS_CHARSET,
-            OUT_TT_ONLY_PRECIS,
-            ANTIALIASED_QUALITY,
-            FF_DONTCARE,
-            "‚l‚r –¾’©",
-            &m_pFont);
+        HRESULT hr = S_OK;
+        if (!bEnglish)
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                24,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                SHIFTJIS_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                ANTIALIASED_QUALITY,
+                                FF_DONTCARE,
+                                "‚l‚r –¾’©",
+                                &m_pFont);
+        }
+        else
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                24,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                DEFAULT_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                CLEARTYPE_QUALITY,
+                                FF_DONTCARE,
+                                "Courier New",
+                                &m_pFont);
+        }
+        assert(hr == S_OK);
     }
 
     virtual void DrawText_(const std::string& msg, const int x, const int y)
     {
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
-            D3DCOLOR_ARGB(255, 255, 255, 255));
+                          D3DCOLOR_ARGB(255, 255, 255, 255));
     }
 
     ~Font()
@@ -159,7 +179,6 @@ Opening::Opening()
         sprFade->Load("res\\image\\black.png");
 
         IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
-        pFont->Init();
 
         std::vector<Page> pageList;
         {
@@ -227,7 +246,7 @@ Opening::Opening()
         }
 
         m_storyTelling = NEW StoryTelling();
-        m_storyTelling->Init(pFont, pSE, sprTextBack, sprFade, pageList);
+        m_storyTelling->Init(pFont, pSE, sprTextBack, sprFade, pageList, SharedObj::IsEnglish());
     }
 }
 
