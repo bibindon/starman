@@ -12,6 +12,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 #include <cassert>
+#include "resource.h"
 
 namespace NSCommand
 {
@@ -246,14 +247,14 @@ std::string CommandManager::Operate()
     {
         POINT p;
         GetCursorPos(&p);
-        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
+        ScreenToClient(FindWindow(Common::LoadString_(IDS_STRING101).c_str(), nullptr), &p);
         result = m_commandLib->Click(p.x, p.y);
     }
     else
     {
         POINT p;
         GetCursorPos(&p);
-        ScreenToClient(FindWindow("ホシマン", nullptr), &p);
+        ScreenToClient(FindWindow(Common::LoadString_(IDS_STRING101).c_str(), nullptr), &p);
         m_commandLib->MouseMove(p.x, p.y);
     }
 
@@ -338,11 +339,11 @@ void CommandManager::BuildCommand()
     {
         if (SharedObj::GetMap()->NearTree(ppos))
         {
-            m_commandLib->UpsertCommand("伐採", true);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING178), true);
         }
         else
         {
-            m_commandLib->UpsertCommand("伐採", false);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING178), false);
         }
     }
 
@@ -351,27 +352,27 @@ void CommandManager::BuildCommand()
     {
         if (SharedObj::GetMap()->NearPlant(ppos))
         {
-            m_commandLib->UpsertCommand("採取", true);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), true);
         }
         else
         {
-            m_commandLib->UpsertCommand("採取", false);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), false);
         }
     }
 
     // 横になる・・・常に表示される
-    m_commandLib->UpsertCommand("横になる", true);
+    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING180), true);
 
     // 座る・・・常に表示される
-    m_commandLib->UpsertCommand("座る", true);
+    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING181), true);
 
     // 瞑想・・・常に表示される
-    m_commandLib->UpsertCommand("瞑想", true);
+    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING182), true);
 
     // 脱出・・・20秒コマンドが表示されたら
     if (m_counter > (60 * 20))
     {
-        m_commandLib->UpsertCommand("脱出", true);
+        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING183), true);
     }
 
     // 帆を張る・・・イカダモードの時
@@ -379,7 +380,7 @@ void CommandManager::BuildCommand()
     {
         if (!voyage->GetSail())
         {
-            m_commandLib->UpsertCommand("帆を張る", true);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING184), true);
         }
     }
 
@@ -388,7 +389,7 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetSail())
         {
-            m_commandLib->UpsertCommand("帆を畳む", true);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING185), true);
         }
     }
 
@@ -397,18 +398,18 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetPosType() == NSStarmanLib::Raft::ePosType::Sea)
         {
-            m_commandLib->UpsertCommand("３時間漕ぐ", true);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING186), true);
         }
         else
         {
-            m_commandLib->UpsertCommand("３時間漕ぐ", false);
+            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING186), false);
         }
     }
 
     // 立ち上がる・・・イカダモードの時。イカダモードが解除される。
     if (raftMode)
     {
-        m_commandLib->UpsertCommand("立ち上がる", true);
+        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING187), true);
     }
 
     // イカダに乗る・・・イカダが近くにある時
@@ -420,17 +421,17 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetRaftCount() == 0)
         {
-            m_commandLib->RemoveCommand("イカダに乗る");
+            m_commandLib->RemoveCommand(Common::LoadString_(IDS_STRING188));
         }
         else
         {
             if (voyage->CheckNearRaft(ppos))
             {
-                m_commandLib->UpsertCommand("イカダに乗る", true);
+                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING188), true);
             }
             else
             {
-                m_commandLib->UpsertCommand("イカダに乗る", false);
+                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING188), false);
             }
         }
     }
@@ -444,17 +445,17 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetRaftCount() == 0)
         {
-            m_commandLib->RemoveCommand("イカダの袋を見る");
+            m_commandLib->RemoveCommand(Common::LoadString_(IDS_STRING189));
         }
         else
         {
             if (voyage->CheckNearRaft(ppos))
             {
-                m_commandLib->UpsertCommand("イカダの袋を見る", true);
+                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING189), true);
             }
             else
             {
-                m_commandLib->UpsertCommand("イカダの袋を見る", false);
+                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING189), false);
             }
         }
     }
@@ -473,17 +474,17 @@ void CommandManager::BuildCommand()
 
             if (weapon.GetId() == -1 || weapon.GetId() == 0)
             {
-                m_commandLib->UpsertCommand("松明を作る", false);
+                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING190), false);
             }
             else
             {
-                if (weapon.GetItemDef().GetName() == "木の棒")
+                if (weapon.GetItemDef().GetName() == Common::LoadString_(IDS_STRING191))
                 {
-                    m_commandLib->UpsertCommand("松明を作る", true);
+                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING190), true);
                 }
                 else
                 {
-                    m_commandLib->UpsertCommand("松明を作る", false);
+                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING190), false);
                 }
             }
         }
@@ -502,16 +503,16 @@ void CommandManager::BuildCommand()
         // 何かしらは装備している。
         if (weapon.GetId() != 0 && weapon.GetId() != -1)
         {
-            if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == "松明")
+            if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == Common::LoadString_(IDS_STRING133))
             {
                 auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
                 if (!lit)
                 {
-                    m_commandLib->UpsertCommand("松明に火をつける", true);
+                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING192), true);
                 }
                 else
                 {
-                    m_commandLib->UpsertCommand("松明の火を消す", true);
+                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING193), true);
                 }
             }
         }
@@ -527,7 +528,7 @@ void CommandManager::BuildCommand()
         // ダイケイマン
         {
             auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-            auto status = npcMgr->GetNpcStatus("ダイケイマン");
+            auto status = npcMgr->GetNpcStatus(Common::LoadString_(IDS_STRING121));
             auto enable = status.GetFeatureEnable();
             if (enable)
             {
@@ -537,8 +538,8 @@ void CommandManager::BuildCommand()
 
                 if (_near)
                 {
-                    m_commandLib->UpsertCommand("クラフト", true);
-                    m_commandLib->UpsertCommand("パッチテスト", true);
+                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING194), true);
+                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING195), true);
                 }
             }
         }
@@ -547,7 +548,7 @@ void CommandManager::BuildCommand()
         bool bShowSankakuHelp = false;
         {
             auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-            auto status = npcMgr->GetNpcStatus("サンカクマン");
+            auto status = npcMgr->GetNpcStatus(Common::LoadString_(IDS_STRING112));
             auto enable = status.GetFeatureEnable();
             if (enable)
             {
@@ -557,10 +558,10 @@ void CommandManager::BuildCommand()
 
                 if (_near)
                 {
-                    bool canReceive = NSStarmanLib::Help::Get()->CanReceive("サンカクマン");
+                    bool canReceive = NSStarmanLib::Help::Get()->CanReceive(Common::LoadString_(IDS_STRING112));
                     if (canReceive)
                     {
-                        m_commandLib->UpsertCommand("お手伝い", true);
+                        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
                         bShowSankakuHelp = true;
                     }
                 }
@@ -572,7 +573,7 @@ void CommandManager::BuildCommand()
             if (!bShowSankakuHelp)
             {
                 auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-                auto status = npcMgr->GetNpcStatus("シカクマン");
+                auto status = npcMgr->GetNpcStatus(Common::LoadString_(IDS_STRING113));
                 auto enable = status.GetFeatureEnable();
                 if (enable)
                 {
@@ -582,10 +583,10 @@ void CommandManager::BuildCommand()
 
                     if (_near)
                     {
-                        bool canReceive = NSStarmanLib::Help::Get()->CanReceive("シカクマン");
+                        bool canReceive = NSStarmanLib::Help::Get()->CanReceive(Common::LoadString_(IDS_STRING113));
                         if (canReceive)
                         {
-                            m_commandLib->UpsertCommand("お手伝い", true);
+                            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
                             bShowSankakuHelp = true;
                         }
                     }

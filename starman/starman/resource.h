@@ -80,6 +80,25 @@
 #define IDS_STRING175                   175
 #define IDS_STRING176                   176
 #define IDS_STRING177                   177
+#define IDS_STRING178                   178
+#define IDS_STRING179                   179
+#define IDS_STRING180                   180
+#define IDS_STRING181                   181
+#define IDS_STRING182                   182
+#define IDS_STRING183                   183
+#define IDS_STRING184                   184
+#define IDS_STRING185                   185
+#define IDS_STRING186                   186
+#define IDS_STRING187                   187
+#define IDS_STRING188                   188
+#define IDS_STRING189                   189
+#define IDS_STRING190                   190
+#define IDS_STRING191                   191
+#define IDS_STRING192                   192
+#define IDS_STRING193                   193
+#define IDS_STRING194                   194
+#define IDS_STRING195                   195
+#define IDS_STRING196                   196
 
 // Next default values for new objects
 // 
