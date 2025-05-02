@@ -10,6 +10,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 #include "PopUp2.h"
+#include <cassert>
 
 namespace NSCraftLib
 {
@@ -83,7 +84,6 @@ public:
 
         m_texMap[filepath] = pD3DTexture;
 
-
         D3DSURFACE_DESC desc { };
         if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
@@ -134,20 +134,42 @@ public:
     {
     }
 
-    void Init()
+    void Init(const bool bEnglish)
     {
-        HRESULT hr = D3DXCreateFont(m_pD3DDevice,
-                                    24,
-                                    0,
-                                    FW_NORMAL,
-                                    1,
-                                    false,
-                                    SHIFTJIS_CHARSET,
-                                    OUT_TT_ONLY_PRECIS,
-                                    ANTIALIASED_QUALITY,
-                                    FF_DONTCARE,
-                                    "‚l‚r –¾’©",
-                                    &m_pFont);
+        HRESULT hr = S_OK;
+
+        if (!bEnglish)
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                24,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                SHIFTJIS_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                ANTIALIASED_QUALITY,
+                                FF_DONTCARE,
+                                "‚l‚r –¾’©",
+                                &m_pFont);
+        }
+        else
+        {
+            hr = D3DXCreateFont(m_pD3DDevice,
+                                24,
+                                0,
+                                FW_NORMAL,
+                                1,
+                                false,
+                                DEFAULT_CHARSET,
+                                OUT_TT_ONLY_PRECIS,
+                                CLEARTYPE_NATURAL_QUALITY,
+                                FF_DONTCARE,
+                                "Courier New",
+                                &m_pFont);
+        }
+
+        assert(hr == S_OK);
     }
 
     virtual void DrawText_(const std::string& msg, const int x, const int y)
@@ -215,12 +237,11 @@ void CraftManager::Init()
     sprPanelTop->Load("res\\image\\craftPanel.png");
 
     NSCraftLib::IFont* pFont = NEW NSCraftLib::Font(SharedObj::GetD3DDevice());
-    pFont->Init();
 
     NSCraftLib::ISoundEffect* pSE = NEW NSCraftLib::SoundEffect();
-    pSE->Init();
 
-    m_gui.Init(pFont, pSE, sprCursor, sprBackground, sprPanelLeft, sprPanelTop);
+    m_gui.Init(pFont, pSE, sprCursor, sprBackground,
+               sprPanelLeft, sprPanelTop, SharedObj::IsEnglish());
 
     Build();
 }
