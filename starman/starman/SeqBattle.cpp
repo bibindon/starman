@@ -546,7 +546,7 @@ void SeqBattle::OperateStory()
 void SeqBattle::OperateMenu(eSequence* sequence)
 {
     std::string result = m_menuManager->OperateMenu();
-    if (result == "ƒ^ƒCƒgƒ‹‚É–ß‚é")
+    if (result == "Title")
     {
         m_eState = eBattleState::TITLE;
         Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);

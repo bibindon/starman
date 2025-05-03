@@ -334,9 +334,7 @@ Q39,"クエストが完了していたら
 Q39",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest19.csv
 Q40,"クエストが完了していたら
 クエストが完了していないなら","Q39
-Q40",,位置が範囲外,11:492:-559:300,,"<talk>res\\script\\origin\\talkFinishQuest20.csv
-<rynenContract>
-<drinkWordBress>"
+Q40",,位置が範囲外,11:492:-559:300,,<talk>res\\script\\origin\\talkFinishQuest20.csv
 Q41,"クエストが完了していたら
 クエストが完了していないなら","Q40
 Q41",,位置,11:492:-559:100,,"<talk>res\\script\\origin\\talkFinishQuest21.csv
@@ -468,6 +466,4 @@ Q80",,"時間が経過したら
 Q81,"クエストが完了していたら
 クエストが完了していないなら","Q80
 Q81",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest61.csv
-Q82,"クエストが完了していたら
-クエストが完了していないなら","Q81
-Q82",,位置,10000:0:0:2000.0,,<ending>
+Q82,クエストが完了していたら,Q1,,位置,10000:0:0:2000.0,,<ending>
