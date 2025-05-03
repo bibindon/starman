@@ -2644,7 +2644,9 @@ void SeqBattle::UpdateDebug()
         // PopUp::Get()->Update();
     }
 
+    //--------------------------------------
     // 倉庫機能
+    //--------------------------------------
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F1))
         {
@@ -2754,7 +2756,9 @@ void SeqBattle::UpdateDebug()
         }
     }
 
+    //--------------------------------------
     // クラフト機能
+    //--------------------------------------
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F2))
         {
@@ -2769,7 +2773,9 @@ void SeqBattle::UpdateDebug()
         }
     }
 
+    //--------------------------------------
     // パッチテスト機能
+    //--------------------------------------
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F3))
         {
@@ -2947,7 +2953,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     // KeyBoard
     //--------------------------------------------
 
+    //--------------------------------------
     // メニュー機能
+    //--------------------------------------
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         m_eState = eBattleState::MENU;
@@ -2961,7 +2969,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         return;
     }
 
+    //--------------------------------------
     // コマンド機能
+    //--------------------------------------
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_C))
     {
         if (m_eState == eBattleState::NORMAL)
@@ -2985,7 +2995,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     // GamePad
     //--------------------------------------------
 
+    //--------------------------------------
     // メニュー機能
+    //--------------------------------------
     if (GamePad::IsDown(eGamePadButtonType::START))
     {
         if (m_eState == eBattleState::NORMAL)
@@ -3000,7 +3012,9 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         }
     }
 
+    //--------------------------------------
     // コマンド機能
+    //--------------------------------------
     if (GamePad::IsDown(eGamePadButtonType::BACK))
     {
         if (m_eState == eBattleState::NORMAL)
