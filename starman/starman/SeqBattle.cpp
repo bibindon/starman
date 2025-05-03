@@ -205,10 +205,16 @@ public:
 
     void DrawImage(const int x, const int y, const int transparency) override
     {
+        if (m_filepath.empty())
+        {
+            return;
+        }
+
         if (m_D3DSprite == nullptr)
         {
             return;
         }
+
         D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
         m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
         RECT rect = { 0,
@@ -216,25 +222,60 @@ public:
                       static_cast<LONG>(m_width),
                       static_cast<LONG>(m_height) };
         D3DXVECTOR3 center { 0, 0, 0 };
-        m_D3DSprite->Draw(m_pD3DTexture, &rect, &center, &pos, D3DCOLOR_ARGB(transparency, 255, 255, 255));
+        m_D3DSprite->Draw(m_texMap.at(m_filepath), &rect, &center, &pos, D3DCOLOR_ARGB(transparency, 255, 255, 255));
         m_D3DSprite->End();
 
     }
 
     void Load(const std::string& filepath) override
     {
-        if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+        if (filepath.empty())
         {
-            throw std::exception("Failed to create a sprite.");
+            return;
         }
 
-        if (FAILED(D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &m_pD3DTexture)))
+        // スプライトは一つのみ確保し使いまわす
+        if (m_D3DSprite == NULL)
         {
-            throw std::exception("Failed to create a texture.");
+            if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
+            {
+                throw std::exception("Failed to create a sprite.");
+            }
         }
 
-        D3DSURFACE_DESC desc { };
-        if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
+        m_filepath = filepath;
+
+        // 同じ画像ファイルで作られたテクスチャが既にあるなら、
+        // 画像のサイズだけ確保しテクスチャの作成を行わない
+        auto it = m_texMap.find(filepath);
+        if (it != m_texMap.end())
+        {
+            D3DSURFACE_DESC desc{ };
+            if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
+            {
+                throw std::exception("Failed to create a texture.");
+            }
+            m_width = desc.Width;
+            m_height = desc.Height;
+            it->second->AddRef();
+            return;
+        }
+
+        // テクスチャの作成
+        LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
+        HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
+        if (FAILED(hr))
+        {
+            std::string work;
+            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
+            throw std::exception(work.c_str());
+        }
+
+        m_texMap[filepath] = pD3DTexture;
+
+
+        D3DSURFACE_DESC desc{ };
+        if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
             throw std::exception("Failed to create a texture.");
         }
@@ -244,16 +285,20 @@ public:
 
     ~Sprite() override
     {
-        if (m_D3DSprite != nullptr)
+        if (m_filepath.empty())
         {
-            m_D3DSprite->Release();
-            m_D3DSprite = nullptr;
+            return;
         }
 
-        if (m_pD3DTexture != nullptr)
+        ULONG refCnt = m_texMap.at(m_filepath)->Release();
+        if (refCnt == 0)
         {
-            m_pD3DTexture->Release();
-            m_pD3DTexture = nullptr;
+            m_texMap.erase(m_filepath);
+        }
+
+        if (m_texMap.empty())
+        {
+            SAFE_RELEASE(m_D3DSprite);
         }
     }
 
@@ -263,12 +308,21 @@ public:
     }
 private:
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
-    LPD3DXSPRITE m_D3DSprite = NULL;
-    LPDIRECT3DTEXTURE9 m_pD3DTexture = NULL;
+
     UINT m_width { 0 };
     UINT m_height { 0 };
 
+    // スプライトは一つを使いまわす
+    static LPD3DXSPRITE m_D3DSprite;
+
+    std::string m_filepath;
+
+    // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
+    static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
 };
+ 
+LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
+std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
 
 class Font : public IFont
 {

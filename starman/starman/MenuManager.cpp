@@ -36,6 +36,11 @@ public:
 
     void DrawImage(const int x, const int y, const int transparency) override
     {
+        if (m_D3DSprite == nullptr)
+        {
+            return;
+        }
+
         D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
         m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
         RECT rect = {
@@ -44,12 +49,12 @@ public:
             static_cast<LONG>(m_width),
             static_cast<LONG>(m_height) };
         D3DXVECTOR3 center { 0, 0, 0 };
-        m_D3DSprite->Draw(
-            m_texMap.at(m_filepath),
-            &rect,
-            &center,
-            &pos,
-            D3DCOLOR_ARGB(transparency, 255, 255, 255));
+		m_D3DSprite->Draw(m_texMap.at(m_filepath),
+			              &rect,
+			              &center,
+			              &pos,
+			              D3DCOLOR_ARGB(transparency, 255, 255, 255));
+
         m_D3DSprite->End();
 
     }
