@@ -111,7 +111,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         LANGID langId = GetUserDefaultUILanguage();
         if (langId == MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN))
         {
-        //    bJapan = true;
+            bJapan = true;
         }
 
         SharedObj::SetEnglish(!bJapan);
