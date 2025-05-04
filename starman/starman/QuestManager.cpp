@@ -1,6 +1,7 @@
 #include "QuestManager.h"
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 
 QuestManager* QuestManager::m_single = nullptr;
 
@@ -90,6 +91,19 @@ void QuestManager::Update()
     {
         D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
         m_questSystem.SetPos(playerPos.x, playerPos.y, playerPos.z);
+    }
+
+    //-------------------------------------
+    // クエストシステムに現在時刻を設定。
+    //-------------------------------------
+    {
+        auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
+        m_questSystem.SetCurrentDateTime(datetime->GetYear(),
+                                         datetime->GetMonth(),
+                                         datetime->GetDay(),
+                                         datetime->GetHour(),
+                                         datetime->GetMinute(),
+                                         datetime->GetSecond());
     }
 
     //---------------------------------------------------------------------

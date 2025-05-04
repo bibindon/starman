@@ -164,6 +164,7 @@ class SoundEffect : public ISoundEffect
     {
         ::SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav");
     }
+
     virtual void Init() override
     {
         ::SoundEffect::get_ton()->load("res\\sound\\cursor_move.wav");
