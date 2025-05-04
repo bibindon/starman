@@ -762,12 +762,22 @@ std::string MenuManager::OperateMenu()
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
+        // EXIT以外なら無視する
         result = m_menu.Back();
+        if (result != "EXIT")
+        {
+            result = "";
+        }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_BACK))
     {
+        // EXIT以外なら無視する
         result = m_menu.Back();
+        if (result != "EXIT")
+        {
+            result = "";
+        }
     }
 
     if (Mouse::IsDownLeft())
@@ -954,7 +964,12 @@ std::string MenuManager::OperateMenu()
 
     if (GamePad::IsDown(eGamePadButtonType::B))
     {
+        // EXIT以外なら無視する
         result = m_menu.Back();
+        if (result != "EXIT")
+        {
+            result = "";
+        }
     }
 
     // ステータス画面の表示内容を更新
