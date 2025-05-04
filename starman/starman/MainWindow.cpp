@@ -460,6 +460,11 @@ int MainWindow::MainLoop()
         else if (m_sequence == eSequence::ENDING)
         {
             m_seqEnding->Update(&m_sequence);
+            if (m_sequence == eSequence::BATTLE)
+            {
+                SAFE_DELETE(m_seqEnding);
+                m_seqBattle = NEW SeqBattle();
+            }
         }
         else if (m_sequence == eSequence::EXIT)
         {
