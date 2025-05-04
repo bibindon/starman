@@ -745,11 +745,7 @@ std::string MenuManager::OperateMenu()
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
 
-                NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-                NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id, subId);
-
-                NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-                statusManager->SetEquipWeapon(itemInfo);
+                Equip(id, subId);
             }
         }
         else if (vs.size() >= 1 && vs.at(0) == "Save and Exit")
@@ -1457,6 +1453,33 @@ void MenuManager::Equip(const int id, const int subId)
     // 武器だったら
     if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
+        //--------------------------------------
+        // すでに装備していたものがあったら、その装備状態は解除する
+        // ただし、装備していたものが袋や松明の場合、やや複雑になる。
+        // 袋を装備していた場合、武器を装備しても袋は装備したままでよい。
+        // しかし、右手に袋を装備していた場合、武器を装備ができないようにする。
+        //--------------------------------------
+        {
+            bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+            if (lit)
+            {
+                PopUp2::Get()->SetText(IDS_STRING198);
+                return;
+            }
+
+            if (Common::Status()->GetBagState().size() >= 5)
+            {
+                PopUp2::Get()->SetText("右手がふさがっている。");
+                return;
+            }
+
+            auto weapon = Common::Status()->GetEquipWeapon();
+            if (weapon.GetId() != -1)
+            {
+                Unequip(weapon.GetId(), weapon.GetSubId());
+            }
+        }
+
         auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
         Common::Status()->SetEquipWeapon(itemInfo);
 
@@ -1467,6 +1490,7 @@ void MenuManager::Equip(const int id, const int subId)
         itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
         itemInfoG.SetEquip(true);
         m_menu.UpdateItem(itemInfoG);
+
     }
     // 袋だったら
     else
