@@ -254,6 +254,20 @@ void CraftManager::Finalize()
 }
 
 // この関数はクラフト画面が表示されていないときも呼ばれることに気を付ける
+void CraftManager::Update()
+{
+    auto craftSys = NSStarmanLib::CraftSystem::GetObj();
+
+    static int counter = 0;
+    ++counter;
+
+    // 1秒に一回
+    if (counter % 60 == 1)
+    {
+        craftSys->UpdateCraftStatus();
+    }
+}
+
 void CraftManager::Operate(eBattleState* state)
 {
     auto craftSys = NSStarmanLib::CraftSystem::GetObj();
@@ -265,18 +279,11 @@ void CraftManager::Operate(eBattleState* state)
     // 1秒に一回
     if (counter % 60 == 1)
     {
-        craftSys->UpdateCraftStatus();
-
         if (*state == eBattleState::CRAFT)
         {
             // 画面更新
             Build();
         }
-    }
-
-    if (*state != eBattleState::CRAFT)
-    {
-        return;
     }
 
     std::string result;

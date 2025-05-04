@@ -564,6 +564,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperatePopUp();
     }
+    else if (m_eState == eBattleState::CRAFT)
+    {
+        OperateCraft();
+    }
 
     //-----------------------------------------------------
     // カメラの更新処理
@@ -1119,11 +1123,14 @@ void SeqBattle::ShowStorehouse()
 
 void SeqBattle::OperateCraft()
 {
-    if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F2))
+    if (Common::DebugMode())
     {
-        m_eState = eBattleState::NORMAL;
-        Camera::SetCameraMode(eCameraMode::BATTLE);
-        Common::SetCursorVisibility(false);
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F2))
+        {
+            m_eState = eBattleState::NORMAL;
+            Camera::SetCameraMode(eCameraMode::BATTLE);
+            Common::SetCursorVisibility(false);
+        }
     }
 
     m_craft.Operate(&m_eState);
@@ -2563,7 +2570,7 @@ void SeqBattle::UpdateCommon()
     UpdateFadeInOut();
 
     // クラフトはクラフト画面が表示されていなくても更新処理が行われる必要がある。
-    OperateCraft();
+    m_craft.Update();
 
     // クラフトによってイカダが生成されることがあるため、航海中でなくても更新処理を行う。
     SharedObj::Voyage()->Update();

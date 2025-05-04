@@ -72,35 +72,35 @@ void Map::Init()
         mesh->Init();
         m_meshMap["sea"] = mesh;
     }
-    {
-        Mesh* mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
-                              D3DXVECTOR3(-10.f, 0.f, 0.f),
-                              D3DXVECTOR3(0.f, 0.f, 0.f),
-                              1.0f);
-        mesh->Init();
-        m_meshMap["cube61"] = mesh;
+    //{
+    //    Mesh* mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
+    //                          D3DXVECTOR3(-10.f, 0.f, 0.f),
+    //                          D3DXVECTOR3(0.f, 0.f, 0.f),
+    //                          1.0f);
+    //    mesh->Init();
+    //    m_meshMap["cube61"] = mesh;
 
-        mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
-                        D3DXVECTOR3(-13.f, 1.f, 0.f),
-                        D3DXVECTOR3(0.f, 0.f, 0.f),
-                        1.0f);
-        mesh->Init();
-        m_meshMap["cube62"] = mesh;
+    //    mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
+    //                    D3DXVECTOR3(-13.f, 1.f, 0.f),
+    //                    D3DXVECTOR3(0.f, 0.f, 0.f),
+    //                    1.0f);
+    //    mesh->Init();
+    //    m_meshMap["cube62"] = mesh;
 
-        mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
-                        D3DXVECTOR3(-16.f, 2.f, 0.f),
-                        D3DXVECTOR3(0.f, 0.f, 0.f),
-                        1.0f);
-        mesh->Init();
-        m_meshMap["cube63"] = mesh;
+    //    mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
+    //                    D3DXVECTOR3(-16.f, 2.f, 0.f),
+    //                    D3DXVECTOR3(0.f, 0.f, 0.f),
+    //                    1.0f);
+    //    mesh->Init();
+    //    m_meshMap["cube63"] = mesh;
 
-        mesh = NEW Mesh("res\\model\\collisionTest\\colli.x",
-                        D3DXVECTOR3(0.f, 0.f, -20.f),
-                        D3DXVECTOR3(0.f, 0.f, 0.f),
-                        1.0f);
-        mesh->Init();
-        m_meshMap["colli"] = mesh;
-    }
+    //    mesh = NEW Mesh("res\\model\\collisionTest\\colli.x",
+    //                    D3DXVECTOR3(0.f, 0.f, -20.f),
+    //                    D3DXVECTOR3(0.f, 0.f, 0.f),
+    //                    1.0f);
+    //    mesh->Init();
+    //    m_meshMap["colli"] = mesh;
+    //}
 
     {
         Mesh* mesh { nullptr };
@@ -141,13 +141,13 @@ void Map::Init()
     //    mesh->Init();
     //    m_meshMap["rock1"] = mesh;
     //}
-    {
-        D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
-        mesh->Init();
-        m_meshMap["cottage"] = mesh;
-    }
+    //{
+    //    D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
+    //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+    //    Mesh* mesh = NEW Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
+    //    mesh->Init();
+    //    m_meshMap["cottage"] = mesh;
+    //}
 
     //------------------------------------------
     // ÉrÉÄÇ™ìoèÍÇ∑ÇÈÇ∆Ç´ÇÃä‚
@@ -1453,11 +1453,20 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     D3DXVECTOR3 result { move };
     for (auto& pair : m_meshMap)
     {
-        bool bIsHit = false;
-        result = WallSlideSub(pos, pair.second, result, &bIsHit);
-        if (bIsHit)
+        if (
+            pair.first == "Map" ||
+            pair.first == "sea" ||
+            pair.first == "precision" ||
+            pair.first == "chest" ||
+            pair.first == "rock2"
+            )
         {
-            *bHit = true;
+            bool bIsHit = false;
+            result = WallSlideSub(pos, pair.second, result, &bIsHit);
+            if (bIsHit)
+            {
+                *bHit = true;
+            }
         }
     }
 

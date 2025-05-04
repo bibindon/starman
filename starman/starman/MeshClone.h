@@ -59,5 +59,7 @@ private:
     bool m_bWeapon = false;
 
     bool m_bPointLightEnablePrevious = false;
+
+    bool m_once = false;
 };
 

@@ -11,6 +11,7 @@ public:
     void Init();
 
     void Finalize();
+    void Update();
     void Operate(eBattleState* state);
     void Draw();
 
