@@ -524,7 +524,7 @@ void MainWindow::ShowDebugInfo(const int fps)
                             -1,
                             &rect,
                             DT_LEFT | DT_NOCLIP,
-                            D3DCOLOR_ARGB(32, 255, 255, 255));
+                            D3DCOLOR_ARGB(128, 255, 255, 255));
     }
 
     //-------------------------------------------------------
@@ -547,7 +547,7 @@ void MainWindow::ShowDebugInfo(const int fps)
                             -1,
                             &rect,
                             DT_LEFT | DT_NOCLIP,
-                            D3DCOLOR_ARGB(32, 255, 255, 255));
+                            D3DCOLOR_ARGB(128, 255, 255, 255));
 
         // Y座標の表示
         SetRect(&rect, 0, 50, 100, 100);
@@ -558,7 +558,7 @@ void MainWindow::ShowDebugInfo(const int fps)
                             -1,
                             &rect,
                             DT_LEFT | DT_NOCLIP,
-                            D3DCOLOR_ARGB(32, 255, 255, 255));
+                            D3DCOLOR_ARGB(128, 255, 255, 255));
 
         // Z座標の表示
         SetRect(&rect, 0, 75, 100, 100);
@@ -569,7 +569,7 @@ void MainWindow::ShowDebugInfo(const int fps)
                             -1,
                             &rect,
                             DT_LEFT | DT_NOCLIP,
-                            D3DCOLOR_ARGB(32, 255, 255, 255));
+                            D3DCOLOR_ARGB(128, 255, 255, 255));
     }
 }
 
