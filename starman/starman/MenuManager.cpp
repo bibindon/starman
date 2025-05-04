@@ -334,8 +334,9 @@ void MenuManager::InitMenu()
                     itemInfoG.SetSubId(itemInfo.GetSubId());
                     itemInfoG.SetDetail(work_str);
 
-                    // ID : 28 ~ 32 == ‘Ü
-                    if (itemInfo.GetItemDef().GetId() == 28 ||
+                    // ID : 27 ~ 32 == ‘Ü
+                    if (itemInfo.GetItemDef().GetId() == 27 ||
+                        itemInfo.GetItemDef().GetId() == 28 ||
                         itemInfo.GetItemDef().GetId() == 29 ||
                         itemInfo.GetItemDef().GetId() == 30 ||
                         itemInfo.GetItemDef().GetId() == 31 ||
@@ -1339,7 +1340,13 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     itemInfoG.SetId(id);
     itemInfoG.SetSubId(subId);
 
-    if (itemDef.GetName() == "‘Ü")
+    // ID : 27 ~ 32 == ‘Ü
+    if (itemDef.GetId() == 27 ||
+        itemDef.GetId() == 28 ||
+        itemDef.GetId() == 29 ||
+        itemDef.GetId() == 30 ||
+        itemDef.GetId() == 31 ||
+        itemDef.GetId() == 32)
     {
         itemInfoG.SetEquipEnable(true);
 
