@@ -57,7 +57,6 @@ void vertex_shader(
 
     fog_strength = work;
 
-
     out_worldPos = mul(in_position, g_world).xyz;
     out_normal = mul(in_normal, g_world).xyz;
 }
