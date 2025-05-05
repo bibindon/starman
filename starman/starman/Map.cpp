@@ -1965,6 +1965,15 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
         if (dot < 0)
         {
             result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+
+            // 急な上り坂だったら移動速度を下げる
+            if (result.y > 0.1f)
+            {
+                // yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
+                auto workY = result.y;
+                workY *= 10;
+                result /= workY;
+            }
         }
         else
         {
@@ -1978,6 +1987,7 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
     {
         result = move;
     }
+
     return result;
 }
 
@@ -2063,6 +2073,15 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
         if (dot < 0)
         {
             result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+
+            // 急な上り坂だったら移動速度を下げる
+            if (result.y > 0.1f)
+            {
+                // yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
+                auto workY = result.y;
+                workY *= 10;
+                result /= workY;
+            }
         }
         else
         {
