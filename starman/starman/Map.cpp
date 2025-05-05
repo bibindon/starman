@@ -1350,8 +1350,17 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* me
     DWORD dwHitIndex = -1;
     float fHitU;
     float fHitV;
-    D3DXIntersect(d3dmesh, &targetPos, &move, &bIsHit, &dwHitIndex,
-        &fHitU, &fHitV, &fLandDistance, NULL, NULL);
+    D3DXIntersect(d3dmesh,
+                  &targetPos,
+                  &move,
+                  &bIsHit,
+                  &dwHitIndex,
+                  &fHitU,
+                  &fHitV,
+                  &fLandDistance,
+                  NULL,
+                  NULL);
+
     float judgeDistance = 1.f / mesh->GetScale();
     if (bIsHit && (fLandDistance <= judgeDistance))
     {
