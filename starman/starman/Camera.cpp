@@ -40,7 +40,7 @@ D3DXMATRIX Camera::GetProjMatrix()
                                m_viewAngle,
                                static_cast<float>(1920) / 1080, /* TODO */
                                0.1f,
-                               20000.0f);
+                               400000.0f);
 
     return projection_matrix;
 }

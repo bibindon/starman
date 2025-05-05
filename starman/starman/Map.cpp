@@ -68,7 +68,7 @@ void Map::Init()
         Mesh* mesh = NEW Mesh("res\\model\\prolitan\\sea.x",
                               D3DXVECTOR3(10.f, 10.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
-                              10000.0f);
+                              10.0f);
         mesh->Init();
         m_meshMap["sea"] = mesh;
     }
@@ -104,11 +104,9 @@ void Map::Init()
 
     {
         Mesh* mesh { nullptr };
-        D3DXVECTOR3 b = D3DXVECTOR3(0.f, 0.f, 0.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        b.x = 15.f;
-        b.y = -80.f;
-        mesh = NEW Mesh("res\\model\\hemisphere\\hemisphere.x", b, c, 9000.0f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        mesh = NEW Mesh("res\\model\\hemisphere\\hemisphere.x", pos, rot, 180000.0f);
         mesh->Init();
         m_meshMap["sky"] = mesh;
     }
@@ -166,7 +164,7 @@ void Map::Init()
     m_pSun = NEW MeshNoShade("res\\model\\sun\\sun.x",
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
-                             1000.0f);
+                             10000.0f);
     m_pSun->Init();
 
     //--------------------------------------------
@@ -955,7 +953,7 @@ void Map::Update()
                 auto ppos = player->GetPos();
 
                 D3DXVECTOR3 sunPos(vec);
-                sunPos *= 6000;
+                sunPos *= 100000;
                 sunPos += ppos;
                 m_pSun->SetPos(sunPos);
             }
