@@ -76,19 +76,20 @@ void MeshClone::Init()
 
     if (it == m_D3DEffectMap.end())
     {
-        D3DXCreateEffectFromFile(
-            SharedObj::GetD3DDevice(),
-            SHADER_FILENAME.c_str(),
-            nullptr,
-            nullptr,
-            0,
-            nullptr,
-            &_D3DEffect,
-            nullptr);
+        D3DXCreateEffectFromFile(SharedObj::GetD3DDevice(),
+                                 SHADER_FILENAME.c_str(),
+                                 nullptr,
+                                 nullptr,
+                                 0,
+                                 nullptr,
+                                 &_D3DEffect,
+                                 nullptr);
+
         if (FAILED(result))
         {
             throw std::exception("Failed to create an effect file.");
         }
+
         m_D3DEffectMap[m_meshName] = _D3DEffect;;
     }
     else

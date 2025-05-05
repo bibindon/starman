@@ -1257,50 +1257,57 @@ void Map::Render()
     {
         if (pair.second->GetMeshType() == MeshClone::eMeshType::OTHER)
         {
-			pair.second->Render();
+            pair.second->Render();
         }
     }
 
     {
-		MeshClone* _begin = nullptr;
-		MeshClone* _end = nullptr;
-		for (auto& pair : m_meshCloneMap)
-		{
-			if (pair.second->GetMeshType() == MeshClone::eMeshType::GRASS)
-			{
-				if (_begin == nullptr)
-				{
-					_begin = pair.second;
-					_begin->Begin();
-				}
+        MeshClone* _begin = nullptr;
+        MeshClone* _end = nullptr;
+        for (auto& pair : m_meshCloneMap)
+        {
+            if (pair.second->GetMeshType() == MeshClone::eMeshType::GRASS)
+            {
+                if (_begin == nullptr)
+                {
+                    _begin = pair.second;
+                    _begin->Begin();
+                }
 
-				pair.second->Render2();
+                pair.second->Render2();
 
-				_end = pair.second;
-			}
-		}
-		_end->End();
+                _end = pair.second;
+            }
+        }
+        
+        if (_end != nullptr)
+        {
+            _end->End();
+        }
     }
 
     {
-		MeshClone* _begin = nullptr;
-		MeshClone* _end = nullptr;
-		for (auto& pair : m_meshCloneMap)
-		{
-			if (pair.second->GetMeshType() == MeshClone::eMeshType::TREE)
-			{
-				if (_begin == nullptr)
-				{
-					_begin = pair.second;
-					_begin->Begin();
-				}
+        MeshClone* _begin = nullptr;
+        MeshClone* _end = nullptr;
+        for (auto& pair : m_meshCloneMap)
+        {
+            if (pair.second->GetMeshType() == MeshClone::eMeshType::TREE)
+            {
+                if (_begin == nullptr)
+                {
+                    _begin = pair.second;
+                    _begin->Begin();
+                }
 
-				pair.second->Render2();
+                pair.second->Render2();
 
-				_end = pair.second;
-			}
-		}
-		_end->End();
+                _end = pair.second;
+            }
+        }
+        if (_end != nullptr)
+        {
+            _end->End();
+        }
     }
 
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
@@ -1370,6 +1377,64 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* me
     {
         bIsHit = false;
     }
+    return bIsHit;
+}
+
+bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* mesh)
+{
+    BOOL  bIsHit = false;
+
+    BYTE* pVertices = nullptr;
+    DWORD* pIndices = nullptr;
+
+    // 頂点バッファのロック
+    mesh->GetD3DMesh()->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVertices);
+
+    // インデックスバッファのロック（16bit用）
+    mesh->GetD3DMesh()->LockIndexBuffer(D3DLOCK_READONLY, (void**)&pIndices);
+
+    DWORD numFaces = mesh->GetD3DMesh()->GetNumFaces();
+    DWORD stride = mesh->GetD3DMesh()->GetNumBytesPerVertex();
+
+    float minDistance = FLT_MAX;
+    int hitFaceIndex = -1;
+
+    for (DWORD i = 0; i < numFaces; ++i)
+    {
+        // 三角形の3頂点のインデックスを取得
+        DWORD i0 = pIndices[i * 3 + 0];
+        DWORD i1 = pIndices[i * 3 + 1];
+        DWORD i2 = pIndices[i * 3 + 2];
+
+        // 頂点データから位置だけ抽出（先頭にD3DXVECTOR3がある構造体と仮定）
+        D3DXVECTOR3* v0 = (D3DXVECTOR3*)(pVertices + i0 * stride);
+        D3DXVECTOR3* v1 = (D3DXVECTOR3*)(pVertices + i1 * stride);
+        D3DXVECTOR3* v2 = (D3DXVECTOR3*)(pVertices + i2 * stride);
+
+        float u, v, dist;
+        if (D3DXIntersectTri(v0, v1, v2, &pos, &move, &u, &v, &dist))
+        {
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                hitFaceIndex = (int)i;
+            }
+        }
+    }
+
+    // バッファのアンロック
+    mesh->GetD3DMesh()->UnlockVertexBuffer();
+    mesh->GetD3DMesh()->UnlockIndexBuffer();
+
+    if (hitFaceIndex >= 0)
+    {
+        bIsHit = TRUE;
+    }
+    else
+    {
+        bIsHit = FALSE;
+    }
+
     return bIsHit;
 }
 
