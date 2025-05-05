@@ -36,6 +36,8 @@ public:
     void SetWeapon(const bool arg);
     float GetRadius() const;
 
+    std::string GetMeshName();
+
 private:
     const bool FLAT_SHADING = false;
     const std::string SHADER_FILENAME = "res\\shader\\mesh_shader.fx";

@@ -24,7 +24,7 @@ public:
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
 
-    // 高速化。未完成。posがダメ。
+    // 高速化バージョン
     bool IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 

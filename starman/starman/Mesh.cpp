@@ -433,3 +433,8 @@ float Mesh::GetRadius() const
     return m_radius;
 }
 
+std::string Mesh::GetMeshName()
+{
+    return m_meshName;
+}
+

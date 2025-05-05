@@ -1380,9 +1380,12 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* me
     return bIsHit;
 }
 
-bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* mesh)
+bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* mesh)
 {
     BOOL  bIsHit = false;
+
+    D3DXVECTOR3 targetPos = pos - mesh->GetPos();
+    targetPos /= mesh->GetScale();
 
     BYTE* pVertices = nullptr;
     DWORD* pIndices = nullptr;
@@ -1390,7 +1393,7 @@ bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* m
     // 頂点バッファのロック
     mesh->GetD3DMesh()->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVertices);
 
-    // インデックスバッファのロック（16bit用）
+    // インデックスバッファのロック
     mesh->GetD3DMesh()->LockIndexBuffer(D3DLOCK_READONLY, (void**)&pIndices);
 
     DWORD numFaces = mesh->GetD3DMesh()->GetNumFaces();
@@ -1407,17 +1410,31 @@ bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* m
         DWORD i2 = pIndices[i * 3 + 2];
 
         // 頂点データから位置だけ抽出（先頭にD3DXVECTOR3がある構造体と仮定）
-        D3DXVECTOR3* v0 = (D3DXVECTOR3*)(pVertices + i0 * stride);
-        D3DXVECTOR3* v1 = (D3DXVECTOR3*)(pVertices + i1 * stride);
-        D3DXVECTOR3* v2 = (D3DXVECTOR3*)(pVertices + i2 * stride);
+        D3DXVECTOR3* v0 = (D3DXVECTOR3*)(pVertices + size_t(i0) * stride);
+
+        // あまりに離れているなら交差しているか調べる必要はない。
+        if (v0->x <= targetPos.x - 100.f || targetPos.x + 100.f <= v0->x)
+        {
+            continue;
+        }
+
+        if (v0->z <= targetPos.z - 100.f || targetPos.z + 100.f <= v0->z)
+        {
+            continue;
+        }
+
+        D3DXVECTOR3* v1 = (D3DXVECTOR3*)(pVertices + size_t(i1) * stride);
+        D3DXVECTOR3* v2 = (D3DXVECTOR3*)(pVertices + size_t(i2) * stride);
 
         float u, v, dist;
-        if (D3DXIntersectTri(v0, v1, v2, &pos, &move, &u, &v, &dist))
+        if (D3DXIntersectTri(v0, v1, v2, &targetPos, &move, &u, &v, &dist))
         {
-            if (dist < minDistance)
+            float judgeDistance = 1.f / mesh->GetScale();
+            if (dist < judgeDistance)
             {
                 minDistance = dist;
                 hitFaceIndex = (int)i;
+                break;
             }
         }
     }
