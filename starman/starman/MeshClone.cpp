@@ -10,11 +10,12 @@
 using std::string;
 using std::vector;
 
-LPD3DXEFFECT MeshClone::m_D3DEffect;
+std::unordered_map<std::string, LPD3DXEFFECT> MeshClone::m_D3DEffectMap;
 std::unordered_map<std::string, LPD3DXMESH> MeshClone::m_D3DMeshMap;
 std::unordered_map<std::string, std::vector<LPDIRECT3DTEXTURE9>> MeshClone::m_vecTextureMap;
 std::unordered_map<std::string, DWORD> MeshClone::m_materialCountMap;
 std::unordered_map<std::string, std::vector<D3DXVECTOR4>> MeshClone::m_vecColorMap;
+std::unordered_map<std::string, bool> MeshClone::m_bFirstMap;
 
 MeshClone::MeshClone(
     const string& xFilename,
@@ -32,11 +33,11 @@ MeshClone::MeshClone(
 
 MeshClone::~MeshClone()
 {
-    auto refcnt = m_D3DEffect->Release();
+    auto refcnt = m_D3DEffectMap.at(m_meshName)->Release();
 
     if (refcnt <= 0)
     {
-        m_D3DEffect = nullptr;
+        m_D3DEffectMap.erase(m_meshName);
     }
 
     ULONG ulong = m_D3DMeshMap.at(m_meshName)->Release();
@@ -69,7 +70,11 @@ void MeshClone::Init()
 {
     // 読み込み済みだったら読み込まない。
     HRESULT result { 0 };
-    if (m_D3DEffect == nullptr)
+    LPD3DXEFFECT _D3DEffect = NULL;
+
+    auto it = m_D3DEffectMap.find(m_meshName);
+
+    if (it == m_D3DEffectMap.end())
     {
         D3DXCreateEffectFromFile(
             SharedObj::GetD3DDevice(),
@@ -78,16 +83,17 @@ void MeshClone::Init()
             nullptr,
             0,
             nullptr,
-            &m_D3DEffect,
+            &_D3DEffect,
             nullptr);
         if (FAILED(result))
         {
             throw std::exception("Failed to create an effect file.");
         }
+        m_D3DEffectMap[m_meshName] = _D3DEffect;;
     }
     else
     {
-        m_D3DEffect->AddRef();
+        m_D3DEffectMap.at(m_meshName)->AddRef();
     }
 
     if (m_D3DMeshMap.find(m_meshName) != m_D3DMeshMap.end())
@@ -245,6 +251,8 @@ void MeshClone::Init()
         SAFE_RELEASE(materialBuffer);
     }
 
+    m_bFirstMap[m_meshName] = false;
+
     m_bIsInit = true;
 }
 
@@ -276,7 +284,7 @@ void MeshClone::Render()
     normal.z = std::cos(work);
     D3DXVec4Normalize(&normal, &normal);
 
-    m_D3DEffect->SetVector("g_light_normal", &normal);
+    m_D3DEffectMap.at(m_meshName)->SetVector("g_light_normal", &normal);
 
     //--------------------------------------------------------
     // ポイントライトの位置を設定
@@ -289,12 +297,12 @@ void MeshClone::Render()
     {
         if (isLit)
         {
-            hResult = m_D3DEffect->SetBool("pointLightEnable", TRUE);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetBool("pointLightEnable", TRUE);
             assert(hResult == S_OK);
         }
         else
         {
-            hResult = m_D3DEffect->SetBool("pointLightEnable", FALSE);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetBool("pointLightEnable", FALSE);
             assert(hResult == S_OK);
         }
     }
@@ -310,11 +318,11 @@ void MeshClone::Render()
         ppos2.z = ppos.z;
         ppos2.w = 0;
 
-        hResult = m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+        hResult = m_D3DEffectMap.at(m_meshName)->SetVector("g_point_light_pos", &ppos2);
         assert(hResult == S_OK);
     }
 
-    m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
+    m_D3DEffectMap.at(m_meshName)->SetFloat("g_light_brightness", Light::GetBrightness());
 
     D3DXMATRIX worldViewProjMatrix { };
     D3DXMatrixIdentity(&worldViewProjMatrix);
@@ -357,7 +365,7 @@ void MeshClone::Render()
             worldViewProjMatrix *= SharedObj::GetRightHandMat();
         }
     }
-    m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world", &worldViewProjMatrix);
 //    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
 
     D3DXVECTOR4 vec4Color = {
@@ -367,12 +375,12 @@ void MeshClone::Render()
         0.f
     };
 
-    m_D3DEffect->SetVector("g_cameraPos", &vec4Color);
+    m_D3DEffectMap.at(m_meshName)->SetVector("g_cameraPos", &vec4Color);
 
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
-    m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
 
     //--------------------------------------------------------
     // 雨だったら霧を濃くする
@@ -390,7 +398,7 @@ void MeshClone::Render()
         // mesh_shader.fxの時だけ適用する
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
-            hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
             assert(hResult == S_OK);
         }
     }
@@ -406,20 +414,20 @@ void MeshClone::Render()
         // mesh_shader.fxの時だけ適用する
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
-            hResult = m_D3DEffect->SetFloat("g_fog_strength", 100.0f);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
             assert(hResult == S_OK);
         }
     }
 
-    hResult = m_D3DEffect->SetVector("fog_color", &fog_color);
+    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("fog_color", &fog_color);
     assert(hResult == S_OK);
 
-    m_D3DEffect->Begin(nullptr, 0);
+    m_D3DEffectMap.at(m_meshName)->Begin(nullptr, 0);
 
     HRESULT result { S_FALSE };
-    if (FAILED(result = m_D3DEffect->BeginPass(0)))
+    if (FAILED(result = m_D3DEffectMap.at(m_meshName)->BeginPass(0)))
     {
-        m_D3DEffect->End();
+        m_D3DEffectMap.at(m_meshName)->End();
         throw std::exception("Failed 'BeginPass' function.");
     }
 
@@ -433,21 +441,21 @@ void MeshClone::Render()
 //        m_D3DMeshMap[m_meshName]->DrawSubset(i);
 //    }
 
-    if (!m_once)
+    if (!m_bFirstMap.at(m_meshName))
     {
-        m_once = true;
+        m_bFirstMap.at(m_meshName) = true;
 
-        m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
+        m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
 
         // TODO テクスチャなしにしたほうが良いかも
-        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
+        m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
     }
 
-    m_D3DEffect->CommitChanges();
+    m_D3DEffectMap.at(m_meshName)->CommitChanges();
     m_D3DMeshMap[m_meshName]->DrawSubset(0);
 
-    m_D3DEffect->EndPass();
-    m_D3DEffect->End();
+    m_D3DEffectMap.at(m_meshName)->EndPass();
+    m_D3DEffectMap.at(m_meshName)->End();
 }
 
 LPD3DXMESH MeshClone::GetD3DMesh() const
