@@ -72,6 +72,14 @@ void Map::Init()
         mesh->Init();
         m_meshMap["sea"] = mesh;
     }
+//    {
+//        Mesh* mesh = NEW Mesh("res\\model\\testcube\\testcube.x",
+//                              D3DXVECTOR3(-290.f, 15.f, 540.f),
+//                              D3DXVECTOR3(0.f, 0.f, 0.f),
+//                              1.0f);
+//        mesh->Init();
+//        m_meshMap["testcube"] = mesh;
+//    }
     //{
     //    Mesh* mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
     //                          D3DXVECTOR3(-10.f, 0.f, 0.f),
@@ -1589,9 +1597,13 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
     return bIsHit;
 }
 
-D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit)
+D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit, bool* bInside)
 {
     D3DXVECTOR3 result { move };
+
+    bool bInside1 = false;
+    bool bInside2 = false;
+
     for (auto& pair : m_meshMap)
     {
         if (
@@ -1599,11 +1611,12 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == "sea" ||
             pair.first == "precision" ||
             pair.first == "chest" ||
-            pair.first == "rock2"
+            pair.first == "rock2" ||
+            pair.first == "testcube"
             )
         {
             bool bIsHit = false;
-            result = WallSlideSub(pos, pair.second, result, &bIsHit);
+            result = WallSlideSub(pos, pair.second, result, &bIsHit, &bInside1);
             if (bIsHit)
             {
                 *bHit = true;
@@ -1614,7 +1627,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     for (auto& pair : m_meshCloneMap)
     {
         bool bIsHit = false;
-        result = WallSlideSub(pos, pair.second, result, &bIsHit);
+        result = WallSlideSub(pos, pair.second, result, &bIsHit, &bInside2);
         if (bIsHit)
         {
             *bHit = true;
@@ -1622,11 +1635,19 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
         }
     }
 
-    // 壁ずりした先に壁があったときの処理。
-    // 壁ずり先に壁があるなら移動量を0にする
-    if (Intersect(pos, result))
+    if (bInside1 || bInside2)
     {
-        return D3DXVECTOR3{ 0.f, 0.f, 0.f };
+        *bInside = true;
+    }
+
+    if (!bInside)
+    {
+        // 壁ずりした先に壁があったときの処理。
+        // 壁ずり先に壁があるなら移動量を0にする
+        if (Intersect(pos, result))
+        {
+            return D3DXVECTOR3{ 0.f, 0.f, 0.f };
+        }
     }
 
     // 接地判定
@@ -1865,8 +1886,11 @@ NSStarmanLib::MapObjManager* Map::MapLib()
     return mapObjManager;
 }
 
-D3DXVECTOR3 Map::WallSlideSub(
-    const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit)
+D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
+                              Mesh* mesh,
+                              const D3DXVECTOR3& move,
+                              bool* bHit,
+                              bool* bInside)
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -1945,6 +1969,7 @@ D3DXVECTOR3 Map::WallSlideSub(
         else
         {
             result = move;
+            *bInside = true;
         }
 
         d3dmesh->UnlockVertexBuffer();
@@ -1956,7 +1981,11 @@ D3DXVECTOR3 Map::WallSlideSub(
     return result;
 }
 
-D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3DXVECTOR3& move, bool* bHit)
+D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
+                              MeshClone* mesh,
+                              const D3DXVECTOR3& move,
+                              bool* bHit,
+                              bool* bInside)
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -2027,7 +2056,19 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos, MeshClone* mesh, const D3D
         D3DXVECTOR3 front;
         front = move;
 
-        result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+        // 内側から外側への衝突判定だった場合は無視する
+        // 岩の中に入ってしまって、岩から外に出ようとしている場合など。
+        float dot = D3DXVec3Dot(&front, &normal_n);
+
+        if (dot < 0)
+        {
+            result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
+        }
+        else
+        {
+            result = move;
+            *bInside = true;
+        }
 
         d3dmesh->UnlockVertexBuffer();
     }

@@ -115,7 +115,8 @@ void EnemySphere::Update()
             Map* map = SharedObj::GetMap();
             D3DXVECTOR3 move = norm / 50;
             bool bHit = false;
-            move = map->WallSlide(m_loadingPos, move, &bHit);
+            bool bInside = false;
+            move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
             m_loadingPos += move;
             m_rotate.y = atan2(-enemyVector.x, -enemyVector.z);
         }

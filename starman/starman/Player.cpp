@@ -772,23 +772,27 @@ void Player::Update(Map* map)
     // 壁ずり
     // 壁ずりは足に対してだけ行う
     bool bHit { false };
-    m_move = map->WallSlide(m_loadingPos, m_move, &bHit);
+    bool bInside = false;
+    m_move = map->WallSlide(m_loadingPos, m_move, &bHit, &bInside);
 
-    // 足以外の衝突判定
-    // 胴と頭
-    D3DXVECTOR3 tmp = m_loadingPos;
-    tmp.y += 0.8f;
-    bool bHit2 = map->Intersect(tmp, m_move);
-    if (bHit2)
+    if (!bInside)
     {
-        m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
-    }
+        // 足以外の衝突判定
+        // 胴と頭
+        D3DXVECTOR3 tmp = m_loadingPos;
+        tmp.y += 0.8f;
+        bool bHit2 = map->Intersect(tmp, m_move);
+        if (bHit2)
+        {
+            m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+        }
 
-    tmp.y += 0.8f;
-    bool bHit3 = map->Intersect(tmp, m_move);
-    if (bHit3)
-    {
-        m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+        tmp.y += 0.8f;
+        bool bHit3 = map->Intersect(tmp, m_move);
+        if (bHit3)
+        {
+            m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+        }
     }
 
     // 足が何かに触れたらジャンプを解除する。

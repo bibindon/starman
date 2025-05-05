@@ -41,7 +41,7 @@ public:
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 
     // ï«Ç∏ÇËèàóù
-    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit);
+    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit, bool* bInside);
 
     void SetNpcPos(const std::string& name, const D3DXVECTOR3& pos);
     void SetNpcRot(const std::string& name, const float yRot);
@@ -90,11 +90,18 @@ public:
 private:
     NSStarmanLib::MapObjManager* MapLib();
 
-    D3DXVECTOR3 WallSlideSub(
-        const D3DXVECTOR3& pos, Mesh* mesh, const D3DXVECTOR3& move, bool* bHit);
+    // bInside : ï«ÇÃíÜÇ…Ç¢ÇÈèÍçáÇ…true
+    D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
+                             Mesh* mesh,
+                             const D3DXVECTOR3& move,
+                             bool* bHit,
+                             bool* bInside);
 
-    D3DXVECTOR3 WallSlideSub(
-        const D3DXVECTOR3& pos, MeshClone* mesh, const D3DXVECTOR3& move, bool* bHit);
+    D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
+                             MeshClone* mesh,
+                             const D3DXVECTOR3& move,
+                             bool* bHit,
+                             bool* bInside);
 
     std::unordered_map<std::string, Mesh*> m_meshMap;
 
