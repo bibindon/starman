@@ -431,7 +431,7 @@ int MainWindow::MainLoop()
             }
             else
             {
-                Sleep(16 - dura_i);
+                Sleep(16 - dura_i -1);
             }
 
             tpStart = system_clock::now();

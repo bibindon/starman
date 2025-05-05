@@ -1438,6 +1438,12 @@ void SeqBattle::InitLoad()
                     try
                     {
                         SaveManager::Get()->LoadOrigin();
+
+						SAFE_DELETE(m_map);
+						m_map = NEW Map();
+						SharedObj::SetMap(m_map);
+						m_map->Init();
+
                         m_loadLoaded.store(true);
                     }
                     catch (const std::exception& e)
@@ -1450,6 +1456,12 @@ void SeqBattle::InitLoad()
                 else
                 {
                     SaveManager::Get()->LoadOrigin();
+
+					SAFE_DELETE(m_map);
+					m_map = NEW Map();
+					SharedObj::SetMap(m_map);
+					m_map->Init();
+
                     m_loadLoaded.store(true);
                 }
             });
@@ -1466,6 +1478,12 @@ void SeqBattle::InitLoad()
                     try
                     {
                         SaveManager::Get()->Load();
+
+						SAFE_DELETE(m_map);
+						m_map = NEW Map();
+						SharedObj::SetMap(m_map);
+						m_map->Init();
+
                         m_loadLoaded.store(true);
                     }
                     catch (const std::exception& e)
@@ -1478,6 +1496,12 @@ void SeqBattle::InitLoad()
                 else
                 {
                     SaveManager::Get()->Load();
+
+					SAFE_DELETE(m_map);
+					m_map = NEW Map();
+					SharedObj::SetMap(m_map);
+					m_map->Init();
+
                     m_loadLoaded.store(true);
                 }
             });
@@ -1509,11 +1533,6 @@ void SeqBattle::InitializeAfterLoad()
     delete m_menuManager;
     m_menuManager = NEW MenuManager();
     m_menuManager->InitMenu();
-
-    SAFE_DELETE(m_map);
-    m_map = NEW Map();
-    SharedObj::SetMap(m_map);
-    m_map->Init();
 
     auto status = NSStarmanLib::StatusManager::GetObj();
     D3DXVECTOR3 pos;
@@ -2580,15 +2599,11 @@ void SeqBattle::RenderCommon()
 {
     if (m_eState == eBattleState::LOAD)
     {
-        int i = 0;
-        i++;
         // do nothing
     }
     else if (m_eState == eBattleState::TITLE && m_title->GetLoading())
     {
-        int i = 0;
-        i++;
-        // do nothing
+        m_map->Render();
     }
     else
     {
