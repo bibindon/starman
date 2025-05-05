@@ -90,7 +90,7 @@ void QuestManager::Update()
     //-------------------------------------
     {
         D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
-        m_questSystem.SetPos(playerPos.x, playerPos.y, playerPos.z);
+        m_questSystem.SetPos(playerPos.x, playerPos.y, playerPos.z, false);
     }
 
     //-------------------------------------
@@ -103,7 +103,8 @@ void QuestManager::Update()
                                          datetime->GetDay(),
                                          datetime->GetHour(),
                                          datetime->GetMinute(),
-                                         datetime->GetSecond());
+                                         datetime->GetSecond(),
+                                         false);
     }
 
     //---------------------------------------------------------------------
@@ -126,7 +127,7 @@ void QuestManager::Update()
             itemList.push_back(itemInfo);
         }
 
-        m_questSystem.SetInventoryContent(itemList);
+        m_questSystem.SetInventoryContent(itemList, false);
     }
 
     // ëqå…
@@ -150,9 +151,11 @@ void QuestManager::Update()
                 itemList.push_back(itemInfo);
             }
 
-            m_questSystem.SetStorehouseContent(id, itemList);
+            m_questSystem.SetStorehouseContent(id, itemList, false);
         }
     }
+
+    m_questSystem.UpdateQuestStatus();
 }
 
 void QuestManager::SetHint(const std::string& hint)
