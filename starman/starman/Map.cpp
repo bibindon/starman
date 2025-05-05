@@ -1255,7 +1255,52 @@ void Map::Render()
 
     for (auto& pair : m_meshCloneMap)
     {
-        pair.second->Render();
+        if (pair.second->GetMeshType() == MeshClone::eMeshType::OTHER)
+        {
+			pair.second->Render();
+        }
+    }
+
+    {
+		MeshClone* _begin = nullptr;
+		MeshClone* _end = nullptr;
+		for (auto& pair : m_meshCloneMap)
+		{
+			if (pair.second->GetMeshType() == MeshClone::eMeshType::GRASS)
+			{
+				if (_begin == nullptr)
+				{
+					_begin = pair.second;
+					_begin->Begin();
+				}
+
+				pair.second->Render2();
+
+				_end = pair.second;
+			}
+		}
+		_end->End();
+    }
+
+    {
+		MeshClone* _begin = nullptr;
+		MeshClone* _end = nullptr;
+		for (auto& pair : m_meshCloneMap)
+		{
+			if (pair.second->GetMeshType() == MeshClone::eMeshType::TREE)
+			{
+				if (_begin == nullptr)
+				{
+					_begin = pair.second;
+					_begin->Begin();
+				}
+
+				pair.second->Render2();
+
+				_end = pair.second;
+			}
+		}
+		_end->End();
     }
 
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
@@ -1377,6 +1422,11 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
         }
     }
 
+    if (bIsHit)
+    {
+        return true;
+    }
+
     BOOL  bIsHit2 = false;
     for (auto& pair : m_meshCloneMap)
     {
@@ -1386,7 +1436,8 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
             break;
         }
     }
-    return bIsHit || bIsHit2;
+
+    return bIsHit2;
 }
 
 bool Map::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)

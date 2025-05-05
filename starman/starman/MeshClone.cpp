@@ -253,6 +253,19 @@ void MeshClone::Init()
 
     m_bFirstMap[m_meshName] = false;
 
+    if (ContainMeshName("tree1.x"))
+    {
+        m_eMeshType = eMeshType::TREE;
+    }
+    else if (ContainMeshName("grass.x"))
+    {
+        m_eMeshType = eMeshType::GRASS;
+    }
+    else
+    {
+        m_eMeshType = eMeshType::OTHER;
+    }
+
     m_bIsInit = true;
 }
 
@@ -456,6 +469,197 @@ void MeshClone::Render()
 
     m_D3DEffectMap.at(m_meshName)->EndPass();
     m_D3DEffectMap.at(m_meshName)->End();
+}
+
+void MeshClone::Begin()
+{
+    m_D3DEffectMap.at(m_meshName)->Begin(nullptr, 0);
+
+    HRESULT result { S_FALSE };
+    if (FAILED(result = m_D3DEffectMap.at(m_meshName)->BeginPass(0)))
+    {
+        m_D3DEffectMap.at(m_meshName)->End();
+        throw std::exception("Failed 'BeginPass' function.");
+    }
+
+    //--------------------------------------------------------
+    // ポイントライトの位置を設定
+    //--------------------------------------------------------
+    HRESULT hResult = E_FAIL;
+    bool isLit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+
+    // 松明の点灯状態が変わったらシェーダーにポイントライトのON/OFFを設定する
+    if (isLit != m_bPointLightEnablePrevious)
+    {
+        if (isLit)
+        {
+            hResult = m_D3DEffectMap.at(m_meshName)->SetBool("pointLightEnable", TRUE);
+            assert(hResult == S_OK);
+        }
+        else
+        {
+            hResult = m_D3DEffectMap.at(m_meshName)->SetBool("pointLightEnable", FALSE);
+            assert(hResult == S_OK);
+        }
+    }
+
+    m_bPointLightEnablePrevious = isLit;
+
+    if (isLit)
+    {
+        D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
+        D3DXVECTOR4 ppos2;
+        ppos2.x = ppos.x;
+        ppos2.y = ppos.y + 2;
+        ppos2.z = ppos.z;
+        ppos2.w = 0;
+
+        hResult = m_D3DEffectMap.at(m_meshName)->SetVector("g_point_light_pos", &ppos2);
+        assert(hResult == S_OK);
+    }
+
+    m_D3DEffectMap.at(m_meshName)->SetFloat("g_light_brightness", Light::GetBrightness());
+
+    D3DXVECTOR4 vec4Color = {
+        Camera::GetEyePos().x,
+        Camera::GetEyePos().y,
+        Camera::GetEyePos().z,
+        0.f
+    };
+
+    m_D3DEffectMap.at(m_meshName)->SetVector("g_cameraPos", &vec4Color);
+
+    //--------------------------------------------------------
+    // 雨だったら霧を濃くする
+    //--------------------------------------------------------
+    D3DXVECTOR4 fog_color;
+
+    if (!Rain::Get()->IsRain())
+    {
+        fog_color.x = 0.5f;
+        fog_color.y = 0.3f;
+        fog_color.z = 0.2f;
+        fog_color.w = 1.0f;
+
+        // 霧をサポートしないシェーダーがセットされている可能性があるので
+        // mesh_shader.fxの時だけ適用する
+        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        {
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
+            assert(hResult == S_OK);
+        }
+    }
+    else
+    {
+        fog_color.x = 0.3f;
+        fog_color.y = 0.3f;
+        fog_color.z = 0.5f;
+        fog_color.w = 1.0f;
+
+        // 雨だったら霧を100倍強くする。
+        // 霧をサポートしないシェーダーがセットされている可能性があるので
+        // mesh_shader.fxの時だけ適用する
+        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        {
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
+            assert(hResult == S_OK);
+        }
+    }
+
+    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("fog_color", &fog_color);
+    assert(hResult == S_OK);
+
+    if (!m_bFirstMap.at(m_meshName))
+    {
+        m_bFirstMap.at(m_meshName) = true;
+
+        m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
+
+        // TODO テクスチャなしにしたほうが良いかも
+        m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
+    }
+
+}
+
+void MeshClone::Render2()
+{
+    HRESULT hResult = E_FAIL;
+    if (m_bIsInit == false)
+    {
+        return;
+    }
+
+    // Y軸回転だけしているうちは正しく影が表示される。
+    D3DXVECTOR4 normal = Light::GetLightNormal();
+    float work = m_rotate.y * -1.f;
+    normal.x = std::sin(work);
+    normal.z = std::cos(work);
+    D3DXVec4Normalize(&normal, &normal);
+
+    m_D3DEffectMap.at(m_meshName)->SetVector("g_light_normal", &normal);
+
+    D3DXMATRIX worldViewProjMatrix { };
+    D3DXMatrixIdentity(&worldViewProjMatrix);
+    {
+        D3DXMATRIX mat { };
+
+        if (m_bWeapon == false)
+        {
+            D3DXMatrixTranslation(&mat, -m_centerPos.x, -m_centerPos.y, -m_centerPos.z);
+            worldViewProjMatrix *= mat;
+
+            D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
+            worldViewProjMatrix *= mat;
+
+            // D3DXMatrixRotationYawPitchRollを使うと、Z軸回転が最初に行われる。
+            // Y軸回転を最初に行いたいのでD3DXMatrixRotationYawPitchRollは使わない
+// D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+// worldViewProjMatrix *= mat;
+
+            D3DXMatrixRotationY(&mat, m_rotate.y);
+            worldViewProjMatrix *= mat;
+
+            D3DXMatrixRotationX(&mat, m_rotate.x);
+            worldViewProjMatrix *= mat;
+
+            D3DXMatrixRotationZ(&mat, m_rotate.z);
+            worldViewProjMatrix *= mat;
+
+            D3DXMatrixTranslation(&mat, m_loadingPos.x, m_loadingPos.y, m_loadingPos.z);
+            worldViewProjMatrix *= mat;
+        }
+        else
+        {
+            D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
+            worldViewProjMatrix *= mat;
+
+            D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
+            worldViewProjMatrix *= mat;
+
+            worldViewProjMatrix *= SharedObj::GetRightHandMat();
+        }
+    }
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world", &worldViewProjMatrix);
+//    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
+
+    worldViewProjMatrix *= Camera::GetViewMatrix();
+    worldViewProjMatrix *= Camera::GetProjMatrix();
+
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
+
+    m_D3DEffectMap.at(m_meshName)->CommitChanges();
+    m_D3DMeshMap[m_meshName]->DrawSubset(0);
+}
+
+void MeshClone::End()
+{
+    m_D3DEffectMap.at(m_meshName)->EndPass();
+    m_D3DEffectMap.at(m_meshName)->End();
+}
+
+MeshClone::eMeshType MeshClone::GetMeshType() const
+{
+    return m_eMeshType;
 }
 
 LPD3DXMESH MeshClone::GetD3DMesh() const

@@ -13,6 +13,13 @@
 class MeshClone
 {
 public:
+    enum class eMeshType
+    {
+        TREE,
+        GRASS,
+        OTHER,
+    };
+
     MeshClone(
         const std::string&,
         const D3DXVECTOR3&,
@@ -26,6 +33,11 @@ public:
     D3DXVECTOR3 GetPos() const;
     float GetScale() const;
     void Render();
+    void Begin();
+    void Render2();
+    void End();
+
+    eMeshType GetMeshType() const;
 
     LPD3DXMESH GetD3DMesh() const;
 
@@ -45,6 +57,8 @@ private:
     static std::unordered_map<std::string, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
     static std::unordered_map<std::string, DWORD> m_materialCountMap;
     static std::unordered_map<std::string, std::vector<D3DXVECTOR4>> m_vecColorMap;
+
+    // ç≈èâÇ…àÍâÒÇæÇØÇ‚ÇÍÇŒÇ¢Ç¢èàóù
     static std::unordered_map<std::string, bool> m_bFirstMap;
 
     D3DXVECTOR3 m_loadingPos { };
@@ -61,5 +75,7 @@ private:
     bool m_bWeapon = false;
 
     bool m_bPointLightEnablePrevious = false;
+
+    eMeshType m_eMeshType = eMeshType::OTHER;
 };
 
