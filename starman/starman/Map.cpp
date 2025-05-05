@@ -164,7 +164,7 @@ void Map::Init()
     m_pSun = NEW MeshNoShade("res\\model\\sun\\sun.x",
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
-                             10000.0f);
+                             15000.0f);
     m_pSun->Init();
 
     //--------------------------------------------
