@@ -528,7 +528,7 @@ void CommandManager::BuildCommand()
         // ダイケイマン
         {
             auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-            auto status = npcMgr->GetNpcStatus(Common::LoadString_(IDS_STRING121));
+            auto status = npcMgr->GetNpcStatus("daikeiman");
             auto enable = status.GetFeatureEnable();
             if (enable)
             {
@@ -548,7 +548,7 @@ void CommandManager::BuildCommand()
         bool bShowSankakuHelp = false;
         {
             auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-            auto status = npcMgr->GetNpcStatus(Common::LoadString_(IDS_STRING112));
+            auto status = npcMgr->GetNpcStatus("sankakuman");
             auto enable = status.GetFeatureEnable();
             if (enable)
             {
@@ -573,7 +573,7 @@ void CommandManager::BuildCommand()
             if (!bShowSankakuHelp)
             {
                 auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-                auto status = npcMgr->GetNpcStatus(Common::LoadString_(IDS_STRING113));
+                auto status = npcMgr->GetNpcStatus("shikakuman");
                 auto enable = status.GetFeatureEnable();
                 if (enable)
                 {

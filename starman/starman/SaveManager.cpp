@@ -111,15 +111,7 @@ void SaveManager::Save()
     rynen->Save(CreateSaveFilePath("rynen.csv"), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-
-    if (!SharedObj::IsEnglish())
-    {
-        mgr->Save(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
-    }
-    else
-    {
-        mgr->Save(CreateSaveFilePath("npcStatus.en.csv"), m_encrypt);
-    }
+	mgr->Save(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Save(CreateSaveFilePath("humanInfoSub.csv"), m_encrypt);
@@ -180,14 +172,7 @@ void SaveManager::Save()
     NSStarmanLib::CraftSystem::GetObj()->Save(CreateSaveFilePath("craftsmanSkillSave.csv"),
                                               CreateSaveFilePath("craftsmanQueueSave.csv"));
 
-    if (!SharedObj::IsEnglish())
-    {
-        NSStarmanLib::Help::Get()->Save(CreateSaveFilePath("helpSave.csv"));
-    }
-    else
-    {
-        NSStarmanLib::Help::Get()->Save(CreateSaveFilePath("helpSave.en.csv"));
-    }
+	NSStarmanLib::Help::Get()->Save(CreateSaveFilePath("helpSave.csv"));
 }
 
 void SaveManager::LoadOrigin()
@@ -226,15 +211,7 @@ void SaveManager::LoadOrigin()
 
     m_progress.store(10);
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-
-    if (!SharedObj::IsEnglish())
-    {
-        mgr->Init(CreateOriginFilePath("npcStatus.csv"), m_encrypt);
-    }
-    else
-    {
-        mgr->Init(CreateOriginFilePath("npcStatus.en.csv"), m_encrypt);
-    }
+	mgr->Init(CreateOriginFilePath("npcStatus.csv"), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
@@ -313,14 +290,7 @@ void SaveManager::LoadOrigin()
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateOriginFilePath("craftsmanSkill.csv"),
                                               CreateOriginFilePath("craftsmanQueue.csv"));
 
-    if (!SharedObj::IsEnglish())
-    {
-        NSStarmanLib::Help::Get()->Init(CreateOriginFilePath("help.csv"), SharedObj::IsEnglish());
-    }
-    else
-    {
-        NSStarmanLib::Help::Get()->Init(CreateOriginFilePath("help.en.csv"), SharedObj::IsEnglish());
-    }
+	NSStarmanLib::Help::Get()->Init(CreateOriginFilePath("help.csv"));
 }
 
 void SaveManager::Load()
@@ -331,15 +301,7 @@ void SaveManager::Load()
     rynen->Init(CreateSaveFilePath("rynen.csv"), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-
-    if (!SharedObj::IsEnglish())
-    {
-        mgr->Init(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
-    }
-    else
-    {
-        mgr->Init(CreateSaveFilePath("npcStatus.en.csv"), m_encrypt);
-    }
+	mgr->Init(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
@@ -432,14 +394,7 @@ void SaveManager::Load()
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath("craftsmanSkillSave.csv"),
                                               CreateSaveFilePath("craftsmanQueueSave.csv"));
 
-    if (!SharedObj::IsEnglish())
-    {
-        NSStarmanLib::Help::Get()->Init(CreateSaveFilePath("helpSave.csv"), SharedObj::IsEnglish());
-    }
-    else
-    {
-        NSStarmanLib::Help::Get()->Init(CreateSaveFilePath("helpSave.en.csv"), SharedObj::IsEnglish());
-    }
+	NSStarmanLib::Help::Get()->Init(CreateSaveFilePath("helpSave.csv"));
 
     m_savedataLoaded = true;
 }

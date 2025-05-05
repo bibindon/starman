@@ -172,7 +172,7 @@ void Map::Init()
     //--------------------------------------------
     auto npcManager = NpcManager::Get();
     {
-        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING121));
+        auto status = npcManager->GetNpcStatus("daikeiman");
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -241,7 +241,7 @@ void Map::Init()
         m_NPC[Common::LoadString_(IDS_STRING121)] = daikeiman;
     }
     {
-        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING112));
+        auto status = npcManager->GetNpcStatus("sankakuman");
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -306,7 +306,7 @@ void Map::Init()
         m_NPC[Common::LoadString_(IDS_STRING112)] = sankakuman;
     }
     {
-        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING113));
+        auto status = npcManager->GetNpcStatus("shikakuman");
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -375,7 +375,7 @@ void Map::Init()
         m_NPC[Common::LoadString_(IDS_STRING113)] = shikakuman;
     }
     {
-        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING122));
+        auto status = npcManager->GetNpcStatus("vim");
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
