@@ -1380,7 +1380,7 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* me
     return bIsHit;
 }
 
-bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* mesh)
+bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* mesh)
 {
     BOOL  bIsHit = false;
 
@@ -1406,8 +1406,6 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* me
     {
         // 三角形の3頂点のインデックスを取得
         DWORD i0 = pIndices[i * 3 + 0];
-        DWORD i1 = pIndices[i * 3 + 1];
-        DWORD i2 = pIndices[i * 3 + 2];
 
         // 頂点データから位置だけ抽出（先頭にD3DXVECTOR3がある構造体と仮定）
         D3DXVECTOR3* v0 = (D3DXVECTOR3*)(pVertices + size_t(i0) * stride);
@@ -1423,6 +1421,8 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* me
             continue;
         }
 
+        DWORD i1 = pIndices[i * 3 + 1];
+        DWORD i2 = pIndices[i * 3 + 2];
         D3DXVECTOR3* v1 = (D3DXVECTOR3*)(pVertices + size_t(i1) * stride);
         D3DXVECTOR3* v2 = (D3DXVECTOR3*)(pVertices + size_t(i2) * stride);
 
@@ -1507,6 +1507,7 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
     for (auto& pair : m_meshMap)
     {
         bIsHit = IntersectSub(pos, move, pair.second);
+        //bIsHit = IntersectSub2(pos, move, pair.second);
         if (bIsHit)
         {
             break;
