@@ -2086,6 +2086,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find("<sotetsu>") != std::string::npos)
                 {
                     auto status = Common::Status();
+					PopUp2::Get()->SetText("脱水症状・頭痛・腹痛・錯乱状態になった。");
+					PopUp2::Get()->SetText("スタミナ・ミネラル・ビタミン・肉体の修復度が減少した。");
                     status->SetDehydration(true);
                     status->SetHeadache(true);
                     status->SetStomachache(true);
