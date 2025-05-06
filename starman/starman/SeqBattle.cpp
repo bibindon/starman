@@ -1819,16 +1819,6 @@ void SeqBattle::OperateQuest(eSequence* sequence)
         {
             QuestManager::Get()->SetHint("");
 
-            {
-                // TODO ƒ„ƒo‚·‚¬‚éˆ—
-                auto it = std::find(startQuest.begin(), startQuest.end(), "Q10");
-                if (it != startQuest.end())
-                {
-                    int i = 0;
-                    ++i;
-                }
-            }
-
             auto startEvent = QuestManager::Get()->GetQuestStartEvent(startQuest.at(0));
             if (startEvent.empty() == false)
             {
