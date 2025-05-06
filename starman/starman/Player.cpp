@@ -299,6 +299,14 @@ void Player::Update(Map* map)
             m_AnimMesh2->SetAnim("IdleWater");
             auto status = NSStarmanLib::StatusManager::GetObj();
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::IDLE_WATER);
+
+            // …’†‚ÅQ‚½‚ç€–S
+            auto sleep = Common::Status()->GetSleep();
+
+            if (sleep)
+            {
+                Common::Status()->SetDead(true);
+            }
         }
     }
 
