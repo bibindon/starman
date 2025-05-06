@@ -339,8 +339,8 @@ void Player::Update(Map* map)
         if (SharedObj::KeyBoard()->IsDown(DIK_G))
         {
             // デバッグ目的でGキーだけ移動速度アップ
-            move.x += -std::sin(radian + (D3DX_PI / 2)) * 50;
-            move.z += std::sin(radian + D3DX_PI) * 50;
+            move.x += -std::sin(radian + (D3DX_PI / 2)) * 10;
+            move.z += std::sin(radian + D3DX_PI) * 10;
 
             D3DXVECTOR3 rotate{ 0.f, yaw, 0.f };
             SetRotate(rotate);

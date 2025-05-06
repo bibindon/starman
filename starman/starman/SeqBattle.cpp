@@ -2157,6 +2157,11 @@ void SeqBattle::OperatePickPlant()
         {
             pickId = 5;
         }
+        // 近くにソテツの木があったらソテツを取得する
+        else if (m_map->NearSotetsu(SharedObj::GetPlayer()->GetPos()))
+        {
+            pickId = 3;
+        }
         else
         {
 			unsigned int rand = SharedObj::GetRandom();

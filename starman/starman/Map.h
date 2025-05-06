@@ -81,6 +81,9 @@ public:
     // ココナツの木の近くにいるか
     bool NearCoconut(const D3DXVECTOR3& pos);
 
+    // ソテツの木が近くにあるか
+    bool NearSotetsu(const D3DXVECTOR3& pos);
+
     // 木の近くにいるか
     bool NearTree(const D3DXVECTOR3& pos);
 

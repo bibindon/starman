@@ -349,10 +349,12 @@ void CommandManager::BuildCommand()
 
     // 採取・・・近くに草があるときに表示される。イカダモードの時は表示されない。
     // ココナツの木があるときも表示される。
+    // ソテツの木があるときも表示される
     if (!raftMode)
     {
         if (SharedObj::GetMap()->NearPlant(ppos) ||
-            SharedObj::GetMap()->NearCoconut(ppos))
+            SharedObj::GetMap()->NearCoconut(ppos) ||
+            SharedObj::GetMap()->NearSotetsu(ppos))
         {
             m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), true);
         }
