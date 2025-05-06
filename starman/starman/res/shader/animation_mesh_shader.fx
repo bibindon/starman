@@ -3,7 +3,7 @@ float4x4 g_world_view_projection;
 float4 g_light_normal;
 float g_light_brightness;
 float4 g_diffuse;
-float4 g_ambient = { 0.5f, 0.5f, 0.5f, 0.0f };
+float4 g_ambient = { 0.2f, 0.2f, 0.2f, 0.0f };
 texture g_mesh_texture;
 
 void vertex_shader(
