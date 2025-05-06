@@ -1177,7 +1177,7 @@ void SeqBattle::OperateCommand()
         leave = true;
         m_player->SetSit();
         m_eState = eBattleState::REST;
-		StartFadeInOut();
+        StartFadeInOut();
     }
     else if (result == Common::LoadString_(IDS_STRING182))
     {
@@ -1450,10 +1450,10 @@ void SeqBattle::InitLoad()
                     {
                         SaveManager::Get()->LoadOrigin();
 
-						SAFE_DELETE(m_map);
-						m_map = NEW Map();
-						SharedObj::SetMap(m_map);
-						m_map->Init();
+                        SAFE_DELETE(m_map);
+                        m_map = NEW Map();
+                        SharedObj::SetMap(m_map);
+                        m_map->Init();
 
                         m_loadLoaded.store(true);
                     }
@@ -1468,10 +1468,10 @@ void SeqBattle::InitLoad()
                 {
                     SaveManager::Get()->LoadOrigin();
 
-					SAFE_DELETE(m_map);
-					m_map = NEW Map();
-					SharedObj::SetMap(m_map);
-					m_map->Init();
+                    SAFE_DELETE(m_map);
+                    m_map = NEW Map();
+                    SharedObj::SetMap(m_map);
+                    m_map->Init();
 
                     m_loadLoaded.store(true);
                 }
@@ -1490,10 +1490,10 @@ void SeqBattle::InitLoad()
                     {
                         SaveManager::Get()->Load();
 
-						SAFE_DELETE(m_map);
-						m_map = NEW Map();
-						SharedObj::SetMap(m_map);
-						m_map->Init();
+                        SAFE_DELETE(m_map);
+                        m_map = NEW Map();
+                        SharedObj::SetMap(m_map);
+                        m_map->Init();
 
                         m_loadLoaded.store(true);
                     }
@@ -1508,10 +1508,10 @@ void SeqBattle::InitLoad()
                 {
                     SaveManager::Get()->Load();
 
-					SAFE_DELETE(m_map);
-					m_map = NEW Map();
-					SharedObj::SetMap(m_map);
-					m_map->Init();
+                    SAFE_DELETE(m_map);
+                    m_map = NEW Map();
+                    SharedObj::SetMap(m_map);
+                    m_map->Init();
 
                     m_loadLoaded.store(true);
                 }
@@ -2062,10 +2062,19 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
                     Common::Inventory()->SetItemDurability(itemDef.GetId(), newSubId, durability);
                 }
+                else if (vs2.at(j).find("<itemDel>") != std::string::npos)
+                {
+                    std::string work2 = Common::RemoveSubstring(vs2.at(j), "<itemDel>");
+                    auto itemDef = Common::ItemManager()->GetItemDef(work2);
+
+                    // subidlistが空だと落ちる。もしそうなったらスクリプトが悪い。
+                    auto subidlist = Common::Inventory()->GetSubIdList(itemDef.GetId());
+                    Common::Inventory()->RemoveItem(itemDef.GetId(), subidlist.at(0));
+                }
                 // 水を飲んだ
                 else if (vs2.at(j).find("<water>") != std::string::npos)
                 {
-					auto waterCurrent = Common::Status()->GetWaterCurrent();
+                    auto waterCurrent = Common::Status()->GetWaterCurrent();
                     Common::Status()->SetWaterCurrent(waterCurrent + 0.5f);
                 }
                 // 武器を装備
@@ -2082,8 +2091,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find("<sotetsu>") != std::string::npos)
                 {
                     auto status = Common::Status();
-					PopUp2::Get()->SetText("脱水症状・頭痛・腹痛・錯乱状態になった。");
-					PopUp2::Get()->SetText("スタミナ・ミネラル・ビタミン・肉体の修復度が減少した。");
+                    PopUp2::Get()->SetText("脱水症状・頭痛・腹痛・錯乱状態になった。");
+                    PopUp2::Get()->SetText("スタミナ・ミネラル・ビタミン・肉体の修復度が減少した。");
                     status->SetDehydration(true);
                     status->SetHeadache(true);
                     status->SetStomachache(true);
@@ -2162,102 +2171,102 @@ void SeqBattle::OperatePickPlant()
         }
         else
         {
-			unsigned int rand = SharedObj::GetRandom();
+            unsigned int rand = SharedObj::GetRandom();
 
-			// TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
-			// TODO 個々の文字列はリソースファイルから取得するのではなく、CSVファイルから取得すべき
+            // TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
+            // TODO 個々の文字列はリソースファイルから取得するのではなく、CSVファイルから取得すべき
 
-			// 0~99
-			auto rand_ = rand % 100;
+            // 0~99
+            auto rand_ = rand % 100;
 
-			if (rand_ < 10)
-			{
+            if (rand_ < 10)
+            {
                 // 謎の草１
                 pickId = 14;
-			}
-			else if (rand_ < 20)
-			{
+            }
+            else if (rand_ < 20)
+            {
                 // 謎の草２
                 pickId = 15;
-			}
-			else if (rand_ < 30)
-			{
+            }
+            else if (rand_ < 30)
+            {
                 pickId = 16;
-			}
-			else if (rand_ < 40)
-			{
+            }
+            else if (rand_ < 40)
+            {
                 pickId = 17;
-			}
-			else if (rand_ < 45)
-			{
+            }
+            else if (rand_ < 45)
+            {
                 pickId = 18;
-			}
-			else if (rand_ < 50)
-			{
+            }
+            else if (rand_ < 50)
+            {
                 pickId = 19;
-			}
-			else if (rand_ < 55)
-			{
+            }
+            else if (rand_ < 55)
+            {
                 // ツクシ
                 pickId = 13;
-			}
-			else if (rand_ < 60)
-			{
+            }
+            else if (rand_ < 60)
+            {
                 // ハイビスカス
                 pickId = 11;
-			}
-			else if (rand_ < 65)
-			{
+            }
+            else if (rand_ < 65)
+            {
                 // タンポポ
                 pickId = 20;
-			}
-			else if (rand_ < 70)
-			{
+            }
+            else if (rand_ < 70)
+            {
                 // ニラ、もしくはスイセン
                 pickId = 21;
-			}
-			else if (rand_ < 75)
-			{
+            }
+            else if (rand_ < 75)
+            {
                 // キノコ
                 pickId = 22;
-			}
-			else if (rand_ < 80)
-			{
+            }
+            else if (rand_ < 80)
+            {
                 // パパイヤ
                 pickId = 38;
-			}
-			else if (rand_ < 85)
-			{
+            }
+            else if (rand_ < 85)
+            {
                 // マンゴー
                 pickId = 39;
-			}
-			else if (rand_ < 90)
-			{
+            }
+            else if (rand_ < 90)
+            {
                 // バナナ
                 pickId = 40;
-			}
-			else if (rand_ < 95)
-			{
+            }
+            else if (rand_ < 95)
+            {
                 // ツタ
                 pickId = 56;
-			}
-			else if (rand_ <= 98)
-			{
+            }
+            else if (rand_ <= 98)
+            {
                 // 木の枝
                 pickId = 54;
-			}
-			else if (rand_ <= 99)
-			{
+            }
+            else if (rand_ <= 99)
+            {
                 // ワードブレス
                 pickId = 35;
-			}
+            }
 
-			// 草を消す処理
-			m_map->DeletePlant(m_player->GetPos());
+            // 草を消す処理
+            m_map->DeletePlant(m_player->GetPos());
         }
 
         auto itemDef = Common::ItemManager()->GetItemDef(pickId);
-		std::string pick = itemDef.GetName();
+        std::string pick = itemDef.GetName();
 
         PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
 
@@ -3436,7 +3445,7 @@ void SeqBattle::OperateRest()
     {
         // 3時間経過させる処理
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
-		dateTime->IncreaseDateTime(0, 0, 3, 0, 0);
+        dateTime->IncreaseDateTime(0, 0, 3, 0, 0);
 
         auto status = NSStarmanLib::StatusManager::GetObj();
 
