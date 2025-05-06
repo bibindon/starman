@@ -2927,6 +2927,41 @@ void SeqBattle::UpdatePerSecond()
     {
         if (m_eState != eBattleState::DEAD)
         {
+            auto reason = statusManager->GetDeadReason();
+
+            if (reason == NSStarmanLib::eDeadReason::NONE)
+            {
+                PopUp2::Get()->SetText("死因：不明");
+            }
+            else if (reason == NSStarmanLib::eDeadReason::MUSCLE_ZERO)
+            {
+                PopUp2::Get()->SetText("死因：肉体の修復度が０になった");
+            }
+            else if (reason == NSStarmanLib::eDeadReason::WATER_90)
+            {
+                PopUp2::Get()->SetText("死因：水分量が９０％以下になった");
+            }
+            else if (reason == NSStarmanLib::eDeadReason::KAROSHI)
+            {
+                PopUp2::Get()->SetText("死因：身体のスタミナが０％になった");
+            }
+            else if (reason == NSStarmanLib::eDeadReason::RYNEN_1_YEAR)
+            {
+                PopUp2::Get()->SetText("死因：ライネンの契約をして１年が経過した");
+            }
+            else if (reason == NSStarmanLib::eDeadReason::STARVATION)
+            {
+                PopUp2::Get()->SetText("死因：餓死");
+            }
+            else if (reason == NSStarmanLib::eDeadReason::DROWNING)
+            {
+                PopUp2::Get()->SetText("死因：水中で寝た。");
+            }
+            else if (reason == NSStarmanLib::eDeadReason::ATTACK_ON_SLEEP)
+            {
+                PopUp2::Get()->SetText("死因：睡眠中に攻撃された。");
+            }
+
             m_eState = eBattleState::DEAD;
             m_nDeadCounter = 0;
 

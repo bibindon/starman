@@ -306,6 +306,7 @@ void Player::Update(Map* map)
             if (sleep)
             {
                 Common::Status()->SetDead(true);
+                Common::Status()->SetDeadReason(NSStarmanLib::eDeadReason::DROWNING);
             }
         }
     }
@@ -1315,6 +1316,7 @@ void Player::SetDamaged()
     if (NSStarmanLib::StatusManager::GetObj()->GetSleep())
     {
         NSStarmanLib::StatusManager::GetObj()->SetDead(true);
+        NSStarmanLib::StatusManager::GetObj()->SetDeadReason(NSStarmanLib::eDeadReason::ATTACK_ON_SLEEP);
     }
 }
 

@@ -47,7 +47,7 @@ private:
     int m_counter { 0 };
     bool m_isShow { false };
     const int FADE_IN = 30;
-    const int SHOW = 30;
+    const int SHOW = 60;
     const int FADE_OUT= 30;
     int m_transparent = 0;
 
