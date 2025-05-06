@@ -366,6 +366,9 @@ void CommandManager::BuildCommand()
     // À‚éEEEí‚É•\Ž¦‚³‚ê‚é
     m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING181), true);
 
+    // ‚RŽžŠÔ‹xŒe‚·‚éEEEí‚É•\Ž¦‚³‚ê‚é
+    m_commandLib->UpsertCommand("‚RŽžŠÔ‹xŒe‚·‚é", true);
+
     // áÒ‘zEEEí‚É•\Ž¦‚³‚ê‚é
     m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING182), true);
 

@@ -544,6 +544,10 @@ void SeqBattle::Update(eSequence* sequence)
     {
         OperateCutTree();
     }
+    else if (m_eState == eBattleState::REST)
+    {
+        OperateRest();
+    }
     else if (m_eState == eBattleState::PICK_PLANT)
     {
         OperatePickPlant();
@@ -1156,19 +1160,26 @@ void SeqBattle::OperateCommand()
             m_eState = eBattleState::VOYAGE;
         }
     }
-    else if (result == "座る")
+    else if (result == Common::LoadString_(IDS_STRING181))
     {
         leave = true;
         m_player->SetSit();
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == "横になる")
+    else if (result == Common::LoadString_(IDS_STRING180))
     {
         leave = true;
         m_player->SetLieDown();
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == "瞑想")
+    else if (result == "３時間休憩する")
+    {
+        leave = true;
+        m_player->SetSit();
+        m_eState = eBattleState::REST;
+		StartFadeInOut();
+    }
+    else if (result == Common::LoadString_(IDS_STRING182))
     {
         leave = true;
         m_eState = eBattleState::POPUP;
@@ -1195,14 +1206,14 @@ void SeqBattle::OperateCommand()
             PopUp::Get()->SetText(vvs);
         }
     }
-    else if (result == "脱出")
+    else if (result == Common::LoadString_(IDS_STRING183))
     {
         leave = true;
         D3DXVECTOR3 pos(-285.f, 16.f, 539.f);
         m_player->SetPos(pos);
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == "伐採")
+    else if (result == Common::LoadString_(IDS_STRING178))
     {
         // 石か石斧を装備していないと切れない
         auto status = NSStarmanLib::StatusManager::GetObj();
@@ -1237,7 +1248,7 @@ void SeqBattle::OperateCommand()
             }
         }
     }
-    else if (result == "採取")
+    else if (result == Common::LoadString_(IDS_STRING179))
     {
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto stamina = status->GetBodyStaminaCurrent();
@@ -1253,15 +1264,15 @@ void SeqBattle::OperateCommand()
             StartFadeInOut();
         }
     }
-    else if (result == "帆を張る")
+    else if (result == Common::LoadString_(IDS_STRING184))
     {
         SharedObj::Voyage()->SetSail(true);
     }
-    else if (result == "帆を畳む")
+    else if (result == Common::LoadString_(IDS_STRING185))
     {
         SharedObj::Voyage()->SetSail(false);
     }
-    else if (result == "３時間漕ぐ")
+    else if (result == Common::LoadString_(IDS_STRING186))
     {
         if (!SharedObj::Voyage()->Can3HoursAuto())
         {
@@ -1274,7 +1285,7 @@ void SeqBattle::OperateCommand()
             m_eState = eBattleState::VOYAGE3HOURS;
         }
     }
-    else if (result == "立ち上がる")
+    else if (result == Common::LoadString_(IDS_STRING187))
     {
         SharedObj::Voyage()->SetRaftMode(false);
         m_eState = eBattleState::NORMAL;
@@ -1285,7 +1296,7 @@ void SeqBattle::OperateCommand()
         BGM::get_ton()->load("res\\sound\\field.wav");
         BGM::get_ton()->play("res\\sound\\field.wav", 10, true);
     }
-    else if (result == "イカダに乗る")
+    else if (result == Common::LoadString_(IDS_STRING188))
     {
         // 袋を装備していたらイカダに乗ることはできない
         auto bagState = Common::Status()->GetBagState();
@@ -1308,17 +1319,17 @@ void SeqBattle::OperateCommand()
             PopUp2::Get()->SetText(IDS_STRING110);
         }
     }
-    else if (result == "イカダの袋を見る")
+    else if (result == Common::LoadString_(IDS_STRING189))
     {
         ShowStorehouse();
     }
-    else if (result == "松明を作る")
+    else if (result == Common::LoadString_(IDS_STRING190))
     {
         StartFadeInOut();
         m_eState = eBattleState::CREATE_TORCH;
         leave = true;
     }
-    else if (result == "松明に火をつける")
+    else if (result == Common::LoadString_(IDS_STRING192))
     {
         // 松明の耐久値が０の場合、エラーメッセージを表示し点火しない。
         auto weapon = Common::Status()->GetEquipWeapon();
@@ -1344,14 +1355,14 @@ void SeqBattle::OperateCommand()
             }
         }
     }
-    else if (result == "松明の火を消す")
+    else if (result == Common::LoadString_(IDS_STRING193))
     {
         NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         leave = true;
         m_eState = eBattleState::NORMAL;
         BGM::get_ton()->stop("res\\sound\\torch.wav");
     }
-    else if (result == "クラフト")
+    else if (result == Common::LoadString_(IDS_STRING194))
     {
         m_eState = eBattleState::CRAFT;
 
@@ -1359,7 +1370,7 @@ void SeqBattle::OperateCommand()
         m_craft.Build();
         leave = true;
     }
-    else if (result == "パッチテスト")
+    else if (result == Common::LoadString_(IDS_STRING195))
     {
         m_eState = eBattleState::PATCH_TEST;
 
@@ -1368,7 +1379,7 @@ void SeqBattle::OperateCommand()
         m_patchManager2.InitPatch();
         leave = true;
     }
-    else if (result == "お手伝い")
+    else if (result == Common::LoadString_(IDS_STRING196))
     {
         // サンカクマンかシカクマンのどちらかと近くにいなくてはならない。
         // どちらも近くにいる場合、サンカクマンを優先する
@@ -2436,6 +2447,10 @@ void SeqBattle::Render()
     {
         RenderCutTree();
     }
+    else if (m_eState == eBattleState::REST)
+    {
+        RenderRest();
+    }
     else if (m_eState == eBattleState::VOYAGE)
     {
         // イカダは乗っていても乗っていなくても常に表示するべきものなので
@@ -3344,6 +3359,30 @@ void SeqBattle::OperatePopUp()
 void SeqBattle::RenderPopUp()
 {
     PopUp::Get()->Render();
+}
+
+void SeqBattle::OperateRest()
+{
+    if (m_eFadeSeq == eFadeSeq::Finish)
+    {
+        // 3時間経過させる処理
+        auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+		dateTime->IncreaseDateTime(0, 0, 3, 0, 0);
+
+        auto status = NSStarmanLib::StatusManager::GetObj();
+
+        // 体力を消費
+        // 装備武器で消費する時間や体力が変わる
+        Common::Status()->Rest3Hours();
+
+        m_eState = eBattleState::NORMAL;
+        Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
+    }
+}
+
+void SeqBattle::RenderRest()
+{
 }
 
 

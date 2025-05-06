@@ -243,5 +243,11 @@ private:
     void OperatePopUp();
     void RenderPopUp();
 
+    //----------------------------------------------------
+    // 3ŽžŠÔ‹xŒe
+    //----------------------------------------------------
+    void OperateRest();
+    void RenderRest();
+
 };
 

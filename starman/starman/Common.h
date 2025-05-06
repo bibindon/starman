@@ -42,6 +42,7 @@ enum class eBattleState
     VOYAGE3HOURS,
     CREATE_TORCH,
     POPUP,
+    REST,
     NONE,
 };
 

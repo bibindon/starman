@@ -94,6 +94,7 @@ AnimMesh::AnimMesh(
     m_animCtrlr.Init(temp_animation_controller, animSetMap);
 
     m_scale = scale;
+    m_meshName = xFilename;
 }
 
 AnimMesh::~AnimMesh()
@@ -104,7 +105,23 @@ AnimMesh::~AnimMesh()
 
 void AnimMesh::Render()
 {
-    D3DXVECTOR4 normal = Light::GetLightNormal();
+    //D3DXVECTOR4 normal = Light::GetLightNormal();
+    D3DXVECTOR4 normal = D3DXVECTOR4(0.f, 0.f, 0.f, 0.f);
+
+    if (m_meshName.find("hoshiman.x") != std::string::npos)
+    {
+        int i = 0;
+        ++i;
+    }
+
+    normal.x = std::cos(-m_rotation.y);
+    normal.z = std::sin(-m_rotation.y);
+
+    // ‚È‚¼
+    normal.y = std::sin(-m_rotation.y);
+
+    D3DXVec4Normalize(&normal, &normal);
+
     m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
     m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
 
@@ -156,7 +173,9 @@ float AnimMesh::GetScale() const
 
 void AnimMesh::SetRotate(const D3DXVECTOR3& rotate)
 {
-    m_rotation = rotate;
+    m_rotation.x = fmod(rotate.x, D3DX_PI * 2);
+    m_rotation.y = fmod(rotate.y, D3DX_PI * 2);
+    m_rotation.z = fmod(rotate.z, D3DX_PI * 2);
 }
 
 void AnimMesh::SetAnim(const std::string& animName, const DOUBLE& pos)
