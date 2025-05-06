@@ -1822,6 +1822,28 @@ bool Map::NearPlant(const D3DXVECTOR3& pos)
     return isHit;
 }
 
+bool Map::NearCoconut(const D3DXVECTOR3& pos)
+{
+    bool isHit = false;
+
+    auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 20.f);
+
+    int modelId = MapLib()->GetModelId("yashi.x");
+
+    for (size_t i = 0; i < list.size(); ++i)
+    {
+        if (list.at(i).m_modelId == modelId)
+        {
+            if (list.at(i).m_visible)
+            {
+                isHit = true;
+            }
+        }
+    }
+
+    return isHit;
+}
+
 bool Map::NearTree(const D3DXVECTOR3& pos)
 {
     bool isHit = false;

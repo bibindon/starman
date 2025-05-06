@@ -21,7 +21,7 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 0.f;
-        animSetting.m_duration = 0.5f;
+        animSetting.m_duration = 0.47f;
         animSetting.m_loop = true;
         animSetMap["Idle"] = animSetting;
     }
@@ -35,21 +35,21 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 2.f;
-        animSetting.m_duration = 1.f;
+        animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
         animSetMap["Attack"] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 3.f;
-        animSetting.m_duration = 0.5f;
+        animSetting.m_duration = 0.47f;
         animSetting.m_loop = false;
         animSetMap["Damaged"] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 3.5f;
-        animSetting.m_duration = 0.45f;
+        animSetting.m_duration = 0.47f;
         animSetting.m_loop = false;
         animSetting.m_stopEnd = true;
         animSetMap["Dead"] = animSetting;
@@ -57,7 +57,7 @@ Player::Player()
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 5.f;
-        animSetting.m_duration = 2.f;
+        animSetting.m_duration = 1.9f;
         animSetting.m_loop = false;
         animSetMap["Jump"] = animSetting;
     }

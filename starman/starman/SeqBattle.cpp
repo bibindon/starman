@@ -2150,84 +2150,111 @@ void SeqBattle::OperatePickPlant()
 {
     if (m_eFadeSeq == eFadeSeq::Finish)
     {
-        unsigned int rand = SharedObj::GetRandom();
+        int pickId = 0;
 
-        std::string pick;
+        // 近くにココナツの木があったらココナッツを取得する
+        if (m_map->NearCoconut(SharedObj::GetPlayer()->GetPos()))
+        {
+            pickId = 5;
+        }
+        else
+        {
+			unsigned int rand = SharedObj::GetRandom();
 
-        // TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
-        // TODO 個々の文字列はリソースファイルから取得するのではなく、CSVファイルから取得すべき
+			// TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
+			// TODO 個々の文字列はリソースファイルから取得するのではなく、CSVファイルから取得すべき
 
-        // 0~99
-        auto rand_ = rand % 100;
+			// 0~99
+			auto rand_ = rand % 100;
 
-        if (rand_ < 10)
-        {
-            pick = Common::LoadString_(IDS_STRING123);
+			if (rand_ < 10)
+			{
+                // 謎の草１
+                pickId = 14;
+			}
+			else if (rand_ < 20)
+			{
+                // 謎の草２
+                pickId = 15;
+			}
+			else if (rand_ < 30)
+			{
+                pickId = 16;
+			}
+			else if (rand_ < 40)
+			{
+                pickId = 17;
+			}
+			else if (rand_ < 45)
+			{
+                pickId = 18;
+			}
+			else if (rand_ < 50)
+			{
+                pickId = 19;
+			}
+			else if (rand_ < 55)
+			{
+                // ツクシ
+                pickId = 13;
+			}
+			else if (rand_ < 60)
+			{
+                // ハイビスカス
+                pickId = 11;
+			}
+			else if (rand_ < 65)
+			{
+                // タンポポ
+                pickId = 20;
+			}
+			else if (rand_ < 70)
+			{
+                // ニラ、もしくはスイセン
+                pickId = 21;
+			}
+			else if (rand_ < 75)
+			{
+                // キノコ
+                pickId = 22;
+			}
+			else if (rand_ < 80)
+			{
+                // パパイヤ
+                pickId = 38;
+			}
+			else if (rand_ < 85)
+			{
+                // マンゴー
+                pickId = 39;
+			}
+			else if (rand_ < 90)
+			{
+                // バナナ
+                pickId = 40;
+			}
+			else if (rand_ < 95)
+			{
+                // ツタ
+                pickId = 56;
+			}
+			else if (rand_ <= 98)
+			{
+                // 木の枝
+                pickId = 54;
+			}
+			else if (rand_ <= 99)
+			{
+                // ワードブレス
+                pickId = 35;
+			}
+
+			// 草を消す処理
+			m_map->DeletePlant(m_player->GetPos());
         }
-        else if (rand_ < 20)
-        {
-            pick = Common::LoadString_(IDS_STRING124);
-        }
-        else if (rand_ < 30)
-        {
-            pick = Common::LoadString_(IDS_STRING125);
-        }
-        else if (rand_ < 40)
-        {
-            pick = Common::LoadString_(IDS_STRING126);
-        }
-        else if (rand_ < 45)
-        {
-            pick = Common::LoadString_(IDS_STRING127);
-        }
-        else if (rand_ < 50)
-        {
-            pick = "赤い実";
-        }
-        else if (rand_ < 55)
-        {
-            pick = "ツクシ";
-        }
-        else if (rand_ < 60)
-        {
-            pick = "ハイビスカス";
-        }
-        else if (rand_ < 65)
-        {
-            pick = "タンポポ";
-        }
-        else if (rand_ < 70)
-        {
-            pick = "ニラ、もしくはスイセン";
-        }
-        else if (rand_ < 75)
-        {
-            pick = "キノコ";
-        }
-        else if (rand_ < 80)
-        {
-            pick = "パパイヤ";
-        }
-        else if (rand_ < 85)
-        {
-            pick = "マンゴー";
-        }
-        else if (rand_ < 90)
-        {
-            pick = "バナナ";
-        }
-        else if (rand_ < 95)
-        {
-            pick = "ツタ";
-        }
-        else if (rand_ <= 98)
-        {
-            pick = "木の枝";
-        }
-        else if (rand_ <= 99)
-        {
-            pick = "ワードブレス";
-        }
+
+        auto itemDef = Common::ItemManager()->GetItemDef(pickId);
+		std::string pick = itemDef.GetName();
 
         PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
 
@@ -2240,11 +2267,7 @@ void SeqBattle::OperatePickPlant()
         Common::Status()->PickPlant();
 
         // アイテムをインベントリに追加
-        auto itemDef = Common::ItemManager()->GetItemDef(pick);
         Common::Inventory()->AddItem(itemDef.GetId());
-
-        // 草を消す処理
-        m_map->DeletePlant(m_player->GetPos());
 
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
