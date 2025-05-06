@@ -2062,6 +2062,12 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
                     Common::Inventory()->SetItemDurability(itemDef.GetId(), newSubId, durability);
                 }
+                // …‚ğˆù‚ñ‚¾
+                else if (vs2.at(j).find("<water>") != std::string::npos)
+                {
+					auto waterCurrent = Common::Status()->GetWaterCurrent();
+                    Common::Status()->SetWaterCurrent(waterCurrent + 0.5f);
+                }
                 // •Ší‚ğ‘•”õ
                 else if (vs2.at(j).find("<equip>") != std::string::npos)
                 {
