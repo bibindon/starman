@@ -1967,12 +1967,25 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
             result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
 
             // 急な上り坂だったら移動速度を下げる
-            if (result.y > 0.1f)
+            if (Common::DebugMode() && Common::FasterMode())
             {
-                // yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
-                auto workY = result.y;
-                workY *= 10;
-                result /= workY;
+                // do nothing
+            }
+            else
+            {
+				if (result.y > 0.1f)
+				{
+					// yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
+					auto workY = result.y;
+					workY *= 10.f;
+
+					// 減速は1/10までとする。
+					if (workY >= 10.f)
+					{
+						workY = 10.f;
+					}
+					result /= workY;
+				}
             }
         }
         else
@@ -2075,12 +2088,26 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
             result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
 
             // 急な上り坂だったら移動速度を下げる
-            if (result.y > 0.1f)
+            if (Common::DebugMode() && Common::FasterMode())
             {
-                // yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
-                auto workY = result.y;
-                workY *= 10;
-                result /= workY;
+                // do nothing
+            }
+            else
+            {
+                // 急な上り坂だったら移動速度を下げる
+                if (result.y > 0.1f)
+                {
+                    // yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
+                    auto workY = result.y;
+                    workY *= 10.f;
+
+                    // 減速は1/10までとする。
+                    if (workY >= 10.f)
+                    {
+                        workY = 10.f;
+                    }
+                    result /= workY;
+                }
             }
         }
         else

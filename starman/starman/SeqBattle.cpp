@@ -2054,8 +2054,12 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find("<item>") != std::string::npos)
                 {
                     std::string work2 = Common::RemoveSubstring(vs2.at(j), "<item>");
-                    auto itemDef = Common::ItemManager()->GetItemDef(work2);
+                    auto vs = Common::split(work2, ':');
+                    auto level = std::stoi(vs.at(1));
+                    auto durability = std::stoi(vs.at(2));
+                    auto itemDef = Common::ItemManager()->GetItemDef(vs.at(0), level);
                     auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
+                    Common::Inventory()->SetItemDurability(itemDef.GetId(), newSubId, durability);
                 }
                 // •Ší‚ğ‘•”õ
                 else if (vs2.at(j).find("<equip>") != std::string::npos)
