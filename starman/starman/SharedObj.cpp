@@ -32,7 +32,7 @@ void SharedObj::Finalize()
     SAFE_RELEASE(m_D3DDevice);
 }
 
-int SharedObj::GetRandom()
+unsigned int SharedObj::GetRandom()
 {
     return m_Engine();
 }

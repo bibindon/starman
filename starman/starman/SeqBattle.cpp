@@ -2150,75 +2150,83 @@ void SeqBattle::OperatePickPlant()
 {
     if (m_eFadeSeq == eFadeSeq::Finish)
     {
-        int rand = SharedObj::GetRandom();
+        unsigned int rand = SharedObj::GetRandom();
 
         std::string pick;
 
         // TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
-        // リソースファイルから取得するのではなく、CSVファイルから取得すべき
-        if (rand % 100 < 10)
+        // TODO 個々の文字列はリソースファイルから取得するのではなく、CSVファイルから取得すべき
+
+        // 0~99
+        auto rand_ = rand % 100;
+
+        if (rand_ < 10)
         {
             pick = Common::LoadString_(IDS_STRING123);
         }
-        else if (rand % 100 < 20)
+        else if (rand_ < 20)
         {
             pick = Common::LoadString_(IDS_STRING124);
         }
-        else if (rand % 100 < 30)
+        else if (rand_ < 30)
         {
             pick = Common::LoadString_(IDS_STRING125);
         }
-        else if (rand % 100 < 40)
+        else if (rand_ < 40)
         {
             pick = Common::LoadString_(IDS_STRING126);
         }
-        else if (rand % 100 < 45)
+        else if (rand_ < 45)
         {
             pick = Common::LoadString_(IDS_STRING127);
         }
-        else if (rand % 100 < 50)
+        else if (rand_ < 50)
         {
             pick = "赤い実";
         }
-        else if (rand % 100 < 55)
+        else if (rand_ < 55)
         {
             pick = "ツクシ";
         }
-        else if (rand % 100 < 60)
+        else if (rand_ < 60)
         {
             pick = "ハイビスカス";
         }
-        else if (rand % 100 < 65)
+        else if (rand_ < 65)
         {
             pick = "タンポポ";
         }
-        else if (rand % 100 < 70)
+        else if (rand_ < 70)
         {
             pick = "ニラ、もしくはスイセン";
         }
-        else if (rand % 100 < 75)
+        else if (rand_ < 75)
         {
             pick = "キノコ";
         }
-        else if (rand % 100 < 80)
+        else if (rand_ < 80)
         {
             pick = "パパイヤ";
         }
-        else if (rand % 100 < 85)
+        else if (rand_ < 85)
         {
             pick = "マンゴー";
         }
-        else if (rand % 100 < 90)
+        else if (rand_ < 90)
         {
             pick = "バナナ";
         }
-        else if (rand % 100 < 95)
+        else if (rand_ < 95)
         {
             pick = "ツタ";
         }
-        else if (rand % 100 < 100)
+        else if (rand_ <= 98)
         {
             pick = "木の枝";
+        }
+        else if (rand_ <= 99)
+        {
+            pick = "ワードブレス";
         }
 
         PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));

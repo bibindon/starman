@@ -17,7 +17,7 @@ public:
     static void SetD3DDevice(const LPDIRECT3DDEVICE9 D3DDevice);
     static void Init();
     static void Finalize();
-    static int GetRandom();
+    static unsigned int GetRandom();
     static Player* GetPlayer();
     static void SetPlayer(Player* player);
     static Map* GetMap();
