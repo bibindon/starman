@@ -201,13 +201,28 @@ SeqEnding::SeqEnding()
             vs.push_back("しばらくして道路を見つけた。");
             vs.push_back("道路を歩き続けるとガソリンスタンドがあった。");
             vvs.push_back(vs);
+
             vs.clear();
             vs.push_back("そこでホシマンは今いる場所がジーフォーク共和国であることを確認した。");
             vs.push_back("北西に進んでいたつもりだったが南に相当ずれていた。");
             vvs.push_back(vs);
+
             vs.clear();
             vs.push_back("その日からホシマンは法律を無視して救助を最優先することにした。");
             vvs.push_back(vs);
+
+            // 家のカギがない場合は一言添える
+            {
+                auto homeKey = Common::Inventory()->GetSubIdList(2);
+                if (homeKey.empty())
+                {
+                    vs.clear();
+                    vs.push_back("ホシマンはハッとして持ち物を漁った。");
+                    vs.push_back("（家のカギをなくした・・・。くそ・・・。）");
+                    vvs.push_back(vs);
+                }
+            }
+
             page.SetTextList(vvs);
             pageList.push_back(page);
         }
