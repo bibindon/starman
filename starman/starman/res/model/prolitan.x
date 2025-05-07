@@ -39536,7 +39536,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"grass.png";}
+          TextureFilename {"prolitan_grass.png";}
         }
       } // End of Grid material list
     } // End of Grid mesh
