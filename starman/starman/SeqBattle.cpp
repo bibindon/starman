@@ -1657,7 +1657,7 @@ void SeqBattle::RenderLoad()
         }
         else
         {
-            pos.x = 530;
+            pos.x = 600;
 
             if (progress <= 10)
             {
@@ -1689,7 +1689,7 @@ void SeqBattle::RenderLoad()
             }
             else if (progress <= 99)
             {
-                width_ = -1;
+                width_ = 60 * 6;
             }
         }
 

@@ -248,7 +248,14 @@ void Title::Render()
         m_sprBack->Render(pos, m_fadeOutAlpha);
     }
 
-    pos.x = 630.f;
+    if (SharedObj::IsEnglish())
+    {
+        pos.x = 600.f;
+    }
+    else
+    {
+        pos.x = 630.f;
+    }
     pos.y = 200.f;
 
     if (m_bLoading == false && m_bCameraFadeOut == false)
