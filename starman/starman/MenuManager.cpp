@@ -1195,14 +1195,39 @@ bool MenuManager::UseItem(const int id, const int subId)
             PopUp2::Get()->SetText("満腹なのでこれ以上食べられない。");
         }
     }
+    else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::MATERIAL)
+    {
+        PopUp2::Get()->SetText("ホシマン（何かの素材として使えそうだ）");
+        result = false;
+    }
+    else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::VALUABLES)
+    {
+        // スマホ
+        if (itemDef.GetId() == 1)
+        {
+            PopUp2::Get()->SetText("ホシマン（反応しない。海水で基盤がダメになったのだろう）");
+            result = false;
+        }
+        // 家の鍵
+        else if (itemDef.GetId() == 2)
+        {
+            PopUp2::Get()->SetText("ホシマン（まだ捨てないで取っておこう）");
+            result = false;
+        }
+    }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::OTHERS)
     {
         // ワードブレス
-        if (itemDef.GetName() == "ワードブレス")
+        if (itemDef.GetId() == 35)
         {
             auto pos = SharedObj::GetPlayer();
             statusManager->DrinkWordBress(pos->GetPos().x, pos->GetPos().y, pos->GetPos().z);
             result = true;
+        }
+        else
+        {
+            PopUp2::Get()->SetText("ホシマン（使い道が思いつかない）");
+            result = false;
         }
     }
 
@@ -1292,11 +1317,6 @@ void MenuManager::DeleteItem(const int id, const int subId)
     m_menu.SetWeightAll(Common::Inventory()->GetWeight());
     m_menu.SetVolumeAll((int)Common::Inventory()->GetVolume());
     m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
-
-    if (Common::ItemManager()->GetItemDef(id).GetName() == "家のカギ")
-    {
-        PopUp2::Get()->SetText(IDS_STRING201);
-    }
 }
 
 void MenuManager::AddItem(const int id, const int subId, const int durability)
