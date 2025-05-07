@@ -109,7 +109,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube material list
     } // End of Cube mesh
@@ -211,7 +211,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube_001 material list
     } // End of Cube_001 mesh
@@ -270,7 +270,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube_003 material list
     } // End of Cube_003 mesh
@@ -329,7 +329,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube_004 material list
     } // End of Cube_004 mesh
@@ -388,7 +388,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube_005 material list
     } // End of Cube_005 mesh
@@ -447,7 +447,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube_006 material list
     } // End of Cube_006 mesh
@@ -506,7 +506,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube_007 material list
     } // End of Cube_007 mesh
@@ -565,7 +565,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cube_008 material list
     } // End of Cube_008 mesh
@@ -667,7 +667,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of Cylinder material list
     } // End of Cylinder mesh
@@ -726,7 +726,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"hoshiman_head.png";}
+          TextureFilename {"webnin.png";}
         }
       } // End of RightHand material list
     } // End of RightHand mesh

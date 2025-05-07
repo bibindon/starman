@@ -1574,7 +1574,7 @@ Frame Root {
            323.529412;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"texture_gradient.png";}
+          TextureFilename {"torch.png";}
         }
       } // End of Log_big_knotty_Cylinder_017 material list
     } // End of Log_big_knotty_Cylinder_017 mesh

@@ -1,5 +1,10 @@
 xof 0303txt 0032
 
+template AnimTicksPerSecond {
+  <9E415A43-7BA6-4a73-8743-B73D47E88476>
+  DWORD AnimTicksPerSecond;
+}
+
 Frame Root {
   FrameTransformMatrix {
      1.000000, 0.000000, 0.000000, 0.000000,
@@ -104,7 +109,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex1.png";}
+          TextureFilename {"rippoutai_tex1.png";}
         }
       } // End of Cube material list
     } // End of Cube mesh
