@@ -1519,7 +1519,16 @@ void SeqBattle::InitLoad()
     }
 
     m_sprLoadBack = NEW Sprite("res\\image\\black.png");
-    m_sprLoadLogo = NEW Sprite("res\\image\\title01.png");
+
+    if (SharedObj::IsEnglish())
+    {
+        m_sprLoadLogo = NEW Sprite("res\\image\\title01.en.png");
+    }
+    else
+    {
+        m_sprLoadLogo = NEW Sprite("res\\image\\title01.png");
+    }
+
     m_sprLoadClock = NEW Sprite("res\\image\\load_clock.png");
     m_sprLoadLoading = NEW Sprite("res\\image\\loading.png");
 
@@ -1615,46 +1624,65 @@ void SeqBattle::RenderLoad()
 
         int progress = SaveManager::Get()->GetProgress();
 
-//        if (counter4 <= 60*1)
-//        {
-//            width_ = 0;
-//        }
-//        else if (counter4 <= 60*4)
-//        {
-//            width_ = 90;
-//        }
-//        else if (counter4 <= 60*9)
-//        {
-//            width_ = 180;
-//        }
-//        else if (counter4 <= 60*16)
-//        {
-//            width_ = 270;
-//        }
-//        else if (counter4 <= 60*25)
-//        {
-//            width_ = -1;
-//        }
+        if (!SharedObj::IsEnglish())
+        {
+            if (progress <= 20)
+            {
+                width_ = 0;
+            }
+            else if (progress <= 40)
+            {
+                width_ = 90;
+            }
+            else if (progress <= 60)
+            {
+                width_ = 180;
+            }
+            else if (progress <= 80)
+            {
+                width_ = 270;
+            }
+            else if (progress <= 99)
+            {
+                width_ = -1;
+            }
+        }
+        else
+        {
+            pos.x = 530;
 
-        if (progress <= 20)
-        {
-            width_ = 0;
-        }
-        else if (progress <= 40)
-        {
-            width_ = 90;
-        }
-        else if (progress <= 60)
-        {
-            width_ = 180;
-        }
-        else if (progress <= 80)
-        {
-            width_ = 270;
-        }
-        else if (progress <= 99)
-        {
-            width_ = -1;
+            if (progress <= 10)
+            {
+                width_ = 60 * 0;
+            }
+            else if (progress <= 20)
+            {
+                width_ = 60 * 1;
+            }
+            else if (progress <= 30)
+            {
+                width_ = 60 * 2;
+            }
+            else if (progress <= 40)
+            {
+                width_ = 60 * 3;
+            }
+            else if (progress <= 50)
+            {
+                width_ = 60 * 4;
+            }
+            else if (progress <= 60)
+            {
+                width_ = 60 * 5;
+            }
+            else if (progress <= 70)
+            {
+                width_ = 60 * 6;
+            }
+            else if (progress <= 99)
+            {
+                width_ = -1;
+            }
         }
 
         m_sprLoadLogo->Render(pos, 255, width_);

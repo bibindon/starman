@@ -21,7 +21,16 @@ Title::Title(const bool blackFadeIn, const bool bFirst)
     m_titleCommand->Init(CommandManager::eType::Title);
 
     m_sprBack = NEW Sprite("res\\image\\black.png");
-    m_sprLogo = NEW Sprite("res\\image\\title01.png");
+
+    if (SharedObj::IsEnglish())
+    {
+        m_sprLogo = NEW Sprite("res\\image\\title01.en.png");
+    }
+    else
+    {
+        m_sprLogo = NEW Sprite("res\\image\\title01.png");
+    }
+    
     m_sprClock = NEW Sprite("res\\image\\load_clock.png");
     m_sprLoading = NEW Sprite("res\\image\\loading.png");
 
