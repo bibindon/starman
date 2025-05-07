@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" Name="starmanInstaller" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+    <Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
         <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -16,14 +16,14 @@
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="ProgramMenuFolder">
             </Directory>
-            <Directory Id="ProgramFilesFolder">
+            <Directory Id="ProgramFiles64Folder">
                 <Directory Id="INSTALLFOLDER" Name="starman">
                     <Directory Id="RESOURCE" Name="res">
                         <Directory Id="IMAGE" Name="image"/>
                         <Directory Id="SHADER" Name="shader"/>
                         <Directory Id="MODEL" Name="model"/>
                         <Directory Id="SCRIPT_" Name="script">
-                            <Directory Id="SCRIPT_ORIGIN" Name="model"/>
+                            <Directory Id="SCRIPT_ORIGIN" Name="origin"/>
                         </Directory>
                         <Directory Id="SOUND" Name="sound"/>
                     </Directory>
@@ -56,760 +56,760 @@
         </ComponentGroup>
 
         <ComponentGroup Id = "MyAppFiles">
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/arrow.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/atlatl.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ax.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/background.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/black.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/board.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/bow.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/chara1.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/chara2.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/chara3.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/command_cursor.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/craftPanel.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/cursor.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/daikeiman00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/dream01.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/dream02.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/dream03.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/enban00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/enchuu00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending01.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending02.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending03.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending04.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending05.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending06.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending07.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending08.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending09.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending10.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/examine.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/gain00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/gameover.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ghost00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hanen00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hoshiman00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hp_black.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hp_black_p.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hp_green.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hp_green_p.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/human1.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/human2.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/human3.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/item1.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/item2.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/item3.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/loading.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/load_clock.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/menu_back.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/menu_cursor.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap1.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap10.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap11.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap12.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap2.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap3.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap4.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap5.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap6.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap7.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap8.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap9.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/nes00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/noble00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/opening01.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/opening02.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/opening03.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/opening04.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/panel.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/panelLeft.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/pipe.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/PopupBack.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/poweregg.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/qc.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/raft.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/raindrop.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/rippoutai00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/rouba00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/sankakuman00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/shikakuman00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/shikakuman01.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/shikakuman02.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/sphere00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/starman.ico" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/starman.icon.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/status_back.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/status_front.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/status_middle.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/stick.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/stone.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/test.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/test2.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/textBack.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/title01.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/title03.back.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/title03.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/title04.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/titleLogo03.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/torch.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/vbar.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/vim00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/vsco00.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/widemap.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/widemap1.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/widemap2.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/widemap3.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/widemap4.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/widemap5.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/widemap_.png" />
             </Component>
-            <Component Directory="IMAGE" Guid="*">
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/xeoff00.png" />
             </Component>
-            <Component Directory="SHADER" Guid="*">
+            <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/animation_mesh_shader.fx" />
             </Component>
-            <Component Directory="SHADER" Guid="*">
+            <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/mesh_shader.fx" />
             </Component>
-            <Component Directory="SHADER" Guid="*">
+            <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/mesh_shader_cull_none.fx" />
             </Component>
-            <Component Directory="SHADER" Guid="*">
+            <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/mesh_shader_no_shade.fx" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/activityBase.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/craftDef.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/craftsmanQueue.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/craftsmanSkill.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/datetime.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/decrypt.exe" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/encrypt.exe" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/enemy.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/enemyDef.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/enemyVisible.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/guide.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/help.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/humanInfo.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/humanInfoSub.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/inventory.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/item.back.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/item.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/item_pos.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/mapInfo.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/map_obj.bin" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/map_obj.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/map_obj.ods" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/map_obj_type.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/npcStatus.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/patchTestOrigin.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/quest.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/questSample.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/rynen.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/skill.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/skillSub.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/status.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/storehouse.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/storehouse2.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/storehouseListOrigin.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/storehouseRaft1.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/storyDream.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talk2Sample.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talk2Sample2.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest1.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest10.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest11.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest13.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest14.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest15.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest16.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest17.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest18.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest19.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest2.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest20.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest21.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest22.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest23.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest24.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest25.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest26.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest27.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest28.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest29.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest3.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest30.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest31.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest32.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest33.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest34.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest35.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest36.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest37.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest38.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest39.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest4.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest40.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest41.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest42.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest43.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest44.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest45.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest46.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest47.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest48.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest49.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest5.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest50.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest51.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest52.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest53.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest54.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest55.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest56.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest57.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest58.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest59.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest6.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest60.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest61.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest7.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest8.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest9-2.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest9-3.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest9-4.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest9-5.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest9.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/voyageOrigin.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/weapon.back.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/weapon.csv" />
             </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*">
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/weaponSave.csv" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/attack01.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/collideRaft.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/cursor_cancel.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/cursor_confirm.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/cursor_move.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/Cyber_City90.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/damage01.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/darkHit.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/darkSet.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/drink.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/ending.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/field.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/fireHit.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/fireSet.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/forest.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/get_item.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/iceHit.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/iceSet.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/letsgo.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/menu_cursor_cancel.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/menu_cursor_confirm.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/menu_cursor_move.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/message1.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/novel.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/opening.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/pullOar.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/pullOar2.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/rain.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/sea.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/title.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/torch.wav" />
             </Component>
-            <Component Directory="SOUND" Guid="*">
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/voyage.wav" />
             </Component>
 

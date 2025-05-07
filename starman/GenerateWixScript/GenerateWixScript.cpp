@@ -36,7 +36,7 @@ int main()
     std::string text = R"Gene(
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="starmanInstaller" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+	<Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -52,14 +52,14 @@ int main()
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramMenuFolder">
 			</Directory>
-			<Directory Id="ProgramFilesFolder">
+			<Directory Id="ProgramFiles64Folder">
 				<Directory Id="INSTALLFOLDER" Name="starman">
 					<Directory Id="RESOURCE" Name="res">
 						<Directory Id="IMAGE" Name="image"/>
 						<Directory Id="SHADER" Name="shader"/>
 						<Directory Id="MODEL" Name="model"/>
 						<Directory Id="SCRIPT_" Name="script">
-							<Directory Id="SCRIPT_ORIGIN" Name="model"/>
+							<Directory Id="SCRIPT_ORIGIN" Name="origin"/>
 						</Directory>
 						<Directory Id="SOUND" Name="sound"/>
 					</Directory>
@@ -101,7 +101,7 @@ int main()
         auto fileList = ListFilesInFolder("..\\starman\\res\\image");
         for (auto& filename : fileList)
         {
-            text += "            <Component Directory=\"IMAGE\" Guid=\"*\">\n";
+            text += "            <Component Directory=\"IMAGE\" Guid=\"*\" Win64=\"yes\">\n";
             text += "                <File Source=\"../starman/res/image/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
@@ -111,7 +111,7 @@ int main()
         auto fileList = ListFilesInFolder("..\\starman\\res\\shader");
         for (auto& filename : fileList)
         {
-            text += "            <Component Directory=\"SHADER\" Guid=\"*\">\n";
+            text += "            <Component Directory=\"SHADER\" Guid=\"*\" Win64=\"yes\">\n";
             text += "                <File Source=\"../starman/res/shader/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
@@ -121,7 +121,7 @@ int main()
         auto fileList = ListFilesInFolder("..\\starman\\res\\model");
         for (auto& filename : fileList)
         {
-            text += "            <Component Directory=\"MODEL\" Guid=\"*\">\n";
+            text += "            <Component Directory=\"MODEL\" Guid=\"*\" Win64=\"yes\">\n";
             text += "                <File Source=\"../starman/res/model/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
@@ -131,7 +131,7 @@ int main()
         auto fileList = ListFilesInFolder("..\\starman\\res\\script\\origin");
         for (auto& filename : fileList)
         {
-            text += "            <Component Directory=\"SCRIPT_ORIGIN\" Guid=\"*\">\n";
+            text += "            <Component Directory=\"SCRIPT_ORIGIN\" Guid=\"*\" Win64=\"yes\">\n";
             text += "                <File Source=\"../starman/res/script/origin/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
@@ -141,7 +141,7 @@ int main()
         auto fileList = ListFilesInFolder("..\\starman\\res\\sound");
         for (auto& filename : fileList)
         {
-            text += "            <Component Directory=\"SOUND\" Guid=\"*\">\n";
+            text += "            <Component Directory=\"SOUND\" Guid=\"*\" Win64=\"yes\">\n";
             text += "                <File Source=\"../starman/res/sound/" + filename + "\" />\n";
             text += "            </Component>\n";
         }

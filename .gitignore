@@ -116,3 +116,7 @@ prolitan2.blend
 *.ods#
 /starman/starman/res/script/lang.ini
 /starman/GenerateWixScript/x64/Debug
+/starman/GenerateWixScript/x64/Release
+/starman/Installer/bin/x64
+/starman/Installer/obj/x64
+/starman/x64/DeployEncrypt
