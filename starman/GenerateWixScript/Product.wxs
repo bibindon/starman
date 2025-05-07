@@ -1,59 +1,60 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" Name="starmanInstaller" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
-        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+	<Product Id="*" Name="starmanInstaller" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-        <MediaTemplate EmbedCab="yes" />
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate EmbedCab="yes" />
 
-        <Feature Id="ProductFeature" Title="Installer" Level="1">
-            <ComponentGroupRef Id="ProductComponents" />
-            <ComponentGroupRef Id="MyAppFiles" />
-        </Feature>
-    </Product>
+		<Feature Id="ProductFeature" Title="Installer" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+			<ComponentGroupRef Id="MyAppFiles" />
+		</Feature>
+	</Product>
 
-    <Fragment>
-        <Directory Id="TARGETDIR" Name="SourceDir">
-            <Directory Id="ProgramMenuFolder">
-            </Directory>
-            <Directory Id="ProgramFilesFolder">
-                <Directory Id="INSTALLFOLDER" Name="starman">
-                    <Directory Id="RESOURCE" Name="res">
-                        <Directory Id="IMAGE" Name="image"/>
-                        <Directory Id="SHADER" Name="shader"/>
-                        <Directory Id="MODEL" Name="model"/>
-                        <Directory Id="SCRIPT_" Name="script">
-                            <Directory Id="SCRIPT_ORIGIN" Name="model"/>
-                        </Directory>
-                        <Directory Id="SOUND" Name="sound"/>
-                    </Directory>
-                </Directory>
-            </Directory>
-        </Directory>
-    </Fragment>
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramMenuFolder">
+			</Directory>
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="starman">
+					<Directory Id="RESOURCE" Name="res">
+						<Directory Id="IMAGE" Name="image"/>
+						<Directory Id="SHADER" Name="shader"/>
+						<Directory Id="MODEL" Name="model"/>
+						<Directory Id="SCRIPT_" Name="script">
+							<Directory Id="SCRIPT_ORIGIN" Name="model"/>
+						</Directory>
+						<Directory Id="SOUND" Name="sound"/>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
 
-    <Fragment>
-        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-            <Component Id="ProductComponent" Guid="*">
-                <File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes">
-                    <Shortcut Id="WixInstStartmenu" Directory="ProgramMenuFolder"
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="ProductComponent" Guid="*">
+				<File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes">
+					<Shortcut Id="WixInstStartmenu" Directory="ProgramMenuFolder"
 							  Name="starman" WorkingDirectory="INSTALLFOLDER"
 							  Advertise="yes">
-                        <Icon Id="WixInstIco.exe" SourceFile="$(var.starman.TargetPath)"/>
-                    </Shortcut>
-                </File>
-            </Component>
-            <Component Guid="*">
-                <?if $(var.Configuration) = Debug ?>
-                <File Source="$(var.starman.TargetDir)d3dx9d_43.dll" KeyPath="yes"/>
-                <?else?>
-                <File Source="$(var.starman.TargetDir)d3dx9_43.dll" KeyPath="yes"/>
-                <?endif?>
-            </Component>
-            <Component Guid="*">
-                <File Source="$(var.starman.TargetDir)D3DCompiler_43.dll" KeyPath="yes"/>
-            </Component>
-        </ComponentGroup>
+						<Icon Id="WixInstIco.exe" SourceFile="$(var.starman.TargetPath)"/>
+					</Shortcut>
+				</File>
+			</Component>
+			<Component Guid="*">
+				<?if $(var.Configuration) = Debug ?>
+				<File Source="$(var.starman.TargetDir)d3dx9d_43.dll" KeyPath="yes"/>
+				<?else?>
+				<File Source="$(var.starman.TargetDir)d3dx9_43.dll" KeyPath="yes"/>
+				<?endif?>
+			</Component>
+			<Component Guid="*">
+				<File Source="$(var.starman.TargetDir)D3DCompiler_43.dll" KeyPath="yes"/>
+			</Component>
+		</ComponentGroup>
 
         <ComponentGroup Id = "MyAppFiles">
             <Component Directory="IMAGE" Guid="*">
@@ -813,6 +814,6 @@
                 <File Source="../starman/res/sound/voyage.wav" />
             </Component>
 
-        </ComponentGroup>
-    </Fragment>
+		</ComponentGroup>
+	</Fragment>
 </Wix>
