@@ -1190,6 +1190,10 @@ bool MenuManager::UseItem(const int id, const int subId)
     {
         // –• ‚¾‚Á‚½‚çfalse‚ª•Ô‚Á‚Ä‚­‚é
         result = statusManager->Eat(itemDef);
+        if (!result)
+        {
+            PopUp2::Get()->SetText("–• ‚È‚Ì‚Å‚±‚êˆÈãH‚×‚ç‚ê‚È‚¢B");
+        }
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::OTHERS)
     {
