@@ -19,6 +19,8 @@ public:
     std::string GetLangFile();
     void SetLangFile(const std::string lang);
 
+    bool SaveFolderExists();
+
 private:
 
     SaveManager();

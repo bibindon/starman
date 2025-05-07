@@ -149,12 +149,12 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             m_fadeOutCount = 0;
             Common::SetCursorVisibility(false);
 
-            int saveExist = PathFileExists("res\\script\\save");
+            bool saveExist = SaveManager::Get()->SaveFolderExists();
 
             // セーブデータがあったら初期データを読む。
             // セーブデータがなくても、一度ゲームを開始してから
             // タイトル画面に戻ってきたなら再読み込みをする。
-            if (saveExist == TRUE || !m_bFirst)
+            if (saveExist || !m_bFirst)
             {
                 m_bLoading = true;
                 SAFE_DELETE(m_thread);

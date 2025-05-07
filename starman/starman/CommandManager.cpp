@@ -13,6 +13,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 #include <cassert>
 #include "resource.h"
+#include "SaveManager.h"
 
 namespace NSCommand
 {
@@ -616,9 +617,9 @@ void CommandManager::BuildOpeningCommand()
     // Exit
     //---------------------------------------------------
 
-    BOOL saveExist = PathFileExists("res\\script\\save");
+    bool saveExist = SaveManager::Get()->SaveFolderExists();
     bool enable = false;
-    if (saveExist == TRUE)
+    if (saveExist)
     {
         enable = true;
     }

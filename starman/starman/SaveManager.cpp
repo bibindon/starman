@@ -610,3 +610,17 @@ void SaveManager::SetLangFile(const std::string lang)
     file.close();
 }
 
+bool SaveManager::SaveFolderExists()
+{
+    BOOL result = PathIsDirectory(m_savedata_folder.c_str());
+
+    if (result == TRUE)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+

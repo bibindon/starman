@@ -1435,9 +1435,9 @@ void SeqBattle::OperateCommand()
 void SeqBattle::InitLoad()
 {
     // セーブデータがあるか否か
-    int saveExist = PathFileExists("res\\script\\save");
+    bool saveExist = SaveManager::Get()->SaveFolderExists();
 
-    if (saveExist == FALSE)
+    if (!saveExist)
     {
         m_bSavedataExists = false;
         SAFE_DELETE(m_loadThread);
