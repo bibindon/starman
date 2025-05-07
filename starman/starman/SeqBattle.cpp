@@ -2685,7 +2685,7 @@ void SeqBattle::RenderCommon2D()
 
     // TODO 微調整
     if (m_eState != eBattleState::LOAD &&
-        m_eState != eBattleState::TITLE &&
+        // m_eState != eBattleState::TITLE && // タイトル画面でもポップアップが必要
         // m_eState != eBattleState::MENU && // メニュー画面でもポップアップが必要
         m_eState != eBattleState::OPENING &&
         m_eState != eBattleState::TALK)
