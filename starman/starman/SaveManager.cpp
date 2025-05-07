@@ -612,9 +612,10 @@ void SaveManager::SetLangFile(const std::string lang)
 
 bool SaveManager::SaveFolderExists()
 {
+    // ディレクトリだった時、TRUEではなく16が返ってくるので注意
     BOOL result = PathIsDirectory(m_savedata_folder.c_str());
 
-    if (result == TRUE)
+    if (result != FALSE)
     {
         return true;
     }
