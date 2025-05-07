@@ -104,7 +104,7 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap["Arrow"] = animSetting;
     }
-    m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman\\hoshiman.x", pos, rot, 1.f, animSetMap);
+    m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman.x", pos, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 
@@ -128,7 +128,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\rock1\\rock1.x", pos, rot, 0.1f);
+        Mesh * mesh = NEW Mesh("res\\model\\rock1.x", pos, rot, 0.1f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î"] = mesh;
@@ -136,7 +136,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\stick\\stick.x", pos, rot, 1.f);
+        Mesh * mesh = NEW Mesh("res\\model\\stick.x", pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["–Ø‚Ì–_"] = mesh;
@@ -144,7 +144,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ax\\ax.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\ax.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î•€"] = mesh;
@@ -152,7 +152,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\atlatl\\atlatl.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\atlatl.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["ƒAƒgƒ‰ƒgƒ‹"] = mesh;
@@ -160,7 +160,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\atlatl\\arrow.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\arrow.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["ƒAƒgƒ‰ƒgƒ‹‚Ì–î"] = mesh;
@@ -168,7 +168,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ironPipe\\ironPipe.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\ironPipe.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["“SƒpƒCƒv"] = mesh;
@@ -176,7 +176,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx\\ironPipeEx.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î•t‚«“SƒpƒCƒv"] = mesh;
@@ -184,7 +184,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\spear\\spear.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\spear.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["Î‘„"] = mesh;
@@ -192,7 +192,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(D3DX_PI / 2, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\bow\\bow.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\bow.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["‹|–î‚Ì‹|"] = mesh;
@@ -200,7 +200,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, -0.3f);
         D3DXVECTOR3 rot = D3DXVECTOR3(D3DX_PI / 2, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\bow\\arrow.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\arrow.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["‹|–î‚Ì–î"] = mesh;
@@ -208,7 +208,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\torch\\torch.x", pos, rot, 1.f);
+        Mesh * mesh = NEW Mesh("res\\model\\torch.x", pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh["¼–¾"] = mesh;
@@ -218,35 +218,35 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Back1] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Back2] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Front] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Left] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Right] = mesh;
     }

@@ -57,7 +57,7 @@ Map::~Map()
 void Map::Init()
 {
     {
-        Mesh* mesh = NEW Mesh("res\\model\\prolitan\\prolitan.x",
+        Mesh* mesh = NEW Mesh("res\\model\\prolitan.x",
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               1.0f);
@@ -65,7 +65,7 @@ void Map::Init()
         m_meshMap["Map"] = mesh;
     }
     {
-        Mesh* mesh = NEW Mesh("res\\model\\prolitan\\sea.x",
+        Mesh* mesh = NEW Mesh("res\\model\\sea.x",
                               D3DXVECTOR3(10.f, 10.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               10.0f);
@@ -114,7 +114,7 @@ void Map::Init()
         Mesh* mesh { nullptr };
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        mesh = NEW Mesh("res\\model\\hemisphere\\hemisphere.x", pos, rot, 180000.0f);
+        mesh = NEW Mesh("res\\model\\hemisphere.x", pos, rot, 180000.0f);
         mesh->Init();
         m_meshMap["sky"] = mesh;
     }
@@ -122,7 +122,7 @@ void Map::Init()
         D3DXVECTOR3 pos = D3DXVECTOR3(11.f, 491.5f, -572.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = NEW Mesh("res\\shader\\mesh_shader_cull_none.fx",
-                              "res\\model\\precision\\precision.x",
+                              "res\\model\\precision.x",
                               pos,
                               rot,
                               1.3f);
@@ -133,7 +133,7 @@ void Map::Init()
         D3DXVECTOR3 pos = D3DXVECTOR3(15.84f, 491.5f, -570.95f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
         Mesh* mesh = NEW Mesh("res\\shader\\mesh_shader.fx",
-                              "res\\model\\chest\\chest.x",
+                              "res\\model\\chest.x",
                               pos,
                               rot,
                               1.0f);
@@ -161,7 +161,7 @@ void Map::Init()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-1425.4f, 20.1f, -598.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\rock2\\rock2.x", pos, rot, 10.f);
+        Mesh* mesh = NEW Mesh("res\\model\\rock2.x", pos, rot, 10.f);
         mesh->Init();
         m_meshMap["rock2"] = mesh;
     }
@@ -169,7 +169,7 @@ void Map::Init()
     //--------------------------------------------
     // ‘¾—z
     //--------------------------------------------
-    m_pSun = NEW MeshNoShade("res\\model\\sun\\sun.x",
+    m_pSun = NEW MeshNoShade("res\\model\\sun.x",
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
                              15000.0f);
@@ -240,7 +240,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* daikeiman = NEW AnimMesh("res\\model\\daikeiman\\daikeiman.x",
+        AnimMesh* daikeiman = NEW AnimMesh("res\\model\\daikeiman.x",
                                            pos,
                                            rot,
                                            1.f,
@@ -309,7 +309,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman\\sankakuman.x", pos, rot, 0.66f, animSetMap);
+        AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman.x", pos, rot, 0.66f, animSetMap);
         sankakuman->SetAnim("Sit");
         m_NPC[Common::LoadString_(IDS_STRING112)] = sankakuman;
     }
@@ -374,7 +374,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* shikakuman = NEW AnimMesh("res\\model\\shikakuman\\shikakuman.x",
+        AnimMesh* shikakuman = NEW AnimMesh("res\\model\\shikakuman.x",
                                             pos,
                                             rot,
                                             0.66f,
@@ -443,7 +443,7 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap["LieDown"] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim\\vim.x", pos, rot, 1.f, animSetMap);
+        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim.x", pos, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
         m_NPC[Common::LoadString_(IDS_STRING122)] = animMesh;
     }
@@ -1777,15 +1777,15 @@ void Map::SetThrownMagic(const D3DXVECTOR3& pos,
 
     if (magicType == NSStarmanLib::eMagicType::Fire)
     {
-        xfilename = "res\\model\\MagicFire\\MagicFire.x";
+        xfilename = "res\\model\\MagicFire.x";
     }
     else if (magicType == NSStarmanLib::eMagicType::Ice)
     {
-        xfilename = "res\\model\\MagicIce\\MagicIce.x";
+        xfilename = "res\\model\\MagicIce.x";
     }
     else if (magicType == NSStarmanLib::eMagicType::Dark)
     {
-        xfilename = "res\\model\\MagicDark\\MagicDark.x";
+        xfilename = "res\\model\\MagicDark.x";
     }
 
     D3DXVECTOR3 rot(0.f, 0.f, 0.f);

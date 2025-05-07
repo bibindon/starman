@@ -393,11 +393,11 @@ void Raft2::Init(const int id)
     D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
 
     {
-        m_meshRaft = NEW Mesh("res\\model\\raft\\raft.x", pos, rot, 1.f);
+        m_meshRaft = NEW Mesh("res\\model\\raft.x", pos, rot, 1.f);
         m_meshRaft->Init();
     }
     {
-        m_meshRaftCollision = NEW Mesh("res\\model\\raft\\raftCollision.x", pos, rot, 1.f);
+        m_meshRaftCollision = NEW Mesh("res\\model\\raftCollision.x", pos, rot, 1.f);
         m_meshRaftCollision->Init();
     }
     {
@@ -418,7 +418,7 @@ void Raft2::Init(const int id)
             animSetting.m_stopEnd = true;
             animSetMap["SailOff"] = animSetting;
         }
-        m_meshSail = NEW AnimMesh("res\\model\\raft\\sail.x", pos, rot, 1.f, animSetMap);
+        m_meshSail = NEW AnimMesh("res\\model\\sail.x", pos, rot, 1.f, animSetMap);
         if (raft.GetSail())
         {
             m_meshSail->SetAnim("SailOn");
@@ -445,7 +445,7 @@ void Raft2::Init(const int id)
             animSetting.m_loop = false;
             animSetMap["Pull"] = animSetting;
         }
-        m_meshOarLeft = NEW AnimMesh("res\\model\\raft\\oarLeft.x", pos, rot, 1.f, animSetMap);
+        m_meshOarLeft = NEW AnimMesh("res\\model\\oarLeft.x", pos, rot, 1.f, animSetMap);
         m_meshOarLeft->SetAnim("Idle");
         m_meshOarLeft->SetAnimSpeed(0.5f / 60.f);
     }
@@ -465,7 +465,7 @@ void Raft2::Init(const int id)
             animSetting.m_loop = false;
             animSetMap["Pull"] = animSetting;
         }
-        m_meshOarRight = NEW AnimMesh("res\\model\\raft\\oarRight.x", pos, rot, 1.f, animSetMap);
+        m_meshOarRight = NEW AnimMesh("res\\model\\oarRight.x", pos, rot, 1.f, animSetMap);
         m_meshOarRight->SetAnim("Idle");
         m_meshOarRight->SetAnimSpeed(0.5f / 60.f);
     }
@@ -478,7 +478,7 @@ void Raft2::Init(const int id)
             animSetting.m_loop = true;
             animSetMap["Idle"] = animSetting;
         }
-        m_meshCord = NEW AnimMesh("res\\model\\raft\\cord.x", pos, rot, 1.f, animSetMap);
+        m_meshCord = NEW AnimMesh("res\\model\\cord.x", pos, rot, 1.f, animSetMap);
         m_meshCord->SetAnim("Idle");
         D3DXVECTOR3 centerPos(0.584f, 1.554f, 1.140f);
         m_meshCord->SetCenterPos(centerPos);

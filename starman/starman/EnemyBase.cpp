@@ -58,7 +58,7 @@ bool EnemyBase::Init()
                 animSetting.m_loop = false;
                 animSetMap["Attack"] = animSetting;
             }
-            m_AnimMesh = NEW AnimMesh("res\\model\\rippoutai\\rippoutai.x",
+            m_AnimMesh = NEW AnimMesh("res\\model\\rippoutai.x",
                 m_loadingPos, m_rotate, 0.5f, animSetMap);
             SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
             

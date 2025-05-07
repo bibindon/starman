@@ -51,7 +51,7 @@ bool EnemyGhost::Init()
                 animSetting.m_loop = false;
                 animSetMap["Attack"] = animSetting;
             }
-            m_AnimMesh = NEW AnimMesh("res\\model\\enemyGhost\\enemyGhost.x",
+            m_AnimMesh = NEW AnimMesh("res\\model\\enemyGhost.x",
                 m_loadingPos, m_rotate, 1.f, animSetMap);
             SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
             

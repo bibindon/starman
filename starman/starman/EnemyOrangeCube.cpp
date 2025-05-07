@@ -51,7 +51,7 @@ bool EnemyOrangeCube::Init()
                 animSetting.m_loop = false;
                 animSetMap["Attack"] = animSetting;
             }
-            m_AnimMesh = NEW AnimMesh("res\\model\\enemyOrangeCube\\enemyOrangeCube.x",
+            m_AnimMesh = NEW AnimMesh("res\\model\\enemyOrangeCube.x",
                 m_loadingPos, m_rotate, 0.5f, animSetMap);
             SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
             
