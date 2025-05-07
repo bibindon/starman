@@ -9,94 +9,94 @@
 
 std::vector<std::string> ListFilesInFolder(const std::string& folder)
 {
-	std::vector<std::string> files;
-	std::string search_path = folder + "\\*.*";
+    std::vector<std::string> files;
+    std::string search_path = folder + "\\*.*";
 
-	WIN32_FIND_DATA fd;
-	HANDLE hFind = FindFirstFile(search_path.c_str(), &fd);
+    WIN32_FIND_DATA fd;
+    HANDLE hFind = FindFirstFile(search_path.c_str(), &fd);
 
-	if (hFind != INVALID_HANDLE_VALUE)
-	{
-		do
-		{
-			if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-			{
-				files.push_back(fd.cFileName);
-			}
-		} while (FindNextFile(hFind, &fd));
+    if (hFind != INVALID_HANDLE_VALUE)
+    {
+        do
+        {
+            if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+            {
+                files.push_back(fd.cFileName);
+            }
+        } while (FindNextFile(hFind, &fd));
 
-		FindClose(hFind);
-	}
+        FindClose(hFind);
+    }
 
-	return files;
+    return files;
 }
 
 int main()
 {
     std::string text = R"Gene(<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Starman" Language="1041" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Product Id="*" Name="Starman" Language="1041" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate EmbedCab="yes" />
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+        <MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="Installer" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-			<ComponentGroupRef Id="MyAppFiles" />
-		</Feature>
-	</Product>
+        <Feature Id="ProductFeature" Title="Installer" Level="1">
+            <ComponentGroupRef Id="ProductComponents" />
+            <ComponentGroupRef Id="MyAppFiles" />
+        </Feature>
+    </Product>
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramMenuFolder">
-			</Directory>
-			<Directory Id="ProgramFiles64Folder">
-				<Directory Id="INSTALLFOLDER" Name="starman">
-					<Directory Id="RESOURCE" Name="res">
-						<Directory Id="IMAGE" Name="image"/>
-						<Directory Id="SHADER" Name="shader"/>
-						<Directory Id="MODEL" Name="model"/>
-						<Directory Id="SCRIPT_" Name="script">
-							<Directory Id="SCRIPT_ORIGIN" Name="origin"/>
-						</Directory>
-						<Directory Id="SOUND" Name="sound"/>
-					</Directory>
-				</Directory>
-			</Directory>
-		</Directory>
-	</Fragment>
+    <Fragment>
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramMenuFolder">
+            </Directory>
+            <Directory Id="ProgramFiles64Folder">
+                <Directory Id="INSTALLFOLDER" Name="starman">
+                    <Directory Id="RESOURCE" Name="res">
+                        <Directory Id="IMAGE" Name="image"/>
+                        <Directory Id="SHADER" Name="shader"/>
+                        <Directory Id="MODEL" Name="model"/>
+                        <Directory Id="SCRIPT_" Name="script">
+                            <Directory Id="SCRIPT_ORIGIN" Name="origin"/>
+                        </Directory>
+                        <Directory Id="SOUND" Name="sound"/>
+                    </Directory>
+                </Directory>
+            </Directory>
+        </Directory>
+    </Fragment>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<Component Id="ProductComponent" Guid="*">
-				<File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes">
-					<Shortcut Id="WixInstStartmenu" Directory="ProgramMenuFolder"
-							  Name="starman" WorkingDirectory="INSTALLFOLDER"
-							  Advertise="yes">
-						<Icon Id="WixInstIco.exe" SourceFile="$(var.starman.TargetPath)"/>
-					</Shortcut>
-				</File>
-			</Component>
-			<Component Guid="*">
-				<?if $(var.Configuration) = Debug ?>
-				<File Source="$(var.starman.TargetDir)d3dx9d_43.dll" KeyPath="yes"/>
-				<?else?>
-				<File Source="$(var.starman.TargetDir)d3dx9_43.dll" KeyPath="yes"/>
-				<?endif?>
-			</Component>
-			<Component Guid="*">
-				<File Source="$(var.starman.TargetDir)D3DCompiler_43.dll" KeyPath="yes"/>
-			</Component>
-		</ComponentGroup>
+    <Fragment>
+        <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+            <Component Id="ProductComponent" Guid="*">
+                <File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes">
+                    <Shortcut Id="WixInstStartmenu" Directory="ProgramMenuFolder"
+                              Name="starman" WorkingDirectory="INSTALLFOLDER"
+                              Advertise="yes">
+                        <Icon Id="WixInstIco.exe" SourceFile="$(var.starman.TargetPath)"/>
+                    </Shortcut>
+                </File>
+            </Component>
+            <Component Guid="*">
+                <?if $(var.Configuration) = Debug ?>
+                <File Source="$(var.starman.TargetDir)d3dx9d_43.dll" KeyPath="yes"/>
+                <?else?>
+                <File Source="$(var.starman.TargetDir)d3dx9_43.dll" KeyPath="yes"/>
+                <?endif?>
+            </Component>
+            <Component Guid="*">
+                <File Source="$(var.starman.TargetDir)D3DCompiler_43.dll" KeyPath="yes"/>
+            </Component>
+        </ComponentGroup>
 
 )Gene";
 
-	text += R"Gene(        <ComponentGroup Id = "MyAppFiles">
+    text += R"Gene(        <ComponentGroup Id = "MyAppFiles">
 )Gene";
 
-	// ここでリソースファイルを列挙
-	{
+    // ここでリソースファイルを列挙
+    {
         auto fileList = ListFilesInFolder("..\\starman\\res\\image");
         for (auto& filename : fileList)
         {
@@ -104,9 +104,9 @@ int main()
             text += "                <File Source=\"../starman/res/image/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
-	}
+    }
 
-	{
+    {
         auto fileList = ListFilesInFolder("..\\starman\\res\\shader");
         for (auto& filename : fileList)
         {
@@ -114,9 +114,9 @@ int main()
             text += "                <File Source=\"../starman/res/shader/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
-	}
+    }
 
-	{
+    {
         auto fileList = ListFilesInFolder("..\\starman\\res\\model");
         for (auto& filename : fileList)
         {
@@ -124,9 +124,9 @@ int main()
             text += "                <File Source=\"../starman/res/model/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
-	}
+    }
 
-	{
+    {
         auto fileList = ListFilesInFolder("..\\starman\\res\\script\\origin");
         for (auto& filename : fileList)
         {
@@ -134,9 +134,9 @@ int main()
             text += "                <File Source=\"../starman/res/script/origin/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
-	}
+    }
 
-	{
+    {
         auto fileList = ListFilesInFolder("..\\starman\\res\\sound");
         for (auto& filename : fileList)
         {
@@ -144,17 +144,17 @@ int main()
             text += "                <File Source=\"../starman/res/sound/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
-	}
+    }
 
-	text += R"Gene(
-		</ComponentGroup>
-	</Fragment>
+    text += R"Gene(
+        </ComponentGroup>
+    </Fragment>
 </Wix>
 )Gene";
 
     std::ofstream outfile("Product.wxs");
     if (!outfile)
-	{
+    {
         std::cerr << "ファイルを開けませんでした\n";
         return 1;
     }
