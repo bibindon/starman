@@ -12,7 +12,7 @@
 		</Feature>
 		
 		<UIRef Id="WixUI_Minimal"/>
-		<WixVariable Id="WIXUI_LICENSE_RTF" Value="license.rtf" />
+		<WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
 	</Product>
 
 	<Fragment>
