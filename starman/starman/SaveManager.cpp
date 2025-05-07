@@ -23,6 +23,9 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 
+#include <windows.h>
+#include <shlobj.h>
+
 SaveManager* SaveManager::m_obj = nullptr;
 
 SaveManager* SaveManager::Get()
@@ -42,6 +45,77 @@ SaveManager* SaveManager::Get()
     }
 
     return m_obj;
+}
+
+bool CreateDirectoriesRecursively(const std::string& path) {
+    std::stringstream ss(path);
+    std::string item;
+    std::string currentPath;
+
+    // Windowsのパス区切りに対応（\ または /）
+    char delimiter = '\\';
+    if (path.find('/') != std::string::npos)
+    {
+        delimiter = '/';
+    }
+
+    while (std::getline(ss, item, delimiter))
+    {
+        if (item.empty())
+        {
+            continue;
+        }
+
+        currentPath += item + delimiter;
+
+        if (GetFileAttributesA(currentPath.c_str()) == INVALID_FILE_ATTRIBUTES)
+        {
+            if (!CreateDirectoryA(currentPath.c_str(), NULL))
+            {
+                DWORD err = GetLastError();
+                if (err != ERROR_ALREADY_EXISTS)
+                {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+SaveManager::SaveManager()
+{
+    {
+        char work[MAX_PATH];
+        SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, work); // %APPDATA%
+
+        std::string savedir;
+        savedir = work;
+        savedir += "\\Starman\\res\\script";
+
+        if (PathFileExists(savedir.c_str()) == FALSE)
+        {
+            auto result = CreateDirectoriesRecursively(savedir);
+            if (!result)
+            {
+                throw std::exception();
+            }
+        }
+    }
+
+    {
+        char path[MAX_PATH];
+        SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, path); // %APPDATA%
+
+        m_savedata_path = path;
+        m_savedata_path += "\\Starman\\";
+        m_savedata_path += SAVEDATA_PATH;
+
+        m_savedata_folder = path;
+        m_savedata_folder += "\\Starman\\";
+        m_savedata_folder += SAVEDATA_FOLDER;
+    }
 }
 
 void SaveManager::Destroy()
@@ -68,7 +142,8 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
 std::string SaveManager::CreateSaveFilePath(const std::string& filename)
 {
     std::string saveDataPath;
-    saveDataPath = SAVEDATA_PATH;
+
+    saveDataPath = m_savedata_path;
     saveDataPath += filename;
 
     if (Common::DeployEncryptMode())
@@ -89,14 +164,21 @@ std::string SaveManager::GetOriginMapPath()
 
 std::string SaveManager::GetSavefileMapPath()
 {
-    std::string path = SAVEDATA_PATH + "map_obj.bin";
+    std::string path = m_savedata_path + "map_obj.bin";
     return path;
 }
 
 void SaveManager::Save()
 {
     // フォルダがなければ作る
-    std::string savedir = "res\\script\\save";
+    std::string savedir;
+
+    char work[MAX_PATH];
+    SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, work); // %APPDATA%
+
+    savedir = work;
+    savedir += "\\Starman\\";
+    savedir += "res\\script\\save";
 
     if (PathFileExists(savedir.c_str()) == FALSE)
     {
@@ -126,7 +208,7 @@ void SaveManager::Save()
     inventory->Save(CreateSaveFilePath("inventory.csv"), m_encrypt);
 
     auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
-    storehouseManager->Save(CreateSaveFilePath("storehouseListSave.csv"), SAVEDATA_FOLDER);
+    storehouseManager->Save(CreateSaveFilePath("storehouseListSave.csv"), m_savedata_folder);
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Save(CreateSaveFilePath("weaponSave.csv"), m_encrypt);
@@ -474,17 +556,57 @@ void SaveManager::DeleteSavedata()
 {
     // セーブデータがなければセーブデータの削除は行わない（行えない）
     // セーブデータがないのにセーブデータの削除を行う関数が呼ばれることは問題ない。
-    BOOL result = PathIsDirectory(SAVEDATA_FOLDER.c_str());
+    BOOL result = PathIsDirectory(m_savedata_folder.c_str());
 
     if (result == FALSE)
     {
         return;
     }
 
-    DeleteFolder(SAVEDATA_FOLDER);
+    DeleteFolder(m_savedata_folder);
 }
 
 int SaveManager::GetProgress()
 {
     return m_progress.load();
 }
+
+std::string SaveManager::GetLangFile()
+{
+    std::string result;
+
+    std::string langFilePath;
+    char appData[MAX_PATH];
+    SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appData); // %APPDATA%
+
+    langFilePath = appData;
+    langFilePath += "\\Starman\\res\\script\\lang.ini";
+
+    auto exists = PathFileExists(langFilePath.c_str());
+    if (exists == TRUE)
+    {
+        std::ifstream file(langFilePath);
+
+        std::string word;
+        file >> word;
+        file.close();
+        result = word;
+    }
+
+    return result;
+}
+
+void SaveManager::SetLangFile(const std::string lang)
+{
+    std::string langFilePath;
+    char appData[MAX_PATH];
+    SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appData); // %APPDATA%
+
+    langFilePath = appData;
+    langFilePath += "\\Starman\\res\\script\\lang.ini";
+
+    std::ofstream file(langFilePath, std::ios::out | std::ios::trunc);
+    file << lang;
+    file.close();
+}
+

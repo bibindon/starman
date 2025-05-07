@@ -109,16 +109,12 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     {
         // ƒVƒXƒeƒ€‚ÌUIŒ¾Œê
         bool bJapan = false;
-        auto exists = PathFileExists("res\\script\\lang.ini");
-        if (exists == TRUE)
+
+        std::string lang = SaveManager::Get()->GetLangFile();
+
+        if (!lang.empty())
         {
-            std::ifstream file("res\\script\\lang.ini");
-
-            std::string word;
-            file >> word;
-            file.close();
-
-            if (word == "Japanese")
+            if (lang == "Japanese")
             {
                 bJapan = true;
             }

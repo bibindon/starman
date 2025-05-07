@@ -201,17 +201,13 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
         {
             PopUp2::Get()->SetText("Ä‹N“®‚É—LŒø‚É‚È‚è‚Ü‚·B");
 
-            std::ofstream file("res\\script\\lang.ini", std::ios::out | std::ios::trunc);
-            file << "Japanese";
-            file.close();
+            SaveManager::Get()->SetLangFile("Japanese");
         }
         else if (result == "English")
         {
             PopUp2::Get()->SetText("This will take effect after a restart.");
 
-            std::ofstream file("res\\script\\lang.ini", std::ios::out | std::ios::trunc);
-            file << "English";
-            file.close();
+            SaveManager::Get()->SetLangFile("English");
         }
         else if (result == "Back")
         {
