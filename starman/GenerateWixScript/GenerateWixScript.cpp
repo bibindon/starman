@@ -33,10 +33,9 @@ std::vector<std::string> ListFilesInFolder(const std::string& folder)
 
 int main()
 {
-    std::string text = R"Gene(
-<?xml version="1.0" encoding="UTF-8"?>
+    std::string text = R"Gene(<?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+	<Product Id="*" Name="Starman" Language="1041" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />

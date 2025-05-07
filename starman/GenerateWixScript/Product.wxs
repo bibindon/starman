@@ -1,7 +1,7 @@
 
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+	<Product Id="*" Name="starman" Language="1041" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -398,6 +398,366 @@
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/mesh_shader_no_shade.fx" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/arrow.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/atlatl.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/ax.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/bag.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/bow.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/chest.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/colli.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/cord.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/cottage.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/cottage_diffuse.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/cottage_normal.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/cube2.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/cube6.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/daikeiman.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/DarkStone.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/dessert.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/disk.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/donguri.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/donguri.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/DoorType1_1.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/DoorType1_2.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyBigCube.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyEnchu.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyGhost.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyHanen.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyHankyuu.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyOrangeCube.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemySmallCube.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemySphere.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/gain.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/grass.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/grass.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/grass1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/grass2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/GreyBricks.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hemisphere.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_armL1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_armL2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_armR1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_armR2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_body.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_head.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_legL1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_legL2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_legR1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/hoshiman_legR2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/ironPipe.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/ironPipeEx.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/leaf.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/MagicDark.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/MagicFire.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/MagicIce.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Map.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/nes.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/noble.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/oarLeft.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/oarRight.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/plant.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/plantMany.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/plantMany.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/precision.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/preview_75282.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/prolitan.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/raft.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/raftCollision.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/rippoutai.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/rock1.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/rock2.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Rocks_Diffuse.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/rockWithDepressions.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/RoofTiles.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Rusted Metal.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sail.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sankakuman.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sea.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sea.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/shikakuman.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sky.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sotetsu.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sotetsu.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/spear.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sphere.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sphere2.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/stem.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/stick.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/StoneWall1.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sun.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tex.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tex1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/texture_gradient.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/ThePaintedWenchSign.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/ThePaintedWenchSign.jpg.001.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tiger.bmp" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tiger.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/torch.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tree1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tree1.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tree2.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/TreeLogEdgeWeathered.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/vim.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/vsco.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/water.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/webnin.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/WindowBlue1.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/WindowsBlue2.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/WindowsBlue2.jpg.001.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/WindowsBlue2.jpg.002.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/wolf.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Wolf_Body.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Wolf_Eyes_1.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Wolf_Eyes_2.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Wolf_Fur.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Wood.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Wood.jpg.004.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/xeoff.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/yashi.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/yashi.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/ZKWawel_1558_Skrzynia.png" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/activityBase.csv" />
