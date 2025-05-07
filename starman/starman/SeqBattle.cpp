@@ -432,7 +432,15 @@ SeqBattle::SeqBattle()
     ::SoundEffect::get_ton()->load("res\\sound\\drink.wav");
 
     m_spriteGameover = NEW Sprite("res\\image\\gameover.png");
-    m_spriteExamine = NEW Sprite("res\\image\\examine.png");
+
+    if (!SharedObj::IsEnglish())
+    {
+        m_spriteExamine = NEW Sprite("res\\image\\examine.png");
+    }
+    else
+    {
+        m_spriteExamine = NEW Sprite("res\\image\\examine.en.png");
+    }
 
     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
     NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
