@@ -11,6 +11,7 @@
 #include <Shlwapi.h>
 #include "Camera.h"
 #include "Rain.h"
+#include "PopUp2.h"
 
 Title::Title(const bool blackFadeIn, const bool bFirst)
 {
@@ -183,10 +184,42 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             Rain::Get()->SetShow(true);
             m_bFirst = false;
         }
+        else if (result == "Language")
+        {
+            m_titleCommand->Finalize();
+            SAFE_DELETE(m_titleCommand);
+
+            m_titleCommand = NEW CommandManager();
+            m_titleCommand->Init(CommandManager::eType::Title_Language);
+        }
         else if (result == "Exit")
         {
             m_eMenu = eTitleMenu::EXIT;
             *sequence = eSequence::EXIT;
+        }
+        else if (result == "Japanese")
+        {
+            PopUp2::Get()->SetText("Ä‹N“®‚É—LŒø‚É‚È‚è‚Ü‚·B");
+
+            std::ofstream file("res\\script\\lang.ini", std::ios::out | std::ios::trunc);
+            file << "Japanese";
+            file.close();
+        }
+        else if (result == "English")
+        {
+            PopUp2::Get()->SetText("This will take effect after a restart.");
+
+            std::ofstream file("res\\script\\lang.ini", std::ios::out | std::ios::trunc);
+            file << "English";
+            file.close();
+        }
+        else if (result == "Back")
+        {
+            m_titleCommand->Finalize();
+            SAFE_DELETE(m_titleCommand);
+
+            m_titleCommand = NEW CommandManager();
+            m_titleCommand->Init(CommandManager::eType::Title);
         }
     }
 }

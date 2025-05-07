@@ -2622,6 +2622,8 @@ void SeqBattle::UpdateCommon()
 
     if (m_eState == eBattleState::TITLE)
     {
+        // タイトルでもポップアップを使う
+        PopUp2::Get()->Update();
         return;
     }
 

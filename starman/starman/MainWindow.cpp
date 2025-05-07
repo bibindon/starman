@@ -104,14 +104,32 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     // 言語設定
     // 英語と日本語のみ
     // システムが日本語だったら日本語、それ以外だったら英語
+    // 設定ファイルで指定されていたらそちらが優先される
     //-------------------------------------------------
     {
         // システムのUI言語
         bool bJapan = false;
-        LANGID langId = GetUserDefaultUILanguage();
-        if (langId == MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN))
+        auto exists = PathFileExists("res\\script\\lang.ini");
+        if (exists == TRUE)
         {
-            bJapan = true;
+            std::ifstream file("res\\script\\lang.ini");
+
+            std::string word;
+            file >> word;
+            file.close();
+
+            if (word == "Japanese")
+            {
+                bJapan = true;
+            }
+        }
+        else
+        {
+            LANGID langId = GetUserDefaultUILanguage();
+            if (langId == MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN))
+            {
+                bJapan = true;
+            }
         }
 
         SharedObj::SetEnglish(!bJapan);

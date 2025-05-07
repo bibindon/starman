@@ -10,6 +10,7 @@ public:
     enum class eType
     {
         Title,
+        Title_Language,
         Main,
     };
 
@@ -27,6 +28,7 @@ private:
     // 0.5•b‚¨‚«‚ÉŒÄ‚Î‚ê‚éH
     void BuildCommand();
     void BuildOpeningCommand();
+    void BuildLangCommand();
 
     NSCommand::CommandLib* m_commandLib = nullptr;
 

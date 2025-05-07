@@ -114,3 +114,4 @@ prolitan2.blend
 /starman/UnitTest2/Output/x64/Deploy/D3DCompiler_43.dll
 /starman/UnitTest2/Output/x64/Deploy/storehouseListSave.csv
 *.ods#
+/starman/starman/res/script/lang.ini

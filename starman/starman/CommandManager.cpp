@@ -182,6 +182,7 @@ void CommandManager::Init(const eType type)
     {
         delete m_commandLib;
     }
+
     m_commandLib = NEW NSCommand::CommandLib();
 
     NSCommand::Sprite* sprCursor = NEW NSCommand::Sprite(SharedObj::GetD3DDevice());
@@ -197,6 +198,10 @@ void CommandManager::Init(const eType type)
     if (type == eType::Title)
     {
         BuildOpeningCommand();
+    }
+    else if (type == eType::Title_Language)
+    {
+        BuildLangCommand();
     }
     else if (type == eType::Main)
     {
@@ -625,6 +630,21 @@ void CommandManager::BuildOpeningCommand()
     m_commandLib->RemoveAll();
     m_commandLib->UpsertCommand("Start", true);
     m_commandLib->UpsertCommand("Continue", enable);
+    m_commandLib->UpsertCommand("Language", true);
     m_commandLib->UpsertCommand("Exit", true);
+}
+
+void CommandManager::BuildLangCommand()
+{
+    //---------------------------------------------------
+    // Japanese
+    // English
+    // Back
+    //---------------------------------------------------
+
+    m_commandLib->RemoveAll();
+    m_commandLib->UpsertCommand("Japanese", true);
+    m_commandLib->UpsertCommand("English", true);
+    m_commandLib->UpsertCommand("Back", true);
 }
 
