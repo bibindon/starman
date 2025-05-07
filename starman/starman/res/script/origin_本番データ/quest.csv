@@ -314,7 +314,9 @@ Q31",,"位置
 <itemDel>ココナッツの実"
 Q32,"クエストが完了していたら
 クエストが完了していないなら","Q31
-Q32",,倉庫AにXがY個あったら,1:ココナッツの実:4,,"<npc><ダイケイマン><talkEnable>y
+Q32",,"倉庫AにXがY個あったら
+NPCのXが生存","1:ココナッツの実:4
+daikeiman",,"<npc><ダイケイマン><talkEnable>y
 <npc><ダイケイマン><talkScript>res\\script\\origin\\talkFinishQuest13.csv"
 Q33,"クエストが完了していたら
 クエストが完了していないなら","Q32
