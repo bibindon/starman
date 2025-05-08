@@ -80,7 +80,7 @@ void MeshClone::Init()
                                  SHADER_FILENAME.c_str(),
                                  nullptr,
                                  nullptr,
-                                 0,
+                                 D3DXSHADER_OPTIMIZATION_LEVEL3,
                                  nullptr,
                                  &_D3DEffect,
                                  nullptr);
