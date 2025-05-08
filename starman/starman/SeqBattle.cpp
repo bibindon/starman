@@ -24,6 +24,7 @@
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 #include "QuestManager.h"
 #include "Rain.h"
 #include <cassert>
@@ -2693,6 +2694,8 @@ void SeqBattle::UpdateCommon()
 
     // クラフトによってイカダが生成されることがあるため、航海中でなくても更新処理を行う。
     SharedObj::Voyage()->Update();
+
+    NSStarmanLib::NpcStatusManager::GetObj()->Update();
 }
 
 void SeqBattle::RenderCommon()
