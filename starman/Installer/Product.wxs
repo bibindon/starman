@@ -9,14 +9,51 @@
         <Feature Id="ProductFeature" Title="Installer" Level="1">
             <ComponentGroupRef Id="ProductComponents" />
             <ComponentGroupRef Id="MyAppFiles" />
+            <ComponentRef Id="RemoveAppDataComponent" />
         </Feature>
         
         <UIRef Id="WixUI_Minimal"/>
         <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+
+        <Binary Id="PowerShellExe" SourceFile="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" />
+
+        <CustomAction Id="RemoveAppDataFolder"
+                      BinaryKey="PowerShellExe"
+                      ExeCommand="-ExecutionPolicy Bypass -NoExit -Command &quot;Remove-Item -Path ($env:APPDATA + '\Starman') -Recurse -Force -ErrorAction SilentlyContinue&quot;"
+                      Execute="deferred"
+                      Impersonate="yes"
+                      Return="ignore" />
+
+        <InstallExecuteSequence>
+            <Custom Action="RemoveAppDataFolder" After="RemoveFiles">REMOVE="ALL"</Custom>
+        </InstallExecuteSequence>
+
     </Product>
 
     <Fragment>
         <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="AppDataFolder">
+                <Directory Id="StarmanAppDataDir" Name="Starman">
+                    <Component Id="RemoveAppDataComponent" Guid="FBB7D418-AE56-4B63-A81C-31F43E027BD7">
+
+                        <RemoveFile Id="RemoveAllFiles"
+                                    Name="*"
+                                    On="uninstall"
+                                    Directory="StarmanAppDataDir" />
+
+                        <RemoveFolder Id="RemoveStarmanFolder" On="uninstall"  Directory="StarmanAppDataDir" />
+
+                        <RegistryValue Root="HKCU"
+                                       Key="Software\StarmanInstaller"
+                                       Name="CleanupMarker"
+                                       Type="integer"
+                                       Value="1"
+                                       KeyPath="yes"/>
+                    </Component>
+                </Directory>
+            </Directory>
+
+            
             <Directory Id="ProgramMenuFolder">
             </Directory>
             <Directory Id="ProgramFiles64Folder">
@@ -57,7 +94,6 @@
                 <File Source="$(var.starman.TargetDir)D3DCompiler_43.dll" KeyPath="yes"/>
             </Component>
         </ComponentGroup>
-
         <ComponentGroup Id = "MyAppFiles">
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/arrow.png" />
@@ -145,6 +181,9 @@
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/ending10.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/examine.en.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/examine.png" />
@@ -339,22 +378,13 @@
                 <File Source="../starman/res/image/textBack.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/title01.en.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/title01.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
-                <File Source="../starman/res/image/title03.back.png" />
-            </Component>
-            <Component Directory="IMAGE" Guid="*" Win64="yes">
-                <File Source="../starman/res/image/title03.png" />
-            </Component>
-            <Component Directory="IMAGE" Guid="*" Win64="yes">
-                <File Source="../starman/res/image/title04.png" />
-            </Component>
-            <Component Directory="IMAGE" Guid="*" Win64="yes">
-                <File Source="../starman/res/image/titleLogo03.png" />
-            </Component>
-            <Component Directory="IMAGE" Guid="*" Win64="yes">
-                <File Source="../starman/res/image/torch.png" />
+                <File Source="../starman/res/image/torch2.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/vbar.png" />
@@ -441,16 +471,19 @@
                 <File Source="../starman/res/model/cube6.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/daikeiman.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/daikeiman.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/DarkStone.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/dessert.x" />
+                <File Source="../starman/res/model/disk.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/disk.x" />
+                <File Source="../starman/res/model/disk_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/donguri.jpg" />
@@ -468,25 +501,49 @@
                 <File Source="../starman/res/model/enemyBigCube.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyBigCube_tex1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/enemyEnchu.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyEnchu_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/enemyGhost.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyGhost_tex1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/enemyHanen.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyHanen_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/enemyHankyuu.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyHankyuu_tex1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/enemyOrangeCube.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemyOrange_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/enemySmallCube.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/enemySphere.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enemySphere_tex1.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/enymySmall_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/gain.x" />
@@ -564,9 +621,6 @@
                 <File Source="../starman/res/model/MagicIce.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/Map.x" />
-            </Component>
-            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/nes.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
@@ -597,13 +651,25 @@
                 <File Source="../starman/res/model/prolitan.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/prolitan_grass.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/raft.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/raftCollision.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/raft_tex.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/raft_tex2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/rippoutai.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/rippoutai_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/rock1.x" />
@@ -634,6 +700,9 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/sea.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/shikakuman.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/shikakuman.x" />
@@ -690,6 +759,9 @@
                 <File Source="../starman/res/model/tiger.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/torch.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/torch.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
@@ -705,13 +777,22 @@
                 <File Source="../starman/res/model/TreeLogEdgeWeathered.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/vim.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/vim.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/vsco.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/vsco.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/water.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/webnin.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/webnin.x" />
@@ -751,6 +832,9 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/xeoff.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/xeoff_tex.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/yashi.png" />

@@ -33,10 +33,10 @@ std::vector<std::string> ListFilesInFolder(const std::string& folder)
 
 int main()
 {
-    std::string text = R"Gene(<?xml version="1.0" encoding="UTF-8"?>
+    std::string text = R"Gene(<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Product Id="*" Name="Starman" Language="1041" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
-        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+    <Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+        <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
         <MediaTemplate EmbedCab="yes" />
@@ -44,11 +44,51 @@ int main()
         <Feature Id="ProductFeature" Title="Installer" Level="1">
             <ComponentGroupRef Id="ProductComponents" />
             <ComponentGroupRef Id="MyAppFiles" />
+            <ComponentRef Id="RemoveAppDataComponent" />
         </Feature>
+        
+        <UIRef Id="WixUI_Minimal"/>
+        <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+
+        <Binary Id="PowerShellExe" SourceFile="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" />
+
+        <CustomAction Id="RemoveAppDataFolder"
+                      BinaryKey="PowerShellExe"
+                      ExeCommand="-ExecutionPolicy Bypass -NoExit -Command &quot;Remove-Item -Path ($env:APPDATA + '\Starman') -Recurse -Force -ErrorAction SilentlyContinue&quot;"
+                      Execute="deferred"
+                      Impersonate="yes"
+                      Return="ignore" />
+
+        <InstallExecuteSequence>
+            <Custom Action="RemoveAppDataFolder" After="RemoveFiles">REMOVE="ALL"</Custom>
+        </InstallExecuteSequence>
+
     </Product>
 
     <Fragment>
         <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="AppDataFolder">
+                <Directory Id="StarmanAppDataDir" Name="Starman">
+                    <Component Id="RemoveAppDataComponent" Guid="FBB7D418-AE56-4B63-A81C-31F43E027BD7">
+
+                        <RemoveFile Id="RemoveAllFiles"
+                                    Name="*"
+                                    On="uninstall"
+                                    Directory="StarmanAppDataDir" />
+
+                        <RemoveFolder Id="RemoveStarmanFolder" On="uninstall"  Directory="StarmanAppDataDir" />
+
+                        <RegistryValue Root="HKCU"
+                                       Key="Software\StarmanInstaller"
+                                       Name="CleanupMarker"
+                                       Type="integer"
+                                       Value="1"
+                                       KeyPath="yes"/>
+                    </Component>
+                </Directory>
+            </Directory>
+
+            
             <Directory Id="ProgramMenuFolder">
             </Directory>
             <Directory Id="ProgramFiles64Folder">
@@ -89,7 +129,6 @@ int main()
                 <File Source="$(var.starman.TargetDir)D3DCompiler_43.dll" KeyPath="yes"/>
             </Component>
         </ComponentGroup>
-
 )Gene";
 
     text += R"Gene(        <ComponentGroup Id = "MyAppFiles">
