@@ -15,12 +15,17 @@
         
         <UIRef Id="WixUI_Minimal"/>
         <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
+        <WixVariable Id="WixUIBannerBmp" Value="banner.bmp" />
+        <WixVariable Id="WixUIDialogBmp" Value="banner2.bmp" />
 
         <Property Id="APP_DATA_STARMAN">
             <DirectorySearch Id="SearchAppData" Path="[AppDataFolder]">
                 <DirectorySearch Id="SearchStarmanFolder" Path="Starman" />
             </DirectorySearch>
         </Property>
+
+        <Icon Id="MyAppIcon.exe" SourceFile="$(var.starman.TargetPath)" />
+        <Property Id="ARPPRODUCTICON" Value="MyAppIcon.exe" />
         
     </Product>
 

@@ -45,6 +45,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="banner.bmp" />
+    <Content Include="banner2.bmp" />
     <Content Include="license.rtf" />
   </ItemGroup>
   <ItemGroup>
