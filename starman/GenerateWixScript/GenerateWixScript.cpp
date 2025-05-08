@@ -54,7 +54,7 @@ int main()
 
         <CustomAction Id="RemoveAppDataFolder"
                       BinaryKey="PowerShellExe"
-                      ExeCommand="-ExecutionPolicy Bypass -NoExit -Command &quot;Remove-Item -Path ($env:APPDATA + '\Starman') -Recurse -Force -ErrorAction SilentlyContinue&quot;"
+                      ExeCommand="-ExecutionPolicy Bypass -Command &quot;Remove-Item -Path ($env:APPDATA + '\Starman') -Recurse -Force -ErrorAction SilentlyContinue&quot;"
                       Execute="deferred"
                       Impersonate="yes"
                       Return="ignore" />
