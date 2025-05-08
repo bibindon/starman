@@ -97,11 +97,15 @@ private:
     NSStarmanLib::MapObjManager* MapLib();
 
     // bInside : 壁の中にいる場合にtrue
+    // bEnableWallWalk : 通常、3Dモデルの内側から外側へ移動しようとした場合は、衝突判定を行わない。
+    // 岩や木の中に入ってしまったときに、出られなくなってしまうため。
+    // しかし、一部のオブジェクトでは内側から外側への移動を禁止したい。そのために使うフラグ
     D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
                              Mesh* mesh,
                              const D3DXVECTOR3& move,
                              bool* bHit,
-                             bool* bInside);
+                             bool* bInside,
+                             const bool bEnableWallWalk = true);
 
     D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
                              MeshClone* mesh,

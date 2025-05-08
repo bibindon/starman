@@ -1616,7 +1616,14 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             )
         {
             bool bIsHit = false;
-            result = WallSlideSub(pos, pair.second, result, &bIsHit, &bInside1);
+            bool bEnableWallWalk = true;
+
+            if (pair.first == "precision")
+            {
+                bEnableWallWalk = false;
+            }
+
+            result = WallSlideSub(pos, pair.second, result, &bIsHit, &bInside1, bEnableWallWalk);
             if (bIsHit)
             {
                 *bHit = true;
@@ -1934,7 +1941,8 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
                               Mesh* mesh,
                               const D3DXVECTOR3& move,
                               bool* bHit,
-                              bool* bInside)
+                              bool* bInside,
+                              const bool bEnableWallWalk)
 {
     D3DXVECTOR3 result {move};
     D3DXVECTOR3 targetPos = pos - mesh->GetPos();
@@ -2006,7 +2014,7 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
         // 岩の中に入ってしまって、岩から外に出ようとしている場合など。
         float dot = D3DXVec3Dot(&front, &normal_n);
 
-        if (dot < 0)
+        if (dot < 0 || !bEnableWallWalk)
         {
             result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
 
@@ -2017,19 +2025,19 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
             }
             else
             {
-				if (result.y > 0.1f)
-				{
-					// yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
-					auto workY = result.y;
-					workY *= 10.f;
+                if (result.y > 0.1f)
+                {
+                    // yが1.0なら移動速度を1/10、yが0.1なら移動速度を1倍とする
+                    auto workY = result.y;
+                    workY *= 10.f;
 
-					// 減速は1/10までとする。
-					if (workY >= 10.f)
-					{
-						workY = 10.f;
-					}
-					result /= workY;
-				}
+                    // 減速は1/10までとする。
+                    if (workY >= 10.f)
+                    {
+                        workY = 10.f;
+                    }
+                    result /= workY;
+                }
             }
         }
         else
