@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
     <Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
         <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
@@ -15,45 +16,37 @@
         <UIRef Id="WixUI_Minimal"/>
         <WixVariable Id="WixUILicenseRtf" Value="license.rtf" />
 
-        <Binary Id="PowerShellExe" SourceFile="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" />
-
-        <CustomAction Id="RemoveAppDataFolder"
-                      BinaryKey="PowerShellExe"
-                      ExeCommand="-ExecutionPolicy Bypass -Command &quot;Remove-Item -Path ($env:APPDATA + '\Starman') -Recurse -Force -ErrorAction SilentlyContinue&quot;"
-                      Execute="deferred"
-                      Impersonate="yes"
-                      Return="ignore" />
-
-        <InstallExecuteSequence>
-            <Custom Action="RemoveAppDataFolder" After="RemoveFiles">REMOVE="ALL"</Custom>
-        </InstallExecuteSequence>
-
+        <Property Id="APP_DATA_STARMAN">
+            <DirectorySearch Id="SearchAppData" Path="[AppDataFolder]">
+                <DirectorySearch Id="SearchStarmanFolder" Path="Starman" />
+            </DirectorySearch>
+        </Property>
+        
     </Product>
 
     <Fragment>
         <Directory Id="TARGETDIR" Name="SourceDir">
             <Directory Id="AppDataFolder">
                 <Directory Id="StarmanAppDataDir" Name="Starman">
-                    <Component Id="RemoveAppDataComponent" Guid="FBB7D418-AE56-4B63-A81C-31F43E027BD7">
+                    <Component Id="RemoveAppDataComponent" Guid="9E62E537-9F2F-4F3D-BE35-2F62FD5A3F7E">
+                        <RemoveFile Id="RemoveAllFiles" Name="*" On="uninstall" Directory="StarmanAppDataDir" />
 
-                        <RemoveFile Id="RemoveAllFiles"
-                                    Name="*"
-                                    On="uninstall"
-                                    Directory="StarmanAppDataDir" />
+                        <util:RemoveFolderEx On="uninstall"
+                                             Property="APP_DATA_STARMAN" />
 
-                        <RemoveFolder Id="RemoveStarmanFolder" On="uninstall"  Directory="StarmanAppDataDir" />
+                        <!-- Remove the Starman folder itself -->
+                        <RemoveFolder Id="RemoveStarmanFolder" On="uninstall" Directory="StarmanAppDataDir" />
+
 
                         <RegistryValue Root="HKCU"
                                        Key="Software\StarmanInstaller"
                                        Name="CleanupMarker"
                                        Type="integer"
                                        Value="1"
-                                       KeyPath="yes"/>
+                                       KeyPath="yes" />
                     </Component>
                 </Directory>
             </Directory>
-
-            
             <Directory Id="ProgramMenuFolder">
             </Directory>
             <Directory Id="ProgramFiles64Folder">
