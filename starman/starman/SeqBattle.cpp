@@ -2694,8 +2694,6 @@ void SeqBattle::UpdateCommon()
 
     // クラフトによってイカダが生成されることがあるため、航海中でなくても更新処理を行う。
     SharedObj::Voyage()->Update();
-
-    NSStarmanLib::NpcStatusManager::GetObj()->Update();
 }
 
 void SeqBattle::RenderCommon()
@@ -2994,6 +2992,11 @@ void SeqBattle::UpdatePerSecond()
     //-------------------------------------
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     statusManager->Update();
+
+    //-------------------------------------
+    // NPCのステータスを更新
+    //-------------------------------------
+    NSStarmanLib::NpcStatusManager::GetObj()->Update();
 
     //-------------------------------------
     // 死亡チェック
