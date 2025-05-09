@@ -344,7 +344,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         Mouse::Init(m_directInput, m_hWnd);
         GamePad::Init(m_directInput, m_hWnd);
-        BGM::initialize(m_hWnd);
+        BGM::Init(m_hWnd);
         SoundEffect::initialize(m_hWnd);
     }
 
@@ -405,7 +405,7 @@ MainWindow::~MainWindow()
     PopUp::Finalize();
 
     SoundEffect::finalize();
-    BGM::finalize();
+    BGM::Finalize();
     GamePad::Finalize();
     Mouse::Finalize();
     SharedObj::KeyBoard()->Finalize();

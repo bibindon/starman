@@ -166,8 +166,6 @@ class SoundEffect : public ISoundEffect
 
 Opening::Opening()
 {
-    BGM::get_ton()->load("res\\sound\\opening.wav");
-
     {
         ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
         pSE->Init();
@@ -284,8 +282,10 @@ void Opening::Update(eBattleState* eState)
 
         if (m_firstPage == false && m_bPlay == false)
         {
-            BGM::get_ton()->StopAll();
-            BGM::get_ton()->play("res\\sound\\opening.wav", 80, true);
+            BGM::Get()->StopAll();
+            BGM::Get()->Play("res\\sound\\opening.wav", 80);
+            BGM::Get()->SetRandomMode(false);
+
             m_bPlay = true;
         }
 

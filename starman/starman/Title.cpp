@@ -6,7 +6,6 @@
 #include "Common.h"
 #include "SharedObj.h"
 #include "SoundEffect.h"
-#include "BGM.h"
 #include "SaveManager.h"
 #include <Shlwapi.h>
 #include "Camera.h"

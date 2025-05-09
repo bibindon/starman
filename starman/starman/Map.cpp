@@ -1074,22 +1074,14 @@ void Map::Update()
 
             // プレイヤーの位置が低くなったら海のBGMを流す
             {
-                auto isPlay = BGM::get_ton()->IsPlay("res\\sound\\sea.wav");
-
                 auto ppos = SharedObj::GetPlayer()->GetPos();
                 if (ppos.y <= 20.f)
                 {
-                    if (!isPlay)
-                    {
-                        BGM::get_ton()->play("res\\sound\\sea.wav", 5);
-                    }
+                    BGM::Get()->PlayEnv("res\\sound\\sea.wav", 5);
                 }
                 else
                 {
-                    if (isPlay)
-                    {
-                        BGM::get_ton()->stop("res\\sound\\sea.wav");
-                    }
+                    BGM::Get()->StopEnv("res\\sound\\sea.wav");
                 }
             }
         }

@@ -46,8 +46,6 @@ void Rain::Init()
         m_pos.at(i).y = (float)(rand() % 900) - 1000.f;
     }
 
-    BGM::get_ton()->load("res\\sound\\rain.wav");
-
     m_bShow = true;
 }
 
@@ -87,13 +85,13 @@ void Rain::Update()
 
         if (!m_bPreviousRain && bRain)
         {
-            BGM::get_ton()->play("res\\sound\\rain.wav", 70, true);
+            BGM::Get()->PlayEnv("res\\sound\\rain.wav", 70);
             NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         }
 
         if (m_bPreviousRain && !bRain)
         {
-            BGM::get_ton()->stop("res\\sound\\rain.wav");
+            BGM::Get()->StopEnv("res\\sound\\rain.wav");
         }
 
         m_bPreviousRain = bRain;

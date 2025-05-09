@@ -12,12 +12,69 @@ using std::vector;
 using std::string;
 
 BGM* BGM::single_ton_;
-BGM* BGM::get_ton()
+
+void BGM::Update()
+{
+    m_model.Update();
+
+
+    // BGM
+    {
+        bool bChanged = false;
+        stBgm _stBgmPrev;
+        stBgm _stBgm = m_model.GetBGM(&bChanged, &_stBgmPrev);
+
+        // ’âŽ~‚³‚ê‚½‚È‚ç’âŽ~
+        if (!_stBgm.m_bPlay)
+        {
+            stop(_stBgm.m_filename);
+        }
+
+        // ‰¹—Ê•ÏX‚³‚ê‚½‚©
+        if (!_stBgm.m_bChangedVolume)
+        {
+            int volume = per_to_decibel(_stBgm.m_volume);
+            dx8sound_buffers_.at(_stBgm.m_filename)->SetVolume(volume);
+        }
+
+        // •Ê‚ÌBGM‚É‚©‚í‚Á‚½‚È‚çˆÈ‘O‚ÌBGM‚ð’âŽ~
+        if (bChanged)
+        {
+            stop(_stBgmPrev.m_filename);
+
+            load(_stBgm.m_filename);
+            play(_stBgm.m_filename, _stBgm.m_volume, true);
+        }
+    }
+
+    // ŠÂ‹«‰¹
+    {
+        auto envBgmMap = m_model.GetEnvBGM();
+
+        for (auto& envBgm : envBgmMap)
+        {
+            if (envBgm.second.m_bChanged)
+            {
+                if (envBgm.second.m_bPlay)
+                {
+                    load(envBgm.second.m_filename);
+                    play(envBgm.second.m_filename, envBgm.second.m_volume, true);
+                }
+                else
+                {
+                    stop(envBgm.second.m_filename);
+                }
+            }
+        }
+    }
+}
+
+BGM* BGM::Get()
 {
     return single_ton_;
 }
 
-void BGM::initialize(HWND hwnd)
+void BGM::Init(HWND hwnd)
 {
     if (single_ton_ == nullptr)
     {
@@ -25,7 +82,7 @@ void BGM::initialize(HWND hwnd)
     }
 }
 
-void BGM::finalize()
+void BGM::Finalize()
 {
     for (auto& pair : single_ton_->dx8sound_buffers_)
     {
@@ -34,6 +91,16 @@ void BGM::finalize()
 
     SAFE_RELEASE(single_ton_->dx8sound_);
     SAFE_DELETE(single_ton_);
+}
+
+void BGM::Play(const std::string& filename, const int volume)
+{
+    m_model.SetBGM(filename, volume);
+}
+
+void BGM::Stop()
+{
+    m_model.StopBGM();
 }
 
 // Reference
@@ -99,8 +166,6 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
     dx8sound_buffers_.at(filename)->SetCurrentPosition(0);
     dx8sound_buffers_.at(filename)->Play(0, 0, DSBPLAY_LOOPING);
 
-    m_isPlayMap[filename] = true;
-
     if (fadeIn)
     {
         LPDIRECTSOUNDBUFFER8 soundBuffer = dx8sound_buffers_.at(filename);
@@ -151,25 +216,26 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
 void BGM::stop(const string& filename)
 {
     dx8sound_buffers_.at(filename)->Stop();
-    m_isPlayMap.at(filename) = false;
+}
+
+void BGM::PlayEnv(const std::string& filename, const int volume)
+{
+    m_model.SetEnvBGM(filename, volume);
+}
+
+void BGM::StopEnv(const std::string& filename)
+{
+    m_model.StopEnvBGM(filename);
 }
 
 void BGM::StopAll()
 {
-    for (auto it = dx8sound_buffers_.begin(); it != dx8sound_buffers_.end(); it++)
-    {
-        it->second->Stop();
-    }
-
-    for (auto it = m_isPlayMap.begin(); it != m_isPlayMap.end(); it++)
-    {
-        it->second = false;
-    }
+    m_model.StopAll();
 }
 
-bool BGM::IsPlay(const std::string& filename)
+void BGM::SetRandomMode(const bool mode)
 {
-    return m_isPlayMap[filename];
+    m_model.SetRandomMode(mode);
 }
 
 BGM::BGM(HWND hwnd)
@@ -299,3 +365,128 @@ int BGM::per_to_decibel(int percent)
     return decibel;
 }
 
+BGMModel::BGMModel()
+{
+    srand((unsigned int)NULL);
+}
+
+void BGMModel::SetRandomMode(const bool mode)
+{
+    m_bRandomMode = mode;
+}
+
+// 1•b‚É1‰ñŒÄ‚Î‚ê‚é‘z’è
+void BGMModel::Update()
+{
+    if (!m_bRandomMode)
+    {
+        return;
+    }
+
+    m_counter++;
+
+    // 10•ª‚ÅBGM•ÏX
+    if (m_counter > 60 * 10)
+    {
+        m_counter = 0;
+        m_stBgmPrev = m_stBgm;
+
+        int rand_ = rand();
+        if (rand_ % 2 == 0)
+        {
+            m_stBgm.m_filename = "res\\sound\\field.wav";
+        }
+        else if (rand_ % 2 == 1)
+        {
+            m_stBgm.m_filename = "res\\sound\\novel.wav";
+        }
+
+        if (m_stBgm.m_filename == m_stBgmPrev.m_filename)
+        {
+            m_bChanged = false;
+        }
+        else
+        {
+            m_bChanged = true;
+        }
+    }
+}
+
+stBgm BGMModel::GetBGM(bool* bChanged, stBgm* bgmPrev)
+{
+    if (m_bChanged)
+    {
+        *bChanged = true;
+        m_bChanged = false;
+        *bgmPrev = m_stBgmPrev;
+    }
+    else
+    {
+        *bChanged = false;
+    }
+
+    return m_stBgm;
+}
+
+void BGMModel::SetBGM(const std::string& bgmName, const int volume)
+{
+    if (bgmName == m_stBgm.m_filename)
+    {
+        m_stBgm.m_volume = volume;
+
+        m_stBgm.m_bChangedVolume = true;
+    }
+    else
+    {
+        m_counter = 0;
+        m_stBgmPrev = m_stBgm;
+        m_stBgm.m_filename = bgmName;
+        m_stBgm.m_volume = volume;
+        m_stBgm.m_bPlay = true;
+
+        m_bChanged = true;
+    }
+}
+
+void BGMModel::StopBGM()
+{
+    if (m_stBgm.m_bPlay)
+    {
+        m_stBgm.m_bPlay = false;
+        m_bChanged = true;
+    }
+}
+
+std::unordered_map<std::string, envBgm> BGMModel::GetEnvBGM()
+{
+    return m_envBgmMap;
+}
+
+void BGMModel::SetEnvBGM(const std::string& bgmName, const int volume)
+{
+    if (!m_envBgmMap[bgmName].m_bPlay)
+    {
+        m_envBgmMap[bgmName].m_bChanged = true;
+        m_envBgmMap[bgmName].m_bPlay = true;
+        m_envBgmMap[bgmName].m_volume = volume;
+    }
+}
+
+void BGMModel::StopEnvBGM(const std::string& bgmName)
+{
+    if (m_envBgmMap[bgmName].m_bPlay)
+    {
+        m_envBgmMap[bgmName].m_bChanged = true;
+        m_envBgmMap[bgmName].m_bPlay = false;
+    }
+}
+
+void BGMModel::StopAll()
+{
+    StopBGM();
+
+    for (auto& envBgm : m_envBgmMap)
+    {
+        StopEnvBGM(envBgm.first);
+    }
+}

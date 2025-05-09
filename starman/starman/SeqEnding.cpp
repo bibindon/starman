@@ -176,7 +176,8 @@ class SoundEffect : public ISoundEffect
 
 SeqEnding::SeqEnding()
 {
-    BGM::get_ton()->load("res\\sound\\ending.wav");
+    BGM::Get()->Play("res\\sound\\ending.wav", 10);
+    BGM::Get()->SetRandomMode(false);
 //    BGM::get_ton()->play(10);
 
     {
