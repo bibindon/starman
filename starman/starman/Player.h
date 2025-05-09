@@ -52,6 +52,9 @@ public:
     // イカダに乗る
     void RideRaft();
 
+    // 洞窟の中にいるか。
+    bool IsInCave();
+
 private:
     AnimMesh* m_AnimMesh2 = nullptr;
     std::unordered_map<std::string, Mesh*> m_weaponMesh;
@@ -115,4 +118,6 @@ private:
     bool m_bSwitchMagic = false;
 
     LPD3DXFONT m_D3DFont = nullptr;
+
+    bool m_bInCave = false;
 };

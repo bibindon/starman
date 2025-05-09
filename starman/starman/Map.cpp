@@ -933,6 +933,12 @@ void Map::Update()
                 Light::SetBrightness((24 - hour) / 12);
             }
 
+            // ƒvƒŒƒCƒ„[‚ª“´ŒA“à‚É‚¢‚½‚ç–¾‚é‚³0
+            if (SharedObj::GetPlayer()->IsInCave())
+            {
+                Light::SetBrightness(0.f);
+            }
+
             //-------------------------------------
             // ‰A‚Ì•\Ž¦
             //-------------------------------------

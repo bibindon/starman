@@ -288,7 +288,9 @@ Player::~Player()
 
 void Player::Update(Map* map)
 {
+    //-----------------------------------------------
     // ŠC‚ÆÚ‚µ‚Ä‚¢‚é‚©
+    //-----------------------------------------------
     {
         D3DXVECTOR3 pos = m_loadingPos;
         D3DXVECTOR3 down(0.f, -0.1f, 0.f);
@@ -307,6 +309,37 @@ void Player::Update(Map* map)
             {
                 Common::Status()->SetDead(true);
                 Common::Status()->SetDeadReason(NSStarmanLib::eDeadReason::DROWNING);
+            }
+        }
+    }
+
+    //-----------------------------------------------
+    // “´ŒA‚É‚¢‚é‚©B
+    // 
+    // “´ŒA‚Ì“ü‚èŒû‚Ì“Á’è‚ÌƒGƒŠƒA‚ÉG‚ê‚½‚ç“´ŒA“à”»’è
+    // “´ŒA‚Ì“ü‚èŒû‚Ì“Á’è‚ÌƒGƒŠƒA‚ÉG‚ê‚½‚ç“´ŒAŠO”»’èA‚Æ‚·‚é
+    //-----------------------------------------------
+    {
+        D3DXVECTOR3 pos = m_loadingPos;
+
+        // TODO
+        D3DXVECTOR3 inCave(100.f, 0.f, 0.f);
+
+        // TODO
+        D3DXVECTOR3 outCave(200.f, 0.f, 0.f);
+
+        if (!m_bInCave)
+        {
+            if (Common::HitByBoundingBox(pos, inCave, 20.f))
+            {
+                m_bInCave = true;
+            }
+        }
+        else
+        {
+            if (Common::HitByBoundingBox(pos, outCave, 20.f))
+            {
+                m_bInCave = false;
             }
         }
     }
@@ -1470,6 +1503,11 @@ void Player::RideRaft()
     m_rotate.y = rotateY;
 
     m_AnimMesh2->SetAnim("Sit");
+}
+
+bool Player::IsInCave()
+{
+    return m_bInCave;
 }
 
 void Player::Throw()
