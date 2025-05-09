@@ -332,7 +332,7 @@ Q33,"クエストが完了していたら
 クエストが完了していないなら","Q32
 Q33",,"人と話したら
 NPCのXが生存","ダイケイマン
-daikeiman",,
+daikeiman",,<npc><シカクマン><showMenu>y
 Q34,"クエストが完了していたら
 クエストが完了していないなら","Q33
 Q34",<hint>ホシマン（子供たちを呼びに行こう）,調べたら,-206:106:198:120,,"<npc><ダイケイマン><pos>0:0:0
@@ -344,7 +344,9 @@ NPCのXが生存
 NPCのXが生存","'-206:106:198:10
 sankakuman
 shikakuman",,"
-<talk>res\\script\\origin\\talkFinishQuest15.csv"
+<talk>res\\script\\origin\\talkFinishQuest15.csv
+<npc><サンカクマン><showMenu>y
+<npc><シカクマン><showMenu>y"
 Q36,"クエストが完了していたら
 クエストが完了していないなら","Q35
 Q36",<hint>ホシマン（一度、廃墟に向かおう）,"位置

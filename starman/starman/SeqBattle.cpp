@@ -2985,7 +2985,7 @@ void SeqBattle::UpdatePerSecond()
     //-------------------------------------
     // NPCのステータスを更新
     //-------------------------------------
-    NSStarmanLib::NpcStatusManager::GetObj()->Update();
+    NpcManager::Get()->Update();
 
     //-------------------------------------
     // 死亡チェック

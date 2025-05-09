@@ -1,6 +1,7 @@
 #include "NpcManager.h"
 #include "Common.h"
 #include "SharedObj.h"
+#include "PopUp2.h"
 
 NpcManager* NpcManager::m_ton = nullptr;
 
@@ -124,4 +125,33 @@ bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName)
     }
 
     return exist;
+}
+
+void NpcManager::Update()
+{
+    // 死亡していない→死亡しているに変わったらポップアップを表示
+    auto daikei = GetNpcStatus("daikeiman").GetDead();
+    auto sankaku = GetNpcStatus("sankaku").GetDead();
+    auto shikaku = GetNpcStatus("shikaku").GetDead();
+
+    NSStarmanLib::NpcStatusManager::GetObj()->Update();
+
+    auto daikei2 = GetNpcStatus("daikeiman").GetDead();
+    auto sankaku2 = GetNpcStatus("sankaku").GetDead();
+    auto shikaku2 = GetNpcStatus("shikaku").GetDead();
+
+    if (daikei != daikei2 && daikei2)
+    {
+        PopUp2::Get()->SetText("ダイケイマンが死亡した");
+    }
+
+    if (sankaku != sankaku2 && sankaku2)
+    {
+        PopUp2::Get()->SetText("サンカクマンが死亡した");
+    }
+
+    if (shikaku != shikaku2 && shikaku2)
+    {
+        PopUp2::Get()->SetText("シカクマンが死亡した");
+    }
 }

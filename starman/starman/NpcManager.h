@@ -34,6 +34,8 @@ public:
 
     bool GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName = nullptr);
 
+    void Update();
+
 private:
     static NpcManager* m_ton;
 
