@@ -246,8 +246,7 @@ void Map::Init()
                                            1.f,
                                            animSetMap);
         daikeiman->SetAnim("LieDown");
-        // TODO 非常に悪い処理
-        m_NPC[Common::LoadString_(IDS_STRING121)] = daikeiman;
+        m_NPC["daikeiman"] = daikeiman;
     }
     {
         auto status = npcManager->GetNpcStatus("sankakuman");
@@ -312,7 +311,7 @@ void Map::Init()
         }
         AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman.x", pos, rot, 0.66f, animSetMap);
         sankakuman->SetAnim("Sit");
-        m_NPC[Common::LoadString_(IDS_STRING112)] = sankakuman;
+        m_NPC["sankakuman"] = sankakuman;
     }
     {
         auto status = npcManager->GetNpcStatus("shikakuman");
@@ -381,7 +380,7 @@ void Map::Init()
                                             0.66f,
                                             animSetMap);
         shikakuman->SetAnim("Sit");
-        m_NPC[Common::LoadString_(IDS_STRING113)] = shikakuman;
+        m_NPC["shikakuman"] = shikakuman;
     }
     {
         auto status = npcManager->GetNpcStatus("vim");
@@ -446,7 +445,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim.x", pos, rot, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
-        m_NPC[Common::LoadString_(IDS_STRING122)] = animMesh;
+        m_NPC["vim"] = animMesh;
     }
     /*
     {
@@ -1092,19 +1091,19 @@ void Map::Update()
                 if (npcManager->GetNpcStatus("daikeiman").GetDead())
                 {
                     // TODO 全角カタカナ、直すべし
-                    SetNpcPos("ダイケイマン", D3DXVECTOR3(0.f, 0.f, 0.f));
+                    SetNpcPos("daikeiman", D3DXVECTOR3(0.f, 0.f, 0.f));
                     npcManager->SetPos("daikeiman", 0.f, 0.f, 0.f);
                 }
 
                 if (npcManager->GetNpcStatus("sankakuman").GetDead())
                 {
-                    SetNpcPos("サンカクマン", D3DXVECTOR3(0.f, 0.f, 0.f));
+                    SetNpcPos("sankakuman", D3DXVECTOR3(0.f, 0.f, 0.f));
                     npcManager->SetPos("sankakuman", 0.f, 0.f, 0.f);
                 }
 
                 if (npcManager->GetNpcStatus("shikakuman").GetDead())
                 {
-                    SetNpcPos("シカクマン", D3DXVECTOR3(0.f, 0.f, 0.f));
+                    SetNpcPos("shikakuman", D3DXVECTOR3(0.f, 0.f, 0.f));
                     npcManager->SetPos("shikakuman", 0.f, 0.f, 0.f);
                 }
             }

@@ -1963,25 +1963,25 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::string work = vs2.at(j);
                     std::string::size_type it = work.find("<npc>");
                     work = work.erase(it, 5);
-                    std::string npcName;
-                    if (work.find("<" + Common::LoadString_(IDS_STRING121) + ">") != std::string::npos)
+                    std::string npcNameKey;
+                    if (work.find("<daikeiman>") != std::string::npos)
                     {
-                        npcName = Common::LoadString_(IDS_STRING121);
+                        npcNameKey = "<daikeiman>";
                     }
-                    else if (work.find("<" + Common::LoadString_(IDS_STRING112) + ">") != std::string::npos)
+                    else if (work.find("<sankakuman>") != std::string::npos)
                     {
-                        npcName = Common::LoadString_(IDS_STRING112);
+                        npcNameKey = "<sankakuman>";
                     }
-                    else if (work.find("<" + Common::LoadString_(IDS_STRING113) + ">") != std::string::npos)
+                    else if (work.find("<shikakuman>") != std::string::npos)
                     {
-                        npcName = Common::LoadString_(IDS_STRING113);
+                        npcNameKey = "<shikakuman>";
                     }
-                    else if (work.find("<" + Common::LoadString_(IDS_STRING122) + ">") != std::string::npos)
+                    else if (work.find("<vim>") != std::string::npos)
                     {
-                        npcName = Common::LoadString_(IDS_STRING122);
+                        npcNameKey = "<vim>";
                     }
 
-                    work = Common::RemoveSubstring(work, "<" + npcName + ">");
+                    work = Common::RemoveSubstring(work, npcNameKey);
 
                     if (work.find("<pos>") != std::string::npos)
                     {
@@ -1991,14 +1991,14 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         float fx = std::stof(vs.at(0));
                         float fy = std::stof(vs.at(1));
                         float fz = std::stof(vs.at(2));
-                        NpcManager::Get()->SetPos(npcName, fx, fy, fz);
+                        NpcManager::Get()->SetPos(npcNameKey, fx, fy, fz);
                     }
                     else if (work.find("<rot>") != std::string::npos)
                     {
                         std::string work2;
                         work2 = Common::RemoveSubstring(work, "<rot>");
                         float fRot = std::stof(work2);
-                        NpcManager::Get()->SetRot(npcName, fRot);
+                        NpcManager::Get()->SetRot(npcNameKey, fRot);
                     }
                     else if (work.find("<talkEnable>") != std::string::npos)
                     {
@@ -2006,18 +2006,18 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         work2 = Common::RemoveSubstring(work, "<talkEnable>");
                         if (work2 == "y")
                         {
-                            NpcManager::Get()->SetTalkEnable(npcName, true);
+                            NpcManager::Get()->SetTalkEnable(npcNameKey, true);
                         }
                         else
                         {
-                            NpcManager::Get()->SetTalkEnable(npcName, false);
+                            NpcManager::Get()->SetTalkEnable(npcNameKey, false);
                         }
                     }
                     else if (work.find("<talkScript>") != std::string::npos)
                     {
                         std::string work2;
                         work2 = Common::RemoveSubstring(work, "<talkScript>");
-                        NpcManager::Get()->SetTalkScript(npcName, work2);
+                        NpcManager::Get()->SetTalkScript(npcNameKey, work2);
                     }
                     else if (work.find("<enableFeature>") != std::string::npos)
                     {
@@ -2025,11 +2025,11 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         work2 = Common::RemoveSubstring(work, "<enableFeature>");
                         if (work2 == "y")
                         {
-                            NpcManager::Get()->SetEnableFeature(npcName, true);
+                            NpcManager::Get()->SetEnableFeature(npcNameKey, true);
                         }
                         else
                         {
-                            NpcManager::Get()->SetEnableFeature(npcName, false);
+                            NpcManager::Get()->SetEnableFeature(npcNameKey, false);
                         }
                     }
                     else if (work.find("<showMenu>") != std::string::npos)
@@ -2038,11 +2038,11 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         work2 = Common::RemoveSubstring(work, "<showMenu>");
                         if (work2 == "y")
                         {
-                            NpcManager::Get()->SetEnableFeature(npcName, true);
+                            NpcManager::Get()->SetEnableFeature(npcNameKey, true);
                         }
                         else
                         {
-                            NpcManager::Get()->SetEnableFeature(npcName, false);
+                            NpcManager::Get()->SetEnableFeature(npcNameKey, false);
                         }
                     }
                 }
