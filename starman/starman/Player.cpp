@@ -417,19 +417,19 @@ void Player::Update(Map* map)
         if (m_bUnderwater == false)
         {
             // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
-//            if (SharedObj::KeyBoard()->IsDown(DIK_A))
-//            {
-//                SetStep(eDir::LEFT);
-//            }
-//            else if (SharedObj::KeyBoard()->IsDown(DIK_S))
-//            {
-//                SetStep(eDir::BACK);
-//            }
-//            else if (SharedObj::KeyBoard()->IsDown(DIK_D))
-//            {
-//                SetStep(eDir::RIGHT);
-//            }
-//            else
+            if (SharedObj::KeyBoard()->IsDown(DIK_A))
+            {
+                SetStep(eDir::LEFT);
+            }
+            else if (SharedObj::KeyBoard()->IsDown(DIK_S))
+            {
+                SetStep(eDir::BACK);
+            }
+            else if (SharedObj::KeyBoard()->IsDown(DIK_D))
+            {
+                SetStep(eDir::RIGHT);
+            }
+            else
             {
                 SetJump();
             }
