@@ -30,6 +30,8 @@ public:
 
     NSStarmanLib::NpcStatus GetNpcStatus(const std::string& npcName);
 
+    void SetNpcStatus(const std::string& npcName, const NSStarmanLib::NpcStatus& status);
+
     bool GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName = nullptr);
 
 private:

@@ -80,6 +80,12 @@ NSStarmanLib::NpcStatus NpcManager::GetNpcStatus(const std::string& npcName)
     return status;
 }
 
+void NpcManager::SetNpcStatus(const std::string& npcName, const NSStarmanLib::NpcStatus& status)
+{
+    auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
+    npcStatusMgr->SetNpcStatus(npcName, status);
+}
+
 bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName)
 {
     // 3ƒ[ƒgƒ‹ˆÈ“à‚É˜b‚µ‚©‚¯‚ç‚ê‚éNPC‚ª‚¢‚é‚©

@@ -246,6 +246,7 @@ void Map::Init()
                                            1.f,
                                            animSetMap);
         daikeiman->SetAnim("LieDown");
+        // TODO 非常に悪い処理
         m_NPC[Common::LoadString_(IDS_STRING121)] = daikeiman;
     }
     {
@@ -1082,6 +1083,29 @@ void Map::Update()
                 else
                 {
                     BGM::Get()->StopEnv("res\\sound\\sea.wav");
+                }
+            }
+
+            // NPCが死んでいたら、座標を(0, 0, 0)に移動
+            {
+                auto npcManager = NpcManager::Get();
+                if (npcManager->GetNpcStatus("daikeiman").GetDead())
+                {
+                    // TODO 全角カタカナ、直すべし
+                    SetNpcPos("ダイケイマン", D3DXVECTOR3(0.f, 0.f, 0.f));
+                    npcManager->SetPos("daikeiman", 0.f, 0.f, 0.f);
+                }
+
+                if (npcManager->GetNpcStatus("sankakuman").GetDead())
+                {
+                    SetNpcPos("サンカクマン", D3DXVECTOR3(0.f, 0.f, 0.f));
+                    npcManager->SetPos("sankakuman", 0.f, 0.f, 0.f);
+                }
+
+                if (npcManager->GetNpcStatus("shikakuman").GetDead())
+                {
+                    SetNpcPos("シカクマン", D3DXVECTOR3(0.f, 0.f, 0.f));
+                    npcManager->SetPos("shikakuman", 0.f, 0.f, 0.f);
                 }
             }
         }

@@ -2108,6 +2108,12 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), subIdList.at(0));
                     Common::Status()->SetEquipWeapon(itemInfo);
                 }
+                else if (vs2.at(j).find("<shikakumanDeath>") != std::string::npos)
+                {
+                    auto shikakuman = NpcManager::Get()->GetNpcStatus("shikakuman");
+                    shikakuman.SetDead();
+                    NpcManager::Get()->SetNpcStatus("shikakuman", shikakuman);
+                }
                 else if (vs2.at(j).find("<sotetsu>") != std::string::npos)
                 {
                     auto status = Common::Status();
