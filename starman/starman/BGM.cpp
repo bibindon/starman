@@ -25,22 +25,28 @@ void BGM::Update()
         stBgm _stBgm = m_model.GetBGM(&bChanged, &_stBgmPrev);
 
         // í‚é~Ç≥ÇÍÇΩÇ»ÇÁí‚é~
-        if (!_stBgm.m_bPlay)
+        if (!_stBgm.m_filename.empty())
         {
-            stop(_stBgm.m_filename);
-        }
+			if (!_stBgm.m_bPlay)
+			{
+				stop(_stBgm.m_filename);
+			}
 
-        // âπó ïœçXÇ≥ÇÍÇΩÇ©
-        if (!_stBgm.m_bChangedVolume)
-        {
-            int volume = per_to_decibel(_stBgm.m_volume);
-            dx8sound_buffers_.at(_stBgm.m_filename)->SetVolume(volume);
+			// âπó ïœçXÇ≥ÇÍÇΩÇ©
+			if (_stBgm.m_bChangedVolume)
+			{
+				int volume = per_to_decibel(_stBgm.m_volume);
+				dx8sound_buffers_.at(_stBgm.m_filename)->SetVolume(volume);
+			}
         }
 
         // ï ÇÃBGMÇ…Ç©ÇÌÇ¡ÇΩÇ»ÇÁà»ëOÇÃBGMÇí‚é~
         if (bChanged)
         {
-            stop(_stBgmPrev.m_filename);
+            if (!_stBgmPrev.m_filename.empty())
+            {
+				stop(_stBgmPrev.m_filename);
+            }
 
             load(_stBgm.m_filename);
             play(_stBgm.m_filename, _stBgm.m_volume, true);
@@ -58,7 +64,7 @@ void BGM::Update()
                 if (envBgm.second.m_bPlay)
                 {
                     load(envBgm.second.m_filename);
-                    play(envBgm.second.m_filename, envBgm.second.m_volume, true);
+                    play(envBgm.second.m_filename, envBgm.second.m_volume, false);
                 }
                 else
                 {
@@ -177,10 +183,10 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
             m_th2 = nullptr;
             m_th1 = new std::thread([=]
                                     {
-                                        // 100âÒÇ…ï™ÇØÇƒâπó Ç0.1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
-                                        for (int i = 0; i < 100; ++i)
+                                        // 30âÒÇ…ï™ÇØÇƒâπó Ç0.1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
+                                        for (int i = 0; i < 30; ++i)
                                         {
-                                            int volume2 = per_to_decibel(a_volume*i/100);
+                                            int volume2 = per_to_decibel(a_volume * i / 30);
                                             soundBuffer->SetVolume(volume2);
                                             Sleep(100);
                                             if (this->m_cancel1)
@@ -198,9 +204,9 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
             m_th2 = new std::thread([=]
                                     {
                                         // 100âÒÇ…ï™ÇØÇƒâπó Ç0.1ïbÇ≤Ç∆Ç…è„Ç∞ÇÈ
-                                        for (int i = 0; i < 100; ++i)
+                                        for (int i = 0; i < 30; ++i)
                                         {
-                                            int volume2 = per_to_decibel(a_volume*i/100);
+                                            int volume2 = per_to_decibel(a_volume * i / 30);
                                             soundBuffer->SetVolume(volume2);
                                             Sleep(100);
                                             if (this->m_cancel2)
@@ -459,13 +465,21 @@ void BGMModel::StopBGM()
 
 std::unordered_map<std::string, envBgm> BGMModel::GetEnvBGM()
 {
-    return m_envBgmMap;
+    auto _copy = m_envBgmMap;
+
+    for (auto& envBgm : m_envBgmMap)
+    {
+        envBgm.second.m_bChanged = false;
+    }
+
+    return _copy;
 }
 
 void BGMModel::SetEnvBGM(const std::string& bgmName, const int volume)
 {
     if (!m_envBgmMap[bgmName].m_bPlay)
     {
+        m_envBgmMap[bgmName].m_filename = bgmName;
         m_envBgmMap[bgmName].m_bChanged = true;
         m_envBgmMap[bgmName].m_bPlay = true;
         m_envBgmMap[bgmName].m_volume = volume;

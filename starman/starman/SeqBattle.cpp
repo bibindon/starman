@@ -421,7 +421,7 @@ SeqBattle::SeqBattle()
 
     BGM::Get()->StopAll();
     BGM::Get()->Play("res\\sound\\title.wav", 10);
-    BGM::Get()->SetRandomMode(true);
+    BGM::Get()->SetRandomMode(false);
     BGM::Get()->PlayEnv("res\\sound\\forest.wav", 10);
 
     ::SoundEffect::get_ton()->load("res\\sound\\drink.wav");
@@ -1707,7 +1707,7 @@ void SeqBattle::OperateOpening()
 
         BGM::Get()->StopAll();
         BGM::Get()->Play("res\\sound\\novel.wav", 10);
-        BGM::Get()->SetRandomMode(false);
+        BGM::Get()->SetRandomMode(true);
         BGM::Get()->PlayEnv("res\\sound\\forest.wav", 10);
     }
 }

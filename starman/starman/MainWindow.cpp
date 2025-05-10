@@ -462,6 +462,14 @@ int MainWindow::MainLoop()
         Mouse::Update();
         GamePad::Update();
 
+        static int counter = 0;
+        counter++;
+
+        if (counter % 60 == 59)
+        {
+			BGM::Get()->Update();
+        }
+
         if (m_sequence == eSequence::BATTLE)
         {
             m_seqBattle->Update(&m_sequence);

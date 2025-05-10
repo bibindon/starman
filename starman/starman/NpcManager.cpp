@@ -131,14 +131,14 @@ void NpcManager::Update()
 {
     // 死亡していない→死亡しているに変わったらポップアップを表示
     auto daikei = GetNpcStatus("daikeiman").GetDead();
-    auto sankaku = GetNpcStatus("sankaku").GetDead();
-    auto shikaku = GetNpcStatus("shikaku").GetDead();
+    auto sankaku = GetNpcStatus("sankakuman").GetDead();
+    auto shikaku = GetNpcStatus("shikakuman").GetDead();
 
     NSStarmanLib::NpcStatusManager::GetObj()->Update();
 
     auto daikei2 = GetNpcStatus("daikeiman").GetDead();
-    auto sankaku2 = GetNpcStatus("sankaku").GetDead();
-    auto shikaku2 = GetNpcStatus("shikaku").GetDead();
+    auto sankaku2 = GetNpcStatus("sankakuman").GetDead();
+    auto shikaku2 = GetNpcStatus("shikakuman").GetDead();
 
     if (daikei != daikei2 && daikei2)
     {
