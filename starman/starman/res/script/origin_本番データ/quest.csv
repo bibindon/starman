@@ -332,7 +332,7 @@ Q33,"クエストが完了していたら
 クエストが完了していないなら","Q32
 Q33",,"人と話したら
 NPCのXが生存","daikeiman
-daikeiman",,<npc><shikakuman><showMenu>y
+daikeiman",,<npc><daikeiman><showMenu>y
 Q34,"クエストが完了していたら
 クエストが完了していないなら","Q33
 Q34",<hint>ホシマン（子供たちを呼びに行こう）,調べたら,-206:106:198:120,,"<npc><daikeiman><pos>0:0:0

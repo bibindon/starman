@@ -2038,11 +2038,11 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         work2 = Common::RemoveSubstring(work, "<showMenu>");
                         if (work2 == "y")
                         {
-                            NpcManager::Get()->SetEnableFeature(npcNameKey, true);
+                            NpcManager::Get()->SetShowMenu(npcNameKey, true);
                         }
                         else
                         {
-                            NpcManager::Get()->SetEnableFeature(npcNameKey, false);
+                            NpcManager::Get()->SetShowMenu(npcNameKey, false);
                         }
                     }
                 }
