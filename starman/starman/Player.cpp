@@ -678,6 +678,12 @@ void Player::Update(Map* map)
         }
     }
 
+    // ‚“x‚ª1000‚ð’´‚¦‚½‚çã¸‚ð‚â‚ß‚é
+    if (m_loadingPos.y >= 1000.f)
+    {
+        move.y = -10.f;
+    }
+
     m_move += move;
 
     float MAX_XZ_MOVE = 0.f;

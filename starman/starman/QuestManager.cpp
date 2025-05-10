@@ -9,6 +9,22 @@ QuestManager* QuestManager::m_single = nullptr;
 void QuestManager::Init(const std::string& originFile, const std::string& saveFile)
 {
     m_single->m_questSystem.Init(originFile, saveFile, false);
+    auto startedQuest = m_single->m_questSystem.GetStartedQuest();
+
+    // STARTEDクエストのヒントを再読み込みする
+    for (auto& quest : startedQuest)
+    {
+        auto eventList = m_single->m_questSystem.GetQuestStartEvent(quest);
+        for (auto& event_ : eventList)
+        {
+            if (event_.find("<hint>") != std::string::npos)
+            {
+				std::string work = event_;
+				work = Common::RemoveSubstring(work, "<hint>");
+				SetHint(work);
+            }
+        }
+    }
 }
 
 void QuestManager::Save(const std::string& originFile)
