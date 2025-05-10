@@ -670,9 +670,8 @@ void Player::Update(Map* map)
 
     // ジャンプ中は移動方向を変えたり加速したりできない
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
-    if (m_bJump || statusManager->GetDead())
+    if (m_bJump || m_bStep || statusManager->GetDead())
     {
-//        if (Common::DebugMode() == false)
         {
             move = D3DXVECTOR3(0.f, 0.f, 0.f);
         }
@@ -692,7 +691,7 @@ void Player::Update(Map* map)
     // ただし、XZ平面のみ。Y軸方向は加味しない。
     if (Common::DebugMode())
     {
-        if (m_bUnderwater == false)
+        if (!m_bUnderwater)
         {
             if (Common::FasterMode())
             {
@@ -700,7 +699,14 @@ void Player::Update(Map* map)
             }
             else
             {
-                MAX_XZ_MOVE = 0.5f;
+				if (!m_bStep)
+				{
+					MAX_XZ_MOVE = 0.5f;
+				}
+                else
+                {
+					MAX_XZ_MOVE = 1.f;
+                }
             }
         }
         else
@@ -717,9 +723,16 @@ void Player::Update(Map* map)
     }
     else
     {
-        if (m_bUnderwater == false)
+        if (!m_bUnderwater)
         {
-            MAX_XZ_MOVE = 0.5f;
+			if (!m_bStep)
+			{
+				MAX_XZ_MOVE = 0.5f;
+			}
+			else
+			{
+				MAX_XZ_MOVE = 1.f;
+			}
         }
         else
         {
@@ -746,10 +759,10 @@ void Player::Update(Map* map)
     }
 
     // XZ平面上の移動量は毎フレーム半分にする。ジャンプしているときは半分にしない。
-    if (m_bJump == false)
+    if (!m_bJump && !m_bStep)
     {
-        m_move.x *= 0.5f;
-        m_move.z *= 0.5f;
+		m_move.x *= 0.5f;
+		m_move.z *= 0.5f;
     }
 
     if (map == nullptr)
@@ -765,6 +778,16 @@ void Player::Update(Map* map)
         {
             m_attackTimeCounter = 0;
             m_bAttack = false;
+        }
+    }
+
+    if (m_bStep)
+    {
+        m_stepCounter++;
+        if (m_stepCounter >= 15)
+        {
+            m_bStep = false;
+            m_stepCounter = 0;
         }
     }
 
@@ -1038,7 +1061,7 @@ D3DXVECTOR3 Player::GetMove() const
 
 void Player::SetRotate(const D3DXVECTOR3& rotate)
 {
-    if (m_bJump == false && NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
+    if (!m_bJump && !m_bStep && NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
         m_rotate = rotate;
     }
@@ -1310,9 +1333,10 @@ bool Player::SetAttackAtlatl()
 void Player::SetWalk()
 {
     auto status = NSStarmanLib::StatusManager::GetObj();
-    if (m_bJump == false &&
-        status->GetDead() == false &&
-        m_bAttack == false)
+    if (!m_bJump &&
+        !m_bStep &&
+        !status->GetDead() &&
+        !m_bAttack)
     {
         if (m_bUnderwater == false)
         {
@@ -1434,6 +1458,9 @@ void Player::SetJump()
         {
             PopUp2::Get()->SetText(Common::LoadString_(IDS_STRING145));
         }
+
+        SoundEffect::get_ton()->load("res\\sound\\jump.wav");
+        SoundEffect::get_ton()->play("res\\sound\\jump.wav", 90);
     }
 }
 
@@ -1455,7 +1482,7 @@ void Player::SetLieDown()
 
 void Player::SetStep(const eDir dir)
 {
-    const float STEP_VELOCITY = 10.f;
+    const float STEP_VELOCITY = 1.f;
     float radian = Camera::GetRadian();
     float yaw = -1.f * (radian - (D3DX_PI / 2));
     D3DXVECTOR3 move(0.f, 0.f, 0.f);
@@ -1486,6 +1513,10 @@ void Player::SetStep(const eDir dir)
 
     // TODO カメラがおかしくなる
     SetRotate(-rotate);
+
+    m_bStep = true;
+	SoundEffect::get_ton()->load("res\\sound\\jump.wav");
+	SoundEffect::get_ton()->play("res\\sound\\jump.wav", 90);
 }
 
 void Player::SetExamine()

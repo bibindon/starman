@@ -122,4 +122,8 @@ private:
     LPD3DXFONT m_D3DFont = nullptr;
 
     bool m_bInCave = false;
+
+    // ステップ中
+    bool m_bStep = false;
+    int m_stepCounter = 0;
 };
