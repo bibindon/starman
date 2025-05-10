@@ -1966,22 +1966,22 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::string npcNameKey;
                     if (work.find("<daikeiman>") != std::string::npos)
                     {
-                        npcNameKey = "<daikeiman>";
+                        npcNameKey = "daikeiman";
                     }
                     else if (work.find("<sankakuman>") != std::string::npos)
                     {
-                        npcNameKey = "<sankakuman>";
+                        npcNameKey = "sankakuman";
                     }
                     else if (work.find("<shikakuman>") != std::string::npos)
                     {
-                        npcNameKey = "<shikakuman>";
+                        npcNameKey = "shikakuman";
                     }
-                    else if (work.find("<vim>") != std::string::npos)
+                    else if (work.find("vim") != std::string::npos)
                     {
-                        npcNameKey = "<vim>";
+                        npcNameKey = "vim";
                     }
 
-                    work = Common::RemoveSubstring(work, npcNameKey);
+                    work = Common::RemoveSubstring(work, "<" + npcNameKey + ">");
 
                     if (work.find("<pos>") != std::string::npos)
                     {

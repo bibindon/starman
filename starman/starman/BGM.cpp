@@ -64,6 +64,9 @@ void BGM::Update()
                 if (envBgm.second.m_bPlay)
                 {
                     load(envBgm.second.m_filename);
+
+                    // 効果音に対してフェードインをやるとBGMが鳴らなくなってしまう。
+                    // 現状困っていないので放置
                     play(envBgm.second.m_filename, envBgm.second.m_volume, false);
                 }
                 else
