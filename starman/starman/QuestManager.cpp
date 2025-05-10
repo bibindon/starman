@@ -2,6 +2,7 @@
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
+#include "NpcManager.h"
 
 QuestManager* QuestManager::m_single = nullptr;
 
@@ -153,6 +154,26 @@ void QuestManager::Update()
 
             m_questSystem.SetStorehouseContent(id, itemList, false);
         }
+    }
+
+    //-------------------------------------
+    // クエストシステムにNPCの生存状況を設定
+    //-------------------------------------
+    {
+        auto bAlive = false;
+        auto bDead = false;
+
+        bDead = NpcManager::Get()->GetNpcStatus("daikeiman").GetDead();
+        bAlive = !bDead;
+        m_questSystem.SetNpcIsAlive("daikeiman", bAlive, false);
+
+        bDead = NpcManager::Get()->GetNpcStatus("sankakuman").GetDead();
+        bAlive = !bDead;
+        m_questSystem.SetNpcIsAlive("sankakuman", bAlive, false);
+
+        bDead = NpcManager::Get()->GetNpcStatus("shikakuman").GetDead();
+        bAlive = !bDead;
+        m_questSystem.SetNpcIsAlive("shikakuman", bAlive, false);
     }
 
     m_questSystem.UpdateQuestStatus();

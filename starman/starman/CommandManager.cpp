@@ -571,7 +571,7 @@ void CommandManager::BuildCommand()
 
                 if (_near)
                 {
-                    bool canReceive = NSStarmanLib::Help::Get()->CanReceive(Common::LoadString_(IDS_STRING112));
+                    bool canReceive = NSStarmanLib::Help::Get()->CanReceive("sankakuman");
                     if (canReceive)
                     {
                         m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
@@ -596,7 +596,7 @@ void CommandManager::BuildCommand()
 
                     if (_near)
                     {
-                        bool canReceive = NSStarmanLib::Help::Get()->CanReceive(Common::LoadString_(IDS_STRING113));
+                        bool canReceive = NSStarmanLib::Help::Get()->CanReceive("shikakuman");
                         if (canReceive)
                         {
                             m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
