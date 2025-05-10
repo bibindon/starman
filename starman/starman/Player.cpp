@@ -1516,6 +1516,11 @@ bool Player::IsInCave()
     return m_bInCave;
 }
 
+bool Player::IsUnderWater()
+{
+    return m_bUnderwater;
+}
+
 void Player::Throw()
 {
     //-------------------------------------------------------------

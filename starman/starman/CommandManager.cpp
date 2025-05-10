@@ -370,14 +370,18 @@ void CommandManager::BuildCommand()
         }
     }
 
+    // …’†‚©”Û‚©
+    bool bUnderwater = SharedObj::GetPlayer()->IsUnderWater();
+
+
     // ‰¡‚É‚È‚éEEEí‚É•\Ž¦‚³‚ê‚é
-    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING180), true);
+    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING180), !bUnderwater);
 
     // À‚éEEEí‚É•\Ž¦‚³‚ê‚é
-    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING181), true);
+    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING181), !bUnderwater);
 
     // ‚RŽžŠÔ‹xŒe‚·‚éEEEí‚É•\Ž¦‚³‚ê‚é
-    m_commandLib->UpsertCommand("‚RŽžŠÔ‹xŒe‚·‚é", true);
+    m_commandLib->UpsertCommand("‚RŽžŠÔ‹xŒe‚·‚é", !bUnderwater);
 
     // áÒ‘zEEEí‚É•\Ž¦‚³‚ê‚é
     m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING182), true);
