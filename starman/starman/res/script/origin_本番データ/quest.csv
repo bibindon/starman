@@ -514,7 +514,7 @@ Q60,"クエストが完了していたら
 Q60",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest40.csv
 Q61,"クエストが完了していたら
 クエストが完了していないなら","Q60
-Q61",<hint>ホシマン（地図上の灯台の位置に行ってみよう）,位置,-1318:632:-1523:20,,<talk>res\\script\\origin\\talkFinishQuest41.csv
+Q61",<hint>ホシマン（地図上の灯台の位置に行ってみよう）,位置,-1321:632:-1529:20,,<talk>res\\script\\origin\\talkFinishQuest41.csv
 Q62,"クエストが完了していたら
 クエストが完了していないなら","Q61
 Q62",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -602,7 +602,7 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest53.csv
 <shikakumanDeath>"
 Q74,"クエストが完了していたら
 クエストが完了していないなら","Q73
-Q74",<hint>ホシマン（灯台に行ってみよう）,位置,-1318:632:-1523:20,,<talk>res\\script\\origin\\talkFinishQuest54.csv
+Q74",<hint>ホシマン（灯台に行ってみよう）,位置,-1321:632:-1529:20,,<talk>res\\script\\origin\\talkFinishQuest54.csv
 Q75,"クエストが完了していたら
 クエストが完了していないなら","Q74
 Q75",<hint>ホシマン（港跡に行ってみよう）,"位置

@@ -147,13 +147,60 @@ void Map::Init()
     //    mesh->Init();
     //    m_meshMap["rock1"] = mesh;
     //}
-    //{
-    //    D3DXVECTOR3 b = D3DXVECTOR3(10.f, 0.f, 20.f);
-    //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-    //    Mesh* mesh = NEW Mesh("res\\model\\cottage\\cottage.x", b, c, 1.f);
-    //    mesh->Init();
-    //    m_meshMap["cottage"] = mesh;
-    //}
+
+    // “”‘ä
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        mesh->Init();
+        m_meshMap["cottage"] = mesh;
+    }
+
+//    // _Ğ
+//    {
+//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
+//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+//        mesh->Init();
+//        m_meshMap["cottage2"] = mesh;
+//    }
+//
+//    // “´ŒA
+//    {
+//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
+//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+//        mesh->Init();
+//        m_meshMap["cottage3"] = mesh;
+//    }
+//
+//    // ‘Û’ë
+//    {
+//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
+//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+//        mesh->Init();
+//        m_meshMap["cottage4"] = mesh;
+//    }
+//
+//    // `Õ
+//    {
+//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
+//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+//        mesh->Init();
+//        m_meshMap["cottage5"] = mesh;
+//    }
+//
+//    // ŠCŠİ“´ŒA
+//    {
+//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
+//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+//        mesh->Init();
+//        m_meshMap["cottage6"] = mesh;
+//    }
 
     //------------------------------------------
     // ƒrƒ€‚ª“oê‚·‚é‚Æ‚«‚ÌŠâ
