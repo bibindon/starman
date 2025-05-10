@@ -483,7 +483,7 @@
       </EntryPointName>
       <SuppressStartupBanner Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</SuppressStartupBanner>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)tool\fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</Outputs>
     </CustomBuild>
     <CustomBuild Include="res\shader\mesh_shader.fx">
@@ -504,17 +504,17 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Deploy|Win32'">Effect</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='DeployEncrypt|Win32'">Effect</ShaderType>
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)tool\fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</Outputs>
     </CustomBuild>
     <CustomBuild Include="res\shader\mesh_shader_cull_none.fx">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)tool\fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</Outputs>
     </CustomBuild>
     <CustomBuild Include="res\shader\mesh_shader_no_shade.fx">
       <FileType>Document</FileType>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)tool\fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</Outputs>
     </CustomBuild>
   </ItemGroup>
