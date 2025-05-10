@@ -605,6 +605,22 @@ SeqEnding::SeqEnding()
                 vs.push_back("生存者は答えた。");
                 vs.push_back("「この島で自分以外に人を見かけたことはない」");
                 vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load("res\\image\\ending10.png");
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::string> > vvs;
+                std::vector<std::string> vs;
+
+                vs.push_back("");
+                vvs.push_back(vs);
+                page.SetTextList(vvs);
+                pageList.push_back(page);
             }
         }
 
