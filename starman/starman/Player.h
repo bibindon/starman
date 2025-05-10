@@ -55,6 +55,8 @@ public:
     // “´ŒA‚Ì’†‚É‚¢‚é‚©B
     bool IsInCave();
 
+    bool IsUnderWater();
+
 private:
     AnimMesh* m_AnimMesh2 = nullptr;
     std::unordered_map<std::string, Mesh*> m_weaponMesh;
