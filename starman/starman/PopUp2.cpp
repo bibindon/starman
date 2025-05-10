@@ -19,7 +19,6 @@ void PopUp2::SetText(const std::string& arg)
 {
     m_textQ.push(arg);
     m_isShow = true;
-    m_counter = 0;
 }
 
 void PopUp2::SetText(const UINT resID)
