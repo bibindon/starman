@@ -1382,14 +1382,14 @@ void SeqBattle::OperateCommand()
         // サンカクマンかシカクマンのどちらかと近くにいなくてはならない。
         // どちらも近くにいる場合、サンカクマンを優先する
         auto npcManager = NSStarmanLib::NpcStatusManager::GetObj();
-        auto status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING112));
+        auto status = npcManager->GetNpcStatus("sankakuman");
         auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         auto ppos = m_player->GetPos();
 
         auto _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
         if (!_near)
         {
-            status = npcManager->GetNpcStatus(Common::LoadString_(IDS_STRING113));
+            status = npcManager->GetNpcStatus("shikakuman");
             npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
             ppos = m_player->GetPos();
             _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
