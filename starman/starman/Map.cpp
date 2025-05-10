@@ -77,7 +77,7 @@ void Map::Init()
     // ‚»‚Ì‘Îô‚Æ‚µ‚ÄŠC‚Ì‰º‚ÉAŠC‚ð•\Ž¦‚µ‚Ä‚¨‚­
     {
         Mesh* mesh = NEW Mesh("res\\model\\sea.x",
-                              D3DXVECTOR3(10.f, 15.f, 10.f),
+                              D3DXVECTOR3(10.f, 5.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               10.0f);
         mesh->Init();

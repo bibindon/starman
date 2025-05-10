@@ -39,8 +39,8 @@ D3DXMATRIX Camera::GetProjMatrix()
     D3DXMatrixPerspectiveFovLH(&projection_matrix,
                                m_viewAngle,
                                static_cast<float>(1920) / 1080, /* TODO */
-                               0.1f,
-                               400000.0f);
+                               1.f,
+                               1000000.0f);
 
     return projection_matrix;
 }
