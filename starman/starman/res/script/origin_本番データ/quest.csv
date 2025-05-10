@@ -457,7 +457,7 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest29.csv
 <item>石槍:1:999"
 Q50,"クエストが完了していたら
 クエストが完了していないなら","Q49
-Q50",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,161:639:-1130:30,,<talk>res\\script\\origin\\talkFinishQuest30.csv
+Q50",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest30.csv
 Q51,"クエストが完了していたら
 クエストが完了していないなら","Q50
 Q51",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -469,7 +469,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest31.csv
 Q52,"クエストが完了していたら
 クエストが完了していないなら","Q51
-Q52",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,161:639:-1130:30,,<talk>res\\script\\origin\\talkFinishQuest32.csv
+Q52",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest32.csv
 Q53,"クエストが完了していたら
 クエストが完了していないなら","Q52
 Q53",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -481,7 +481,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest33.csv
 Q54,"クエストが完了していたら
 クエストが完了していないなら","Q53
-Q54",<hint>ホシマン（地図上の洞窟の位置に行ってみよう）,位置,71:552:-1322:30,,<talk>res\\script\\origin\\talkFinishQuest34.csv
+Q54",<hint>ホシマン（地図上の洞窟の位置に行ってみよう）,位置,115.6:590.5:-1484.2:30,,<talk>res\\script\\origin\\talkFinishQuest34.csv
 Q55,"クエストが完了していたら
 クエストが完了していないなら","Q54
 Q55",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -616,7 +616,7 @@ daikeiman
 sankakuman",,<talk>res\\script\\origin\\talkFinishQuest56.csv
 Q77,"クエストが完了していたら
 クエストが完了していないなら","Q76
-Q77",<hint>ホシマン（神社に行ってみよう）,位置,161:639:-1130:30,,<talk>res\\script\\origin\\talkFinishQuest57.csv
+Q77",<hint>ホシマン（神社に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest57.csv
 Q78,"クエストが完了していたら
 クエストが完了していないなら","Q77
 Q78",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest58.csv
