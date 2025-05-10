@@ -678,8 +678,8 @@ void Player::Update(Map* map)
         }
     }
 
-    // ‚“x‚ª1000‚ð’´‚¦‚½‚çã¸‚ð‚â‚ß‚é
-    if (m_loadingPos.y >= 1000.f)
+    // ‚“x‚ª1500‚ð’´‚¦‚½‚çã¸‚ð‚â‚ß‚é
+    if (m_loadingPos.y >= 1500.f)
     {
         move.y = -10.f;
     }

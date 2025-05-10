@@ -174,33 +174,33 @@ void Map::Init()
         mesh->Init();
         m_meshMap["cottage3"] = mesh;
     }
-//
-//    // ‘Û’ë
-//    {
-//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
-//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
-//        mesh->Init();
-//        m_meshMap["cottage4"] = mesh;
-//    }
-//
-//    // `Õ
-//    {
-//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
-//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
-//        mesh->Init();
-//        m_meshMap["cottage5"] = mesh;
-//    }
-//
-//    // ŠCŠİ“´ŒA
-//    {
-//        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
-//        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-//        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
-//        mesh->Init();
-//        m_meshMap["cottage6"] = mesh;
-//    }
+
+    // ‘Û’ë
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(628.9f, 773.9f, -1861.8f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        mesh->Init();
+        m_meshMap["cottage4"] = mesh;
+    }
+
+    // `Õ
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(1814.3f, 28.5f, -899.2f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        mesh->Init();
+        m_meshMap["cottage5"] = mesh;
+    }
+
+    // ŠCŠİ“´ŒA
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        mesh->Init();
+        m_meshMap["cottage6"] = mesh;
+    }
 
     //------------------------------------------
     // ƒrƒ€‚ª“oê‚·‚é‚Æ‚«‚ÌŠâ

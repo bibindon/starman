@@ -332,7 +332,7 @@ Q33,"クエストが完了していたら
 クエストが完了していないなら","Q32
 Q33",,"人と話したら
 NPCのXが生存","daikeiman
-daikeiman",,<npc><shikakuman><showMenu>y
+daikeiman",,<npc><daikeiman><showMenu>y
 Q34,"クエストが完了していたら
 クエストが完了していないなら","Q33
 Q34",<hint>ホシマン（子供たちを呼びに行こう）,調べたら,-206:106:198:120,,"<npc><daikeiman><pos>0:0:0
@@ -457,7 +457,7 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest29.csv
 <item>石槍:1:999"
 Q50,"クエストが完了していたら
 クエストが完了していないなら","Q49
-Q50",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,161:639:-1130:30,,<talk>res\\script\\origin\\talkFinishQuest30.csv
+Q50",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest30.csv
 Q51,"クエストが完了していたら
 クエストが完了していないなら","Q50
 Q51",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -469,7 +469,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest31.csv
 Q52,"クエストが完了していたら
 クエストが完了していないなら","Q51
-Q52",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,161:639:-1130:30,,<talk>res\\script\\origin\\talkFinishQuest32.csv
+Q52",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest32.csv
 Q53,"クエストが完了していたら
 クエストが完了していないなら","Q52
 Q53",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -481,7 +481,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest33.csv
 Q54,"クエストが完了していたら
 クエストが完了していないなら","Q53
-Q54",<hint>ホシマン（地図上の洞窟の位置に行ってみよう）,位置,71:552:-1322:30,,<talk>res\\script\\origin\\talkFinishQuest34.csv
+Q54",<hint>ホシマン（地図上の洞窟の位置に行ってみよう）,位置,115.6:590.5:-1484.2:30,,<talk>res\\script\\origin\\talkFinishQuest34.csv
 Q55,"クエストが完了していたら
 クエストが完了していないなら","Q54
 Q55",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -499,7 +499,7 @@ Q57,"クエストが完了していたら
 Q57",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest37.csv
 Q58,"クエストが完了していたら
 クエストが完了していないなら","Q57
-Q58",<hint>ホシマン（地図上のシーポロポロの位置に行ってみよう）,位置,627:970:-1705:20.0,,<talk>res\\script\\origin\\talkFinishQuest38.csv
+Q58",<hint>ホシマン（地図上のシーポロポロの位置に行ってみよう）,位置,629:773.9:-1861.8:20.0,,<talk>res\\script\\origin\\talkFinishQuest38.csv
 Q59,"クエストが完了していたら
 クエストが完了していないなら","Q58
 Q59",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -514,7 +514,7 @@ Q60,"クエストが完了していたら
 Q60",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest40.csv
 Q61,"クエストが完了していたら
 クエストが完了していないなら","Q60
-Q61",<hint>ホシマン（地図上の灯台の位置に行ってみよう）,位置,-1318:632:-1523:20,,<talk>res\\script\\origin\\talkFinishQuest41.csv
+Q61",<hint>ホシマン（地図上の灯台の位置に行ってみよう）,位置,-1321:632:-1529:20,,<talk>res\\script\\origin\\talkFinishQuest41.csv
 Q62,"クエストが完了していたら
 クエストが完了していないなら","Q61
 Q62",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -526,7 +526,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest42.csv
 Q63,"クエストが完了していたら
 クエストが完了していないなら","Q62
-Q63",<hint>ホシマン（地図上の港跡の位置に行ってみよう）,位置,2279:14:-618:30,,<talk>res\\script\\origin\\talkFinishQuest43.csv
+Q63",<hint>ホシマン（地図上の港跡の位置に行ってみよう）,位置,1814.3:28.6:-899.2:30,,<talk>res\\script\\origin\\talkFinishQuest43.csv
 Q64,"クエストが完了していたら
 クエストが完了していないなら","Q63
 Q64",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -538,7 +538,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest44.csv
 Q65,"クエストが完了していたら
 クエストが完了していないなら","Q64
-Q65",<hint>ホシマン（地図上のシーポロポロの位置に行ってみよう）,位置,627:970:-1705:20.0,,<talk>res\\script\\origin\\talkFinishQuest45.csv
+Q65",<hint>ホシマン（地図上のシーポロポロの位置に行ってみよう）,位置,629:773.9:-1861.8:20.0,,<talk>res\\script\\origin\\talkFinishQuest45.csv
 Q66,"クエストが完了していたら
 クエストが完了していないなら","Q65
 Q66",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -565,7 +565,7 @@ Q69,"クエストが完了していたら
 Q69",<hint>ホシマン（地図上の海岸洞窟の位置に行ってみよう）,"位置
 NPCのXが生存
 NPCのXが生存
-NPCのXが生存","1172.0:16.0:330.0:400.0
+NPCのXが生存","1092.0:40.8:504.1:400.0
 daikeiman
 sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest49.csv
@@ -574,7 +574,7 @@ Q70,"クエストが完了していたら
 Q70",<hint>ホシマン（地図上の海岸洞窟の位置に行ってみよう）,"位置
 NPCのXが生存
 NPCのXが生存
-NPCのXが生存","1172.0:16.0:330.0:200.0
+NPCのXが生存","1092.0:40.8:504.1:200.0
 daikeiman
 sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest50.csv
@@ -602,21 +602,21 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest53.csv
 <shikakumanDeath>"
 Q74,"クエストが完了していたら
 クエストが完了していないなら","Q73
-Q74",<hint>ホシマン（灯台に行ってみよう）,位置,-1318:632:-1523:20,,<talk>res\\script\\origin\\talkFinishQuest54.csv
+Q74",<hint>ホシマン（灯台に行ってみよう）,位置,-1321:632:-1529:20,,<talk>res\\script\\origin\\talkFinishQuest54.csv
 Q75,"クエストが完了していたら
 クエストが完了していないなら","Q74
 Q75",<hint>ホシマン（港跡に行ってみよう）,"位置
-夜だったら",2279:14:-618:30,,<talk>res\\script\\origin\\talkFinishQuest55.csv
+夜だったら",1814.3:28.6:-899.2:30,,<talk>res\\script\\origin\\talkFinishQuest55.csv
 Q76,"クエストが完了していたら
 クエストが完了していないなら","Q75
 Q76",<hint>ホシマン（海岸洞窟に戻ろう）,"位置
 NPCのXが生存
-NPCのXが生存","1172.0:16.0:330.0:100.0
+NPCのXが生存","1092.0:40.8:504.1:100.0
 daikeiman
 sankakuman",,<talk>res\\script\\origin\\talkFinishQuest56.csv
 Q77,"クエストが完了していたら
 クエストが完了していないなら","Q76
-Q77",<hint>ホシマン（神社に行ってみよう）,位置,161:639:-1130:30,,<talk>res\\script\\origin\\talkFinishQuest57.csv
+Q77",<hint>ホシマン（神社に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest57.csv
 Q78,"クエストが完了していたら
 クエストが完了していないなら","Q77
 Q78",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest58.csv
@@ -628,10 +628,12 @@ Q80,"クエストが完了していたら
 Q80",<hint>ホシマン（出発の準備を整えよう）,"時間が経過したら
 夜だったら
 NPCのXが生存
-NPCのXが生存","0:0:2:0:0:0
+NPCのXが生存
+位置","0:0:2:0:0:0
 
 daikeiman
-sankakuman",,<talk>res\\script\\origin\\talkFinishQuest60.csv
+sankakuman
+1092.0:40.8:504.1:100.0",,<talk>res\\script\\origin\\talkFinishQuest60.csv
 Q81,"クエストが完了していたら
 クエストが完了していないなら","Q80
 Q81",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest61.csv
