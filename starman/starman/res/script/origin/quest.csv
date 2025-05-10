@@ -288,7 +288,7 @@ Q26,"クエストが完了していたら
 クエストが完了していないなら","Q25
 Q26",<hint>ホシマン（岩の上に人影が見えた気がする）,"人と話したら
 NPCのXが生存
-NPCのXが生存","サンカクマン
+NPCのXが生存","sankakuman
 sankakuman
 shikakuman",,
 Q27,"クエストが完了していたら
@@ -331,7 +331,7 @@ daikeiman",,"<npc><daikeiman><talkEnable>y
 Q33,"クエストが完了していたら
 クエストが完了していないなら","Q32
 Q33",,"人と話したら
-NPCのXが生存","ダイケイマン
+NPCのXが生存","daikeiman
 daikeiman",,<npc><shikakuman><showMenu>y
 Q34,"クエストが完了していたら
 クエストが完了していないなら","Q33
