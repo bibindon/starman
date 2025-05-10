@@ -202,6 +202,15 @@ void Map::Init()
         m_meshMap["cottage6"] = mesh;
     }
 
+    // ソテツの場所
+    {
+        D3DXVECTOR3 b = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
+        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        mesh->Init();
+        m_meshMap["cottage7"] = mesh;
+    }
+
     //------------------------------------------
     // ビムが登場するときの岩
     //------------------------------------------
