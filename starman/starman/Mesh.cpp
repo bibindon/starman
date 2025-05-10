@@ -301,8 +301,17 @@ void Mesh::Render()
         // mesh_shader.fxの時だけ適用する
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
-            hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
-            assert(hResult == S_OK);
+            // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
+            if (m_meshName.find("continent.x") != std::string::npos)
+            {
+				hResult = m_D3DEffect->SetFloat("g_fog_strength", 0.0f);
+				assert(hResult == S_OK);
+            }
+            else
+            {
+				hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
+				assert(hResult == S_OK);
+            }
         }
     }
     else
@@ -317,8 +326,17 @@ void Mesh::Render()
         // mesh_shader.fxの時だけ適用する
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
-            hResult = m_D3DEffect->SetFloat("g_fog_strength", 100.0f);
-            assert(hResult == S_OK);
+            // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
+            if (m_meshName.find("continent.x") != std::string::npos)
+            {
+                hResult = m_D3DEffect->SetFloat("g_fog_strength", 0.0f);
+                assert(hResult == S_OK);
+            }
+            else
+            {
+                hResult = m_D3DEffect->SetFloat("g_fog_strength", 100.0f);
+                assert(hResult == S_OK);
+            }
         }
     }
 
@@ -387,8 +405,8 @@ void Mesh::Render()
     hResult = m_D3DEffect->Begin(nullptr, 0);
     assert(hResult == S_OK);
 
-    hResult = m_D3DEffect->BeginPass(0);
-    assert(hResult == S_OK);
+	hResult = m_D3DEffect->BeginPass(0);
+	assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // マテリアルの数だけ色とテクスチャを設定して描画

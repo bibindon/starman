@@ -707,7 +707,7 @@ void Player::Update(Map* map)
         {
             if (Common::FasterMode())
             {
-                MAX_XZ_MOVE = 1.1f;
+                MAX_XZ_MOVE = 500.f;
             }
             else
             {

@@ -72,6 +72,17 @@ void Map::Init()
         mesh->Init();
         m_meshMap["sea"] = mesh;
     }
+
+    // 主人公が島から大きく離れた場所にいるとき、タイトル画面で海が表示されなくなる。
+    // その対策として海の下に、海を表示しておく
+    {
+        Mesh* mesh = NEW Mesh("res\\model\\sea.x",
+                              D3DXVECTOR3(10.f, 15.f, 10.f),
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              10.0f);
+        mesh->Init();
+        m_meshMap["sea2"] = mesh;
+    }
 //    {
 //        Mesh* mesh = NEW Mesh("res\\model\\testcube\\testcube.x",
 //                              D3DXVECTOR3(-290.f, 15.f, 540.f),
@@ -150,65 +161,78 @@ void Map::Init()
 
     // 灯台
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
         mesh->Init();
         m_meshMap["cottage"] = mesh;
     }
 
     // 神社
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(15.8f, 492.8f, -1221.2f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(15.8f, 492.8f, -1221.2f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
         mesh->Init();
         m_meshMap["cottage2"] = mesh;
     }
 
     // 洞窟
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(115.6f, 590.5f, -1484.2f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(115.6f, 590.5f, -1484.2f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
         mesh->Init();
         m_meshMap["cottage3"] = mesh;
     }
 
     // 苔庭
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(628.9f, 773.9f, -1861.8f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(628.9f, 773.9f, -1861.8f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
         mesh->Init();
         m_meshMap["cottage4"] = mesh;
     }
 
     // 港跡
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(1814.3f, 28.5f, -899.2f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(1814.3f, 28.5f, -899.2f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
         mesh->Init();
         m_meshMap["cottage5"] = mesh;
     }
 
     // 海岸洞窟
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
         mesh->Init();
         m_meshMap["cottage6"] = mesh;
     }
 
     // ソテツの場所
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
-        D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", b, c, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
         mesh->Init();
         m_meshMap["cottage7"] = mesh;
+    }
+
+    // 大陸
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(2000000.f, 0.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh("res\\model\\continent.x",
+                              pos,
+                              rot,
+                              1000000.f);
+
+        mesh->Init();
+        m_meshMap["continent"] = mesh;
     }
 
     //------------------------------------------
@@ -965,11 +989,18 @@ void Map::Update()
             // 空
             //-------------------------------------
 
-            // 主人公が東に移動したら空も東に移動する
+            // 主人公が東に移動したら海も東に移動する
+            // カメラが東に移動したら空も東に移動する
+            // 主人公とカメラで分ける必要があるのは、タイトルで主人公とカメラの位置が大きく異なるから
             {
+                auto cameraPos = Camera::GetEyePos();
+                m_meshMap["sky"]->SetPos(cameraPos);
+
                 auto player = SharedObj::GetPlayer();
-                auto ppos = player->GetPos();
-                m_meshMap["sky"]->SetPos(ppos);
+                auto work = player->GetPos();
+                work.y = 10.f;
+
+                m_meshMap["sea"]->SetPos(work);
             }
 
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
