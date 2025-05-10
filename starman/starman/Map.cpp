@@ -224,7 +224,7 @@ void Map::Init()
 
     // ‘å—¤
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(2000000.f, 0.f, 0.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(-2000000.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = NEW Mesh("res\\model\\continent.x",
                               pos,
