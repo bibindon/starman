@@ -63,7 +63,7 @@ void Map::Init()
                               1.0f);
         mesh->Init();
         m_meshMap["Map"] = mesh;
-    }
+    }
     {
         Mesh* mesh = NEW Mesh("res\\model\\river.x",
                               D3DXVECTOR3(0.f, 0.f, 0.f),
