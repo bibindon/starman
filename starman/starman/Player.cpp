@@ -1486,37 +1486,34 @@ void Player::SetStep(const eDir dir)
     float radian = Camera::GetRadian();
     float yaw = -1.f * (radian - (D3DX_PI / 2));
     D3DXVECTOR3 move(0.f, 0.f, 0.f);
-    D3DXVECTOR3 rotate(0.f, 0.f, 0.f);
+	D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
 
     if (dir == eDir::LEFT)
     {
         move.x += -std::sin(radian + D3DX_PI);
         move.z += std::sin(radian + D3DX_PI * 3 / 2);
         move *= STEP_VELOCITY;
-        rotate = D3DXVECTOR3 { 0.f, yaw + D3DX_PI * 3 / 2, 0.f };
     }
     else if (dir == eDir::BACK)
     {
         move.x += -std::sin(radian + D3DX_PI * 3 / 2);
         move.z += std::sin(radian);
         move *= STEP_VELOCITY;
-        rotate = D3DXVECTOR3 { 0.f, yaw + D3DX_PI, 0.f };
     }
     else if (dir == eDir::RIGHT)
     {
         move.x += -std::sin(radian);
         move.z += std::sin(radian + D3DX_PI / 2);
         move *= STEP_VELOCITY;
-        rotate = D3DXVECTOR3 { 0.f, yaw + D3DX_PI / 2, 0.f };
     }
     SetMove(move);
-
-    // TODO ƒJƒƒ‰‚ª‚¨‚©‚µ‚­‚È‚é
-    SetRotate(-rotate);
+    SetRotate(rotate);
 
     m_bStep = true;
 	SoundEffect::get_ton()->load("res\\sound\\jump.wav");
 	SoundEffect::get_ton()->play("res\\sound\\jump.wav", 90);
+
+    Common::Status()->ConsumeJumpCost();
 }
 
 void Player::SetExamine()
