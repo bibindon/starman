@@ -63,6 +63,14 @@ void Map::Init()
                               1.0f);
         mesh->Init();
         m_meshMap["Map"] = mesh;
+    }
+    {
+        Mesh* mesh = NEW Mesh("res\\model\\river.x",
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              1.0f);
+        mesh->Init();
+        m_meshMap["river"] = mesh;
     }
     {
         Mesh* mesh = NEW Mesh("res\\model\\sea.x",
@@ -1613,6 +1621,15 @@ bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
     BOOL  bIsHit = false;
     auto sea = m_meshMap["sea"];
     bIsHit = IntersectSub(pos, move, sea);
+
+    if (bIsHit)
+    {
+        return true;
+    }
+
+    auto river = m_meshMap["river"];
+    bIsHit = IntersectSub(pos, move, river);
+
     return bIsHit;
 }
 
@@ -1716,6 +1733,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     {
         if (
             pair.first == "Map" ||
+            pair.first == "river" ||
             pair.first == "sea" ||
             pair.first == "precision" ||
             pair.first == "chest" ||
