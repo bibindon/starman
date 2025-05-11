@@ -20,6 +20,7 @@
 #include "PopUp2.h"
 #include <cassert>
 #include "resource.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
 
 namespace NSMenulib
 {
@@ -544,62 +545,7 @@ void MenuManager::InitMenu()
     // ステータス
     //------------------------------------------------------
     {
-        std::vector<StatusInfo> infoList;
-
-        NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-        StatusInfo info;
-        info.SetName("ホシマン");
-        NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\test.png");
-        info.SetSprite(sprItem);
-        std::string work;
-//        work = "パラメータ　　　現在値/回復可能値/最大値\n";
-        /*
-        work += "体のスタミナ:\t";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
-        work += "脳のスタミナ:\t";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
-        work += "瞬発力:\t";
-        work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
-        work += "肉体の修復度:\t";
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
-        work += "糖質:\t";
-        work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
-        work += "タンパク質:";
-        work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
-        work += "脂質:";
-        work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
-        work += "ビタミン:";
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
-        work += "ミネラル:";
-        work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
-        work += "水分:";
-        work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
-        work += "\n";
-        work += "状態異常：";
-        work += "頭痛/腹痛/風邪/腕骨折/足骨折/脱水症状/寝不足";
-        work += "\n";
-        work += "装備武器：\taaa";
-        work += "\n";
-        work += "攻撃力：\t";
-        work += Common::ToStringWithPrecision(statusManager->GetAttackPower()) + "\n";
-        work += "防御力：\t";
-        work += Common::ToStringWithPrecision(statusManager->GetDefensePower()) + "\n";
-        */
-        info.SetDetail(work);
-        infoList.push_back(info);
-        m_menu.SetStatus(infoList);
+        // 毎秒更新する。ここではやらない。
     }
 
     //------------------------------------------------------
@@ -971,207 +917,432 @@ std::string MenuManager::OperateMenu()
 
     // ステータス画面の表示内容を更新
     {
-        using namespace NSMenulib;
-        std::vector<StatusInfo> infoList;
+		std::vector<NSMenulib::StatusInfo> infoList;
 
-        NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-
-        NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
-        std::string weaponName;
-
-        if (itemInfo.GetId() != -1)
+        // ホシマン
         {
-            NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-            NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
-            weaponName = itemDef.GetName();
+
+			NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+
+			NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
+			std::string weaponName;
+
+			if (itemInfo.GetId() != -1)
+			{
+				NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+				NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
+				weaponName = itemDef.GetName();
+			}
+
+			// 状態異常リスト
+			std::string condition;
+			{
+				if (statusManager->GetFractureArm())
+				{
+					condition += Common::LoadString_(IDS_STRING155)+ "/";
+				}
+
+				if (statusManager->GetFractureLeg())
+				{
+					condition += Common::LoadString_(IDS_STRING156)+ "/";
+				}
+
+				if (statusManager->GetHeadache())
+				{
+					condition += Common::LoadString_(IDS_STRING157)+ "/";
+				}
+
+				if (statusManager->GetCold())
+				{
+					condition += Common::LoadString_(IDS_STRING158)+ "/";
+				}
+
+				if (statusManager->GetStomachache())
+				{
+					condition += Common::LoadString_(IDS_STRING159)+ "/";
+				}
+
+				if (statusManager->GetSleep())
+				{
+					condition += Common::LoadString_(IDS_STRING160)+ "/";
+				}
+
+				if (statusManager->GetDehydration())
+				{
+					condition += Common::LoadString_(IDS_STRING161)+ "/";
+				}
+
+				if (statusManager->GetLackOfSleep())
+				{
+					condition += Common::LoadString_(IDS_STRING162)+ "/";
+				}
+
+				if (statusManager->GetDead())
+				{
+					condition += Common::LoadString_(IDS_STRING163)+ "/";
+				}
+
+				if (condition.empty() == false)
+				{
+					condition.pop_back();
+				}
+			}
+
+			NSMenulib::StatusInfo info;
+			info.SetName(Common::LoadString_(IDS_STRING211));
+
+			NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+			sprItem->Load("res\\image\\hoshiman00.png");
+			info.SetSprite(sprItem);
+
+			char buf[1024];
+			std::string work;
+			work =  Common::LoadString_(IDS_STRING210) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING146).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
+			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
+			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING147).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
+			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
+			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING209).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING149).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
+			work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
+			work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
+			work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
+			work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
+			work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
+			work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
+			work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
+	//        work += "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING213).c_str());
+			work += buf;
+			work += condition;
+			work += "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING214).c_str());
+			work += buf;
+			work += weaponName;
+			work += "\n";
+
+			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING215).c_str());
+			work += buf;
+			work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + "\n";
+
+			auto rynen = NSStarmanLib::Rynen::GetObj();
+			if (rynen->GetContracted())
+			{
+				work += "ワードブレス   ";
+
+				if (rynen->GetReviveEnable())
+				{
+					work += "復活可能\n";
+				}
+				else
+				{
+					work += "復活済み\n";
+				}
+			}
+
+			info.SetDetail(work);
+			infoList.push_back(info);
         }
 
-        // 状態異常リスト
-        std::string condition;
+		//----------------------------------------------------
+		// イカダのステータス
+		//----------------------------------------------------
+		{
+			if (SharedObj::Voyage()->GetRaftMode())
+			{
+				// イカダは複数個持つことができるが、ステータスに表示するのは乗船中のイカダだけ
+				// ・耐久度
+				// ・強化値
+				NSMenulib::StatusInfo info;
+				info.SetName("イカダ");
+				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+				sprItem->Load("res\\image\\raft.png");
+				info.SetSprite(sprItem);
+				std::string work;
+				work += "現在の耐久値\n";
+				work += std::to_string(SharedObj::Voyage()->GetRaftDurability()) + "\n";
+				work += "現在の強化値\n";
+				work += std::to_string(SharedObj::Voyage()->GetRaftLevel()) + "\n";
+
+				info.SetDetail(work);
+				infoList.push_back(info);
+			}
+		}
+
+        // ダイケイマン
         {
-            if (statusManager->GetFractureArm())
-            {
-                condition += Common::LoadString_(IDS_STRING155)+ "/";
-            }
+			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
-            if (statusManager->GetFractureLeg())
+            auto status = npcStatusMgr->GetNpcStatus("daikeiman");
+            if (status.GetMenuShow())
             {
-                condition += Common::LoadString_(IDS_STRING156)+ "/";
-            }
+				NSMenulib::StatusInfo info;
+				info.SetName(Common::LoadString_(IDS_STRING121));
 
-            if (statusManager->GetHeadache())
-            {
-                condition += Common::LoadString_(IDS_STRING157)+ "/";
-            }
+				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+				sprItem->Load("res\\image\\daikeiman00.png");
+				info.SetSprite(sprItem);
 
-            if (statusManager->GetCold())
-            {
-                condition += Common::LoadString_(IDS_STRING158)+ "/";
-            }
+				char buf[1024];
+				std::string work;
+				work =  Common::LoadString_(IDS_STRING210) + "\n";
 
-            if (statusManager->GetStomachache())
-            {
-                condition += Common::LoadString_(IDS_STRING159)+ "/";
-            }
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
 
-            if (statusManager->GetSleep())
-            {
-                condition += Common::LoadString_(IDS_STRING160)+ "/";
-            }
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
 
-            if (statusManager->GetDehydration())
-            {
-                condition += Common::LoadString_(IDS_STRING161)+ "/";
-            }
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
 
-            if (statusManager->GetLackOfSleep())
-            {
-                condition += Common::LoadString_(IDS_STRING162)+ "/";
-            }
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
 
-            if (statusManager->GetDead())
-            {
-                condition += Common::LoadString_(IDS_STRING163)+ "/";
-            }
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
 
-            if (condition.empty() == false)
-            {
-                condition.pop_back();
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetWater(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+		        work += "\n";
+
+				if (status.GetRynenContract())
+				{
+					work += "ワードブレス   ";
+
+					if (status.GetDrinkWordbress())
+					{
+						work += "使用済み\n";
+					}
+					else
+					{
+						work += "未使用\n";
+					}
+				}
+
+                if (status.GetDead())
+                {
+                    work += "死亡\n";
+                }
+				else
+                {
+					work += "生存\n";
+				}
+
+				info.SetDetail(work);
+				infoList.push_back(info);
             }
         }
 
-        StatusInfo info;
-        info.SetName(Common::LoadString_(IDS_STRING211));
-
-        NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-        sprItem->Load("res\\image\\hoshiman00.png");
-        info.SetSprite(sprItem);
-
-        char buf[1024];
-        std::string work;
-        work =  Common::LoadString_(IDS_STRING210) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING146).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING147).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
-        work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING209).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING149).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
-        work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
-//        work += "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING213).c_str());
-        work += buf;
-        work += condition;
-        work += "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING214).c_str());
-        work += buf;
-        work += weaponName;
-        work += "\n";
-
-        snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING215).c_str());
-        work += buf;
-        work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + "\n";
-
-        auto rynen = NSStarmanLib::Rynen::GetObj();
-        if (rynen->GetContracted())
+        // サンカクマン
         {
-            work += "ワードブレス   ";
+			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
-            if (rynen->GetReviveEnable())
+            auto status = npcStatusMgr->GetNpcStatus("sankakuman");
+            if (status.GetMenuShow())
             {
-                work += "復活可能\n";
-            }
-            else
-            {
-                work += "復活済み\n";
+				NSMenulib::StatusInfo info;
+				info.SetName(Common::LoadString_(IDS_STRING112));
+
+				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+				sprItem->Load("res\\image\\sankakuman00.png");
+				info.SetSprite(sprItem);
+
+				char buf[1024];
+				std::string work;
+				work =  Common::LoadString_(IDS_STRING210) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetWater(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+		        work += "\n";
+
+				if (status.GetRynenContract())
+				{
+					work += "ワードブレス   ";
+
+					if (status.GetDrinkWordbress())
+					{
+						work += "使用済み\n";
+					}
+					else
+					{
+						work += "未使用\n";
+					}
+				}
+
+                if (status.GetDead())
+                {
+                    work += "死亡\n";
+                }
+				else
+                {
+					work += "生存\n";
+				}
+
+
+				info.SetDetail(work);
+				infoList.push_back(info);
             }
         }
 
-        // 要らない気がする
-//        {
-//            work += "積載量         ";
-//
-//            auto vol = NSStarmanLib::Inventory::GetObj()->GetVolume();
-//            work += Common::ToStringWithPrecision(vol, 2) + "/";
-//
-//            auto volMax = NSStarmanLib::Inventory::GetObj()->GetVolumeMax();
-//            work += Common::ToStringWithPrecision(volMax, 2) + "\n";
-//        }
-
-        info.SetDetail(work);
-        infoList.push_back(info);
-
-        //----------------------------------------------------
-        // イカダのステータス
-        //----------------------------------------------------
+        // シカクマン
         {
-            if (SharedObj::Voyage()->GetRaftMode())
-            {
-                // イカダは複数個持つことができるが、ステータスに表示するのは乗船中のイカダだけ
-                // ・耐久度
-                // ・強化値
-                StatusInfo info;
-                info.SetName("イカダ");
-                NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-                sprItem->Load("res\\image\\raft.png");
-                info.SetSprite(sprItem);
-                std::string work;
-                work += "現在の耐久値\n";
-                work += std::to_string(SharedObj::Voyage()->GetRaftDurability()) + "\n";
-                work += "現在の強化値\n";
-                work += std::to_string(SharedObj::Voyage()->GetRaftLevel()) + "\n";
+			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
-                info.SetDetail(work);
-                infoList.push_back(info);
+            auto status = npcStatusMgr->GetNpcStatus("shikakuman");
+            if (status.GetMenuShow())
+            {
+				NSMenulib::StatusInfo info;
+				info.SetName(Common::LoadString_(IDS_STRING112));
+
+				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+				sprItem->Load("res\\image\\shikakuman00.png");
+				info.SetSprite(sprItem);
+
+				char buf[1024];
+				std::string work;
+				work =  Common::LoadString_(IDS_STRING210) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+
+				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+				work += buf;
+				work += Common::ToStringWithPrecision(status.GetWater(), 2) + "/-/";
+				work += Common::ToStringWithPrecision(100, 2) + "\n";
+		        work += "\n";
+
+				if (status.GetRynenContract())
+				{
+					work += "ワードブレス   ";
+
+					if (status.GetDrinkWordbress())
+					{
+						work += "使用済み\n";
+					}
+					else
+					{
+						work += "未使用\n";
+					}
+				}
+
+                if (status.GetDead())
+                {
+                    work += "死亡\n";
+                }
+				else
+                {
+					work += "生存\n";
+				}
+
+
+				info.SetDetail(work);
+				infoList.push_back(info);
             }
         }
 
-        m_menu.SetStatus(infoList);
+		m_menu.SetStatus(infoList);
     }
     return result;
 }
