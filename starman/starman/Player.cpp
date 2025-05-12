@@ -842,7 +842,7 @@ void Player::Update(Map* map)
 
     // •Ç‚¸‚è
     // •Ç‚¸‚è‚Í‘«‚É‘Î‚µ‚Ä‚¾‚¯s‚¤
-    bool bHit { false };
+    bool bHit = false;
     bool bInside = false;
     m_move = map->WallSlide(m_loadingPos, m_move, &bHit, &bInside);
 

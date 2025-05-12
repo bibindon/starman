@@ -670,17 +670,26 @@ void Raft2::Update()
 
     // 衝突判定
 
+    // 川を上れるようにする
+
+    bool bHit = false;
+    bool bInside = false;
+
     // 海と接触していたらそれ以上、落下させない
     D3DXVECTOR3 _pos = m_pos;
 
     // 少し浮いていてほしいので20センチ下の部分を接地判定に使用する
     _pos.y += -0.2f;
-    bool isHit1 = SharedObj::GetMap()->IntersectWater(_pos, _move);
+    _move = SharedObj::GetMap()->WallSlide(_pos, _move, &bHit, &bInside);
 
-    if (isHit1)
-    {
-        _move.y = 0.f;
-    }
+    // 少し浮いていてほしいので20センチ下の部分を接地判定に使用する
+//    _pos.y += -0.2f;
+//    bool isHit1 = SharedObj::GetMap()->IntersectWater(_pos, _move);
+//
+//    if (isHit1)
+//    {
+//        _move.y += 0.1f;
+//    }
 
     // 陸地と接触していたら停止
     bool isHit2 = SharedObj::GetMap()->CollisionGround(m_pos, _move);
@@ -716,8 +725,6 @@ void Raft2::Update()
 
     SharedObj::GetPlayer()->SetPos(ppos);
     SharedObj::GetPlayer()->SetRotate(workRotate);
-
-    // イカダで川を進むことも出来ることに注意
 }
 
 void Raft2::Draw()
