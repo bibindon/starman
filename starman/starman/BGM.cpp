@@ -71,7 +71,11 @@ void BGM::Update()
                 }
                 else
                 {
-                    stop(envBgm.second.m_filename);
+                    // Ä¶‚Æ’â~‚ğ“¯‚És‚í‚ê‚é‚Æˆê“x‚àplayŠÖ”‚ªŒÄ‚Î‚ê‚¸‚ÉstopŠÖ”‚ªŒÄ‚Î‚ê‚é‚±‚Æ‚ª‚ ‚éB
+                    if (dx8sound_buffers_.find(envBgm.second.m_filename) != dx8sound_buffers_.end())
+                    {
+						stop(envBgm.second.m_filename);
+                    }
                 }
             }
         }

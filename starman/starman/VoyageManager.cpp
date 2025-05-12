@@ -503,7 +503,9 @@ void Raft2::Update()
 {
     D3DXVECTOR3 _move = m_move;
 
-    _move *= 0.97f;
+    // ˆÚ“®‚ª™X‚É’x‚­‚È‚é‚æ‚¤‚É‚·‚é
+    // ‚±‚ê‚ª‚È‚¢‚Æ“™‘¬’¼ü‰^“®‚É‚È‚Á‚Ä‚µ‚Ü‚¤‚½‚ß
+    _move *= 0.99f;
     m_moveRot *= 0.97f;
 
     //--------------------------------------------
@@ -792,8 +794,8 @@ void Raft2::PullOarBoth(D3DXVECTOR3* _move)
     m_meshOarLeft->SetAnim("Pull", 0.f);
     m_meshOarRight->SetAnim("Pull", 0.f);
 
-    _move->x += std::sin(m_rotate.y) * -0.3f;
-    _move->z += std::cos(m_rotate.y) * -0.3f;
+    _move->x += std::sin(m_rotate.y) * -1.6f;
+    _move->z += std::cos(m_rotate.y) * -1.6f;
 
     SoundEffect::get_ton()->play("res\\sound\\pullOar.wav", 80);
     SoundEffect::get_ton()->play("res\\sound\\pullOar2.wav", 80);
