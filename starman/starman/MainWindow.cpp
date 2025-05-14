@@ -329,7 +329,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
                                  OUT_TT_ONLY_PRECIS,
                                  CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 "Courier New",
+                                 "Calibri",
                                  &m_D3DFont);
 
         assert(hResult == S_OK);

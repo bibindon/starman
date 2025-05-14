@@ -144,7 +144,7 @@ namespace NSStorehouseLib
                                     OUT_TT_ONLY_PRECIS,
                                     CLEARTYPE_NATURAL_QUALITY,
                                     FF_DONTCARE,
-                                    "Courier New",
+                                    "Calibri",
                                     &m_pFont);
             }
 
@@ -364,7 +364,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                "Calibri",
                                 &m_pFont);
         }
 
