@@ -126,7 +126,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Calibri",
+                                "Courier New",
                                 &m_pFont);
         }
         assert(hr == S_OK);

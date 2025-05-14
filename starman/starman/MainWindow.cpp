@@ -116,7 +116,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         {
             if (lang == "Japanese")
             {
-                bJapan = true;
+//                bJapan = true;
             }
         }
         else
@@ -124,7 +124,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
             LANGID langId = GetUserDefaultUILanguage();
             if (langId == MAKELANGID(LANG_JAPANESE, SUBLANG_JAPANESE_JAPAN))
             {
-                bJapan = true;
+//                bJapan = true;
             }
         }
 
@@ -329,7 +329,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
                                  OUT_TT_ONLY_PRECIS,
                                  CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 "Calibri",
+                                 "Courier New",
                                  &m_D3DFont);
 
         assert(hResult == S_OK);

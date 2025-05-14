@@ -54,7 +54,7 @@ void PopUp::Init(const bool bEnglish)
                        OUT_TT_ONLY_PRECIS,
                        CLEARTYPE_NATURAL_QUALITY,
                        FF_DONTCARE,
-                       "Calibri",
+                       "Courier New",
                        &m_singleTonObj->m_D3DFont);
     }
 

@@ -144,7 +144,7 @@ namespace NSStorehouseLib
                                     OUT_TT_ONLY_PRECIS,
                                     CLEARTYPE_NATURAL_QUALITY,
                                     FF_DONTCARE,
-                                    "Calibri",
+                                    "Courier New",
                                     &m_pFont);
             }
 
@@ -364,7 +364,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Calibri",
+                                "Courier New",
                                 &m_pFont);
         }
 
@@ -1651,35 +1651,35 @@ void SeqBattle::RenderLoad()
 
             if (progress <= 10)
             {
-                width_ = 60 * 0;
+                width_ = 62 * 0;
             }
             else if (progress <= 20)
             {
-                width_ = 60 * 1;
+                width_ = 62 * 1;
             }
             else if (progress <= 30)
             {
-                width_ = 60 * 2;
+                width_ = 62 * 2;
             }
             else if (progress <= 40)
             {
-                width_ = 60 * 3;
+                width_ = 62 * 3;
             }
             else if (progress <= 50)
             {
-                width_ = 60 * 4;
+                width_ = 62 * 4;
             }
             else if (progress <= 60)
             {
-                width_ = 60 * 5;
+                width_ = 62 * 5;
             }
             else if (progress <= 70)
             {
-                width_ = 60 * 6;
+                width_ = 62 * 6;
             }
             else if (progress <= 99)
             {
-                width_ = 60 * 6;
+                width_ = 62 * 6;
             }
         }
 

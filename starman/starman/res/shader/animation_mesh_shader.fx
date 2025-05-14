@@ -20,9 +20,11 @@ void vertex_shader(
     in_normal = normalize(in_normal);
 
     float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
+    light_intensity = light_intensity * 0.4f;
+    light_intensity += 0.3f;
     out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
-    out_diffuse.r *= 0.9f; // ˆÃ‚­‚µ‚Ä‚Ý‚é
-    out_diffuse.gb *= 0.6f; // ˆÃ‚­‚µ‚Ä‚Ý‚é
+    out_diffuse.r *= 0.7f; // ˆÃ‚­‚µ‚Ä‚Ý‚é
+    out_diffuse.gb *= 0.5f; // ˆÃ‚­‚µ‚Ä‚Ý‚é
     out_diffuse.a = 1.0f;
 
     out_texture  = in_texcood;
