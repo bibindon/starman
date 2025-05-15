@@ -106,6 +106,15 @@
                 <File Source="../starman/res/image/background.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/bag.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/bag2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/banana.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/black.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -113,6 +122,9 @@
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/bow.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/bui.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/chara1.png" />
@@ -124,16 +136,34 @@
                 <File Source="../starman/res/image/chara3.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/coconut.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/coconut2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/command_cursor.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/copper.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/craftPanel.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
-                <File Source="../starman/res/image/cursor.png" />
+                <File Source="../starman/res/image/daikeiman00.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
-                <File Source="../starman/res/image/daikeiman00.png" />
+                <File Source="../starman/res/image/donguri1.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/donguri2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/donguri3.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/donguri4.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/dream01.png" />
@@ -187,6 +217,9 @@
                 <File Source="../starman/res/image/examine.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/flower.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/gain00.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -197,6 +230,9 @@
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hanen00.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/homekey.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/hoshiman00.png" />
@@ -223,6 +259,9 @@
                 <File Source="../starman/res/image/human3.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/ironPipe.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/item1.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -232,16 +271,31 @@
                 <File Source="../starman/res/image/item3.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/kakan.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/kinoko.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/loading.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/load_clock.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/longstone.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/mango.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/menu_back.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/menu_cursor.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/mu-rugai.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/narrowmap.png" />
@@ -286,6 +340,9 @@
                 <File Source="../starman/res/image/nes00.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/nira.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/noble00.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -305,6 +362,9 @@
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/panelLeft.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/papaiya.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/pipe.png" />
@@ -343,6 +403,15 @@
                 <File Source="../starman/res/image/shikakuman02.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/sotetsu2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/sotetsu_.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/spear2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/sphere00.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -364,7 +433,25 @@
                 <File Source="../starman/res/image/stick.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/stick2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/stone.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/stoneForAxe.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/stoneForSpear.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/sugegasa.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/sumaho.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/tanpopo.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/test.png" />
@@ -383,6 +470,15 @@
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/torch2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/tsukushi.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/tsuta.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/unknownPlant.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/vbar.png" />
@@ -415,7 +511,13 @@
                 <File Source="../starman/res/image/widemap_.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/wordbress.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/xeoff00.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/yakizakana.png" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/animation_mesh_shader.fx" />
@@ -449,6 +551,12 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/colli.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/continent.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/continent.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/cord.x" />
@@ -670,10 +778,19 @@
                 <File Source="../starman/res/model/rippoutai_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/river.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/rock1.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/rock2.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/rocks.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/rocks.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/Rocks_Diffuse.png" />
@@ -689,6 +806,9 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/sail.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/sankakuman.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/sankakuman.x" />
@@ -767,6 +887,9 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/tree1.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tree2.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/tree2.x" />
@@ -1214,6 +1337,9 @@
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/iceSet.wav" />
+            </Component>
+            <Component Directory="SOUND" Guid="*" Win64="yes">
+                <File Source="../starman/res/sound/jump.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/letsgo.wav" />
