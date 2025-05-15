@@ -1,4 +1,4 @@
-#include "VoyageManager.h"
+ï»¿#include "VoyageManager.h"
 #include "KeyBoard.h"
 #include "SharedObj.h"
 #include "Mouse.h"
@@ -54,13 +54,13 @@ void VoyageManager::Finalize()
     m_raftMap.clear();
 }
 
-// ‚±‚ÌŠÖ”‚ÍqŠC’†‚Å‚È‚­‚Ä‚àí‚ÉŒÄ‚Î‚ê‚éB
-// ƒCƒJƒ_‚ğ•\¦‚·‚é‚½‚ß
+// ã“ã®é–¢æ•°ã¯èˆªæµ·ä¸­ã§ãªãã¦ã‚‚å¸¸ã«å‘¼ã°ã‚Œã‚‹ã€‚
+// ã‚¤ã‚«ãƒ€ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚
 void VoyageManager::Update()
 {
-    // ƒCƒJƒ_‚Í‘‚¦‚é‚±‚Æ‚ª‚ ‚é‚½‚ßAƒCƒJƒ_‚Éæ‚Á‚Ä‚¢‚È‚­‚Ä‚à
-    // m_raftMap‚ÍXV‚³‚ê‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢B
-    // ‹ï‘Ì“I‚É‚ÍƒCƒJƒ_‚ğƒNƒ‰ƒtƒg‚µ‚½‚Æ‚«‚É‘‚¦‚é
+    // ã‚¤ã‚«ãƒ€ã¯å¢—ãˆã‚‹ã“ã¨ãŒã‚ã‚‹ãŸã‚ã€ã‚¤ã‚«ãƒ€ã«ä¹—ã£ã¦ã„ãªãã¦ã‚‚
+    // m_raftMapã¯æ›´æ–°ã•ã‚Œãªã‘ã‚Œã°ã„ã‘ãªã„ã€‚
+    // å…·ä½“çš„ã«ã¯ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã—ãŸã¨ãã«å¢—ãˆã‚‹
     static int counter = 0;
     counter++;
     if (counter > 60)
@@ -93,23 +93,23 @@ void VoyageManager::Update()
 
 void VoyageManager::Operate(eBattleState* state)
 {
-    // æ‘D’†‚Å‚Í‚È‚¢B
+    // ä¹—èˆ¹ä¸­ã§ã¯ãªã„ã€‚
     if (!Voyage()->GetRaftMode())
     {
         return;
     }
 
-    // ålŒö‚ğƒCƒJƒ_‚Ì’†‰›‚ÉÀ‚ç‚¹‚é
+    // ä¸»äººå…¬ã‚’ã‚¤ã‚«ãƒ€ã®ä¸­å¤®ã«åº§ã‚‰ã›ã‚‹
 
-    // ƒCƒJƒ_‚ÅˆÚ“®‚µ‚Ä‚¢‚é‚Æ‚«AˆÚ“®‚µ‚Ä‚¢‚é‚Ì‚ÍƒCƒJƒ_‚Å‚ ‚èA
-    // ålŒö‚ÍƒCƒJƒ_‚É‚Â‚¢‚Ä‚«‚Ä‚¢‚éA‚Æl‚¦‚éB
+    // ã‚¤ã‚«ãƒ€ã§ç§»å‹•ã—ã¦ã„ã‚‹ã¨ãã€ç§»å‹•ã—ã¦ã„ã‚‹ã®ã¯ã‚¤ã‚«ãƒ€ã§ã‚ã‚Šã€
+    // ä¸»äººå…¬ã¯ã‚¤ã‚«ãƒ€ã«ã¤ã„ã¦ãã¦ã„ã‚‹ã€ã¨è€ƒãˆã‚‹ã€‚
 
     Voyage()->Update(SharedObj::GetPlayer()->GetPos().x,
                      SharedObj::GetPlayer()->GetPos().y,
                      SharedObj::GetPlayer()->GetPos().z);
 
     //----------------------------------------------------
-    // ƒ}ƒEƒXEƒL[ƒ{[ƒh‘€ì
+    // ãƒã‚¦ã‚¹ãƒ»ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æ“ä½œ
     //----------------------------------------------------
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_C))
     {
@@ -124,7 +124,7 @@ void VoyageManager::Operate(eBattleState* state)
     }
 
     //----------------------------------------------------
-    // ƒQ[ƒ€ƒpƒbƒh‘€ì
+    // ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰æ“ä½œ
     //----------------------------------------------------
 
     if (GamePad::IsDown(eGamePadButtonType::BACK))
@@ -222,7 +222,7 @@ int VoyageManager::GetRaftCount()
 
 bool VoyageManager::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
-    // V‚µ‚¢ålŒö‚ÌˆÊ’u
+    // æ–°ã—ã„ä¸»äººå…¬ã®ä½ç½®
     auto newPpos = pos + move;
     bool bHit = false;
 
@@ -283,7 +283,7 @@ bool VoyageManager::Can3HoursAuto()
     D3DXVECTOR3 rotate = m_raftMap[id].GetRotate();
     D3DXVECTOR3 move(0.f, 0.f, 0.f);
 
-    // TODO ‚¢‚¢Š´‚¶‚É
+    // TODO ã„ã„æ„Ÿã˜ã«
     move.x = std::sin(rotate.y) * -10000.f;
     move.z = std::cos(rotate.y) * -10000.f;
     bool bHit = SharedObj::GetMap()->Intersect(SharedObj::GetPlayer()->GetPos(), move);
@@ -329,8 +329,8 @@ D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
     {
         *bHit = true;
 
-        // ----- ƒLƒƒƒ‰YÀ•W•â³ -----
-        // “–‚½‚Á‚½ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@æ“¾
+        // ----- ã‚­ãƒ£ãƒ©Yåº§æ¨™è£œæ­£ -----
+        // å½“ãŸã£ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡å–å¾—
         WORD dwHitVertexNo[3] = {};
         WORD* pIndex = nullptr;
         HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
@@ -342,17 +342,17 @@ D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
 
         d3dmesh->UnlockIndexBuffer();
 
-        // “–‚½‚Á‚½ƒ|ƒŠƒSƒ“æ“¾
+        // å½“ãŸã£ãŸãƒãƒªã‚´ãƒ³å–å¾—
         struct VERTEX
         {
-            FLOAT x, y, z; // ’¸“_‚ÌÀ•W
-            FLOAT normX, normY, normZ; // –@ü‚ÌÀ•W
-            FLOAT u, v;   // ’¸“_‚ÌF
+            FLOAT x, y, z; // é ‚ç‚¹ã®åº§æ¨™
+            FLOAT normX, normY, normZ; // æ³•ç·šã®åº§æ¨™
+            FLOAT u, v;   // é ‚ç‚¹ã®è‰²
         };
         VERTEX* pVertex = nullptr;
         hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
 
-        // ’n–Ê‚Ì‚‚³‚É‡‚í‚¹‚é
+        // åœ°é¢ã®é«˜ã•ã«åˆã‚ã›ã‚‹
         D3DXVECTOR3 p1 { pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z };
         D3DXVECTOR3 p2 { pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z };
         D3DXVECTOR3 p3 { pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z };
@@ -503,17 +503,17 @@ void Raft2::Update()
 {
     D3DXVECTOR3 _move = m_move;
 
-    // ˆÚ“®‚ª™X‚É’x‚­‚È‚é‚æ‚¤‚É‚·‚é
-    // ‚±‚ê‚ª‚È‚¢‚Æ“™‘¬’¼ü‰^“®‚É‚È‚Á‚Ä‚µ‚Ü‚¤‚½‚ß
+    // ç§»å‹•ãŒå¾ã€…ã«é…ããªã‚‹ã‚ˆã†ã«ã™ã‚‹
+    // ã“ã‚ŒãŒãªã„ã¨ç­‰é€Ÿç›´ç·šé‹å‹•ã«ãªã£ã¦ã—ã¾ã†ãŸã‚
     _move *= 0.99f;
     m_moveRot *= 0.97f;
 
     //--------------------------------------------
-    // ‰EƒNƒŠƒbƒN‚Å‰E‚ÌƒI[ƒ‹‚ğ‘†‚®
-    // ¶ƒNƒŠƒbƒN‚Å¶‚ÌƒI[ƒ‹‚ğ‘†‚®
-    // ¶‰E“¯‰Ÿ‚µ‚Å—¼•û‚ÌƒI[ƒ‹‚ğ‘†‚®
-    // “¯‰Ÿ‚µ‚Ì—P—\‚ğ0.33•b‚½‚¹‚éB
-    // ’·‰Ÿ‚µ‚Íˆµ‚í‚È‚¢Bˆê‰ñ‘†‚®‚½‚Ñ‚Éˆê‰ñƒNƒŠƒbƒN‚·‚é•K—v‚ª‚ ‚éB
+    // å³ã‚¯ãƒªãƒƒã‚¯ã§å³ã®ã‚ªãƒ¼ãƒ«ã‚’æ¼•ã
+    // å·¦ã‚¯ãƒªãƒƒã‚¯ã§å·¦ã®ã‚ªãƒ¼ãƒ«ã‚’æ¼•ã
+    // å·¦å³åŒæ™‚æŠ¼ã—ã§ä¸¡æ–¹ã®ã‚ªãƒ¼ãƒ«ã‚’æ¼•ã
+    // åŒæ™‚æŠ¼ã—ã®çŒ¶äºˆã‚’0.33ç§’æŒãŸã›ã‚‹ã€‚
+    // é•·æŠ¼ã—ã¯æ‰±ã‚ãªã„ã€‚ä¸€å›æ¼•ããŸã³ã«ä¸€å›ã‚¯ãƒªãƒƒã‚¯ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
     //--------------------------------------------
 
     static int counterLeft = 0;
@@ -528,7 +528,7 @@ void Raft2::Update()
     if (m_coolTime > 60)
     {
         //----------------------------------------------------
-        // ƒ}ƒEƒXEƒL[ƒ{[ƒh‘€ì
+        // ãƒã‚¦ã‚¹ãƒ»ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰æ“ä½œ
         //----------------------------------------------------
         if (Mouse::IsDownLeft())
         {
@@ -553,7 +553,7 @@ void Raft2::Update()
         }
 
         //----------------------------------------------------
-        // ƒQ[ƒ€ƒpƒbƒh‘€ì
+        // ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰æ“ä½œ
         //----------------------------------------------------
 
         if (GamePad::IsDown(eGamePadButtonType::L1))
@@ -637,7 +637,7 @@ void Raft2::Update()
         }
     }
 
-    // •—‚Ì‹­‚³‚Æ•ûŒü‚É‚æ‚è—¬‚³‚ê‚é
+    // é¢¨ã®å¼·ã•ã¨æ–¹å‘ã«ã‚ˆã‚Šæµã•ã‚Œã‚‹
     {
         float x, z;
         Voyage()->GetWindXZ(&x, &z);
@@ -656,7 +656,7 @@ void Raft2::Update()
         }
     }
 
-    // ’ª‚Ì‹­‚³‚Æ•ûŒü‚É‚æ‚è—¬‚³‚ê‚é
+    // æ½®ã®å¼·ã•ã¨æ–¹å‘ã«ã‚ˆã‚Šæµã•ã‚Œã‚‹
     {
         float x, z;
         Voyage()->GetTideXZ(&x, &z);
@@ -667,24 +667,24 @@ void Raft2::Update()
         _move.z += (_move.z - z) / (60 * 20);
     }
     
-    // d—Í
+    // é‡åŠ›
     _move.y += -0.01f;
 
-    // Õ“Ë”»’è
+    // è¡çªåˆ¤å®š
 
-    // ì‚ğã‚ê‚é‚æ‚¤‚É‚·‚é
+    // å·ã‚’ä¸Šã‚Œã‚‹ã‚ˆã†ã«ã™ã‚‹
 
     bool bHit = false;
     bool bInside = false;
 
-    // ŠC‚ÆÚG‚µ‚Ä‚¢‚½‚ç‚»‚êˆÈãA—‰º‚³‚¹‚È‚¢
+    // æµ·ã¨æ¥è§¦ã—ã¦ã„ãŸã‚‰ãã‚Œä»¥ä¸Šã€è½ä¸‹ã•ã›ãªã„
     D3DXVECTOR3 _pos = m_pos;
 
-    // ­‚µ•‚‚¢‚Ä‚¢‚Ä‚Ù‚µ‚¢‚Ì‚Å20ƒZƒ“ƒ`‰º‚Ì•”•ª‚ğÚ’n”»’è‚Ég—p‚·‚é
+    // å°‘ã—æµ®ã„ã¦ã„ã¦ã»ã—ã„ã®ã§20ã‚»ãƒ³ãƒä¸‹ã®éƒ¨åˆ†ã‚’æ¥åœ°åˆ¤å®šã«ä½¿ç”¨ã™ã‚‹
     _pos.y += -0.2f;
     _move = SharedObj::GetMap()->WallSlide(_pos, _move, &bHit, &bInside);
 
-    // ­‚µ•‚‚¢‚Ä‚¢‚Ä‚Ù‚µ‚¢‚Ì‚Å20ƒZƒ“ƒ`‰º‚Ì•”•ª‚ğÚ’n”»’è‚Ég—p‚·‚é
+    // å°‘ã—æµ®ã„ã¦ã„ã¦ã»ã—ã„ã®ã§20ã‚»ãƒ³ãƒä¸‹ã®éƒ¨åˆ†ã‚’æ¥åœ°åˆ¤å®šã«ä½¿ç”¨ã™ã‚‹
 //    _pos.y += -0.2f;
 //    bool isHit1 = SharedObj::GetMap()->IntersectWater(_pos, _move);
 //
@@ -693,7 +693,7 @@ void Raft2::Update()
 //        _move.y += 0.1f;
 //    }
 
-    // —¤’n‚ÆÚG‚µ‚Ä‚¢‚½‚ç’â~
+    // é™¸åœ°ã¨æ¥è§¦ã—ã¦ã„ãŸã‚‰åœæ­¢
     bool isHit2 = SharedObj::GetMap()->CollisionGround(m_pos, _move);
 
     if (!isHit2)
@@ -703,10 +703,10 @@ void Raft2::Update()
         FLOAT speed = D3DXVec3Length(&_move);
         speed += 1.f;
     }
-    // Œƒ“Ë
+    // æ¿€çª
     else
     {
-        // ƒXƒs[ƒh‚ªo‚Ä‚¢‚½‚©
+        // ã‚¹ãƒ”ãƒ¼ãƒ‰ãŒå‡ºã¦ã„ãŸã‹
         FLOAT speed = D3DXVec3Length(&m_move);
         if (speed >= 0.1f)
         {
@@ -718,7 +718,7 @@ void Raft2::Update()
 
     m_rotate += m_moveRot;
 
-    // ålŒö‚ÍƒCƒJƒ_‚É’Ç]‚³‚¹‚é
+    // ä¸»äººå…¬ã¯ã‚¤ã‚«ãƒ€ã«è¿½å¾“ã•ã›ã‚‹
     auto ppos = m_pos;
     ppos.y += 0.2f;
 
@@ -737,8 +737,8 @@ void Raft2::Draw()
 
     m_meshRaftCollision->SetPos(m_pos);
     m_meshRaftCollision->SetRotY(m_rotate.y);
-    // •`‰æ‚·‚é•K—v‚ª‚ ‚éB
-    // •`‰æ‚µ‚È‚¢‚ÆÕ“Ë”»’è‚ª“­‚©‚È‚¢B
+    // æç”»ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
+    // æç”»ã—ãªã„ã¨è¡çªåˆ¤å®šãŒåƒã‹ãªã„ã€‚
     m_meshRaftCollision->Render();
 
     m_meshSail->SetPos(m_pos);
@@ -756,7 +756,7 @@ void Raft2::Draw()
     m_meshCord->SetPos(m_pos);
     m_meshCord->SetRotate(m_rotate);
 
-    // •—‚Åƒnƒ“ƒJƒ`‚ª‚½‚È‚Ñ‚­
+    // é¢¨ã§ãƒãƒ³ã‚«ãƒãŒãŸãªã³ã
     {
         float x, z;
         Voyage()->GetWindXZ(&x, &z);
@@ -766,8 +766,8 @@ void Raft2::Draw()
         tempRot.y += D3DX_PI;
         m_meshCord->SetRotateLocal(tempRot);
 
-        // •—‘¬‚É‚æ‚èƒAƒjƒ[ƒVƒ‡ƒ“‘¬“x‚ğ•Ï‚¦‚é
-        // •—‘¬4m/s‚Å1”{‘¬A8m/s‚Å2”{‘¬A2m/s‚Å0.5”{‘¬
+        // é¢¨é€Ÿã«ã‚ˆã‚Šã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é€Ÿåº¦ã‚’å¤‰ãˆã‚‹
+        // é¢¨é€Ÿ4m/sã§1å€é€Ÿã€8m/sã§2å€é€Ÿã€2m/sã§0.5å€é€Ÿ
         float windSpeed = std::sqrt(x*x + z*z);
         float animSpeed = windSpeed/4;
         animSpeed /= 60.f; // 60fps
@@ -821,7 +821,7 @@ void Raft2::PullOarRight()
 
 void Raft2::Pull3Hours()
 {
-    // TODO “KØ‚È’l‚É
+    // TODO é©åˆ‡ãªå€¤ã«
     m_pos.x += std::sin(m_rotate.y) * -10000.f;
     m_pos.z += std::cos(m_rotate.y) * -10000.f;
 }

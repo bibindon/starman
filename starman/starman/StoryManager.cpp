@@ -1,4 +1,4 @@
-#include "StoryManager.h"
+Ôªø#include "StoryManager.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "GamePad.h"
@@ -117,7 +117,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "ÇlÇr ñæí©",
+                                "Ôº≠Ôº≥ ÊòéÊúù",
                                 &m_pFont);
         }
         else

@@ -1,4 +1,4 @@
-
+ï»¿
 #include <d3d9.h>
 #include <d3dx9.h>
 
@@ -20,8 +20,8 @@
 
 namespace NSPatchTestLib
 {
-// ‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼‚ª“¯‚¶‚È‚ç“Ç‚İ‚Ü‚¸‚É‹¤—L‚·‚é‚æ‚¤‚É‚·‚éB
-// ‚³‚à‚È‚¢‚ÆŠÈ’P‚Éƒƒ‚ƒŠ[•s‘«‚Å—‚¿‚é
+// ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«åãŒåŒã˜ãªã‚‰èª­ã¿è¾¼ã¾ãšã«å…±æœ‰ã™ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
+// ã•ã‚‚ãªã„ã¨ç°¡å˜ã«ãƒ¡ãƒ¢ãƒªãƒ¼ä¸è¶³ã§è½ã¡ã‚‹
 class Sprite : public ISprite
 {
 public:
@@ -53,7 +53,7 @@ public:
 
     void Load(const std::string& filepath) override
     {
-        // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚Ì‚İŠm•Û‚µg‚¢‚Ü‚í‚·
+        // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã®ã¿ç¢ºä¿ã—ä½¿ã„ã¾ã‚ã™
         if (m_D3DSprite == NULL)
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
@@ -64,8 +64,8 @@ public:
 
         m_filepath = filepath;
 
-        // “¯‚¶‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚ªŠù‚É‚ ‚é‚È‚çA
-        // ‰æ‘œ‚ÌƒTƒCƒY‚¾‚¯Šm•Û‚µƒeƒNƒXƒ`ƒƒ‚Ìì¬‚ğs‚í‚È‚¢
+        // åŒã˜ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒæ—¢ã«ã‚ã‚‹ãªã‚‰ã€
+        // ç”»åƒã®ã‚µã‚¤ã‚ºã ã‘ç¢ºä¿ã—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆã‚’è¡Œã‚ãªã„
         auto it = m_texMap.find(filepath);
         if (it != m_texMap.end())
         {
@@ -80,7 +80,7 @@ public:
             return;
         }
 
-        // ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+        // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
         LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
@@ -120,14 +120,14 @@ private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
 
-    // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚ğg‚¢‚Ü‚í‚·
+    // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã‚’ä½¿ã„ã¾ã‚ã™
     static LPD3DXSPRITE m_D3DSprite;
 
     std::string m_filepath;
     UINT m_width { 0 };
     UINT m_height { 0 };
 
-    // “¯‚¶–¼‘O‚Ì‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Íg‚¢‚Ü‚í‚·
+    // åŒã˜åå‰ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ä½¿ã„ã¾ã‚ã™
     static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
 };
 
@@ -159,7 +159,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "‚l‚r –¾’©",
+                                "ï¼­ï¼³ æ˜æœ",
                                 &m_pFont);
         }
         else
@@ -256,7 +256,7 @@ void PatchTestManager2::InitPatch()
 
 std::string PatchTestManager2::Operate()
 {
-    // ˆê•b‚Éˆê‰ñ‚­‚ç‚¢‚Ìˆ—
+    // ä¸€ç§’ã«ä¸€å›ãã‚‰ã„ã®å‡¦ç†
     {
         static int work = 0;
         ++work;
@@ -278,7 +278,7 @@ std::string PatchTestManager2::Operate()
 
             GetPatchLib()->Update();
 
-            // ƒŠƒXƒg‚ğì‚è’¼‚·
+            // ãƒªã‚¹ãƒˆã‚’ä½œã‚Šç›´ã™
             CreateList();
         }
     }
@@ -424,9 +424,9 @@ void PatchTestManager2::CreateList()
 {
     m_guiLib.ClearAll();
 
-    // ¶‘¤‚ÌƒŠƒXƒg‚ğì‚é
-    // Œ»İŠ‚µ‚Ä‚¢‚é•¨‚ÅAƒpƒbƒ`ƒeƒXƒg‘ÎÛ‚Ì‚à‚Ì‚ğ•\¦‚·‚é
-    // “¯‚¶ƒAƒCƒeƒ€‚ğ•¡”Š‚µ‚Ä‚¢‚½‚ç•¡”•\¦‚·‚éB
+    // å·¦å´ã®ãƒªã‚¹ãƒˆã‚’ä½œã‚‹
+    // ç¾åœ¨æ‰€æŒã—ã¦ã„ã‚‹ç‰©ã§ã€ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆå¯¾è±¡ã®ã‚‚ã®ã‚’è¡¨ç¤ºã™ã‚‹
+    // åŒã˜ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¤‡æ•°æ‰€æŒã—ã¦ã„ãŸã‚‰è¤‡æ•°è¡¨ç¤ºã™ã‚‹ã€‚
     {
         auto keyList = GetPatchLib()->GetKeyList();
 
@@ -448,7 +448,7 @@ void PatchTestManager2::CreateList()
         }
     }
 
-    // ‰E‘¤‚ÌƒŠƒXƒg‚ğì‚é
+    // å³å´ã®ãƒªã‚¹ãƒˆã‚’ä½œã‚‹
     {
         auto queList = GetPatchLib()->GetQueue();
 
@@ -509,7 +509,7 @@ void PatchTestManager2::QueueTest(const std::string& result)
 
     std::string name = vs.at(1);
 
-    // ƒpƒbƒ`ƒeƒXƒg‚ğƒLƒ…[ƒCƒ“ƒO‚·‚é
+    // ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆã‚’ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã™ã‚‹
     bool result2 = GetPatchLib()->QueuePatchTest(name);
 
     if (result2)
@@ -519,7 +519,7 @@ void PatchTestManager2::QueueTest(const std::string& result)
 
         Common::Inventory()->RemoveItem(id, subId);
 
-        // ƒŠƒXƒg‚ğì‚è’¼‚·
+        // ãƒªã‚¹ãƒˆã‚’ä½œã‚Šç›´ã™
         CreateList();
     }
     else

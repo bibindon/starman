@@ -1,4 +1,4 @@
-
+ï»¿
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d9.lib")
 #if defined(NDEBUG)
@@ -64,7 +64,7 @@
 #include "StackBackTrace.h"
 #include <crtdbg.h>
 
-// —áŠO‚ÅI—¹‚µ‚½‚Æ‚«‚ÉA—áŠO”­¶‚ÌƒXƒ^ƒbƒNƒgƒŒ[ƒX‚ğo—Í‚·‚é
+// ä¾‹å¤–ã§çµ‚äº†ã—ãŸã¨ãã«ã€ä¾‹å¤–ç™ºç”Ÿæ™‚ã®ã‚¹ã‚¿ãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã‚’å‡ºåŠ›ã™ã‚‹
 static void se_translator(unsigned int u, _EXCEPTION_POINTERS* e)
 {
     StackBackTrace stackBackTrace;
@@ -76,16 +76,16 @@ static void se_translator(unsigned int u, _EXCEPTION_POINTERS* e)
 int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance,
     _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
-    // ƒƒ‚ƒŠƒŠ[ƒNŒŸo ˆê”ÔÅ‰‚É‘‚©‚È‚¢‚Æ“®ì‚µ‚È‚¢
+    // ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯æ¤œå‡º ä¸€ç•ªæœ€åˆã«æ›¸ã‹ãªã„ã¨å‹•ä½œã—ãªã„
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    // —áŠO‚ÅI—¹‚µ‚½‚Æ‚«‚ÉA—áŠO”­¶‚ÌƒXƒ^ƒbƒNƒgƒŒ[ƒX‚ğo—Í‚·‚é
+    // ä¾‹å¤–ã§çµ‚äº†ã—ãŸã¨ãã«ã€ä¾‹å¤–ç™ºç”Ÿæ™‚ã®ã‚¹ã‚¿ãƒƒã‚¯ãƒˆãƒ¬ãƒ¼ã‚¹ã‚’å‡ºåŠ›ã™ã‚‹
     _set_se_translator(se_translator);
 
-    HWND hWnd = FindWindow("ƒzƒVƒ}ƒ“", nullptr);
+    HWND hWnd = FindWindow("ãƒ›ã‚·ãƒãƒ³", nullptr);
     if (hWnd != nullptr)
     {
-        MessageBox(NULL, "ƒzƒVƒ}ƒ“‚Í‚·‚Å‚É‹N“®Ï‚İ‚Å‚·B", "“ñd‹N“®ƒGƒ‰[", MB_OK);
+        MessageBox(NULL, "ãƒ›ã‚·ãƒãƒ³ã¯ã™ã§ã«èµ·å‹•æ¸ˆã¿ã§ã™ã€‚", "äºŒé‡èµ·å‹•ã‚¨ãƒ©ãƒ¼", MB_OK);
         return 0;
     }
 

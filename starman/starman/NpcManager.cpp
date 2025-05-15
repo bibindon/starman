@@ -1,4 +1,4 @@
-#include "NpcManager.h"
+ï»¿#include "NpcManager.h"
 #include "Common.h"
 #include "SharedObj.h"
 #include "PopUp2.h"
@@ -89,8 +89,8 @@ void NpcManager::SetNpcStatus(const std::string& npcName, const NSStarmanLib::Np
 
 bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName)
 {
-    // 3ƒ[ƒgƒ‹ˆÈ“à‚É˜b‚µ‚©‚¯‚ç‚ê‚éNPC‚ª‚¢‚é‚©
-    // ‹…‚¾‚Æd‚¢‚Ì‚ÅƒoƒEƒ“ƒfƒBƒ“ƒOƒ{ƒbƒNƒX
+    // 3ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã«è©±ã—ã‹ã‘ã‚‰ã‚Œã‚‹NPCãŒã„ã‚‹ã‹
+    // çƒã ã¨é‡ã„ã®ã§ãƒã‚¦ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ãƒœãƒƒã‚¯ã‚¹
 
     bool exist = false;
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
@@ -129,7 +129,7 @@ bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName)
 
 void NpcManager::Update()
 {
-    // Ž€–S‚µ‚Ä‚¢‚È‚¢¨Ž€–S‚µ‚Ä‚¢‚é‚É•Ï‚í‚Á‚½‚çƒ|ƒbƒvƒAƒbƒv‚ð•\Ž¦
+    // æ­»äº¡ã—ã¦ã„ãªã„â†’æ­»äº¡ã—ã¦ã„ã‚‹ã«å¤‰ã‚ã£ãŸã‚‰ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’è¡¨ç¤º
     auto daikei = GetNpcStatus("daikeiman").GetDead();
     auto sankaku = GetNpcStatus("sankakuman").GetDead();
     auto shikaku = GetNpcStatus("shikakuman").GetDead();
@@ -142,16 +142,16 @@ void NpcManager::Update()
 
     if (daikei != daikei2 && daikei2)
     {
-        PopUp2::Get()->SetText("ƒ_ƒCƒPƒCƒ}ƒ“‚ªŽ€–S‚µ‚½");
+        PopUp2::Get()->SetText("ãƒ€ã‚¤ã‚±ã‚¤ãƒžãƒ³ãŒæ­»äº¡ã—ãŸ");
     }
 
     if (sankaku != sankaku2 && sankaku2)
     {
-        PopUp2::Get()->SetText("ƒTƒ“ƒJƒNƒ}ƒ“‚ªŽ€–S‚µ‚½");
+        PopUp2::Get()->SetText("ã‚µãƒ³ã‚«ã‚¯ãƒžãƒ³ãŒæ­»äº¡ã—ãŸ");
     }
 
     if (shikaku != shikaku2 && shikaku2)
     {
-        PopUp2::Get()->SetText("ƒVƒJƒNƒ}ƒ“‚ªŽ€–S‚µ‚½");
+        PopUp2::Get()->SetText("ã‚·ã‚«ã‚¯ãƒžãƒ³ãŒæ­»äº¡ã—ãŸ");
     }
 }

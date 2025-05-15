@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #ifndef DIRECTINPUT_VERSION
 #define DIRECTINPUT_VERSION 0x0800
@@ -15,13 +15,13 @@ public:
     virtual void Update() = 0;
     virtual void Finalize() = 0;
 
-    // ‰Ÿ‚³‚ê‚Ä‚¢‚é
+    // æŠ¼ã•ã‚Œã¦ã„ã‚‹
     virtual bool IsDown(int keyCode) = 0;
 
-    // ‰Ÿ‚³‚ê‚Ä‚¢‚ÄA‚»‚Ì’¼‘O‚Ü‚Å‰Ÿ‚³‚ê‚Ä‚¢‚È‚©‚Á‚½
+    // æŠ¼ã•ã‚Œã¦ã„ã¦ã€ãã®ç›´å‰ã¾ã§æŠ¼ã•ã‚Œã¦ã„ãªã‹ã£ãŸ
     virtual bool IsDownFirstFrame(int keyCode) = 0;
 
-    // 0.5•bˆÈã’·‰Ÿ‚µ‚µ‚Ä‚¢‚½
+    // 0.5ç§’ä»¥ä¸Šé•·æŠ¼ã—ã—ã¦ã„ãŸ
     virtual bool IsHold(int keyCode) = 0;
 
 };
@@ -33,13 +33,13 @@ public:
     void Update();
     void Finalize();
 
-    // ‰Ÿ‚³‚ê‚Ä‚¢‚é
+    // æŠ¼ã•ã‚Œã¦ã„ã‚‹
     bool IsDown(int keyCode);
 
-    // ‰Ÿ‚³‚ê‚Ä‚¢‚ÄA‚»‚Ì’¼‘O‚Ü‚Å‰Ÿ‚³‚ê‚Ä‚¢‚È‚©‚Á‚½
+    // æŠ¼ã•ã‚Œã¦ã„ã¦ã€ãã®ç›´å‰ã¾ã§æŠ¼ã•ã‚Œã¦ã„ãªã‹ã£ãŸ
     bool IsDownFirstFrame(int keyCode);
 
-    // 0.5•bˆÈã’·‰Ÿ‚µ‚µ‚Ä‚¢‚½
+    // 0.5ç§’ä»¥ä¸Šé•·æŠ¼ã—ã—ã¦ã„ãŸ
     bool IsHold(int keyCode);
 
 private:

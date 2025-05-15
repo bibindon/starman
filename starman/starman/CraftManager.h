@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include "../../craftlib/craftlib/CraftLib.h"
@@ -15,7 +15,7 @@ public:
     void Operate(eBattleState* state);
     void Draw();
 
-    // ‰æ–Ê‚ğì‚è’¼‚·B
+    // ç”»é¢ã‚’ä½œã‚Šç›´ã™ã€‚
     void Build();
 
 private:

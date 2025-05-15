@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "../../StarmanLib/StarmanLib/StarmanLib/Voyage.h"
 #include "Common.h"
@@ -41,16 +41,16 @@ private:
     AnimMesh* m_meshOarRight = nullptr;
     AnimMesh* m_meshCord = nullptr;
 
-    // ˆÚ“®—Ê
+    // ç§»å‹•é‡
     D3DXVECTOR3 m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
 
-    // ˆÚ“®—Êi‰ñ“]j
+    // ç§»å‹•é‡ï¼ˆå›è»¢ï¼‰
     D3DXVECTOR3 m_moveRot = D3DXVECTOR3(0.f, 0.f, 0.f);
 
     D3DXVECTOR3 m_pos = D3DXVECTOR3(0.f, 0.f, 0.f);
     D3DXVECTOR3 m_rotate = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
 
-    // ƒI[ƒ‹‚ğ‘†‚®ŠÔŠu
+    // ã‚ªãƒ¼ãƒ«ã‚’æ¼•ãé–“éš”
     int m_coolTime = 0;
 };
 
@@ -67,7 +67,7 @@ public:
     void SetSail(const bool arg);
     bool GetSail() const;
 
-    // Œ»İ‚Ì•ûŠp‚É‚RŠÔ‘†‚®
+    // ç¾åœ¨ã®æ–¹è§’ã«ï¼“æ™‚é–“æ¼•ã
     void Set3HoursAuto();
     void SetRaftMode(const bool arg);
     bool GetRaftMode() const;
@@ -75,15 +75,15 @@ public:
     NSStarmanLib::Raft::ePosType GetPosType();
     void SetPosType(const NSStarmanLib::Raft::ePosType arg);
 
-    // ƒCƒJƒ_‚ª2ƒ[ƒgƒ‹ˆÈ“à‚É‚ ‚é‚©H
+    // ã‚¤ã‚«ãƒ€ãŒ2ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã«ã‚ã‚‹ã‹ï¼Ÿ
     bool CheckNearRaft(const D3DXVECTOR3& pos);
     int GetNearRaftId(const D3DXVECTOR3& pos);
 
-    // æ‘D‚µ‚Ä‚¢‚éƒCƒJƒ_‚ÌID
-    // -1‚Íæ‘D‚µ‚Ä‚¢‚È‚¢‚ğˆÓ–¡‚·‚éH
+    // ä¹—èˆ¹ã—ã¦ã„ã‚‹ã‚¤ã‚«ãƒ€ã®ID
+    // -1ã¯ä¹—èˆ¹ã—ã¦ã„ãªã„ã‚’æ„å‘³ã™ã‚‹ï¼Ÿ
     void Ride();
 
-    // ƒCƒJƒ_‚ğ‚¢‚­‚ÂŠ—L‚µ‚Ä‚¢‚é‚©
+    // ã‚¤ã‚«ãƒ€ã‚’ã„ãã¤æ‰€æœ‰ã—ã¦ã„ã‚‹ã‹
     int GetRaftCount();
 
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
@@ -92,10 +92,10 @@ public:
     D3DXVECTOR3 GetRaftXYZ(const int id);
     float GetRaftRotateY(const int id);
 
-    // æ‘D’†‚ÌƒCƒJƒ_‚Ì‘Ï‹v’l
+    // ä¹—èˆ¹ä¸­ã®ã‚¤ã‚«ãƒ€ã®è€ä¹…å€¤
     int GetRaftDurability();
 
-    // æ‘D’†‚ÌƒCƒJƒ_‚Ì‹­‰»’l
+    // ä¹—èˆ¹ä¸­ã®ã‚¤ã‚«ãƒ€ã®å¼·åŒ–å€¤
     int GetRaftLevel();
 
     bool Can3HoursAuto();
@@ -111,7 +111,7 @@ private:
 
     VoyageManager();
 
-    // ƒCƒJƒ_‚Í•¡”‘¶İ‚Å‚«‚é
+    // ã‚¤ã‚«ãƒ€ã¯è¤‡æ•°å­˜åœ¨ã§ãã‚‹
     std::map<int, Raft2> m_raftMap;
 };
 

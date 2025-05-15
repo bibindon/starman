@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -7,9 +7,9 @@
 #include <memory>
 #include <unordered_map>
 
-// “¯‚¶3Dƒ‚ƒfƒ‹‚ğ‘òR•\¦‚µ‚½‚¢‚Æ‚«‚Ég‚¤ƒNƒ‰ƒX
-// “¯‚¶3Dƒ‚ƒfƒ‹‚ğ‘òR•\¦‚µ‚½‚¢‚Æ‚«A3Dƒ‚ƒfƒ‹‚Ì“Ç‚İ‚İ‚Í1“x‚Å‚æ‚­
-// À•WA‰ñ“]AŠg‘å—¦‚ğÄİ’è‚µ‚ÄÄ•\¦‚·‚é‚±‚Æ‚ÅŒy—Ê‰»‚·‚éB
+// åŒã˜3Dãƒ¢ãƒ‡ãƒ«ã‚’æ²¢å±±è¡¨ç¤ºã—ãŸã„ã¨ãã«ä½¿ã†ã‚¯ãƒ©ã‚¹
+// åŒã˜3Dãƒ¢ãƒ‡ãƒ«ã‚’æ²¢å±±è¡¨ç¤ºã—ãŸã„ã¨ãã€3Dãƒ¢ãƒ‡ãƒ«ã®èª­ã¿è¾¼ã¿ã¯1åº¦ã§ã‚ˆã
+// åº§æ¨™ã€å›è»¢ã€æ‹¡å¤§ç‡ã‚’å†è¨­å®šã—ã¦å†è¡¨ç¤ºã™ã‚‹ã“ã¨ã§è»½é‡åŒ–ã™ã‚‹ã€‚
 class MeshClone
 {
 public:
@@ -51,14 +51,14 @@ public:
 private:
     const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
 
-    // TODO ƒGƒtƒFƒNƒgƒtƒ@ƒCƒ‹‚ÍƒƒbƒVƒ…‚Ì”‚¾‚¯—pˆÓ‚·‚é‚×‚«
+    // TODO ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã¯ãƒ¡ãƒƒã‚·ãƒ¥ã®æ•°ã ã‘ç”¨æ„ã™ã‚‹ã¹ã
     static std::unordered_map<std::string, LPD3DXEFFECT> m_D3DEffectMap;
     static std::unordered_map<std::string, LPD3DXMESH> m_D3DMeshMap;
     static std::unordered_map<std::string, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
     static std::unordered_map<std::string, DWORD> m_materialCountMap;
     static std::unordered_map<std::string, std::vector<D3DXVECTOR4>> m_vecColorMap;
 
-    // Å‰‚Éˆê‰ñ‚¾‚¯‚â‚ê‚Î‚¢‚¢ˆ—
+    // æœ€åˆã«ä¸€å›ã ã‘ã‚„ã‚Œã°ã„ã„å‡¦ç†
     static std::unordered_map<std::string, bool> m_bFirstMap;
 
     D3DXVECTOR3 m_loadingPos { };

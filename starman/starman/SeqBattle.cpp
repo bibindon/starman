@@ -1,4 +1,4 @@
-// F7ƒL[‚ÅƒTƒ“ƒvƒ‹ƒeƒLƒXƒg
+ï»¿// F7ã‚­ãƒ¼ã§ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆ
 
 #include "SeqBattle.h"
 #include <fstream>
@@ -129,7 +129,7 @@ namespace NSStorehouseLib
                                     OUT_TT_ONLY_PRECIS,
                                     ANTIALIASED_QUALITY,
                                     FF_DONTCARE,
-                                    "‚l‚r –¾’©",
+                                    "ï¼­ï¼³ æ˜æœ",
                                     &m_pFont);
             }
             else
@@ -235,7 +235,7 @@ public:
             return;
         }
 
-        // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚Ì‚İŠm•Û‚µg‚¢‚Ü‚í‚·
+        // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã®ã¿ç¢ºä¿ã—ä½¿ã„ã¾ã‚ã™
         if (m_D3DSprite == NULL)
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
@@ -246,8 +246,8 @@ public:
 
         m_filepath = filepath;
 
-        // “¯‚¶‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚ªŠù‚É‚ ‚é‚È‚çA
-        // ‰æ‘œ‚ÌƒTƒCƒY‚¾‚¯Šm•Û‚µƒeƒNƒXƒ`ƒƒ‚Ìì¬‚ğs‚í‚È‚¢
+        // åŒã˜ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒæ—¢ã«ã‚ã‚‹ãªã‚‰ã€
+        // ç”»åƒã®ã‚µã‚¤ã‚ºã ã‘ç¢ºä¿ã—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆã‚’è¡Œã‚ãªã„
         auto it = m_texMap.find(filepath);
         if (it != m_texMap.end())
         {
@@ -262,7 +262,7 @@ public:
             return;
         }
 
-        // ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+        // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
         LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
@@ -313,12 +313,12 @@ private:
     UINT m_width { 0 };
     UINT m_height { 0 };
 
-    // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚ğg‚¢‚Ü‚í‚·
+    // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã‚’ä½¿ã„ã¾ã‚ã™
     static LPD3DXSPRITE m_D3DSprite;
 
     std::string m_filepath;
 
-    // “¯‚¶–¼‘O‚Ì‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Íg‚¢‚Ü‚í‚·
+    // åŒã˜åå‰ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ä½¿ã„ã¾ã‚ã™
     static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
 };
  
@@ -349,7 +349,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "‚l‚r –¾’©",
+                                "ï¼­ï¼³ æ˜æœ",
                                 &m_pFont);
         }
         else
@@ -577,11 +577,11 @@ void SeqBattle::Update(eSequence* sequence)
     }
 
     //-----------------------------------------------------
-    // ƒJƒƒ‰‚ÌXVˆ—
+    // ã‚«ãƒ¡ãƒ©ã®æ›´æ–°å‡¦ç†
     //
-    // ƒJƒƒ‰‚ÌXVˆ—‚ÍUpdateŠÖ”‚ÌÅŒã‚ÉÀ{‚·‚é•K—v‚ª‚ ‚éB
-    // OperateVoyageŠÖ”‚Ì‚æ‚¤‚ÉƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ğ•ÏX‚·‚éŠÖ”‚ª‚ ‚èA
-    // ‚»‚Ìê‡‚ÍAƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ª•ÏX‚³‚ê‚Ä‚©‚çƒJƒƒ‰‚ÌXV‚ğs‚¤•K—v‚ª‚ ‚é‚½‚ßB
+    // ã‚«ãƒ¡ãƒ©ã®æ›´æ–°å‡¦ç†ã¯Updateé–¢æ•°ã®æœ€å¾Œã«å®Ÿæ–½ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
+    // OperateVoyageé–¢æ•°ã®ã‚ˆã†ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã‚’å¤‰æ›´ã™ã‚‹é–¢æ•°ãŒã‚ã‚Šã€
+    // ãã®å ´åˆã¯ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ãŒå¤‰æ›´ã•ã‚Œã¦ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã®æ›´æ–°ã‚’è¡Œã†å¿…è¦ãŒã‚ã‚‹ãŸã‚ã€‚
     //-----------------------------------------------------
     {
         D3DXVECTOR3 pos = m_player->GetPos();
@@ -641,9 +641,9 @@ void SeqBattle::OperateTalk()
         }
     }
 
-    // b’è“I‘Îˆ
-    // ª–{“I‚ÈŒ‡Š×‚ª‚ ‚é
-    // ƒ}ƒbƒvƒNƒ‰ƒX‚É“ñ‚Â‚Ìƒ‚[ƒh‚ª‚ ‚é‚×‚«
+    // æš«å®šçš„å¯¾å‡¦
+    // æ ¹æœ¬çš„ãªæ¬ é™¥ãŒã‚ã‚‹
+    // ãƒãƒƒãƒ—ã‚¯ãƒ©ã‚¹ã«äºŒã¤ã®ãƒ¢ãƒ¼ãƒ‰ãŒã‚ã‚‹ã¹ã
     Rain::Get()->SetShow(false);
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
@@ -729,7 +729,7 @@ void SeqBattle::OperateStorehouse()
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-        // ‘qŒÉ‚Ì•¡”‰»‘Î‰
+        // å€‰åº«ã®è¤‡æ•°åŒ–å¯¾å¿œ
         float x_ = SharedObj::GetPlayer()->GetPos().x;
         float z_ = SharedObj::GetPlayer()->GetPos().z;
         auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
@@ -746,7 +746,7 @@ void SeqBattle::OperateStorehouse()
                 bool equipBagExist = false;
                 bool equipWeaponExist = false;
 
-                // ‘•”õ’†‚Ì‘Ü‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+                // è£…å‚™ä¸­ã®è¢‹ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
                 {
                     auto allBag = Common::Status()->GetAllBag();
                     for (auto it = allBag.begin(); it != allBag.end(); ++it)
@@ -760,7 +760,7 @@ void SeqBattle::OperateStorehouse()
                     }
                 }
 
-                // ‘•”õ’†‚Ì•Ší‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+                // è£…å‚™ä¸­ã®æ­¦å™¨ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
                 {
                     auto weapon = Common::Status()->GetEquipWeapon();
                     if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
@@ -770,7 +770,7 @@ void SeqBattle::OperateStorehouse()
                     }
                 }
                 
-                // ‘•”õ’†‚Ì‘Ü‚Å‚Í‚È‚¢‚µA‘•”õ’†‚Ì•Ší‚Å‚à‚È‚¢B
+                // è£…å‚™ä¸­ã®è¢‹ã§ã¯ãªã„ã—ã€è£…å‚™ä¸­ã®æ­¦å™¨ã§ã‚‚ãªã„ã€‚
                 if (!equipBagExist && !equipWeaponExist)
                 {
                     NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
@@ -827,7 +827,7 @@ void SeqBattle::OperateStorehouse()
 
             NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-            // ‘qŒÉ‚Ì•¡”‰»‘Î‰
+            // å€‰åº«ã®è¤‡æ•°åŒ–å¯¾å¿œ
             float x_ = SharedObj::GetPlayer()->GetPos().x;
             float z_ = SharedObj::GetPlayer()->GetPos().z;
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
@@ -844,7 +844,7 @@ void SeqBattle::OperateStorehouse()
                     bool equipBagExist = false;
                     bool equipWeaponExist = false;
 
-                    // ‘•”õ’†‚Ì‘Ü‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+                    // è£…å‚™ä¸­ã®è¢‹ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
                     {
                         auto allBag = Common::Status()->GetAllBag();
                         for (auto it = allBag.begin(); it != allBag.end(); ++it)
@@ -858,7 +858,7 @@ void SeqBattle::OperateStorehouse()
                         }
                     }
 
-                    // ‘•”õ’†‚Ì•Ší‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+                    // è£…å‚™ä¸­ã®æ­¦å™¨ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
                     {
                         auto weapon = Common::Status()->GetEquipWeapon();
                         if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
@@ -868,7 +868,7 @@ void SeqBattle::OperateStorehouse()
                         }
                     }
                     
-                    // ‘•”õ’†‚Ì‘Ü‚Å‚Í‚È‚¢‚µA‘•”õ’†‚Ì•Ší‚Å‚à‚È‚¢B
+                    // è£…å‚™ä¸­ã®è¢‹ã§ã¯ãªã„ã—ã€è£…å‚™ä¸­ã®æ­¦å™¨ã§ã‚‚ãªã„ã€‚
                     if (!equipBagExist && !equipWeaponExist)
                     {
                         NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
@@ -960,7 +960,7 @@ void SeqBattle::OperateStorehouse()
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-        // ‘qŒÉ‚Ì•¡”‰»‘Î‰
+        // å€‰åº«ã®è¤‡æ•°åŒ–å¯¾å¿œ
         float x_ = SharedObj::GetPlayer()->GetPos().x;
         float z_ = SharedObj::GetPlayer()->GetPos().z;
         auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
@@ -977,7 +977,7 @@ void SeqBattle::OperateStorehouse()
                 bool equipBagExist = false;
                 bool equipWeaponExist = false;
 
-                // ‘•”õ’†‚Ì‘Ü‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+                // è£…å‚™ä¸­ã®è¢‹ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
                 {
                     auto allBag = Common::Status()->GetAllBag();
                     for (auto it = allBag.begin(); it != allBag.end(); ++it)
@@ -991,7 +991,7 @@ void SeqBattle::OperateStorehouse()
                     }
                 }
 
-                // ‘•”õ’†‚Ì•Ší‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+                // è£…å‚™ä¸­ã®æ­¦å™¨ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
                 {
                     auto weapon = Common::Status()->GetEquipWeapon();
                     if (weapon.GetId() == id_ && weapon.GetSubId() == subId_)
@@ -1001,7 +1001,7 @@ void SeqBattle::OperateStorehouse()
                     }
                 }
                 
-                // ‘•”õ’†‚Ì‘Ü‚Å‚Í‚È‚¢‚µA‘•”õ’†‚Ì•Ší‚Å‚à‚È‚¢B
+                // è£…å‚™ä¸­ã®è¢‹ã§ã¯ãªã„ã—ã€è£…å‚™ä¸­ã®æ­¦å™¨ã§ã‚‚ãªã„ã€‚
                 if (!equipBagExist && !equipWeaponExist)
                 {
                     NSStarmanLib::ItemInfo itemInfo = inventory->GetItemInfo(id_, subId_);
@@ -1042,8 +1042,8 @@ void SeqBattle::OperateStorehouse()
 void SeqBattle::ShowStorehouse()
 {
     using namespace NSStarmanLib;
-    // ‘qŒÉ‚Í•¡”‘¶İ‚Å‚«‚éB
-    // ‹——£‚ª‹ß‚¢‘qŒÉ‚ğ‘ÎÛ‚Æ‚·‚é
+    // å€‰åº«ã¯è¤‡æ•°å­˜åœ¨ã§ãã‚‹ã€‚
+    // è·é›¢ãŒè¿‘ã„å€‰åº«ã‚’å¯¾è±¡ã¨ã™ã‚‹
     auto ppos = SharedObj::GetPlayer()->GetPos();
     auto storehouse = StorehouseManager::Get()->GetNearStorehouse(ppos.x, ppos.z);
 
@@ -1058,7 +1058,7 @@ void SeqBattle::ShowStorehouse()
     Camera::SetCameraMode(eCameraMode::SLEEP);
     Common::SetCursorVisibility(true);
 
-    // TODO ‘qŒÉ‚ğ•\¦‚·‚é“x‚É‘qŒÉ‰æ–Ê‚ğì‚é‚Ì‚ğ‚â‚ß‚é
+    // TODO å€‰åº«ã‚’è¡¨ç¤ºã™ã‚‹åº¦ã«å€‰åº«ç”»é¢ã‚’ä½œã‚‹ã®ã‚’ã‚„ã‚ã‚‹
     m_storehouse = NEW NSStorehouseLib::StorehouseLib();
 
     NSStorehouseLib::Sprite* sprCursor = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
@@ -1175,7 +1175,7 @@ void SeqBattle::OperateCommand()
         m_player->SetLieDown();
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == "‚RŠÔ‹xŒe‚·‚é")
+    else if (result == "ï¼“æ™‚é–“ä¼‘æ†©ã™ã‚‹")
     {
         leave = true;
         m_player->SetSit();
@@ -1218,7 +1218,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == Common::LoadString_(IDS_STRING178))
     {
-        // Î‚©Î•€‚ğ‘•”õ‚µ‚Ä‚¢‚È‚¢‚ÆØ‚ê‚È‚¢
+        // çŸ³ã‹çŸ³æ–§ã‚’è£…å‚™ã—ã¦ã„ãªã„ã¨åˆ‡ã‚Œãªã„
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
 
@@ -1228,7 +1228,7 @@ void SeqBattle::OperateCommand()
             name = itemInfo.GetItemDef().GetName();
         }
 
-        if (name != "Î•€" && name != "c’·‚ÌÎ")
+        if (name != "çŸ³æ–§" && name != "ç¸¦é•·ã®çŸ³")
         {
             PopUp2::Get()->SetText(IDS_STRING106);
         }
@@ -1300,7 +1300,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == Common::LoadString_(IDS_STRING188))
     {
-        // ‘Ü‚ğ‘•”õ‚µ‚Ä‚¢‚½‚çƒCƒJƒ_‚Éæ‚é‚±‚Æ‚Í‚Å‚«‚È‚¢
+        // è¢‹ã‚’è£…å‚™ã—ã¦ã„ãŸã‚‰ã‚¤ã‚«ãƒ€ã«ä¹—ã‚‹ã“ã¨ã¯ã§ããªã„
         auto bagState = Common::Status()->GetBagState();
         if (bagState.empty())
         {
@@ -1330,7 +1330,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == Common::LoadString_(IDS_STRING192))
     {
-        // ¼–¾‚Ì‘Ï‹v’l‚ª‚O‚Ìê‡AƒGƒ‰[ƒƒbƒZ[ƒW‚ğ•\¦‚µ“_‰Î‚µ‚È‚¢B
+        // æ¾æ˜ã®è€ä¹…å€¤ãŒï¼ã®å ´åˆã€ã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã—ç‚¹ç«ã—ãªã„ã€‚
         auto weapon = Common::Status()->GetEquipWeapon();
         if (weapon.GetDurabilityCurrent() <= 0)
         {
@@ -1379,8 +1379,8 @@ void SeqBattle::OperateCommand()
     }
     else if (result == Common::LoadString_(IDS_STRING196))
     {
-        // ƒTƒ“ƒJƒNƒ}ƒ“‚©ƒVƒJƒNƒ}ƒ“‚Ì‚Ç‚¿‚ç‚©‚Æ‹ß‚­‚É‚¢‚È‚­‚Ä‚Í‚È‚ç‚È‚¢B
-        // ‚Ç‚¿‚ç‚à‹ß‚­‚É‚¢‚éê‡AƒTƒ“ƒJƒNƒ}ƒ“‚ğ—Dæ‚·‚é
+        // ã‚µãƒ³ã‚«ã‚¯ãƒãƒ³ã‹ã‚·ã‚«ã‚¯ãƒãƒ³ã®ã©ã¡ã‚‰ã‹ã¨è¿‘ãã«ã„ãªãã¦ã¯ãªã‚‰ãªã„ã€‚
+        // ã©ã¡ã‚‰ã‚‚è¿‘ãã«ã„ã‚‹å ´åˆã€ã‚µãƒ³ã‚«ã‚¯ãƒãƒ³ã‚’å„ªå…ˆã™ã‚‹
         auto npcManager = NSStarmanLib::NpcStatusManager::GetObj();
         auto status = npcManager->GetNpcStatus("sankakuman");
         auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
@@ -1422,7 +1422,7 @@ void SeqBattle::OperateCommand()
         }
     }
 
-    // ƒRƒ}ƒ“ƒh‰æ–Ê‚ğ•Â‚¶‚éê‡
+    // ã‚³ãƒãƒ³ãƒ‰ç”»é¢ã‚’é–‰ã˜ã‚‹å ´åˆ
     if (leave)
     {
         Camera::SetCameraMode(eCameraMode::BATTLE);
@@ -1432,7 +1432,7 @@ void SeqBattle::OperateCommand()
 
 void SeqBattle::InitLoad()
 {
-    // ƒZ[ƒuƒf[ƒ^‚ª‚ ‚é‚©”Û‚©
+    // ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹ã‹å¦ã‹
     bool saveExist = SaveManager::Get()->SaveFolderExists();
 
     if (!saveExist)
@@ -1570,7 +1570,7 @@ void SeqBattle::RenderLoad()
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
     m_sprLoadBack->Render(pos);
 
-    // ‚­‚é‚­‚é‚ğ•\¦
+    // ãã‚‹ãã‚‹ã‚’è¡¨ç¤º
     if (m_loadThread != nullptr && m_loadLoaded.load() == false)
     {
 
@@ -1831,7 +1831,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
     QuestManager::Get()->Update();
 
     //------------------------------------------------
-    // ƒNƒGƒXƒgŠJnˆ—
+    // ã‚¯ã‚¨ã‚¹ãƒˆé–‹å§‹å‡¦ç†
     //------------------------------------------------
     {
         auto startQuest = QuestManager::Get()->GetStartQuest();
@@ -1842,7 +1842,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
             auto startEvent = QuestManager::Get()->GetQuestStartEvent(startQuest.at(0));
             if (startEvent.empty() == false)
             {
-                // TODO Å‰‚ÌƒCƒxƒ“ƒg‚¾‚¯ˆ—‚µ‚Ä‚¢‚é‚ª•K—v‚É‚È‚Á‚½‚ç•¡”ƒCƒxƒ“ƒg‘Î‰
+                // TODO æœ€åˆã®ã‚¤ãƒ™ãƒ³ãƒˆã ã‘å‡¦ç†ã—ã¦ã„ã‚‹ãŒå¿…è¦ã«ãªã£ãŸã‚‰è¤‡æ•°ã‚¤ãƒ™ãƒ³ãƒˆå¯¾å¿œ
                 if (startEvent.at(0).find("<talk>") != std::string::npos)
                 {
                     std::string work = startEvent.at(0);
@@ -1872,7 +1872,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
     }
 
     //------------------------------------------
-    // I—¹ƒNƒGƒXƒg
+    // çµ‚äº†ã‚¯ã‚¨ã‚¹ãƒˆ
     //------------------------------------------
     {
         std::vector<std::string> vs = QuestManager::Get()->GetFinishQuest();
@@ -2071,7 +2071,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto pos = m_player->GetPos();
                     Common::Status()->DrinkWordBress(pos.x, pos.y, pos.z);
                 }
-                // ƒAƒCƒeƒ€‚ğæ“¾
+                // ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–å¾—
                 else if (vs2.at(j).find("<item>") != std::string::npos)
                 {
                     std::string work2 = Common::RemoveSubstring(vs2.at(j), "<item>");
@@ -2087,17 +2087,17 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::string work2 = Common::RemoveSubstring(vs2.at(j), "<itemDel>");
                     auto itemDef = Common::ItemManager()->GetItemDef(work2);
 
-                    // subidlist‚ª‹ó‚¾‚Æ—‚¿‚éB‚à‚µ‚»‚¤‚È‚Á‚½‚çƒXƒNƒŠƒvƒg‚ªˆ«‚¢B
+                    // subidlistãŒç©ºã ã¨è½ã¡ã‚‹ã€‚ã‚‚ã—ãã†ãªã£ãŸã‚‰ã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒæ‚ªã„ã€‚
                     auto subidlist = Common::Inventory()->GetSubIdList(itemDef.GetId());
                     Common::Inventory()->RemoveItem(itemDef.GetId(), subidlist.at(0));
                 }
-                // …‚ğˆù‚ñ‚¾
+                // æ°´ã‚’é£²ã‚“ã 
                 else if (vs2.at(j).find("<water>") != std::string::npos)
                 {
                     auto waterCurrent = Common::Status()->GetWaterCurrent();
                     Common::Status()->SetWaterCurrent(waterCurrent + 0.5f);
                 }
-                // •Ší‚ğ‘•”õ
+                // æ­¦å™¨ã‚’è£…å‚™
                 else if (vs2.at(j).find("<equip>") != std::string::npos)
                 {
                     std::string work2 = Common::RemoveSubstring(vs2.at(j), "<equip>");
@@ -2117,8 +2117,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find("<sotetsu>") != std::string::npos)
                 {
                     auto status = Common::Status();
-                    PopUp2::Get()->SetText("’E…ÇóE“ª’ÉE• ’ÉEö—ó‘Ô‚É‚È‚Á‚½B");
-                    PopUp2::Get()->SetText("ƒXƒ^ƒ~ƒiEƒ~ƒlƒ‰ƒ‹Eƒrƒ^ƒ~ƒ“E“÷‘Ì‚ÌC•œ“x‚ªŒ¸­‚µ‚½B");
+                    PopUp2::Get()->SetText("è„±æ°´ç—‡çŠ¶ãƒ»é ­ç—›ãƒ»è…¹ç—›ãƒ»éŒ¯ä¹±çŠ¶æ…‹ã«ãªã£ãŸã€‚");
+                    PopUp2::Get()->SetText("ã‚¹ã‚¿ãƒŸãƒŠãƒ»ãƒŸãƒãƒ©ãƒ«ãƒ»ãƒ“ã‚¿ãƒŸãƒ³ãƒ»è‚‰ä½“ã®ä¿®å¾©åº¦ãŒæ¸›å°‘ã—ãŸã€‚");
                     status->SetDehydration(true);
                     status->SetHeadache(true);
                     status->SetStomachache(true);
@@ -2154,7 +2154,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
         }
     }
 
-    // u’²‚×‚évƒAƒNƒVƒ‡ƒ“‚ª‚Å‚«‚é‚±‚Æ‚ğƒAƒCƒRƒ“‚Å’m‚ç‚¹‚éB
+    // ã€Œèª¿ã¹ã‚‹ã€ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãŒã§ãã‚‹ã“ã¨ã‚’ã‚¢ã‚¤ã‚³ãƒ³ã§çŸ¥ã‚‰ã›ã‚‹ã€‚
     std::string quest1 = QuestManager::Get()->GetQuestIdStartByExamine();
     std::string quest2 = QuestManager::Get()->GetQuestIdFinishByExamine();
     if (quest1.empty() == false || quest2.empty() == false)
@@ -2185,12 +2185,12 @@ void SeqBattle::OperatePickPlant()
     {
         int pickId = 0;
 
-        // ‹ß‚­‚ÉƒRƒRƒiƒc‚Ì–Ø‚ª‚ ‚Á‚½‚çƒRƒRƒiƒbƒc‚ğæ“¾‚·‚é
+        // è¿‘ãã«ã‚³ã‚³ãƒŠãƒ„ã®æœ¨ãŒã‚ã£ãŸã‚‰ã‚³ã‚³ãƒŠãƒƒãƒ„ã‚’å–å¾—ã™ã‚‹
         if (m_map->NearCoconut(SharedObj::GetPlayer()->GetPos()))
         {
             pickId = 5;
         }
-        // ‹ß‚­‚Éƒ\ƒeƒc‚Ì–Ø‚ª‚ ‚Á‚½‚çƒ\ƒeƒc‚ğæ“¾‚·‚é
+        // è¿‘ãã«ã‚½ãƒ†ãƒ„ã®æœ¨ãŒã‚ã£ãŸã‚‰ã‚½ãƒ†ãƒ„ã‚’å–å¾—ã™ã‚‹
         else if (m_map->NearSotetsu(SharedObj::GetPlayer()->GetPos()))
         {
             pickId = 3;
@@ -2199,20 +2199,20 @@ void SeqBattle::OperatePickPlant()
         {
             unsigned int rand = SharedObj::GetRandom();
 
-            // TODO Š®‘Sƒ‰ƒ“ƒ_ƒ€‚Å‚Í‚È‚­AêŠ‚ÆŒ©‚½–Ú‚É‚æ‚Á‚Ä‘½­‚Ì‚Î‚ç‚Â‚«‚ª‚ ‚Á‚Ä‚Ù‚µ‚¢
-            // TODO ŒÂX‚Ì•¶š—ñ‚ÍƒŠƒ\[ƒXƒtƒ@ƒCƒ‹‚©‚çæ“¾‚·‚é‚Ì‚Å‚Í‚È‚­ACSVƒtƒ@ƒCƒ‹‚©‚çæ“¾‚·‚×‚«
+            // TODO å®Œå…¨ãƒ©ãƒ³ãƒ€ãƒ ã§ã¯ãªãã€å ´æ‰€ã¨è¦‹ãŸç›®ã«ã‚ˆã£ã¦å¤šå°‘ã®ã°ã‚‰ã¤ããŒã‚ã£ã¦ã»ã—ã„
+            // TODO å€‹ã€…ã®æ–‡å­—åˆ—ã¯ãƒªã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰å–å¾—ã™ã‚‹ã®ã§ã¯ãªãã€CSVãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰å–å¾—ã™ã¹ã
 
             // 0~99
             auto rand_ = rand % 100;
 
             if (rand_ < 10)
             {
-                // “ä‚Ì‘‚P
+                // è¬ã®è‰ï¼‘
                 pickId = 14;
             }
             else if (rand_ < 20)
             {
-                // “ä‚Ì‘‚Q
+                // è¬ã®è‰ï¼’
                 pickId = 15;
             }
             else if (rand_ < 30)
@@ -2233,61 +2233,61 @@ void SeqBattle::OperatePickPlant()
             }
             else if (rand_ < 55)
             {
-                // ƒcƒNƒV
+                // ãƒ„ã‚¯ã‚·
                 pickId = 13;
             }
             else if (rand_ < 60)
             {
-                // ƒnƒCƒrƒXƒJƒX
+                // ãƒã‚¤ãƒ“ã‚¹ã‚«ã‚¹
                 pickId = 11;
             }
             else if (rand_ < 65)
             {
-                // ƒ^ƒ“ƒ|ƒ|
+                // ã‚¿ãƒ³ãƒãƒ
                 pickId = 20;
             }
             else if (rand_ < 70)
             {
-                // ƒjƒ‰A‚à‚µ‚­‚ÍƒXƒCƒZƒ“
+                // ãƒ‹ãƒ©ã€ã‚‚ã—ãã¯ã‚¹ã‚¤ã‚»ãƒ³
                 pickId = 21;
             }
             else if (rand_ < 75)
             {
-                // ƒLƒmƒR
+                // ã‚­ãƒã‚³
                 pickId = 22;
             }
             else if (rand_ < 80)
             {
-                // ƒpƒpƒCƒ„
+                // ãƒ‘ãƒ‘ã‚¤ãƒ¤
                 pickId = 38;
             }
             else if (rand_ < 85)
             {
-                // ƒ}ƒ“ƒS[
+                // ãƒãƒ³ã‚´ãƒ¼
                 pickId = 39;
             }
             else if (rand_ < 90)
             {
-                // ƒoƒiƒi
+                // ãƒãƒŠãƒŠ
                 pickId = 40;
             }
             else if (rand_ < 95)
             {
-                // ƒcƒ^
+                // ãƒ„ã‚¿
                 pickId = 56;
             }
             else if (rand_ <= 98)
             {
-                // –Ø‚Ì}
+                // æœ¨ã®æ
                 pickId = 54;
             }
             else if (rand_ <= 99)
             {
-                // ƒ[ƒhƒuƒŒƒX
+                // ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹
                 pickId = 35;
             }
 
-            // ‘‚ğÁ‚·ˆ—
+            // è‰ã‚’æ¶ˆã™å‡¦ç†
             m_map->DeletePlant(m_player->GetPos());
         }
 
@@ -2296,15 +2296,15 @@ void SeqBattle::OperatePickPlant()
 
         PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
 
-        // 30•ªŒo‰ß‚³‚¹‚éˆ—
+        // 30åˆ†çµŒéã•ã›ã‚‹å‡¦ç†
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
         dateTime->IncreaseDateTime(0, 0, 0, 30, 0);
 
-        // ‘Ì—Í‚ğÁ”ï
-        // ‘•”õ•Ší‚ÅÁ”ï‚·‚éŠÔ‚â‘Ì—Í‚ª•Ï‚í‚é
+        // ä½“åŠ›ã‚’æ¶ˆè²»
+        // è£…å‚™æ­¦å™¨ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“ã‚„ä½“åŠ›ãŒå¤‰ã‚ã‚‹
         Common::Status()->PickPlant();
 
-        // ƒAƒCƒeƒ€‚ğƒCƒ“ƒxƒ“ƒgƒŠ‚É’Ç‰Á
+        // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã«è¿½åŠ 
         Common::Inventory()->AddItem(itemDef.GetId());
 
         m_eState = eBattleState::NORMAL;
@@ -2323,8 +2323,8 @@ void SeqBattle::OperateCutTree()
     {
         PopUp2::Get()->SetText(IDS_STRING129);
 
-        // 6ŠÔŒo‰ß‚³‚¹‚éˆ—
-        // ‘•”õ•Ší‚ÅÁ”ï‚·‚éŠÔ‚â‘Ì—Í‚ª•Ï‚í‚é
+        // 6æ™‚é–“çµŒéã•ã›ã‚‹å‡¦ç†
+        // è£…å‚™æ­¦å™¨ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“ã‚„ä½“åŠ›ãŒå¤‰ã‚ã‚‹
         // 
 
         auto status = NSStarmanLib::StatusManager::GetObj();
@@ -2342,7 +2342,7 @@ void SeqBattle::OperateCutTree()
         {
             auto durability = itemInfo.GetDurabilityCurrent();
 
-            // ŠÔ‚ğŒo‰ß‚³‚¹AÎ•€‚Ì‘Ï‹v’l‚ğŒ¸‚ç‚·
+            // æ™‚é–“ã‚’çµŒéã•ã›ã€çŸ³æ–§ã®è€ä¹…å€¤ã‚’æ¸›ã‚‰ã™
             if (level == 0 || level == -1)
             {
                 dateTime->IncreaseDateTime(0, 0, 8, 0, 0);
@@ -2384,15 +2384,15 @@ void SeqBattle::OperateCutTree()
                                                    durability);
         }
 
-        // ‘Ì—Í‚ğÁ”ï
-        // ‘•”õ•Ší‚ÅÁ”ï‚·‚éŠÔ‚â‘Ì—Í‚ª•Ï‚í‚é
+        // ä½“åŠ›ã‚’æ¶ˆè²»
+        // è£…å‚™æ­¦å™¨ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“ã‚„ä½“åŠ›ãŒå¤‰ã‚ã‚‹
         Common::Status()->CutTree(name, level);
 
-        // ƒAƒCƒeƒ€‚ğƒCƒ“ƒxƒ“ƒgƒŠ‚É’Ç‰Á
+        // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã«è¿½åŠ 
         auto itemDef = Common::ItemManager()->GetItemDef(Common::LoadString_(IDS_STRING132));
         Common::Inventory()->AddItem(itemDef.GetId());
 
-        // –Ø‚ğÁ‚·ˆ—
+        // æœ¨ã‚’æ¶ˆã™å‡¦ç†
         m_map->DeleteTree(m_player->GetPos());
 
         m_eState = eBattleState::NORMAL;
@@ -2418,7 +2418,7 @@ void SeqBattle::OperateVoyage3Hours()
 {
     if (m_eFadeSeq == eFadeSeq::Sleep)
     {
-        // 3ŠÔŒã‚ÌˆÊ’u‚Éƒ[ƒv
+        // 3æ™‚é–“å¾Œã®ä½ç½®ã«ãƒ¯ãƒ¼ãƒ—
         SharedObj::Voyage()->Set3HoursAuto();
 
         m_eState = eBattleState::VOYAGE;
@@ -2432,11 +2432,11 @@ void SeqBattle::OperateCreateTorch()
     if (m_eFadeSeq == eFadeSeq::Sleep)
     {
         //-----------------------------------------------
-        // ‘•”õ’†‚Ì–Ø‚Ì–_‚ğíœ‚µA¼–¾‚ğ¶¬B
-        // ‚»‚µ‚ÄA¼–¾‚ğ‘•”õ‚·‚é
+        // è£…å‚™ä¸­ã®æœ¨ã®æ£’ã‚’å‰Šé™¤ã—ã€æ¾æ˜ã‚’ç”Ÿæˆã€‚
+        // ãã—ã¦ã€æ¾æ˜ã‚’è£…å‚™ã™ã‚‹
         //-----------------------------------------------
 
-        // ‘•”õ’†‚Ì–Ø‚Ì–_‚ğíœ
+        // è£…å‚™ä¸­ã®æœ¨ã®æ£’ã‚’å‰Šé™¤
         auto weapon = Common::Status()->GetEquipWeapon();
         Common::Inventory()->RemoveItem(weapon.GetId(), weapon.GetSubId());
 
@@ -2522,8 +2522,8 @@ void SeqBattle::Render()
     }
     else if (m_eState == eBattleState::VOYAGE)
     {
-        // ƒCƒJƒ_‚Íæ‚Á‚Ä‚¢‚Ä‚àæ‚Á‚Ä‚¢‚È‚­‚Ä‚àí‚É•\¦‚·‚é‚×‚«‚à‚Ì‚È‚Ì‚Å
-        // ‚±‚±‚Å‚Í‰½‚à‚µ‚È‚¢B
+        // ã‚¤ã‚«ãƒ€ã¯ä¹—ã£ã¦ã„ã¦ã‚‚ä¹—ã£ã¦ã„ãªãã¦ã‚‚å¸¸ã«è¡¨ç¤ºã™ã‚‹ã¹ãã‚‚ã®ãªã®ã§
+        // ã“ã“ã§ã¯ä½•ã‚‚ã—ãªã„ã€‚
     }
     else if (m_eState == eBattleState::POPUP)
     {
@@ -2535,8 +2535,8 @@ void SeqBattle::Render()
 
 void SeqBattle::Confirm(eSequence* sequence)
 {
-    // ’²‚×‚éƒRƒ}ƒ“ƒh
-    // ƒvƒŒƒCƒ„[‚ÌŒ»İÀ•W‚Ån‚Ü‚éƒNƒGƒXƒg‚©I‚í‚éƒNƒGƒXƒg‚ª‚ ‚éB
+    // èª¿ã¹ã‚‹ã‚³ãƒãƒ³ãƒ‰
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç¾åœ¨åº§æ¨™ã§å§‹ã¾ã‚‹ã‚¯ã‚¨ã‚¹ãƒˆã‹çµ‚ã‚ã‚‹ã‚¯ã‚¨ã‚¹ãƒˆãŒã‚ã‚‹ã€‚
     if (m_bShowExamine)
     {
         m_bShowExamine = false;
@@ -2557,8 +2557,8 @@ void SeqBattle::Confirm(eSequence* sequence)
             int itemPosId = itemPos.GetItemPosId();
             itemManager->SetItemPosObtained(itemPosId);
             
-            // ‚Ç‚ê‚¾‚¯‰×•¨‚ªd‚­‚Ä‚à—‚¿‚Ä‚¢‚é‚à‚Ì‚ğE‚¤‚±‚Æ‚Í‚Å‚«‚éB
-            // ‘ã‚í‚è‚ÉA‚Ü‚Æ‚à‚É•à‚¢‚½‚è‚Å‚«‚È‚­‚È‚éB
+            // ã©ã‚Œã ã‘è·ç‰©ãŒé‡ãã¦ã‚‚è½ã¡ã¦ã„ã‚‹ã‚‚ã®ã‚’æ‹¾ã†ã“ã¨ã¯ã§ãã‚‹ã€‚
+            // ä»£ã‚ã‚Šã«ã€ã¾ã¨ã‚‚ã«æ­©ã„ãŸã‚Šã§ããªããªã‚‹ã€‚
             auto inventory = NSStarmanLib::Inventory::GetObj();
             int newSubID = inventory->AddItem(itemPos.GetItemDefId());
             m_menuManager->AddItem(itemPos.GetItemDefId(), newSubID);
@@ -2570,10 +2570,10 @@ void SeqBattle::Confirm(eSequence* sequence)
     }
     else if (m_bTalkable)
     {
-        // ‰ï˜b‚ğŠJn
+        // ä¼šè©±ã‚’é–‹å§‹
         m_bTalkable = false;
 
-        // ‰ï˜b‚É‚æ‚é‘Ì—Í‚ÌÁ”ï
+        // ä¼šè©±ã«ã‚ˆã‚‹ä½“åŠ›ã®æ¶ˆè²»
         Common::Status()->Talk();
 
         auto npcManager = NpcManager::Get();
@@ -2597,7 +2597,7 @@ void SeqBattle::Confirm(eSequence* sequence)
 
             m_eState = eBattleState::TALK;
 
-            // ‰ï˜b‚µ‚½‚Ì‚Å‰ï˜b‰Â”\ó‘Ô‚ğ‰ğœ‚·‚é
+            // ä¼šè©±ã—ãŸã®ã§ä¼šè©±å¯èƒ½çŠ¶æ…‹ã‚’è§£é™¤ã™ã‚‹
             npcManager->SetTalkEnable(npcName, false);
 
             QuestManager::Get()->SetTalk(npcName);
@@ -2616,8 +2616,8 @@ void SeqBattle::Confirm(eSequence* sequence)
         {
             SharedObj::GetMap()->DeleteThrownItem(thrownItem);
             
-            // ‚Ç‚ê‚¾‚¯‰×•¨‚ªd‚­‚Ä‚à—‚¿‚Ä‚¢‚é‚à‚Ì‚ğE‚¤‚±‚Æ‚Í‚Å‚«‚éB
-            // ‘ã‚í‚è‚ÉA‚Ü‚Æ‚à‚É•à‚¢‚½‚è‚Å‚«‚È‚­‚È‚éB
+            // ã©ã‚Œã ã‘è·ç‰©ãŒé‡ãã¦ã‚‚è½ã¡ã¦ã„ã‚‹ã‚‚ã®ã‚’æ‹¾ã†ã“ã¨ã¯ã§ãã‚‹ã€‚
+            // ä»£ã‚ã‚Šã«ã€ã¾ã¨ã‚‚ã«æ­©ã„ãŸã‚Šã§ããªããªã‚‹ã€‚
             auto inventory = NSStarmanLib::Inventory::GetObj();
             int newSubID = inventory->AddItem(thrownItem.GetId());
             m_menuManager->AddItem(thrownItem.GetId(), newSubID);
@@ -2648,7 +2648,7 @@ void SeqBattle::UpdateCommon()
 
     if (m_eState == eBattleState::TITLE)
     {
-        // ƒ^ƒCƒgƒ‹‚Å‚àƒ|ƒbƒvƒAƒbƒv‚ğg‚¤
+        // ã‚¿ã‚¤ãƒˆãƒ«ã§ã‚‚ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’ä½¿ã†
         PopUp2::Get()->Update();
         return;
     }
@@ -2662,7 +2662,7 @@ void SeqBattle::UpdateCommon()
 
     PopUp2::Get()->Update();
 
-    // 60‰ñ‚Éˆê‰ñi1•b‚²‚Æj‚Ìˆ—
+    // 60å›ã«ä¸€å›ï¼ˆï¼1ç§’ã”ã¨ï¼‰ã®å‡¦ç†
     {
         static int counter = 0;
         counter++;
@@ -2678,10 +2678,10 @@ void SeqBattle::UpdateCommon()
 
     UpdateFadeInOut();
 
-    // ƒNƒ‰ƒtƒg‚ÍƒNƒ‰ƒtƒg‰æ–Ê‚ª•\¦‚³‚ê‚Ä‚¢‚È‚­‚Ä‚àXVˆ—‚ªs‚í‚ê‚é•K—v‚ª‚ ‚éB
+    // ã‚¯ãƒ©ãƒ•ãƒˆã¯ã‚¯ãƒ©ãƒ•ãƒˆç”»é¢ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ãªãã¦ã‚‚æ›´æ–°å‡¦ç†ãŒè¡Œã‚ã‚Œã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
     m_craft.Update();
 
-    // ƒNƒ‰ƒtƒg‚É‚æ‚Á‚ÄƒCƒJƒ_‚ª¶¬‚³‚ê‚é‚±‚Æ‚ª‚ ‚é‚½‚ßAqŠC’†‚Å‚È‚­‚Ä‚àXVˆ—‚ğs‚¤B
+    // ã‚¯ãƒ©ãƒ•ãƒˆã«ã‚ˆã£ã¦ã‚¤ã‚«ãƒ€ãŒç”Ÿæˆã•ã‚Œã‚‹ã“ã¨ãŒã‚ã‚‹ãŸã‚ã€èˆªæµ·ä¸­ã§ãªãã¦ã‚‚æ›´æ–°å‡¦ç†ã‚’è¡Œã†ã€‚
     SharedObj::Voyage()->Update();
 }
 
@@ -2709,10 +2709,10 @@ void SeqBattle::RenderCommon2D()
 {
     m_player->Render2D();
 
-    // TODO ”÷’²®
+    // TODO å¾®èª¿æ•´
     if (m_eState != eBattleState::LOAD &&
-        // m_eState != eBattleState::TITLE && // ƒ^ƒCƒgƒ‹‰æ–Ê‚Å‚àƒ|ƒbƒvƒAƒbƒv‚ª•K—v
-        // m_eState != eBattleState::MENU && // ƒƒjƒ…[‰æ–Ê‚Å‚àƒ|ƒbƒvƒAƒbƒv‚ª•K—v
+        // m_eState != eBattleState::TITLE && // ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã§ã‚‚ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒå¿…è¦
+        // m_eState != eBattleState::MENU && // ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã§ã‚‚ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒå¿…è¦
         m_eState != eBattleState::OPENING &&
         m_eState != eBattleState::TALK)
     {
@@ -2740,7 +2740,7 @@ void SeqBattle::RenderGameover()
     int transparency = 0;
 
     auto rynen = NSStarmanLib::Rynen::GetObj();
-    // •œŠˆ‰Â”\‚©
+    // å¾©æ´»å¯èƒ½ã‹
     if (rynen->GetReviveEnable() == false)
     {
         if (m_nDeadCounter < 120)
@@ -2777,22 +2777,22 @@ void SeqBattle::UpdateDebug()
         {
             std::vector<std::vector<std::string>> vvs;
             std::vector<std::string> vs;
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚P");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚QƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚Q");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚RƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚RƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚R");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼‘");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼’ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼’");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼“ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼“ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼“");
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚S");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚TƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚T");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚UƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚UƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚U");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼”");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼•ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼•");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼–ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼–ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼–");
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚VƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚VƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚VƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚V");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚WƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚WƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚W");
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚XƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚X");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼—ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼—ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼—ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼—");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼˜ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼˜ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼˜");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼™ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼™");
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("ƒTƒ“ƒvƒ‹ƒeƒLƒXƒg‚P‚O");
+            vs.push_back("ã‚µãƒ³ãƒ—ãƒ«ãƒ†ã‚­ã‚¹ãƒˆï¼‘ï¼");
             vvs.push_back(vs);
             PopUp::Get()->SetText(vvs);
         }
@@ -2811,7 +2811,7 @@ void SeqBattle::UpdateDebug()
     }
 
     //--------------------------------------
-    // ‘qŒÉ‹@”\
+    // å€‰åº«æ©Ÿèƒ½
     //--------------------------------------
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F1))
@@ -2824,7 +2824,7 @@ void SeqBattle::UpdateDebug()
                 Camera::SetCameraMode(eCameraMode::SLEEP);
                 Common::SetCursorVisibility(true);
 
-                // TODO ‘qŒÉ‚ğ•\¦‚·‚é“x‚É‘qŒÉ‰æ–Ê‚ğì‚é‚Ì‚ğ‚â‚ß‚é
+                // TODO å€‰åº«ã‚’è¡¨ç¤ºã™ã‚‹åº¦ã«å€‰åº«ç”»é¢ã‚’ä½œã‚‹ã®ã‚’ã‚„ã‚ã‚‹
                 m_storehouse = NEW NSStorehouseLib::StorehouseLib();
 
                 NSStorehouseLib::Sprite* sprCursor = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
@@ -2880,7 +2880,7 @@ void SeqBattle::UpdateDebug()
                 {
                     using namespace NSStarmanLib;
 
-                    // TODO ‘qŒÉ‚Ì•¡”‰»‘Î‰
+                    // TODO å€‰åº«ã®è¤‡æ•°åŒ–å¯¾å¿œ
                     auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
 
                     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
@@ -2923,7 +2923,7 @@ void SeqBattle::UpdateDebug()
     }
 
     //--------------------------------------
-    // ƒNƒ‰ƒtƒg‹@”\
+    // ã‚¯ãƒ©ãƒ•ãƒˆæ©Ÿèƒ½
     //--------------------------------------
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F2))
@@ -2940,7 +2940,7 @@ void SeqBattle::UpdateDebug()
     }
 
     //--------------------------------------
-    // ƒpƒbƒ`ƒeƒXƒg‹@”\
+    // ãƒ‘ãƒƒãƒãƒ†ã‚¹ãƒˆæ©Ÿèƒ½
     //--------------------------------------
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F3))
@@ -2961,9 +2961,9 @@ void SeqBattle::UpdateDebug()
 void SeqBattle::UpdatePerSecond()
 {
     //-------------------------------------
-    // ‚ği‚ß‚é
+    // æ™‚åˆ»ã‚’é€²ã‚ã‚‹
     //-------------------------------------
-    // 2ŠÔƒQ[ƒ€‚ğ‚µ‚½‚çƒpƒ[ƒGƒbƒO¯‚Å24ŠÔŒo‰ß‚·‚é
+    // 2æ™‚é–“ã‚²ãƒ¼ãƒ ã‚’ã—ãŸã‚‰ãƒ‘ãƒ¯ãƒ¼ã‚¨ãƒƒã‚°æ˜Ÿã§24æ™‚é–“çµŒéã™ã‚‹
     NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
     if (Common::DebugMode() == false)
@@ -2972,23 +2972,23 @@ void SeqBattle::UpdatePerSecond()
     }
     else
     {
-//        dateTime->IncreaseDateTime(0, 0, 0, 30, 0); // 1•b‚Å1ŠÔ‚Æ‚©Œo‰ß‚³‚¹‚½‚¢—p
+//        dateTime->IncreaseDateTime(0, 0, 0, 30, 0); // 1ç§’ã§1æ™‚é–“ã¨ã‹çµŒéã•ã›ãŸã„æ™‚ç”¨
         dateTime->IncreaseDateTime(0, 0, 0, 0, 12);
     }
 
     //-------------------------------------
-    // ƒXƒe[ƒ^ƒX‚ğXV
+    // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’æ›´æ–°
     //-------------------------------------
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     statusManager->Update();
 
     //-------------------------------------
-    // NPC‚ÌƒXƒe[ƒ^ƒX‚ğXV
+    // NPCã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’æ›´æ–°
     //-------------------------------------
     NpcManager::Get()->Update();
 
     //-------------------------------------
-    // €–Sƒ`ƒFƒbƒN
+    // æ­»äº¡ãƒã‚§ãƒƒã‚¯
     //-------------------------------------
     bool dead = statusManager->GetDead();
     if (dead)
@@ -2999,35 +2999,35 @@ void SeqBattle::UpdatePerSecond()
 
             if (reason == NSStarmanLib::eDeadReason::NONE)
             {
-                PopUp2::Get()->SetText("€ˆöF•s–¾");
+                PopUp2::Get()->SetText("æ­»å› ï¼šä¸æ˜");
             }
             else if (reason == NSStarmanLib::eDeadReason::MUSCLE_ZERO)
             {
-                PopUp2::Get()->SetText("€ˆöF“÷‘Ì‚ÌC•œ“x‚ª‚O‚É‚È‚Á‚½");
+                PopUp2::Get()->SetText("æ­»å› ï¼šè‚‰ä½“ã®ä¿®å¾©åº¦ãŒï¼ã«ãªã£ãŸ");
             }
             else if (reason == NSStarmanLib::eDeadReason::WATER_90)
             {
-                PopUp2::Get()->SetText("€ˆöF…•ª—Ê‚ª‚X‚O“ˆÈ‰º‚É‚È‚Á‚½");
+                PopUp2::Get()->SetText("æ­»å› ï¼šæ°´åˆ†é‡ãŒï¼™ï¼ï¼…ä»¥ä¸‹ã«ãªã£ãŸ");
             }
             else if (reason == NSStarmanLib::eDeadReason::KAROSHI)
             {
-                PopUp2::Get()->SetText("€ˆöFg‘Ì‚ÌƒXƒ^ƒ~ƒi‚ª‚O“‚É‚È‚Á‚½");
+                PopUp2::Get()->SetText("æ­»å› ï¼šèº«ä½“ã®ã‚¹ã‚¿ãƒŸãƒŠãŒï¼ï¼…ã«ãªã£ãŸ");
             }
             else if (reason == NSStarmanLib::eDeadReason::RYNEN_1_YEAR)
             {
-                PopUp2::Get()->SetText("€ˆöFƒ‰ƒCƒlƒ“‚ÌŒ_–ñ‚ğ‚µ‚Ä‚P”N‚ªŒo‰ß‚µ‚½");
+                PopUp2::Get()->SetText("æ­»å› ï¼šãƒ©ã‚¤ãƒãƒ³ã®å¥‘ç´„ã‚’ã—ã¦ï¼‘å¹´ãŒçµŒéã—ãŸ");
             }
             else if (reason == NSStarmanLib::eDeadReason::STARVATION)
             {
-                PopUp2::Get()->SetText("€ˆöF‰ì€");
+                PopUp2::Get()->SetText("æ­»å› ï¼šé¤“æ­»");
             }
             else if (reason == NSStarmanLib::eDeadReason::DROWNING)
             {
-                PopUp2::Get()->SetText("€ˆöF…’†‚ÅQ‚½B");
+                PopUp2::Get()->SetText("æ­»å› ï¼šæ°´ä¸­ã§å¯ãŸã€‚");
             }
             else if (reason == NSStarmanLib::eDeadReason::ATTACK_ON_SLEEP)
             {
-                PopUp2::Get()->SetText("€ˆöF‡–°’†‚ÉUŒ‚‚³‚ê‚½B");
+                PopUp2::Get()->SetText("æ­»å› ï¼šç¡çœ ä¸­ã«æ”»æ’ƒã•ã‚ŒãŸã€‚");
             }
 
             m_eState = eBattleState::DEAD;
@@ -3043,7 +3043,7 @@ void SeqBattle::UpdatePerSecond()
     }
 
     //-------------------------------------
-    // ‡–°E‹Câƒ`ƒFƒbƒN
+    // ç¡çœ ãƒ»æ°—çµ¶ãƒã‚§ãƒƒã‚¯
     //-------------------------------------
     if (m_eFadeSeq == eFadeSeq::NotStart)
     {
@@ -3059,7 +3059,7 @@ void SeqBattle::UpdatePerSecond()
     }
 
     //-------------------------------------
-    // ƒAƒCƒeƒ€”­Œ©
+    // ã‚¢ã‚¤ãƒ†ãƒ ç™ºè¦‹
     //-------------------------------------
     D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
@@ -3078,7 +3078,7 @@ void SeqBattle::UpdatePerSecond()
     }
 
     //-------------------------------------
-    // “Š‚°‚Ä’n–Ê‚É—‚¿‚½ƒAƒCƒeƒ€‚ğ”­Œ©
+    // æŠ•ã’ã¦åœ°é¢ã«è½ã¡ãŸã‚¢ã‚¤ãƒ†ãƒ ã‚’ç™ºè¦‹
     //-------------------------------------
     auto thrownItem = SharedObj::GetMap()->GetThrownItem(playerPos);
 
@@ -3092,7 +3092,7 @@ void SeqBattle::UpdatePerSecond()
     }
 
     //-------------------------------------
-    // Å‘åÏÚ—Ê‚ğ’´‚¦‚Ä‚¢‚½‚çƒƒbƒZ[ƒW‚ğ•\¦
+    // æœ€å¤§ç©è¼‰é‡ã‚’è¶…ãˆã¦ã„ãŸã‚‰ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤º
     //-------------------------------------
     {
         static float previousVol = 0.f;
@@ -3115,7 +3115,7 @@ void SeqBattle::UpdatePerSecond()
         previousVolMax = volMax;
     }
     //-------------------------------------
-    // ¼–¾‚ğg—p‚µ‚Ä‚¢‚½‚ç¼–¾‚Ì‘Ï‹v’l‚ğ’á‰º
+    // æ¾æ˜ã‚’ä½¿ç”¨ã—ã¦ã„ãŸã‚‰æ¾æ˜ã®è€ä¹…å€¤ã‚’ä½ä¸‹
     //-------------------------------------
     {
         auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
@@ -3148,7 +3148,7 @@ void SeqBattle::UpdatePerSecond()
 void SeqBattle::OperateNormal(eSequence* sequence)
 {
     //============================================
-    // ƒL[ƒ{[ƒhAƒ}ƒEƒXAƒQ[ƒ€ƒpƒbƒh‚Ìˆ—
+    // ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã€ãƒã‚¦ã‚¹ã€ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å‡¦ç†
     //============================================
 
     //--------------------------------------------
@@ -3156,7 +3156,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     //--------------------------------------------
 
     //--------------------------------------
-    // ƒƒjƒ…[‹@”\
+    // ãƒ¡ãƒ‹ãƒ¥ãƒ¼æ©Ÿèƒ½
     //--------------------------------------
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
@@ -3172,7 +3172,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     //--------------------------------------
-    // ƒRƒ}ƒ“ƒh‹@”\
+    // ã‚³ãƒãƒ³ãƒ‰æ©Ÿèƒ½
     //--------------------------------------
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_C))
     {
@@ -3187,7 +3187,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         }
     }
 
-    // Šm’è‘€ì
+    // ç¢ºå®šæ“ä½œ
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_E))
     {
         Confirm(sequence);
@@ -3198,7 +3198,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     //--------------------------------------------
 
     //--------------------------------------
-    // ƒƒjƒ…[‹@”\
+    // ãƒ¡ãƒ‹ãƒ¥ãƒ¼æ©Ÿèƒ½
     //--------------------------------------
     if (GamePad::IsDown(eGamePadButtonType::START))
     {
@@ -3215,7 +3215,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     //--------------------------------------
-    // ƒRƒ}ƒ“ƒh‹@”\
+    // ã‚³ãƒãƒ³ãƒ‰æ©Ÿèƒ½
     //--------------------------------------
     if (GamePad::IsDown(eGamePadButtonType::BACK))
     {
@@ -3230,7 +3230,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
         }
     }
 
-    // Šm’è‘€ì
+    // ç¢ºå®šæ“ä½œ
     if (GamePad::IsDown(eGamePadButtonType::A))
     {
         Confirm(sequence);
@@ -3241,7 +3241,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     m_hudManager.Update();
 
     //-------------------------------------------------
-    // 0.5•b‚É1‰ñ‚­‚ç‚¢‚Ìˆ—
+    // 0.5ç§’ã«1å›ãã‚‰ã„ã®å‡¦ç†
     //-------------------------------------------------
     {
         static int work = 0;
@@ -3253,12 +3253,12 @@ void SeqBattle::OperateNormal(eSequence* sequence)
 
         if (work == 0)
         {
-            // ƒNƒGƒXƒgˆ—
+            // ã‚¯ã‚¨ã‚¹ãƒˆå‡¦ç†
             {
                 OperateQuest(sequence);
             }
 
-            // ‹ß‚­‚Éƒ`ƒFƒXƒg‚ª‚ ‚Á‚½‚ç‘qŒÉ‹@”\‚ªg‚¦‚éB
+            // è¿‘ãã«ãƒã‚§ã‚¹ãƒˆãŒã‚ã£ãŸã‚‰å€‰åº«æ©Ÿèƒ½ãŒä½¿ãˆã‚‹ã€‚
             {
                 auto ppos = m_player->GetPos();
                 auto storehouse = 
@@ -3276,10 +3276,10 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     //---------------------------------------------------------------------
-    // u˜b‚µ‚©‚¯‚év‚ª‚Å‚«‚é‚±‚Æ‚ğƒAƒCƒRƒ“‚Å’m‚ç‚¹‚é
+    // ã€Œè©±ã—ã‹ã‘ã‚‹ã€ãŒã§ãã‚‹ã“ã¨ã‚’ã‚¢ã‚¤ã‚³ãƒ³ã§çŸ¥ã‚‰ã›ã‚‹
     //---------------------------------------------------------------------
     {
-        // 3ƒ[ƒgƒ‹ˆÈ“à‚É˜b‚µ‚©‚¯‚ç‚ê‚éNPC‚ª‚¢‚é‚©B
+        // 3ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã«è©±ã—ã‹ã‘ã‚‰ã‚Œã‚‹NPCãŒã„ã‚‹ã‹ã€‚
         auto npcManager = NpcManager::Get();
         auto playerPos = SharedObj::GetPlayer()->GetPos();
         bool exist = npcManager->GetNpcTalkable(playerPos);
@@ -3341,10 +3341,10 @@ void SeqBattle::OperateGameover(eSequence* sequence)
     {
         auto rynen = NSStarmanLib::Rynen::GetObj();
 
-        // •œŠˆƒiƒV
+        // å¾©æ´»ãƒŠã‚·
         if (rynen->GetReviveEnable() == false)
         {
-            // Šm’è‘€ì
+            // ç¢ºå®šæ“ä½œ
             if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_E))
             {
                 if (m_nDeadCounter >= 120)
@@ -3356,7 +3356,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
                 }
             }
 
-            // Šm’è‘€ì
+            // ç¢ºå®šæ“ä½œ
             if (GamePad::IsDown(eGamePadButtonType::A))
             {
                 if (m_nDeadCounter >= 120)
@@ -3368,7 +3368,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
                 }
             }
         }
-        // •œŠˆ‚ ‚è
+        // å¾©æ´»ã‚ã‚Š
         else
         {
             rynen->SetReviveEnable(false);
@@ -3466,14 +3466,14 @@ void SeqBattle::OperateRest()
 {
     if (m_eFadeSeq == eFadeSeq::Finish)
     {
-        // 3ŠÔŒo‰ß‚³‚¹‚éˆ—
+        // 3æ™‚é–“çµŒéã•ã›ã‚‹å‡¦ç†
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
         dateTime->IncreaseDateTime(0, 0, 3, 0, 0);
 
         auto status = NSStarmanLib::StatusManager::GetObj();
 
-        // ‘Ì—Í‚ğÁ”ï
-        // ‘•”õ•Ší‚ÅÁ”ï‚·‚éŠÔ‚â‘Ì—Í‚ª•Ï‚í‚é
+        // ä½“åŠ›ã‚’æ¶ˆè²»
+        // è£…å‚™æ­¦å™¨ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“ã‚„ä½“åŠ›ãŒå¤‰ã‚ã‚‹
         Common::Status()->Rest3Hours();
 
         m_eState = eBattleState::NORMAL;

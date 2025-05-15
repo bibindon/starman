@@ -1,4 +1,4 @@
-#include "SharedObj.h"
+﻿#include "SharedObj.h"
 #include "Common.h"
 
 HWND SharedObj::m_hWnd { nullptr };

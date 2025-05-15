@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "Common.h"
 #include "Sprite.h"
@@ -8,22 +8,22 @@
 #include <atomic>
 
 //----------------------------------------------------------
-// �^�C�g�����
+// タイトル画面
 //
-// �E�ŏ��͓��S�̂�������悤�ɃJ����������Ă���B
-// �EContinue��I�񂾂�J�������v���C���[�̈ʒu�Ɉړ�����
-// �E�J�����̈ړ�����������܂ł̓^�C�g����ʂ̒S���͈́B
-// �EStart��I�񂾂�Ó]����Opening���
-// �E�Z�[�u�f�[�^����������A�^�C�g����ʂ��\�����ꂽ�Ƃ����łɃZ�[�u�f�[�^���ǂ܂�Ă���B
-// �E�Z�[�u�f�[�^������̂ɏ��߂����I�񂾂�A�����f�[�^�͓ǂ�ł��Ȃ��̂�
-//   ���邭���\�����ēǂݒ����K�v������B
-// �E�J�����ړ��̃t�F�[�h�C���E�t�F�[�h�A�E�g�ƈÓ]�ɂ��t�F�[�h�C���E�t�F�[�h�A�E�g������B
+// ・最初は島全体が見えるようにカメラが離れている。
+// ・Continueを選んだらカメラがプレイヤーの位置に移動する
+// ・カメラの移動が完了するまではタイトル画面の担当範囲。
+// ・Startを選んだら暗転してOpening画面
+// ・セーブデータがあったら、タイトル画面が表示されたときすでにセーブデータが読まれている。
+// ・セーブデータがあるのに初めからを選んだら、初期データは読んでいないので
+//   くるくるを表示して読み直す必要がある。
+// ・カメラ移動のフェードイン・フェードアウトと暗転によるフェードイン・フェードアウトがある。
 //----------------------------------------------------------
 
 class Title
 {
 public:
-    // blackFadeIn: �Ó]�ɂ��t�F�[�h�C�����A�J�����ɂ��t�F�[�h�C�����B
+    // blackFadeIn: 暗転によるフェードインか、カメラによるフェードインか。
     Title(const bool blackFadeIn, const bool bFirst);
     ~Title();
     void Update(eSequence* sequence, eBattleState* eState);
@@ -67,7 +67,7 @@ private:
 
     eTitleMenu m_eMenu = eTitleMenu::NOT_DECIDE;
 
-    // �N�����Ă��珉�߂ă^�C�g����ʂ��\�����ꂽ�B
+    // 起動してから初めてタイトル画面が表示された。
     bool m_bFirst = true;
 };
 

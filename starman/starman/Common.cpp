@@ -1,4 +1,4 @@
-#include "Common.h"
+ï»¿#include "Common.h"
 #include <sstream>
 #include <iomanip>
 #include "SharedObj.h"
@@ -6,7 +6,7 @@
 #include <wtsapi32.h>
 #include "resource.h"
 
-// ƒŠƒ‚[ƒgÚ‘±ŒŸo—p
+// ãƒªãƒ¢ãƒ¼ãƒˆæ¥ç¶šæ¤œå‡ºç”¨
 #pragma comment(lib, "Wtsapi32.lib")
 
 #if defined(_DEBUG)
@@ -117,12 +117,12 @@ bool Common::X64Bit()
 
 void Common::SetCursorVisibility(const bool visibility)
 {
-    // Win32API‚ÌShowCursorŠÖ”‚Í“à•”‚ÅƒJƒEƒ“ƒ^[‚ğ‚Á‚Ä‚¨‚èA
-    // “à•”ƒJƒEƒ“ƒ^[‚ª0ˆÈ‰º‚É‚È‚ç‚È‚¢‚Æ”ñ•\¦‚É‚È‚ç‚È‚¢B
-    // 1ˆÈã‚É‚È‚ç‚È‚¢‚Æ•\¦‚É‚È‚ç‚È‚¢B
-    // Directx9‚É‚àShowCursorŠÖ”‚ª‚ ‚èA‚±‚¿‚ç‚ÍƒJƒEƒ“ƒ^[‚ğ‚Á‚Ä‚¢‚È‚¢B
-    // ‚µ‚©‚µAD3DCREATE_SOFTWARE_VERTEXPROCESSING‚ğw’è‚µ‚Ä
-    // ’¸“_ˆ—‚ğƒ\ƒtƒgƒEƒFƒA‚Åˆ—‚µ‚È‚¢‚ÆƒJ[ƒ\ƒ‹‚ª•\¦‚Å‚«‚È‚¢‚ç‚µ‚¢B
+    // Win32APIã®ShowCursoré–¢æ•°ã¯å†…éƒ¨ã§ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã‚’æŒã£ã¦ãŠã‚Šã€
+    // å†…éƒ¨ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ãŒ0ä»¥ä¸‹ã«ãªã‚‰ãªã„ã¨éè¡¨ç¤ºã«ãªã‚‰ãªã„ã€‚
+    // 1ä»¥ä¸Šã«ãªã‚‰ãªã„ã¨è¡¨ç¤ºã«ãªã‚‰ãªã„ã€‚
+    // Directx9ã«ã‚‚ShowCursoré–¢æ•°ãŒã‚ã‚Šã€ã“ã¡ã‚‰ã¯ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼ã‚’æŒã£ã¦ã„ãªã„ã€‚
+    // ã—ã‹ã—ã€D3DCREATE_SOFTWARE_VERTEXPROCESSINGã‚’æŒ‡å®šã—ã¦
+    // é ‚ç‚¹å‡¦ç†ã‚’ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã§å‡¦ç†ã—ãªã„ã¨ã‚«ãƒ¼ã‚½ãƒ«ãŒè¡¨ç¤ºã§ããªã„ã‚‰ã—ã„ã€‚
 
     int work = 0;
     if (visibility)
@@ -148,8 +148,8 @@ void Common::SetCursorVisibility(const bool visibility)
             rectClient.top += pt.y;
             rectClient.left += pt.x;
 
-            // CursorOnˆ—‚ÅƒQ[ƒ€ƒpƒbƒh‚Ææ‚è‡‚¢‚É‚È‚é‚Ì‚Å
-            // ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ¶ã‚ÉˆÚ“®‚µ‚Ä‚¨‚­
+            // CursorOnå‡¦ç†ã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã¨å–ã‚Šåˆã„ã«ãªã‚‹ã®ã§
+            // ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’å·¦ä¸Šã«ç§»å‹•ã—ã¦ãŠã
             SetCursorPos(rectClient.left, rectClient.top);
         }
     }
@@ -178,8 +178,8 @@ void Common::SetCursorVisibility(const bool visibility)
 
             ClipCursor(&rectClient);
 
-            // CursorOnˆ—‚ÅƒQ[ƒ€ƒpƒbƒh‚Ææ‚è‡‚¢‚É‚È‚é‚Ì‚Å
-            // ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ¶ã‚ÉˆÚ“®‚µ‚Ä‚¨‚­
+            // CursorOnå‡¦ç†ã§ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã¨å–ã‚Šåˆã„ã«ãªã‚‹ã®ã§
+            // ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’å·¦ä¸Šã«ç§»å‹•ã—ã¦ãŠã
             SetCursorPos(rectClient.left, rectClient.top);
         }
     }
@@ -216,7 +216,7 @@ std::string Common::RemoveSubstring(const std::string& str, const std::string& t
     std::string result = str;
     size_t pos = std::string::npos;
 
-    // w’è‚³‚ê‚½•¶š—ñ‚ªŒ©‚Â‚©‚éŒÀ‚èƒ‹[ƒv
+    // æŒ‡å®šã•ã‚ŒãŸæ–‡å­—åˆ—ãŒè¦‹ã¤ã‹ã‚‹é™ã‚Šãƒ«ãƒ¼ãƒ—
     while ((pos = result.find(toRemove)) != std::string::npos)
     {
         result.erase(pos, toRemove.length());
@@ -229,33 +229,33 @@ bool Common::EqualF(const float arg1, const float arg2)
     return abs(arg1 - arg2) < FLT_EPSILON;
 }
 
-    // “_‚Æü•ª‚Ì‹——£‚ğŒvZ‚·‚éŠÖ”
+    // ç‚¹ã¨ç·šåˆ†ã®è·é›¢ã‚’è¨ˆç®—ã™ã‚‹é–¢æ•°
 float Common::PointToSegmentDistance(const D3DXVECTOR3& p1, const D3DXVECTOR3& p2, const D3DXVECTOR3& point)
 {
-    // ü•ª‚ğƒxƒNƒgƒ‹‚Æ‚µ‚Äˆµ‚¤
+    // ç·šåˆ†ã‚’ãƒ™ã‚¯ãƒˆãƒ«ã¨ã—ã¦æ‰±ã†
     D3DXVECTOR3 segment = p2 - p1;
     D3DXVECTOR3 pointToStart = point - p1;
 
-    // ü•ª‚Ì’·‚³‚Ì2æ
+    // ç·šåˆ†ã®é•·ã•ã®2ä¹—
     float segmentLengthSquared = D3DXVec3LengthSq(&segment);
 
     if (segmentLengthSquared == 0.0f)
     {
-        // ü•ª‚ª“_‚Ìê‡A“_‚Æn“_i‚Ü‚½‚ÍI“_j‚Ì‹——£‚ğ•Ô‚·
+        // ç·šåˆ†ãŒç‚¹ã®å ´åˆã€ç‚¹ã¨å§‹ç‚¹ï¼ˆã¾ãŸã¯çµ‚ç‚¹ï¼‰ã®è·é›¢ã‚’è¿”ã™
         auto temp1(point - p1);
         return D3DXVec3Length(&temp1);
     }
 
-    // “_‚ğü•ª‚É“Š‰e
+    // ç‚¹ã‚’ç·šåˆ†ã«æŠ•å½±
     float t = D3DXVec3Dot(&pointToStart, &segment) / segmentLengthSquared;
 
-    // t ‚ğ 0 ` 1 ‚ÉƒNƒ‰ƒ“ƒvi“Š‰e“_‚ªü•ªã‚É‚ ‚é‚©Šm”Fj
+    // t ã‚’ 0 ï½ 1 ã«ã‚¯ãƒ©ãƒ³ãƒ—ï¼ˆæŠ•å½±ç‚¹ãŒç·šåˆ†ä¸Šã«ã‚ã‚‹ã‹ç¢ºèªï¼‰
     t = (std::max)(0.0f, (std::min)(1.0f, t));
 
-    // “Š‰e“_‚ÌÀ•W‚ğŒvZ
+    // æŠ•å½±ç‚¹ã®åº§æ¨™ã‚’è¨ˆç®—
     D3DXVECTOR3 projection = p1 + t * segment;
 
-    // “_‚Æ“Š‰e“_‚Ì‹——£‚ğŒvZ
+    // ç‚¹ã¨æŠ•å½±ç‚¹ã®è·é›¢ã‚’è¨ˆç®—
     auto temp2(point - projection);
     return D3DXVec3Length(&temp2);
 }
@@ -312,18 +312,18 @@ void Common::ReduceBodyStaminaMaxSub(const float arg)
 
 bool Common::IsRemoteSession()
 {
-    // Å‰‚Ìˆê‰ñ–Ú‚¾‚¯ƒ`ƒFƒbƒN‚µ‚ÄA2‰ñ–ÚˆÈ~‚Íƒ`ƒFƒbƒN‚µ‚½“à—e‚ğ•Ô‚·‚æ‚¤‚É‚·‚éB
+    // æœ€åˆã®ä¸€å›ç›®ã ã‘ãƒã‚§ãƒƒã‚¯ã—ã¦ã€2å›ç›®ä»¥é™ã¯ãƒã‚§ãƒƒã‚¯ã—ãŸå†…å®¹ã‚’è¿”ã™ã‚ˆã†ã«ã™ã‚‹ã€‚
     static bool isRemote = false;
     static bool checked = false;
 
     if (!checked)
     {
-        // ³í“®ì‚¹‚¸
+        // æ­£å¸¸å‹•ä½œã›ãš
         
 //        WTS_SESSION_INFO* pSessionInfo = nullptr;
 //        DWORD sessionCount = 0;
 //
-//        // Œ»İ‚ÌƒZƒbƒVƒ‡ƒ“‚ğæ“¾
+//        // ç¾åœ¨ã®ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’å–å¾—
 //        if (WTSEnumerateSessions(WTS_CURRENT_SERVER_HANDLE, 0, 1, &pSessionInfo, &sessionCount))
 //        {
 //            for (DWORD i = 0; i < sessionCount; ++i)
@@ -339,7 +339,7 @@ bool Common::IsRemoteSession()
 //        }
         checked = true;
     }
-    return isRemote; // ”»’è‚Å‚«‚È‚¢ê‡
+    return isRemote; // åˆ¤å®šã§ããªã„å ´åˆ
 }
 
 bool Common::HitByBoundingBox(const D3DXVECTOR3& p1,
@@ -383,7 +383,7 @@ std::string Common::LoadString_(const UINT resID)
 
 std::string Common::LoadStringWithArg(const UINT resID, const std::string& arg1)
 {
-    // u"%s"‚ğó‚¯æ‚Á‚½v‚İ‚½‚¢‚È•¶š—ñ
+    // ã€Œ"%s"ã‚’å—ã‘å–ã£ãŸã€ã¿ãŸã„ãªæ–‡å­—åˆ—
     TCHAR buf[1024];
     HMODULE hInstance = GetModuleHandle(NULL);
     LoadString(hInstance, resID, buf, 1024);

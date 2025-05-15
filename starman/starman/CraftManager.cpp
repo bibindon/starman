@@ -1,4 +1,4 @@
-#include "CraftManager.h"
+ï»¿#include "CraftManager.h"
 #include "KeyBoard.h"
 #include "Camera.h"
 #include "Mouse.h"
@@ -47,7 +47,7 @@ public:
 
     void Load(const std::string& filepath) override
     {
-        // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚Ì‚İŠm•Û‚µg‚¢‚Ü‚í‚·
+        // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã®ã¿ç¢ºä¿ã—ä½¿ã„ã¾ã‚ã™
         if (m_D3DSprite == NULL)
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
@@ -58,8 +58,8 @@ public:
 
         m_filepath = filepath;
 
-        // “¯‚¶‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚ªŠù‚É‚ ‚é‚È‚çA
-        // ‰æ‘œ‚ÌƒTƒCƒY‚¾‚¯Šm•Û‚µƒeƒNƒXƒ`ƒƒ‚Ìì¬‚ğs‚í‚È‚¢
+        // åŒã˜ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒæ—¢ã«ã‚ã‚‹ãªã‚‰ã€
+        // ç”»åƒã®ã‚µã‚¤ã‚ºã ã‘ç¢ºä¿ã—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆã‚’è¡Œã‚ãªã„
         auto it = m_texMap.find(filepath);
         if (it != m_texMap.end())
         {
@@ -74,7 +74,7 @@ public:
             return;
         }
 
-        // ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+        // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
         LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
@@ -113,14 +113,14 @@ private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
 
-    // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚ğg‚¢‚Ü‚í‚·
+    // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã‚’ä½¿ã„ã¾ã‚ã™
     static LPD3DXSPRITE m_D3DSprite;
     std::string m_filepath;
 
     UINT m_width = 0;
     UINT m_height = 0;
 
-    // “¯‚¶–¼‘O‚Ì‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Íg‚¢‚Ü‚í‚·
+    // åŒã˜åå‰ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ä½¿ã„ã¾ã‚ã™
     static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
 };
 
@@ -152,7 +152,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "‚l‚r –¾’©",
+                                "ï¼­ï¼³ æ˜æœ",
                                 &m_pFont);
         }
         else
@@ -253,7 +253,7 @@ void CraftManager::Finalize()
     m_gui.Finalize();
 }
 
-// ‚±‚ÌŠÖ”‚ÍƒNƒ‰ƒtƒg‰æ–Ê‚ª•\¦‚³‚ê‚Ä‚¢‚È‚¢‚Æ‚«‚àŒÄ‚Î‚ê‚é‚±‚Æ‚É‹C‚ğ•t‚¯‚é
+// ã“ã®é–¢æ•°ã¯ã‚¯ãƒ©ãƒ•ãƒˆç”»é¢ãŒè¡¨ç¤ºã•ã‚Œã¦ã„ãªã„ã¨ãã‚‚å‘¼ã°ã‚Œã‚‹ã“ã¨ã«æ°—ã‚’ä»˜ã‘ã‚‹
 void CraftManager::Update()
 {
     auto craftSys = NSStarmanLib::CraftSystem::GetObj();
@@ -261,7 +261,7 @@ void CraftManager::Update()
     static int counter = 0;
     ++counter;
 
-    // 1•b‚Éˆê‰ñ
+    // 1ç§’ã«ä¸€å›
     if (counter % 60 == 1)
     {
         craftSys->UpdateCraftStatus();
@@ -272,16 +272,16 @@ void CraftManager::Operate(eBattleState* state)
 {
     auto craftSys = NSStarmanLib::CraftSystem::GetObj();
 
-    // ’èŠú“I‚É‰æ–Ê‚ğì‚è’¼‚·B
+    // å®šæœŸçš„ã«ç”»é¢ã‚’ä½œã‚Šç›´ã™ã€‚
     static int counter = 0;
     ++counter;
 
-    // 1•b‚Éˆê‰ñ
+    // 1ç§’ã«ä¸€å›
     if (counter % 60 == 1)
     {
         if (*state == eBattleState::CRAFT)
         {
-            // ‰æ–ÊXV
+            // ç”»é¢æ›´æ–°
             Build();
         }
     }
@@ -413,7 +413,7 @@ void CraftManager::Operate(eBattleState* state)
             Camera::SetCameraMode(eCameraMode::BATTLE);
             Common::SetCursorVisibility(false);
         }
-        // ƒCƒJƒ_‚Ìê‡‚ÍŠˆ“®‹’“_‚Ì‘D’…‚«ê‚ÉƒCƒJƒ_‚ª‚È‚¢‚©ƒ`ƒFƒbƒN
+        // ã‚¤ã‚«ãƒ€ã®å ´åˆã¯æ´»å‹•æ‹ ç‚¹ã®èˆ¹ç€ãå ´ã«ã‚¤ã‚«ãƒ€ãŒãªã„ã‹ãƒã‚§ãƒƒã‚¯
         else if (result == Common::LoadString_(IDS_STRING169))
         {
             bool raftExist = NSStarmanLib::ActivityBase::Get()->CheckRaftExist();
@@ -425,7 +425,7 @@ void CraftManager::Operate(eBattleState* state)
             }
             else
             {
-                // ƒNƒ‰ƒtƒgŠJn
+                // ã‚¯ãƒ©ãƒ•ãƒˆé–‹å§‹
                 std::string work = result;
                 auto index = work.find("+");
                 if (index != std::string::npos)
@@ -447,7 +447,7 @@ void CraftManager::Operate(eBattleState* state)
         }
         else
         {
-            // ƒNƒ‰ƒtƒgŠJn
+            // ã‚¯ãƒ©ãƒ•ãƒˆé–‹å§‹
             std::string work = result;
             auto index = work.find("+");
             if (index != std::string::npos)
@@ -484,11 +484,11 @@ void CraftManager::Build()
 
         auto infoList = craftInfo->GetCraftItemList();
 
-        // ƒNƒ‰ƒtƒg‰Â”\ƒŠƒXƒg‚É‚ÍƒNƒ‰ƒtƒg‰Â”\‚ÈƒAƒCƒeƒ€‚ğˆê——‚Å•\¦‚·‚éB
-        // ƒCƒJƒ_‚Í‹­‰»’l10‚Ü‚Å‚ ‚èAƒCƒJƒ_AƒCƒJƒ_+1AƒCƒJƒ_+2EEEƒCƒJƒ_+10‚ğƒNƒ‰ƒtƒg‚Å‚«‚é‚ª
-        // ƒŠƒXƒg‚É•\¦‚³‚ê‚é‚Ì‚ÍuƒCƒJƒ_v‚¾‚¯
-        // ŠG‚Ìãè‚¢l‚ª‰ºè‚ÈŠG‚ğ•`‚­‚±‚Æ‚ª¢“ï‚È‚æ‚¤‚ÉA©“®‚ÅƒNƒ‰ƒtƒg‰Â”\‚È‹­‰»’l‚ª‘I‚Î‚ê‚é‚½‚ß
-        // ‹­‰»’l‚ğ‘I‘ğ‚Å‚«‚é•K—v‚Í‚È‚¢
+        // ã‚¯ãƒ©ãƒ•ãƒˆå¯èƒ½ãƒªã‚¹ãƒˆã«ã¯ã‚¯ãƒ©ãƒ•ãƒˆå¯èƒ½ãªã‚¢ã‚¤ãƒ†ãƒ ã‚’ä¸€è¦§ã§è¡¨ç¤ºã™ã‚‹ã€‚
+        // ã‚¤ã‚«ãƒ€ã¯å¼·åŒ–å€¤10ã¾ã§ã‚ã‚Šã€ã‚¤ã‚«ãƒ€ã€ã‚¤ã‚«ãƒ€+1ã€ã‚¤ã‚«ãƒ€+2ãƒ»ãƒ»ãƒ»ã‚¤ã‚«ãƒ€+10ã‚’ã‚¯ãƒ©ãƒ•ãƒˆã§ãã‚‹ãŒ
+        // ãƒªã‚¹ãƒˆã«è¡¨ç¤ºã•ã‚Œã‚‹ã®ã¯ã€Œã‚¤ã‚«ãƒ€ã€ã ã‘
+        // çµµã®ä¸Šæ‰‹ã„äººãŒä¸‹æ‰‹ãªçµµã‚’æãã“ã¨ãŒå›°é›£ãªã‚ˆã†ã«ã€è‡ªå‹•ã§ã‚¯ãƒ©ãƒ•ãƒˆå¯èƒ½ãªå¼·åŒ–å€¤ãŒé¸ã°ã‚Œã‚‹ãŸã‚
+        // å¼·åŒ–å€¤ã‚’é¸æŠã§ãã‚‹å¿…è¦ã¯ãªã„
         for (auto& info : infoList)
         {
             auto name = info.GetName();
@@ -518,7 +518,7 @@ void CraftManager::Build()
 
         vs.clear();
 
-        // 2”Ô–ÚˆÈ~‚ğ—\–ñƒŠƒXƒg‚É•\¦
+        // 2ç•ªç›®ä»¥é™ã‚’äºˆç´„ãƒªã‚¹ãƒˆã«è¡¨ç¤º
         if (reqList.size() >= 2)
         {
             std::string name;
@@ -538,13 +538,13 @@ void CraftManager::Build()
             m_gui.SetCraftQue(vs);
         }
 
-        // ‰æ‘œAà–¾•¶‚ğ“o˜^
+        // ç”»åƒã€èª¬æ˜æ–‡ã‚’ç™»éŒ²
         {
             std::string work;
 
             auto allCraftList = craftInfo->GetCraftItemList();
 
-            // ƒNƒ‰ƒtƒgƒ}ƒ“‚Ìn—û“x‚É‰‚¶‚Ä¬‰Ê•¨‚Ì‹­‰»’l‚ğ•ÏX
+            // ã‚¯ãƒ©ãƒ•ãƒˆãƒãƒ³ã®ç†Ÿç·´åº¦ã«å¿œã˜ã¦æˆæœç‰©ã®å¼·åŒ–å€¤ã‚’å¤‰æ›´
             auto craftSys = NSStarmanLib::CraftSystem::GetObj();
 
             for (auto& info : allCraftList)

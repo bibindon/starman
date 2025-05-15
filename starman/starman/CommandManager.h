@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Common.h"
 #include "..\..\command\command\command.h"
@@ -24,15 +24,15 @@ public:
 
 private:
 
-    // ƒRƒ}ƒ“ƒh‚Ìì¬
-    // 0.5•b‚¨‚«‚ÉŒÄ‚Î‚ê‚éH
+    // ã‚³ãƒãƒ³ãƒ‰ã®ä½œæˆ
+    // 0.5ç§’ãŠãã«å‘¼ã°ã‚Œã‚‹ï¼Ÿ
     void BuildCommand();
     void BuildOpeningCommand();
     void BuildLangCommand();
 
     NSCommand::CommandLib* m_commandLib = nullptr;
 
-    // ƒRƒ}ƒ“ƒh‰æ–Ê‚Ì•\¦ƒJƒEƒ“ƒg
+    // ã‚³ãƒãƒ³ãƒ‰ç”»é¢ã®è¡¨ç¤ºã‚«ã‚¦ãƒ³ãƒˆ
     int m_counter = 0;
 
     eType m_eType = eType::Title;

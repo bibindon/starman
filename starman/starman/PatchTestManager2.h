@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../../patchTestLib/patchTestLib/patchTestLib.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PatchTestManager.h"
 

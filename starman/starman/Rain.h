@@ -1,11 +1,11 @@
-#pragma once
+﻿#pragma once
 
 #include <array>
 
 #include <d3dx9.h>
 
-// �J�̐��H��`�悷�邱�Ƃ͂ł��邪�A����Â����邱�Ƃ͂ł��Ȃ��B
-// �O���Â����鏈�������͗�O�I��Map�N���X�ɂ���Ă��炤�B
+// 雨の水滴を描画することはできるが、空を暗くすることはできない。
+// 外を暗くする処理だけは例外的にMapクラスにやってもらう。
 class Rain
 {
 public:
@@ -16,8 +16,8 @@ public:
     void Draw();
     bool IsRain();
 
-    // �^�C�g����ʂ�\�����Ă���A�ȂǁA���炩�̗��R�ŉJ�̕`������Ȃ��ł��������Ƃ��ɌĂԁB
-    // �J���~���Ă���E���Ȃ����ƂƂ͊֌W�Ȃ��B
+    // タイトル画面を表示している、など、何らかの理由で雨の描画をしないでおきたいときに呼ぶ。
+    // 雨が降っている・いないこととは関係ない。
     void SetShow(const bool bShow);
 
 private:

@@ -1,4 +1,4 @@
-#include "Player.h"
+ï»¿#include "Player.h"
 #include "SoundEffect.h"
 #include "Camera.h"
 #include "SharedObj.h"
@@ -108,8 +108,8 @@ Player::Player()
     m_AnimMesh2->SetAnim("Idle");
     SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
 
-    // “Ç‚İ‚İˆ—‚Ì‘O‚É‘–‚Á‚Ä‚µ‚Ü‚¤‚Ì‚ÅˆÈ‰º‚Ì‚æ‚¤‚È‘‚«•û‚ÅXƒtƒ@ƒCƒ‹‚Ì–¼‘O‚ğQÆ‚Å‚«‚È‚¢B
-    // l‚¦•¨‚Å‚ ‚é
+    // èª­ã¿è¾¼ã¿å‡¦ç†ã®å‰ã«èµ°ã£ã¦ã—ã¾ã†ã®ã§ä»¥ä¸‹ã®ã‚ˆã†ãªæ›¸ãæ–¹ã§Xãƒ•ã‚¡ã‚¤ãƒ«ã®åå‰ã‚’å‚ç…§ã§ããªã„ã€‚
+    // è€ƒãˆç‰©ã§ã‚ã‚‹
 //    auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
 //    auto weaponNameList = weaponManager->GetWeaponNameList();
 //
@@ -131,7 +131,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\rock1.x", pos, rot, 0.1f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["Î"] = mesh;
+        m_weaponMesh["çŸ³"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -139,7 +139,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\stick.x", pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["–Ø‚Ì–_"] = mesh;
+        m_weaponMesh["æœ¨ã®æ£’"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -147,7 +147,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\ax.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["Î•€"] = mesh;
+        m_weaponMesh["çŸ³æ–§"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -155,7 +155,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\atlatl.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["ƒAƒgƒ‰ƒgƒ‹"] = mesh;
+        m_weaponMesh["ã‚¢ãƒˆãƒ©ãƒˆãƒ«"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -163,7 +163,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\arrow.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["ƒAƒgƒ‰ƒgƒ‹‚Ì–î"] = mesh;
+        m_weaponMesh["ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã®çŸ¢"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -171,7 +171,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\ironPipe.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["“SƒpƒCƒv"] = mesh;
+        m_weaponMesh["é‰„ãƒ‘ã‚¤ãƒ—"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -179,7 +179,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["Î•t‚«“SƒpƒCƒv"] = mesh;
+        m_weaponMesh["çŸ³ä»˜ãé‰„ãƒ‘ã‚¤ãƒ—"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -187,7 +187,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\spear.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["Î‘„"] = mesh;
+        m_weaponMesh["çŸ³æ§"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -195,7 +195,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\bow.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["‹|–î‚Ì‹|"] = mesh;
+        m_weaponMesh["å¼“çŸ¢ã®å¼“"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, -0.3f);
@@ -203,7 +203,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\arrow.x", pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["‹|–î‚Ì–î"] = mesh;
+        m_weaponMesh["å¼“çŸ¢ã®çŸ¢"] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -211,10 +211,10 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\torch.x", pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["¼–¾"] = mesh;
+        m_weaponMesh["æ¾æ˜"] = mesh;
     }
     
-    // ‘Ü
+    // è¢‹
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -273,7 +273,7 @@ Player::Player()
                    OUT_TT_ONLY_PRECIS,
                    ANTIALIASED_QUALITY,
                    FF_DONTCARE,
-                   "‚l‚r –¾’©",
+                   "ï¼­ï¼³ æ˜æœ",
                    &m_D3DFont);
 }
 
@@ -289,7 +289,7 @@ Player::~Player()
 void Player::Update(Map* map)
 {
     //-----------------------------------------------
-    // ŠC‚ÆÚ‚µ‚Ä‚¢‚é‚©
+    // æµ·ã¨æ¥ã—ã¦ã„ã‚‹ã‹
     //-----------------------------------------------
     {
         D3DXVECTOR3 pos = m_loadingPos;
@@ -302,7 +302,7 @@ void Player::Update(Map* map)
             auto status = NSStarmanLib::StatusManager::GetObj();
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::IDLE_WATER);
 
-            // …’†‚ÅQ‚½‚ç€–S
+            // æ°´ä¸­ã§å¯ãŸã‚‰æ­»äº¡
             auto sleep = Common::Status()->GetSleep();
 
             if (sleep)
@@ -314,10 +314,10 @@ void Player::Update(Map* map)
     }
 
     //-----------------------------------------------
-    // “´ŒA‚É‚¢‚é‚©B
+    // æ´çªŸã«ã„ã‚‹ã‹ã€‚
     // 
-    // “´ŒA‚Ì“ü‚èŒû‚Ì“Á’è‚ÌƒGƒŠƒA‚ÉG‚ê‚½‚ç“´ŒA“à”»’è
-    // “´ŒA‚Ì“ü‚èŒû‚Ì“Á’è‚ÌƒGƒŠƒA‚ÉG‚ê‚½‚ç“´ŒAŠO”»’èA‚Æ‚·‚é
+    // æ´çªŸã®å…¥ã‚Šå£ã®ç‰¹å®šã®ã‚¨ãƒªã‚¢ã«è§¦ã‚ŒãŸã‚‰æ´çªŸå†…åˆ¤å®š
+    // æ´çªŸã®å…¥ã‚Šå£ã®ç‰¹å®šã®ã‚¨ãƒªã‚¢ã«è§¦ã‚ŒãŸã‚‰æ´çªŸå¤–åˆ¤å®šã€ã¨ã™ã‚‹
     //-----------------------------------------------
     {
         D3DXVECTOR3 pos = m_loadingPos;
@@ -371,7 +371,7 @@ void Player::Update(Map* map)
     {
         if (SharedObj::KeyBoard()->IsDown(DIK_G))
         {
-            // ƒfƒoƒbƒO–Ú“I‚ÅGƒL[‚¾‚¯ˆÚ“®‘¬“xƒAƒbƒv
+            // ãƒ‡ãƒãƒƒã‚°ç›®çš„ã§Gã‚­ãƒ¼ã ã‘ç§»å‹•é€Ÿåº¦ã‚¢ãƒƒãƒ—
             move.x += -std::sin(radian + (D3DX_PI / 2)) * 10;
             move.z += std::sin(radian + D3DX_PI) * 10;
 
@@ -416,7 +416,7 @@ void Player::Update(Map* map)
     {
         if (m_bUnderwater == false)
         {
-            // ¶A‰EAŒã‚ë‚ª“ü—Í‚³‚ê‚Ä‚¢‚é‚Æ‚«‚ÉƒWƒƒƒ“ƒv‚µ‚æ‚¤‚Æ‚µ‚½‚çƒXƒeƒbƒvˆÚ“®
+            // å·¦ã€å³ã€å¾Œã‚ãŒå…¥åŠ›ã•ã‚Œã¦ã„ã‚‹ã¨ãã«ã‚¸ãƒ£ãƒ³ãƒ—ã—ã‚ˆã†ã¨ã—ãŸã‚‰ã‚¹ãƒ†ãƒƒãƒ—ç§»å‹•
             if (SharedObj::KeyBoard()->IsDown(DIK_A))
             {
                 SetStep(eDir::LEFT);
@@ -438,7 +438,7 @@ void Player::Update(Map* map)
 
     if (Common::DebugMode())
     {
-        // ƒX[ƒp[ƒWƒƒƒ“ƒv
+        // ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚¸ãƒ£ãƒ³ãƒ—
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_J))
         {
             m_bJump = true;
@@ -446,7 +446,7 @@ void Player::Update(Map* map)
             m_AnimMesh2->SetAnim("Jump", 0.f);
         }
 
-        // –Ø‚ğÁ‚·
+        // æœ¨ã‚’æ¶ˆã™
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_Z))
         {
             auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
@@ -462,7 +462,7 @@ void Player::Update(Map* map)
             }
         }
 
-        // “G‚ğÁ‚·
+        // æ•µã‚’æ¶ˆã™
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_X))
         {
             std::vector<EnemyBase*> vecEnemy = SharedObj::GetMap()->GetEnemy();
@@ -485,7 +485,7 @@ void Player::Update(Map* map)
         }
     }
 
-    // Shift + F ¨ ‚à‚Ì“Š‚°
+    // Shift + F â†’ ã‚‚ã®æŠ•ã’
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F))
     {
         if (SharedObj::KeyBoard()->IsDown(DIK_LSHIFT))
@@ -506,12 +506,12 @@ void Player::Update(Map* map)
         }
         else
         {
-            // Shift + ¶Click ¨ –‚–@
+            // Shift + å·¦Click â†’ é­”æ³•
             SetMagic();
         }
     }
 
-    // –‚–@Ø‚è‘Ö‚¦
+    // é­”æ³•åˆ‡ã‚Šæ›¿ãˆ
     if (Mouse::IsWheelUp())
     {
         if (NSStarmanLib::Rynen::GetObj()->GetContracted())
@@ -668,7 +668,7 @@ void Player::Update(Map* map)
     // Finalize
     //----------------------------------------------------------
 
-    // ƒWƒƒƒ“ƒv’†‚ÍˆÚ“®•ûŒü‚ğ•Ï‚¦‚½‚è‰Á‘¬‚µ‚½‚è‚Å‚«‚È‚¢
+    // ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ã¯ç§»å‹•æ–¹å‘ã‚’å¤‰ãˆãŸã‚ŠåŠ é€Ÿã—ãŸã‚Šã§ããªã„
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
     if (m_bJump || m_bStep || statusManager->GetDead())
     {
@@ -677,7 +677,7 @@ void Player::Update(Map* map)
         }
     }
 
-    // ‚“x‚ª1500‚ğ’´‚¦‚½‚çã¸‚ğ‚â‚ß‚é
+    // é«˜åº¦ãŒ1500ã‚’è¶…ãˆãŸã‚‰ä¸Šæ˜‡ã‚’ã‚„ã‚ã‚‹
     if (m_loadingPos.y >= 1500.f)
     {
         move.y = -10.f;
@@ -687,8 +687,8 @@ void Player::Update(Map* map)
 
     float MAX_XZ_MOVE = 0.f;
 
-    // 1ƒtƒŒ[ƒ€‚Å50ƒZƒ“ƒ`ˆÈãˆÚ“®‚µ‚æ‚¤‚Æ‚µ‚½‚ç50ƒZƒ“ƒ`‚É‚·‚é
-    // ‚½‚¾‚µAXZ•½–Ê‚Ì‚İBY²•ûŒü‚Í‰Á–¡‚µ‚È‚¢B
+    // 1ãƒ•ãƒ¬ãƒ¼ãƒ ã§50ã‚»ãƒ³ãƒä»¥ä¸Šç§»å‹•ã—ã‚ˆã†ã¨ã—ãŸã‚‰50ã‚»ãƒ³ãƒã«ã™ã‚‹
+    // ãŸã ã—ã€XZå¹³é¢ã®ã¿ã€‚Yè»¸æ–¹å‘ã¯åŠ å‘³ã—ãªã„ã€‚
     if (Common::DebugMode())
     {
         if (!m_bUnderwater)
@@ -745,7 +745,7 @@ void Player::Update(Map* map)
 
     //MAX_XZ_MOVE *= statusManager->GetWalkSpeed();
 
-    // ‚à‚µ100ƒZƒ“ƒ`ˆÚ“®‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚½‚ç2‚ÅŠ„‚ê‚Î‚æ‚¢B
+    // ã‚‚ã—100ã‚»ãƒ³ãƒç§»å‹•ã—ã‚ˆã†ã¨ã—ã¦ã„ãŸã‚‰2ã§å‰²ã‚Œã°ã‚ˆã„ã€‚
     if (speed >= MAX_XZ_MOVE)
     {
         float work = 0.f;
@@ -758,7 +758,7 @@ void Player::Update(Map* map)
         m_move.z = move_XZ.y;
     }
 
-    // XZ•½–Êã‚ÌˆÚ“®—Ê‚Í–ˆƒtƒŒ[ƒ€”¼•ª‚É‚·‚éBƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚é‚Æ‚«‚Í”¼•ª‚É‚µ‚È‚¢B
+    // XZå¹³é¢ä¸Šã®ç§»å‹•é‡ã¯æ¯ãƒ•ãƒ¬ãƒ¼ãƒ åŠåˆ†ã«ã™ã‚‹ã€‚ã‚¸ãƒ£ãƒ³ãƒ—ã—ã¦ã„ã‚‹ã¨ãã¯åŠåˆ†ã«ã—ãªã„ã€‚
     if (!m_bJump && !m_bStep)
     {
 		m_move.x *= 0.5f;
@@ -800,8 +800,8 @@ void Player::Update(Map* map)
             m_throwTimeCounter = 0;
             m_bThrow = false;
 
-            // “Š‚°‚½ŒãAƒCƒ“ƒxƒ“ƒgƒŠ‚É“¯ˆê‚ÌƒAƒCƒeƒ€‚ª‚ ‚éê‡A
-            // Ä“x‘•”õ‚³‚ê‚éB‚È‚¯‚ê‚Î‘fè‚É‚È‚éB
+            // æŠ•ã’ãŸå¾Œã€ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã«åŒä¸€ã®ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã‚‹å ´åˆã€
+            // å†åº¦è£…å‚™ã•ã‚Œã‚‹ã€‚ãªã‘ã‚Œã°ç´ æ‰‹ã«ãªã‚‹ã€‚
             NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
             std::vector<int> subIdList = inventory->GetSubIdList(m_throwItemId);
             if (subIdList.empty() == false)
@@ -837,19 +837,19 @@ void Player::Update(Map* map)
         }
     }
 
-    // d—Í
+    // é‡åŠ›
     m_move.y += -0.01f;
 
-    // •Ç‚¸‚è
-    // •Ç‚¸‚è‚Í‘«‚É‘Î‚µ‚Ä‚¾‚¯s‚¤
+    // å£ãšã‚Š
+    // å£ãšã‚Šã¯è¶³ã«å¯¾ã—ã¦ã ã‘è¡Œã†
     bool bHit = false;
     bool bInside = false;
     m_move = map->WallSlide(m_loadingPos, m_move, &bHit, &bInside);
 
     if (!bInside)
     {
-        // ‘«ˆÈŠO‚ÌÕ“Ë”»’è
-        // “·‚Æ“ª
+        // è¶³ä»¥å¤–ã®è¡çªåˆ¤å®š
+        // èƒ´ã¨é ­
         D3DXVECTOR3 tmp = m_loadingPos;
         tmp.y += 0.8f;
         bool bHit2 = map->Intersect(tmp, m_move);
@@ -866,14 +866,14 @@ void Player::Update(Map* map)
         }
     }
 
-    // ‘«‚ª‰½‚©‚ÉG‚ê‚½‚çƒWƒƒƒ“ƒv‚ğ‰ğœ‚·‚éB
-    // •ÇƒWƒƒƒ“ƒv‚Å‚«‚Ä‚µ‚Ü‚¤‚ªA‚Ğ‚Æ‚Ü‚¸‚æ‚µ‚Æ‚·‚éB
-    // ‰½‚©‚ÉG‚ê‚Ä‚¢‚éó‘Ô‚ª1•b‘±‚¢‚½‚çÄ“xƒWƒƒƒ“ƒv‚Å‚«‚éA‚Å‚à‚æ‚¢‚©‚à‚µ‚ê‚È‚¢B
+    // è¶³ãŒä½•ã‹ã«è§¦ã‚ŒãŸã‚‰ã‚¸ãƒ£ãƒ³ãƒ—ã‚’è§£é™¤ã™ã‚‹ã€‚
+    // å£ã‚¸ãƒ£ãƒ³ãƒ—ã§ãã¦ã—ã¾ã†ãŒã€ã²ã¨ã¾ãšã‚ˆã—ã¨ã™ã‚‹ã€‚
+    // ä½•ã‹ã«è§¦ã‚Œã¦ã„ã‚‹çŠ¶æ…‹ãŒ1ç§’ç¶šã„ãŸã‚‰å†åº¦ã‚¸ãƒ£ãƒ³ãƒ—ã§ãã‚‹ã€ã§ã‚‚ã‚ˆã„ã‹ã‚‚ã—ã‚Œãªã„ã€‚
     if (bHit)
     {
         m_attachCount++;
 
-        // 0.1•b?’£‚è•t‚«ó‘Ô‚ğˆÛ‚µ‚½‚çÄ“xƒWƒƒƒ“ƒv‰Â”\‚É‚È‚é
+        // 0.1ç§’?å¼µã‚Šä»˜ãçŠ¶æ…‹ã‚’ç¶­æŒã—ãŸã‚‰å†åº¦ã‚¸ãƒ£ãƒ³ãƒ—å¯èƒ½ã«ãªã‚‹
         if (m_attachCount >= 6)
         {
             m_bJumpEnable = true;
@@ -885,9 +885,9 @@ void Player::Update(Map* map)
         m_attachCount = 0;
     }
 
-    // ƒCƒJƒ_‚Æ‚ÌÕ“Ë”»’è
-    // ‚Ô‚Â‚©‚Á‚Ä‚¢‚½‚çˆÚ“®—Ê‚ğƒ[ƒ‚É‚·‚éA‚Ì‚Å‚Í‚È‚­A•Ç‚¸‚è‚ğs‚¤B
-    // ƒCƒJƒ_‚Ìã‚ğ•à‚¯‚é•K—v‚ª‚ ‚é‚½‚ßB
+    // ã‚¤ã‚«ãƒ€ã¨ã®è¡çªåˆ¤å®š
+    // ã¶ã¤ã‹ã£ã¦ã„ãŸã‚‰ç§»å‹•é‡ã‚’ã‚¼ãƒ­ã«ã™ã‚‹ã€ã®ã§ã¯ãªãã€å£ãšã‚Šã‚’è¡Œã†ã€‚
+    // ã‚¤ã‚«ãƒ€ã®ä¸Šã‚’æ­©ã‘ã‚‹å¿…è¦ãŒã‚ã‚‹ãŸã‚ã€‚
     bool bHitRaft = false;
     m_move = SharedObj::Voyage()->WallSlide(m_loadingPos, m_move, &bHitRaft);
 
@@ -902,8 +902,8 @@ void Player::Update(Map* map)
 
     m_loadingPos += m_move;
 
-    // ‹Ù‹}è’i
-    // “ª‚©‚ç’n–Ê‚Ü‚Å‚Ì‹——£‚ª1.5ƒ[ƒgƒ‹ˆÈ‰º‚¾‚Á‚½‚ç’n–Ê‚É‚ß‚è‚ñ‚Å‚¢‚éH
+    // ç·Šæ€¥æ‰‹æ®µ
+    // é ­ã‹ã‚‰åœ°é¢ã¾ã§ã®è·é›¢ãŒ1.5ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥ä¸‹ã ã£ãŸã‚‰åœ°é¢ã«ã‚ã‚Šè¾¼ã‚“ã§ã„ã‚‹ï¼Ÿ
     D3DXVECTOR3 tmp2 = m_loadingPos;
     tmp2.y += 1.6f;
     bool bHit4 = map->Intersect(tmp2, D3DXVECTOR3(0.f, -1.5f, 0.f));
@@ -1081,7 +1081,7 @@ bool Player::SetAttack()
 
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
 
-    // ‰Eè‚ÉƒoƒbƒO‚ğ‚Á‚Ä‚¢‚é‚Æ‚«‚ÍUŒ‚‚Å‚«‚È‚¢B
+    // å³æ‰‹ã«ãƒãƒƒã‚°ã‚’æŒã£ã¦ã„ã‚‹ã¨ãã¯æ”»æ’ƒã§ããªã„ã€‚
     if (statusManager->GetBag(NSStarmanLib::eBagPos::Right).GetId() != -1)
     {
         return false;
@@ -1117,7 +1117,7 @@ bool Player::SetAttack()
 
     for (std::size_t i = 0; i < vecEnemy.size(); i++)
     {
-        // “‡–¯‚Ì—ì‚ÍˆÅ–‚–@‚Å‚µ‚©ƒ_ƒ[ƒW‚ğ—^‚¦‚ç‚ê‚È‚¢
+        // å³¶æ°‘ã®éœŠã¯é—‡é­”æ³•ã§ã—ã‹ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‰ã‚Œãªã„
         if (vecEnemy.at(i)->GetEnemyType() == eEnemyType::Ghost)
         {
             continue;
@@ -1137,7 +1137,7 @@ bool Player::SetAttack()
             float attackPower = statusManager->GetAttackPower();
             vecEnemy.at(i)->SetHP(hp - (int)attackPower);
 
-            // ¼–¾‚¾‚Á‚½‚çˆê“x‚Å‰ó‚ê‚éB‰Î‚àÁ‚¦‚é
+            // æ¾æ˜ã ã£ãŸã‚‰ä¸€åº¦ã§å£Šã‚Œã‚‹ã€‚ç«ã‚‚æ¶ˆãˆã‚‹
             auto itemInfo = Common::Status()->GetEquipWeapon();
             if (itemInfo.GetId() != -1)
             {
@@ -1157,11 +1157,11 @@ bool Player::SetAttack()
 
 bool Player::SetAttackArrow()
 {
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚©‚ç‹|–î‚Ì–î‚ğˆê‚ÂŒ¸‚ç‚·B
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã‹ã‚‰å¼“çŸ¢ã®çŸ¢ã‚’ä¸€ã¤æ¸›ã‚‰ã™ã€‚
     auto inventory = NSStarmanLib::Inventory::GetObj();
     auto itemManager = NSStarmanLib::ItemManager::GetObj();
 
-    // ‹­‰»’l‚Ì‹­‚¢–î‚Ì‚Ù‚¤‚©‚ç‚È‚­‚È‚é
+    // å¼·åŒ–å€¤ã®å¼·ã„çŸ¢ã®ã»ã†ã‹ã‚‰ãªããªã‚‹
     int arrowCnt = 0;
     arrowCnt = inventory->CountItem(Common::LoadString_(IDS_STRING143), 1);
 
@@ -1217,7 +1217,7 @@ bool Player::SetAttackArrow()
 
     m_bAttack = true;
 
-    // –î‚ğ“Š‚°‚é‚à‚Ì‚Æ‚µ‚ÄƒZƒbƒg
+    // çŸ¢ã‚’æŠ•ã’ã‚‹ã‚‚ã®ã¨ã—ã¦ã‚»ãƒƒãƒˆ
     {
         D3DXVECTOR3 pos(m_loadingPos);
         pos.y += 0.85f;
@@ -1228,19 +1228,19 @@ bool Player::SetAttackArrow()
         norm.x = std::sin(m_rotate.y + D3DX_PI);
         norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
 
-        norm *= 0.1f + (bowLevel * 0.1f) + (arrowLevel * 0.2f); // TODO ”÷’²®
+        norm *= 0.1f + (bowLevel * 0.1f) + (arrowLevel * 0.2f); // TODO å¾®èª¿æ•´
         norm.y = 0.05f;
 
         float power = 0.f;
 
-        // TODO ”÷’²®
+        // TODO å¾®èª¿æ•´
         power = 0.01f;
         power += (bowLevel * 0.2f) + (arrowLevel * 10.f);
 
         SharedObj::GetMap()->AddThrownItem(pos, norm, Common::LoadString_(IDS_STRING143), itemInfo, 1.f, power, m_rotate.y);
     }
 
-    // ‘Ì—Í‚ğÁ–Õ‚·‚é
+    // ä½“åŠ›ã‚’æ¶ˆè€—ã™ã‚‹
     {
         auto statusManager = NSStarmanLib::StatusManager::GetObj();
         statusManager->ConsumeAttackCost();
@@ -1250,12 +1250,12 @@ bool Player::SetAttackArrow()
 
 bool Player::SetAttackAtlatl()
 {
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚©‚çƒAƒgƒ‰ƒgƒ‹‚Ì–î‚ğˆê‚ÂŒ¸‚ç‚·B
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã‹ã‚‰ã‚¢ãƒˆãƒ©ãƒˆãƒ«ã®çŸ¢ã‚’ä¸€ã¤æ¸›ã‚‰ã™ã€‚
     auto inventory = NSStarmanLib::Inventory::GetObj();
     auto itemManager = NSStarmanLib::ItemManager::GetObj();
 
-    // ‹­‰»’l‚Ì‹­‚¢‘„‚Ì‚Ù‚¤‚©‚ç‚È‚­‚È‚é
-    // ‹­‰»’l‚Í-1,1,2,3,4,5‚Ì6í—Ş
+    // å¼·åŒ–å€¤ã®å¼·ã„æ§ã®ã»ã†ã‹ã‚‰ãªããªã‚‹
+    // å¼·åŒ–å€¤ã¯-1,1,2,3,4,5ã®6ç¨®é¡
     int arrowLevel = 0;
     for (int i = 5; ;)
     {
@@ -1285,7 +1285,7 @@ bool Player::SetAttackAtlatl()
     NSStarmanLib::ItemDef itemDef;
     NSStarmanLib::ItemInfo itemInfo;
 
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚©‚ç‘„‚ğˆê‚ÂŒ¸‚ç‚·
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã‹ã‚‰æ§ã‚’ä¸€ã¤æ¸›ã‚‰ã™
     {
         itemDef = itemManager->GetItemDef(Common::LoadString_(IDS_STRING144), arrowLevel);
         auto subIdList = inventory->GetSubIdList(itemDef.GetId());
@@ -1297,32 +1297,32 @@ bool Player::SetAttackAtlatl()
 
     m_bAttack = true;
 
-    // –î‚ğ“Š‚°‚é‚à‚Ì‚Æ‚µ‚ÄƒZƒbƒg
+    // çŸ¢ã‚’æŠ•ã’ã‚‹ã‚‚ã®ã¨ã—ã¦ã‚»ãƒƒãƒˆ
     {
-        // ‰ŠúˆÊ’u
+        // åˆæœŸä½ç½®
         D3DXVECTOR3 pos(m_loadingPos);
         pos.y += 1.15f;
         pos.x += std::sin(m_rotate.y + D3DX_PI) * 0.5f;
         pos.z += std::sin(m_rotate.y + (D3DX_PI * 3 / 2)) * 0.5f;
 
-        // •ûŒü‚Æ‘¬“x
+        // æ–¹å‘ã¨é€Ÿåº¦
         D3DXVECTOR3 norm(0.f, 0.f, 0.f);
         norm.x = std::sin(m_rotate.y + D3DX_PI);
         norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
 
-        norm *= 0.1f + (arrowLevel * 0.2f); // TODO ”÷’²®
+        norm *= 0.1f + (arrowLevel * 0.2f); // TODO å¾®èª¿æ•´
         norm.y = 0.05f;
 
         float power = 0.f;
 
-        // TODO ”÷’²®
+        // TODO å¾®èª¿æ•´
         power = 20.f;
         power += (arrowLevel * 5.f);
 
         SharedObj::GetMap()->AddThrownItem(pos, norm, Common::LoadString_(IDS_STRING144), itemInfo, 2.f, power, m_rotate.y);
     }
 
-    // ‘Ì—Í‚ğÁ–Õ‚·‚é
+    // ä½“åŠ›ã‚’æ¶ˆè€—ã™ã‚‹
     {
         auto statusManager = NSStarmanLib::StatusManager::GetObj();
         statusManager->ConsumeAttackCost();
@@ -1366,7 +1366,7 @@ void Player::SetDamaged()
         m_bDamaged = true;
     }
 
-    // UŒ‚H‚ç‚Á‚½‚ç‰ñ•œ
+    // æ”»æ’ƒé£Ÿã‚‰ã£ãŸã‚‰å›å¾©
     if (Common::StrongMode() && Common::DebugMode())
     {
         Common::Status()->SetMuscleCurrent(100);
@@ -1375,7 +1375,7 @@ void Player::SetDamaged()
         Common::Status()->SetWaterCurrent(100);
     }
 
-    // ‡–°’†‚ÉUŒ‚‚³‚ê‚½‚ç‘¦€
+    // ç¡çœ ä¸­ã«æ”»æ’ƒã•ã‚ŒãŸã‚‰å³æ­»
     if (NSStarmanLib::StatusManager::GetObj()->GetSleep())
     {
         NSStarmanLib::StatusManager::GetObj()->SetDead(true);
@@ -1444,7 +1444,7 @@ void Player::SetJump()
 
         Common::Inventory()->ReduceEquipBagDurability();
 
-        // V‚½‚É‘Ï‹v’l‚ª0‚É‚È‚Á‚½‘Ü‚ª‚ ‚Á‚½‚©
+        // æ–°ãŸã«è€ä¹…å€¤ãŒ0ã«ãªã£ãŸè¢‹ãŒã‚ã£ãŸã‹
         {
             auto allBag = Common::Status()->GetAllBag();
             brokenBagNum2 = (int)std::count_if(allBag.begin(), allBag.end(),
@@ -1552,38 +1552,38 @@ bool Player::IsUnderWater()
 void Player::Throw()
 {
     //-------------------------------------------------------------
-    // 1. ‘fè‚É‚È‚éB
-    // 2. ‰£‚éƒ‚[ƒVƒ‡ƒ“‚ğÄ¶
-    // 3. ‘•”õƒAƒCƒeƒ€‚ª“ªã‚©‚ç‘O•û‚É”ò‚ñ‚Å‚¢‚­B
-    // 4. ƒCƒ“ƒxƒ“ƒgƒŠ‚É“¯ˆê‚ÌƒAƒCƒeƒ€‚ª‚ ‚éê‡AÄ“x‘•”õ‚³‚ê‚éB‚È‚¯‚ê‚Î‘fè‚É‚È‚éB
+    // 1. ç´ æ‰‹ã«ãªã‚‹ã€‚
+    // 2. æ®´ã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿ
+    // 3. è£…å‚™ã‚¢ã‚¤ãƒ†ãƒ ãŒé ­ä¸Šã‹ã‚‰å‰æ–¹ã«é£›ã‚“ã§ã„ãã€‚
+    // 4. ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã«åŒä¸€ã®ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã‚‹å ´åˆã€å†åº¦è£…å‚™ã•ã‚Œã‚‹ã€‚ãªã‘ã‚Œã°ç´ æ‰‹ã«ãªã‚‹ã€‚
     //
-    // E“Š‚°‚ç‚ê‚½‚à‚Ì‚Í•¨‚ÉÕ“Ë‚µ‚Ä’â~‚·‚éB
-    // E“G‚É‚ ‚½‚Á‚½ê‡‚ÍAƒ_ƒ[ƒW‚ğ—^‚¦A’n–Ê‚É—‚¿‚éB
-    // E’n–Ê‚É—‚¿‚½•¨‚ÍE‚¦‚éB
-    // E“Š‚°‚é“®ì‚Í2•b‚Éˆê‰ñ
-    // E‘Ì—Í‚ğÁ–Õ‚·‚é
+    // ãƒ»æŠ•ã’ã‚‰ã‚ŒãŸã‚‚ã®ã¯ç‰©ã«è¡çªã—ã¦åœæ­¢ã™ã‚‹ã€‚
+    // ãƒ»æ•µã«ã‚ãŸã£ãŸå ´åˆã¯ã€ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã€åœ°é¢ã«è½ã¡ã‚‹ã€‚
+    // ãƒ»åœ°é¢ã«è½ã¡ãŸç‰©ã¯æ‹¾ãˆã‚‹ã€‚
+    // ãƒ»æŠ•ã’ã‚‹å‹•ä½œã¯2ç§’ã«ä¸€å›
+    // ãƒ»ä½“åŠ›ã‚’æ¶ˆè€—ã™ã‚‹
     //-------------------------------------------------------------
 
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
 
-    // ‘fè‚¾‚Á‚½‚ç‰½‚à‚µ‚È‚¢B
+    // ç´ æ‰‹ã ã£ãŸã‚‰ä½•ã‚‚ã—ãªã„ã€‚
     auto itemInfo = statusManager->GetEquipWeapon();
     if (itemInfo.GetId() == -1)
     {
         return;
     }
 
-    // “Š‚°‚Ä‚¢‚éÅ’†‚È‚ç‰½‚à‚µ‚È‚¢
+    // æŠ•ã’ã¦ã„ã‚‹æœ€ä¸­ãªã‚‰ä½•ã‚‚ã—ãªã„
     if (m_bThrow)
     {
         return;
     }
 
-    // ƒCƒ“ƒxƒ“ƒgƒŠ‚©‚çˆê‚ÂƒAƒCƒeƒ€‚ğŒ¸‚ç‚·B
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªã‹ã‚‰ä¸€ã¤ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¸›ã‚‰ã™ã€‚
     auto inventory = NSStarmanLib::Inventory::GetObj();
     inventory->RemoveItem(itemInfo.GetId(), itemInfo.GetSubId());
 
-    // “Š‚°‚é‚à‚Ì‚ğƒZƒbƒg
+    // æŠ•ã’ã‚‹ã‚‚ã®ã‚’ã‚»ãƒƒãƒˆ
     {
         m_bThrow = true;
 
@@ -1614,7 +1614,7 @@ void Player::Throw()
         m_throwItemId = itemInfo.GetId();
     }
 
-    // ‘fè‚É‚·‚é
+    // ç´ æ‰‹ã«ã™ã‚‹
     {
         NSStarmanLib::ItemInfo itemInfo;
         itemInfo.SetId(-1);
@@ -1624,18 +1624,18 @@ void Player::Throw()
         m_AnimMesh2->SetAnim("Attack", 0.f);
     }
 
-    // ‘Ì—Í‚ğÁ–Õ‚·‚é
+    // ä½“åŠ›ã‚’æ¶ˆè€—ã™ã‚‹
     statusManager->ConsumeAttackCost();
 }
 
 void Player::SetMagic()
 {
     //-------------------------------------------------------------
-    // 1. ‰£‚éƒ‚[ƒVƒ‡ƒ“‚ğÄ¶
-    // 2. ‰Î‚Ì‹Ê‚ª“ªã‚©‚ç‘O•û‚É”ò‚ñ‚Å‚¢‚­B
+    // 1. æ®´ã‚‹ãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã‚’å†ç”Ÿ
+    // 2. ç«ã®ç‰ãŒé ­ä¸Šã‹ã‚‰å‰æ–¹ã«é£›ã‚“ã§ã„ãã€‚
     //
-    // E“Š‚°‚é“®ì‚Í2•b‚Éˆê‰ñ
-    // E‘Ì—Í‚ğÁ–Õ‚·‚é
+    // ãƒ»æŠ•ã’ã‚‹å‹•ä½œã¯2ç§’ã«ä¸€å›
+    // ãƒ»ä½“åŠ›ã‚’æ¶ˆè€—ã™ã‚‹
     //-------------------------------------------------------------
 
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
@@ -1646,13 +1646,13 @@ void Player::SetMagic()
         return;
     }
 
-    // “Š‚°‚Ä‚¢‚éÅ’†‚È‚ç‰½‚à‚µ‚È‚¢
+    // æŠ•ã’ã¦ã„ã‚‹æœ€ä¸­ãªã‚‰ä½•ã‚‚ã—ãªã„
     if (m_bMagic)
     {
         return;
     }
 
-    // “Š‚°‚é‚à‚Ì‚ğƒZƒbƒg
+    // æŠ•ã’ã‚‹ã‚‚ã®ã‚’ã‚»ãƒƒãƒˆ
     {
         m_bMagic = true;
 
@@ -1701,7 +1701,7 @@ void Player::SetMagic()
 
     m_AnimMesh2->SetAnim("Magic", 0.f);
 
-    // ‘Ì—Í‚ğÁ–Õ‚·‚é
+    // ä½“åŠ›ã‚’æ¶ˆè€—ã™ã‚‹
     statusManager->UseMagic();
 }
 

@@ -1,4 +1,4 @@
-#include "QuestManager.h"
+ï»¿#include "QuestManager.h"
 #include "SharedObj.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
@@ -11,7 +11,7 @@ void QuestManager::Init(const std::string& originFile, const std::string& saveFi
     m_single->m_questSystem.Init(originFile, saveFile, false);
     auto startedQuest = m_single->m_questSystem.GetStartedQuest();
 
-    // STARTEDƒNƒGƒXƒg‚Ìƒqƒ“ƒg‚ğÄ“Ç‚İ‚İ‚·‚é
+    // STARTEDã‚¯ã‚¨ã‚¹ãƒˆã®ãƒ’ãƒ³ãƒˆã‚’å†èª­ã¿è¾¼ã¿ã™ã‚‹
     for (auto& quest : startedQuest)
     {
         auto eventList = m_single->m_questSystem.GetQuestStartEvent(quest);
@@ -103,7 +103,7 @@ void QuestManager::SetQuestFinish(const std::string& quest)
 void QuestManager::Update()
 {
     //-------------------------------------
-    // ƒNƒGƒXƒgƒVƒXƒeƒ€‚ÉƒvƒŒƒCƒ„[‚ÌŒ»İ’n‚ğ’m‚ç‚¹‚éB
+    // ã‚¯ã‚¨ã‚¹ãƒˆã‚·ã‚¹ãƒ†ãƒ ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç¾åœ¨åœ°ã‚’çŸ¥ã‚‰ã›ã‚‹ã€‚
     //-------------------------------------
     {
         D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
@@ -111,7 +111,7 @@ void QuestManager::Update()
     }
 
     //-------------------------------------
-    // ƒNƒGƒXƒgƒVƒXƒeƒ€‚ÉŒ»İ‚ğİ’èB
+    // ã‚¯ã‚¨ã‚¹ãƒˆã‚·ã‚¹ãƒ†ãƒ ã«ç¾åœ¨æ™‚åˆ»ã‚’è¨­å®šã€‚
     //-------------------------------------
     {
         auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
@@ -125,10 +125,10 @@ void QuestManager::Update()
     }
 
     //---------------------------------------------------------------------
-    // ƒNƒGƒXƒgƒVƒXƒeƒ€‚É“o˜^‚³‚ê‚Ä‚¢‚éŠ•iî•ñ‚ğXV
+    // ã‚¯ã‚¨ã‚¹ãƒˆã‚·ã‚¹ãƒ†ãƒ ã«ç™»éŒ²ã•ã‚Œã¦ã„ã‚‹æ‰€æŒå“æƒ…å ±ã‚’æ›´æ–°
     //---------------------------------------------------------------------
 
-    // ƒCƒ“ƒxƒ“ƒgƒŠ
+    // ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒª
     {
         auto inventory = NSStarmanLib::Inventory::GetObj();
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
@@ -147,7 +147,7 @@ void QuestManager::Update()
         m_questSystem.SetInventoryContent(itemList, false);
     }
 
-    // ‘qŒÉ
+    // å€‰åº«
     {
         auto storehouseIdList = NSStarmanLib::StorehouseManager::Get()->GetStorehouseIdList();
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
@@ -173,7 +173,7 @@ void QuestManager::Update()
     }
 
     //-------------------------------------
-    // ƒNƒGƒXƒgƒVƒXƒeƒ€‚ÉNPC‚Ì¶‘¶ó‹µ‚ğİ’è
+    // ã‚¯ã‚¨ã‚¹ãƒˆã‚·ã‚¹ãƒ†ãƒ ã«NPCã®ç”Ÿå­˜çŠ¶æ³ã‚’è¨­å®š
     //-------------------------------------
     {
         auto bAlive = false;

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Sprite.h"
 #include <vector>
@@ -23,9 +23,9 @@ private:
     LPD3DXFONT m_D3DFont = nullptr;
 };
 
-// ƒAƒCƒeƒ€‚ðE‚Á‚½‚Æ‚«‚Ì‰‰o
-// •¶Žš—ñ‚ð1.5•b•\Ž¦‚·‚é
-// •\Ž¦‚ªI‚í‚é‘O‚ÉŽŸ‚Ì•¶Žš—ñ‚ª“n‚³‚ê‚½‚çƒLƒ…[ƒCƒ“ƒO‚³‚ê‚é
+// ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ‹¾ã£ãŸã¨ãã®æ¼”å‡º
+// æ–‡å­—åˆ—ã‚’1.5ç§’è¡¨ç¤ºã™ã‚‹
+// è¡¨ç¤ºãŒçµ‚ã‚ã‚‹å‰ã«æ¬¡ã®æ–‡å­—åˆ—ãŒæ¸¡ã•ã‚ŒãŸã‚‰ã‚­ãƒ¥ãƒ¼ã‚¤ãƒ³ã‚°ã•ã‚Œã‚‹
 class PopUp2
 {
 public:

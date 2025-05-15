@@ -1,4 +1,4 @@
-#include "MeshNoShade.h"
+ï»¿#include "MeshNoShade.h"
 #include "Light.h"
 #include "Common.h"
 #include "Camera.h"
@@ -98,7 +98,7 @@ void MeshNoShade::Init()
     m_D3DMesh = tempMesh;
     DWORD* wordBuffer { static_cast<DWORD*>(adjacencyBuffer->GetBufferPointer()) };
 
-    // ‚±‚±‚ğƒRƒƒ“ƒgƒAƒEƒg‚·‚é‚Æƒtƒ‰ƒbƒgƒVƒF[ƒfƒBƒ“ƒO‚É‚È‚éB
+    // ã“ã“ã‚’ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹ã¨ãƒ•ãƒ©ãƒƒãƒˆã‚·ã‚§ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã«ãªã‚‹ã€‚
     result = D3DXComputeNormals(m_D3DMesh, wordBuffer);
 
     if (FAILED(result))

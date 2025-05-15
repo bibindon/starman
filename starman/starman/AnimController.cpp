@@ -1,4 +1,4 @@
-#include "AnimController.h"
+ï»¿#include "AnimController.h"
 #include "Common.h"
 
 AnimController::AnimController()
@@ -20,7 +20,7 @@ void AnimController::Init(const LPD3DXANIMATIONCONTROLLER controller, const Anim
     m_controller = controller;
     m_animSettingMap = animSetMap;
 
-    // DirectX9‚ğ64bit‚Åƒrƒ‹ƒh‚·‚é‚Æ80”{‘¬‚É‚È‚Á‚Ä‚µ‚Ü‚¤‚½‚ß’²ß‚·‚é
+    // DirectX9ã‚’64bitã§ãƒ“ãƒ«ãƒ‰ã™ã‚‹ã¨80å€é€Ÿã«ãªã£ã¦ã—ã¾ã†ãŸã‚èª¿ç¯€ã™ã‚‹
     if (Common::X64Bit())
     {
         for (auto& animSetting : m_animSettingMap)
@@ -59,7 +59,7 @@ void AnimController::Update()
     float workAnimTime = 0.f;
     workAnimTime = m_animationTime + m_animSpeed;
 
-    // ’Êí‚ÌXVˆ—BƒAƒjƒ‚ği‚ß‚é
+    // é€šå¸¸ã®æ›´æ–°å‡¦ç†ã€‚ã‚¢ãƒ‹ãƒ¡ã‚’é€²ã‚ã‚‹
     if (workAnimTime < m_animSettingMap[m_animName].m_duration)
     {
         m_animationTime += m_animSpeed;
@@ -69,15 +69,15 @@ void AnimController::Update()
     else
     {
         //-------------------------------------------------------------
-        // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğÅŒã‚Ü‚ÅÀs‚µ‚½ê‡B
-        // Å‰‚É–ß‚é‚©Aƒ‹[ƒv‚·‚é‚©AÅŒã‚Ìó‘Ô‚Å~‚Ü‚éB
-        // —áF
-        // UŒ‚¨Å‰‚É–ß‚é
-        // •à‚­¨ƒ‹[ƒv
-        // €–S¨ÅŒã‚Ìó‘Ô‚Å~‚Ü‚é
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æœ€å¾Œã¾ã§å®Ÿè¡Œã—ãŸå ´åˆã€‚
+        // æœ€åˆã«æˆ»ã‚‹ã‹ã€ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã‹ã€æœ€å¾Œã®çŠ¶æ…‹ã§æ­¢ã¾ã‚‹ã€‚
+        // ä¾‹ï¼š
+        // æ”»æ’ƒâ†’æœ€åˆã«æˆ»ã‚‹
+        // æ­©ãâ†’ãƒ«ãƒ¼ãƒ—
+        // æ­»äº¡â†’æœ€å¾Œã®çŠ¶æ…‹ã§æ­¢ã¾ã‚‹
         //-------------------------------------------------------------
 
-        // Å‰‚É–ß‚é
+        // æœ€åˆã«æˆ»ã‚‹
         if (m_animSettingMap[m_animName].m_loop == false &&
             m_animSettingMap[m_animName].m_stopEnd == false)
         {
@@ -86,14 +86,14 @@ void AnimController::Update()
             m_controller->SetTrackPosition(0, m_animSettingMap[m_animName].m_startPos);
             m_controller->AdvanceTime(m_animationTime, nullptr);
         }
-        // ƒ‹[ƒv
+        // ãƒ«ãƒ¼ãƒ—
         else if (m_animSettingMap[m_animName].m_loop)
         {
             m_animationTime = 0.f;
             m_controller->SetTrackPosition(0, m_animSettingMap[m_animName].m_startPos);
             m_controller->AdvanceTime(m_animationTime, nullptr);
         }
-        // ÅŒã‚Ìó‘Ô‚Å~‚Ü‚é
+        // æœ€å¾Œã®çŠ¶æ…‹ã§æ­¢ã¾ã‚‹
         else if (m_animSettingMap[m_animName].m_stopEnd)
         {
             m_controller->SetTrackPosition(0, m_animSettingMap[m_animName].m_startPos);

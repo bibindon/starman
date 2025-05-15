@@ -1,4 +1,4 @@
-#include "Opening.h"
+﻿#include "Opening.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
 #include "GamePad.h"
@@ -111,7 +111,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "�l�r ����",
+                                "ＭＳ 明朝",
                                 &m_pFont);
         }
         else
@@ -198,9 +198,9 @@ Opening::Opening()
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
             std::vector<std::string> vs;
-            vs.push_back("����Ƃ���Ƀp���[�G�b�O���Ƃ����f�����������B");
-            vs.push_back("�p���[�G�b�O���ɂ͊C�Ƃ������̑嗤�A�����Ė����̓����������B");
-            vs.push_back("���̓��̒��Ƀv�����^�����Ƃ��������������B");
+            vs.push_back("あるところにパワーエッグ星という惑星があった。");
+            vs.push_back("パワーエッグ星には海といくつかの大陸、そして無数の島があった。");
+            vs.push_back("その島の中にプロリタン島という島があった。");
             vvs.push_back(vs);
             page.SetTextList(vvs);
             pageList.push_back(page);
@@ -212,12 +212,12 @@ Opening::Opening()
             page.SetSprite(sprite);
             std::vector<std::vector<std::string> > vvs;
             std::vector<std::string> vs;
-            vs.push_back("�v�����^�����́A����]�̖؂̉��ň�l�̒j�����Q�Ă����B�Q�Ă����j���A�z�V�}���͕l�ӂŖڂ��o�܂����B");
-            vs.push_back("�z�V�}���͓��������̌`�����Ă����B���̌`�����Ă��邤���ɑS�g���F�ł܂��ɐ��Ƃ��������ł������B");
+            vs.push_back("プロリタン島の、入り江の木の下で一人の男性が寝ていた。寝ていた男性、ホシマンは浜辺で目を覚ました。");
+            vs.push_back("ホシマンは頭部が星の形をしていた。星の形をしているうえに全身黄色でまさに星という感じであった。");
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("�u���A���ʁE�E�E�v");
-            vs.push_back("�����ꐺ�������B");
+            vs.push_back("「し、死ぬ・・・」");
+            vs.push_back("かすれ声だった。");
             vvs.push_back(vs);
             page.SetTextList(vvs);
             pageList.push_back(page);
@@ -230,14 +230,14 @@ Opening::Opening()
             std::vector<std::vector<std::string> > vvs;
             std::vector<std::string> vs;
             vs.clear();
-            vs.push_back("�z�V�}���̓o�C�N�Ńc�[�����O���y���ނ��ߑD�œ��̃I�v�e�B�v�����Ɉړ����������B");
-            vs.push_back("�������A�i���c�A�[���������ߑ䕗�ł����s���ꂽ�B");
-            vs.push_back("�����āA������{���{���������D�͋T�􂩂�Z�����N����A�D���X���₪�ē]�����Ă��܂����B");
+            vs.push_back("ホシマンはバイクでツーリングを楽しむため船で東のオプティプル島に移動中だった。");
+            vs.push_back("しかし、格安ツアーだったため台風でも強行された。");
+            vs.push_back("そして、元からボロボロだった船は亀裂から浸水が起こり、船が傾きやがて転覆してしまった。");
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("�D���]�������Ƃ��A�D�͍̂ӂ��A�z�V�}���͑D�̊��I�ɒ͂܂����B���̂��ƐQ���ɂR�O���ԉ߂������B");
-            vs.push_back("�Y�����ĂR�O���Ԍ�A���̎p���߂��Ɍ��ꂽ�B");
-            vs.push_back("�z�V�}���͖��䖲���ɂȂ�A���I���I�[���ɂ��ē��܂ő����A���ɂ��ǂ蒅���ƕl�ӂɓ|�ꂱ�񂾁B�����āA���̂܂܈ӎ����������B");
+            vs.push_back("船が転覆したとき、船体は砕け、ホシマンは船の瓦礫に掴まった。そのあと寝ずに３０時間過ごした。");
+            vs.push_back("漂流して３０時間後、島の姿が近くに現れた。");
+            vs.push_back("ホシマンは無我夢中になり、瓦礫をオールにして島まで漕ぎ、島にたどり着くと浜辺に倒れこんだ。そして、そのまま意識を失った。");
             vvs.push_back(vs);
             page.SetTextList(vvs);
             pageList.push_back(page);

@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 
 #ifndef DIRECTINPUT_VERSION
-// constexpr�ɕϊ��ł���A�Ƃ����x�����\������邪�ϊ����Ă͂����Ȃ��B
+// constexprに変換できる、という警告が表示されるが変換してはいけない。
 #define DIRECTINPUT_VERSION 0x0800
 #endif
 

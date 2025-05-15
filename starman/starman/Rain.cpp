@@ -1,4 +1,4 @@
-#include "Rain.h"
+﻿#include "Rain.h"
 
 #include <cassert>
 
@@ -27,13 +27,13 @@ void Rain::Init()
     HRESULT result = E_FAIL;
     auto d3dDevice = SharedObj::GetD3DDevice();
 
-    //�e�N�X�`���̍쐬
+    //テクスチャの作成
     result = D3DXCreateTextureFromFile(d3dDevice,
                                        "res\\image\\raindrop.png",
                                        &m_texture);
     assert(result == S_OK);
 
-    // �X�v���C�g�̍쐬
+    // スプライトの作成
     result = D3DXCreateSprite(d3dDevice, &m_sprite);
     assert(result == S_OK);
 
@@ -42,7 +42,7 @@ void Rain::Init()
         m_pos.at(i) = D3DXVECTOR3(0.f, 100.f * i, 0.f);
         m_pos.at(i).x = (float)(rand() % 1600);
 
-        // ��̂ق��ɕ\�����Ă���
+        // 上のほうに表示しておく
         m_pos.at(i).y = (float)(rand() % 900) - 1000.f;
     }
 
@@ -78,8 +78,8 @@ void Rain::Update()
         }
     }
 
-    // �J���~��n�߂���J�̉���BGM���J�n
-    // �J���~�񂾂�J�̉���BGM���~
+    // 雨が降り始めたら雨の音のBGMを開始
+    // 雨が止んだら雨の音のBGMを停止
     {
         bool bRain = NSStarmanLib::RainModel::Get()->IsRain();
 
@@ -136,8 +136,8 @@ bool Rain::IsRain()
     return NSStarmanLib::RainModel::Get()->IsRain();
 }
 
-// �^�C�g����ʂ�\�����Ă���A�ȂǁA���炩�̗��R�ŉJ�̕`������Ȃ��ł��������Ƃ��ɌĂԁB
-// �J���~���Ă���E���Ȃ����ƂƂ͊֌W�Ȃ��B
+// タイトル画面を表示している、など、何らかの理由で雨の描画をしないでおきたいときに呼ぶ。
+// 雨が降っている・いないこととは関係ない。
 void Rain::SetShow(const bool bShow)
 {
     m_bShow = bShow;

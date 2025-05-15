@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <windows.h>
 #include <tchar.h>
@@ -30,7 +30,7 @@ public:
     ~MainWindow();
     int MainLoop();
 
-    // WM_CLOSEƒƒbƒZ[ƒW‚ğóM‚µ‚½‚Æ‚«‚É‘Îˆ‚·‚é•K—v‚·‚é‚½‚ß‚ÌŠÖ”
+    // WM_CLOSEãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å—ä¿¡ã—ãŸã¨ãã«å¯¾å‡¦ã™ã‚‹å¿…è¦ã™ã‚‹ãŸã‚ã®é–¢æ•°
     static SeqBattle* GetBattleSequence();
 
 private:
@@ -43,21 +43,21 @@ private:
 
     eSequence m_sequence = eSequence::BATTLE;
 
-    // WM_CLOSEƒƒbƒZ[ƒW‚ğóM‚µ‚½‚Æ‚«‚É‘Îˆ‚·‚é•K—v‚ª‚ ‚é‚½‚ßstatic‚É‚·‚é
+    // WM_CLOSEãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å—ä¿¡ã—ãŸã¨ãã«å¯¾å‡¦ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ãŸã‚staticã«ã™ã‚‹
     static SeqBattle* m_seqBattle;
 
     SeqEnding* m_seqEnding = nullptr;
 
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     void ShowDebugInfo(const int fps);
 
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     int CalcFPS();
 
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     std::vector<std::chrono::system_clock::time_point> m_vecTime;
 
-    // ƒfƒoƒbƒO—p
+    // ãƒ‡ãƒãƒƒã‚°ç”¨
     LPD3DXFONT m_D3DFont = nullptr;
 };
 

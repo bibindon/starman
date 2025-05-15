@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <string>
 #include <atomic>
@@ -13,7 +13,7 @@ public:
     void Load();
     void DeleteSavedata();
 
-    // •ÊƒXƒŒƒbƒh‚©‚çi’»‚ğæ“¾‚Å‚«‚é‚æ‚¤‚É‚·‚é
+    // åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã‹ã‚‰é€²æ—ã‚’å–å¾—ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
     int GetProgress();
 
     std::string GetLangFile();

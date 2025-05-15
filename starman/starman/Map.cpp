@@ -1,4 +1,4 @@
-#include "Map.h"
+ï»¿#include "Map.h"
 #include "Light.h"
 #include "SharedObj.h"
 #include "KeyBoard.h"
@@ -81,8 +81,8 @@ void Map::Init()
         m_meshMap["sea"] = mesh;
     }
 
-    // ålŒö‚ª“‡‚©‚ç‘å‚«‚­—£‚ê‚½êŠ‚É‚¢‚é‚Æ‚«Aƒ^ƒCƒgƒ‹‰æ–Ê‚ÅŠC‚ª•\¦‚³‚ê‚È‚­‚È‚éB
-    // ‚»‚Ì‘Îô‚Æ‚µ‚ÄŠC‚Ì‰º‚ÉAŠC‚ğ•\¦‚µ‚Ä‚¨‚­
+    // ä¸»äººå…¬ãŒå³¶ã‹ã‚‰å¤§ããé›¢ã‚ŒãŸå ´æ‰€ã«ã„ã‚‹ã¨ãã€ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã§æµ·ãŒè¡¨ç¤ºã•ã‚Œãªããªã‚‹ã€‚
+    // ãã®å¯¾ç­–ã¨ã—ã¦æµ·ã®ä¸‹ã«ã€æµ·ã‚’è¡¨ç¤ºã—ã¦ãŠã
     {
         Mesh* mesh = NEW Mesh("res\\model\\sea.x",
                               D3DXVECTOR3(10.f, 5.f, 10.f),
@@ -167,7 +167,7 @@ void Map::Init()
     //    m_meshMap["rock1"] = mesh;
     //}
 
-    // “”‘ä
+    // ç¯å°
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -176,7 +176,7 @@ void Map::Init()
         m_meshMap["cottage"] = mesh;
     }
 
-    // _Ğ
+    // ç¥ç¤¾
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(15.8f, 492.8f, -1221.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -185,7 +185,7 @@ void Map::Init()
         m_meshMap["cottage2"] = mesh;
     }
 
-    // “´ŒA
+    // æ´çªŸ
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(115.6f, 590.5f, -1484.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -194,7 +194,7 @@ void Map::Init()
         m_meshMap["cottage3"] = mesh;
     }
 
-    // ‘Û’ë
+    // è‹”åº­
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(628.9f, 773.9f, -1861.8f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -203,7 +203,7 @@ void Map::Init()
         m_meshMap["cottage4"] = mesh;
     }
 
-    // `Õ
+    // æ¸¯è·¡
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1814.3f, 28.5f, -899.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -212,7 +212,7 @@ void Map::Init()
         m_meshMap["cottage5"] = mesh;
     }
 
-    // ŠCŠİ“´ŒA
+    // æµ·å²¸æ´çªŸ
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -221,7 +221,7 @@ void Map::Init()
         m_meshMap["cottage6"] = mesh;
     }
 
-    // ƒ\ƒeƒc‚ÌêŠ
+    // ã‚½ãƒ†ãƒ„ã®å ´æ‰€
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -230,7 +230,7 @@ void Map::Init()
         m_meshMap["cottage7"] = mesh;
     }
 
-    // ‘å—¤
+    // å¤§é™¸
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-2000000.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -244,7 +244,7 @@ void Map::Init()
     }
 
     //------------------------------------------
-    // ƒrƒ€‚ª“oê‚·‚é‚Æ‚«‚ÌŠâ
+    // ãƒ“ãƒ ãŒç™»å ´ã™ã‚‹ã¨ãã®å²©
     //------------------------------------------
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-1425.4f, 20.1f, -598.f);
@@ -255,7 +255,7 @@ void Map::Init()
     }
 
     //--------------------------------------------
-    // ‘¾—z
+    // å¤ªé™½
     //--------------------------------------------
     m_pSun = NEW MeshNoShade("res\\model\\sun.x",
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
@@ -598,7 +598,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh("res\\model\\vsco\\vsco.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
-        m_NPC["ƒuƒCƒGƒXƒR"] = animMesh;
+        m_NPC["ãƒ–ã‚¤ã‚¨ã‚¹ã‚³"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 551.f);
@@ -662,7 +662,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh("res\\model\\webnin\\webnin.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
-        m_NPC["ƒEƒFƒuƒjƒ“"] = animMesh;
+        m_NPC["ã‚¦ã‚§ãƒ–ãƒ‹ãƒ³"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 533.f);
@@ -677,7 +677,7 @@ void Map::Init()
         }
         //AnimMesh* animMesh = NEW AnimMesh("res\\model\\xeoff\\xeoff.x", b, move, 1.5f, animSetMap);
         //animMesh->SetAnim("Idle");
-        //m_NPC["ƒW[ƒIƒt"] = animMesh;
+        //m_NPC["ã‚¸ãƒ¼ã‚ªãƒ•"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 555.f);
@@ -741,7 +741,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh("res\\model\\gain\\gain.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
-        m_NPC["ƒKƒCƒ“"] = animMesh;
+        m_NPC["ã‚¬ã‚¤ãƒ³"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 557.f);
@@ -805,7 +805,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh("res\\model\\nes\\nes.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
-        m_NPC["ƒlƒX"] = animMesh;
+        m_NPC["ãƒã‚¹"] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 559.f);
@@ -869,7 +869,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh("res\\model\\noble\\noble.x", b, move, 1.f, animSetMap);
         animMesh->SetAnim("Idle");
-        m_NPC["ƒm[ƒuƒ‹"] = animMesh;
+        m_NPC["ãƒãƒ¼ãƒ–ãƒ«"] = animMesh;
     }
     */
     SoundEffect::get_ton()->load("res\\sound\\fireHit.wav");
@@ -900,7 +900,7 @@ void Map::Update()
     Player* player = SharedObj::GetPlayer();
     D3DXVECTOR3 pos = player->GetPos();
 
-    // 60‰ñ‚Éˆê‰ñi1•b‚²‚Æj‚Ìˆ—
+    // 60å›ã«ä¸€å›ï¼ˆï¼1ç§’ã”ã¨ï¼‰ã®å‡¦ç†
     {
         static int counter = 0;
         counter++;
@@ -912,7 +912,7 @@ void Map::Update()
         if (counter == 1)
         {
             //------------------------------------------------------------------------------
-            // “G‚ªXXƒ[ƒgƒ‹ˆÈ“à‚É‚¢‚½‚ç“Ç‚İ‚ñ‚Å•\¦
+            // æ•µãŒXXãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã«ã„ãŸã‚‰èª­ã¿è¾¼ã‚“ã§è¡¨ç¤º
             //------------------------------------------------------------------------------
             std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 30.f);
 
@@ -929,43 +929,43 @@ void Map::Update()
                     if (eneList.at(i).GetDefeated() == false)
                     {
                         EnemyBase* enemy = nullptr;
-                        if (eneList.at(i).GetBreed() == "ƒŠƒbƒ|ƒEƒ^ƒC")
+                        if (eneList.at(i).GetBreed() == "ãƒªãƒƒãƒã‚¦ã‚¿ã‚¤")
                         {
                             enemy = NEW EnemyCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒLƒ…ƒE")
+                        else if (eneList.at(i).GetBreed() == "ã‚­ãƒ¥ã‚¦")
                         {
                             enemy = NEW EnemySphere();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒGƒ“ƒoƒ“")
+                        else if (eneList.at(i).GetBreed() == "ã‚¨ãƒ³ãƒãƒ³")
                         {
                             enemy = NEW EnemyDisk();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒGƒ“ƒ`ƒ…ƒE")
+                        else if (eneList.at(i).GetBreed() == "ã‚¨ãƒ³ãƒãƒ¥ã‚¦")
                         {
                             enemy = NEW EnemyEnchu();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒrƒbƒOƒŠƒbƒ|ƒEƒ^ƒC")
+                        else if (eneList.at(i).GetBreed() == "ãƒ“ãƒƒã‚°ãƒªãƒƒãƒã‚¦ã‚¿ã‚¤")
                         {
                             enemy = NEW EnemyBigCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒXƒ‚[ƒ‹ƒŠƒbƒ|ƒEƒ^ƒC")
+                        else if (eneList.at(i).GetBreed() == "ã‚¹ãƒ¢ãƒ¼ãƒ«ãƒªãƒƒãƒã‚¦ã‚¿ã‚¤")
                         {
                             enemy = NEW EnemySmallCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒnƒ“ƒGƒ“")
+                        else if (eneList.at(i).GetBreed() == "ãƒãƒ³ã‚¨ãƒ³")
                         {
                             enemy = NEW EnemyHanen();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒnƒ“ƒLƒ…ƒE")
+                        else if (eneList.at(i).GetBreed() == "ãƒãƒ³ã‚­ãƒ¥ã‚¦")
                         {
                             enemy = NEW EnemyHankyuu();
                         }
-                        else if (eneList.at(i).GetBreed() == "ƒIƒŒƒ“ƒWƒŠƒbƒ|ƒEƒ^ƒC")
+                        else if (eneList.at(i).GetBreed() == "ã‚ªãƒ¬ãƒ³ã‚¸ãƒªãƒƒãƒã‚¦ã‚¿ã‚¤")
                         {
                             enemy = NEW EnemyOrangeCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "“‡–¯‚Ì—ì")
+                        else if (eneList.at(i).GetBreed() == "å³¶æ°‘ã®éœŠ")
                         {
                             enemy = NEW EnemyGhost();
                         }
@@ -986,7 +986,7 @@ void Map::Update()
 
                         m_vecEnemy.push_back(enemy);
 
-                        // InitŠÖ”‚Í•ÊƒXƒŒƒbƒh‚Å“Ç‚İ‚İ‚ğs‚¤‚Ì‚Åpush_back‚µ‚½Œã‚ÉŒÄ‚ÔB
+                        // Inité–¢æ•°ã¯åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§èª­ã¿è¾¼ã¿ã‚’è¡Œã†ã®ã§push_backã—ãŸå¾Œã«å‘¼ã¶ã€‚
                         auto it = m_vecEnemy.rbegin();
                         (*it)->Init();
                     }
@@ -994,12 +994,12 @@ void Map::Update()
             }
 
             //-------------------------------------
-            // ‹ó
+            // ç©º
             //-------------------------------------
 
-            // ålŒö‚ª“Œ‚ÉˆÚ“®‚µ‚½‚çŠC‚à“Œ‚ÉˆÚ“®‚·‚é
-            // ƒJƒƒ‰‚ª“Œ‚ÉˆÚ“®‚µ‚½‚ç‹ó‚à“Œ‚ÉˆÚ“®‚·‚é
-            // ålŒö‚ÆƒJƒƒ‰‚Å•ª‚¯‚é•K—v‚ª‚ ‚é‚Ì‚ÍAƒ^ƒCƒgƒ‹‚ÅålŒö‚ÆƒJƒƒ‰‚ÌˆÊ’u‚ª‘å‚«‚­ˆÙ‚È‚é‚©‚ç
+            // ä¸»äººå…¬ãŒæ±ã«ç§»å‹•ã—ãŸã‚‰æµ·ã‚‚æ±ã«ç§»å‹•ã™ã‚‹
+            // ã‚«ãƒ¡ãƒ©ãŒæ±ã«ç§»å‹•ã—ãŸã‚‰ç©ºã‚‚æ±ã«ç§»å‹•ã™ã‚‹
+            // ä¸»äººå…¬ã¨ã‚«ãƒ¡ãƒ©ã§åˆ†ã‘ã‚‹å¿…è¦ãŒã‚ã‚‹ã®ã¯ã€ã‚¿ã‚¤ãƒˆãƒ«ã§ä¸»äººå…¬ã¨ã‚«ãƒ¡ãƒ©ã®ä½ç½®ãŒå¤§ããç•°ãªã‚‹ã‹ã‚‰
             {
                 auto cameraPos = Camera::GetEyePos();
                 m_meshMap["sky"]->SetPos(cameraPos);
@@ -1014,10 +1014,10 @@ void Map::Update()
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
             //-------------------------------------
-            // ‘¾—z‚Ì–¾‚é‚³
+            // å¤ªé™½ã®æ˜ã‚‹ã•
             //-------------------------------------
-            // ’‹‚Ì12‚ªÅ‚à–¾‚é‚­A–é‚Ì0‚ªÅ‚àˆÃ‚¢‚±‚Æ‚Æ‚·‚é
-            // TODO ƒTƒCƒ“ƒJ[ƒu‚É‚µ‚½‚Ù‚¤‚ª—Ç‚¢B
+            // æ˜¼ã®12æ™‚ãŒæœ€ã‚‚æ˜ã‚‹ãã€å¤œã®0æ™‚ãŒæœ€ã‚‚æš—ã„ã“ã¨ã¨ã™ã‚‹
+            // TODO ã‚µã‚¤ãƒ³ã‚«ãƒ¼ãƒ–ã«ã—ãŸã»ã†ãŒè‰¯ã„ã€‚
             float hour = (float)dateTime->GetHour();
             if (hour <= 12)
             {
@@ -1028,18 +1028,18 @@ void Map::Update()
                 Light::SetBrightness((24 - hour) / 12);
             }
 
-            // ƒvƒŒƒCƒ„[‚ª“´ŒA“à‚É‚¢‚½‚ç–¾‚é‚³0
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ´çªŸå†…ã«ã„ãŸã‚‰æ˜ã‚‹ã•0
             if (SharedObj::GetPlayer()->IsInCave())
             {
                 Light::SetBrightness(0.f);
             }
 
             //-------------------------------------
-            // ‰A‚Ì•\¦
+            // é™°ã®è¡¨ç¤º
             //-------------------------------------
-            // ‘¾—z‚Í’‹‚Ì12‚É^ãA–é‚Ì0‚É^‰ºA‚Æ‚·‚éB
-            // 00•ª`2359•ª‚ğ0.0f`0.99999f‚Æ‚È‚é‚æ‚¤‚É•ÏŠ·
-            // 00•ª‚ğ0•ªA2359•ª‚ğ1439•ª‚ÆŒ©‚È‚¹‚Î‚æ‚¢
+            // å¤ªé™½ã¯æ˜¼ã®12æ™‚ã«çœŸä¸Šã€å¤œã®0æ™‚ã«çœŸä¸‹ã€ã¨ã™ã‚‹ã€‚
+            // 0æ™‚0åˆ†ï½23æ™‚59åˆ†ã‚’0.0fï½0.99999fã¨ãªã‚‹ã‚ˆã†ã«å¤‰æ›
+            // 0æ™‚0åˆ†ã‚’0åˆ†ã€23æ™‚59åˆ†ã‚’1439åˆ†ã¨è¦‹ãªã›ã°ã‚ˆã„
 
             float hourAndMinute = 0.f;
             hourAndMinute += dateTime->GetHour() * 60;
@@ -1053,11 +1053,11 @@ void Map::Update()
             Light::SetLightNormal(vec);
 
             //-------------------------------------
-            // ‘¾—z
+            // å¤ªé™½
             //-------------------------------------
 
             {
-                // ålŒö‚ª“Œ‚ÉˆÚ“®‚µ‚½‚ç‘¾—z‚à“Œ‚ÉˆÚ“®‚·‚é
+                // ä¸»äººå…¬ãŒæ±ã«ç§»å‹•ã—ãŸã‚‰å¤ªé™½ã‚‚æ±ã«ç§»å‹•ã™ã‚‹
                 auto player = SharedObj::GetPlayer();
                 auto ppos = player->GetPos();
 
@@ -1068,7 +1068,7 @@ void Map::Update()
             }
 
             //-------------------------------------
-            // 3Dƒ‚ƒfƒ‹‚Ì’x‰„“Ç‚İ‚İ
+            // 3Dãƒ¢ãƒ‡ãƒ«ã®é…å»¶èª­ã¿è¾¼ã¿
             //-------------------------------------
             {
                 auto player = SharedObj::GetPlayer();
@@ -1113,9 +1113,9 @@ void Map::Update()
                 }
             }
 
-            // 100ƒ[ƒgƒ‹ˆÈã—£‚ê‚½“G‚ÍÁ‚·
-            // ‹——£‚ğ‹…‚Å’²‚×‚é‚Æd‚­‚È‚é‚Ì‚Å—§•û‘Ì‚Å’²‚×‚é
-            // ‚³‚ç‚ÉY²•ûŒü‚Í–³‹‚·‚é
+            // 100ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥ä¸Šé›¢ã‚ŒãŸæ•µã¯æ¶ˆã™
+            // è·é›¢ã‚’çƒã§èª¿ã¹ã‚‹ã¨é‡ããªã‚‹ã®ã§ç«‹æ–¹ä½“ã§èª¿ã¹ã‚‹
+            // ã•ã‚‰ã«Yè»¸æ–¹å‘ã¯ç„¡è¦–ã™ã‚‹
             for (auto it = m_vecEnemy.begin(); it != m_vecEnemy.end();)
             {
                 if ((*it)->GetPos().x + 100.f < player->GetPos().x ||
@@ -1136,7 +1136,7 @@ void Map::Update()
                 }
             }
 
-            // ƒvƒŒƒCƒ„[‚ª”pšĞ‚É‹ß‚Ã‚¢‚½‚çƒJƒƒ‰ƒ‚[ƒh‚ğ•Ï‚¦‚é
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå»ƒå¢Ÿã«è¿‘ã¥ã„ãŸã‚‰ã‚«ãƒ¡ãƒ©ãƒ¢ãƒ¼ãƒ‰ã‚’å¤‰ãˆã‚‹
             {
                 float work = 0.f;
                 work = pos.x - m_meshMap["precision"]->GetPos().x;
@@ -1167,7 +1167,7 @@ void Map::Update()
                 OutputDebugString(work.c_str());
             }
 
-            // ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ª’á‚­‚È‚Á‚½‚çŠC‚ÌBGM‚ğ—¬‚·
+            // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ãŒä½ããªã£ãŸã‚‰æµ·ã®BGMã‚’æµã™
             {
                 auto ppos = SharedObj::GetPlayer()->GetPos();
                 if (ppos.y <= 20.f)
@@ -1180,12 +1180,12 @@ void Map::Update()
                 }
             }
 
-            // NPC‚ª€‚ñ‚Å‚¢‚½‚çAÀ•W‚ğ(0, 0, 0)‚ÉˆÚ“®
+            // NPCãŒæ­»ã‚“ã§ã„ãŸã‚‰ã€åº§æ¨™ã‚’(0, 0, 0)ã«ç§»å‹•
             {
                 auto npcManager = NpcManager::Get();
                 if (npcManager->GetNpcStatus("daikeiman").GetDead())
                 {
-                    // TODO ‘SŠpƒJƒ^ƒJƒiA’¼‚·‚×‚µ
+                    // TODO å…¨è§’ã‚«ã‚¿ã‚«ãƒŠã€ç›´ã™ã¹ã—
                     SetNpcPos("daikeiman", D3DXVECTOR3(0.f, 0.f, 0.f));
                     npcManager->SetPos("daikeiman", 0.f, 0.f, 0.f);
                 }
@@ -1206,13 +1206,13 @@ void Map::Update()
     }
 
     //-------------------------------------------------------
-    // “Š‚°•¨
+    // æŠ•ã’ç‰©
     //-------------------------------------------------------
     for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
     {
         ++it->m_counter;
 
-        // 0.5•bŒo‰ß‚µ‚½‚ç”­Ë
+        // 0.5ç§’çµŒéã—ãŸã‚‰ç™ºå°„
         if (it->m_counter <= 30)
         {
             continue;
@@ -1221,8 +1221,8 @@ void Map::Update()
         auto pos = it->m_mesh->GetPos();
         it->m_move.y -= 0.005f;
 
-        // Õ“Ë”»’è
-        // ’n–Ê‚È‚Ç‚É‚Ô‚Â‚©‚Á‚½‚çˆÚ“®—Ê0‚É‚·‚é
+        // è¡çªåˆ¤å®š
+        // åœ°é¢ãªã©ã«ã¶ã¤ã‹ã£ãŸã‚‰ç§»å‹•é‡0ã«ã™ã‚‹
         if (Intersect(pos, it->m_move))
         {
             it->m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -1230,7 +1230,7 @@ void Map::Update()
             continue;
         }
 
-        // ƒ‚ƒ“ƒXƒ^[‚É“–‚½‚Á‚½‚çƒ_ƒ[ƒW‚ğ—^‚¦‚é
+        // ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã«å½“ãŸã£ãŸã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
         if (it->m_bHit == false)
         {
             auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
@@ -1253,13 +1253,13 @@ void Map::Update()
     }
 
     //-------------------------------------------------------
-    // “Š‚°•¨i–‚–@j
+    // æŠ•ã’ç‰©ï¼ˆé­”æ³•ï¼‰
     //-------------------------------------------------------
     for (auto it = m_thrownMagicList.begin(); it != m_thrownMagicList.end();)
     {
         ++it->m_counter;
 
-        // 1•bŒo‰ß‚µ‚½‚ç”­Ë
+        // 1ç§’çµŒéã—ãŸã‚‰ç™ºå°„
         if (it->m_counter <= 60)
         {
             ++it;
@@ -1269,8 +1269,8 @@ void Map::Update()
         auto pos = it->m_mesh->GetPos();
         it->m_move.y -= 0.002f;
 
-        // Õ“Ë”»’è
-        // ’n–Ê‚È‚Ç‚É‚Ô‚Â‚©‚Á‚½‚çÁ‚·
+        // è¡çªåˆ¤å®š
+        // åœ°é¢ãªã©ã«ã¶ã¤ã‹ã£ãŸã‚‰æ¶ˆã™
         if (Intersect(pos, it->m_move))
         {
             if (it->m_eMagicType == NSStarmanLib::eMagicType::Fire)
@@ -1292,14 +1292,14 @@ void Map::Update()
             continue;
         }
 
-        // ƒ‚ƒ“ƒXƒ^[‚É“–‚½‚Á‚½‚çƒ_ƒ[ƒW‚ğ—^‚¦‚é
+        // ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã«å½“ãŸã£ãŸã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
         bool bHit = false;
         if (it->m_bHit == false)
         {
             auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
             for (auto it2 = m_vecEnemy.begin(); it2 != m_vecEnemy.end(); ++it2)
             {
-                // “‡–¯‚Ì—ì‚ÍˆÅ–‚–@‚Å‚Ì‚İƒ_ƒ[ƒW‚ğ—^‚¦‚ç‚ê‚éB
+                // å³¶æ°‘ã®éœŠã¯é—‡é­”æ³•ã§ã®ã¿ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‰ã‚Œã‚‹ã€‚
                 if (it->m_eMagicType != NSStarmanLib::eMagicType::Dark)
                 {
                     if ((*it2)->GetEnemyType() == eEnemyType::Ghost)
@@ -1350,7 +1350,7 @@ void Map::Update()
         }
     }
 
-    // ‰J‚Ì•\¦
+    // é›¨ã®è¡¨ç¤º
     Rain::Get()->Update();
 }
 
@@ -1359,8 +1359,8 @@ void Map::Render()
     {
         D3DXVECTOR4 norm = Light::GetLightNormal();
         D3DXVECTOR4 norm2 { norm };
-        // “V‹…—p‚É‰º‚©‚çŒõ‚ğ“–‚Ä‚Ä‚¢‚é‚±‚Æ‚É‚·‚é
-        // ³‚µ‚­‚È‚¢‚â‚è•ûB
+        // å¤©çƒç”¨ã«ä¸‹ã‹ã‚‰å…‰ã‚’å½“ã¦ã¦ã„ã‚‹ã“ã¨ã«ã™ã‚‹
+        // æ­£ã—ããªã„ã‚„ã‚Šæ–¹ã€‚
         norm2.x = 0.f;
         norm2.y = -1.f;
         Light::SetLightNormal(norm2);
@@ -1456,7 +1456,7 @@ void Map::Render()
         it->m_mesh->Render();
     }
 
-    // ‰J‚Ì•\¦
+    // é›¨ã®è¡¨ç¤º
     Rain::Get()->Draw();
 }
 
@@ -1514,10 +1514,10 @@ bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* m
     BYTE* pVertices = nullptr;
     DWORD* pIndices = nullptr;
 
-    // ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒN
+    // é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯
     mesh->GetD3DMesh()->LockVertexBuffer(D3DLOCK_READONLY, (void**)&pVertices);
 
-    // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌƒƒbƒN
+    // ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯
     mesh->GetD3DMesh()->LockIndexBuffer(D3DLOCK_READONLY, (void**)&pIndices);
 
     DWORD numFaces = mesh->GetD3DMesh()->GetNumFaces();
@@ -1528,13 +1528,13 @@ bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* m
 
     for (DWORD i = 0; i < numFaces; ++i)
     {
-        // OŠpŒ`‚Ì3’¸“_‚ÌƒCƒ“ƒfƒbƒNƒX‚ğæ“¾
+        // ä¸‰è§’å½¢ã®3é ‚ç‚¹ã®ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’å–å¾—
         DWORD i0 = pIndices[i * 3 + 0];
 
-        // ’¸“_ƒf[ƒ^‚©‚çˆÊ’u‚¾‚¯’Šoiæ“ª‚ÉD3DXVECTOR3‚ª‚ ‚é\‘¢‘Ì‚Æ‰¼’èj
+        // é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ä½ç½®ã ã‘æŠ½å‡ºï¼ˆå…ˆé ­ã«D3DXVECTOR3ãŒã‚ã‚‹æ§‹é€ ä½“ã¨ä»®å®šï¼‰
         D3DXVECTOR3* v0 = (D3DXVECTOR3*)(pVertices + size_t(i0) * stride);
 
-        // ‚ ‚Ü‚è‚É—£‚ê‚Ä‚¢‚é‚È‚çŒğ·‚µ‚Ä‚¢‚é‚©’²‚×‚é•K—v‚Í‚È‚¢B
+        // ã‚ã¾ã‚Šã«é›¢ã‚Œã¦ã„ã‚‹ãªã‚‰äº¤å·®ã—ã¦ã„ã‚‹ã‹èª¿ã¹ã‚‹å¿…è¦ã¯ãªã„ã€‚
         if (v0->x <= targetPos.x - 100.f || targetPos.x + 100.f <= v0->x)
         {
             continue;
@@ -1563,7 +1563,7 @@ bool Map::IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, Mesh* m
         }
     }
 
-    // ƒoƒbƒtƒ@‚ÌƒAƒ“ƒƒbƒN
+    // ãƒãƒƒãƒ•ã‚¡ã®ã‚¢ãƒ³ãƒ­ãƒƒã‚¯
     mesh->GetD3DMesh()->UnlockVertexBuffer();
     mesh->GetD3DMesh()->UnlockIndexBuffer();
 
@@ -1635,7 +1635,7 @@ bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 
 bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
-    // ƒXƒe[ƒWã‚ÌƒIƒuƒWƒFƒNƒg‚ğŒ´“_‚Æ‚µ‚½‚Æ‚«‚Ìpos‚ÌˆÊ’u
+    // ã‚¹ãƒ†ãƒ¼ã‚¸ä¸Šã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’åŸç‚¹ã¨ã—ãŸã¨ãã®posã®ä½ç½®
     BOOL  bIsHit = false;
     for (auto& pair : m_meshMap)
     {
@@ -1775,20 +1775,20 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
 
     if (!bInside)
     {
-        // •Ç‚¸‚è‚µ‚½æ‚É•Ç‚ª‚ ‚Á‚½‚Æ‚«‚Ìˆ—B
-        // •Ç‚¸‚èæ‚É•Ç‚ª‚ ‚é‚È‚çˆÚ“®—Ê‚ğ0‚É‚·‚é
+        // å£ãšã‚Šã—ãŸå…ˆã«å£ãŒã‚ã£ãŸã¨ãã®å‡¦ç†ã€‚
+        // å£ãšã‚Šå…ˆã«å£ãŒã‚ã‚‹ãªã‚‰ç§»å‹•é‡ã‚’0ã«ã™ã‚‹
         if (Intersect(pos, result))
         {
             return D3DXVECTOR3{ 0.f, 0.f, 0.f };
         }
     }
 
-    // Ú’n”»’è
-    // TODO ‚±‚±‚ªŠÔˆá‚¢BƒWƒƒƒ“ƒv’†ƒtƒ‰ƒO‚ğ’Ç‰Á‚·‚é‚±‚ÆB
-    // (move.y <= -0.008f ‚ª”ˆ«‚ÌªŒ¹
-    // move.y‚ª-0.01ˆÈ‰º‚ÅAresult.y‚ª-0.001ˆÈã‚¾‚Á‚½‚ç
-    // —‰º‘¬“x‚ª10•ª‚Ì1ˆÈ‰º‚É‚È‚Á‚½‚Æ‚¢‚¤‚±‚Æ‚È‚Ì‚Å•½‚ç‚È’n–Ê‚É‘«‚ª‚Â‚¢‚Ä‚¢‚é‚Æ‚·‚éB
-    // move.y‚ğ0‚É‚·‚é
+    // æ¥åœ°åˆ¤å®š
+    // TODO ã“ã“ãŒé–“é•ã„ã€‚ã‚¸ãƒ£ãƒ³ãƒ—ä¸­ãƒ•ãƒ©ã‚°ã‚’è¿½åŠ ã™ã‚‹ã“ã¨ã€‚
+    // (move.y <= -0.008f ãŒè«¸æ‚ªã®æ ¹æº
+    // move.yãŒ-0.01ä»¥ä¸‹ã§ã€result.yãŒ-0.001ä»¥ä¸Šã ã£ãŸã‚‰
+    // è½ä¸‹é€Ÿåº¦ãŒ10åˆ†ã®1ä»¥ä¸‹ã«ãªã£ãŸã¨ã„ã†ã“ã¨ãªã®ã§å¹³ã‚‰ãªåœ°é¢ã«è¶³ãŒã¤ã„ã¦ã„ã‚‹ã¨ã™ã‚‹ã€‚
+    // move.yã‚’0ã«ã™ã‚‹
     if (bHit && (- 0.003f <= result.y && result.y <= 0.f))
     {
         result.y = 0.f;
@@ -1801,8 +1801,8 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
         }
     }
 
-    // –€C
-    // result.x‚Æresult.z‚ª¬‚³‚¢‚È‚ç0‚É‚·‚é
+    // æ‘©æ“¦
+    // result.xã¨result.zãŒå°ã•ã„ãªã‚‰0ã«ã™ã‚‹
     //if (-0.005f <= result.x && result.x <= 0.005f)
     if (-0.01f <= result.x && result.x <= 0.01f)
     {
@@ -1854,15 +1854,15 @@ void Map::AddThrownItem(const D3DXVECTOR3& pos,
     m_thrownList.push_back(work);
 }
 
-// Œ©‚Â‚©‚ç‚È‚¯‚ê‚Îid‚ª-1‚ÌItemInfo‚ª•Ô‚éB
+// è¦‹ã¤ã‹ã‚‰ãªã‘ã‚Œã°idãŒ-1ã®ItemInfoãŒè¿”ã‚‹ã€‚
 NSStarmanLib::ItemInfo Map::GetThrownItem(const D3DXVECTOR3& pos)
 {
     bool exist = false;
     NSStarmanLib::ItemInfo result;
     result.SetId(-1);
 
-    // 2ƒ[ƒgƒ‹ˆÈ“à‚ÌƒAƒCƒeƒ€‚ğE‚¦‚é‚æ‚¤‚É‚·‚é
-    // ƒ‰ƒN‚·‚é‚½‚ß‚É‰~‚Å‚Í‚È‚­lŠp‚Å”ÍˆÍƒ`ƒFƒbƒN
+    // 2ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ‹¾ãˆã‚‹ã‚ˆã†ã«ã™ã‚‹
+    // ãƒ©ã‚¯ã™ã‚‹ãŸã‚ã«å††ã§ã¯ãªãå››è§’ã§ç¯„å›²ãƒã‚§ãƒƒã‚¯
     for (auto it = m_thrownList.begin(); it != m_thrownList.end(); ++it)
     {
         if (it->m_bStop)
@@ -2096,8 +2096,8 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
     {
         *bHit = true;
 
-        // ----- ƒLƒƒƒ‰YÀ•W•â³ -----
-        // “–‚½‚Á‚½ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@æ“¾
+        // ----- ã‚­ãƒ£ãƒ©Yåº§æ¨™è£œæ­£ -----
+        // å½“ãŸã£ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡å–å¾—
         DWORD dwHitVertexNo[3] = {};
         DWORD* pIndex = nullptr;
         HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
@@ -2109,17 +2109,17 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
 
         d3dmesh->UnlockIndexBuffer();
 
-        // “–‚½‚Á‚½ƒ|ƒŠƒSƒ“æ“¾
+        // å½“ãŸã£ãŸãƒãƒªã‚´ãƒ³å–å¾—
         struct VERTEX
         {
-            FLOAT x, y, z; // ’¸“_‚ÌÀ•W
-            FLOAT normX, normY, normZ; // –@ü‚ÌÀ•W
-            FLOAT u, v;   // ’¸“_‚ÌF
+            FLOAT x, y, z; // é ‚ç‚¹ã®åº§æ¨™
+            FLOAT normX, normY, normZ; // æ³•ç·šã®åº§æ¨™
+            FLOAT u, v;   // é ‚ç‚¹ã®è‰²
         };
         VERTEX* pVertex = nullptr;
         hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
 
-        // ’n–Ê‚Ì‚‚³‚É‡‚í‚¹‚é
+        // åœ°é¢ã®é«˜ã•ã«åˆã‚ã›ã‚‹
         D3DXVECTOR3 p1 { pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z };
         D3DXVECTOR3 p2 { pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z };
         D3DXVECTOR3 p3 { pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z };
@@ -2136,15 +2136,15 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
         D3DXVECTOR3 front;
         front = move;
 
-        // “à‘¤‚©‚çŠO‘¤‚Ö‚ÌÕ“Ë”»’è‚¾‚Á‚½ê‡‚Í–³‹‚·‚é
-        // Šâ‚Ì’†‚É“ü‚Á‚Ä‚µ‚Ü‚Á‚ÄAŠâ‚©‚çŠO‚Éo‚æ‚¤‚Æ‚µ‚Ä‚¢‚éê‡‚È‚ÇB
+        // å†…å´ã‹ã‚‰å¤–å´ã¸ã®è¡çªåˆ¤å®šã ã£ãŸå ´åˆã¯ç„¡è¦–ã™ã‚‹
+        // å²©ã®ä¸­ã«å…¥ã£ã¦ã—ã¾ã£ã¦ã€å²©ã‹ã‚‰å¤–ã«å‡ºã‚ˆã†ã¨ã—ã¦ã„ã‚‹å ´åˆãªã©ã€‚
         float dot = D3DXVec3Dot(&front, &normal_n);
 
         if (dot < 0 || !bEnableWallWalk)
         {
             result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
 
-            // ‹}‚Èã‚èâ‚¾‚Á‚½‚çˆÚ“®‘¬“x‚ğ‰º‚°‚é
+            // æ€¥ãªä¸Šã‚Šå‚ã ã£ãŸã‚‰ç§»å‹•é€Ÿåº¦ã‚’ä¸‹ã’ã‚‹
             if (Common::DebugMode() && Common::FasterMode())
             {
                 // do nothing
@@ -2153,11 +2153,11 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
             {
                 if (result.y > 0.1f)
                 {
-                    // y‚ª1.0‚È‚çˆÚ“®‘¬“x‚ğ1/10Ay‚ª0.1‚È‚çˆÚ“®‘¬“x‚ğ1”{‚Æ‚·‚é
+                    // yãŒ1.0ãªã‚‰ç§»å‹•é€Ÿåº¦ã‚’1/10ã€yãŒ0.1ãªã‚‰ç§»å‹•é€Ÿåº¦ã‚’1å€ã¨ã™ã‚‹
                     auto workY = result.y;
                     workY *= 10.f;
 
-                    // Œ¸‘¬‚Í1/10‚Ü‚Å‚Æ‚·‚éB
+                    // æ¸›é€Ÿã¯1/10ã¾ã§ã¨ã™ã‚‹ã€‚
                     if (workY >= 10.f)
                     {
                         workY = 10.f;
@@ -2217,8 +2217,8 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
     {
         *bHit = true;
 
-        // ----- ƒLƒƒƒ‰YÀ•W•â³ -----
-        // “–‚½‚Á‚½ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@æ“¾
+        // ----- ã‚­ãƒ£ãƒ©Yåº§æ¨™è£œæ­£ -----
+        // å½“ãŸã£ãŸã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡å–å¾—
         WORD dwHitVertexNo[3] = {};
         WORD* pIndex = nullptr;
         HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
@@ -2230,17 +2230,17 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
 
         d3dmesh->UnlockIndexBuffer();
 
-        // “–‚½‚Á‚½ƒ|ƒŠƒSƒ“æ“¾
+        // å½“ãŸã£ãŸãƒãƒªã‚´ãƒ³å–å¾—
         struct VERTEX
         {
-            FLOAT x, y, z; // ’¸“_‚ÌÀ•W
-            FLOAT normX, normY, normZ; // –@ü‚ÌÀ•W
-            FLOAT u, v;   // ’¸“_‚ÌF
+            FLOAT x, y, z; // é ‚ç‚¹ã®åº§æ¨™
+            FLOAT normX, normY, normZ; // æ³•ç·šã®åº§æ¨™
+            FLOAT u, v;   // é ‚ç‚¹ã®è‰²
         };
         VERTEX* pVertex = nullptr;
         hr = d3dmesh->LockVertexBuffer(0, (void**)&pVertex);
 
-        // ’n–Ê‚Ì‚‚³‚É‡‚í‚¹‚é
+        // åœ°é¢ã®é«˜ã•ã«åˆã‚ã›ã‚‹
         D3DXVECTOR3 p1 { pVertex[dwHitVertexNo[0]].x, pVertex[dwHitVertexNo[0]].y, pVertex[dwHitVertexNo[0]].z };
         D3DXVECTOR3 p2 { pVertex[dwHitVertexNo[1]].x, pVertex[dwHitVertexNo[1]].y, pVertex[dwHitVertexNo[1]].z };
         D3DXVECTOR3 p3 { pVertex[dwHitVertexNo[2]].x, pVertex[dwHitVertexNo[2]].y, pVertex[dwHitVertexNo[2]].z };
@@ -2257,29 +2257,29 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
         D3DXVECTOR3 front;
         front = move;
 
-        // “à‘¤‚©‚çŠO‘¤‚Ö‚ÌÕ“Ë”»’è‚¾‚Á‚½ê‡‚Í–³‹‚·‚é
-        // Šâ‚Ì’†‚É“ü‚Á‚Ä‚µ‚Ü‚Á‚ÄAŠâ‚©‚çŠO‚Éo‚æ‚¤‚Æ‚µ‚Ä‚¢‚éê‡‚È‚ÇB
+        // å†…å´ã‹ã‚‰å¤–å´ã¸ã®è¡çªåˆ¤å®šã ã£ãŸå ´åˆã¯ç„¡è¦–ã™ã‚‹
+        // å²©ã®ä¸­ã«å…¥ã£ã¦ã—ã¾ã£ã¦ã€å²©ã‹ã‚‰å¤–ã«å‡ºã‚ˆã†ã¨ã—ã¦ã„ã‚‹å ´åˆãªã©ã€‚
         float dot = D3DXVec3Dot(&front, &normal_n);
 
         if (dot < 0)
         {
             result = (front - D3DXVec3Dot(&front, &normal_n) * normal_n);
 
-            // ‹}‚Èã‚èâ‚¾‚Á‚½‚çˆÚ“®‘¬“x‚ğ‰º‚°‚é
+            // æ€¥ãªä¸Šã‚Šå‚ã ã£ãŸã‚‰ç§»å‹•é€Ÿåº¦ã‚’ä¸‹ã’ã‚‹
             if (Common::DebugMode() && Common::FasterMode())
             {
                 // do nothing
             }
             else
             {
-                // ‹}‚Èã‚èâ‚¾‚Á‚½‚çˆÚ“®‘¬“x‚ğ‰º‚°‚é
+                // æ€¥ãªä¸Šã‚Šå‚ã ã£ãŸã‚‰ç§»å‹•é€Ÿåº¦ã‚’ä¸‹ã’ã‚‹
                 if (result.y > 0.1f)
                 {
-                    // y‚ª1.0‚È‚çˆÚ“®‘¬“x‚ğ1/10Ay‚ª0.1‚È‚çˆÚ“®‘¬“x‚ğ1”{‚Æ‚·‚é
+                    // yãŒ1.0ãªã‚‰ç§»å‹•é€Ÿåº¦ã‚’1/10ã€yãŒ0.1ãªã‚‰ç§»å‹•é€Ÿåº¦ã‚’1å€ã¨ã™ã‚‹
                     auto workY = result.y;
                     workY *= 10.f;
 
-                    // Œ¸‘¬‚Í1/10‚Ü‚Å‚Æ‚·‚éB
+                    // æ¸›é€Ÿã¯1/10ã¾ã§ã¨ã™ã‚‹ã€‚
                     if (workY >= 10.f)
                     {
                         workY = 10.f;

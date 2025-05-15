@@ -1,4 +1,4 @@
-#include "PopUp.h"
+ï»¿#include "PopUp.h"
 #include "SharedObj.h"
 
 PopUp* PopUp::m_singleTonObj { nullptr };
@@ -39,7 +39,7 @@ void PopUp::Init(const bool bEnglish)
                        OUT_TT_ONLY_PRECIS,
                        ANTIALIASED_QUALITY,
                        FF_DONTCARE,
-                       "‚l‚r –¾’©",
+                       "ï¼­ï¼³ æ˜Žæœ",
                        &m_singleTonObj->m_D3DFont);
     }
     else

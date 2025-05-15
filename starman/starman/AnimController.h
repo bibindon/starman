@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <d3dx9.h>
 #include <d3dx9.h>
@@ -17,7 +17,7 @@ struct AnimSetting
     bool m_stopEnd = false;
 };
 
-// DirectX9‚Í64bit‚Åƒrƒ‹ƒh‚·‚é‚ÆƒAƒjƒ[ƒVƒ‡ƒ“‚ª80”{‘¬‚É‚È‚Á‚Ä‚µ‚Ü‚¤‚±‚Æ‚É’´’ˆÓ
+// DirectX9ã¯64bitã§ãƒ“ãƒ«ãƒ‰ã™ã‚‹ã¨ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãŒ80å€é€Ÿã«ãªã£ã¦ã—ã¾ã†ã“ã¨ã«è¶…æ³¨æ„
 class AnimController
 {
 public:

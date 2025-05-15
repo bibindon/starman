@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <unordered_map>
 #include <thread>
 #include "Mesh.h"
@@ -20,34 +20,34 @@ public:
     std::vector<EnemyBase*> GetEnemy();
     void SetEnemy(const std::vector<EnemyBase*>& vecEnemy);
 
-    // Õ“Ë”»’è
+    // è¡çªåˆ¤å®š
     bool Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
 
-    // ‚‘¬‰»ƒo[ƒWƒ‡ƒ“
+    // é«˜é€ŸåŒ–ãƒãƒ¼ã‚¸ãƒ§ãƒ³
     bool IntersectSub2(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
     bool IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 
-    // ŠC‚ÆÚ‚µ‚Ä‚¢‚é‚©
+    // æµ·ã¨æ¥ã—ã¦ã„ã‚‹ã‹
     bool IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 
     //--------------------------------------------------
-    // İ’u”»’è
+    // è¨­ç½®åˆ¤å®š
     //--------------------------------------------------
 
-    // ’n–Ê‚Ì‚İ
+    // åœ°é¢ã®ã¿
     bool CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move);
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mesh* mesh);
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 
-    // •Ç‚¸‚èˆ—
+    // å£ãšã‚Šå‡¦ç†
     D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit, bool* bInside);
 
     void SetNpcPos(const std::string& name, const D3DXVECTOR3& pos);
     void SetNpcRot(const std::string& name, const float yRot);
 
     //------------------------------------
-    // ‚à‚Ì“Š‚°
+    // ã‚‚ã®æŠ•ã’
     //------------------------------------
 
     void AddThrownItem(const D3DXVECTOR3& pos,
@@ -58,48 +58,48 @@ public:
                        const float power = 10.f,
                        const float rotY = 0.f);
 
-    // “Š‚°‚Ä’n–Ê‚É—‚¿‚½•Ší‚Ì‚¤‚¿‹ß‚­‚Ì‚à‚Ì‚ğ1‚Âæ“¾i”¼Œa2ƒ[ƒgƒ‹ˆÈ“àj
+    // æŠ•ã’ã¦åœ°é¢ã«è½ã¡ãŸæ­¦å™¨ã®ã†ã¡è¿‘ãã®ã‚‚ã®ã‚’1ã¤å–å¾—ï¼ˆåŠå¾„2ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ï¼‰
     NSStarmanLib::ItemInfo GetThrownItem(const D3DXVECTOR3& pos);
 
-    // “Š‚°‚Ä’n–Ê‚É—‚¿‚½•Ší‚ğíœ
+    // æŠ•ã’ã¦åœ°é¢ã«è½ã¡ãŸæ­¦å™¨ã‚’å‰Šé™¤
     void DeleteThrownItem(const NSStarmanLib::ItemInfo& thrownItem);
 
     //------------------------------------
-    // –‚–@UŒ‚
+    // é­”æ³•æ”»æ’ƒ
     //------------------------------------
 
-    // –‚–@UŒ‚‚Í•Ší‚ğ“Š‚°‚é‚Ì‚Æ“¯‚¶‚æ‚¤‚Èˆ—‚ğs‚¤
-    // •Ší‚ğ“Š‚°‚½‚Æˆá‚¢A’n–Ê‚É—‚¿‚½‚çÁ‚¦‚éB
+    // é­”æ³•æ”»æ’ƒã¯æ­¦å™¨ã‚’æŠ•ã’ã‚‹ã®ã¨åŒã˜ã‚ˆã†ãªå‡¦ç†ã‚’è¡Œã†
+    // æ­¦å™¨ã‚’æŠ•ã’ãŸæ™‚ã¨é•ã„ã€åœ°é¢ã«è½ã¡ãŸã‚‰æ¶ˆãˆã‚‹ã€‚
     void SetThrownMagic(const D3DXVECTOR3& pos,
                         const D3DXVECTOR3& move,
                         const NSStarmanLib::eMagicType& magicType,
                         const float power);
 
-    // ‘‚Ì‹ß‚­‚É‚¢‚é‚©
+    // è‰ã®è¿‘ãã«ã„ã‚‹ã‹
     bool NearPlant(const D3DXVECTOR3& pos);
 
-    // ƒRƒRƒiƒc‚Ì–Ø‚Ì‹ß‚­‚É‚¢‚é‚©
+    // ã‚³ã‚³ãƒŠãƒ„ã®æœ¨ã®è¿‘ãã«ã„ã‚‹ã‹
     bool NearCoconut(const D3DXVECTOR3& pos);
 
-    // ƒ\ƒeƒc‚Ì–Ø‚ª‹ß‚­‚É‚ ‚é‚©
+    // ã‚½ãƒ†ãƒ„ã®æœ¨ãŒè¿‘ãã«ã‚ã‚‹ã‹
     bool NearSotetsu(const D3DXVECTOR3& pos);
 
-    // –Ø‚Ì‹ß‚­‚É‚¢‚é‚©
+    // æœ¨ã®è¿‘ãã«ã„ã‚‹ã‹
     bool NearTree(const D3DXVECTOR3& pos);
 
-    // ‚Qƒ[ƒgƒ‹ˆÈ“à‚Ì–Ø‚ğ‚P–{Á‚·
+    // ï¼’ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã®æœ¨ã‚’ï¼‘æœ¬æ¶ˆã™
     void DeleteTree(const D3DXVECTOR3& pos);
 
-    // ‚Qƒ[ƒgƒ‹ˆÈ“à‚Ì‘‚ğ‚P–{Á‚·
+    // ï¼’ãƒ¡ãƒ¼ãƒˆãƒ«ä»¥å†…ã®è‰ã‚’ï¼‘æœ¬æ¶ˆã™
     void DeletePlant(const D3DXVECTOR3& pos);
 
 private:
     NSStarmanLib::MapObjManager* MapLib();
 
-    // bInside : •Ç‚Ì’†‚É‚¢‚éê‡‚Étrue
-    // bEnableWallWalk : ’ÊíA3Dƒ‚ƒfƒ‹‚Ì“à‘¤‚©‚çŠO‘¤‚ÖˆÚ“®‚µ‚æ‚¤‚Æ‚µ‚½ê‡‚ÍAÕ“Ë”»’è‚ğs‚í‚È‚¢B
-    // Šâ‚â–Ø‚Ì’†‚É“ü‚Á‚Ä‚µ‚Ü‚Á‚½‚Æ‚«‚ÉAo‚ç‚ê‚È‚­‚È‚Á‚Ä‚µ‚Ü‚¤‚½‚ßB
-    // ‚µ‚©‚µAˆê•”‚ÌƒIƒuƒWƒFƒNƒg‚Å‚Í“à‘¤‚©‚çŠO‘¤‚Ö‚ÌˆÚ“®‚ğ‹Ö~‚µ‚½‚¢B‚»‚Ì‚½‚ß‚Ég‚¤ƒtƒ‰ƒO
+    // bInside : å£ã®ä¸­ã«ã„ã‚‹å ´åˆã«true
+    // bEnableWallWalk : é€šå¸¸ã€3Dãƒ¢ãƒ‡ãƒ«ã®å†…å´ã‹ã‚‰å¤–å´ã¸ç§»å‹•ã—ã‚ˆã†ã¨ã—ãŸå ´åˆã¯ã€è¡çªåˆ¤å®šã‚’è¡Œã‚ãªã„ã€‚
+    // å²©ã‚„æœ¨ã®ä¸­ã«å…¥ã£ã¦ã—ã¾ã£ãŸã¨ãã«ã€å‡ºã‚‰ã‚Œãªããªã£ã¦ã—ã¾ã†ãŸã‚ã€‚
+    // ã—ã‹ã—ã€ä¸€éƒ¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§ã¯å†…å´ã‹ã‚‰å¤–å´ã¸ã®ç§»å‹•ã‚’ç¦æ­¢ã—ãŸã„ã€‚ãã®ãŸã‚ã«ä½¿ã†ãƒ•ãƒ©ã‚°
     D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,
                              Mesh* mesh,
                              const D3DXVECTOR3& move,
@@ -117,7 +117,7 @@ private:
 
     std::vector<EnemyBase*> m_vecEnemy { };
 
-    // ‘¾—z
+    // å¤ªé™½
     MeshNoShade* m_pSun = nullptr;
 
     // NPC
@@ -126,36 +126,36 @@ private:
     std::unordered_map<int, MeshClone*> m_meshCloneMap;
 
     //-------------------------------------------------------
-    // “Š‚°‚ç‚ê‚½‚à‚Ìi•Šíj
+    // æŠ•ã’ã‚‰ã‚ŒãŸã‚‚ã®ï¼ˆæ­¦å™¨ï¼‰
     //-------------------------------------------------------
 
-    // “Š‚°‚é‚à‚Ì
+    // æŠ•ã’ã‚‹ã‚‚ã®
     struct ThrownItem
     {
         NSStarmanLib::ItemInfo m_itemInfo;
         D3DXVECTOR3 m_move;
         MeshClone* m_mesh;
 
-        // ˆê“x‚Å‚à“G‚Éƒqƒbƒg‚µ‚½
+        // ä¸€åº¦ã§ã‚‚æ•µã«ãƒ’ãƒƒãƒˆã—ãŸ
         bool m_bHit = false;
 
-        // ’n–Ê‚É—‚¿‚½
+        // åœ°é¢ã«è½ã¡ãŸ
         bool m_bStop = false;
 
-        // 0.5•b‘Ò‚Á‚Ä‚©‚ç”­Ë
+        // 0.5ç§’å¾…ã£ã¦ã‹ã‚‰ç™ºå°„
         int m_counter = 0;
 
-        // ˆĞ—Í
+        // å¨åŠ›
         float m_power = 0.f;
     };
 
     std::vector<ThrownItem> m_thrownList;
 
     //-------------------------------------------------------
-    // “Š‚°‚ç‚ê‚½‚à‚Ìi–‚–@j
+    // æŠ•ã’ã‚‰ã‚ŒãŸã‚‚ã®ï¼ˆé­”æ³•ï¼‰
     //-------------------------------------------------------
 
-    // “Š‚°‚é‚à‚Ìi–‚–@j
+    // æŠ•ã’ã‚‹ã‚‚ã®ï¼ˆé­”æ³•ï¼‰
     struct ThrownMagic
     {
         NSStarmanLib::eMagicType m_eMagicType;
@@ -163,13 +163,13 @@ private:
 
         MeshNoShade* m_mesh;
 
-        // ˆê“x‚Å‚à“G‚Éƒqƒbƒg‚µ‚½
+        // ä¸€åº¦ã§ã‚‚æ•µã«ãƒ’ãƒƒãƒˆã—ãŸ
         bool m_bHit = false;
 
-        // 1•b‘Ò‚Á‚Ä‚©‚ç”­Ë
+        // 1ç§’å¾…ã£ã¦ã‹ã‚‰ç™ºå°„
         int m_counter = 0;
 
-        // ˆĞ—Í
+        // å¨åŠ›
         float m_magicPower = 0.f;
     };
 

@@ -1,4 +1,4 @@
-#include "MenuManager.h"
+ï»¿#include "MenuManager.h"
 #include "SoundEffect.h"
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -24,8 +24,8 @@
 
 namespace NSMenulib
 {
-// ‰æ‘œ‚Ìƒtƒ@ƒCƒ‹–¼‚ª“¯‚¶‚È‚ç“Ç‚İ‚Ü‚¸‚É‹¤—L‚·‚é‚æ‚¤‚É‚·‚éB
-// ‚³‚à‚È‚¢‚ÆŠÈ’P‚Éƒƒ‚ƒŠ[•s‘«‚Å—‚¿‚é
+// ç”»åƒã®ãƒ•ã‚¡ã‚¤ãƒ«åãŒåŒã˜ãªã‚‰èª­ã¿è¾¼ã¾ãšã«å…±æœ‰ã™ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
+// ã•ã‚‚ãªã„ã¨ç°¡å˜ã«ãƒ¡ãƒ¢ãƒªãƒ¼ä¸è¶³ã§è½ã¡ã‚‹
 class Sprite : public ISprite
 {
 public:
@@ -62,7 +62,7 @@ public:
 
     void Load(const std::string& filepath) override
     {
-        // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚Ì‚İŠm•Û‚µg‚¢‚Ü‚í‚·
+        // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã®ã¿ç¢ºä¿ã—ä½¿ã„ã¾ã‚ã™
         if (m_D3DSprite == NULL)
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
@@ -73,8 +73,8 @@ public:
 
         m_filepath = filepath;
 
-        // “¯‚¶‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚ªŠù‚É‚ ‚é‚È‚çA
-        // ‰æ‘œ‚ÌƒTƒCƒY‚¾‚¯Šm•Û‚µƒeƒNƒXƒ`ƒƒ‚Ìì¬‚ğs‚í‚È‚¢
+        // åŒã˜ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒæ—¢ã«ã‚ã‚‹ãªã‚‰ã€
+        // ç”»åƒã®ã‚µã‚¤ã‚ºã ã‘ç¢ºä¿ã—ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆã‚’è¡Œã‚ãªã„
         auto it = m_texMap.find(filepath);
         if (it != m_texMap.end())
         {
@@ -89,7 +89,7 @@ public:
             return;
         }
 
-        // ƒeƒNƒXƒ`ƒƒ‚Ìì¬
+        // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ä½œæˆ
         LPDIRECT3DTEXTURE9 pD3DTexture = NULL;
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
@@ -129,14 +129,14 @@ private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
 
-    // ƒXƒvƒ‰ƒCƒg‚Íˆê‚Â‚ğg‚¢‚Ü‚í‚·
+    // ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã¯ä¸€ã¤ã‚’ä½¿ã„ã¾ã‚ã™
     static LPD3DXSPRITE m_D3DSprite;
 
     std::string m_filepath;
     UINT m_width { 0 };
     UINT m_height { 0 };
 
-    // “¯‚¶–¼‘O‚Ì‰æ‘œƒtƒ@ƒCƒ‹‚Åì‚ç‚ê‚½ƒeƒNƒXƒ`ƒƒ‚Íg‚¢‚Ü‚í‚·
+    // åŒã˜åå‰ã®ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«ã§ä½œã‚‰ã‚ŒãŸãƒ†ã‚¯ã‚¹ãƒãƒ£ã¯ä½¿ã„ã¾ã‚ã™
     static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
 };
 
@@ -168,7 +168,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "‚l‚r –¾’©",
+                                "ï¼­ï¼³ æ˜æœ",
                                 &m_pFont);
         }
         else
@@ -278,7 +278,7 @@ void MenuManager::InitMenu()
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     //------------------------------------------------------
-    // ƒAƒCƒeƒ€î•ñiƒCƒ“ƒxƒ“ƒgƒŠj
+    // ã‚¢ã‚¤ãƒ†ãƒ æƒ…å ±ï¼ˆï¼ã‚¤ãƒ³ãƒ™ãƒ³ãƒˆãƒªï¼‰
     //------------------------------------------------------
     {
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -306,8 +306,8 @@ void MenuManager::InitMenu()
 
                     NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
 
-                    // ‰æ‘œƒtƒ@ƒCƒ‹–¼‚ğæ“¾‚µ‚Äİ’è
-                    // ƒAƒCƒeƒ€í•Ê‚ª•Ší‚Ì‚Í•ŠíƒNƒ‰ƒX‚©‚çæ“¾‚·‚é•K—v‚ª‚ ‚é
+                    // ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—ã—ã¦è¨­å®š
+                    // ã‚¢ã‚¤ãƒ†ãƒ ç¨®åˆ¥ãŒæ­¦å™¨ã®æ™‚ã¯æ­¦å™¨ã‚¯ãƒ©ã‚¹ã‹ã‚‰å–å¾—ã™ã‚‹å¿…è¦ãŒã‚ã‚‹
                     if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::WEAPON)
                     {
                         work_str = itemDef.GetImagePath();
@@ -335,7 +335,7 @@ void MenuManager::InitMenu()
                     itemInfoG.SetSubId(itemInfo.GetSubId());
                     itemInfoG.SetDetail(work_str);
 
-                    // ID : 27 ~ 32 == ‘Ü
+                    // ID : 27 ~ 32 == è¢‹
                     if (itemInfo.GetItemDef().GetId() == 27 ||
                         itemInfo.GetItemDef().GetId() == 28 ||
                         itemInfo.GetItemDef().GetId() == 29 ||
@@ -377,7 +377,7 @@ void MenuManager::InitMenu()
     }
 
     //------------------------------------------------------
-    // l•¨î•ñ
+    // äººç‰©æƒ…å ±
     //------------------------------------------------------
     std::vector<HumanInfo> humanInfoList;
     {
@@ -408,7 +408,7 @@ void MenuManager::InitMenu()
     m_menu.SetHuman(humanInfoList);
 
     //------------------------------------------------------
-    // •Šíî•ñ
+    // æ­¦å™¨æƒ…å ±
     //------------------------------------------------------
     {
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -421,7 +421,7 @@ void MenuManager::InitMenu()
             NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(idList.at(i));
             NSStarmanLib::ItemDef::ItemType itemType = itemDef.GetType();
 
-            // •Ší‚¶‚á‚È‚©‚Á‚½‚ç–³‹
+            // æ­¦å™¨ã˜ã‚ƒãªã‹ã£ãŸã‚‰ç„¡è¦–
             if (itemType != NSStarmanLib::ItemDef::ItemType::WEAPON)
             {
                 continue;
@@ -464,7 +464,7 @@ void MenuManager::InitMenu()
     }
 
     //------------------------------------------------------
-    // ‘€ìà–¾
+    // æ“ä½œèª¬æ˜
     //------------------------------------------------------
     {
         std::vector<GuideInfo> infoList;
@@ -491,7 +491,7 @@ void MenuManager::InitMenu()
     }
 
     //------------------------------------------------------
-    // “Gî•ñ
+    // æ•µæƒ…å ±
     //------------------------------------------------------
     {
         std::vector<EnemyInfo> infoList;
@@ -517,7 +517,7 @@ void MenuManager::InitMenu()
     }
 
     //------------------------------------------------------
-    // ‹ZE–‚–@î•ñ
+    // æŠ€ãƒ»é­”æ³•æƒ…å ±
     //------------------------------------------------------
     {
         std::vector<SkillInfo> infoList;
@@ -542,14 +542,14 @@ void MenuManager::InitMenu()
     }
 
     //------------------------------------------------------
-    // ƒXƒe[ƒ^ƒX
+    // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
     //------------------------------------------------------
     {
-        // –ˆ•bXV‚·‚éB‚±‚±‚Å‚Í‚â‚ç‚È‚¢B
+        // æ¯ç§’æ›´æ–°ã™ã‚‹ã€‚ã“ã“ã§ã¯ã‚„ã‚‰ãªã„ã€‚
     }
 
     //------------------------------------------------------
-    // ’n}î•ñ
+    // åœ°å›³æƒ…å ±
     //------------------------------------------------------
     {
         std::vector<MapInfo> mapInfoList;
@@ -635,7 +635,7 @@ std::string MenuManager::OperateMenu()
         std::vector<std::string> vs = Common::split(result, ':');
         if (vs.size() == 5 && vs.at(0) == "Item")
         {
-            // ƒAƒCƒeƒ€‚ğg‚¤
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä½¿ã†
             if (vs.at(4) == "Use")
             {
                 int id = std::stoi(vs.at(2));
@@ -646,7 +646,7 @@ std::string MenuManager::OperateMenu()
                     DeleteItem(id, subId);
                 }
             }
-            // ƒAƒCƒeƒ€‚ğÌ‚Ä‚é
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¨ã¦ã‚‹
             else if (vs.at(4) == "Discard")
             {
                 int id = std::stoi(vs.at(2));
@@ -655,7 +655,7 @@ std::string MenuManager::OperateMenu()
             }
             else if (vs.at(4) == "Equip")
             {
-                // ‰Î‚Ì‚Â‚¢‚½¼–¾‚ğ‘•”õ‚µ‚Ä‚¢‚½‚ç•Ší‚ğ‘•”õ‚Å‚«‚È‚¢B‘Ü‚à‘•”õ‚Å‚«‚È‚¢B
+                // ç«ã®ã¤ã„ãŸæ¾æ˜ã‚’è£…å‚™ã—ã¦ã„ãŸã‚‰æ­¦å™¨ã‚’è£…å‚™ã§ããªã„ã€‚è¢‹ã‚‚è£…å‚™ã§ããªã„ã€‚
                 bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
 
                 if (lit)
@@ -671,7 +671,7 @@ std::string MenuManager::OperateMenu()
             }
             else if (vs.at(4) == "Unequip")
             {
-                // “_“”’†‚Ì¼–¾‚Ì‘•”õ‚ğŠO‚·‚±‚Æ‚Í‚Å‚«‚È‚¢B
+                // ç‚¹ç¯ä¸­ã®æ¾æ˜ã®è£…å‚™ã‚’å¤–ã™ã“ã¨ã¯ã§ããªã„ã€‚
                 bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
                 if (lit)
                 {
@@ -705,7 +705,7 @@ std::string MenuManager::OperateMenu()
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
-        // EXITˆÈŠO‚È‚ç–³‹‚·‚é
+        // EXITä»¥å¤–ãªã‚‰ç„¡è¦–ã™ã‚‹
         result = m_menu.Back();
         if (result != "EXIT")
         {
@@ -715,7 +715,7 @@ std::string MenuManager::OperateMenu()
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_BACK))
     {
-        // EXITˆÈŠO‚È‚ç–³‹‚·‚é
+        // EXITä»¥å¤–ãªã‚‰ç„¡è¦–ã™ã‚‹
         result = m_menu.Back();
         if (result != "EXIT")
         {
@@ -731,7 +731,7 @@ std::string MenuManager::OperateMenu()
         std::vector<std::string> vs = Common::split(result, ':');
         if (vs.size() == 5 && vs.at(0) == "Item")
         {
-            // ƒAƒCƒeƒ€‚ğg‚¤
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä½¿ã†
             if (vs.at(4) == "Use")
             {
                 int id = std::stoi(vs.at(2));
@@ -742,7 +742,7 @@ std::string MenuManager::OperateMenu()
                     DeleteItem(id, subId);
                 }
             }
-            // ƒAƒCƒeƒ€‚ğÌ‚Ä‚é
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¨ã¦ã‚‹
             else if (vs.at(4) == "Discard")
             {
                 int id = std::stoi(vs.at(2));
@@ -852,7 +852,7 @@ std::string MenuManager::OperateMenu()
         std::vector<std::string> vs = Common::split(result, ':');
         if (vs.size() == 5 && vs.at(0) == "Item")
         {
-            // ƒAƒCƒeƒ€‚ğg‚¤
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä½¿ã†
             if (vs.at(4) == "Use")
             {
                 int id = std::stoi(vs.at(2));
@@ -863,7 +863,7 @@ std::string MenuManager::OperateMenu()
                     DeleteItem(id, subId);
                 }
             }
-            // ƒAƒCƒeƒ€‚ğÌ‚Ä‚é
+            // ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¨ã¦ã‚‹
             else if (vs.at(4) == "Discard")
             {
                 int id = std::stoi(vs.at(2));
@@ -907,7 +907,7 @@ std::string MenuManager::OperateMenu()
 
     if (GamePad::IsDown(eGamePadButtonType::B))
     {
-        // EXITˆÈŠO‚È‚ç–³‹‚·‚é
+        // EXITä»¥å¤–ãªã‚‰ç„¡è¦–ã™ã‚‹
         result = m_menu.Back();
         if (result != "EXIT")
         {
@@ -915,11 +915,11 @@ std::string MenuManager::OperateMenu()
         }
     }
 
-    // ƒXƒe[ƒ^ƒX‰æ–Ê‚Ì•\¦“à—e‚ğXV
+    // ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç”»é¢ã®è¡¨ç¤ºå†…å®¹ã‚’æ›´æ–°
     {
 		std::vector<NSMenulib::StatusInfo> infoList;
 
-        // ƒzƒVƒ}ƒ“
+        // ãƒ›ã‚·ãƒãƒ³
         {
 
 			NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
@@ -934,7 +934,7 @@ std::string MenuManager::OperateMenu()
 				weaponName = itemDef.GetName();
 			}
 
-			// ó‘ÔˆÙíƒŠƒXƒg
+			// çŠ¶æ…‹ç•°å¸¸ãƒªã‚¹ãƒˆ
 			std::string condition;
 			{
 				if (statusManager->GetFractureArm())
@@ -1068,15 +1068,15 @@ std::string MenuManager::OperateMenu()
 			auto rynen = NSStarmanLib::Rynen::GetObj();
 			if (rynen->GetContracted())
 			{
-				work += "ƒ[ƒhƒuƒŒƒX   ";
+				work += "ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹   ";
 
 				if (rynen->GetReviveEnable())
 				{
-					work += "•œŠˆ‰Â”\\n";
+					work += "å¾©æ´»å¯èƒ½\n";
 				}
 				else
 				{
-					work += "•œŠˆÏ‚İ\n";
+					work += "å¾©æ´»æ¸ˆã¿\n";
 				}
 			}
 
@@ -1085,23 +1085,23 @@ std::string MenuManager::OperateMenu()
         }
 
 		//----------------------------------------------------
-		// ƒCƒJƒ_‚ÌƒXƒe[ƒ^ƒX
+		// ã‚¤ã‚«ãƒ€ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 		//----------------------------------------------------
 		{
 			if (SharedObj::Voyage()->GetRaftMode())
 			{
-				// ƒCƒJƒ_‚Í•¡”ŒÂ‚Â‚±‚Æ‚ª‚Å‚«‚é‚ªAƒXƒe[ƒ^ƒX‚É•\¦‚·‚é‚Ì‚Íæ‘D’†‚ÌƒCƒJƒ_‚¾‚¯
-				// E‘Ï‹v“x
-				// E‹­‰»’l
+				// ã‚¤ã‚«ãƒ€ã¯è¤‡æ•°å€‹æŒã¤ã“ã¨ãŒã§ãã‚‹ãŒã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã«è¡¨ç¤ºã™ã‚‹ã®ã¯ä¹—èˆ¹ä¸­ã®ã‚¤ã‚«ãƒ€ã ã‘
+				// ãƒ»è€ä¹…åº¦
+				// ãƒ»å¼·åŒ–å€¤
 				NSMenulib::StatusInfo info;
-				info.SetName("ƒCƒJƒ_");
+				info.SetName("ã‚¤ã‚«ãƒ€");
 				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
 				sprItem->Load("res\\image\\raft.png");
 				info.SetSprite(sprItem);
 				std::string work;
-				work += "Œ»İ‚Ì‘Ï‹v’l\n";
+				work += "ç¾åœ¨ã®è€ä¹…å€¤\n";
 				work += std::to_string(SharedObj::Voyage()->GetRaftDurability()) + "\n";
-				work += "Œ»İ‚Ì‹­‰»’l\n";
+				work += "ç¾åœ¨ã®å¼·åŒ–å€¤\n";
 				work += std::to_string(SharedObj::Voyage()->GetRaftLevel()) + "\n";
 
 				info.SetDetail(work);
@@ -1109,7 +1109,7 @@ std::string MenuManager::OperateMenu()
 			}
 		}
 
-        // ƒ_ƒCƒPƒCƒ}ƒ“
+        // ãƒ€ã‚¤ã‚±ã‚¤ãƒãƒ³
         {
 			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
@@ -1160,25 +1160,25 @@ std::string MenuManager::OperateMenu()
 
 				if (status.GetRynenContract())
 				{
-					work += "ƒ[ƒhƒuƒŒƒX   ";
+					work += "ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹   ";
 
 					if (status.GetDrinkWordbress())
 					{
-						work += "g—pÏ‚İ\n";
+						work += "ä½¿ç”¨æ¸ˆã¿\n";
 					}
 					else
 					{
-						work += "–¢g—p\n";
+						work += "æœªä½¿ç”¨\n";
 					}
 				}
 
                 if (status.GetDead())
                 {
-                    work += "€–S\n";
+                    work += "æ­»äº¡\n";
                 }
 				else
                 {
-					work += "¶‘¶\n";
+					work += "ç”Ÿå­˜\n";
 				}
 
 				info.SetDetail(work);
@@ -1186,7 +1186,7 @@ std::string MenuManager::OperateMenu()
             }
         }
 
-        // ƒTƒ“ƒJƒNƒ}ƒ“
+        // ã‚µãƒ³ã‚«ã‚¯ãƒãƒ³
         {
 			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
@@ -1237,25 +1237,25 @@ std::string MenuManager::OperateMenu()
 
 				if (status.GetRynenContract())
 				{
-					work += "ƒ[ƒhƒuƒŒƒX   ";
+					work += "ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹   ";
 
 					if (status.GetDrinkWordbress())
 					{
-						work += "g—pÏ‚İ\n";
+						work += "ä½¿ç”¨æ¸ˆã¿\n";
 					}
 					else
 					{
-						work += "–¢g—p\n";
+						work += "æœªä½¿ç”¨\n";
 					}
 				}
 
                 if (status.GetDead())
                 {
-                    work += "€–S\n";
+                    work += "æ­»äº¡\n";
                 }
 				else
                 {
-					work += "¶‘¶\n";
+					work += "ç”Ÿå­˜\n";
 				}
 
 
@@ -1264,7 +1264,7 @@ std::string MenuManager::OperateMenu()
             }
         }
 
-        // ƒVƒJƒNƒ}ƒ“
+        // ã‚·ã‚«ã‚¯ãƒãƒ³
         {
 			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
@@ -1315,25 +1315,25 @@ std::string MenuManager::OperateMenu()
 
 				if (status.GetRynenContract())
 				{
-					work += "ƒ[ƒhƒuƒŒƒX   ";
+					work += "ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹   ";
 
 					if (status.GetDrinkWordbress())
 					{
-						work += "g—pÏ‚İ\n";
+						work += "ä½¿ç”¨æ¸ˆã¿\n";
 					}
 					else
 					{
-						work += "–¢g—p\n";
+						work += "æœªä½¿ç”¨\n";
 					}
 				}
 
                 if (status.GetDead())
                 {
-                    work += "€–S\n";
+                    work += "æ­»äº¡\n";
                 }
 				else
                 {
-					work += "¶‘¶\n";
+					work += "ç”Ÿå­˜\n";
 				}
 
 
@@ -1351,44 +1351,44 @@ bool MenuManager::UseItem(const int id, const int subId)
 {
     bool result = false;
 
-    // HŞ‚¾‚Á‚½‚çƒXƒe[ƒ^ƒX‚ğXV
-    // TODO HŞˆÈŠO‚Í‚ ‚Æ‚Ål‚¦‚é
+    // é£Ÿæã ã£ãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’æ›´æ–°
+    // TODO é£Ÿæä»¥å¤–ã¯ã‚ã¨ã§è€ƒãˆã‚‹
     auto itemManager = NSStarmanLib::ItemManager::GetObj();
     auto itemDef = itemManager->GetItemDef(id);
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
 
     if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::FOOD)
     {
-        // –• ‚¾‚Á‚½‚çfalse‚ª•Ô‚Á‚Ä‚­‚é
+        // æº€è…¹ã ã£ãŸã‚‰falseãŒè¿”ã£ã¦ãã‚‹
         result = statusManager->Eat(itemDef);
         if (!result)
         {
-            PopUp2::Get()->SetText("–• ‚È‚Ì‚Å‚±‚êˆÈãH‚×‚ç‚ê‚È‚¢B");
+            PopUp2::Get()->SetText("æº€è…¹ãªã®ã§ã“ã‚Œä»¥ä¸Šé£Ÿã¹ã‚‰ã‚Œãªã„ã€‚");
         }
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::MATERIAL)
     {
-        PopUp2::Get()->SetText("ƒzƒVƒ}ƒ“i‰½‚©‚Ì‘fŞ‚Æ‚µ‚Äg‚¦‚»‚¤‚¾j");
+        PopUp2::Get()->SetText("ãƒ›ã‚·ãƒãƒ³ï¼ˆä½•ã‹ã®ç´ æã¨ã—ã¦ä½¿ãˆãã†ã ï¼‰");
         result = false;
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::VALUABLES)
     {
-        // ƒXƒ}ƒz
+        // ã‚¹ãƒãƒ›
         if (itemDef.GetId() == 1)
         {
-            PopUp2::Get()->SetText("ƒzƒVƒ}ƒ“i”½‰‚µ‚È‚¢BŠC…‚ÅŠî”Õ‚ªƒ_ƒ‚É‚È‚Á‚½‚Ì‚¾‚ë‚¤j");
+            PopUp2::Get()->SetText("ãƒ›ã‚·ãƒãƒ³ï¼ˆåå¿œã—ãªã„ã€‚æµ·æ°´ã§åŸºç›¤ãŒãƒ€ãƒ¡ã«ãªã£ãŸã®ã ã‚ã†ï¼‰");
             result = false;
         }
-        // ‰Æ‚ÌŒ®
+        // å®¶ã®éµ
         else if (itemDef.GetId() == 2)
         {
-            PopUp2::Get()->SetText("ƒzƒVƒ}ƒ“i‚Ü‚¾Ì‚Ä‚È‚¢‚Åæ‚Á‚Ä‚¨‚±‚¤j");
+            PopUp2::Get()->SetText("ãƒ›ã‚·ãƒãƒ³ï¼ˆã¾ã æ¨ã¦ãªã„ã§å–ã£ã¦ãŠã“ã†ï¼‰");
             result = false;
         }
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::OTHERS)
     {
-        // ƒ[ƒhƒuƒŒƒX
+        // ãƒ¯ãƒ¼ãƒ‰ãƒ–ãƒ¬ã‚¹
         if (itemDef.GetId() == 35)
         {
             auto pos = SharedObj::GetPlayer();
@@ -1397,7 +1397,7 @@ bool MenuManager::UseItem(const int id, const int subId)
         }
         else
         {
-            PopUp2::Get()->SetText("ƒzƒVƒ}ƒ“ig‚¢“¹‚ªv‚¢‚Â‚©‚È‚¢j");
+            PopUp2::Get()->SetText("ãƒ›ã‚·ãƒãƒ³ï¼ˆä½¿ã„é“ãŒæ€ã„ã¤ã‹ãªã„ï¼‰");
             result = false;
         }
     }
@@ -1407,7 +1407,7 @@ bool MenuManager::UseItem(const int id, const int subId)
 
 void MenuManager::DeleteItem(const int id, const int subId)
 {
-    // ‘•”õ’†‚Ì‘Ü‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+    // è£…å‚™ä¸­ã®è¢‹ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
     {
         auto allBag = Common::Status()->GetAllBag();
         for (auto it = allBag.begin(); it != allBag.end(); ++it)
@@ -1420,7 +1420,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
         }
     }
 
-    // ‘•”õ’†‚Ì•Ší‚¾‚Á‚½‚çíœ‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚é
+    // è£…å‚™ä¸­ã®æ­¦å™¨ã ã£ãŸã‚‰å‰Šé™¤ã§ããªã„ã‚ˆã†ã«ã™ã‚‹
     {
         auto weapon = Common::Status()->GetEquipWeapon();
         if (weapon.GetId() == id && weapon.GetSubId() == subId)
@@ -1447,7 +1447,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
 
     m_menu.DeleteItem(id, subId);
 
-    // ‘Ï‹v“x‚ª‰º‚ª‚Á‚½‚Ì‚ÅXV
+    // è€ä¹…åº¦ãŒä¸‹ãŒã£ãŸã®ã§æ›´æ–°
     {
         auto allBag = Common::Status()->GetAllBag();
         for (auto it = allBag.begin(); it != allBag.end(); ++it)
@@ -1457,8 +1457,8 @@ void MenuManager::DeleteItem(const int id, const int subId)
                 continue;
             }
 
-            // NSMenulib::ItemInfo‚ÆNSStarmanLib::ItemInfo‚Ì•ÏŠ·
-            // ƒŒƒxƒ‹‚Æ‘•”õó‘Ô‚Æ‘Ï‹v“x‚¾‚¯‚Å‚¢‚¢
+            // NSMenulib::ItemInfoã¨NSStarmanLib::ItemInfoã®å¤‰æ›
+            // ãƒ¬ãƒ™ãƒ«ã¨è£…å‚™çŠ¶æ…‹ã¨è€ä¹…åº¦ã ã‘ã§ã„ã„
             NSMenulib::ItemInfo itemInfo;
             itemInfo.SetId(it->GetId());
             itemInfo.SetSubId(it->GetSubId());
@@ -1469,7 +1469,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
         }
     }
 
-    // V‚½‚É‘Ï‹v’l‚ª0‚É‚È‚Á‚½‘Ü‚ª‚ ‚Á‚½‚©
+    // æ–°ãŸã«è€ä¹…å€¤ãŒ0ã«ãªã£ãŸè¢‹ãŒã‚ã£ãŸã‹
     int brokenBagNum2 = 0;
     {
         auto allBag = Common::Status()->GetAllBag();
@@ -1507,8 +1507,8 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
 
     NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
 
-    // ‰æ‘œƒtƒ@ƒCƒ‹–¼‚ğæ“¾‚µ‚Äİ’è
-    // ƒAƒCƒeƒ€í•Ê‚ª•Ší‚Ì‚Í•ŠíƒNƒ‰ƒX‚©‚çæ“¾‚·‚é•K—v‚ª‚ ‚é
+    // ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«åã‚’å–å¾—ã—ã¦è¨­å®š
+    // ã‚¢ã‚¤ãƒ†ãƒ ç¨®åˆ¥ãŒæ­¦å™¨ã®æ™‚ã¯æ­¦å™¨ã‚¯ãƒ©ã‚¹ã‹ã‚‰å–å¾—ã™ã‚‹å¿…è¦ãŒã‚ã‚‹
     if (itemDef.GetType() != NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
         work_str = itemDef.GetImagePath();
@@ -1535,7 +1535,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     itemInfoG.SetId(id);
     itemInfoG.SetSubId(subId);
 
-    // ID : 27 ~ 32 == ‘Ü
+    // ID : 27 ~ 32 == è¢‹
     if (itemDef.GetId() == 27 ||
         itemDef.GetId() == 28 ||
         itemDef.GetId() == 29 ||
@@ -1583,7 +1583,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
 
     m_menu.AddItem(itemInfoG);
 
-    // ‘Ï‹v’l‚ª‰º‚ª‚Á‚½‚Ì‚ÅXV
+    // è€ä¹…å€¤ãŒä¸‹ãŒã£ãŸã®ã§æ›´æ–°
     {
         auto allBag = Common::Status()->GetAllBag();
         for (auto it = allBag.begin(); it != allBag.end(); ++it)
@@ -1593,8 +1593,8 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
                 continue;
             }
 
-            // NSMenulib::ItemInfo‚ÆNSStarmanLib::ItemInfo‚Ì•ÏŠ·
-            // ƒŒƒxƒ‹‚Æ‘•”õó‘Ô‚Æ‘Ï‹v“x‚¾‚¯‚Å‚¢‚¢
+            // NSMenulib::ItemInfoã¨NSStarmanLib::ItemInfoã®å¤‰æ›
+            // ãƒ¬ãƒ™ãƒ«ã¨è£…å‚™çŠ¶æ…‹ã¨è€ä¹…åº¦ã ã‘ã§ã„ã„
             NSMenulib::ItemInfo itemInfo;
             itemInfo.SetId(it->GetId());
             itemInfo.SetSubId(it->GetSubId());
@@ -1605,7 +1605,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
         }
     }
 
-    // V‚½‚É‘Ï‹v’l‚ª0‚É‚È‚Á‚½‘Ü‚ª‚ ‚Á‚½‚©
+    // æ–°ãŸã«è€ä¹…å€¤ãŒ0ã«ãªã£ãŸè¢‹ãŒã‚ã£ãŸã‹
     int brokenBagNum2 = 0;
     {
         auto allBag = Common::Status()->GetAllBag();
@@ -1649,17 +1649,17 @@ bool MenuManager::IsBagEquiped(const int id, const int subId)
 void MenuManager::Equip(const int id, const int subId)
 {
     //--------------------------------------
-    // ‘Ü‚©•Ší‚©
+    // è¢‹ã‹æ­¦å™¨ã‹
     //--------------------------------------
 
-    // •Ší‚¾‚Á‚½‚ç
+    // æ­¦å™¨ã ã£ãŸã‚‰
     if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
         //--------------------------------------
-        // ‚·‚Å‚É‘•”õ‚µ‚Ä‚¢‚½‚à‚Ì‚ª‚ ‚Á‚½‚çA‚»‚Ì‘•”õó‘Ô‚Í‰ğœ‚·‚é
-        // ‚½‚¾‚µA‘•”õ‚µ‚Ä‚¢‚½‚à‚Ì‚ª‘Ü‚â¼–¾‚Ìê‡A‚â‚â•¡G‚É‚È‚éB
-        // ‘Ü‚ğ‘•”õ‚µ‚Ä‚¢‚½ê‡A•Ší‚ğ‘•”õ‚µ‚Ä‚à‘Ü‚Í‘•”õ‚µ‚½‚Ü‚Ü‚Å‚æ‚¢B
-        // ‚µ‚©‚µA‰Eè‚É‘Ü‚ğ‘•”õ‚µ‚Ä‚¢‚½ê‡A•Ší‚ğ‘•”õ‚ª‚Å‚«‚È‚¢‚æ‚¤‚É‚·‚éB
+        // ã™ã§ã«è£…å‚™ã—ã¦ã„ãŸã‚‚ã®ãŒã‚ã£ãŸã‚‰ã€ãã®è£…å‚™çŠ¶æ…‹ã¯è§£é™¤ã™ã‚‹
+        // ãŸã ã—ã€è£…å‚™ã—ã¦ã„ãŸã‚‚ã®ãŒè¢‹ã‚„æ¾æ˜ã®å ´åˆã€ã‚„ã‚„è¤‡é›‘ã«ãªã‚‹ã€‚
+        // è¢‹ã‚’è£…å‚™ã—ã¦ã„ãŸå ´åˆã€æ­¦å™¨ã‚’è£…å‚™ã—ã¦ã‚‚è¢‹ã¯è£…å‚™ã—ãŸã¾ã¾ã§ã‚ˆã„ã€‚
+        // ã—ã‹ã—ã€å³æ‰‹ã«è¢‹ã‚’è£…å‚™ã—ã¦ã„ãŸå ´åˆã€æ­¦å™¨ã‚’è£…å‚™ãŒã§ããªã„ã‚ˆã†ã«ã™ã‚‹ã€‚
         //--------------------------------------
         {
             bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
@@ -1671,7 +1671,7 @@ void MenuManager::Equip(const int id, const int subId)
 
             if (Common::Status()->GetBagState().size() >= 5)
             {
-                PopUp2::Get()->SetText("‰Eè‚ª‚Ó‚³‚ª‚Á‚Ä‚¢‚éB");
+                PopUp2::Get()->SetText("å³æ‰‹ãŒãµã•ãŒã£ã¦ã„ã‚‹ã€‚");
                 return;
             }
 
@@ -1694,10 +1694,10 @@ void MenuManager::Equip(const int id, const int subId)
         m_menu.UpdateItem(itemInfoG);
 
     }
-    // ‘Ü‚¾‚Á‚½‚ç
+    // è¢‹ã ã£ãŸã‚‰
     else
     {
-        // ‘Ü‚ğ5ŒÂ‘•”õ‚µ‚Ä‚¢‚½‚ç‘•”õ‚µ‚È‚¢
+        // è¢‹ã‚’5å€‹è£…å‚™ã—ã¦ã„ãŸã‚‰è£…å‚™ã—ãªã„
         if (Common::Status()->GetBagState().size() >= 5)
         {
             PopUp2::Get()->SetText(IDS_STRING202);

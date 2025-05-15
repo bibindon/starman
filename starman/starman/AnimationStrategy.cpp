@@ -1,4 +1,4 @@
-#include "AnimationStrategy.h"
+﻿#include "AnimationStrategy.h"
 
 void no_animation::update()
 {

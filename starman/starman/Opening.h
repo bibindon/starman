@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include "Common.h"
 #include "Sprite.h"
@@ -19,7 +19,7 @@ private:
     bool m_firstPage = true;
     bool m_bPlay = false;
 
-    // ƒJƒƒ‰ˆÚ“®‘O‚É2•b‘Ò‚Â
+    // ã‚«ãƒ¡ãƒ©ç§»å‹•å‰ã«2ç§’å¾…ã¤
     bool m_bStopBeforeCameraFade = false;
     int m_stopBeforeCameraFade = 0;
     const int WAIT_MAX = 120;

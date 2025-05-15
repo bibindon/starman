@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <dsound.h>
 #include <string>
@@ -7,14 +7,14 @@
 #include <thread>
 
 //------------------------------------------------
-// BGM�Ɗ����̓A���S���Y�����قȂ�̂ŕ����čl����K�v������B
-// �EBGM����x�ɓ��ލĐ�����邱�Ƃ͂Ȃ��B
-// �@�E���̂��߁ABGM���Z�b�g������ȑO�Đ����Ă���BGM�͒�~���Ă悢�B�i��~���Ȃ��Ƃ����Ȃ��j
-// �E�����͈�x�ɓ��ވȏ�Đ��ł���B
-// �EBGM�͎��X�Ȃ�ύX�������������ɂ��̕K�v�͂Ȃ��B
-// �EBGM�Ɗ����������ɂȂ邱�Ƃ͖��Ȃ��B
-// �E�X�N���v�g�̓s����Aenum���`�����Ɂu�t�@�C�����v�ŊǗ�����K�v������
-// �EBGM�̉��ʂ������ύX���ꂽ�Ƃ��͍ŏ�����Đ�����̂ł͂Ȃ����ʂ̕ύX�����s����悤�ɂ���
+// BGMと環境音はアルゴリズムが異なるので分けて考える必要がある。
+// ・BGMが一度に二種類再生されることはない。
+// 　・そのため、BGMをセットしたら以前再生していたBGMは停止してよい。（停止しないといけない）
+// ・環境音は一度に二種類以上再生できる。
+// ・BGMは時々曲を変更したいが環境音にその必要はない。
+// ・BGMと環境音が同時になることは問題ない。
+// ・スクリプトの都合上、enumを定義せずに「ファイル名」で管理する必要がある
+// ・BGMの音量だけが変更されたときは最初から再生するのではなく音量の変更だけ行われるようにする
 //------------------------------------------------
 
 struct stBgm
@@ -23,7 +23,7 @@ struct stBgm
     bool m_bPlay = false;
     int m_volume = 0;
 
-    // ���ʂ��ς������
+    // 音量が変わったか
     bool m_bChangedVolume = false;
 };
 
@@ -32,43 +32,43 @@ struct envBgm
     std::string m_filename;
     bool m_bPlay = false;
 
-    // �Đ��E��~�̐؂�ւ����s��ꂽ��
+    // 再生・停止の切り替えが行われたか
     bool m_bChanged = false;
 
     int m_volume = 0;
 
-    // ���ʂ��ς������
+    // 音量が変わったか
     bool m_bChangedVolume = false;
 };
 
-// BGM�̃��W�b�N����
+// BGMのロジック部分
 class BGMModel
 {
 public:
     BGMModel();
 
-    // 10����1�xBGM��ύX���郂�[�h
+    // 10分に1度BGMを変更するモード
     void SetRandomMode(const bool mode);
 
-    // 1�b�Ɉ�x�Ă΂��z��
-    // 10���o�߂����烉���_���Ő؂�ւ��B
+    // 1秒に一度呼ばれる想定
+    // 10分経過したらランダムで切り替え。
     void Update();
 
-    // �Đ�����BGM���擾
-    // bChanged: �ŋ�BGM���ύX���ꂽ���B
+    // 再生中のBGMを取得
+    // bChanged: 最近BGMが変更されたか。
     stBgm GetBGM(bool* bChanged, stBgm* bgmPrev);
 
-    // BGM��ݒ�
-    // �C�J�_�ɏ�������p��BGM�𗬂������̂ŁA�O����Z�b�g����͉̂\�ɂ���B
-    // �������A10���o������C�J�_�ɏ���Ă��Ă�BGM�͕ς��B
+    // BGMを設定
+    // イカダに乗ったら専用のBGMを流したいので、外からセットするのは可能にする。
+    // しかし、10分経ったらイカダに乗っていてもBGMは変わる。
     void SetBGM(const std::string& bgmType, const int volume);
 
-    // BGM���~
+    // BGMを停止
     void StopBGM();
 
-    // �����͈�x�ɕ����Đ��ł���B
-    // �Ȃ̂Œ�~���Ȃ���Ί����͉��X�Ƒ����Ă���
-    // ������10�������ɐ؂�ւ�����肵�Ȃ��B
+    // 環境音は一度に複数再生できる。
+    // なので停止しなければ環境音は延々と増えていく
+    // 環境音は10分おきに切り替わったりしない。
     std::unordered_map<std::string, envBgm> GetEnvBGM();
     void SetEnvBGM(const std::string& bgmName, const int volume);
     void StopEnvBGM(const std::string& bgmName);
@@ -95,18 +95,18 @@ public:
 
     void Update();
 
-    // BGM�Đ�����Play�����s������Đ�����BGM�͎~�܂�BStop�����s����K�v�͂Ȃ��B
+    // BGM再生中にPlayを実行したら再生中のBGMは止まる。Stopを実行する必要はない。
     void Play(const std::string& filename, const int volume);
     void Stop();
 
-    // �����Đ�����PlayEnv�����s���Ă��Đ����̊����͎~�܂�Ȃ��B
-    // �~�߂����ꍇ��StopEnv�����s����B
+    // 環境音再生中にPlayEnvを実行しても再生中の環境音は止まらない。
+    // 止めたい場合はStopEnvを実行する。
     void PlayEnv(const std::string& filename, const int volume = 100);
     void StopEnv(const std::string& filename);
 
     void StopAll();
 
-    // 10����1�xBGM��ύX���郂�[�h
+    // 10分に1度BGMを変更するモード
     void SetRandomMode(const bool mode);
 
 private:

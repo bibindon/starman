@@ -1,4 +1,4 @@
-#include "HudManager.h"
+ï»¿#include "HudManager.h"
 #include <d3d9.h>
 #include <d3dx9math.h>
 #include "SharedObj.h"
@@ -102,7 +102,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "Ÿà–¾’©",
+                                "æ¸¸æ˜æœ",
                                 &m_pFont);
         }
         else
@@ -205,8 +205,8 @@ void HudManager::Update()
     work2 = statusManager->GetWaterCurrent();
     work3 = work2 * 100 / work1;
 
-    // …•ª
-    // 98%ˆÈ‰º‚È‚ç•\¦‚·‚é
+    // æ°´åˆ†
+    // 98%ä»¥ä¸‹ãªã‚‰è¡¨ç¤ºã™ã‚‹
     if ((int)work3 <= 98)
     {
         m_hud->UpsertStatus(Common::LoadString_(IDS_STRING148), (int)work3, (int)work3, true);
@@ -216,8 +216,8 @@ void HudManager::Update()
         m_hud->RemoveStatus(Common::LoadString_(IDS_STRING148));
     }
 
-    // “÷‘Ì‚ÌC•œ“x
-    // 90%ˆÈ‰º‚È‚ç•\¦‚·‚é
+    // è‚‰ä½“ã®ä¿®å¾©åº¦
+    // 90%ä»¥ä¸‹ãªã‚‰è¡¨ç¤ºã™ã‚‹
     work1 = statusManager->GetMuscleMax();
     work2 = statusManager->GetMuscleCurrent();
     work3 = work2 * 100 / work1;
@@ -234,7 +234,7 @@ void HudManager::Update()
         m_hud->RemoveStatus(Common::LoadString_(IDS_STRING149));
     }
 
-    // 10“ˆÈ‰º‚È‚ç•\¦‚·‚é
+    // 10ï¼…ä»¥ä¸‹ãªã‚‰è¡¨ç¤ºã™ã‚‹
     work1 = statusManager->GetCarboCurrent() * 100 / statusManager->GetCarboMax();
     if (work1 <= 10.f)
     {

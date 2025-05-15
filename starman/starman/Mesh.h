@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <d3d9.h>
 #include <d3dx9.h>
@@ -16,7 +16,7 @@ public:
          const float,
          const float = -1.f);
 
-    // �V�F�[�_�[�t�@�C�����w��ł���R���X�g���N�^
+    // シェーダーファイルを指定できるコンストラクタ
     Mesh(const std::string&,
          const std::string&,
          const D3DXVECTOR3&,
@@ -54,9 +54,9 @@ private:
     D3DXVECTOR3 m_rotate = { 0.f, 0.f, 0.f };
 
     //-------------------------------------------------
-    // ���̕��̂̔��a
-    // �v���C���[�����̔��a�ȓ��ɋ߂Â����炱�̕��̂͏Փ˔���̑ΏۂƂȂ�
-    // -1��������K���Փ˔���̑Ώۂɂ���
+    // この物体の半径
+    // プレイヤーがこの半径以内に近づいたらこの物体は衝突判定の対象となる
+    // -1だったら必ず衝突判定の対象にする
     //-------------------------------------------------
     float m_radius = 0.0f;
 

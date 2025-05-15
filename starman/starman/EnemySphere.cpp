@@ -1,4 +1,4 @@
-#include "EnemySphere.h"
+Ôªø#include "EnemySphere.h"
 #include <ctime>
 #include "SoundEffect.h"
 #include "SharedObj.h"
@@ -111,7 +111,7 @@ void EnemySphere::Update()
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
-            // ï«Ç∏ÇË
+            // Â£Å„Åö„Çä
             Map* map = SharedObj::GetMap();
             D3DXVECTOR3 move = norm / 50;
             bool bHit = false;

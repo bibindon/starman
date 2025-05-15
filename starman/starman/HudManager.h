@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "..\..\hud\hud\hud.h"
 

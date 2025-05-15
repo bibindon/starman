@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <d3d9.h>
 #include "AnimMesh.h"
@@ -45,14 +45,14 @@ public:
     void SetSit();
     void SetLieDown();
 
-    // ƒQ[ƒ€ƒpƒbƒh‚Ìê‡‚Å‚à3•ûŒü‚É‚µ‚©ƒXƒeƒbƒv‚³‚¹‚È‚¢
+    // ã‚²ãƒ¼ãƒ ãƒ‘ãƒƒãƒ‰ã®å ´åˆã§ã‚‚3æ–¹å‘ã«ã—ã‹ã‚¹ãƒ†ãƒƒãƒ—ã•ã›ãªã„
     void SetStep(const eDir dir);
     void SetExamine();
 
-    // ƒCƒJƒ_‚Éæ‚é
+    // ã‚¤ã‚«ãƒ€ã«ä¹—ã‚‹
     void RideRaft();
 
-    // “´ŒA‚Ì’†‚É‚¢‚é‚©B
+    // æ´çªŸã®ä¸­ã«ã„ã‚‹ã‹ã€‚
     bool IsInCave();
 
     bool IsUnderWater();
@@ -62,12 +62,12 @@ private:
     std::unordered_map<std::string, Mesh*> m_weaponMesh;
     std::unordered_map<NSStarmanLib::eBagPos, Mesh*> m_bagMesh;
 
-    // ‚È‚ºloadingPos‚Æ‚¢‚¤–¼‘O‚È‚Ì‚©“ä
+    // ãªãœloadingPosã¨ã„ã†åå‰ãªã®ã‹è¬
     D3DXVECTOR3 m_loadingPos = D3DXVECTOR3(0.f, 0.f, 0.f);
     D3DXVECTOR3 m_rotate = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
     D3DXVECTOR3 m_dir = D3DXVECTOR3(0.f, 0.f, 1.f);
 
-    // ˆÚ“®ƒxƒNƒgƒ‹
+    // ç§»å‹•ãƒ™ã‚¯ãƒˆãƒ«
     D3DXVECTOR3 m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
 
     bool m_bAttack = false;
@@ -81,41 +81,41 @@ private:
     float m_jumpVelocity = 0.f;
     const float JUMP_INITIAL_VELOCITY = 0.25f;
 
-    // ’£‚è•t‚«ƒJƒEƒ“ƒ^[
-    // ‚Ç‚±‚Å‚à0.1•b?’£‚è•t‚«ó‘Ô‚ğˆÛ‚µ‚½‚çƒWƒƒƒ“ƒv‰Â”\‚É‚È‚é
+    // å¼µã‚Šä»˜ãã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
+    // ã©ã“ã§ã‚‚0.1ç§’?å¼µã‚Šä»˜ãçŠ¶æ…‹ã‚’ç¶­æŒã—ãŸã‚‰ã‚¸ãƒ£ãƒ³ãƒ—å¯èƒ½ã«ãªã‚‹
     int m_attachCount = 0;
 
     bool m_bJumpEnable = true;
 
-    // …’†‚É‚¢‚é‚©
+    // æ°´ä¸­ã«ã„ã‚‹ã‹
     bool m_bUnderwater = false;
 
     //---------------------------------------------------
-    // “Š‚°‚é
+    // æŠ•ã’ã‚‹
     //---------------------------------------------------
 
-    // “Š‚°‚é
+    // æŠ•ã’ã‚‹
     void Throw();
 
-    // “Š‚°‚Ä‚¢‚é
+    // æŠ•ã’ã¦ã„ã‚‹
     bool m_bThrow = false;
     int m_throwTimeCounter = 0;
 
-    // “Š‚°‚Ä‚¢‚é•¨
+    // æŠ•ã’ã¦ã„ã‚‹ç‰©
     int m_throwItemId = 0;
 
     //---------------------------------------------------
-    // –‚–@
+    // é­”æ³•
     //---------------------------------------------------
 
-    // –‚–@Às
+    // é­”æ³•å®Ÿè¡Œ
     void SetMagic();
 
-    // –‚–@Às’†
+    // é­”æ³•å®Ÿè¡Œä¸­
     bool m_bMagic = false;
     int m_magicTimeCounter = 0;
 
-    // ‘•”õ–‚–@‚ğØ‚è‘Ö‚¦‚½‚ç“ªã‚É•¶š‚ğ•\¦‚µAƒtƒF[ƒhƒAƒEƒg‚³‚¹‚é
+    // è£…å‚™é­”æ³•ã‚’åˆ‡ã‚Šæ›¿ãˆãŸã‚‰é ­ä¸Šã«æ–‡å­—ã‚’è¡¨ç¤ºã—ã€ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã•ã›ã‚‹
     int m_switchMagicCounter = 0;
     bool m_bSwitchMagic = false;
 
@@ -123,7 +123,7 @@ private:
 
     bool m_bInCave = false;
 
-    // ƒXƒeƒbƒv’†
+    // ã‚¹ãƒ†ãƒƒãƒ—ä¸­
     bool m_bStep = false;
     int m_stepCounter = 0;
 };

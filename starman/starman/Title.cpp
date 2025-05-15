@@ -1,4 +1,4 @@
-
+ï»¿
 #include "Title.h"
 #include "KeyBoard.h"
 #include "Mouse.h"
@@ -149,9 +149,9 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
         if (result == "Start")
         {
-            // ‘¦À‚ÉƒI[ƒvƒjƒ“ƒO‚ªn‚Ü‚é‚Ì‚Å‚Í‚È‚­A
-            // ƒtƒF[ƒhƒAƒEƒg‚ğ•`‰æ‚µA
-            // ƒtƒF[ƒhƒAƒEƒg‚ªŠ®—¹‚µ‚½‚çƒI[ƒvƒjƒ“ƒO‚ªn‚Ü‚é‚æ‚¤‚É‚·‚éB
+            // å³åº§ã«ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ãŒå§‹ã¾ã‚‹ã®ã§ã¯ãªãã€
+            // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆã‚’æç”»ã—ã€
+            // ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆãŒå®Œäº†ã—ãŸã‚‰ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ãŒå§‹ã¾ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
             m_eMenu = eTitleMenu::START;
             m_bFadeOut = true;
             m_fadeOutCount = 0;
@@ -159,9 +159,9 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             bool saveExist = SaveManager::Get()->SaveFolderExists();
 
-            // ƒZ[ƒuƒf[ƒ^‚ª‚ ‚Á‚½‚ç‰Šúƒf[ƒ^‚ğ“Ç‚ŞB
-            // ƒZ[ƒuƒf[ƒ^‚ª‚È‚­‚Ä‚àAˆê“xƒQ[ƒ€‚ğŠJn‚µ‚Ä‚©‚ç
-            // ƒ^ƒCƒgƒ‹‰æ–Ê‚É–ß‚Á‚Ä‚«‚½‚È‚çÄ“Ç‚İ‚İ‚ğ‚·‚éB
+            // ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã£ãŸã‚‰åˆæœŸãƒ‡ãƒ¼ã‚¿ã‚’èª­ã‚€ã€‚
+            // ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒãªãã¦ã‚‚ã€ä¸€åº¦ã‚²ãƒ¼ãƒ ã‚’é–‹å§‹ã—ã¦ã‹ã‚‰
+            // ã‚¿ã‚¤ãƒˆãƒ«ç”»é¢ã«æˆ»ã£ã¦ããŸãªã‚‰å†èª­ã¿è¾¼ã¿ã‚’ã™ã‚‹ã€‚
             if (saveExist || !m_bFirst)
             {
                 m_bLoading = true;
@@ -207,7 +207,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
         }
         else if (result == "Japanese")
         {
-            PopUp2::Get()->SetText("Ä‹N“®‚É—LŒø‚É‚È‚è‚Ü‚·B");
+            PopUp2::Get()->SetText("å†èµ·å‹•æ™‚ã«æœ‰åŠ¹ã«ãªã‚Šã¾ã™ã€‚");
 
             SaveManager::Get()->SetLangFile("Japanese");
         }
@@ -230,7 +230,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
 void Title::Render()
 {
-    // 1ƒtƒŒ[ƒ€–Ú‚ÍAUpdateŠÖ”‚ªŒÄ‚Î‚ê‚é‘O‚ÉŒÄ‚Î‚ê‚é‚±‚Æ‚É’ˆÓ‚·‚é
+    // 1ãƒ•ãƒ¬ãƒ¼ãƒ ç›®ã¯ã€Updateé–¢æ•°ãŒå‘¼ã°ã‚Œã‚‹å‰ã«å‘¼ã°ã‚Œã‚‹ã“ã¨ã«æ³¨æ„ã™ã‚‹
 
     D3DXVECTOR3 pos(0.f, 0.f, 0.f);
 
@@ -271,7 +271,7 @@ void Title::Render()
         m_titleCommand->Draw();
     }
 
-    // ƒ[ƒh’†‚È‚ç‚­‚é‚­‚é‚ğ•\¦
+    // ãƒ­ãƒ¼ãƒ‰ä¸­ãªã‚‰ãã‚‹ãã‚‹ã‚’è¡¨ç¤º
     if (m_bLoading && m_loaded.load() == false)
     {
 
@@ -311,14 +311,14 @@ void Title::Render()
             temp = 256 - counter3;
         }
 
-        // ‰E•ûŒü‚É8ƒsƒNƒZƒ‹A‰º•ûŒü‚É31ƒsƒNƒZƒ‹ˆÚ“®‚·‚ê‚ÎƒNƒ‰ƒCƒAƒ“ƒg—ÌˆæH
-        // –{“–‚Í‚¿‚á‚ñ‚Æ‚â‚ç‚È‚¢‚Æ‚¢‚¯‚È‚¢B
+        // å³æ–¹å‘ã«8ãƒ”ã‚¯ã‚»ãƒ«ã€ä¸‹æ–¹å‘ã«31ãƒ”ã‚¯ã‚»ãƒ«ç§»å‹•ã™ã‚Œã°ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸï¼Ÿ
+        // æœ¬å½“ã¯ã¡ã‚ƒã‚“ã¨ã‚„ã‚‰ãªã„ã¨ã„ã‘ãªã„ã€‚
 
         pos = D3DXVECTOR3(800 - 40, 450 - 10, 0.0f);
         m_sprLoading->Render(pos, temp);
     }
 
-    // GPU–¼‚ğ•\¦
+    // GPUåã‚’è¡¨ç¤º
     {
         std::string GPUName = Common::GetGPUName();
         RECT rect { };

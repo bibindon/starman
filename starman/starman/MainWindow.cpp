@@ -1,4 +1,4 @@
-
+﻿
 #include "MainWindow.h"
 
 #include <exception>
@@ -49,13 +49,13 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
         PostQuitMessage(0);
         return 0;
     }
-    // �E�B���h�E���A�N�e�B�uor��A�N�e�B�u�ɂȂ����Ƃ��̏���
-    // �J�����ƃJ�[�\���̃��[�h��ς���
+    // ウィンドウがアクティブor非アクティブになったときの処理
+    // カメラとカーソルのモードを変える
     else if (mes == WM_ACTIVATE)
     {
         int lower = wParam & 0xFFFF;
 
-        // �A�N�e�B�u�ɂȂ������̏���
+        // アクティブになった時の処理
         if (lower == WA_ACTIVE || lower == WA_CLICKACTIVE)
         {
             auto seq = MainWindow::GetBattleSequence();
@@ -72,13 +72,13 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
                 }
             }
         }
-        // ��A�N�e�B�u�ɂȂ������̏���
+        // 非アクティブになった時の処理
         else if (lower == WA_INACTIVE)
         {
             Common::SetCursorVisibility(true);
         }
     }
-    // �E�B���h�E����鑀����s������Z�[�u���������s����
+    // ウィンドウを閉じる操作を行ったらセーブを自動実行する
     else if (mes == WM_CLOSE)
     {
         auto seq = MainWindow::GetBattleSequence();
@@ -101,13 +101,13 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
 MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 {
     //-------------------------------------------------
-    // ����ݒ�
-    // �p��Ɠ��{��̂�
-    // �V�X�e�������{�ꂾ��������{��A����ȊO��������p��
-    // �ݒ�t�@�C���Ŏw�肳��Ă����炻���炪�D�悳���
+    // 言語設定
+    // 英語と日本語のみ
+    // システムが日本語だったら日本語、それ以外だったら英語
+    // 設定ファイルで指定されていたらそちらが優先される
     //-------------------------------------------------
     {
-        // �V�X�e����UI����
+        // システムのUI言語
         bool bJapan = false;
 
         std::string lang = SaveManager::Get()->GetLangFile();
@@ -147,7 +147,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     SharedObj::Init();
 
     //-------------------------------------------------
-    // �E�B���h�E�N���X�̓o�^
+    // ウィンドウクラスの登録
     //-------------------------------------------------
     HICON hIcon = (HICON)LoadImage(hInstance,
                                    MAKEINTRESOURCE(IDI_ICON1),
@@ -175,20 +175,20 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     if (!result)
     {
         DWORD err = GetLastError();
-        throw std::exception("RegisterClassEx�֐��̎��s�����s���܂����B");
+        throw std::exception("RegisterClassEx関数の実行が失敗しました。");
     } 
 
     //-------------------------------------------------
-    // �E�B���h�E�̍쐬
+    // ウィンドウの作成
     //-------------------------------------------------
     {
         //-------------------------------------------------
-        // �E�B���h�E����ʒ����ɕ\�������悤�ɐݒ�
+        // ウィンドウが画面中央に表示されるように設定
         //-------------------------------------------------
         RECT rect { };
         SetRect(&rect, 0, 0, 1600, 900);
 
-        // �^�C�g���o�[�A�E�B���h�E�t���[���̕����l�������T�C�Y���擾
+        // タイトルバー、ウィンドウフレームの幅を考慮したサイズを取得
         AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
         rect.right = rect.right - rect.left;
@@ -202,7 +202,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         m_hWnd = CreateWindow(m_title.c_str(),
                               m_title.c_str(),
-                              /* �E�B���h�E�T�C�Y�̕ύX�������Ȃ��B�ŏ�����OK */
+                              /* ウィンドウサイズの変更をさせない。最小化はOK */
                               WS_OVERLAPPEDWINDOW ^ WS_MAXIMIZEBOX ^ WS_THICKFRAME | WS_VISIBLE,
                               startX,
                               startY,
@@ -215,43 +215,43 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         if (!m_hWnd)
         {
-            throw std::exception("�E�B���h�E�̍쐬���ł��܂���ł���");
+            throw std::exception("ウィンドウの作成ができませんでした");
         }
 
         SharedObj::SetWindowHandle(m_hWnd);
     }
 
     //-------------------------------------------------
-    // Direct3D�̏�����
+    // Direct3Dの初期化
     //-------------------------------------------------
     {
         m_D3D = Direct3DCreate9(D3D_SDK_VERSION);
 
         if (!m_D3D)
         {
-            throw std::exception("DirectX�̏������Ɏ��s���܂���");
+            throw std::exception("DirectXの初期化に失敗しました");
         }
     }
 
     HRESULT hResult = E_FAIL;
 
     //-------------------------------------------------
-    // Direct3DDevice�̏�����
+    // Direct3DDeviceの初期化
     //-------------------------------------------------
     {
         //-------------------------------------------------
-        // DirectX9�ł̓v���O��������GPU�̐؂�ւ����ł��Ȃ��B
-        // �g�p����GPU��ς������ꍇ�́A���[�U�[��Windows�̐ݒ��ʂŐݒ肷�邵���Ȃ��B
+        // DirectX9ではプログラムからGPUの切り替えができない。
+        // 使用するGPUを変えたい場合は、ユーザーがWindowsの設定画面で設定するしかない。
         //-------------------------------------------------
 
-        // �O���t�B�b�N�{�[�h�̖��̂��擾
+        // グラフィックボードの名称を取得
         D3DADAPTER_IDENTIFIER9 adapterInfo { };
         m_D3D->GetAdapterIdentifier(D3DADAPTER_DEFAULT, 0, &adapterInfo);
 
         std::string GPUName = adapterInfo.Description;
         Common::SetGPUName(GPUName);
 
-        // TODO �t���X�N���[���Ή�
+        // TODO フルスクリーン対応
 
         D3DPRESENT_PARAMETERS d3dpp { };
         d3dpp.BackBufferWidth = 0;
@@ -291,7 +291,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
                                           &D3DDevice);
             if (FAILED(hResult))
             {
-                throw std::exception("Direct3D::CreateDevice�֐������s���܂���");
+                throw std::exception("Direct3D::CreateDevice関数が失敗しました");
             }
         }
 
@@ -299,7 +299,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     }
 
     //-------------------------------------------------
-    // DirectInput�̏�����
+    // DirectInputの初期化
     //-------------------------------------------------
     {
         // directinput
@@ -311,12 +311,12 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         if (FAILED(hResult))
         {
-            throw std::exception("DirectInput8Create�֐������s���܂���");
+            throw std::exception("DirectInput8Create関数が失敗しました");
         }
     }
 
     //-------------------------------------------------
-    // �t�H���g�̏�����
+    // フォントの初期化
     //-------------------------------------------------
     {
         hResult = D3DXCreateFont(SharedObj::GetD3DDevice(),
@@ -336,7 +336,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     }
 
     //-------------------------------------------------
-    // �L�[�{�[�h�A�}�E�X�A�Q�[���p�b�h�A�T�E���h�̏�����
+    // キーボード、マウス、ゲームパッド、サウンドの初期化
     //-------------------------------------------------
     {
         keyboard->Init(m_directInput, m_hWnd);
@@ -348,31 +348,31 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         SoundEffect::initialize(m_hWnd);
     }
 
-    // PopUp�N���X�̏�����
+    // PopUpクラスの初期化
     PopUp::Init(SharedObj::IsEnglish());
 
-    // PopUp2�N���X�̏�����
+    // PopUp2クラスの初期化
     IPopUpFont* popUpFont = NEW PopUpFont(SharedObj::GetD3DDevice(), SharedObj::IsEnglish());
     PopUp2::Init(popUpFont);
 
     //-------------------------------------------------
-    // m_seqBattle�̏�����
+    // m_seqBattleの初期化
     //
-    // SeqBattle�N���X�̃R���X�g���N�^��DirectX���g�p����̂�
-    // MainWindow�N���X�̃R���X�g���N�^�̍Ō�̂ق��Ő�������K�v������
+    // SeqBattleクラスのコンストラクタはDirectXを使用するので
+    // MainWindowクラスのコンストラクタの最後のほうで生成する必要がある
     //-------------------------------------------------
     m_seqBattle = NEW SeqBattle();
 
-    // Sleep�֐��̐��x���グ��
+    // Sleep関数の精度を上げる
     timeBeginPeriod(1);
 
-    // �E�B���h�E��\��
+    // ウィンドウを表示
     ShowWindow(m_hWnd, SW_SHOW);
 }
 
 MainWindow::~MainWindow()
 {
-    // �t�̏��Ԃŉ������
+    // 逆の順番で解放する
 
     SAFE_DELETE(m_seqEnding);
     SAFE_DELETE(m_seqBattle);
@@ -429,7 +429,7 @@ int MainWindow::MainLoop()
             DispatchMessage(&m_msg);
         }
 
-        // 60FPS�ɂȂ�悤�ɃX���[�v���Ԃ𒲐�
+        // 60FPSになるようにスリープ時間を調節
         {
             static system_clock::time_point tpStart = system_clock::now();
             static system_clock::time_point tpEnd = system_clock::now();
@@ -451,7 +451,7 @@ int MainWindow::MainLoop()
             tpStart = system_clock::now();
         }
 
-        // ���ۂ�FPS�����߂�
+        // 実際のFPSを求める
         int fps = 0;
         if (Common::DebugMode() || Common::ReleaseMode())
         {
@@ -494,7 +494,7 @@ int MainWindow::MainLoop()
         }
 
         //------------------------------------------------------
-        // �`�揈��
+        // 描画処理
         //------------------------------------------------------
         LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
 
@@ -540,7 +540,7 @@ void MainWindow::ShowDebugInfo(const int fps)
     RECT rect { };
 
     //-------------------------------------------------------
-    // FPS�̕\��
+    // FPSの表示
     //-------------------------------------------------------
     {
         SetRect(&rect, 0, 0, 50, 50);
@@ -555,7 +555,7 @@ void MainWindow::ShowDebugInfo(const int fps)
     }
 
     //-------------------------------------------------------
-    // �v���C���[�̍��W�\��
+    // プレイヤーの座標表示
     //-------------------------------------------------------
     {
         D3DXVECTOR3 pos(0.f, 0.f, 0.f);
@@ -565,7 +565,7 @@ void MainWindow::ShowDebugInfo(const int fps)
             pos = SharedObj::GetPlayer()->GetPos();
         }
 
-        // X���W�̕\��
+        // X座標の表示
         SetRect(&rect, 0, 25, 100, 100);
         work = "x:" + std::to_string(pos.x);
 
@@ -576,7 +576,7 @@ void MainWindow::ShowDebugInfo(const int fps)
                             DT_LEFT | DT_NOCLIP,
                             D3DCOLOR_ARGB(128, 255, 255, 255));
 
-        // Y���W�̕\��
+        // Y座標の表示
         SetRect(&rect, 0, 50, 100, 100);
         work = "y:" + std::to_string(pos.y);
 
@@ -587,7 +587,7 @@ void MainWindow::ShowDebugInfo(const int fps)
                             DT_LEFT | DT_NOCLIP,
                             D3DCOLOR_ARGB(128, 255, 255, 255));
 
-        // Z���W�̕\��
+        // Z座標の表示
         SetRect(&rect, 0, 75, 100, 100);
         work = "z:" + std::to_string(pos.z);
 
@@ -603,11 +603,11 @@ void MainWindow::ShowDebugInfo(const int fps)
 int MainWindow::CalcFPS()
 {
     //--------------------------------------------------------
-    // ���t���[���A���ݎ������L�^���A���X�g�̖����ɒǉ�����B
-    // �擪�قǌÂ��������L�^�����B
-    // ���X�g�̐擪����A�L�^���ꂽ�����ƌ��ݎ����̍����r���Ă����ƁA
-    // �ŏ���1�b�ȏ�̍������邪�A�₪��1�b�ȉ��̗v�f��������B�iA�Ƃ���j
-    // ���̂Ƃ��́AA�ȍ~�̗v�f�̑�����FPS�ł���
+    // 毎フレーム、現在時刻を記録し、リストの末尾に追加する。
+    // 先頭ほど古い時刻が記録される。
+    // リストの先頭から、記録された時刻と現在時刻の差を比較していくと、
+    // 最初は1秒以上の差があるが、やがて1秒以下の要素が見つかる。（Aとする）
+    // そのときの、A以降の要素の総数がFPSである
     //--------------------------------------------------------
 
     int fps = 0;

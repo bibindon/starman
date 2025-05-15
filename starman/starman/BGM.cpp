@@ -1,4 +1,4 @@
-#pragma comment ( lib, "dxguid.lib" )
+ï»¿#pragma comment ( lib, "dxguid.lib" )
 #pragma comment ( lib, "dsound.lib" )
 #pragma comment ( lib, "winmm.lib" )
 
@@ -24,7 +24,7 @@ void BGM::Update()
         stBgm _stBgmPrev;
         stBgm _stBgm = m_model.GetBGM(&bChanged, &_stBgmPrev);
 
-        // ’â~‚³‚ê‚½‚È‚ç’â~
+        // åœæ­¢ã•ã‚ŒãŸãªã‚‰åœæ­¢
         if (!_stBgm.m_filename.empty())
         {
 			if (!_stBgm.m_bPlay)
@@ -32,7 +32,7 @@ void BGM::Update()
 				stop(_stBgm.m_filename);
 			}
 
-			// ‰¹—Ê•ÏX‚³‚ê‚½‚©
+			// éŸ³é‡å¤‰æ›´ã•ã‚ŒãŸã‹
 			if (_stBgm.m_bChangedVolume)
 			{
 				int volume = per_to_decibel(_stBgm.m_volume);
@@ -40,7 +40,7 @@ void BGM::Update()
 			}
         }
 
-        // •Ê‚ÌBGM‚É‚©‚í‚Á‚½‚È‚çˆÈ‘O‚ÌBGM‚ğ’â~
+        // åˆ¥ã®BGMã«ã‹ã‚ã£ãŸãªã‚‰ä»¥å‰ã®BGMã‚’åœæ­¢
         if (bChanged)
         {
             if (!_stBgmPrev.m_filename.empty())
@@ -53,7 +53,7 @@ void BGM::Update()
         }
     }
 
-    // ŠÂ‹«‰¹
+    // ç’°å¢ƒéŸ³
     {
         auto envBgmMap = m_model.GetEnvBGM();
 
@@ -65,13 +65,13 @@ void BGM::Update()
                 {
                     load(envBgm.second.m_filename);
 
-                    // Œø‰Ê‰¹‚É‘Î‚µ‚ÄƒtƒF[ƒhƒCƒ“‚ğ‚â‚é‚ÆBGM‚ª–Â‚ç‚È‚­‚È‚Á‚Ä‚µ‚Ü‚¤B
-                    // Œ»ó¢‚Á‚Ä‚¢‚È‚¢‚Ì‚Å•ú’u
+                    // åŠ¹æœéŸ³ã«å¯¾ã—ã¦ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¤ãƒ³ã‚’ã‚„ã‚‹ã¨BGMãŒé³´ã‚‰ãªããªã£ã¦ã—ã¾ã†ã€‚
+                    // ç¾çŠ¶å›°ã£ã¦ã„ãªã„ã®ã§æ”¾ç½®
                     play(envBgm.second.m_filename, envBgm.second.m_volume, false);
                 }
                 else
                 {
-                    // Ä¶‚Æ’â~‚ğ“¯‚És‚í‚ê‚é‚Æˆê“x‚àplayŠÖ”‚ªŒÄ‚Î‚ê‚¸‚ÉstopŠÖ”‚ªŒÄ‚Î‚ê‚é‚±‚Æ‚ª‚ ‚éB
+                    // å†ç”Ÿã¨åœæ­¢ã‚’åŒæ™‚ã«è¡Œã‚ã‚Œã‚‹ã¨ä¸€åº¦ã‚‚playé–¢æ•°ãŒå‘¼ã°ã‚Œãšã«stopé–¢æ•°ãŒå‘¼ã°ã‚Œã‚‹ã“ã¨ãŒã‚ã‚‹ã€‚
                     if (dx8sound_buffers_.find(envBgm.second.m_filename) != dx8sound_buffers_.end())
                     {
 						stop(envBgm.second.m_filename);
@@ -190,7 +190,7 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
             m_th2 = nullptr;
             m_th1 = new std::thread([=]
                                     {
-                                        // 30‰ñ‚É•ª‚¯‚Ä‰¹—Ê‚ğ0.1•b‚²‚Æ‚Éã‚°‚é
+                                        // 30å›ã«åˆ†ã‘ã¦éŸ³é‡ã‚’0.1ç§’ã”ã¨ã«ä¸Šã’ã‚‹
                                         for (int i = 0; i < 30; ++i)
                                         {
                                             int volume2 = per_to_decibel(a_volume * i / 30);
@@ -210,7 +210,7 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
             m_th1 = nullptr;
             m_th2 = new std::thread([=]
                                     {
-                                        // 100‰ñ‚É•ª‚¯‚Ä‰¹—Ê‚ğ0.1•b‚²‚Æ‚Éã‚°‚é
+                                        // 100å›ã«åˆ†ã‘ã¦éŸ³é‡ã‚’0.1ç§’ã”ã¨ã«ä¸Šã’ã‚‹
                                         for (int i = 0; i < 30; ++i)
                                         {
                                             int volume2 = per_to_decibel(a_volume * i / 30);
@@ -388,7 +388,7 @@ void BGMModel::SetRandomMode(const bool mode)
     m_bRandomMode = mode;
 }
 
-// 1•b‚É1‰ñŒÄ‚Î‚ê‚é‘z’è
+// 1ç§’ã«1å›å‘¼ã°ã‚Œã‚‹æƒ³å®š
 void BGMModel::Update()
 {
     if (!m_bRandomMode)
@@ -398,7 +398,7 @@ void BGMModel::Update()
 
     m_counter++;
 
-    // 10•ª‚ÅBGM•ÏX
+    // 10åˆ†ã§BGMå¤‰æ›´
     if (m_counter > 60 * 10)
     {
         m_counter = 0;

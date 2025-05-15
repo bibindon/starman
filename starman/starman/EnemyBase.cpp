@@ -1,4 +1,4 @@
-#include "EnemyBase.h"
+﻿#include "EnemyBase.h"
 
 #include <ctime>
 #include "SoundEffect.h"
@@ -191,11 +191,11 @@ void EnemyBase::Render()
     POINT screenPos = Camera::GetScreenPos(m_loadingPos);
 
     //-----------------------------------------------------------------
-    // �J�����ƓG�̋������߂���Ε\������
+    // カメラと敵の距離が近ければ表示する
     //
-    // �J�����ƃv���C���[�̋����ł͂Ȃ����Ƃɒ��ӁB
-    // �u�J�����ƃv���C���[�̋������߂���Ε\���v�Ƃ��Ă��܂��ƁA
-    // �J�������v���C���[���痣�ꂽ�Ƃ����\������Ă��܂��B
+    // カメラとプレイヤーの距離ではないことに注意。
+    // 「カメラとプレイヤーの距離が近ければ表示」としてしまうと、
+    // カメラがプレイヤーから離れたときも表示されてしまう。
     //-----------------------------------------------------------------
     auto eyePos = Camera::GetEyePos();
 

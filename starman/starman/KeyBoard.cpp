@@ -1,4 +1,4 @@
-#include "KeyBoard.h"
+ï»¿#include "KeyBoard.h"
 
 void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {
@@ -6,22 +6,22 @@ void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 
     ret = m_keyboard->SetDataFormat(&c_dfDIKeyboard);
 
-    // ”r‘¼§Œä‚ÌƒZƒbƒg
+    // æ’ä»–åˆ¶å¾¡ã®ã‚»ãƒƒãƒˆ
     ret = m_keyboard->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE | DISCL_NOWINKEY);
 
-    // “®ìŠJn
+    // å‹•ä½œé–‹å§‹
     ret = m_keyboard->Acquire();
 }
 
 void KeyBoard::Update()
 {
-    // ƒL[‚Ì“ü—Í
+    // ã‚­ãƒ¼ã®å…¥åŠ›
     memcpy(m_keyPrev, m_key, 256);
     ZeroMemory(m_key, sizeof(m_key));
     HRESULT ret = m_keyboard->GetDeviceState(sizeof(m_key), m_key);
     if (FAILED(ret))
     {
-        // ¸”s‚È‚çÄŠJ‚³‚¹‚Ä‚à‚¤ˆê“xæ“¾
+        // å¤±æ•—ãªã‚‰å†é–‹ã•ã›ã¦ã‚‚ã†ä¸€åº¦å–å¾—
         m_keyboard->Acquire();
         m_keyboard->GetDeviceState(sizeof(m_key), m_key);
     }
@@ -30,7 +30,7 @@ void KeyBoard::Update()
     std::copy(&m_key[0], &m_key[256], temp.begin());
     m_keyDeque.push_front(temp);
 
-    // 5•b•ª‚ÌƒL[î•ñAˆÈã‚ÌƒL[î•ñ‚ª•Û‘¶‚³‚ê‚Ä‚¢‚é‚È‚çÁ‚·
+    // 5ç§’åˆ†ã®ã‚­ãƒ¼æƒ…å ±ã€ä»¥ä¸Šã®ã‚­ãƒ¼æƒ…å ±ãŒä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãªã‚‰æ¶ˆã™
     if (m_keyDeque.size() >= 60 * 5)
     {
         m_keyDeque.erase(m_keyDeque.begin() + 60 * 5, m_keyDeque.end());
@@ -65,7 +65,7 @@ bool KeyBoard::IsDownFirstFrame(int keyCode)
 
 bool KeyBoard::IsHold(int keyCode)
 {
-    // 500ƒ~ƒŠ•bˆÈã‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç’·‰Ÿ‚µ‚Æ”»’f‚·‚é
+    // 500ãƒŸãƒªç§’ä»¥ä¸ŠæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰é•·æŠ¼ã—ã¨åˆ¤æ–­ã™ã‚‹
     if (m_keyDeque.size() <= 30)
     {
         return false;

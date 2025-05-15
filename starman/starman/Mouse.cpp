@@ -1,4 +1,4 @@
-#include "Mouse.h"
+ï»¿#include "Mouse.h"
 #include <exception>
 #include "Common.h"
 
@@ -13,13 +13,13 @@ void Mouse::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
     ret = m_DIMouse->SetDataFormat(&c_dfDIMouse2);
     ret = m_DIMouse->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 
-    // ƒfƒoƒCƒX‚ÌÝ’è
+    // ãƒ‡ãƒã‚¤ã‚¹ã®è¨­å®š
     DIPROPDWORD diprop;
     diprop.diph.dwSize = sizeof(diprop);
     diprop.diph.dwHeaderSize = sizeof(diprop.diph);
     diprop.diph.dwObj = 0;
     diprop.diph.dwHow = DIPH_DEVICE;
-    diprop.dwData = DIPROPAXISMODE_REL; // ‘Š‘Î’lƒ‚[ƒh‚ÅÝ’èiâ‘Î’l‚ÍDIPROPAXISMODE_ABSj
+    diprop.dwData = DIPROPAXISMODE_REL; // ç›¸å¯¾å€¤ãƒ¢ãƒ¼ãƒ‰ã§è¨­å®šï¼ˆçµ¶å¯¾å€¤ã¯DIPROPAXISMODE_ABSï¼‰
 
     ret = m_DIMouse->SetProperty(DIPROP_AXISMODE, &diprop.diph);
 

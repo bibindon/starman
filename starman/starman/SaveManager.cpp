@@ -1,4 +1,4 @@
-#include "SaveManager.h"
+ï»¿#include "SaveManager.h"
 #include "SharedObj.h"
 
 #include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
@@ -52,7 +52,7 @@ bool CreateDirectoriesRecursively(const std::string& path) {
     std::string item;
     std::string currentPath;
 
-    // Windows‚ÌƒpƒX‹æØ‚è‚É‘Î‰i\ ‚Ü‚½‚Í /j
+    // Windowsã®ãƒ‘ã‚¹åŒºåˆ‡ã‚Šã«å¯¾å¿œï¼ˆ\ ã¾ãŸã¯ /ï¼‰
     char delimiter = '\\';
     if (path.find('/') != std::string::npos)
     {
@@ -170,7 +170,7 @@ std::string SaveManager::GetSavefileMapPath()
 
 void SaveManager::Save()
 {
-    // ƒtƒHƒ‹ƒ_‚ª‚È‚¯‚ê‚Îì‚é
+    // ãƒ•ã‚©ãƒ«ãƒ€ãŒãªã‘ã‚Œã°ä½œã‚‹
     std::string savedir;
 
     char work[MAX_PATH];
@@ -234,7 +234,7 @@ void SaveManager::Save()
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Save(CreateSaveFilePath("datetime.csv"), m_encrypt);
 
-    // TODO •Û‘¶‚·‚é‚Æ‰ó‚ê‚é
+    // TODO ä¿å­˜ã™ã‚‹ã¨å£Šã‚Œã‚‹
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
     //mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), m_encrypt);
     mapObjManager->SaveWithBinary(GetSavefileMapPath());
@@ -261,9 +261,9 @@ void SaveManager::LoadOrigin()
 {
     m_progress.store(0);
 
-    // uƒQ[ƒ€‚ğ‚Í‚¶‚ß‚©‚çƒXƒ^[ƒg¨€–S¨‚à‚¤ˆê“xƒI[ƒvƒjƒ“ƒO‚©‚çv
-    // ‚±‚Ì‘€ì‚ğs‚¤‚ÆƒZ[ƒuƒf[ƒ^‚ª‚È‚¢‚Ì‚É€–S‚µ‚½ƒXƒe[ƒ^ƒX‚ª‹L˜^‚³‚ê‚Ä‚¢‚éB
-    // •K‚¸‰Šú‰»‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢B
+    // ã€Œã‚²ãƒ¼ãƒ ã‚’ã¯ã˜ã‚ã‹ã‚‰ã‚¹ã‚¿ãƒ¼ãƒˆâ†’æ­»äº¡â†’ã‚‚ã†ä¸€åº¦ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°ã‹ã‚‰ã€
+    // ã“ã®æ“ä½œã‚’è¡Œã†ã¨ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒãªã„ã®ã«æ­»äº¡ã—ãŸã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãŒè¨˜éŒ²ã•ã‚Œã¦ã„ã‚‹ã€‚
+    // å¿…ãšåˆæœŸåŒ–ã—ãªã„ã¨ã„ã‘ãªã„ã€‚
 //    if (m_savedataLoaded)
     {
         NSStarmanLib::Rynen::Destroy();
@@ -498,14 +498,14 @@ bool SaveManager::DeleteFolderContents(const std::string& folderPath)
     {
         std::string fileName = findFileData.cFileName;
 
-        // ƒXƒLƒbƒv‚·‚é€–Ú ("." ‚Æ "..")
+        // ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹é …ç›® ("." ã¨ "..")
         if (fileName == "." || fileName == "..") {
             continue;
         }
 
         std::string fullPath = folderPath + "\\" + fileName;
 
-        // ƒfƒBƒŒƒNƒgƒŠ‚Ìê‡
+        // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã®å ´åˆ
         if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
             if (!DeleteFolderContents(fullPath)) {
                 FindClose(hFind);
@@ -520,7 +520,7 @@ bool SaveManager::DeleteFolderContents(const std::string& folderPath)
                 return false;
             }
         }
-        else { // ƒtƒ@ƒCƒ‹‚Ìê‡
+        else { // ãƒ•ã‚¡ã‚¤ãƒ«ã®å ´åˆ
             if (!DeleteFile(fullPath.c_str())) {
                 FindClose(hFind);
 
@@ -554,8 +554,8 @@ bool SaveManager::DeleteFolder(const std::string& folderPath)
 
 void SaveManager::DeleteSavedata()
 {
-    // ƒZ[ƒuƒf[ƒ^‚ª‚È‚¯‚ê‚ÎƒZ[ƒuƒf[ƒ^‚Ìíœ‚Ís‚í‚È‚¢is‚¦‚È‚¢j
-    // ƒZ[ƒuƒf[ƒ^‚ª‚È‚¢‚Ì‚ÉƒZ[ƒuƒf[ƒ^‚Ìíœ‚ğs‚¤ŠÖ”‚ªŒÄ‚Î‚ê‚é‚±‚Æ‚Í–â‘è‚È‚¢B
+    // ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒãªã‘ã‚Œã°ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤ã¯è¡Œã‚ãªã„ï¼ˆè¡Œãˆãªã„ï¼‰
+    // ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒãªã„ã®ã«ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤ã‚’è¡Œã†é–¢æ•°ãŒå‘¼ã°ã‚Œã‚‹ã“ã¨ã¯å•é¡Œãªã„ã€‚
     BOOL result = PathIsDirectory(m_savedata_folder.c_str());
 
     if (result == FALSE)
@@ -612,7 +612,7 @@ void SaveManager::SetLangFile(const std::string lang)
 
 bool SaveManager::SaveFolderExists()
 {
-    // ƒfƒBƒŒƒNƒgƒŠ‚¾‚Á‚½ATRUE‚Å‚Í‚È‚­16‚ª•Ô‚Á‚Ä‚­‚é‚Ì‚Å’ˆÓ
+    // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã ã£ãŸæ™‚ã€TRUEã§ã¯ãªã16ãŒè¿”ã£ã¦ãã‚‹ã®ã§æ³¨æ„
     BOOL result = PathIsDirectory(m_savedata_folder.c_str());
 
     if (result != FALSE)

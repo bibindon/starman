@@ -1,5 +1,5 @@
-// �J�������ɓK���ɍ�����܂�
-// ���낻�낿���Ƃ����ق��������C������B
+﻿// 開発初期に適当に作ったまま
+// そろそろちゃんとしたほうがいい気がする。
 
 
 #include "Camera.h"
@@ -11,11 +11,11 @@
 #include <string>
 
 const D3DXVECTOR3 Camera::UPWARD (0.0f, 1.0f, 0.0f);
-// m_eyePos�ɉ����Z�b�g���Ă����_�͕ς��Ȃ��B���_��m_radian�ɂ���Č��܂�B
+// m_eyePosに何をセットしても視点は変わらない。視点はm_radianによって決まる。
 D3DXVECTOR3 Camera::m_eyePos(0.f, 0.f, 0.f);
 D3DXVECTOR3 Camera::m_lookAtPos(0.0f, 0.0f, 0.0f);
 float Camera::m_viewAngle = D3DX_PI / 4;
-// m_radian == D3DX_PI * 3 / 2�̎��i270�x�̎��j�J�����͐��ʂ�����
+// m_radian == D3DX_PI * 3 / 2の時（270度の時）カメラは正面を向く
 float Camera::m_radian = D3DX_PI * 3 / 2;
 float Camera::m_y = 3.f;
 bool Camera::m_sleepMode = false;
@@ -98,9 +98,9 @@ void Camera::Update()
         {
             y = 10;
         }
-        x *= -1; // �������t�ɂ���
+        x *= -1; // 正負を逆にする
 
-        // x��y��10����1�ɂ���΃����[�g�f�X�N�g�b�v�ł��܂Ƃ��ɑ���ł���
+        // xとyを10分の1にすればリモートデスクトップでもまともに操作できる
         if (Common::IsRemoteSession())
         {
             x /= 20;

@@ -1,4 +1,4 @@
-#include "MeshClone.h"
+ï»¿#include "MeshClone.h"
 #include "Light.h"
 #include "Common.h"
 #include "Camera.h"
@@ -55,7 +55,7 @@ MeshClone::~MeshClone()
         m_D3DMeshMap.erase(m_meshName);
     }
 
-    if (!"tree1.x‚Ì‰ğ•ú")
+    if (!"tree1.xã®è§£æ”¾")
     {
         if (m_meshName.find("tree1.x") != std::string::npos)
         {
@@ -68,7 +68,7 @@ MeshClone::~MeshClone()
 
 void MeshClone::Init()
 {
-    // “Ç‚İ‚İÏ‚İ‚¾‚Á‚½‚ç“Ç‚İ‚Ü‚È‚¢B
+    // èª­ã¿è¾¼ã¿æ¸ˆã¿ã ã£ãŸã‚‰èª­ã¿è¾¼ã¾ãªã„ã€‚
     HRESULT result { 0 };
     LPD3DXEFFECT _D3DEffect = NULL;
 
@@ -164,19 +164,19 @@ void MeshClone::Init()
         LPD3DXMESH tempMesh2 { nullptr };
         result = tempMesh->CloneMesh(D3DXMESH_MANAGED, decl, SharedObj::GetD3DDevice(), &tempMesh2);
 
-        // ’¸“_ƒoƒbƒtƒ@‚Ìæ“¾
+        // é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®å–å¾—
         {
     //        LPDIRECT3DVERTEXBUFFER9 pVertexBuffer;
     //        tempMesh->GetVertexBuffer(&pVertexBuffer);
     //
     //        struct CUSTOMVERTEX
     //        {
-    //            FLOAT x, y, z; // ’¸“_‚ÌÀ•W
-    //            FLOAT normX, normY, normZ; // –@ü‚ÌÀ•W
-    //            FLOAT u, v;   // ’¸“_‚ÌF
+    //            FLOAT x, y, z; // é ‚ç‚¹ã®åº§æ¨™
+    //            FLOAT normX, normY, normZ; // æ³•ç·šã®åº§æ¨™
+    //            FLOAT u, v;   // é ‚ç‚¹ã®è‰²
     //        };
     //        CUSTOMVERTEX* pVertices = nullptr;
-    //        CUSTOMVERTEX temp[24]; // —§•û‘Ì‚È‚ç24ŒÂ
+    //        CUSTOMVERTEX temp[24]; // ç«‹æ–¹ä½“ãªã‚‰24å€‹
     //        pVertexBuffer->Lock(0, 0, (void**)&pVertices, D3DLOCK_READONLY);
     //        memcpy(temp, pVertices, sizeof(temp));
     //        pVertexBuffer->Unlock();
@@ -190,7 +190,7 @@ void MeshClone::Init()
         tempMesh = tempMesh2;
         DWORD* wordBuffer { static_cast<DWORD*>(adjacencyBuffer->GetBufferPointer()) };
 
-        // ‚±‚±‚ğƒRƒƒ“ƒgƒAƒEƒg‚·‚é‚Æƒtƒ‰ƒbƒgƒVƒF[ƒfƒBƒ“ƒO‚É‚È‚éB
+        // ã“ã“ã‚’ã‚³ãƒ¡ãƒ³ãƒˆã‚¢ã‚¦ãƒˆã™ã‚‹ã¨ãƒ•ãƒ©ãƒƒãƒˆã‚·ã‚§ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã«ãªã‚‹ã€‚
         result = D3DXComputeNormals(tempMesh, wordBuffer);
 
         if (FAILED(result))
@@ -291,7 +291,7 @@ void MeshClone::Render()
     {
         return;
     }
-    // Y²‰ñ“]‚¾‚¯‚µ‚Ä‚¢‚é‚¤‚¿‚Í³‚µ‚­‰e‚ª•\¦‚³‚ê‚éB
+    // Yè»¸å›è»¢ã ã‘ã—ã¦ã„ã‚‹ã†ã¡ã¯æ­£ã—ãå½±ãŒè¡¨ç¤ºã•ã‚Œã‚‹ã€‚
     D3DXVECTOR4 normal = Light::GetLightNormal();
     float work = m_rotate.y * -1.f;
     normal.x = std::sin(work);
@@ -301,12 +301,12 @@ void MeshClone::Render()
     m_D3DEffectMap.at(m_meshName)->SetVector("g_light_normal", &normal);
 
     //--------------------------------------------------------
-    // ƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚ÌˆÊ’u‚ğİ’è
+    // ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®ä½ç½®ã‚’è¨­å®š
     //--------------------------------------------------------
     HRESULT hResult = E_FAIL;
     bool isLit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
 
-    // ¼–¾‚Ì“_“”ó‘Ô‚ª•Ï‚í‚Á‚½‚çƒVƒF[ƒ_[‚Éƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚ÌON/OFF‚ğİ’è‚·‚é
+    // æ¾æ˜ã®ç‚¹ç¯çŠ¶æ…‹ãŒå¤‰ã‚ã£ãŸã‚‰ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®ON/OFFã‚’è¨­å®šã™ã‚‹
     if (isLit != m_bPointLightEnablePrevious)
     {
         if (isLit)
@@ -351,8 +351,8 @@ void MeshClone::Render()
             D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
             worldViewProjMatrix *= mat;
 
-            // D3DXMatrixRotationYawPitchRoll‚ğg‚¤‚ÆAZ²‰ñ“]‚ªÅ‰‚És‚í‚ê‚éB
-            // Y²‰ñ“]‚ğÅ‰‚És‚¢‚½‚¢‚Ì‚ÅD3DXMatrixRotationYawPitchRoll‚Íg‚í‚È‚¢
+            // D3DXMatrixRotationYawPitchRollã‚’ä½¿ã†ã¨ã€Zè»¸å›è»¢ãŒæœ€åˆã«è¡Œã‚ã‚Œã‚‹ã€‚
+            // Yè»¸å›è»¢ã‚’æœ€åˆã«è¡Œã„ãŸã„ã®ã§D3DXMatrixRotationYawPitchRollã¯ä½¿ã‚ãªã„
 // D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
 // worldViewProjMatrix *= mat;
 
@@ -397,7 +397,7 @@ void MeshClone::Render()
     m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
 
     //--------------------------------------------------------
-    // ‰J‚¾‚Á‚½‚ç–¶‚ğ”Z‚­‚·‚é
+    // é›¨ã ã£ãŸã‚‰éœ§ã‚’æ¿ƒãã™ã‚‹
     //--------------------------------------------------------
     D3DXVECTOR4 fog_color;
 
@@ -408,8 +408,8 @@ void MeshClone::Render()
         fog_color.z = 0.2f;
         fog_color.w = 1.0f;
 
-        // –¶‚ğƒTƒ|[ƒg‚µ‚È‚¢ƒVƒF[ƒ_[‚ªƒZƒbƒg‚³‚ê‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å
-        // mesh_shader.fx‚Ì‚¾‚¯“K—p‚·‚é
+        // éœ§ã‚’ã‚µãƒãƒ¼ãƒˆã—ãªã„ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãŒã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§
+        // mesh_shader.fxã®æ™‚ã ã‘é©ç”¨ã™ã‚‹
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
@@ -423,9 +423,9 @@ void MeshClone::Render()
         fog_color.z = 0.5f;
         fog_color.w = 1.0f;
 
-        // ‰J‚¾‚Á‚½‚ç–¶‚ğ100”{‹­‚­‚·‚éB
-        // –¶‚ğƒTƒ|[ƒg‚µ‚È‚¢ƒVƒF[ƒ_[‚ªƒZƒbƒg‚³‚ê‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å
-        // mesh_shader.fx‚Ì‚¾‚¯“K—p‚·‚é
+        // é›¨ã ã£ãŸã‚‰éœ§ã‚’100å€å¼·ãã™ã‚‹ã€‚
+        // éœ§ã‚’ã‚µãƒãƒ¼ãƒˆã—ãªã„ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãŒã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§
+        // mesh_shader.fxã®æ™‚ã ã‘é©ç”¨ã™ã‚‹
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
@@ -445,10 +445,10 @@ void MeshClone::Render()
         throw std::exception("Failed 'BeginPass' function.");
     }
 
-    // ƒ}ƒeƒŠƒAƒ‹‚ª“ñ‚ÂˆÈã‚ ‚é‚±‚Æ‚È‚ñ‚Ä‚ ‚é‚Ì‚©H
+    // ãƒãƒ†ãƒªã‚¢ãƒ«ãŒäºŒã¤ä»¥ä¸Šã‚ã‚‹ã“ã¨ãªã‚“ã¦ã‚ã‚‹ã®ã‹ï¼Ÿ
 //    for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
 //    {
-//        // TODO ‚±‚Ì•Ó‚Í–ˆ‰ñ‚â‚é•K—v‚Í‚È‚¢‹C‚ª‚·‚é
+//        // TODO ã“ã®è¾ºã¯æ¯å›ã‚„ã‚‹å¿…è¦ã¯ãªã„æ°—ãŒã™ã‚‹
 //        m_D3DEffect->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
 //        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
 //        m_D3DEffect->CommitChanges();
@@ -461,7 +461,7 @@ void MeshClone::Render()
 
         m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
 
-        // TODO ƒeƒNƒXƒ`ƒƒ‚È‚µ‚É‚µ‚½‚Ù‚¤‚ª—Ç‚¢‚©‚à
+        // TODO ãƒ†ã‚¯ã‚¹ãƒãƒ£ãªã—ã«ã—ãŸã»ã†ãŒè‰¯ã„ã‹ã‚‚
         m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
     }
 
@@ -484,12 +484,12 @@ void MeshClone::Begin()
     }
 
     //--------------------------------------------------------
-    // ƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚ÌˆÊ’u‚ğİ’è
+    // ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®ä½ç½®ã‚’è¨­å®š
     //--------------------------------------------------------
     HRESULT hResult = E_FAIL;
     bool isLit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
 
-    // ¼–¾‚Ì“_“”ó‘Ô‚ª•Ï‚í‚Á‚½‚çƒVƒF[ƒ_[‚Éƒ|ƒCƒ“ƒgƒ‰ƒCƒg‚ÌON/OFF‚ğİ’è‚·‚é
+    // æ¾æ˜ã®ç‚¹ç¯çŠ¶æ…‹ãŒå¤‰ã‚ã£ãŸã‚‰ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã«ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®ON/OFFã‚’è¨­å®šã™ã‚‹
     if (isLit != m_bPointLightEnablePrevious)
     {
         if (isLit)
@@ -531,7 +531,7 @@ void MeshClone::Begin()
     m_D3DEffectMap.at(m_meshName)->SetVector("g_cameraPos", &vec4Color);
 
     //--------------------------------------------------------
-    // ‰J‚¾‚Á‚½‚ç–¶‚ğ”Z‚­‚·‚é
+    // é›¨ã ã£ãŸã‚‰éœ§ã‚’æ¿ƒãã™ã‚‹
     //--------------------------------------------------------
     D3DXVECTOR4 fog_color;
 
@@ -542,8 +542,8 @@ void MeshClone::Begin()
         fog_color.z = 0.2f;
         fog_color.w = 1.0f;
 
-        // –¶‚ğƒTƒ|[ƒg‚µ‚È‚¢ƒVƒF[ƒ_[‚ªƒZƒbƒg‚³‚ê‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å
-        // mesh_shader.fx‚Ì‚¾‚¯“K—p‚·‚é
+        // éœ§ã‚’ã‚µãƒãƒ¼ãƒˆã—ãªã„ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãŒã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§
+        // mesh_shader.fxã®æ™‚ã ã‘é©ç”¨ã™ã‚‹
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
@@ -557,9 +557,9 @@ void MeshClone::Begin()
         fog_color.z = 0.5f;
         fog_color.w = 1.0f;
 
-        // ‰J‚¾‚Á‚½‚ç–¶‚ğ100”{‹­‚­‚·‚éB
-        // –¶‚ğƒTƒ|[ƒg‚µ‚È‚¢ƒVƒF[ƒ_[‚ªƒZƒbƒg‚³‚ê‚Ä‚¢‚é‰Â”\«‚ª‚ ‚é‚Ì‚Å
-        // mesh_shader.fx‚Ì‚¾‚¯“K—p‚·‚é
+        // é›¨ã ã£ãŸã‚‰éœ§ã‚’100å€å¼·ãã™ã‚‹ã€‚
+        // éœ§ã‚’ã‚µãƒãƒ¼ãƒˆã—ãªã„ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãŒã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚‹ã®ã§
+        // mesh_shader.fxã®æ™‚ã ã‘é©ç”¨ã™ã‚‹
         if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
@@ -576,7 +576,7 @@ void MeshClone::Begin()
 
         m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
 
-        // TODO ƒeƒNƒXƒ`ƒƒ‚È‚µ‚É‚µ‚½‚Ù‚¤‚ª—Ç‚¢‚©‚à
+        // TODO ãƒ†ã‚¯ã‚¹ãƒãƒ£ãªã—ã«ã—ãŸã»ã†ãŒè‰¯ã„ã‹ã‚‚
         m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
     }
 
@@ -590,7 +590,7 @@ void MeshClone::Render2()
         return;
     }
 
-    // Y²‰ñ“]‚¾‚¯‚µ‚Ä‚¢‚é‚¤‚¿‚Í³‚µ‚­‰e‚ª•\¦‚³‚ê‚éB
+    // Yè»¸å›è»¢ã ã‘ã—ã¦ã„ã‚‹ã†ã¡ã¯æ­£ã—ãå½±ãŒè¡¨ç¤ºã•ã‚Œã‚‹ã€‚
     D3DXVECTOR4 normal = Light::GetLightNormal();
     float work = m_rotate.y * -1.f;
     normal.x = std::sin(work);
@@ -612,8 +612,8 @@ void MeshClone::Render2()
             D3DXMatrixScaling(&mat, m_scale, m_scale, m_scale);
             worldViewProjMatrix *= mat;
 
-            // D3DXMatrixRotationYawPitchRoll‚ğg‚¤‚ÆAZ²‰ñ“]‚ªÅ‰‚És‚í‚ê‚éB
-            // Y²‰ñ“]‚ğÅ‰‚És‚¢‚½‚¢‚Ì‚ÅD3DXMatrixRotationYawPitchRoll‚Íg‚í‚È‚¢
+            // D3DXMatrixRotationYawPitchRollã‚’ä½¿ã†ã¨ã€Zè»¸å›è»¢ãŒæœ€åˆã«è¡Œã‚ã‚Œã‚‹ã€‚
+            // Yè»¸å›è»¢ã‚’æœ€åˆã«è¡Œã„ãŸã„ã®ã§D3DXMatrixRotationYawPitchRollã¯ä½¿ã‚ãªã„
 // D3DXMatrixRotationYawPitchRoll(&mat, m_rotate.y, m_rotate.x, m_rotate.z);
 // worldViewProjMatrix *= mat;
 

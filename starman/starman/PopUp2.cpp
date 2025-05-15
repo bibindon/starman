@@ -1,4 +1,4 @@
-#include <cassert>
+Ôªø#include <cassert>
 
 #include "PopUp2.h"
 #include "SharedObj.h"
@@ -47,7 +47,7 @@ void PopUp2::Cancel()
 {
     m_isShow = false;
 
-    // ãÛÇ…Ç∑ÇÈ
+    // Á©∫„Å´„Åô„Çã
     std::queue<std::string> work;
     std::swap(m_textQ, work);
 
@@ -115,7 +115,7 @@ PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
                                  OUT_TT_ONLY_PRECIS,
                                  ANTIALIASED_QUALITY,
                                  FF_DONTCARE,
-                                 "ÇlÇr ñæí©",
+                                 "Ôº≠Ôº≥ ÊòéÊúù",
                                  &m_D3DFont);
     }
     else

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <vector>
 #include <string>
@@ -98,7 +98,7 @@ public:
 
     static bool EqualF(const float arg1, const float arg2);
 
-    // “_‚Æü•ª‚Ì‹——£
+    // ç‚¹ã¨ç·šåˆ†ã®è·é›¢
     static float PointToSegmentDistance(const D3DXVECTOR3& p1,
                                         const D3DXVECTOR3& p2,
                                         const D3DXVECTOR3& point);
@@ -116,7 +116,7 @@ public:
 
     static bool IsRemoteSession();
 
-    // ƒoƒEƒ“ƒfƒBƒ“ƒOƒ{ƒbƒNƒX‚ÅÕ“Ë”»’è
+    // ãƒã‚¦ãƒ³ãƒ‡ã‚£ãƒ³ã‚°ãƒœãƒƒã‚¯ã‚¹ã§è¡çªåˆ¤å®š
     static bool HitByBoundingBox(const D3DXVECTOR3& p1,
                                  const D3DXVECTOR3& p2,
                                  const float length);

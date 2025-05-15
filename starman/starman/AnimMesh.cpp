@@ -1,4 +1,4 @@
-#include "AnimMesh.h"
+﻿#include "AnimMesh.h"
 
 #include "AnimMeshAlloc.h"
 #include "MainWindow.h"
@@ -117,7 +117,7 @@ void AnimMesh::Render()
     normal.x = std::cos(-m_rotation.y);
     normal.z = std::sin(-m_rotation.y);
 
-    // �Ȃ�
+    // なぞ
     normal.y = std::sin(-m_rotation.y);
 
     D3DXVec4Normalize(&normal, &normal);
