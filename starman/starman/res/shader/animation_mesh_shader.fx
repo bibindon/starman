@@ -1,3 +1,4 @@
+// BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
 float4x4 g_world;
 float4x4 g_world_view_projection;
 float4 g_light_normal;
@@ -21,8 +22,8 @@ void vertex_shader(
 
     float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
     out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
-    out_diffuse.r *= 0.7f; // �Â����Ă݂�
-    out_diffuse.gb *= 0.5f; // �Â����Ă݂�
+    out_diffuse.r *= 0.7f; // 暗くしてみる
+    out_diffuse.gb *= 0.5f; // 暗くしてみる
     out_diffuse.a = 1.0f;
 
     out_texture  = in_texcood;

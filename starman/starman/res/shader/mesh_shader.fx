@@ -1,3 +1,4 @@
+// BOMã‚ã‚Šã®UTF8ã ã¨ã‚³ãƒ³ãƒ‘ã‚¤ãƒ«ã§ããªããªã‚‹ã€‚ãã®ãŸã‚ã€ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ•ã‚¡ã‚¤ãƒ«ã ã‘ã¯BOMãªã—
 float4x4 g_world;
 float4x4 g_world_view_projection;
 float4 g_light_normal;
@@ -31,19 +32,19 @@ void vertex_shader(
     float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
 
     out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
-    out_diffuse.r *= 0.9f; // ˆÃ‚­‚µ‚Ä‚İ‚é
-    out_diffuse.gb *= 0.6f; // ˆÃ‚­‚µ‚Ä‚İ‚é
+    out_diffuse.r *= 0.9f; // æš—ãã—ã¦ã¿ã‚‹
+    out_diffuse.gb *= 0.6f; // æš—ãã—ã¦ã¿ã‚‹
     out_diffuse.a = 1.0f;
 
     out_texcood = in_texcood;
 
     //----------------------------------
-    // –¶‚Ì•`‰æ
+    // éœ§ã®æç”»
     //----------------------------------
-    // ƒ[ƒ‹ƒhÀ•W‚É•ÏŠ·
+    // ãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™ã«å¤‰æ›
     float4 worldPos = mul(in_position, g_world);
 
-    // ƒJƒƒ‰‚©‚ç‚Ì‹——£‚ğƒ[ƒ‹ƒh‹óŠÔ‚ÅŒvZ
+    // ã‚«ãƒ¡ãƒ©ã‹ã‚‰ã®è·é›¢ã‚’ãƒ¯ãƒ¼ãƒ«ãƒ‰ç©ºé–“ã§è¨ˆç®—
     float distance = length(worldPos.xyz - g_cameraPos.xyz);
 
     float work = 1.0f - ((10000 - distance) / 10000);
@@ -89,24 +90,24 @@ void pixel_shader(
     }
 
     //------------------------------------------------------
-    // –¶‚Ì•`‰æ
+    // éœ§ã®æç”»
     //
-    // –¶‚ÍƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚Å‚â‚ç‚È‚¢‚ÆˆÓ–¡‚ª‚È‚¢B
-    // ’¸“_ƒVƒF[ƒ_[‚Å‚â‚é‚ÆA‰“‚¢‚Ù‚Ç‹P‚¢‚ÄŒ©‚¦‚é‚æ‚¤‚É‚È‚Á‚Ä‚µ‚Ü‚¤
+    // éœ§ã¯ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§ã‚„ã‚‰ãªã„ã¨æ„å‘³ãŒãªã„ã€‚
+    // é ‚ç‚¹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§ã‚„ã‚‹ã¨ã€é ã„ã»ã©è¼ã„ã¦è¦‹ãˆã‚‹ã‚ˆã†ã«ãªã£ã¦ã—ã¾ã†
     //------------------------------------------------------
     float4 fog_color2 = fog_color * g_light_brightness;
 
 
     out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
 
-    // –é‹ó‚ÍÂF‚É‚µ‚½‚¢
+    // å¤œç©ºã¯é’è‰²ã«ã—ãŸã„
     out_diffuse.rg *= (g_light_brightness*1.414f);
     out_diffuse.b *= (2.f - g_light_brightness);
 
     //------------------------------------------------------
-    // ƒ|ƒCƒ“ƒgƒ‰ƒCƒg
+    // ãƒã‚¤ãƒ³ãƒˆãƒ©ã‚¤ãƒˆ
     //
-    // –¶‚Ì•`‰æ‚Ì‹t‚ğ‚â‚ê‚Î‚æ‚¢
+    // éœ§ã®æç”»ã®é€†ã‚’ã‚„ã‚Œã°ã‚ˆã„
     //------------------------------------------------------
     if (pointLightEnable)
     {
@@ -116,30 +117,30 @@ void pixel_shader(
             float work = fog * 625.f;
             if (work >= 0.f)
             {
-                // ©•ª‚Ìü‚è‚ğ‰©F‚­‚·‚é
+                // è‡ªåˆ†ã®å‘¨ã‚Šã‚’é»„è‰²ãã™ã‚‹
                 out_diffuse.r += (1 - (work*work))/2;
                 out_diffuse.g += (1 - (work*work))/4.f;
             }
         }
         */
 
-        // –@ü‚ğ³‹K‰»
+        // æ³•ç·šã‚’æ­£è¦åŒ–
         float3 N = normalize(in_normal);
 
-        // ƒ‰ƒCƒg•ûŒü‚ğŒvZ
+        // ãƒ©ã‚¤ãƒˆæ–¹å‘ã‚’è¨ˆç®—
         float3 L = normalize((float3)g_point_light_pos - in_worldPos);
 
-        // ‹——£Œ¸Š‚ÌŒvZ
+        // è·é›¢æ¸›è¡°ã®è¨ˆç®—
         float distance = length((float3)g_point_light_pos - in_worldPos);
 
-        // “K“–‚É2æŒ¸Š
+        // é©å½“ã«2ä¹—æ¸›è¡°
         float attenuation = 50.0 / (distance * distance);
         attenuation = min(attenuation, 1.0);
 
-        // ƒ‰ƒCƒg‚Ì‹­‚³iƒ‰ƒ“ƒo[ƒg”½Ëj
+        // ãƒ©ã‚¤ãƒˆã®å¼·ã•ï¼ˆãƒ©ãƒ³ãƒãƒ¼ãƒˆåå°„ï¼‰
         float NdotL = max(dot(N, L), 0);
 
-        // ÅIƒJƒ‰[
+        // æœ€çµ‚ã‚«ãƒ©ãƒ¼
         out_diffuse += light_color * NdotL * attenuation;
     }
 

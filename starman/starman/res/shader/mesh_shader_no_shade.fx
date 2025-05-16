@@ -1,4 +1,5 @@
-// �A��\�����Ȃ��V�F�[�_�[
+// BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
+// 陰を表示しないシェーダー
 float4x4 g_world_view_projection;
 float4 g_diffuse = { 0.1f, 0.1f,0.1f, 0.5f };
 
