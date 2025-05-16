@@ -120,3 +120,4 @@ prolitan2.blend
 /starman/Installer/bin/x64
 /starman/Installer/obj/x64
 /starman/x64/DeployEncrypt
+/starman/packages/wix.3.14.1
