@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "Util.h"
 #include "../starman/CraftManager.h"
 #include "../starman/MainWindow.h"
@@ -25,14 +25,14 @@ namespace UnitTest2
     {
     public:
         
-        // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(CraftTest_TestMethod01)
         {
             // Target
             CraftManager craft;
         }
         
-        // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(CraftTest_TestMethod02)
         {
             Util::InitWin_DX9_DI8();
@@ -47,7 +47,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
         
-        // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(CraftTest_TestMethod03)
         {
             Util::InitWin_DX9_DI8();
@@ -59,7 +59,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
         
-        // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(CraftTest_TestMethod04)
         {
             Util::InitWin_DX9_DI8();
@@ -73,7 +73,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
         
-        // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(CraftTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
@@ -102,7 +102,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
+        // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
         TEST_METHOD(CraftTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8(true);
@@ -117,9 +117,9 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg
-        // ƒNƒ‰ƒtƒg—p‚Ì‘fŞ‚ª‘«‚è‚È‚¢ƒP[ƒXB
-        // ƒLƒ…[‚É’Ç‰Á‚³‚ê‚¸AƒNƒ‰ƒtƒg—p‚Ì‘fŞ‚ª‘«‚è‚È‚¢A‚Æ‚¢‚¤ƒ|ƒbƒvƒAƒbƒv‚ª•\¦‚³‚ê‚é‚±‚Æ
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
+        // ã‚¯ãƒ©ãƒ•ãƒˆç”¨ã®ç´ æãŒè¶³ã‚Šãªã„ã‚±ãƒ¼ã‚¹ã€‚
+        // ã‚­ãƒ¥ãƒ¼ã«è¿½åŠ ã•ã‚Œãšã€ã‚¯ãƒ©ãƒ•ãƒˆç”¨ã®ç´ æãŒè¶³ã‚Šãªã„ã€ã¨ã„ã†ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒè¡¨ç¤ºã•ã‚Œã‚‹ã“ã¨
         TEST_METHOD(CraftTest_CraftRaftTest01)
         {
             Util::InitWin_DX9_DI8(true);
@@ -188,24 +188,24 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("‘fŞ‚ª‘«‚è‚È‚¢", font.GetShowText().c_str());
+            Assert::AreEqual("ç´ æãŒè¶³ã‚Šãªã„", font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg
-        // ƒNƒ‰ƒtƒg—p‚Ì‘fŞ‚ª‘«‚è‚È‚¢ƒP[ƒX2B
-        // ƒLƒ…[‚É’Ç‰Á‚³‚ê‚¸AƒNƒ‰ƒtƒg—p‚Ì‘fŞ‚ª‘«‚è‚È‚¢A‚Æ‚¢‚¤ƒ|ƒbƒvƒAƒbƒv‚ª•\¦‚³‚ê‚é‚±‚Æ
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
+        // ã‚¯ãƒ©ãƒ•ãƒˆç”¨ã®ç´ æãŒè¶³ã‚Šãªã„ã‚±ãƒ¼ã‚¹2ã€‚
+        // ã‚­ãƒ¥ãƒ¼ã«è¿½åŠ ã•ã‚Œãšã€ã‚¯ãƒ©ãƒ•ãƒˆç”¨ã®ç´ æãŒè¶³ã‚Šãªã„ã€ã¨ã„ã†ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒè¡¨ç¤ºã•ã‚Œã‚‹ã“ã¨
         TEST_METHOD(CraftTest_CraftRaftTest02)
         {
             Util::InitWin_DX9_DI8();
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-            storehouse->AddItem("×‚¢–Ø‚ÌŠ²");
-            storehouse->AddItem("ƒcƒ^");
+            storehouse->AddItem("ç´°ã„æœ¨ã®å¹¹");
+            storehouse->AddItem("ãƒ„ã‚¿");
 
             MockPopUpFont font;
             PopUp2::Init(&font);
@@ -269,16 +269,16 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("‘fŞ‚ª‘«‚è‚È‚¢", font.GetShowText().c_str());
+            Assert::AreEqual("ç´ æãŒè¶³ã‚Šãªã„", font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg
-        // ƒNƒ‰ƒtƒg—p‚Ì‘fŞ‚ª‘«‚è‚Ä‚¢‚éƒP[ƒXB
-        // ƒLƒ…[‚É’Ç‰Á‚³‚ê‚é‚±‚Æ
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
+        // ã‚¯ãƒ©ãƒ•ãƒˆç”¨ã®ç´ æãŒè¶³ã‚Šã¦ã„ã‚‹ã‚±ãƒ¼ã‚¹ã€‚
+        // ã‚­ãƒ¥ãƒ¼ã«è¿½åŠ ã•ã‚Œã‚‹ã“ã¨
         TEST_METHOD(CraftTest_CraftRaftTest03)
         {
             Util::InitWin_DX9_DI8(true);
@@ -288,8 +288,8 @@ namespace UnitTest2
 
             for (int i = 0; i < 100; ++i)
             {
-                storehouse->AddItem("×‚¢–Ø‚ÌŠ²");
-                storehouse->AddItem("ƒcƒ^");
+                storehouse->AddItem("ç´°ã„æœ¨ã®å¹¹");
+                storehouse->AddItem("ãƒ„ã‚¿");
             }
 
             MockPopUpFont font;
@@ -351,7 +351,7 @@ namespace UnitTest2
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
                 Assert::AreEqual(false, reqList.empty());
-                Assert::AreEqual("ƒCƒJƒ_", reqList.front().GetName().c_str());
+                Assert::AreEqual("ã‚¤ã‚«ãƒ€", reqList.front().GetName().c_str());
             }
 
             Assert::AreEqual("", font.GetShowText().c_str());
@@ -361,9 +361,9 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg
-        // ƒCƒJƒ_‚ª‹’“_‚É‚·‚Å‚É‚ ‚éê‡‚ÍAƒNƒ‰ƒtƒg‚ªŠJn‚³‚ê‚È‚¢‚±‚Æ
-        // Œx‚ğ‹’“_‚ÌƒCƒJƒ_‚ğˆÚ“®‚³‚¹‚é‚æ‚¤‚É‘£‚·ƒ|ƒbƒvƒAƒbƒv‚ª•\¦‚³‚ê‚é‚±‚Æ
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
+        // ã‚¤ã‚«ãƒ€ãŒæ‹ ç‚¹ã«ã™ã§ã«ã‚ã‚‹å ´åˆã¯ã€ã‚¯ãƒ©ãƒ•ãƒˆãŒé–‹å§‹ã•ã‚Œãªã„ã“ã¨
+        // è­¦å‘Šã‚’æ‹ ç‚¹ã®ã‚¤ã‚«ãƒ€ã‚’ç§»å‹•ã•ã›ã‚‹ã‚ˆã†ã«ä¿ƒã™ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒè¡¨ç¤ºã•ã‚Œã‚‹ã“ã¨
         TEST_METHOD(CraftTest_CraftRaftTest04)
         {
             NSStarmanLib::CraftSystem::Destroy();
@@ -378,8 +378,8 @@ namespace UnitTest2
 
             for (int i = 0; i < 100; ++i)
             {
-                storehouse->AddItem("×‚¢–Ø‚ÌŠ²");
-                storehouse->AddItem("ƒcƒ^");
+                storehouse->AddItem("ç´°ã„æœ¨ã®å¹¹");
+                storehouse->AddItem("ãƒ„ã‚¿");
             }
 
             MockPopUpFont font;
@@ -430,32 +430,32 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("‘D’…‚«ê‚ÉƒCƒJƒ_‚ª‚ ‚é", font.GetShowText().c_str());
+            Assert::AreEqual("èˆ¹ç€ãå ´ã«ã‚¤ã‚«ãƒ€ãŒã‚ã‚‹", font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg
-        // ƒLƒ…[‚É’Ç‰Á‚³‚êA‚Q‚SŠÔŒãAƒNƒ‰ƒtƒg‚ªŠ®—¹‚·‚é‚±‚ÆB
-        // ‘qŒÉ‚É’Ç‰Á‚³‚ê‚È‚¢‚±‚Æ
-        // ƒCƒJƒ_‚ª‹’“_‚É”z’u‚³‚ê‚é‚±‚Æ
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
+        // ã‚­ãƒ¥ãƒ¼ã«è¿½åŠ ã•ã‚Œã€ï¼’ï¼”æ™‚é–“å¾Œã€ã‚¯ãƒ©ãƒ•ãƒˆãŒå®Œäº†ã™ã‚‹ã“ã¨ã€‚
+        // å€‰åº«ã«è¿½åŠ ã•ã‚Œãªã„ã“ã¨
+        // ã‚¤ã‚«ãƒ€ãŒæ‹ ç‚¹ã«é…ç½®ã•ã‚Œã‚‹ã“ã¨
         TEST_METHOD(CraftTest_CraftRaftTest05)
         {
 
         }
 
-        // ƒCƒJƒ_‚ğƒNƒ‰ƒtƒg
-        // ‹­‰»’l‚ªn—û“x‚É‚æ‚Á‚Ä©“®‚ÅŒˆ‚Ü‚é‚±‚ÆH
+        // ã‚¤ã‚«ãƒ€ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
+        // å¼·åŒ–å€¤ãŒç†Ÿç·´åº¦ã«ã‚ˆã£ã¦è‡ªå‹•ã§æ±ºã¾ã‚‹ã“ã¨ï¼Ÿ
 
-        // •Ší‚ğƒNƒ‰ƒtƒg
-        // ‹­‰»’l‚ªn—û“x‚É‚æ‚Á‚Ä©“®‚ÅŒˆ‚Ü‚é‚±‚ÆH
+        // æ­¦å™¨ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
+        // å¼·åŒ–å€¤ãŒç†Ÿç·´åº¦ã«ã‚ˆã£ã¦è‡ªå‹•ã§æ±ºã¾ã‚‹ã“ã¨ï¼Ÿ
 
-        // •Ší‚ğƒNƒ‰ƒtƒg
+        // æ­¦å™¨ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
         //
         
-        // •Ší‚ğƒNƒ‰ƒtƒg
+        // æ­¦å™¨ã‚’ã‚¯ãƒ©ãƒ•ãƒˆ
         //
     };
 }

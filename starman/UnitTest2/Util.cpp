@@ -1,4 +1,4 @@
-#include "Util.h"
+ï»¿#include "Util.h"
 #include "../starman/SharedObj.h"
 #include "../starman/GamePad.h"
 #include "../starman/SoundEffect.h"
@@ -51,7 +51,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
         ShowWindow(SharedObj::GetWindowHandle(), SW_SHOW);
     }
 
-    // Direct3D‚Ì‰Šú‰»
+    // Direct3Dã®åˆæœŸåŒ–
     m_D3D = nullptr;
     if (!(m_D3D = Direct3DCreate9(D3D_SDK_VERSION)))
     {
@@ -118,7 +118,7 @@ void Util::ReleaseWin_DX9_DI8()
 
     DestroyWindow(SharedObj::GetWindowHandle());
 
-    // DestroyWindow‚ğs‚Á‚½ŒãAƒƒbƒZ[ƒWˆ—‚ªŠ®—¹‚·‚é‚Ì‚ğ‘Ò‚Â
+    // DestroyWindowã‚’è¡Œã£ãŸå¾Œã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†ãŒå®Œäº†ã™ã‚‹ã®ã‚’å¾…ã¤
     MSG msg = { 0 };
     while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
     {
@@ -227,7 +227,7 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
     WIN32_FIND_DATA findData;
     HANDLE hFind;
 
-    // ƒpƒX + "\*" ‚ğì¬
+    // ãƒ‘ã‚¹ + "\*" ã‚’ä½œæˆ
     lstrcpy(searchPath, dirPath);
     lstrcat(searchPath, _T("\\*"));
 
@@ -239,27 +239,27 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
 
     do
     {
-        // "." ‚Æ ".." ‚ÍƒXƒLƒbƒv
+        // "." ã¨ ".." ã¯ã‚¹ã‚­ãƒƒãƒ—
         if (lstrcmp(findData.cFileName, _T(".")) == 0 ||
             lstrcmp(findData.cFileName, _T("..")) == 0)
         {
             continue;
         }
 
-        // ƒtƒ‹ƒpƒX‚ğì¬
+        // ãƒ•ãƒ«ãƒ‘ã‚¹ã‚’ä½œæˆ
         TCHAR fullPath[MAX_PATH];
         lstrcpy(fullPath, dirPath);
         lstrcat(fullPath, _T("\\"));
         lstrcat(fullPath, findData.cFileName);
 
-        // ƒfƒBƒŒƒNƒgƒŠ‚È‚çÄ‹A
+        // ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªãªã‚‰å†å¸°
         if (findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
         {
             DeleteDirectory(fullPath);
         }
         else
         {
-            // ƒtƒ@ƒCƒ‹‘®«‚ğ•W€‚É–ß‚µ‚Ä‚©‚çíœ
+            // ãƒ•ã‚¡ã‚¤ãƒ«å±æ€§ã‚’æ¨™æº–ã«æˆ»ã—ã¦ã‹ã‚‰å‰Šé™¤
             SetFileAttributes(fullPath, FILE_ATTRIBUTE_NORMAL);
             DeleteFile(fullPath);
         }
@@ -268,7 +268,7 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
 
     FindClose(hFind);
 
-    // ÅŒã‚É‚±‚ÌƒtƒHƒ‹ƒ_©g‚ğíœ
+    // æœ€å¾Œã«ã“ã®ãƒ•ã‚©ãƒ«ãƒ€è‡ªèº«ã‚’å‰Šé™¤
     BOOL result = SetFileAttributes(dirPath, FILE_ATTRIBUTE_NORMAL);
 
     assert(result == TRUE);

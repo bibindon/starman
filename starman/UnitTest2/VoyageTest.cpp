@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../starman/VoyageManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Voyage.h"
 #include "../starman/SharedObj.h"
@@ -33,13 +33,13 @@ namespace UnitTest2
         {
         }
         
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod01)
         {
             Raft2 raft;
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod02)
         {
             Util::InitWin_DX9_DI8();
@@ -56,7 +56,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod03)
         {
             Raft2 raft;
@@ -65,7 +65,7 @@ namespace UnitTest2
             raft.Finalize();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod04)
         {
             Util::InitWin_DX9_DI8();
@@ -94,7 +94,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8();
@@ -128,7 +128,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8();
@@ -147,7 +147,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod07)
         {
             Util::InitWin_DX9_DI8();
@@ -173,7 +173,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod08)
         {
             Util::InitWin_DX9_DI8();
@@ -198,7 +198,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod09)
         {
             Util::InitWin_DX9_DI8();
@@ -223,7 +223,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod10)
         {
             Util::InitWin_DX9_DI8();
@@ -241,7 +241,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod11)
         {
             Util::InitWin_DX9_DI8();
@@ -260,7 +260,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod12)
         {
             Util::InitWin_DX9_DI8();
@@ -278,7 +278,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod13)
         {
             Util::InitWin_DX9_DI8();
@@ -297,7 +297,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(RaftTest_TestMethod14)
         {
             Util::InitWin_DX9_DI8();
@@ -320,7 +320,7 @@ namespace UnitTest2
     {
     public:
         
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod01)
         {
             // Target
@@ -329,7 +329,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod02)
         {
             Util::InitWin_DX9_DI8();
@@ -343,7 +343,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod03)
         {
             Util::InitWin_DX9_DI8();
@@ -357,7 +357,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod04)
         {
             auto voyageMgr = VoyageManager::Get();
@@ -368,7 +368,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
@@ -402,7 +402,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8();
@@ -420,7 +420,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod07)
         {
             Util::InitWin_DX9_DI8();
@@ -439,7 +439,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod08)
         {
             Util::InitWin_DX9_DI8();
@@ -456,7 +456,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod09)
         {
             auto voyageMgr = VoyageManager::Get();
@@ -468,7 +468,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod10)
         {
             auto voyageMgr = VoyageManager::Get();
@@ -479,7 +479,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod11)
         {
             Util::InitWin_DX9_DI8();
@@ -496,7 +496,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod12)
         {
             Util::InitWin_DX9_DI8();
@@ -514,7 +514,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod13)
         {
             auto voyageMgr = VoyageManager::Get();
@@ -526,7 +526,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod14)
         {
             auto voyageMgr = VoyageManager::Get();
@@ -538,7 +538,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod17)
         {
             auto voyageMgr = VoyageManager::Get();
@@ -549,7 +549,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod18)
         {
             auto voyageMgr = VoyageManager::Get();
@@ -562,7 +562,7 @@ namespace UnitTest2
             VoyageManager::Destroy();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod19)
         {
             Util::InitWin_DX9_DI8();
@@ -581,7 +581,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod20)
         {
             Util::InitWin_DX9_DI8();
@@ -599,7 +599,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod21)
         {
             Util::InitWin_DX9_DI8();
@@ -617,7 +617,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod22)
         {
             Util::InitWin_DX9_DI8();
@@ -635,7 +635,7 @@ namespace UnitTest2
             Util::ReleaseWin_DX9_DI8();
         }
 
-        // ’ÊíƒP[ƒX‚Å—áŠO‚ª‹N‚«‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒgB’Pƒ‚ÉpublicŠÖ”‚ğÀs‚·‚é‚¾‚¯
+        // é€šå¸¸ã‚±ãƒ¼ã‚¹ã§ä¾‹å¤–ãŒèµ·ããªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆã€‚å˜ç´”ã«publicé–¢æ•°ã‚’å®Ÿè¡Œã™ã‚‹ã ã‘
         TEST_METHOD(VoyageTest_TestMethod23)
         {
             Util::InitWin_DX9_DI8();

@@ -1,4 +1,4 @@
-#include <cassert>
+ï»¿#include <cassert>
 
 #include "CppUnitTest.h"
 #include "Util.h"
@@ -40,8 +40,8 @@ public:
     {
     }
 
-    // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
-    // iƒRƒ“ƒXƒgƒ‰ƒNƒ^j
+    // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
+    // ï¼ˆã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ï¼‰
     TEST_METHOD(MainWindowTest_TestMethod01)
     {
         Sleep(500);
@@ -70,7 +70,7 @@ public:
         BOOL result = DestroyWindow(hWnd);
         assert(result == 1);
 
-        // DestroyWindow‚ğs‚Á‚½ŒãAƒƒbƒZ[ƒWˆ—‚ªŠ®—¹‚·‚é‚Ì‚ğ‘Ò‚Â
+        // DestroyWindowã‚’è¡Œã£ãŸå¾Œã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å‡¦ç†ãŒå®Œäº†ã™ã‚‹ã®ã‚’å¾…ã¤
         MSG msg = { 0 };
         while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
@@ -79,7 +79,7 @@ public:
         }
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
-        BOOL result2 = UnregisterClass("ƒzƒVƒ}ƒ“", hInstance);
+        BOOL result2 = UnregisterClass("ãƒ›ã‚·ãƒãƒ³", hInstance);
         assert(result2 == 1);
 
         int result3 = rename("res\\script\\save.bak", "res\\script\\save");
@@ -87,8 +87,8 @@ public:
         Sleep(500);
     }
 
-    // ’Pƒ‚ÉpublicŠÖ”‚ğŒÄ‚Ô‚¾‚¯‚ÌƒeƒXƒg
-    // MainLoopŠÖ”
+    // å˜ç´”ã«publicé–¢æ•°ã‚’å‘¼ã¶ã ã‘ã®ãƒ†ã‚¹ãƒˆ
+    // MainLoopé–¢æ•°
     TEST_METHOD(MainWindowTest_TestMethod02)
     {
         Sleep(500);
@@ -129,7 +129,7 @@ public:
         }
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
-        BOOL result2 = UnregisterClass("ƒzƒVƒ}ƒ“", hInstance);
+        BOOL result2 = UnregisterClass("ãƒ›ã‚·ãƒãƒ³", hInstance);
         assert(result2 == 1);
 
         bool exist1 = Util::IsDirectory("res\\script\\save");
@@ -151,14 +151,14 @@ public:
     }
 
     //--------------------------------------------
-    // ƒ[ƒh
-    // ¨ƒ^ƒCƒgƒ‹
-    // ¨ƒI[ƒvƒjƒ“ƒO
-    // ¨ƒtƒB[ƒ‹ƒh
-    // ¨ƒNƒGƒXƒg‚PŠJn
-    // ¨ƒNƒGƒXƒg‚PŠ®—¹
-    // ‚Ì‡‚ÅƒQ[ƒ€‚ği‚ß‚é‚½‚Æ‚«‚ÉƒNƒ‰ƒbƒVƒ…‚µ‚È‚¢‚±‚Æ‚ğŠm”F‚·‚éƒeƒXƒg
-    // ƒGƒ“ƒ^[ƒL[‚ğ‰½“x‚à‰Ÿ‚µ‚Ä‚¢‚é‚¾‚¯‚Å“’B‚Å‚«‚é
+    // ãƒ­ãƒ¼ãƒ‰
+    // â†’ã‚¿ã‚¤ãƒˆãƒ«
+    // â†’ã‚ªãƒ¼ãƒ—ãƒ‹ãƒ³ã‚°
+    // â†’ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰
+    // â†’ã‚¯ã‚¨ã‚¹ãƒˆï¼‘é–‹å§‹
+    // â†’ã‚¯ã‚¨ã‚¹ãƒˆï¼‘å®Œäº†
+    // ã®é †ã§ã‚²ãƒ¼ãƒ ã‚’é€²ã‚ã‚‹ãŸã¨ãã«ã‚¯ãƒ©ãƒƒã‚·ãƒ¥ã—ãªã„ã“ã¨ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
+    // ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’ä½•åº¦ã‚‚æŠ¼ã—ã¦ã„ã‚‹ã ã‘ã§åˆ°é”ã§ãã‚‹
     //--------------------------------------------
     TEST_METHOD(MainWindowTest_TestMethod03)
     {
@@ -176,16 +176,16 @@ public:
 
             std::thread th1([&]
                             {
-                                // 1•ªƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‘±‚¯‚é
+                                // 1åˆ†ã‚¨ãƒ³ã‚¿ãƒ¼ã‚’æŠ¼ã—ç¶šã‘ã‚‹
                                 for (int i = 0; i <120; ++i)
                                 {
                                     Sleep(1000 * 1);
                                     keyboard.SetKeyDownFirst(DIK_RETURN);
                                 }
 
-                                // ƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‘±‚¯‚é‚ÆƒNƒGƒXƒg‚P‚ªŠ®—¹‚·‚éB
-                                // ‚µ‚©‚µƒNƒGƒXƒg1‚ªŠ®—¹‚µ‚½‚±‚Æ‚ğ’m‚é•û–@‚ª‚È‚¢B
-                                // ‚»‚±‚ÅAƒZ[ƒu‚ğÀs‚µƒZ[ƒuƒf[ƒ^‚ÅƒNƒGƒXƒg‚P‚ªŠ®—¹‚Æ‚È‚Á‚Ä‚¢‚é‚©Šm”F‚·‚éB
+                                // ã‚¨ãƒ³ã‚¿ãƒ¼ã‚’æŠ¼ã—ç¶šã‘ã‚‹ã¨ã‚¯ã‚¨ã‚¹ãƒˆï¼‘ãŒå®Œäº†ã™ã‚‹ã€‚
+                                // ã—ã‹ã—ã‚¯ã‚¨ã‚¹ãƒˆ1ãŒå®Œäº†ã—ãŸã“ã¨ã‚’çŸ¥ã‚‹æ–¹æ³•ãŒãªã„ã€‚
+                                // ãã“ã§ã€ã‚»ãƒ¼ãƒ–ã‚’å®Ÿè¡Œã—ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã§ã‚¯ã‚¨ã‚¹ãƒˆï¼‘ãŒå®Œäº†ã¨ãªã£ã¦ã„ã‚‹ã‹ç¢ºèªã™ã‚‹ã€‚
                                 SaveManager::Get()->Save();
                                 Sleep(500);
 
@@ -222,7 +222,7 @@ public:
         Assert::AreNotEqual(std::string::npos, it);
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
-        BOOL result2 = UnregisterClass("ƒzƒVƒ}ƒ“", hInstance);
+        BOOL result2 = UnregisterClass("ãƒ›ã‚·ãƒãƒ³", hInstance);
         assert(result2 == 1);
 
         int result3 = rename("res\\script\\save.bak", "res\\script\\save");
@@ -230,7 +230,7 @@ public:
         Sleep(500);
     }
 
-    // ƒZ[ƒuƒf[ƒ^‚ğ•Û‘¶‚µ‚Ä“Ç‚İ‚ñ‚¾‚Æ‚«—‚¿‚È‚¢‚©‚ğŠm”F‚·‚éƒeƒXƒg
+    // ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã—ã¦èª­ã¿è¾¼ã‚“ã ã¨ãè½ã¡ãªã„ã‹ã‚’ç¢ºèªã™ã‚‹ãƒ†ã‚¹ãƒˆ
     TEST_METHOD(MainWindowTest_TestMethod04)
     {
         Sleep(1000);
@@ -247,7 +247,7 @@ public:
 
             std::thread th1([&]
                             {
-                                // 1•ªƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‘±‚¯‚é
+                                // 1åˆ†ã‚¨ãƒ³ã‚¿ãƒ¼ã‚’æŠ¼ã—ç¶šã‘ã‚‹
                                 for (int i = 0; i < 120; ++i)
                                 {
                                     Sleep(1000 * 1); 
@@ -255,9 +255,9 @@ public:
                                 }
 
 #ifndef DEPLOY
-                                // ƒGƒ“ƒ^[‚ğ‰Ÿ‚µ‘±‚¯‚é‚ÆƒNƒGƒXƒg‚P‚ªŠ®—¹‚·‚éB
-                                // ‚µ‚©‚µƒNƒGƒXƒg1‚ªŠ®—¹‚µ‚½‚±‚Æ‚ğ’m‚é•û–@‚ª‚È‚¢B
-                                // ‚»‚±‚ÅAƒZ[ƒu‚ğÀs‚µƒZ[ƒuƒf[ƒ^‚ÅƒNƒGƒXƒg‚P‚ªŠ®—¹‚Æ‚È‚Á‚Ä‚¢‚é‚©Šm”F‚·‚éB
+                                // ã‚¨ãƒ³ã‚¿ãƒ¼ã‚’æŠ¼ã—ç¶šã‘ã‚‹ã¨ã‚¯ã‚¨ã‚¹ãƒˆï¼‘ãŒå®Œäº†ã™ã‚‹ã€‚
+                                // ã—ã‹ã—ã‚¯ã‚¨ã‚¹ãƒˆ1ãŒå®Œäº†ã—ãŸã“ã¨ã‚’çŸ¥ã‚‹æ–¹æ³•ãŒãªã„ã€‚
+                                // ãã“ã§ã€ã‚»ãƒ¼ãƒ–ã‚’å®Ÿè¡Œã—ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã§ã‚¯ã‚¨ã‚¹ãƒˆï¼‘ãŒå®Œäº†ã¨ãªã£ã¦ã„ã‚‹ã‹ç¢ºèªã™ã‚‹ã€‚
                                 SaveManager::Get()->Save();
 #endif
 
@@ -279,7 +279,7 @@ public:
 
         Sleep(2000);
         hInstance = (HINSTANCE)GetModuleHandle(0);
-        BOOL result2 = UnregisterClass("ƒzƒVƒ}ƒ“", hInstance);
+        BOOL result2 = UnregisterClass("ãƒ›ã‚·ãƒãƒ³", hInstance);
         assert(result2 == 1);
         Sleep(500);
 
@@ -316,7 +316,7 @@ public:
         }
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
-        BOOL result3 = UnregisterClass("ƒzƒVƒ}ƒ“", hInstance);
+        BOOL result3 = UnregisterClass("ãƒ›ã‚·ãƒãƒ³", hInstance);
         assert(result3 == 1);
         Sleep(500);
 

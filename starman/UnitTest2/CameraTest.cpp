@@ -1,4 +1,4 @@
-#include "CppUnitTest.h"
+ï»¿#include "CppUnitTest.h"
 #include "../starman/Camera.h"
 #include "../starman/GamePad.h"
 
@@ -75,7 +75,7 @@ namespace UnitTest2
 
             DestroyWindow(hWnd);
 
-            // DestroyWindow‚ğs‚Á‚½ŒãAƒƒbƒZ[ƒWˆ—‚ªŠ®—¹‚·‚é‚Ì‚ğ‘Ò‚Â
+            // DestroyWindowï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½bï¿½Zï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½Ò‚ï¿½
             MSG msg = { 0 };
             while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
             {

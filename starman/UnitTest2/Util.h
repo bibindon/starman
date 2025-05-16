@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <windows.h>
 #include <tchar.h>
@@ -20,7 +20,7 @@ class Util
 {
 public:
 
-    // ƒEƒBƒ“ƒhƒEì¬‚ÆDirctX9‚Ì‰Šú‰»ADirectInput‚Ì‰Šú‰»‚ğs‚¤
+    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ä½œæˆã¨DirctX9ã®åˆæœŸåŒ–ã€DirectInputã®åˆæœŸåŒ–ã‚’è¡Œã†
     static void InitWin_DX9_DI8(const bool bShow = false);
     static void ReleaseWin_DX9_DI8();
 
