@@ -101,7 +101,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
 
     Mouse::Init(m_directInput, hWnd);
     GamePad::Init(m_directInput, hWnd);
-    BGM::initialize(hWnd);
+    BGM::Init(hWnd);
     SoundEffect::initialize(hWnd);
 }
 
@@ -109,7 +109,7 @@ void Util::ReleaseWin_DX9_DI8()
 {
     Mouse::Finalize();
     GamePad::Finalize();
-    BGM::finalize();
+    BGM::Finalize();
     SoundEffect::finalize();
 
     SharedObj::Finalize();
