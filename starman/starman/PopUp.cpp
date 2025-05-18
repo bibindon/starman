@@ -30,7 +30,7 @@ void PopUp::Init(const bool bEnglish)
     if (!bEnglish)
     {
         D3DXCreateFont(D3DDevice,
-                       45,
+                       32,
                        0,
                        FW_NORMAL,
                        1,
@@ -39,7 +39,7 @@ void PopUp::Init(const bool bEnglish)
                        OUT_TT_ONLY_PRECIS,
                        CLEARTYPE_NATURAL_QUALITY,
                        FF_DONTCARE,
-                       _T("Shippori Mincho"),
+                       _T("IPA明朝"),
                        &m_singleTonObj->m_D3DFont);
     }
     else

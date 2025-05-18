@@ -338,7 +338,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
     {
         // 一時的にシステムにフォントを登録
-        AddFontResourceEx(_T("res\\font\\ShipporiMincho-Regular.ttf"), FR_PRIVATE, nullptr);
+        AddFontResourceEx(_T("res\\font\\ipam.ttf"), FR_PRIVATE, nullptr);
     }
 
     //-------------------------------------------------

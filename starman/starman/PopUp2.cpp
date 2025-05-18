@@ -106,7 +106,7 @@ PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
     if (!bEnglish)
     {
         hresult = D3DXCreateFont(D3DDevice,
-                                 39,
+                                 24,
                                  0,
                                  FW_NORMAL,
                                  1,
@@ -115,7 +115,7 @@ PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
                                  OUT_TT_ONLY_PRECIS,
                                  CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 _T("Shippori Mincho"),
+                                 _T("IPA明朝"),
                                  &m_D3DFont);
     }
     else

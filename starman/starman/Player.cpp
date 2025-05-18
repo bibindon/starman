@@ -264,7 +264,7 @@ Player::Player()
     SoundEffect::get_ton()->load(_T("res\\sound\\darkSet.wav"));
 
     D3DXCreateFont(SharedObj::GetD3DDevice(),
-                   48,
+                   32,
                    0,
                    FW_NORMAL,
                    1,
@@ -273,7 +273,7 @@ Player::Player()
                    OUT_TT_ONLY_PRECIS,
                    CLEARTYPE_NATURAL_QUALITY,
                    FF_DONTCARE,
-                   _T("Shippori Mincho"),
+                   _T("IPA明朝"),
                    &m_D3DFont);
 }
 

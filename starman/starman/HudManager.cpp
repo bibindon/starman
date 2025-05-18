@@ -93,7 +93,7 @@ public:
         if (!bEnglish)
         {
             hr = D3DXCreateFont(m_pD3DDevice,
-                                20,
+                                16,
                                 0,
                                 FW_THIN,
                                 1,
@@ -102,7 +102,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                _T("Shippori Mincho"),
+                                _T("IPA明朝"),
                                 &m_pFont);
         }
         else
