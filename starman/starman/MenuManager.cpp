@@ -996,7 +996,7 @@ std::wstring MenuManager::OperateMenu()
             sprItem->Load(_T("res\\image\\hoshiman00.png"));
             info.SetSprite(sprItem);
 
-            wchar_t buf[1024];
+            wchar_t buf[4096];
             std::wstring work;
             work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
@@ -1124,7 +1124,7 @@ std::wstring MenuManager::OperateMenu()
                 sprItem->Load(_T("res\\image\\daikeiman00.png"));
                 info.SetSprite(sprItem);
 
-                wchar_t buf[1024];
+                wchar_t buf[4096];
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
@@ -1201,7 +1201,7 @@ std::wstring MenuManager::OperateMenu()
                 sprItem->Load(_T("res\\image\\sankakuman00.png"));
                 info.SetSprite(sprItem);
 
-                wchar_t buf[1024];
+                wchar_t buf[4096];
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
