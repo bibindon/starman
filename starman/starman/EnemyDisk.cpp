@@ -27,7 +27,7 @@ bool EnemyDisk::Init()
                 animSetting.m_startPos = 0.5f;
                 animSetting.m_duration = 0.5f;
                 animSetting.m_loop = true;
-                animSetMap[_T("Idle")] = animSetting;
+                animSetMap[_T("0_Idle")] = animSetting;
             }
             {
                 AnimSetting animSetting { };
@@ -57,7 +57,7 @@ bool EnemyDisk::Init()
             m_spriteHP = NEW Sprite(_T("res\\image\\hp_green.png"));
             m_spriteHPBack = NEW Sprite(_T("res\\image\\hp_black.png"));
 
-            m_AnimMesh->SetAnim(_T("Idle"), 0.f);
+            m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
             m_loaded.store(true);
         });
     return true;
@@ -123,7 +123,7 @@ void EnemyDisk::Update()
         else if (20.f <= distance)
         {
             m_state = eEnemyState::IDLE;
-            m_AnimMesh->SetAnim(_T("Idle"), 0.f);
+            m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
         }
     }
     else if (m_state == eEnemyState::DAMAGED)

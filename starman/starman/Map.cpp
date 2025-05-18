@@ -277,7 +277,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -346,7 +346,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -411,7 +411,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -480,7 +480,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -532,7 +532,7 @@ void Map::Init()
             animSetMap[_T("LieDown")] = animSetting;
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\vim.x"), pos, rot, 1.f, animSetMap);
-        animMesh->SetAnim(_T("Idle"));
+        animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("vim")] = animMesh;
     }
     /*
@@ -545,7 +545,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -597,7 +597,7 @@ void Map::Init()
             animSetMap[_T("LieDown")] = animSetting;
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\vsco\\vsco.x"), b, move, 1.f, animSetMap);
-        animMesh->SetAnim(_T("Idle"));
+        animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ブイエスコ")] = animMesh;
     }
     {
@@ -609,7 +609,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -661,7 +661,7 @@ void Map::Init()
             animSetMap[_T("LieDown")] = animSetting;
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\webnin\\webnin.x"), b, move, 1.f, animSetMap);
-        animMesh->SetAnim(_T("Idle"));
+        animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ウェブニン")] = animMesh;
     }
     {
@@ -673,10 +673,10 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 2.0f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         //AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\xeoff\\xeoff.x"), b, move, 1.5f, animSetMap);
-        //animMesh->SetAnim(_T("Idle"));
+        //animMesh->SetAnim(_T("0_Idle"));
         //m_NPC[_T("ジーオフ")] = animMesh;
     }
     {
@@ -688,7 +688,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -740,7 +740,7 @@ void Map::Init()
             animSetMap[_T("LieDown")] = animSetting;
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\gain\\gain.x"), b, move, 1.f, animSetMap);
-        animMesh->SetAnim(_T("Idle"));
+        animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ガイン")] = animMesh;
     }
     {
@@ -752,7 +752,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -804,7 +804,7 @@ void Map::Init()
             animSetMap[_T("LieDown")] = animSetting;
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\nes\\nes.x"), b, move, 1.f, animSetMap);
-        animMesh->SetAnim(_T("Idle"));
+        animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ネス")] = animMesh;
     }
     {
@@ -816,7 +816,7 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -868,7 +868,7 @@ void Map::Init()
             animSetMap[_T("LieDown")] = animSetting;
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\noble\\noble.x"), b, move, 1.f, animSetMap);
-        animMesh->SetAnim(_T("Idle"));
+        animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ノーブル")] = animMesh;
     }
     */

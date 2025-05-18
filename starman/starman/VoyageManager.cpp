@@ -436,7 +436,7 @@ void Raft2::Init(const int id)
             animSetting.m_startPos = 0.0f;
             animSetting.m_duration = 0.49f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -446,7 +446,7 @@ void Raft2::Init(const int id)
             animSetMap[_T("Pull")] = animSetting;
         }
         m_meshOarLeft = NEW AnimMesh(_T("res\\model\\oarLeft.x"), pos, rot, 1.f, animSetMap);
-        m_meshOarLeft->SetAnim(_T("Idle"));
+        m_meshOarLeft->SetAnim(_T("0_Idle"));
         m_meshOarLeft->SetAnimSpeed(0.5f / 60.f);
     }
     {
@@ -456,7 +456,7 @@ void Raft2::Init(const int id)
             animSetting.m_startPos = 0.0f;
             animSetting.m_duration = 0.49f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -466,7 +466,7 @@ void Raft2::Init(const int id)
             animSetMap[_T("Pull")] = animSetting;
         }
         m_meshOarRight = NEW AnimMesh(_T("res\\model\\oarRight.x"), pos, rot, 1.f, animSetMap);
-        m_meshOarRight->SetAnim(_T("Idle"));
+        m_meshOarRight->SetAnim(_T("0_Idle"));
         m_meshOarRight->SetAnimSpeed(0.5f / 60.f);
     }
     {
@@ -476,10 +476,10 @@ void Raft2::Init(const int id)
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = true;
-            animSetMap[_T("Idle")] = animSetting;
+            animSetMap[_T("0_Idle")] = animSetting;
         }
         m_meshCord = NEW AnimMesh(_T("res\\model\\cord.x"), pos, rot, 1.f, animSetMap);
-        m_meshCord->SetAnim(_T("Idle"));
+        m_meshCord->SetAnim(_T("0_Idle"));
         D3DXVECTOR3 centerPos(0.584f, 1.554f, 1.140f);
         m_meshCord->SetCenterPos(centerPos);
     }

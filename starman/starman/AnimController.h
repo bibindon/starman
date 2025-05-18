@@ -3,11 +3,11 @@
 #include <d3dx9.h>
 #include <d3dx9.h>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 struct AnimSetting;
 
-using AnimSetMap = std::unordered_map<std::wstring, AnimSetting>;
+using AnimSetMap = std::map<std::wstring, AnimSetting>;
 
 struct AnimSetting
 {

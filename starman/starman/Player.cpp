@@ -23,7 +23,7 @@ Player::Player()
         animSetting.m_startPos = 0.f;
         animSetting.m_duration = 0.47f;
         animSetting.m_loop = true;
-        animSetMap[_T("Idle")] = animSetting;
+        animSetMap[_T("0_Idle")] = animSetting;
     }
     {
         AnimSetting animSetting { };
@@ -105,7 +105,7 @@ Player::Player()
         animSetMap[_T("Arrow")] = animSetting;
     }
     m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
-    m_AnimMesh2->SetAnim(_T("Idle"));
+    m_AnimMesh2->SetAnim(_T("0_Idle"));
     SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
 
     // 読み込み処理の前に走ってしまうので以下のような書き方でXファイルの名前を参照できない。
@@ -1353,7 +1353,7 @@ void Player::SetWalk()
 
 void Player::SetIdle()
 {
-    m_AnimMesh2->SetAnim(_T("Idle"));
+    m_AnimMesh2->SetAnim(_T("0_Idle"));
     Common::Status()->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::STAND);
 }
 
@@ -1404,7 +1404,7 @@ void Player::SetSleep(const bool arg)
     }
     else
     {
-        m_AnimMesh2->SetAnim(_T("Idle"), 0.f);
+        m_AnimMesh2->SetAnim(_T("0_Idle"), 0.f);
         auto status = NSStarmanLib::StatusManager::GetObj();
         status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::STAND);
         status->SetSleep(false);
