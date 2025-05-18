@@ -26,13 +26,15 @@
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <CompilerAdditionalOptions>-arch x64</CompilerAdditionalOptions>
-    <LinkerAdditionalOptions>-ext WixUIExtension</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -loc WixUI_ja-jp.wxl</LinkerAdditionalOptions>
+    <SuppressIces>ICE60</SuppressIces>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
     <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
     <CompilerAdditionalOptions>-arch x64</CompilerAdditionalOptions>
-    <LinkerAdditionalOptions>-ext WixUIExtension</LinkerAdditionalOptions>
+    <LinkerAdditionalOptions>-ext WixUIExtension -loc WixUI_ja-jp.wxl</LinkerAdditionalOptions>
+    <SuppressIces>ICE60</SuppressIces>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
@@ -66,7 +68,7 @@
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\wix.3.14.1\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\wix.3.14.1\build\wix.props'))" />
   </Target>

@@ -60,6 +60,7 @@
                         <Directory Id="IMAGE" Name="image"/>
                         <Directory Id="SHADER" Name="shader"/>
                         <Directory Id="MODEL" Name="model"/>
+                        <Directory Id="FONT" Name="font"/>
                         <Directory Id="SCRIPT_" Name="script">
                             <Directory Id="SCRIPT_ORIGIN" Name="origin"/>
                         </Directory>
@@ -1384,6 +1385,9 @@
                 <File Source="../starman/res/sound/voyage.wav" />
             </Component>
 
+            <Component Directory="FONT" Guid="*" Win64="yes">
+                <File Source="../starman/res/font/BIZUDMincho-Regular.ttf" />
+            </Component>
         </ComponentGroup>
     </Fragment>
 </Wix>

@@ -7,7 +7,7 @@
 #include <string>
 #include <Windows.h>
 
-std::vector<std::string> ListFilesInFolder(const std::string& folder)
+static std::vector<std::string> ListFilesInFolder(const std::string& folder)
 {
     std::vector<std::string> files;
     std::string search_path = folder + "\\*.*";
@@ -36,7 +36,7 @@ int main()
     std::string text = R"Gene(<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-    <Product Id="*" Name="starman" Language="1033" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+    <Product Id="*" Name="starman" Language="1041" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
         <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
@@ -95,6 +95,7 @@ int main()
                         <Directory Id="IMAGE" Name="image"/>
                         <Directory Id="SHADER" Name="shader"/>
                         <Directory Id="MODEL" Name="model"/>
+                        <Directory Id="FONT" Name="font"/>
                         <Directory Id="SCRIPT_" Name="script">
                             <Directory Id="SCRIPT_ORIGIN" Name="origin"/>
                         </Directory>
@@ -184,6 +185,9 @@ int main()
     }
 
     text += R"Gene(
+            <Component Directory="FONT" Guid="*" Win64="yes">
+                <File Source="../starman/res/font/BIZUDMincho-Regular.ttf" />
+            </Component>
         </ComponentGroup>
     </Fragment>
 </Wix>
