@@ -35,7 +35,7 @@ public:
 
 private:
 
-    std::string m_title;
+    std::wstring m_title;
     MSG m_msg { };
     HWND m_hWnd = nullptr;
     LPDIRECT3D9 m_D3D = nullptr;

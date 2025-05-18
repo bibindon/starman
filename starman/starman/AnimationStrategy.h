@@ -12,9 +12,9 @@ class animation_strategy
 {
 public:
     virtual void update() = 0;
-    virtual void set_animation(const std::string&) { }
-    virtual void set_default_animation(const std::string&) { }
-    virtual void set_animation_config(const std::string&, const bool&, const float&) { }
+    virtual void set_animation(const std::wstring&) { }
+    virtual void set_default_animation(const std::wstring&) { }
+    virtual void set_animation_config(const std::wstring&, const bool&, const float&) { }
     virtual ~animation_strategy() { }
     virtual bool is_playing() { return false; }
 protected:
@@ -34,26 +34,26 @@ class normal_animation : public animation_strategy
 public:
     normal_animation(LPD3DXANIMATIONCONTROLLER controller);
 
-    void set_animation(const std::string& animation_set) override;
+    void set_animation(const std::wstring& animation_set) override;
     void update() override;
-    void set_default_animation(const std::string& animation_name) override;
+    void set_default_animation(const std::wstring& animation_name) override;
     void set_animation_config(
-        const std::string& animation_name,
+        const std::wstring& animation_name,
         const bool& loop,
         const float& duration) override;
     virtual bool is_playing() override;
     void SetTrackPos(const DOUBLE& pos);
 
 private:
-    std::string default_animation_;
+    std::wstring default_animation_;
     DOUBLE animation_time_;
-    std::string playing_animation_;
+    std::wstring playing_animation_;
 
     struct animation_config
     {
         bool loop_ { true };
         float duration_ { 1.0f };
     };
-    std::unordered_map<std::string, animation_config> animation_configs_;
+    std::unordered_map<std::wstring, animation_config> animation_configs_;
 };
 

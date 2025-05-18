@@ -51,14 +51,14 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         // スプライトは一つのみ確保し使いまわす
         if (m_D3DSprite == NULL)
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
             {
-                throw std::exception("Failed to create a sprite.");
+                throw std::exception(_T("Failed to create a sprite."));
             }
         }
 
@@ -72,7 +72,7 @@ public:
             D3DSURFACE_DESC desc { };
             if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
             {
-                throw std::exception("Failed to create a texture.");
+                throw std::exception(_T("Failed to create a texture."));
             }
             m_width = desc.Width;
             m_height = desc.Height;
@@ -85,8 +85,8 @@ public:
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
         {
-            std::string work;
-            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
+            std::wstring work;
+            work = _T("Failed to create a texture. HRESULT: ") + std::to_wstring(hr);
             throw std::exception(work.c_str());
         }
 
@@ -96,7 +96,7 @@ public:
         D3DSURFACE_DESC desc { };
         if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
         m_width = desc.Width;
         m_height = desc.Height;
@@ -123,16 +123,16 @@ private:
     // スプライトは一つを使いまわす
     static LPD3DXSPRITE m_D3DSprite;
 
-    std::string m_filepath;
+    std::wstring m_filepath;
     UINT m_width { 0 };
     UINT m_height { 0 };
 
     // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
-    static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
+    static std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> m_texMap;
 };
 
 LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
-std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
+std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
 
 class Font : public IFont
 {
@@ -159,7 +159,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "ＭＳ 明朝",
+                                _T("ＭＳ 明朝"),
                                 &m_pFont);
         }
         else
@@ -174,12 +174,12 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
     }
 
-    virtual void DrawText_(const std::string& msg,
+    virtual void DrawText_(const std::wstring& msg,
                            const int x,
                            const int y,
                            const int transparency)
@@ -208,21 +208,21 @@ class SoundEffect : public ISoundEffect
 {
     virtual void PlayMove() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_move.wav"));
     }
     virtual void PlayClick() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_confirm.wav"));
     }
     virtual void PlayBack() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
     virtual void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_move.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_confirm.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
 };
 }
@@ -237,13 +237,13 @@ void PatchTestManager2::InitPatch()
 {
     using namespace NSPatchTestLib;
     NSPatchTestLib::Sprite* sprCursor = NEW NSPatchTestLib::Sprite(SharedObj::GetD3DDevice());
-    sprCursor->Load("res\\image\\menu_cursor.png");
+    sprCursor->Load(_T("res\\image\\menu_cursor.png"));
 
     NSPatchTestLib::Sprite* sprBackground = NEW NSPatchTestLib::Sprite(SharedObj::GetD3DDevice());
-    sprBackground->Load("res\\image\\menu_back.png");
+    sprBackground->Load(_T("res\\image\\menu_back.png"));
 
     NSPatchTestLib::Sprite* sprVBar = NEW NSPatchTestLib::Sprite(SharedObj::GetD3DDevice());
-    sprVBar->Load("res\\image\\vbar.png");
+    sprVBar->Load(_T("res\\image\\vbar.png"));
 
     NSPatchTestLib::IFont* pFont = NEW NSPatchTestLib::Font(SharedObj::GetD3DDevice());
 
@@ -254,7 +254,7 @@ void PatchTestManager2::InitPatch()
     CreateList();
 }
 
-std::string PatchTestManager2::Operate()
+std::wstring PatchTestManager2::Operate()
 {
     // 一秒に一回くらいの処理
     {
@@ -287,8 +287,8 @@ std::string PatchTestManager2::Operate()
     // Mouse, Keyboard, GamePad
     //-------------------------------------------------
 
-    std::string result;
-    std::string work_str;
+    std::wstring result;
+    std::wstring work_str;
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
@@ -498,16 +498,16 @@ void PatchTestManager2::CreateList()
     m_guiLib.UpdateCursorPos();
 }
 
-void PatchTestManager2::QueueTest(const std::string& result)
+void PatchTestManager2::QueueTest(const std::wstring& result)
 {
     if (result.empty())
     {
         return;
     }
 
-    std::vector<std::string> vs = Common::split(result, ':');
+    std::vector<std::wstring> vs = Common::split(result, ':');
 
-    std::string name = vs.at(1);
+    std::wstring name = vs.at(1);
 
     // パッチテストをキューイングする
     bool result2 = GetPatchLib()->QueuePatchTest(name);

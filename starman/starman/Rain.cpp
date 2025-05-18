@@ -29,7 +29,7 @@ void Rain::Init()
 
     //テクスチャの作成
     result = D3DXCreateTextureFromFile(d3dDevice,
-                                       "res\\image\\raindrop.png",
+                                       _T("res\\image\\raindrop.png"),
                                        &m_texture);
     assert(result == S_OK);
 
@@ -85,13 +85,13 @@ void Rain::Update()
 
         if (!m_bPreviousRain && bRain)
         {
-            BGM::Get()->PlayEnv("res\\sound\\rain.wav", 70);
+            BGM::Get()->PlayEnv(_T("res\\sound\\rain.wav"), 70);
             NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         }
 
         if (m_bPreviousRain && !bRain)
         {
-            BGM::Get()->StopEnv("res\\sound\\rain.wav");
+            BGM::Get()->StopEnv(_T("res\\sound\\rain.wav"));
         }
 
         m_bPreviousRain = bRain;

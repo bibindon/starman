@@ -23,28 +23,28 @@ Player::Player()
         animSetting.m_startPos = 0.f;
         animSetting.m_duration = 0.47f;
         animSetting.m_loop = true;
-        animSetMap["Idle"] = animSetting;
+        animSetMap[_T("Idle")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 1.f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
-        animSetMap["Walk"] = animSetting;
+        animSetMap[_T("Walk")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 2.f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
-        animSetMap["Attack"] = animSetting;
+        animSetMap[_T("Attack")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 3.f;
         animSetting.m_duration = 0.47f;
         animSetting.m_loop = false;
-        animSetMap["Damaged"] = animSetting;
+        animSetMap[_T("Damaged")] = animSetting;
     }
     {
         AnimSetting animSetting { };
@@ -52,21 +52,21 @@ Player::Player()
         animSetting.m_duration = 0.47f;
         animSetting.m_loop = false;
         animSetting.m_stopEnd = true;
-        animSetMap["Dead"] = animSetting;
+        animSetMap[_T("Dead")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 5.f;
         animSetting.m_duration = 1.9f;
         animSetting.m_loop = false;
-        animSetMap["Jump"] = animSetting;
+        animSetMap[_T("Jump")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 7.0f;
         animSetting.m_duration = 0.66f;
         animSetting.m_loop = true;
-        animSetMap["Sit"] = animSetting;
+        animSetMap[_T("Sit")] = animSetting;
     }
     {
         AnimSetting animSetting { };
@@ -74,39 +74,39 @@ Player::Player()
         animSetting.m_duration = 0.27f;
         animSetting.m_loop = false;
         animSetting.m_stopEnd = true;
-        animSetMap["LieDown"] = animSetting;
+        animSetMap[_T("LieDown")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 8.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = true;
-        animSetMap["IdleWater"] = animSetting;
+        animSetMap[_T("IdleWater")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 9.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = true;
-        animSetMap["Swim"] = animSetting;
+        animSetMap[_T("Swim")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 10.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
-        animSetMap["Magic"] = animSetting;
+        animSetMap[_T("Magic")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 11.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
-        animSetMap["Arrow"] = animSetting;
+        animSetMap[_T("Arrow")] = animSetting;
     }
     m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman.x", pos, rot, 1.f, animSetMap);
-    m_AnimMesh2->SetAnim("Idle");
-    SoundEffect::get_ton()->load("res\\sound\\attack01.wav");
+    m_AnimMesh2->SetAnim(_T("Idle"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
 
     // 読み込み処理の前に走ってしまうので以下のような書き方でXファイルの名前を参照できない。
     // 考え物である
@@ -128,82 +128,82 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\rock1.x", pos, rot, 0.1f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\rock1.x"), pos, rot, 0.1f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["石"] = mesh;
+        m_weaponMesh[_T("石")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\stick.x", pos, rot, 1.f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\stick.x"), pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["木の棒"] = mesh;
+        m_weaponMesh[_T("木の棒")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ax.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\ax.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["石斧"] = mesh;
+        m_weaponMesh[_T("石斧")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\atlatl.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\atlatl.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["アトラトル"] = mesh;
+        m_weaponMesh[_T("アトラトル")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\arrow.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\arrow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["アトラトルの矢"] = mesh;
+        m_weaponMesh[_T("アトラトルの矢")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ironPipe.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\ironPipe.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["鉄パイプ"] = mesh;
+        m_weaponMesh[_T("鉄パイプ")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\ironPipeEx.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\ironPipeEx.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["石付き鉄パイプ"] = mesh;
+        m_weaponMesh[_T("石付き鉄パイプ")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\spear.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\spear.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["石槍"] = mesh;
+        m_weaponMesh[_T("石槍")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(D3DX_PI / 2, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\bow.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\bow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["弓矢の弓"] = mesh;
+        m_weaponMesh[_T("弓矢の弓")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, -0.3f);
         D3DXVECTOR3 rot = D3DXVECTOR3(D3DX_PI / 2, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\arrow.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\arrow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["弓矢の矢"] = mesh;
+        m_weaponMesh[_T("弓矢の矢")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -211,42 +211,42 @@ Player::Player()
         Mesh * mesh = NEW Mesh("res\\model\\torch.x", pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh["松明"] = mesh;
+        m_weaponMesh[_T("松明")] = mesh;
     }
     
     // 袋
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Back1] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Back2] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Front] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Left] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh("res\\model\\bag.x", pos, rot, 1.0f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Right] = mesh;
     }
@@ -259,9 +259,9 @@ Player::Player()
     m_loadingPos.y = y + 1.f;
     m_loadingPos.z = z;
 
-    SoundEffect::get_ton()->load("res\\sound\\fireSet.wav");
-    SoundEffect::get_ton()->load("res\\sound\\iceSet.wav");
-    SoundEffect::get_ton()->load("res\\sound\\darkSet.wav");
+    SoundEffect::get_ton()->load(_T("res\\sound\\fireSet.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\iceSet.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\darkSet.wav"));
 
     D3DXCreateFont(SharedObj::GetD3DDevice(),
                    32,
@@ -273,7 +273,7 @@ Player::Player()
                    OUT_TT_ONLY_PRECIS,
                    ANTIALIASED_QUALITY,
                    FF_DONTCARE,
-                   "ＭＳ 明朝",
+                   _T("ＭＳ 明朝"),
                    &m_D3DFont);
 }
 
@@ -298,7 +298,7 @@ void Player::Update(Map* map)
         m_bUnderwater = map->IntersectWater(pos, down);
         if (m_bUnderwater)
         {
-            m_AnimMesh2->SetAnim("IdleWater");
+            m_AnimMesh2->SetAnim(_T("IdleWater"));
             auto status = NSStarmanLib::StatusManager::GetObj();
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::IDLE_WATER);
 
@@ -443,7 +443,7 @@ void Player::Update(Map* map)
         {
             m_bJump = true;
             m_move.y = JUMP_INITIAL_VELOCITY*5;
-            m_AnimMesh2->SetAnim("Jump", 0.f);
+            m_AnimMesh2->SetAnim(_T("Jump"), 0.f);
         }
 
         // 木を消す
@@ -1008,7 +1008,7 @@ void Player::Render2D()
         }
         int transparency = 255 - (m_switchMagicCounter * 255 / 60);
 
-        std::string magicType = Common::LoadString_(IDS_STRING137);
+        std::wstring magicType = Common::LoadString_(IDS_STRING137);
 
         auto statusManager = NSStarmanLib::StatusManager::GetObj();
         auto equipMagic = statusManager->GetMagicType();
@@ -1107,8 +1107,8 @@ bool Player::SetAttack()
         }
     }
 
-    SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
-    m_AnimMesh2->SetAnim("Attack", 0.f);
+    SoundEffect::get_ton()->play(_T("res\\sound\\attack01.wav"), 90);
+    m_AnimMesh2->SetAnim(_T("Attack"), 0.f);
     m_bAttack = true;
 
     D3DXVECTOR3 attackPos = GetAttackPos();
@@ -1201,7 +1201,7 @@ bool Player::SetAttackArrow()
         }
     }
 
-    m_AnimMesh2->SetAnim("Arrow", 0.f);
+    m_AnimMesh2->SetAnim(_T("Arrow"), 0.f);
 
     int bowLevel = 0;
     {
@@ -1293,7 +1293,7 @@ bool Player::SetAttackAtlatl()
         inventory->RemoveItem(itemDef.GetId(), subIdList.at(0));
     }
 
-    m_AnimMesh2->SetAnim("Attack", 0.f);
+    m_AnimMesh2->SetAnim(_T("Attack"), 0.f);
 
     m_bAttack = true;
 
@@ -1340,12 +1340,12 @@ void Player::SetWalk()
     {
         if (m_bUnderwater == false)
         {
-            m_AnimMesh2->SetAnim("Walk");
+            m_AnimMesh2->SetAnim(_T("Walk"));
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::JOGGING);
         }
         else
         {
-            m_AnimMesh2->SetAnim("Swim");
+            m_AnimMesh2->SetAnim(_T("Swim"));
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
         }
     }
@@ -1353,7 +1353,7 @@ void Player::SetWalk()
 
 void Player::SetIdle()
 {
-    m_AnimMesh2->SetAnim("Idle");
+    m_AnimMesh2->SetAnim(_T("Idle"));
     Common::Status()->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::STAND);
 }
 
@@ -1361,8 +1361,8 @@ void Player::SetDamaged()
 {
     if (NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
-        SoundEffect::get_ton()->play("res\\sound\\damage01.wav", 90);
-        m_AnimMesh2->SetAnim("Damaged", 0.f);
+        SoundEffect::get_ton()->play(_T("res\\sound\\damage01.wav"), 90);
+        m_AnimMesh2->SetAnim(_T("Damaged"), 0.f);
         m_bDamaged = true;
     }
 
@@ -1385,7 +1385,7 @@ void Player::SetDamaged()
 
 void Player::SetDead()
 {
-    m_AnimMesh2->SetAnim("Dead", 0.f);
+    m_AnimMesh2->SetAnim(_T("Dead"), 0.f);
 }
 
 bool Player::GetDead() const
@@ -1397,14 +1397,14 @@ void Player::SetSleep(const bool arg)
 {
     if (arg)
     {
-        m_AnimMesh2->SetAnim("LieDown", 0.f);
+        m_AnimMesh2->SetAnim(_T("LieDown"), 0.f);
         auto status = NSStarmanLib::StatusManager::GetObj();
         status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::LYING_DOWN);
         status->SetSleep(true);
     }
     else
     {
-        m_AnimMesh2->SetAnim("Idle", 0.f);
+        m_AnimMesh2->SetAnim(_T("Idle"), 0.f);
         auto status = NSStarmanLib::StatusManager::GetObj();
         status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::STAND);
         status->SetSleep(false);
@@ -1429,7 +1429,7 @@ void Player::SetJump()
         m_bJumpEnable = false;
 
         m_move.y = JUMP_INITIAL_VELOCITY;
-        m_AnimMesh2->SetAnim("Jump", 0.f);
+        m_AnimMesh2->SetAnim(_T("Jump"), 0.f);
 
         int brokenBagNum1 = 0;
         int brokenBagNum2 = 0;
@@ -1459,14 +1459,14 @@ void Player::SetJump()
             PopUp2::Get()->SetText(Common::LoadString_(IDS_STRING145));
         }
 
-        SoundEffect::get_ton()->load("res\\sound\\jump.wav");
-        SoundEffect::get_ton()->play("res\\sound\\jump.wav", 90);
+        SoundEffect::get_ton()->load(_T("res\\sound\\jump.wav"));
+        SoundEffect::get_ton()->play(_T("res\\sound\\jump.wav"), 90);
     }
 }
 
 void Player::SetSit()
 {
-    m_AnimMesh2->SetAnim("Sit", 0.f);
+    m_AnimMesh2->SetAnim(_T("Sit"), 0.f);
 
     auto status = NSStarmanLib::StatusManager::GetObj();
     status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SIT);
@@ -1474,7 +1474,7 @@ void Player::SetSit()
 
 void Player::SetLieDown()
 {
-    m_AnimMesh2->SetAnim("LieDown", 0.f);
+    m_AnimMesh2->SetAnim(_T("LieDown"), 0.f);
 
     auto status = NSStarmanLib::StatusManager::GetObj();
     status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::LYING_DOWN);
@@ -1510,8 +1510,8 @@ void Player::SetStep(const eDir dir)
     SetRotate(rotate);
 
     m_bStep = true;
-	SoundEffect::get_ton()->load("res\\sound\\jump.wav");
-	SoundEffect::get_ton()->play("res\\sound\\jump.wav", 90);
+	SoundEffect::get_ton()->load(_T("res\\sound\\jump.wav"));
+	SoundEffect::get_ton()->play(_T("res\\sound\\jump.wav"), 90);
 
     Common::Status()->ConsumeJumpCost();
 }
@@ -1536,7 +1536,7 @@ void Player::RideRaft()
     auto rotateY = SharedObj::Voyage()->GetRaftRotateY(id);
     m_rotate.y = rotateY;
 
-    m_AnimMesh2->SetAnim("Sit");
+    m_AnimMesh2->SetAnim(_T("Sit"));
 }
 
 bool Player::IsInCave()
@@ -1600,9 +1600,9 @@ void Player::Throw()
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
         auto itemDef = itemManager->GetItemDef(itemInfo.GetId());
         auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
-        std::string xfilename = weaponManager->GetXfilename(itemDef.GetName());
+        std::wstring xfilename = weaponManager->GetXfilename(itemDef.GetName());
 
-        if (xfilename.find("rock") != std::string::npos)
+        if (xfilename.find(_T("rock")) != std::wstring::npos)
         {
             SharedObj::GetMap()->AddThrownItem(pos, norm, itemDef.GetName(), itemInfo, 0.1f);
         }
@@ -1620,8 +1620,8 @@ void Player::Throw()
         itemInfo.SetId(-1);
         statusManager->SetEquipWeapon(itemInfo);
 
-        SoundEffect::get_ton()->play("res\\sound\\attack01.wav", 90);
-        m_AnimMesh2->SetAnim("Attack", 0.f);
+        SoundEffect::get_ton()->play(_T("res\\sound\\attack01.wav"), 90);
+        m_AnimMesh2->SetAnim(_T("Attack"), 0.f);
     }
 
     // 体力を消耗する
@@ -1688,18 +1688,18 @@ void Player::SetMagic()
 
     if (magicType == NSStarmanLib::eMagicType::Fire)
     {
-        SoundEffect::get_ton()->play("res\\sound\\fireSet.wav");
+        SoundEffect::get_ton()->play(_T("res\\sound\\fireSet.wav"));
     }
     else if (magicType == NSStarmanLib::eMagicType::Ice)
     {
-        SoundEffect::get_ton()->play("res\\sound\\iceSet.wav");
+        SoundEffect::get_ton()->play(_T("res\\sound\\iceSet.wav"));
     }
     else if (magicType == NSStarmanLib::eMagicType::Dark)
     {
-        SoundEffect::get_ton()->play("res\\sound\\darkSet.wav");
+        SoundEffect::get_ton()->play(_T("res\\sound\\darkSet.wav"));
     }
 
-    m_AnimMesh2->SetAnim("Magic", 0.f);
+    m_AnimMesh2->SetAnim(_T("Magic"), 0.f);
 
     // 体力を消耗する
     statusManager->UseMagic();

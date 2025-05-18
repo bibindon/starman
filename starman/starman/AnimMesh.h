@@ -7,6 +7,7 @@
 #include <memory>
 #include "AnimationStrategy.h"
 #include "AnimController.h"
+#include <tchar.h>
 
 class AnimMeshAllocator;
 
@@ -14,7 +15,7 @@ class AnimMesh
 {
 public:
     AnimMesh(
-        const std::string&,
+        const std::wstring&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
         const float&,
@@ -28,7 +29,7 @@ public:
     float GetScale() const;
 
     void SetRotate(const D3DXVECTOR3& rotate);
-    void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
+    void SetAnim(const std::wstring& animName, const DOUBLE& pos = -1.f);
     void SetAnimSpeed(const float speed);
     void SetTrackPos(const DOUBLE& pos);
     void SetCenterPos(const D3DXVECTOR3& pos);
@@ -44,7 +45,7 @@ private:
         void release_mesh_allocator(const LPD3DXFRAME);
     };
 
-    const std::string SHADER_FILENAME { "res\\shader\\animation_mesh_shader.fx" };
+    const std::wstring SHADER_FILENAME = _T("res\\shader\\animation_mesh_shader.fx");
     std::shared_ptr<AnimMeshAllocator> m_allocator;
     std::unique_ptr<D3DXFRAME, frame_root_deleter_object> m_frameRoot;
     D3DXMATRIX m_rotationMatrix;
@@ -67,7 +68,7 @@ private:
     D3DXVECTOR3 m_position;
     D3DXVECTOR3 m_rotation;
     float m_scale { 1.0f };
-    std::string m_meshName;
+    std::wstring m_meshName;
 
     D3DXHANDLE m_meshTextureHandle { nullptr };
     D3DXHANDLE m_diffuseHandle { nullptr };

@@ -1,6 +1,6 @@
-﻿#pragma comment ( lib, "dxguid.lib" )
-#pragma comment ( lib, "dsound.lib" )
-#pragma comment ( lib, "winmm.lib" )
+﻿#pragma comment ( lib, "dxguid.lib")
+#pragma comment ( lib, "dsound.lib")
+#pragma comment ( lib, "winmm.lib")
 
 #include "BGM.h"
 #include "Common.h"
@@ -9,7 +9,7 @@
 #include <thread>
 
 using std::vector;
-using std::string;
+using std::wstring;
 
 BGM* BGM::single_ton_;
 
@@ -27,17 +27,17 @@ void BGM::Update()
         // 停止されたなら停止
         if (!_stBgm.m_filename.empty())
         {
-			if (!_stBgm.m_bPlay)
-			{
-				stop(_stBgm.m_filename);
-			}
+            if (!_stBgm.m_bPlay)
+            {
+                stop(_stBgm.m_filename);
+            }
 
-			// 音量変更されたか
-			if (_stBgm.m_bChangedVolume)
-			{
-				int volume = per_to_decibel(_stBgm.m_volume);
-				dx8sound_buffers_.at(_stBgm.m_filename)->SetVolume(volume);
-			}
+            // 音量変更されたか
+            if (_stBgm.m_bChangedVolume)
+            {
+                int volume = per_to_decibel(_stBgm.m_volume);
+                dx8sound_buffers_.at(_stBgm.m_filename)->SetVolume(volume);
+            }
         }
 
         // 別のBGMにかわったなら以前のBGMを停止
@@ -45,7 +45,7 @@ void BGM::Update()
         {
             if (!_stBgmPrev.m_filename.empty())
             {
-				stop(_stBgmPrev.m_filename);
+                stop(_stBgmPrev.m_filename);
             }
 
             load(_stBgm.m_filename);
@@ -74,7 +74,7 @@ void BGM::Update()
                     // 再生と停止を同時に行われると一度もplay関数が呼ばれずにstop関数が呼ばれることがある。
                     if (dx8sound_buffers_.find(envBgm.second.m_filename) != dx8sound_buffers_.end())
                     {
-						stop(envBgm.second.m_filename);
+                        stop(envBgm.second.m_filename);
                     }
                 }
             }
@@ -106,7 +106,7 @@ void BGM::Finalize()
     SAFE_DELETE(single_ton_);
 }
 
-void BGM::Play(const std::string& filename, const int volume)
+void BGM::Play(const std::wstring& filename, const int volume)
 {
     m_model.SetBGM(filename, volume);
 }
@@ -118,7 +118,7 @@ void BGM::Stop()
 
 // Reference
 // http://marupeke296.com/DSSMP_No2_GetSoundFromWave.html
-bool BGM::load(const std::string& filename)
+bool BGM::load(const std::wstring& filename)
 {
     // Already loaded.
     if (dx8sound_buffers_.find(filename) != dx8sound_buffers_.end())
@@ -169,7 +169,7 @@ bool BGM::load(const std::string& filename)
     return true;
 }
 
-void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
+void BGM::play(const wstring& filename, const int a_volume, const bool fadeIn)
 {
     // Transform volume
     // 0 ~ 100 -> -10000 ~ 0
@@ -226,17 +226,17 @@ void BGM::play(const string& filename, const int a_volume, const bool fadeIn)
     }
 }
 
-void BGM::stop(const string& filename)
+void BGM::stop(const wstring& filename)
 {
     dx8sound_buffers_.at(filename)->Stop();
 }
 
-void BGM::PlayEnv(const std::string& filename, const int volume)
+void BGM::PlayEnv(const std::wstring& filename, const int volume)
 {
     m_model.SetEnvBGM(filename, volume);
 }
 
-void BGM::StopEnv(const std::string& filename)
+void BGM::StopEnv(const std::wstring& filename)
 {
     m_model.StopEnvBGM(filename);
 }
@@ -261,7 +261,7 @@ BGM::BGM(HWND hwnd)
     dx8sound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
 }
 
-bool BGM::open_wave(const std::string& filepath,
+bool BGM::open_wave(const std::wstring& filepath,
                     WAVEFORMATEX& waveformatex,
                     vector<char>* buff,
                     DWORD& wave_size)
@@ -407,11 +407,11 @@ void BGMModel::Update()
         int rand_ = rand();
         if (rand_ % 2 == 0)
         {
-            m_stBgm.m_filename = "res\\sound\\field.wav";
+            m_stBgm.m_filename = _T("res\\sound\\field.wav");
         }
         else if (rand_ % 2 == 1)
         {
-            m_stBgm.m_filename = "res\\sound\\novel.wav";
+            m_stBgm.m_filename = _T("res\\sound\\novel.wav");
         }
 
         if (m_stBgm.m_filename == m_stBgmPrev.m_filename)
@@ -441,7 +441,7 @@ stBgm BGMModel::GetBGM(bool* bChanged, stBgm* bgmPrev)
     return m_stBgm;
 }
 
-void BGMModel::SetBGM(const std::string& bgmName, const int volume)
+void BGMModel::SetBGM(const std::wstring& bgmName, const int volume)
 {
     if (bgmName == m_stBgm.m_filename)
     {
@@ -470,7 +470,7 @@ void BGMModel::StopBGM()
     }
 }
 
-std::unordered_map<std::string, envBgm> BGMModel::GetEnvBGM()
+std::unordered_map<std::wstring, envBgm> BGMModel::GetEnvBGM()
 {
     auto _copy = m_envBgmMap;
 
@@ -482,7 +482,7 @@ std::unordered_map<std::string, envBgm> BGMModel::GetEnvBGM()
     return _copy;
 }
 
-void BGMModel::SetEnvBGM(const std::string& bgmName, const int volume)
+void BGMModel::SetEnvBGM(const std::wstring& bgmName, const int volume)
 {
     if (!m_envBgmMap[bgmName].m_bPlay)
     {
@@ -493,7 +493,7 @@ void BGMModel::SetEnvBGM(const std::string& bgmName, const int volume)
     }
 }
 
-void BGMModel::StopEnvBGM(const std::string& bgmName)
+void BGMModel::StopEnvBGM(const std::wstring& bgmName)
 {
     if (m_envBgmMap[bgmName].m_bPlay)
     {

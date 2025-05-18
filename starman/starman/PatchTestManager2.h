@@ -9,13 +9,13 @@ public:
 
     void Finalize();
     void InitPatch();
-    std::string Operate();
+    std::wstring Operate();
     void Draw();
     void CreateList();
 
 private:
 
-    void QueueTest(const std::string& result);
+    void QueueTest(const std::wstring& result);
 
     NSStarmanLib::PatchTestManager* GetPatchLib();
 

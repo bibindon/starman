@@ -1,5 +1,5 @@
-﻿#pragma comment(lib, "dinput8.lib")
-#pragma comment(lib, "dxguid.lib")
+﻿#pragma comment(lib, _T("dinput8.lib"))
+#pragma comment(lib, _T("dxguid.lib"))
 
 #include "GamePad.h"
 #include "Common.h"

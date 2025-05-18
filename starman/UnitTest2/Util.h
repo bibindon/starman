@@ -4,6 +4,7 @@
 #include <tchar.h>
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <tchar.h>
 
 #ifndef DIRECTINPUT_VERSION
 #define DIRECTINPUT_VERSION 0x0800
@@ -27,7 +28,7 @@ public:
     static void DestroyLibData();
     static BOOL DeleteDirectory(LPCTSTR lpPathName);
 
-    static bool IsDirectory(const std::string& path);
+    static bool IsDirectory(const std::wstring& path);
 
 private:
 
@@ -40,12 +41,12 @@ class MockPopUpFont : public IPopUpFont
 {
 public:
 
-    void Draw(const std::string& text, const int transparent);
-    std::string GetShowText();
+    void Draw(const std::wstring& text, const int transparent);
+    std::wstring GetShowText();
 
 private:
 
-    std::string m_text;
+    std::wstring m_text;
 };
 
 class MockKeyBoard : public IKeyBoard

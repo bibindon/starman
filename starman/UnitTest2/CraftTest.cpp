@@ -188,7 +188,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
+            Assert::AreEqual(_T("素材が足りない"), font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();
@@ -204,8 +204,8 @@ namespace UnitTest2
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-            storehouse->AddItem("細い木の幹");
-            storehouse->AddItem("ツタ");
+            storehouse->AddItem(_T("細い木の幹"));
+            storehouse->AddItem(_T("ツタ"));
 
             MockPopUpFont font;
             PopUp2::Init(&font);
@@ -269,7 +269,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("素材が足りない", font.GetShowText().c_str());
+            Assert::AreEqual(_T("素材が足りない"), font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();
@@ -288,8 +288,8 @@ namespace UnitTest2
 
             for (int i = 0; i < 100; ++i)
             {
-                storehouse->AddItem("細い木の幹");
-                storehouse->AddItem("ツタ");
+                storehouse->AddItem(_T("細い木の幹"));
+                storehouse->AddItem(_T("ツタ"));
             }
 
             MockPopUpFont font;
@@ -351,10 +351,10 @@ namespace UnitTest2
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
                 Assert::AreEqual(false, reqList.empty());
-                Assert::AreEqual("イカダ", reqList.front().GetName().c_str());
+                Assert::AreEqual(_T("イカダ"), reqList.front().GetName().c_str());
             }
 
-            Assert::AreEqual("", font.GetShowText().c_str());
+            Assert::AreEqual(_T(""), font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();
@@ -378,8 +378,8 @@ namespace UnitTest2
 
             for (int i = 0; i < 100; ++i)
             {
-                storehouse->AddItem("細い木の幹");
-                storehouse->AddItem("ツタ");
+                storehouse->AddItem(_T("細い木の幹"));
+                storehouse->AddItem(_T("ツタ"));
             }
 
             MockPopUpFont font;
@@ -430,7 +430,7 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
             }
 
-            Assert::AreEqual("船着き場にイカダがある", font.GetShowText().c_str());
+            Assert::AreEqual(_T("船着き場にイカダがある"), font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();

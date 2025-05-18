@@ -393,11 +393,11 @@ void Raft2::Init(const int id)
     D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
 
     {
-        m_meshRaft = NEW Mesh("res\\model\\raft.x", pos, rot, 1.f);
+        m_meshRaft = NEW Mesh(_T("res\\model\\raft.x"), pos, rot, 1.f);
         m_meshRaft->Init();
     }
     {
-        m_meshRaftCollision = NEW Mesh("res\\model\\raftCollision.x", pos, rot, 1.f);
+        m_meshRaftCollision = NEW Mesh(_T("res\\model\\raftCollision.x"), pos, rot, 1.f);
         m_meshRaftCollision->Init();
     }
     {
@@ -408,7 +408,7 @@ void Raft2::Init(const int id)
             animSetting.m_duration = 0.47f;
             animSetting.m_loop = true;
             animSetting.m_stopEnd = true;
-            animSetMap["SailOn"] = animSetting;
+            animSetMap[_T("SailOn")] = animSetting;
         }
         {
             AnimSetting animSetting { };
@@ -416,16 +416,16 @@ void Raft2::Init(const int id)
             animSetting.m_duration = 0.47f;
             animSetting.m_loop = true;
             animSetting.m_stopEnd = true;
-            animSetMap["SailOff"] = animSetting;
+            animSetMap[_T("SailOff")] = animSetting;
         }
-        m_meshSail = NEW AnimMesh("res\\model\\sail.x", pos, rot, 1.f, animSetMap);
+        m_meshSail = NEW AnimMesh(_T("res\\model\\sail.x"), pos, rot, 1.f, animSetMap);
         if (raft.GetSail())
         {
-            m_meshSail->SetAnim("SailOn");
+            m_meshSail->SetAnim(_T("SailOn"));
         }
         else
         {
-            m_meshSail->SetAnim("SailOff");
+            m_meshSail->SetAnim(_T("SailOff"));
         }
         m_meshSail->SetAnimSpeed(0.2f / 60.f);
     }
@@ -436,17 +436,17 @@ void Raft2::Init(const int id)
             animSetting.m_startPos = 0.0f;
             animSetting.m_duration = 0.49f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.5f;
             animSetting.m_duration = 0.49f;
             animSetting.m_loop = false;
-            animSetMap["Pull"] = animSetting;
+            animSetMap[_T("Pull")] = animSetting;
         }
-        m_meshOarLeft = NEW AnimMesh("res\\model\\oarLeft.x", pos, rot, 1.f, animSetMap);
-        m_meshOarLeft->SetAnim("Idle");
+        m_meshOarLeft = NEW AnimMesh(_T("res\\model\\oarLeft.x"), pos, rot, 1.f, animSetMap);
+        m_meshOarLeft->SetAnim(_T("Idle"));
         m_meshOarLeft->SetAnimSpeed(0.5f / 60.f);
     }
     {
@@ -456,17 +456,17 @@ void Raft2::Init(const int id)
             animSetting.m_startPos = 0.0f;
             animSetting.m_duration = 0.49f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.5f;
             animSetting.m_duration = 0.49f;
             animSetting.m_loop = false;
-            animSetMap["Pull"] = animSetting;
+            animSetMap[_T("Pull")] = animSetting;
         }
         m_meshOarRight = NEW AnimMesh("res\\model\\oarRight.x", pos, rot, 1.f, animSetMap);
-        m_meshOarRight->SetAnim("Idle");
+        m_meshOarRight->SetAnim(_T("Idle"));
         m_meshOarRight->SetAnimSpeed(0.5f / 60.f);
     }
     {
@@ -476,17 +476,17 @@ void Raft2::Init(const int id)
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
-        m_meshCord = NEW AnimMesh("res\\model\\cord.x", pos, rot, 1.f, animSetMap);
-        m_meshCord->SetAnim("Idle");
+        m_meshCord = NEW AnimMesh(_T("res\\model\\cord.x"), pos, rot, 1.f, animSetMap);
+        m_meshCord->SetAnim(_T("Idle"));
         D3DXVECTOR3 centerPos(0.584f, 1.554f, 1.140f);
         m_meshCord->SetCenterPos(centerPos);
     }
 
-    SoundEffect::get_ton()->load("res\\sound\\pullOar.wav");
-    SoundEffect::get_ton()->load("res\\sound\\pullOar2.wav");
-    SoundEffect::get_ton()->load("res\\sound\\collideRaft.wav");
+    SoundEffect::get_ton()->load(_T("res\\sound\\pullOar.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\pullOar2.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\collideRaft.wav"));
 }
 
 void Raft2::Finalize()
@@ -711,7 +711,7 @@ void Raft2::Update()
         if (speed >= 0.1f)
         {
             Voyage()->CollideGround();
-            SoundEffect::get_ton()->play("res\\sound\\collideRaft.wav");
+            SoundEffect::get_ton()->play(_T("res\\sound\\collideRaft.wav"));
         }
         m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
     }
@@ -781,42 +781,42 @@ void Raft2::SetSail(const bool arg)
 {
     if (arg)
     {
-        m_meshSail->SetAnim("SailOn");
+        m_meshSail->SetAnim(_T("SailOn"));
     }
     else
     {
-        m_meshSail->SetAnim("SailOff");
+        m_meshSail->SetAnim(_T("SailOff"));
     }
 }
 
 void Raft2::PullOarBoth(D3DXVECTOR3* _move)
 {
-    m_meshOarLeft->SetAnim("Pull", 0.f);
-    m_meshOarRight->SetAnim("Pull", 0.f);
+    m_meshOarLeft->SetAnim(_T("Pull"), 0.f);
+    m_meshOarRight->SetAnim(_T("Pull"), 0.f);
 
     _move->x += std::sin(m_rotate.y) * -1.6f;
     _move->z += std::cos(m_rotate.y) * -1.6f;
 
-    SoundEffect::get_ton()->play("res\\sound\\pullOar.wav", 80);
-    SoundEffect::get_ton()->play("res\\sound\\pullOar2.wav", 80);
+    SoundEffect::get_ton()->play(_T("res\\sound\\pullOar.wav"), 80);
+    SoundEffect::get_ton()->play(_T("res\\sound\\pullOar2.wav"), 80);
 }
 
 void Raft2::PullOarLeft()
 {
-    m_meshOarLeft->SetAnim("Pull", 0.f);
+    m_meshOarLeft->SetAnim(_T("Pull"), 0.f);
     m_moveRot.y += -0.01f;
 
-    SoundEffect::get_ton()->play("res\\sound\\pullOar.wav", 80);
-    SoundEffect::get_ton()->play("res\\sound\\pullOar2.wav", 80);
+    SoundEffect::get_ton()->play(_T("res\\sound\\pullOar.wav"), 80);
+    SoundEffect::get_ton()->play(_T("res\\sound\\pullOar2.wav"), 80);
 }
 
 void Raft2::PullOarRight()
 {
-    m_meshOarRight->SetAnim("Pull", 0.f);
+    m_meshOarRight->SetAnim(_T("Pull"), 0.f);
     m_moveRot.y += 0.01f;
 
-    SoundEffect::get_ton()->play("res\\sound\\pullOar.wav", 80);
-    SoundEffect::get_ton()->play("res\\sound\\pullOar2.wav", 80);
+    SoundEffect::get_ton()->play(_T("res\\sound\\pullOar.wav"), 80);
+    SoundEffect::get_ton()->play(_T("res\\sound\\pullOar2.wav"), 80);
 }
 
 void Raft2::Pull3Hours()

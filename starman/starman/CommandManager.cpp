@@ -46,12 +46,12 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         LPD3DXSPRITE tempSprite { nullptr };
         if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
         {
-            throw std::exception("Failed to create a sprite.");
+            throw std::exception(_T("Failed to create a sprite."));
         }
 
         if (FAILED(D3DXCreateTextureFromFile(
@@ -59,13 +59,13 @@ public:
             filepath.c_str(),
             &m_pD3DTexture)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
 
         D3DSURFACE_DESC desc { };
         if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
         m_width = desc.Width;
         m_height = desc.Height;
@@ -111,7 +111,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "游明朝",
+                                _T("游明朝"),
                                 &m_pFont);
         }
         else
@@ -126,14 +126,14 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
 
         assert(hr == S_OK);
     }
 
-    virtual void DrawText_(const std::string& msg,
+    virtual void DrawText_(const std::wstring& msg,
                            const int x,
                            const int y,
                            const int transparent)
@@ -158,21 +158,21 @@ class SoundEffect : public ISoundEffect
 {
     virtual void PlayMove() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_move.wav"));
     }
     virtual void PlayClick() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_confirm.wav"));
     }
     virtual void PlayBack() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
     virtual void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_move.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_confirm.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
 };
 }
@@ -187,7 +187,7 @@ void CommandManager::Init(const eType type)
     m_commandLib = NEW NSCommand::CommandLib();
 
     NSCommand::Sprite* sprCursor = NEW NSCommand::Sprite(SharedObj::GetD3DDevice());
-    sprCursor->Load("res\\image\\command_cursor.png");
+    sprCursor->Load(_T("res\\image\\command_cursor.png"));
 
     NSCommand::IFont* pFont = NEW NSCommand::Font(SharedObj::GetD3DDevice());
 
@@ -210,7 +210,7 @@ void CommandManager::Init(const eType type)
     }
 }
 
-std::string CommandManager::Operate()
+std::wstring CommandManager::Operate()
 {
     if (m_eType == eType::Main)
     {
@@ -226,8 +226,8 @@ std::string CommandManager::Operate()
         }
     }
 
-    std::string result;
-    std::string work_str;
+    std::wstring result;
+    std::wstring work_str;
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
     {
@@ -246,7 +246,7 @@ std::string CommandManager::Operate()
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
-        result = "EXIT";
+        result = _T("EXIT");
     }
 
     if (Mouse::IsDownLeft())
@@ -281,7 +281,7 @@ std::string CommandManager::Operate()
 
     if (GamePad::IsDown(eGamePadButtonType::B))
     {
-        result = "EXIT";
+        result = _T("EXIT");
     }
 
     // resultが空ではないならコマンドメニューを一度閉じる、ということ
@@ -304,7 +304,7 @@ void CommandManager::Finalize()
     SAFE_DELETE(m_commandLib);
 }
 
-void CommandManager::Upsert(const std::string name, const bool visible)
+void CommandManager::Upsert(const std::wstring name, const bool visible)
 {
     m_commandLib->UpsertCommand(name, visible);
 }
@@ -381,7 +381,7 @@ void CommandManager::BuildCommand()
     m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING181), !bUnderwater);
 
     // ３時間休憩する・・・常に表示される
-    m_commandLib->UpsertCommand("３時間休憩する", !bUnderwater);
+    m_commandLib->UpsertCommand(_T("３時間休憩する"), !bUnderwater);
 
     // 瞑想・・・常に表示される
     m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING182), true);
@@ -545,7 +545,7 @@ void CommandManager::BuildCommand()
         // ダイケイマン
         {
             auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-            auto status = npcMgr->GetNpcStatus("daikeiman");
+            auto status = npcMgr->GetNpcStatus(_T("daikeiman"));
             auto enable = status.GetFeatureEnable();
             if (enable)
             {
@@ -565,7 +565,7 @@ void CommandManager::BuildCommand()
         bool bShowSankakuHelp = false;
         {
             auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-            auto status = npcMgr->GetNpcStatus("sankakuman");
+            auto status = npcMgr->GetNpcStatus(_T("sankakuman"));
             auto enable = status.GetFeatureEnable();
             if (enable)
             {
@@ -575,7 +575,7 @@ void CommandManager::BuildCommand()
 
                 if (_near)
                 {
-                    bool canReceive = NSStarmanLib::Help::Get()->CanReceive("sankakuman");
+                    bool canReceive = NSStarmanLib::Help::Get()->CanReceive(_T("sankakuman"));
                     if (canReceive)
                     {
                         m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
@@ -633,10 +633,10 @@ void CommandManager::BuildOpeningCommand()
     }
 
     m_commandLib->RemoveAll();
-    m_commandLib->UpsertCommand("Start", true);
-    m_commandLib->UpsertCommand("Continue", enable);
-    m_commandLib->UpsertCommand("Language", true);
-    m_commandLib->UpsertCommand("Exit", true);
+    m_commandLib->UpsertCommand(_T("Start"), true);
+    m_commandLib->UpsertCommand(_T("Continue"), enable);
+    m_commandLib->UpsertCommand(_T("Language"), true);
+    m_commandLib->UpsertCommand(_T("Exit"), true);
 }
 
 void CommandManager::BuildLangCommand()
@@ -648,8 +648,8 @@ void CommandManager::BuildLangCommand()
     //---------------------------------------------------
 
     m_commandLib->RemoveAll();
-    m_commandLib->UpsertCommand("Japanese", true);
+    m_commandLib->UpsertCommand(_T("Japanese"), true);
     m_commandLib->UpsertCommand("English", true);
-    m_commandLib->UpsertCommand("Back", true);
+    m_commandLib->UpsertCommand(_T("Back"), true);
 }
 

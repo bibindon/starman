@@ -65,7 +65,7 @@ private:
     Map* m_map = nullptr;
     EnemyManager* m_enemyManager = nullptr;
 
-    std::deque<std::string> m_finishQuestQue;
+    std::deque<std::wstring> m_finishQuestQue;
 
     // エンディングを開始してほしいときにtrueにする
     bool m_bEndingRequest { false };

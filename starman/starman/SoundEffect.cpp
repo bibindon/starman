@@ -1,6 +1,6 @@
-﻿#pragma comment ( lib, "dxguid.lib" )
-#pragma comment ( lib, "dsound.lib" )
-#pragma comment ( lib, "winmm.lib" )
+﻿#pragma comment ( lib, _T("dxguid.lib") )
+#pragma comment ( lib, _T("dsound.lib") )
+#pragma comment ( lib, _T("winmm.lib") )
 
 #include "SoundEffect.h"
 #include "Common.h"
@@ -8,7 +8,7 @@
 #include <mmsystem.h>
 
 using std::vector;
-using std::string;
+using std::wstring;
 
 SoundEffect* SoundEffect::single_ton_;
 SoundEffect* SoundEffect::get_ton()
@@ -37,7 +37,7 @@ void SoundEffect::finalize()
 
 // Reference
 // http://marupeke296.com/DSSMP_No2_GetSoundFromWave.html
-bool SoundEffect::load(const std::string& filename)
+bool SoundEffect::load(const std::wstring& filename)
 {
     // Already loaded.
     if (dx8sound_buffers_.find(filename) != dx8sound_buffers_.end())
@@ -117,7 +117,7 @@ SoundEffect::SoundEffect(HWND hwnd)
     dx8sound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
 }
 
-bool SoundEffect::open_wave(const std::string& filepath,
+bool SoundEffect::open_wave(const std::wstring& filepath,
                             WAVEFORMATEX& waveformatex,
                             vector<char>* buff,
                             DWORD& wave_size)

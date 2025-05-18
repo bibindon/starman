@@ -60,14 +60,14 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         // スプライトは一つのみ確保し使いまわす
         if (m_D3DSprite == NULL)
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
             {
-                throw std::exception("Failed to create a sprite.");
+                throw std::exception(_T("Failed to create a sprite."));
             }
         }
 
@@ -81,7 +81,7 @@ public:
             D3DSURFACE_DESC desc { };
             if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
             {
-                throw std::exception("Failed to create a texture.");
+                throw std::exception(_T("Failed to create a texture."));
             }
             m_width = desc.Width;
             m_height = desc.Height;
@@ -94,8 +94,8 @@ public:
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
         {
-            std::string work;
-            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
+            std::wstring work;
+            work = _T("Failed to create a texture. HRESULT: ") + std::to_wstring(hr);
             throw std::exception(work.c_str());
         }
 
@@ -105,7 +105,7 @@ public:
         D3DSURFACE_DESC desc { };
         if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
         m_width = desc.Width;
         m_height = desc.Height;
@@ -132,16 +132,16 @@ private:
     // スプライトは一つを使いまわす
     static LPD3DXSPRITE m_D3DSprite;
 
-    std::string m_filepath;
+    std::wstring m_filepath;
     UINT m_width { 0 };
     UINT m_height { 0 };
 
     // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
-    static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
+    static std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> m_texMap;
 };
 
 LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
-std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
+std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
 
 class Font : public IFont
 {
@@ -168,7 +168,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "ＭＳ 明朝",
+                                _T("ＭＳ 明朝"),
                                 &m_pFont);
         }
         else
@@ -183,14 +183,14 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
 
         assert(hr == S_OK);
     }
 
-    virtual void DrawText_(const std::string& msg,
+    virtual void DrawText_(const std::wstring& msg,
                            const int x,
                            const int y,
                            const bool hcenter,
@@ -232,21 +232,21 @@ class SoundEffect : public ISoundEffect
 {
     virtual void PlayMove() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_move.wav"));
     }
     virtual void PlayClick() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_confirm.wav"));
     }
     virtual void PlayBack() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
     virtual void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_move.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_confirm.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
 };
 }
@@ -264,16 +264,16 @@ void MenuManager::InitMenu()
 {
     using namespace NSMenulib;
     NSMenulib::ISprite* sprCursor = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-    sprCursor->Load("res\\image\\menu_cursor.png");
+    sprCursor->Load(_T("res\\image\\menu_cursor.png"));
 
     NSMenulib::ISprite* sprBackground = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-    sprBackground->Load("res\\image\\menu_back.png");
+    sprBackground->Load(_T("res\\image\\menu_back.png"));
 
     NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice());
 
     NSMenulib::ISoundEffect* pSE = NEW NSMenulib::SoundEffect();
 
-    m_menu.Init("", pFont, pSE, sprCursor, sprBackground, SharedObj::IsEnglish());
+    m_menu.Init(_T(""), pFont, pSE, sprCursor, sprBackground, SharedObj::IsEnglish());
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
@@ -293,7 +293,7 @@ void MenuManager::InitMenu()
             {
                 for (std::size_t j = 0; j < subIdList.size(); ++j)
                 {
-                    std::string work_str;
+                    std::wstring work_str;
 
                     NSMenulib::ItemInfo itemInfoG;
 
@@ -382,7 +382,7 @@ void MenuManager::InitMenu()
     std::vector<HumanInfo> humanInfoList;
     {
         NSStarmanLib::HumanInfoManager* humanInfoManager = NSStarmanLib::HumanInfoManager::GetObj();
-        std::vector<std::string> humanNameList = humanInfoManager->GetHumanNameList();
+        std::vector<std::wstring> humanNameList = humanInfoManager->GetHumanNameList();
         for (std::size_t i = 0; i < humanNameList.size(); ++i)
         {
             HumanInfo humanInfo;
@@ -431,7 +431,7 @@ void MenuManager::InitMenu()
             {
                 for (std::size_t j = 0; j < subIdList.size(); ++j)
                 {
-                    std::string work_str;
+                    std::wstring work_str;
 
                     NSMenulib::WeaponInfo weaponInfoG;
 
@@ -469,10 +469,10 @@ void MenuManager::InitMenu()
     {
         std::vector<GuideInfo> infoList;
         NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-        std::vector<std::string> vs = guide->GetCategoryList();
+        std::vector<std::wstring> vs = guide->GetCategoryList();
         for (std::size_t i = 0; i < vs.size(); ++i)
         {
-            std::vector<std::string> vsSub = guide->GetSubCategoryList(vs.at(i));
+            std::vector<std::wstring> vsSub = guide->GetSubCategoryList(vs.at(i));
             for (std::size_t j = 0; j < vsSub.size(); ++j)
             {
                 if (guide->GetVisible(vs.at(i), vsSub.at(j)) == false)
@@ -482,7 +482,7 @@ void MenuManager::InitMenu()
                 GuideInfo info;
                 info.SetCategory(vs.at(i));
                 info.SetSubCategory(vsSub.at(j));
-                std::string detail = guide->GetText(vs.at(i), vsSub.at(j));
+                std::wstring detail = guide->GetText(vs.at(i), vsSub.at(j));
                 info.SetDetail(detail);
                 infoList.push_back(info);
             }
@@ -496,7 +496,7 @@ void MenuManager::InitMenu()
     {
         std::vector<EnemyInfo> infoList;
         NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-        std::vector<std::string> nameList = enemyInfoManager->GetEnemyNameList();
+        std::vector<std::wstring> nameList = enemyInfoManager->GetEnemyNameList();
         for (std::size_t i = 0; i < nameList.size(); ++i)
         {
             NSStarmanLib::EnemyDef enemyDef = enemyInfoManager->GetEnemyDef(nameList.at(i));
@@ -523,18 +523,18 @@ void MenuManager::InitMenu()
         std::vector<SkillInfo> infoList;
 
         NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-        std::vector<std::string> nameList = skillManager->GetNameList();
+        std::vector<std::wstring> nameList = skillManager->GetNameList();
         for (std::size_t i = 0; i < nameList.size(); ++i)
         {
             SkillInfo info;
             info.SetName(nameList.at(i));
 
-            std::string work_str;
+            std::wstring work_str;
             work_str = skillManager->GetDetail(nameList.at(i));
             info.SetDetail(work_str);
 
             NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load("res\\image\\test.png");
+            sprItem->Load(_T("res\\image\\test.png"));
             info.SetSprite(sprItem);
             infoList.push_back(info);
         }
@@ -556,10 +556,10 @@ void MenuManager::InitMenu()
         {
             NSStarmanLib::MapInfoManager* mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
 
-            std::vector<std::string> mapNameList = mapInfoManager->GetNameList();
+            std::vector<std::wstring> mapNameList = mapInfoManager->GetNameList();
             for (std::size_t i = 0; i < mapNameList.size(); ++i)
             {
-                std::string mapName = mapNameList.at(i);
+                std::wstring mapName = mapNameList.at(i);
 
                 bool visible = mapInfoManager->IsDiscovered(mapName);
 
@@ -593,10 +593,10 @@ void MenuManager::Draw()
     m_menu.Draw();
 }
 
-std::string MenuManager::OperateMenu()
+std::wstring MenuManager::OperateMenu()
 {
-    std::string result;
-    std::string work_str;
+    std::wstring result;
+    std::wstring work_str;
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
@@ -632,11 +632,11 @@ std::string MenuManager::OperateMenu()
     {
         result = m_menu.Into();
 
-        std::vector<std::string> vs = Common::split(result, ':');
-        if (vs.size() == 5 && vs.at(0) == "Item")
+        std::vector<std::wstring> vs = Common::split(result, ':');
+        if (vs.size() == 5 && vs.at(0) == _T("Item"))
         {
             // アイテムを使う
-            if (vs.at(4) == "Use")
+            if (vs.at(4) == _T("Use"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -647,13 +647,13 @@ std::string MenuManager::OperateMenu()
                 }
             }
             // アイテムを捨てる
-            else if (vs.at(4) == "Discard")
+            else if (vs.at(4) == _T("Discard"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
-            else if (vs.at(4) == "Equip")
+            else if (vs.at(4) == _T("Equip"))
             {
                 // 火のついた松明を装備していたら武器を装備できない。袋も装備できない。
                 bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
@@ -669,7 +669,7 @@ std::string MenuManager::OperateMenu()
                     Equip(id, subId);
                 }
             }
-            else if (vs.at(4) == "Unequip")
+            else if (vs.at(4) == _T("Unequip"))
             {
                 // 点灯中の松明の装備を外すことはできない。
                 bool lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
@@ -685,9 +685,9 @@ std::string MenuManager::OperateMenu()
                 }
             }
         }
-        else if (vs.size() == 5 && vs.at(0) == "Weapon")
+        else if (vs.size() == 5 && vs.at(0) == _T("Weapon"))
         {
-            if (vs.at(4) == "Equip")
+            if (vs.at(4) == _T("Equip"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -695,7 +695,7 @@ std::string MenuManager::OperateMenu()
                 Equip(id, subId);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == "Save and Exit")
+        else if (vs.size() >= 1 && vs.at(0) == _T("Save and Exit"))
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
@@ -707,9 +707,9 @@ std::string MenuManager::OperateMenu()
     {
         // EXIT以外なら無視する
         result = m_menu.Back();
-        if (result != "EXIT")
+        if (result != _T("EXIT"))
         {
-            result = "";
+            result = _T("");
         }
     }
 
@@ -717,9 +717,9 @@ std::string MenuManager::OperateMenu()
     {
         // EXIT以外なら無視する
         result = m_menu.Back();
-        if (result != "EXIT")
+        if (result != _T("EXIT"))
         {
-            result = "";
+            result = _T("");
         }
     }
 
@@ -728,11 +728,11 @@ std::string MenuManager::OperateMenu()
         POINT p = Common::GetScreenPos();;
         result = m_menu.Click(p.x, p.y);
 
-        std::vector<std::string> vs = Common::split(result, ':');
-        if (vs.size() == 5 && vs.at(0) == "Item")
+        std::vector<std::wstring> vs = Common::split(result, ':');
+        if (vs.size() == 5 && vs.at(0) == _T("Item"))
         {
             // アイテムを使う
-            if (vs.at(4) == "Use")
+            if (vs.at(4) == _T("Use"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -743,28 +743,28 @@ std::string MenuManager::OperateMenu()
                 }
             }
             // アイテムを捨てる
-            else if (vs.at(4) == "Discard")
+            else if (vs.at(4) == _T("Discard"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
-            else if (vs.at(4) == "Equip")
+            else if (vs.at(4) == _T("Equip"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
-            else if (vs.at(4) == "Unequip")
+            else if (vs.at(4) == _T("Unequip"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
         }
-        else if (vs.size() == 5 && vs.at(0) == "Weapon")
+        else if (vs.size() == 5 && vs.at(0) == _T("Weapon"))
         {
-            if (vs.at(4) == "Equip")
+            if (vs.at(4) == _T("Equip"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -776,7 +776,7 @@ std::string MenuManager::OperateMenu()
                 statusManager->SetEquipWeapon(itemInfo);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == "Save and Exit")
+        else if (vs.size() >= 1 && vs.at(0) == _T("Save and Exit"))
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
@@ -849,11 +849,11 @@ std::string MenuManager::OperateMenu()
     {
         result = m_menu.Into();
 
-        std::vector<std::string> vs = Common::split(result, ':');
-        if (vs.size() == 5 && vs.at(0) == "Item")
+        std::vector<std::wstring> vs = Common::split(result, ':');
+        if (vs.size() == 5 && vs.at(0) == _T("Item"))
         {
             // アイテムを使う
-            if (vs.at(4) == "Use")
+            if (vs.at(4) == _T("Use"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -864,28 +864,28 @@ std::string MenuManager::OperateMenu()
                 }
             }
             // アイテムを捨てる
-            else if (vs.at(4) == "Discard")
+            else if (vs.at(4) == _T("Discard"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
-            else if (vs.at(4) == "Equip")
+            else if (vs.at(4) == _T("Equip"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
-            else if (vs.at(4) == "Unequip")
+            else if (vs.at(4) == _T("Unequip"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
         }
-        else if (vs.size() == 5 && vs.at(0) == "Weapon")
+        else if (vs.size() == 5 && vs.at(0) == _T("Weapon"))
         {
-            if (vs.at(4) == "Equip")
+            if (vs.at(4) == _T("Equip"))
             {
                 int id = std::stoi(vs.at(2));
                 int subId = std::stoi(vs.at(3));
@@ -897,7 +897,7 @@ std::string MenuManager::OperateMenu()
                 statusManager->SetEquipWeapon(itemInfo);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == "Save and Exit")
+        else if (vs.size() >= 1 && vs.at(0) == _T("Save and Exit"))
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
@@ -909,9 +909,9 @@ std::string MenuManager::OperateMenu()
     {
         // EXIT以外なら無視する
         result = m_menu.Back();
-        if (result != "EXIT")
+        if (result != _T("EXIT"))
         {
-            result = "";
+            result = _T("");
         }
     }
 
@@ -925,7 +925,7 @@ std::string MenuManager::OperateMenu()
 			NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
 
 			NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
-			std::string weaponName;
+			std::wstring weaponName;
 
 			if (itemInfo.GetId() != -1)
 			{
@@ -935,51 +935,51 @@ std::string MenuManager::OperateMenu()
 			}
 
 			// 状態異常リスト
-			std::string condition;
+			std::wstring condition;
 			{
 				if (statusManager->GetFractureArm())
 				{
-					condition += Common::LoadString_(IDS_STRING155)+ "/";
+					condition += Common::LoadString_(IDS_STRING155)+ _T("/");
 				}
 
 				if (statusManager->GetFractureLeg())
 				{
-					condition += Common::LoadString_(IDS_STRING156)+ "/";
+					condition += Common::LoadString_(IDS_STRING156)+ _T("/");
 				}
 
 				if (statusManager->GetHeadache())
 				{
-					condition += Common::LoadString_(IDS_STRING157)+ "/";
+					condition += Common::LoadString_(IDS_STRING157)+ _T("/");
 				}
 
 				if (statusManager->GetCold())
 				{
-					condition += Common::LoadString_(IDS_STRING158)+ "/";
+					condition += Common::LoadString_(IDS_STRING158)+ _T("/");
 				}
 
 				if (statusManager->GetStomachache())
 				{
-					condition += Common::LoadString_(IDS_STRING159)+ "/";
+					condition += Common::LoadString_(IDS_STRING159)+ _T("/");
 				}
 
 				if (statusManager->GetSleep())
 				{
-					condition += Common::LoadString_(IDS_STRING160)+ "/";
+					condition += Common::LoadString_(IDS_STRING160)+ _T("/");
 				}
 
 				if (statusManager->GetDehydration())
 				{
-					condition += Common::LoadString_(IDS_STRING161)+ "/";
+					condition += Common::LoadString_(IDS_STRING161)+ _T("/");
 				}
 
 				if (statusManager->GetLackOfSleep())
 				{
-					condition += Common::LoadString_(IDS_STRING162)+ "/";
+					condition += Common::LoadString_(IDS_STRING162)+ _T("/");
 				}
 
 				if (statusManager->GetDead())
 				{
-					condition += Common::LoadString_(IDS_STRING163)+ "/";
+					condition += Common::LoadString_(IDS_STRING163)+ _T("/");
 				}
 
 				if (condition.empty() == false)
@@ -996,87 +996,87 @@ std::string MenuManager::OperateMenu()
 			info.SetSprite(sprItem);
 
 			char buf[1024];
-			std::string work;
-			work =  Common::LoadString_(IDS_STRING210) + "\n";
+			std::wstring work;
+			work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING146).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING146).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + "/";
-			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + "/";
-			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + _T("/");
+			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + _T("/");
+			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING147).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING147).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + "/";
-			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + "/";
-			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + _T("/");
+			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + _T("/");
+			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING209).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING209).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + "/-/-\n";
+			work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + _T("/-/-\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING149).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING149).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + "/-/";
-			work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + _T("/-/");
+			work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + "/-/";
-			work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + _T("/-/");
+			work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + "/-/";
-			work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + _T("/-/");
+			work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + "/-/";
-			work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + _T("/-/");
+			work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + "/-/";
-			work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + _T("/-/");
+			work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + "/-/";
-			work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + _T("/-/");
+			work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + "/-/";
-			work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + "\n";
-	//        work += "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + _T("/-/");
+			work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + _T("\n");
+	//        work += _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING213).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING213).c_str());
 			work += buf;
 			work += condition;
-			work += "\n";
+			work += _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING214).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING214).c_str());
 			work += buf;
 			work += weaponName;
-			work += "\n";
+			work += _T("\n");
 
-			snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING215).c_str());
+			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING215).c_str());
 			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + "\n";
+			work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + _T("\n");
 
 			auto rynen = NSStarmanLib::Rynen::GetObj();
 			if (rynen->GetContracted())
 			{
-				work += "ワードブレス   ";
+				work += _T("ワードブレス   ");
 
 				if (rynen->GetReviveEnable())
 				{
-					work += "復活可能\n";
+					work += _T("復活可能\n");
 				}
 				else
 				{
-					work += "復活済み\n";
+					work += _T("復活済み\n");
 				}
 			}
 
@@ -1094,15 +1094,15 @@ std::string MenuManager::OperateMenu()
 				// ・耐久度
 				// ・強化値
 				NSMenulib::StatusInfo info;
-				info.SetName("イカダ");
+				info.SetName(_T("イカダ"));
 				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-				sprItem->Load("res\\image\\raft.png");
+				sprItem->Load(_T("res\\image\\raft.png"));
 				info.SetSprite(sprItem);
-				std::string work;
-				work += "現在の耐久値\n";
-				work += std::to_string(SharedObj::Voyage()->GetRaftDurability()) + "\n";
-				work += "現在の強化値\n";
-				work += std::to_string(SharedObj::Voyage()->GetRaftLevel()) + "\n";
+				std::wstring work;
+				work += _T("現在の耐久値\n");
+				work += std::to_wstring(SharedObj::Voyage()->GetRaftDurability()) + _T("\n");
+				work += _T("現在の強化値\n");
+				work += std::to_wstring(SharedObj::Voyage()->GetRaftLevel()) + _T("\n");
 
 				info.SetDetail(work);
 				infoList.push_back(info);
@@ -1113,72 +1113,72 @@ std::string MenuManager::OperateMenu()
         {
 			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
-            auto status = npcStatusMgr->GetNpcStatus("daikeiman");
+            auto status = npcStatusMgr->GetNpcStatus(_T("daikeiman"));
             if (status.GetMenuShow())
             {
 				NSMenulib::StatusInfo info;
 				info.SetName(Common::LoadString_(IDS_STRING121));
 
 				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-				sprItem->Load("res\\image\\daikeiman00.png");
+				sprItem->Load(_T("res\\image\\daikeiman00.png"));
 				info.SetSprite(sprItem);
 
 				char buf[1024];
-				std::string work;
-				work =  Common::LoadString_(IDS_STRING210) + "\n";
+				std::wstring work;
+				work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetWater(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
-		        work += "\n";
+				work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+		        work += _T("\n");
 
 				if (status.GetRynenContract())
 				{
-					work += "ワードブレス   ";
+					work += _T("ワードブレス   ");
 
 					if (status.GetDrinkWordbress())
 					{
-						work += "使用済み\n";
+						work += _T("使用済み\n");
 					}
 					else
 					{
-						work += "未使用\n";
+						work += _T("未使用\n");
 					}
 				}
 
                 if (status.GetDead())
                 {
-                    work += "死亡\n";
+                    work += _T("死亡\n");
                 }
 				else
                 {
-					work += "生存\n";
+					work += _T("生存\n");
 				}
 
 				info.SetDetail(work);
@@ -1190,72 +1190,72 @@ std::string MenuManager::OperateMenu()
         {
 			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
-            auto status = npcStatusMgr->GetNpcStatus("sankakuman");
+            auto status = npcStatusMgr->GetNpcStatus(_T("sankakuman"));
             if (status.GetMenuShow())
             {
 				NSMenulib::StatusInfo info;
 				info.SetName(Common::LoadString_(IDS_STRING112));
 
 				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-				sprItem->Load("res\\image\\sankakuman00.png");
+				sprItem->Load(_T("res\\image\\sankakuman00.png"));
 				info.SetSprite(sprItem);
 
 				char buf[1024];
-				std::string work;
-				work =  Common::LoadString_(IDS_STRING210) + "\n";
+				std::wstring work;
+				work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetWater(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
-		        work += "\n";
+				work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+		        work += _T("\n");
 
 				if (status.GetRynenContract())
 				{
-					work += "ワードブレス   ";
+					work += _T("ワードブレス   ");
 
 					if (status.GetDrinkWordbress())
 					{
-						work += "使用済み\n";
+						work += _T("使用済み\n");
 					}
 					else
 					{
-						work += "未使用\n";
+						work += _T("未使用\n");
 					}
 				}
 
                 if (status.GetDead())
                 {
-                    work += "死亡\n";
+                    work += _T("死亡\n");
                 }
 				else
                 {
-					work += "生存\n";
+					work += _T("生存\n");
 				}
 
 
@@ -1279,61 +1279,61 @@ std::string MenuManager::OperateMenu()
 				info.SetSprite(sprItem);
 
 				char buf[1024];
-				std::string work;
-				work =  Common::LoadString_(IDS_STRING210) + "\n";
+				std::wstring work;
+				work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING150).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING151).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING152).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING153).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING154).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
+				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), "%-20s", Common::LoadString_(IDS_STRING148).c_str());
+				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
 				work += buf;
-				work += Common::ToStringWithPrecision(status.GetWater(), 2) + "/-/";
-				work += Common::ToStringWithPrecision(100, 2) + "\n";
-		        work += "\n";
+				work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
+				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+		        work += _T("\n");
 
 				if (status.GetRynenContract())
 				{
-					work += "ワードブレス   ";
+					work += _T("ワードブレス   ");
 
 					if (status.GetDrinkWordbress())
 					{
-						work += "使用済み\n";
+						work += _T("使用済み\n");
 					}
 					else
 					{
-						work += "未使用\n";
+						work += _T("未使用\n");
 					}
 				}
 
                 if (status.GetDead())
                 {
-                    work += "死亡\n";
+                    work += _T("死亡\n");
                 }
 				else
                 {
-					work += "生存\n";
+					work += _T("生存\n");
 				}
 
 
@@ -1363,12 +1363,12 @@ bool MenuManager::UseItem(const int id, const int subId)
         result = statusManager->Eat(itemDef);
         if (!result)
         {
-            PopUp2::Get()->SetText("満腹なのでこれ以上食べられない。");
+            PopUp2::Get()->SetText(_T("満腹なのでこれ以上食べられない。"));
         }
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::MATERIAL)
     {
-        PopUp2::Get()->SetText("ホシマン（何かの素材として使えそうだ）");
+        PopUp2::Get()->SetText(_T("ホシマン（何かの素材として使えそうだ）"));
         result = false;
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::VALUABLES)
@@ -1376,13 +1376,13 @@ bool MenuManager::UseItem(const int id, const int subId)
         // スマホ
         if (itemDef.GetId() == 1)
         {
-            PopUp2::Get()->SetText("ホシマン（反応しない。海水で基盤がダメになったのだろう）");
+            PopUp2::Get()->SetText(_T("ホシマン（反応しない。海水で基盤がダメになったのだろう）"));
             result = false;
         }
         // 家の鍵
         else if (itemDef.GetId() == 2)
         {
-            PopUp2::Get()->SetText("ホシマン（まだ捨てないで取っておこう）");
+            PopUp2::Get()->SetText(_T("ホシマン（まだ捨てないで取っておこう）"));
             result = false;
         }
     }
@@ -1397,7 +1397,7 @@ bool MenuManager::UseItem(const int id, const int subId)
         }
         else
         {
-            PopUp2::Get()->SetText("ホシマン（使い道が思いつかない）");
+            PopUp2::Get()->SetText(_T("ホシマン（使い道が思いつかない）"));
             result = false;
         }
     }
@@ -1498,7 +1498,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
 
     NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(id);
-    std::string work_str;
+    std::wstring work_str;
 
     NSMenulib::ItemInfo itemInfoG;
 
@@ -1671,7 +1671,7 @@ void MenuManager::Equip(const int id, const int subId)
 
             if (Common::Status()->GetBagState().size() >= 5)
             {
-                PopUp2::Get()->SetText("右手がふさがっている。");
+                PopUp2::Get()->SetText(_T("右手がふさがっている。"));
                 return;
             }
 

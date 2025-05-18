@@ -10,7 +10,7 @@
 
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
-Mesh::Mesh(const std::string& xFilename,
+Mesh::Mesh(const std::wstring& xFilename,
            const D3DXVECTOR3& position,
            const D3DXVECTOR3& rotation,
            const float scale,
@@ -24,8 +24,8 @@ Mesh::Mesh(const std::string& xFilename,
 }
 
 // シェーダーファイルを指定できるコンストラクタ
-Mesh::Mesh(const std::string& shaderName,
-           const std::string& xFilename,
+Mesh::Mesh(const std::wstring& shaderName,
+           const std::wstring& xFilename,
            const D3DXVECTOR3& position,
            const D3DXVECTOR3& rotation,
            const float scale,
@@ -157,8 +157,8 @@ void Mesh::Init()
     D3DXMATERIAL* materialList = (D3DXMATERIAL*)materialBuffer->GetBufferPointer();
 
     // Xファイルのディレクトリ
-    std::string xFileDir = m_meshName;
-    std::size_t lastPos = xFileDir.find_last_of("\\");
+    std::wstring xFileDir = m_meshName;
+    std::size_t lastPos = xFileDir.find_last_of(_T("\\"));
     xFileDir = xFileDir.substr(0, lastPos + 1);
 
     for (DWORD i = 0; i < m_materialCount; ++i)
@@ -179,8 +179,8 @@ void Mesh::Init()
         //--------------------------------------------------------
         if (materialList[i].pTextureFilename != nullptr)
         {
-            std::string texturePath = xFileDir;
-            texturePath += materialList[i].pTextureFilename;
+            std::wstring texturePath = xFileDir;
+            texturePath += Common::Utf8ToWstring(materialList[i].pTextureFilename);
             LPDIRECT3DTEXTURE9 tempTexture = nullptr;
             hResult = D3DXCreateTextureFromFile(SharedObj::GetD3DDevice(),
                                                texturePath.c_str(),
@@ -299,10 +299,10 @@ void Mesh::Render()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
         {
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
-            if (m_meshName.find("continent.x") != std::string::npos)
+            if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
             {
 				hResult = m_D3DEffect->SetFloat("g_fog_strength", 0.0f);
 				assert(hResult == S_OK);
@@ -324,10 +324,10 @@ void Mesh::Render()
         // 雨だったら霧を3倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
         {
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
-            if (m_meshName.find("continent.x") != std::string::npos)
+            if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
             {
                 hResult = m_D3DEffect->SetFloat("g_fog_strength", 0.0f);
                 assert(hResult == S_OK);
@@ -451,7 +451,7 @@ float Mesh::GetRadius() const
     return m_radius;
 }
 
-std::string Mesh::GetMeshName()
+std::wstring Mesh::GetMeshName()
 {
     return m_meshName;
 }

@@ -8,7 +8,7 @@
 class IPopUpFont
 {
 public:
-    virtual void Draw(const std::string& text, const int transparent) = 0;
+    virtual void Draw(const std::wstring& text, const int transparent) = 0;
     virtual ~IPopUpFont() { };
 };
 
@@ -16,7 +16,7 @@ class PopUpFont : public IPopUpFont
 {
 public:
     PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish);
-    void Draw(const std::string& text, const int transparent);
+    void Draw(const std::wstring& text, const int transparent);
     ~PopUpFont();
 
 private:
@@ -32,7 +32,7 @@ public:
     static void Init(IPopUpFont* font);
     static PopUp2* Get();
     static void Finalize();
-    void SetText(const std::string& arg);
+    void SetText(const std::wstring& arg);
     void SetText(const UINT res);
     bool IsShow();
     void Update();
@@ -43,7 +43,7 @@ public:
 private:
     static PopUp2* m_singleTonObj;
 
-    std::queue<std::string> m_textQ;
+    std::queue<std::wstring> m_textQ;
     int m_counter { 0 };
     bool m_isShow { false };
     const int FADE_IN = 30;

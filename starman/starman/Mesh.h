@@ -10,15 +10,15 @@ class Mesh
 {
 public:
 
-    Mesh(const std::string&,
+    Mesh(const std::wstring&,
          const D3DXVECTOR3&,
          const D3DXVECTOR3&,
          const float,
          const float = -1.f);
 
     // シェーダーファイルを指定できるコンストラクタ
-    Mesh(const std::string&,
-         const std::string&,
+    Mesh(const std::wstring&,
+         const std::wstring&,
          const D3DXVECTOR3&,
          const D3DXVECTOR3&,
          const float,
@@ -36,12 +36,12 @@ public:
     void SetWeapon(const bool arg);
     float GetRadius() const;
 
-    std::string GetMeshName();
+    std::wstring GetMeshName();
 
 private:
     const bool FLAT_SHADING = false;
-    const std::string SHADER_FILENAME = "res\\shader\\mesh_shader.fx";
-    std::string m_meshName;
+    const std::wstring SHADER_FILENAME = _T("res\\shader\\mesh_shader.fx");
+    std::wstring m_meshName;
 
     LPD3DXEFFECT m_D3DEffect = nullptr;
     LPD3DXMESH m_D3DMesh = nullptr;

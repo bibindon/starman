@@ -21,7 +21,7 @@ public:
     };
 
     MeshClone(
-        const std::string&,
+        const std::wstring&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
         const float scale,
@@ -45,21 +45,21 @@ public:
 
     float GetRadius() const;
 
-    std::string GetMeshName();
-    bool ContainMeshName(const std::string& arg);
+    std::wstring GetMeshName();
+    bool ContainMeshName(const std::wstring& arg);
 
 private:
-    const std::string SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
+    const std::wstring SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
 
     // TODO エフェクトファイルはメッシュの数だけ用意するべき
-    static std::unordered_map<std::string, LPD3DXEFFECT> m_D3DEffectMap;
-    static std::unordered_map<std::string, LPD3DXMESH> m_D3DMeshMap;
-    static std::unordered_map<std::string, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
-    static std::unordered_map<std::string, DWORD> m_materialCountMap;
-    static std::unordered_map<std::string, std::vector<D3DXVECTOR4>> m_vecColorMap;
+    static std::unordered_map<std::wstring, LPD3DXEFFECT> m_D3DEffectMap;
+    static std::unordered_map<std::wstring, LPD3DXMESH> m_D3DMeshMap;
+    static std::unordered_map<std::wstring, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
+    static std::unordered_map<std::wstring, DWORD> m_materialCountMap;
+    static std::unordered_map<std::wstring, std::vector<D3DXVECTOR4>> m_vecColorMap;
 
     // 最初に一回だけやればいい処理
-    static std::unordered_map<std::string, bool> m_bFirstMap;
+    static std::unordered_map<std::wstring, bool> m_bFirstMap;
 
     D3DXVECTOR3 m_loadingPos { };
     D3DXVECTOR3 m_rotate { };
@@ -69,7 +69,7 @@ private:
 
     float m_radius = 0.f;
 
-    std::string m_meshName { "" };
+    std::wstring m_meshName { _T("") };
     bool m_bIsInit { false };
 
     bool m_bWeapon = false;

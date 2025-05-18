@@ -42,12 +42,12 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         LPD3DXSPRITE tempSprite { nullptr };
         if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
         {
-            throw std::exception("Failed to create a sprite.");
+            throw std::exception(_T("Failed to create a sprite."));
         }
 
         if (FAILED(D3DXCreateTextureFromFile(
@@ -55,13 +55,13 @@ public:
             filepath.c_str(),
             &m_pD3DTexture)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
 
         D3DSURFACE_DESC desc { };
         if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
         m_width = desc.Width;
         m_height = desc.Height;
@@ -111,7 +111,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "ＭＳ 明朝",
+                                _T("ＭＳ 明朝"),
                                 &m_pFont);
         }
         else
@@ -126,13 +126,13 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
         assert(hr == S_OK);
     }
 
-    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    virtual void DrawText_(const std::wstring& msg, const int x, const int y)
     {
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
@@ -155,11 +155,11 @@ class SoundEffect : public ISoundEffect
 {
     virtual void PlayMove() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\cursor_move.wav"));
     }
     virtual void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\cursor_move.wav");
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\cursor_move.wav"));
     }
 };
 }
@@ -171,10 +171,10 @@ Opening::Opening()
         pSE->Init();
 
         ISprite* sprTextBack = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprTextBack->Load("res\\image\\textBack.png");
+        sprTextBack->Load(_T("res\\image\\textBack.png"));
 
         ISprite* sprFade = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprFade->Load("res\\image\\black.png");
+        sprFade->Load(_T("res\\image\\black.png"));
 
         IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
 
@@ -182,11 +182,11 @@ Opening::Opening()
         {
             Page page;
             ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\opening01.png");
+            sprite->Load(_T("res\\image\\opening01.png"));
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vvs;
-            std::vector<std::string> vs;
-            vs.push_back("");
+            std::vector<std::vector<std::wstring> > vvs;
+            std::vector<std::wstring> vs;
+            vs.push_back(_T(""));
             vvs.push_back(vs);
             page.SetTextList(vvs);
             pageList.push_back(page);
@@ -194,13 +194,13 @@ Opening::Opening()
         {
             Page page;
             ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\opening02.png");
+            sprite->Load(_T("res\\image\\opening02.png"));
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vvs;
-            std::vector<std::string> vs;
-            vs.push_back("あるところにパワーエッグ星という惑星があった。");
-            vs.push_back("パワーエッグ星には海といくつかの大陸、そして無数の島があった。");
-            vs.push_back("その島の中にプロリタン島という島があった。");
+            std::vector<std::vector<std::wstring> > vvs;
+            std::vector<std::wstring> vs;
+            vs.push_back(_T("あるところにパワーエッグ星という惑星があった。"));
+            vs.push_back(_T("パワーエッグ星には海といくつかの大陸、そして無数の島があった。"));
+            vs.push_back(_T("その島の中にプロリタン島という島があった。"));
             vvs.push_back(vs);
             page.SetTextList(vvs);
             pageList.push_back(page);
@@ -208,16 +208,16 @@ Opening::Opening()
         {
             Page page;
             ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\opening03.png");
+            sprite->Load(_T("res\\image\\opening03.png"));
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vvs;
-            std::vector<std::string> vs;
-            vs.push_back("プロリタン島の、入り江の木の下で一人の男性が寝ていた。寝ていた男性、ホシマンは浜辺で目を覚ました。");
-            vs.push_back("ホシマンは頭部が星の形をしていた。星の形をしているうえに全身黄色でまさに星という感じであった。");
+            std::vector<std::vector<std::wstring> > vvs;
+            std::vector<std::wstring> vs;
+            vs.push_back(_T("プロリタン島の、入り江の木の下で一人の男性が寝ていた。寝ていた男性、ホシマンは浜辺で目を覚ました。"));
+            vs.push_back(_T("ホシマンは頭部が星の形をしていた。星の形をしているうえに全身黄色でまさに星という感じであった。"));
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("「し、死ぬ・・・」");
-            vs.push_back("かすれ声だった。");
+            vs.push_back(_T("「し、死ぬ・・・」"));
+            vs.push_back(_T("かすれ声だった。"));
             vvs.push_back(vs);
             page.SetTextList(vvs);
             pageList.push_back(page);
@@ -225,19 +225,19 @@ Opening::Opening()
         {
             Page page;
             ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-            sprite->Load("res\\image\\opening04.png");
+            sprite->Load(_T("res\\image\\opening04.png"));
             page.SetSprite(sprite);
-            std::vector<std::vector<std::string> > vvs;
-            std::vector<std::string> vs;
+            std::vector<std::vector<std::wstring> > vvs;
+            std::vector<std::wstring> vs;
             vs.clear();
-            vs.push_back("ホシマンはバイクでツーリングを楽しむため船で東のオプティプル島に移動中だった。");
-            vs.push_back("しかし、格安ツアーだったため台風でも強行された。");
-            vs.push_back("そして、元からボロボロだった船は亀裂から浸水が起こり、船が傾きやがて転覆してしまった。");
+            vs.push_back(_T("ホシマンはバイクでツーリングを楽しむため船で東のオプティプル島に移動中だった。"));
+            vs.push_back(_T("しかし、格安ツアーだったため台風でも強行された。"));
+            vs.push_back(_T("そして、元からボロボロだった船は亀裂から浸水が起こり、船が傾きやがて転覆してしまった。"));
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("船が転覆したとき、船体は砕け、ホシマンは船の瓦礫に掴まった。そのあと寝ずに３０時間過ごした。");
-            vs.push_back("漂流して３０時間後、島の姿が近くに現れた。");
-            vs.push_back("ホシマンは無我夢中になり、瓦礫をオールにして島まで漕ぎ、島にたどり着くと浜辺に倒れこんだ。そして、そのまま意識を失った。");
+            vs.push_back(_T("船が転覆したとき、船体は砕け、ホシマンは船の瓦礫に掴まった。そのあと寝ずに３０時間過ごした。"));
+            vs.push_back(_T("漂流して３０時間後、島の姿が近くに現れた。"));
+            vs.push_back(_T("ホシマンは無我夢中になり、瓦礫をオールにして島まで漕ぎ、島にたどり着くと浜辺に倒れこんだ。そして、そのまま意識を失った。"));
             vvs.push_back(vs);
             page.SetTextList(vvs);
             pageList.push_back(page);
@@ -283,7 +283,7 @@ void Opening::Update(eBattleState* eState)
         if (m_firstPage == false && m_bPlay == false)
         {
             BGM::Get()->StopAll();
-            BGM::Get()->Play("res\\sound\\opening.wav", 80);
+            BGM::Get()->Play(_T("res\\sound\\opening.wav"), 80);
             BGM::Get()->SetRandomMode(false);
 
             m_bPlay = true;

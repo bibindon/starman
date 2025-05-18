@@ -64,12 +64,12 @@ namespace NSStorehouseLib
 
         }
 
-        void Load(const std::string& filepath) override
+        void Load(const std::wstring& filepath) override
         {
             LPD3DXSPRITE tempSprite{ nullptr };
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
             {
-                throw std::exception("Failed to create a sprite.");
+                throw std::exception(_T("Failed to create a sprite."));
             }
 
             if (FAILED(D3DXCreateTextureFromFile(
@@ -77,13 +77,13 @@ namespace NSStorehouseLib
                 filepath.c_str(),
                 &m_pD3DTexture)))
             {
-                throw std::exception("Failed to create a texture.");
+                throw std::exception(_T("Failed to create a texture."));
             }
 
             D3DSURFACE_DESC desc{ };
             if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
             {
-                throw std::exception("Failed to create a texture.");
+                throw std::exception(_T("Failed to create a texture."));
             }
             m_width = desc.Width;
             m_height = desc.Height;
@@ -129,7 +129,7 @@ namespace NSStorehouseLib
                                     OUT_TT_ONLY_PRECIS,
                                     ANTIALIASED_QUALITY,
                                     FF_DONTCARE,
-                                    "ＭＳ 明朝",
+                                    _T("ＭＳ 明朝"),
                                     &m_pFont);
             }
             else
@@ -144,14 +144,14 @@ namespace NSStorehouseLib
                                     OUT_TT_ONLY_PRECIS,
                                     CLEARTYPE_NATURAL_QUALITY,
                                     FF_DONTCARE,
-                                    "Courier New",
+                                    _T("Courier New"),
                                     &m_pFont);
             }
 
             assert(hr == S_OK);
         }
 
-        virtual void DrawText_(const std::string& msg, const int x, const int y, const int transparency)
+        virtual void DrawText_(const std::wstring& msg, const int x, const int y, const int transparency)
         {
             RECT rect = { x, y, 0, 0 };
             m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
@@ -174,21 +174,21 @@ namespace NSStorehouseLib
     {
         virtual void PlayMove() override
         {
-            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+            ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_move.wav"));
         }
         virtual void PlayClick() override
         {
-            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+            ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_confirm.wav"));
         }
         virtual void PlayBack() override
         {
-            ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+            ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_cancel.wav"));
         }
         virtual void Init() override
         {
-            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
-            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
-            ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+            ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_move.wav"));
+            ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_confirm.wav"));
+            ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_cancel.wav"));
         }
     };
 }
@@ -228,7 +228,7 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         if (filepath.empty())
         {
@@ -240,7 +240,7 @@ public:
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
             {
-                throw std::exception("Failed to create a sprite.");
+                throw std::exception(_T("Failed to create a sprite."));
             }
         }
 
@@ -254,7 +254,7 @@ public:
             D3DSURFACE_DESC desc{ };
             if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
             {
-                throw std::exception("Failed to create a texture.");
+                throw std::exception(_T("Failed to create a texture."));
             }
             m_width = desc.Width;
             m_height = desc.Height;
@@ -267,8 +267,8 @@ public:
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
         {
-            std::string work;
-            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
+            std::wstring work;
+            work = _T("Failed to create a texture. HRESULT: ") + std::to_wstring(hr);
             throw std::exception(work.c_str());
         }
 
@@ -278,7 +278,7 @@ public:
         D3DSURFACE_DESC desc{ };
         if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
         m_width = desc.Width;
         m_height = desc.Height;
@@ -316,14 +316,14 @@ private:
     // スプライトは一つを使いまわす
     static LPD3DXSPRITE m_D3DSprite;
 
-    std::string m_filepath;
+    std::wstring m_filepath;
 
     // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
-    static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
+    static std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> m_texMap;
 };
  
 LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
-std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
+std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
 
 class Font : public IFont
 {
@@ -349,7 +349,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "ＭＳ 明朝",
+                                _T("ＭＳ 明朝"),
                                 &m_pFont);
         }
         else
@@ -364,14 +364,14 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
 
         assert(hr == S_OK);
     }
 
-    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    virtual void DrawText_(const std::wstring& msg, const int x, const int y)
     {
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
@@ -394,17 +394,17 @@ class SoundEffect : public ISoundEffect
 {
     void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\message1.wav");
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\message1.wav"));
     }
 
     void PlayMessage() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\message1.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\message1.wav"));
     }
 
     void Stop() override
     {
-        ::SoundEffect::get_ton()->stop("res\\sound\\message1.wav");
+        ::SoundEffect::get_ton()->stop(_T("res\\sound\\message1.wav"));
     }
 };
 
@@ -420,21 +420,21 @@ SeqBattle::SeqBattle()
     D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
 
     BGM::Get()->StopAll();
-    BGM::Get()->Play("res\\sound\\title.wav", 10);
+    BGM::Get()->Play(_T("res\\sound\\title.wav"), 10);
     BGM::Get()->SetRandomMode(false);
-    BGM::Get()->PlayEnv("res\\sound\\forest.wav", 10);
+    BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
 
-    ::SoundEffect::get_ton()->load("res\\sound\\drink.wav");
+    ::SoundEffect::get_ton()->load(_T("res\\sound\\drink.wav"));
 
-    m_spriteGameover = NEW Sprite("res\\image\\gameover.png");
+    m_spriteGameover = NEW Sprite(_T("res\\image\\gameover.png"));
 
     if (!SharedObj::IsEnglish())
     {
-        m_spriteExamine = NEW Sprite("res\\image\\examine.png");
+        m_spriteExamine = NEW Sprite(_T("res\\image\\examine.png"));
     }
     else
     {
-        m_spriteExamine = NEW Sprite("res\\image\\examine.en.png");
+        m_spriteExamine = NEW Sprite(_T("res\\image\\examine.en.png"));
     }
 
     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
@@ -448,7 +448,7 @@ SeqBattle::SeqBattle()
     m_eState = eBattleState::LOAD;
     InitLoad();
 
-    m_sprBlack = NEW Sprite("res\\image\\black.png");
+    m_sprBlack = NEW Sprite(_T("res\\image\\black.png"));
 
     if (Common::DebugMode())
     {
@@ -610,15 +610,15 @@ void SeqBattle::OperateStory()
 
 void SeqBattle::OperateMenu(eSequence* sequence)
 {
-    std::string result = m_menuManager->OperateMenu();
-    if (result == "Title")
+    std::wstring result = m_menuManager->OperateMenu();
+    if (result == _T("Title"))
     {
         m_eState = eBattleState::TITLE;
         Camera::SetCameraMode(eCameraMode::BATTLE_TO_TITLE);
         Common::SetCursorVisibility(true);
         m_title = NEW Title(false, false);
     }
-    else if (result == "EXIT")
+    else if (result == _T("EXIT"))
     {
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
@@ -669,7 +669,7 @@ void SeqBattle::OperateTalk()
 
 void SeqBattle::OperateStorehouse()
 {
-    std::string result;
+    std::wstring result;
 
     //---------------------------------------------------------
     // KeyBoard
@@ -718,7 +718,7 @@ void SeqBattle::OperateStorehouse()
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         result = m_storehouse->Into();
-        std::vector<std::string> vs = Common::split(result, ':');
+        std::vector<std::wstring> vs = Common::split(result, ':');
 
         int id_ = 0;
         int subId_ = 0;
@@ -741,7 +741,7 @@ void SeqBattle::OperateStorehouse()
 
         if (storehouse != nullptr)
         {
-            if (vs.at(0) == "left")
+            if (vs.at(0) == _T("left"))
             {
                 bool equipBagExist = false;
                 bool equipWeaponExist = false;
@@ -814,7 +814,7 @@ void SeqBattle::OperateStorehouse()
         POINT p = Common::GetScreenPos();;
         result = m_storehouse->Click(p.x, p.y);
 
-        std::vector<std::string> vs = Common::split(result, ':');
+        std::vector<std::wstring> vs = Common::split(result, ':');
 
         if (!vs.empty())
         {
@@ -839,7 +839,7 @@ void SeqBattle::OperateStorehouse()
 
             if (storehouse != nullptr)
             {
-                if (vs.at(0) == "left")
+                if (vs.at(0) == _T("left"))
                 {
                     bool equipBagExist = false;
                     bool equipWeaponExist = false;
@@ -949,7 +949,7 @@ void SeqBattle::OperateStorehouse()
     if (GamePad::IsDown(eGamePadButtonType::A))
     {
         result = m_storehouse->Into();
-        std::vector<std::string> vs = Common::split(result, ':');
+        std::vector<std::wstring> vs = Common::split(result, ':');
 
         int id_ = 0;
         int subId_ = 0;
@@ -972,7 +972,7 @@ void SeqBattle::OperateStorehouse()
 
         if (storehouse != nullptr)
         {
-            if (vs.at(0) == "left")
+            if (vs.at(0) == _T("left"))
             {
                 bool equipBagExist = false;
                 bool equipWeaponExist = false;
@@ -1062,10 +1062,10 @@ void SeqBattle::ShowStorehouse()
     m_storehouse = NEW NSStorehouseLib::StorehouseLib();
 
     NSStorehouseLib::Sprite* sprCursor = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-    sprCursor->Load("res\\image\\menu_cursor.png");
+    sprCursor->Load(_T("res\\image\\menu_cursor.png"));
 
     NSStorehouseLib::Sprite* sprBackground = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-    sprBackground->Load("res\\image\\background.png");
+    sprBackground->Load(_T("res\\image\\background.png"));
 
     NSStorehouseLib::IFont* pFont = NEW NSStorehouseLib::Font(SharedObj::GetD3DDevice());
     pFont->Init(SharedObj::IsEnglish());
@@ -1087,7 +1087,7 @@ void SeqBattle::ShowStorehouse()
             {
                 for (std::size_t j = 0; j < subIdList.size(); ++j)
                 {
-                    std::string work_str;
+                    std::wstring work_str;
 
                     NSStorehouseLib::StoreItem itemInfoG;
 
@@ -1113,7 +1113,7 @@ void SeqBattle::ShowStorehouse()
             {
                 for (std::size_t j = 0; j < subIdList.size(); ++j)
                 {
-                    std::string work_str;
+                    std::wstring work_str;
 
                     NSStorehouseLib::StoreItem itemInfoG;
 
@@ -1147,11 +1147,11 @@ void SeqBattle::OperateCraft()
 
 void SeqBattle::OperateCommand()
 {
-    std::string result = m_commandManager.Operate();
+    std::wstring result = m_commandManager.Operate();
 
     bool leave = false;
 
-    if (result == "EXIT")
+    if (result == _T("EXIT"))
     {
         leave = true;
         if (m_commandManager.GetPreviousState() == eBattleState::NORMAL)
@@ -1175,7 +1175,7 @@ void SeqBattle::OperateCommand()
         m_player->SetLieDown();
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == "３時間休憩する")
+    else if (result == _T("３時間休憩する"))
     {
         leave = true;
         m_player->SetSit();
@@ -1188,21 +1188,21 @@ void SeqBattle::OperateCommand()
         m_eState = eBattleState::POPUP;
 
         {
-            std::vector<std::vector<std::string>> vvs;
-            std::vector<std::string> vs;
-            vs.push_back("");
+            std::vector<std::vector<std::wstring>> vvs;
+            std::vector<std::wstring> vs;
+            vs.push_back(_T(""));
             vs.push_back(Common::LoadString_(IDS_STRING104));
             vvs.push_back(vs);
             vs.clear();
             auto hint = QuestManager::Get()->GetHint();
             if (hint.empty())
             {
-                vs.push_back("");
+                vs.push_back(_T(""));
                 vs.push_back(Common::LoadString_(IDS_STRING105));
             }
             else
             {
-                vs.push_back("");
+                vs.push_back(_T(""));
                 vs.push_back(hint);
             }
             vvs.push_back(vs);
@@ -1222,13 +1222,13 @@ void SeqBattle::OperateCommand()
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
 
-        std::string name;
+        std::wstring name;
         if (itemInfo.GetId() != -1 && itemInfo.GetId() != 0)
         {
             name = itemInfo.GetItemDef().GetName();
         }
 
-        if (name != "石斧" && name != "縦長の石")
+        if (name != _T("石斧" && name != "縦長の石"))
         {
             PopUp2::Get()->SetText(IDS_STRING106);
         }
@@ -1295,7 +1295,7 @@ void SeqBattle::OperateCommand()
         SharedObj::GetPlayer()->SetIdle();
 
         BGM::Get()->StopAll();
-        BGM::Get()->Play("res\\sound\\field.wav", 10);
+        BGM::Get()->Play(_T("res\\sound\\field.wav"), 10);
         BGM::Get()->SetRandomMode(true);
     }
     else if (result == Common::LoadString_(IDS_STRING188))
@@ -1309,9 +1309,9 @@ void SeqBattle::OperateCommand()
             leave = true;
 
             BGM::Get()->StopAll();
-            BGM::Get()->Play("res\\sound\\voyage.wav", 10);
+            BGM::Get()->Play(_T("res\\sound\\voyage.wav"), 10);
             BGM::Get()->SetRandomMode(true);
-            BGM::Get()->PlayEnv("res\\sound\\sea.wav", 5);
+            BGM::Get()->PlayEnv(_T("res\\sound\\sea.wav"), 5);
         }
         else
         {
@@ -1382,7 +1382,7 @@ void SeqBattle::OperateCommand()
         // サンカクマンかシカクマンのどちらかと近くにいなくてはならない。
         // どちらも近くにいる場合、サンカクマンを優先する
         auto npcManager = NSStarmanLib::NpcStatusManager::GetObj();
-        auto status = npcManager->GetNpcStatus("sankakuman");
+        auto status = npcManager->GetNpcStatus(_T("sankakuman"));
         auto npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         auto ppos = m_player->GetPos();
 
@@ -1415,7 +1415,7 @@ void SeqBattle::OperateCommand()
                     Common::Inventory()->AddItem(item.GetId());
                     auto name = item.GetName();
 
-                    std::string work = Common::LoadStringWithArg(IDS_STRING114, name);
+                    std::wstring work = Common::LoadStringWithArg(IDS_STRING114, name);
                     PopUp2::Get()->SetText(work);
                 }
             }
@@ -1457,7 +1457,7 @@ void SeqBattle::InitLoad()
                     }
                     catch (const std::exception& e)
                     {
-                        std::ofstream ofs("error.log");
+                        std::ofstream ofs(_T("error.log"));
                         ofs << e.what();
                         std::terminate();
                     }
@@ -1497,7 +1497,7 @@ void SeqBattle::InitLoad()
                     }
                     catch (const std::exception& e)
                     {
-                        std::ofstream ofs("error.log");
+                        std::ofstream ofs(_T("error.log"));
                         ofs << e.what();
                         std::terminate();
                     }
@@ -1516,19 +1516,19 @@ void SeqBattle::InitLoad()
             });
     }
 
-    m_sprLoadBack = NEW Sprite("res\\image\\black.png");
+    m_sprLoadBack = NEW Sprite(_T("res\\image\\black.png"));
 
     if (SharedObj::IsEnglish())
     {
-        m_sprLoadLogo = NEW Sprite("res\\image\\title01.en.png");
+        m_sprLoadLogo = NEW Sprite(_T("res\\image\\title01.en.png"));
     }
     else
     {
-        m_sprLoadLogo = NEW Sprite("res\\image\\title01.png");
+        m_sprLoadLogo = NEW Sprite(_T("res\\image\\title01.png"));
     }
 
-    m_sprLoadClock = NEW Sprite("res\\image\\load_clock.png");
-    m_sprLoadLoading = NEW Sprite("res\\image\\loading.png");
+    m_sprLoadClock = NEW Sprite(_T("res\\image\\load_clock.png"));
+    m_sprLoadLoading = NEW Sprite(_T("res\\image\\loading.png"));
 
     Common::SetCursorVisibility(false);
 
@@ -1706,9 +1706,9 @@ void SeqBattle::OperateOpening()
         Common::SetCursorVisibility(false);
 
         BGM::Get()->StopAll();
-        BGM::Get()->Play("res\\sound\\novel.wav", 10);
+        BGM::Get()->Play(_T("res\\sound\\novel.wav"), 10);
         BGM::Get()->SetRandomMode(true);
-        BGM::Get()->PlayEnv("res\\sound\\forest.wav", 10);
+        BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
     }
 }
 
@@ -1837,16 +1837,16 @@ void SeqBattle::OperateQuest(eSequence* sequence)
         auto startQuest = QuestManager::Get()->GetStartQuest();
         if (startQuest.empty() == false)
         {
-            QuestManager::Get()->SetHint("");
+            QuestManager::Get()->SetHint(_T(""));
 
             auto startEvent = QuestManager::Get()->GetQuestStartEvent(startQuest.at(0));
             if (startEvent.empty() == false)
             {
                 // TODO 最初のイベントだけ処理しているが必要になったら複数イベント対応
-                if (startEvent.at(0).find("<talk>") != std::string::npos)
+                if (startEvent.at(0).find(_T("<talk>")) != std::wstring::npos)
                 {
-                    std::string work = startEvent.at(0);
-                    std::string::size_type it = work.find("<talk>");
+                    std::wstring work = startEvent.at(0);
+                    std::wstring::size_type it = work.find(_T("<talk>"));
                     work = work.erase(it, 6);
 
                     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
@@ -1855,15 +1855,15 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                                 "res\\image\\textBack.png", "res\\image\\black.png",
+                                 _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
                                  Common::DeployEncryptMode(),
                                  SharedObj::IsEnglish());
 
                     m_eState = eBattleState::TALK;
                 }
-                else if (startEvent.at(0).find("<hint>") != std::string::npos)
+                else if (startEvent.at(0).find("<hint>") != std::wstring::npos)
                 {
-                    std::string work = startEvent.at(0);
+                    std::wstring work = startEvent.at(0);
                     work = Common::RemoveSubstring(work, "<hint>");
                     QuestManager::Get()->SetHint(work);
                 }
@@ -1875,7 +1875,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
     // 終了クエスト
     //------------------------------------------
     {
-        std::vector<std::string> vs = QuestManager::Get()->GetFinishQuest();
+        std::vector<std::wstring> vs = QuestManager::Get()->GetFinishQuest();
         for (std::size_t i = 0; i < vs.size(); ++i)
         {
             m_finishQuestQue.push_back(vs.at(i));
@@ -1883,15 +1883,15 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
         if (m_finishQuestQue.size() >= 1)
         {
-            std::string questId = m_finishQuestQue.at(0);
-            std::vector<std::string> vs2 = QuestManager::Get()->GetQuestFinishEvent(questId);
+            std::wstring questId = m_finishQuestQue.at(0);
+            std::vector<std::wstring> vs2 = QuestManager::Get()->GetQuestFinishEvent(questId);
             m_finishQuestQue.pop_front();
             for (size_t j = 0; j < vs2.size(); ++j)
             {
-                if (vs2.at(j).find("<talk>") != std::string::npos)
+                if (vs2.at(j).find(_T("<talk>")) != std::wstring::npos)
                 {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<talk>");
+                    std::wstring work = vs2.at(j);
+                    std::wstring::size_type it = work.find(_T("<talk>"));
                     work = work.erase(it, 6);
 
                     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
@@ -1900,16 +1900,16 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                                 "res\\image\\textBack.png", "res\\image\\black.png",
+                                 _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
                                  Common::DeployEncryptMode(),
                                  SharedObj::IsEnglish());
 
                     m_eState = eBattleState::TALK;
                 }
-                else if (vs2.at(j).find("<hide>") != std::string::npos)
+                else if (vs2.at(j).find("<hide>") != std::wstring::npos)
                 {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<hide>");
+                    std::wstring work = vs2.at(j);
+                    std::wstring::size_type it = work.find("<hide>");
                     work = work.erase(it, 6);
 
                     auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
@@ -1918,7 +1918,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     for (int i = 0; i < (int)mapObjs.size(); ++i)
                     {
-                        std::string xName = mapObjManager->GetModelName(mapObjs.at(i).m_modelId);
+                        std::wstring xName = mapObjManager->GetModelName(mapObjs.at(i).m_modelId);
 
                         if (xName == work)
                         {
@@ -1930,81 +1930,81 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         }
                     }
                 }
-                else if (vs2.at(j).find("<sound>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<sound>")) != std::wstring::npos)
                 {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<sound>");
+                    std::wstring work = vs2.at(j);
+                    std::wstring::size_type it = work.find(_T("<sound>"));
                     work = work.erase(it, 7);
 
                     ::SoundEffect::get_ton()->load(work);
                     ::SoundEffect::get_ton()->play(work);
                 }
-                else if (vs2.at(j).find("<ending>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<ending>")) != std::wstring::npos)
                 {
                     *sequence = eSequence::ENDING;
                 }
-                else if (vs2.at(j).find("<finish>") != std::string::npos)
+                else if (vs2.at(j).find("<finish>") != std::wstring::npos)
                 {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<finish>");
+                    std::wstring work = vs2.at(j);
+                    std::wstring::size_type it = work.find("<finish>");
                     work = work.erase(it, 8);
                     QuestManager::Get()->SetQuestFinish(work);
                 }
-                else if (vs2.at(j).find("<story>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<story>")) != std::wstring::npos)
                 {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<story>");
+                    std::wstring work = vs2.at(j);
+                    std::wstring::size_type it = work.find(_T("<story>"));
                     work = work.erase(it, 7);
                     m_story = NEW StoryManager(work);
                     m_eState = eBattleState::STORY;
                 }
-                else if (vs2.at(j).find("<npc>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<npc>")) != std::wstring::npos)
                 {
-                    std::string work = vs2.at(j);
-                    std::string::size_type it = work.find("<npc>");
+                    std::wstring work = vs2.at(j);
+                    std::wstring::size_type it = work.find(_T("<npc>"));
                     work = work.erase(it, 5);
-                    std::string npcNameKey;
-                    if (work.find("<daikeiman>") != std::string::npos)
+                    std::wstring npcNameKey;
+                    if (work.find(_T("<daikeiman>")) != std::wstring::npos)
                     {
-                        npcNameKey = "daikeiman";
+                        npcNameKey = _T("daikeiman");
                     }
-                    else if (work.find("<sankakuman>") != std::string::npos)
+                    else if (work.find(_T("<sankakuman>")) != std::wstring::npos)
                     {
-                        npcNameKey = "sankakuman";
+                        npcNameKey = _T("sankakuman");
                     }
-                    else if (work.find("<shikakuman>") != std::string::npos)
+                    else if (work.find("<shikakuman>") != std::wstring::npos)
                     {
                         npcNameKey = "shikakuman";
                     }
-                    else if (work.find("vim") != std::string::npos)
+                    else if (work.find(_T("vim")) != std::wstring::npos)
                     {
-                        npcNameKey = "vim";
+                        npcNameKey = _T("vim");
                     }
 
-                    work = Common::RemoveSubstring(work, "<" + npcNameKey + ">");
+                    work = Common::RemoveSubstring(work, _T("<" + npcNameKey + ">"));
 
-                    if (work.find("<pos>") != std::string::npos)
+                    if (work.find(_T("<pos>")) != std::wstring::npos)
                     {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<pos>");
-                        std::vector<std::string> vs = Common::split(work2, ':');
+                        std::wstring work2;
+                        work2 = Common::RemoveSubstring(work, _T("<pos>"));
+                        std::vector<std::wstring> vs = Common::split(work2, ':');
                         float fx = std::stof(vs.at(0));
                         float fy = std::stof(vs.at(1));
                         float fz = std::stof(vs.at(2));
                         NpcManager::Get()->SetPos(npcNameKey, fx, fy, fz);
                     }
-                    else if (work.find("<rot>") != std::string::npos)
+                    else if (work.find(_T("<rot>")) != std::wstring::npos)
                     {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<rot>");
+                        std::wstring work2;
+                        work2 = Common::RemoveSubstring(work, _T("<rot>"));
                         float fRot = std::stof(work2);
                         NpcManager::Get()->SetRot(npcNameKey, fRot);
                     }
-                    else if (work.find("<talkEnable>") != std::string::npos)
+                    else if (work.find(_T("<talkEnable>")) != std::wstring::npos)
                     {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<talkEnable>");
-                        if (work2 == "y")
+                        std::wstring work2;
+                        work2 = Common::RemoveSubstring(work, _T("<talkEnable>"));
+                        if (work2 == _T("y"))
                         {
                             NpcManager::Get()->SetTalkEnable(npcNameKey, true);
                         }
@@ -2013,17 +2013,17 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                             NpcManager::Get()->SetTalkEnable(npcNameKey, false);
                         }
                     }
-                    else if (work.find("<talkScript>") != std::string::npos)
+                    else if (work.find(_T("<talkScript>")) != std::wstring::npos)
                     {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<talkScript>");
+                        std::wstring work2;
+                        work2 = Common::RemoveSubstring(work, _T("<talkScript>"));
                         NpcManager::Get()->SetTalkScript(npcNameKey, work2);
                     }
-                    else if (work.find("<enableFeature>") != std::string::npos)
+                    else if (work.find(_T("<enableFeature>")) != std::wstring::npos)
                     {
-                        std::string work2;
-                        work2 = Common::RemoveSubstring(work, "<enableFeature>");
-                        if (work2 == "y")
+                        std::wstring work2;
+                        work2 = Common::RemoveSubstring(work, _T("<enableFeature>"));
+                        if (work2 == _T("y"))
                         {
                             NpcManager::Get()->SetEnableFeature(npcNameKey, true);
                         }
@@ -2032,11 +2032,11 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                             NpcManager::Get()->SetEnableFeature(npcNameKey, false);
                         }
                     }
-                    else if (work.find("<showMenu>") != std::string::npos)
+                    else if (work.find("<showMenu>") != std::wstring::npos)
                     {
-                        std::string work2;
+                        std::wstring work2;
                         work2 = Common::RemoveSubstring(work, "<showMenu>");
-                        if (work2 == "y")
+                        if (work2 == _T("y"))
                         {
                             NpcManager::Get()->SetShowMenu(npcNameKey, true);
                         }
@@ -2046,17 +2046,17 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         }
                     }
                 }
-                else if (vs2.at(j).find("<move>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<move>")) != std::wstring::npos)
                 {
-                    std::string work = vs2.at(j);
-                    std::string work2 = Common::RemoveSubstring(work, "<move>");
-                    std::vector<std::string> vs = Common::split(work2, ':');
+                    std::wstring work = vs2.at(j);
+                    std::wstring work2 = Common::RemoveSubstring(work, _T("<move>"));
+                    std::vector<std::wstring> vs = Common::split(work2, ':');
                     float fx = std::stof(vs.at(0));
                     float fy = std::stof(vs.at(1));
                     float fz = std::stof(vs.at(2));
                     m_player->SetPos(D3DXVECTOR3(fx, fy, fz));
                 }
-                else if (vs2.at(j).find("<rynenContract>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<rynenContract>")) != std::wstring::npos)
                 {
                     auto rynen = NSStarmanLib::Rynen::GetObj();
                     rynen->SetContracted(true);
@@ -2066,15 +2066,15 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                                            datetime->GetMonth(),
                                            datetime->GetDay());
                 }
-                else if (vs2.at(j).find("<drinkWordBress>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<drinkWordBress>")) != std::wstring::npos)
                 {
                     auto pos = m_player->GetPos();
                     Common::Status()->DrinkWordBress(pos.x, pos.y, pos.z);
                 }
                 // アイテムを取得
-                else if (vs2.at(j).find("<item>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<item>")) != std::wstring::npos)
                 {
-                    std::string work2 = Common::RemoveSubstring(vs2.at(j), "<item>");
+                    std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<item>"));
                     auto vs = Common::split(work2, ':');
                     auto level = std::stoi(vs.at(1));
                     auto durability = std::stoi(vs.at(2));
@@ -2082,9 +2082,9 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
                     Common::Inventory()->SetItemDurability(itemDef.GetId(), newSubId, durability);
                 }
-                else if (vs2.at(j).find("<itemDel>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<itemDel>")) != std::wstring::npos)
                 {
-                    std::string work2 = Common::RemoveSubstring(vs2.at(j), "<itemDel>");
+                    std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<itemDel>"));
                     auto itemDef = Common::ItemManager()->GetItemDef(work2);
 
                     // subidlistが空だと落ちる。もしそうなったらスクリプトが悪い。
@@ -2092,15 +2092,15 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     Common::Inventory()->RemoveItem(itemDef.GetId(), subidlist.at(0));
                 }
                 // 水を飲んだ
-                else if (vs2.at(j).find("<water>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<water>")) != std::wstring::npos)
                 {
                     auto waterCurrent = Common::Status()->GetWaterCurrent();
                     Common::Status()->SetWaterCurrent(waterCurrent + 0.5f);
                 }
                 // 武器を装備
-                else if (vs2.at(j).find("<equip>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<equip>")) != std::wstring::npos)
                 {
-                    std::string work2 = Common::RemoveSubstring(vs2.at(j), "<equip>");
+                    std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<equip>"));
                     auto itemDef = Common::ItemManager()->GetItemDef(work2);
                     auto subIdList = Common::Inventory()->GetSubIdList(itemDef.GetId());
                     assert(subIdList.size() >= 1);
@@ -2108,17 +2108,17 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), subIdList.at(0));
                     Common::Status()->SetEquipWeapon(itemInfo);
                 }
-                else if (vs2.at(j).find("<shikakumanDeath>") != std::string::npos)
+                else if (vs2.at(j).find("<shikakumanDeath>") != std::wstring::npos)
                 {
                     auto shikakuman = NpcManager::Get()->GetNpcStatus("shikakuman");
                     shikakuman.SetDead();
                     NpcManager::Get()->SetNpcStatus("shikakuman", shikakuman);
                 }
-                else if (vs2.at(j).find("<sotetsu>") != std::string::npos)
+                else if (vs2.at(j).find(_T("<sotetsu>")) != std::wstring::npos)
                 {
                     auto status = Common::Status();
-                    PopUp2::Get()->SetText("脱水症状・頭痛・腹痛・錯乱状態になった。");
-                    PopUp2::Get()->SetText("スタミナ・ミネラル・ビタミン・肉体の修復度が減少した。");
+                    PopUp2::Get()->SetText(_T("脱水症状・頭痛・腹痛・錯乱状態になった。"));
+                    PopUp2::Get()->SetText(_T("スタミナ・ミネラル・ビタミン・肉体の修復度が減少した。"));
                     status->SetDehydration(true);
                     status->SetHeadache(true);
                     status->SetStomachache(true);
@@ -2155,8 +2155,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
     }
 
     // 「調べる」アクションができることをアイコンで知らせる。
-    std::string quest1 = QuestManager::Get()->GetQuestIdStartByExamine();
-    std::string quest2 = QuestManager::Get()->GetQuestIdFinishByExamine();
+    std::wstring quest1 = QuestManager::Get()->GetQuestIdStartByExamine();
+    std::wstring quest2 = QuestManager::Get()->GetQuestIdFinishByExamine();
     if (quest1.empty() == false || quest2.empty() == false)
     {
         m_bShowExamine = true;
@@ -2169,9 +2169,9 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
 void SeqBattle::OperatePatch()
 {
-    std::string result = m_patchManager2.Operate();
+    std::wstring result = m_patchManager2.Operate();
 
-    if (result == "EXIT")
+    if (result == _T("EXIT"))
     {
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
@@ -2292,7 +2292,7 @@ void SeqBattle::OperatePickPlant()
         }
 
         auto itemDef = Common::ItemManager()->GetItemDef(pickId);
-        std::string pick = itemDef.GetName();
+        std::wstring pick = itemDef.GetName();
 
         PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
 
@@ -2563,8 +2563,8 @@ void SeqBattle::Confirm(eSequence* sequence)
             int newSubID = inventory->AddItem(itemPos.GetItemDefId());
             m_menuManager->AddItem(itemPos.GetItemDefId(), newSubID);
 
-            std::string work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
-            SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+            std::wstring work = itemManager->GetItemDef(itemPos.GetItemDefId()).GetName();
+            SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_confirm.wav"));
             PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, work));
         }
     }
@@ -2577,13 +2577,13 @@ void SeqBattle::Confirm(eSequence* sequence)
         Common::Status()->Talk();
 
         auto npcManager = NpcManager::Get();
-        std::string npcName;
+        std::wstring npcName;
         D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
         npcManager->GetNpcTalkable(playerPos, &npcName);
         if (npcName.empty() == false)
         {
             auto npcStatus = npcManager->GetNpcStatus(npcName);
-            std::string csvfile = npcStatus.GetTalkCsv();
+            std::wstring csvfile = npcStatus.GetTalkCsv();
 
             NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
             NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
@@ -2591,7 +2591,7 @@ void SeqBattle::Confirm(eSequence* sequence)
 
             m_talk = NEW NSTalkLib2::Talk();
             m_talk->Init(Common::ModExt(csvfile), pFont, pSE, sprite,
-                         "res\\image\\textBack.png", "res\\image\\black.png",
+                         _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
                          Common::DeployEncryptMode(),
                          SharedObj::IsEnglish());
 
@@ -2622,8 +2622,8 @@ void SeqBattle::Confirm(eSequence* sequence)
             int newSubID = inventory->AddItem(thrownItem.GetId());
             m_menuManager->AddItem(thrownItem.GetId(), newSubID);
 
-            std::string work = itemManager->GetItemDef(thrownItem.GetId()).GetName();
-            SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+            std::wstring work = itemManager->GetItemDef(thrownItem.GetId()).GetName();
+            SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_confirm.wav"));
             PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, work));
         }
 
@@ -2775,24 +2775,24 @@ void SeqBattle::UpdateDebug()
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F7))
         {
-            std::vector<std::vector<std::string>> vvs;
-            std::vector<std::string> vs;
-            vs.push_back("サンプルテキスト１");
-            vs.push_back("サンプルテキスト２サンプルテキスト２");
-            vs.push_back("サンプルテキスト３サンプルテキスト３サンプルテキスト３");
+            std::vector<std::vector<std::wstring>> vvs;
+            std::vector<std::wstring> vs;
+            vs.push_back(_T("サンプルテキスト１"));
+            vs.push_back(_T("サンプルテキスト２サンプルテキスト２"));
+            vs.push_back(_T("サンプルテキスト３サンプルテキスト３サンプルテキスト３"));
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("サンプルテキスト４");
-            vs.push_back("サンプルテキスト５サンプルテキスト５");
-            vs.push_back("サンプルテキスト６サンプルテキスト６サンプルテキスト６");
+            vs.push_back(_T("サンプルテキスト４"));
+            vs.push_back(_T("サンプルテキスト５サンプルテキスト５"));
+            vs.push_back(_T("サンプルテキスト６サンプルテキスト６サンプルテキスト６"));
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("サンプルテキスト７サンプルテキスト７サンプルテキスト７サンプルテキスト７");
-            vs.push_back("サンプルテキスト８サンプルテキスト８サンプルテキスト８");
-            vs.push_back("サンプルテキスト９サンプルテキスト９");
+            vs.push_back(_T("サンプルテキスト７サンプルテキスト７サンプルテキスト７サンプルテキスト７"));
+            vs.push_back(_T("サンプルテキスト８サンプルテキスト８サンプルテキスト８"));
+            vs.push_back(_T("サンプルテキスト９サンプルテキスト９"));
             vvs.push_back(vs);
             vs.clear();
-            vs.push_back("サンプルテキスト１０");
+            vs.push_back(_T("サンプルテキスト１０"));
             vvs.push_back(vs);
             PopUp::Get()->SetText(vvs);
         }
@@ -2828,10 +2828,10 @@ void SeqBattle::UpdateDebug()
                 m_storehouse = NEW NSStorehouseLib::StorehouseLib();
 
                 NSStorehouseLib::Sprite* sprCursor = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-                sprCursor->Load("res\\image\\menu_cursor.png");
+                sprCursor->Load(_T("res\\image\\menu_cursor.png"));
 
                 NSStorehouseLib::Sprite* sprBackground = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
-                sprBackground->Load("res\\image\\background.png");
+                sprBackground->Load(_T("res\\image\\background.png"));
 
                 NSStorehouseLib::IFont* pFont = NEW NSStorehouseLib::Font(SharedObj::GetD3DDevice());
                 pFont->Init(SharedObj::IsEnglish());
@@ -2854,7 +2854,7 @@ void SeqBattle::UpdateDebug()
                         {
                             for (std::size_t j = 0; j < subIdList.size(); ++j)
                             {
-                                std::string work_str;
+                                std::wstring work_str;
 
                                 NSStorehouseLib::StoreItem itemInfoG;
 
@@ -2895,7 +2895,7 @@ void SeqBattle::UpdateDebug()
                         {
                             for (std::size_t j = 0; j < subIdList.size(); ++j)
                             {
-                                std::string work_str;
+                                std::wstring work_str;
 
                                 NSStorehouseLib::StoreItem itemInfoG;
 
@@ -2999,35 +2999,35 @@ void SeqBattle::UpdatePerSecond()
 
             if (reason == NSStarmanLib::eDeadReason::NONE)
             {
-                PopUp2::Get()->SetText("死因：不明");
+                PopUp2::Get()->SetText(_T("死因：不明"));
             }
             else if (reason == NSStarmanLib::eDeadReason::MUSCLE_ZERO)
             {
-                PopUp2::Get()->SetText("死因：肉体の修復度が０になった");
+                PopUp2::Get()->SetText(_T("死因：肉体の修復度が０になった"));
             }
             else if (reason == NSStarmanLib::eDeadReason::WATER_90)
             {
-                PopUp2::Get()->SetText("死因：水分量が９０％以下になった");
+                PopUp2::Get()->SetText(_T("死因：水分量が９０％以下になった"));
             }
             else if (reason == NSStarmanLib::eDeadReason::KAROSHI)
             {
-                PopUp2::Get()->SetText("死因：身体のスタミナが０％になった");
+                PopUp2::Get()->SetText(_T("死因：身体のスタミナが０％になった"));
             }
             else if (reason == NSStarmanLib::eDeadReason::RYNEN_1_YEAR)
             {
-                PopUp2::Get()->SetText("死因：ライネンの契約をして１年が経過した");
+                PopUp2::Get()->SetText(_T("死因：ライネンの契約をして１年が経過した"));
             }
             else if (reason == NSStarmanLib::eDeadReason::STARVATION)
             {
-                PopUp2::Get()->SetText("死因：餓死");
+                PopUp2::Get()->SetText(_T("死因：餓死"));
             }
             else if (reason == NSStarmanLib::eDeadReason::DROWNING)
             {
-                PopUp2::Get()->SetText("死因：水中で寝た。");
+                PopUp2::Get()->SetText(_T("死因：水中で寝た。"));
             }
             else if (reason == NSStarmanLib::eDeadReason::ATTACK_ON_SLEEP)
             {
-                PopUp2::Get()->SetText("死因：睡眠中に攻撃された。");
+                PopUp2::Get()->SetText(_T("死因：睡眠中に攻撃された。"));
             }
 
             m_eState = eBattleState::DEAD;
@@ -3319,9 +3319,9 @@ void SeqBattle::OperateTitle(eSequence* sequence)
         Common::SetCursorVisibility(false);
 
         BGM::Get()->StopAll();
-        BGM::Get()->Play("res\\sound\\novel.wav", 10);
+        BGM::Get()->Play(_T("res\\sound\\novel.wav"), 10);
         BGM::Get()->SetRandomMode(true);
-        BGM::Get()->PlayEnv("res\\sound\\forest.wav", 10);
+        BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
     }
 }
 

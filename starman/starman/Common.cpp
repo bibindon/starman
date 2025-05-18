@@ -7,7 +7,7 @@
 #include "resource.h"
 
 // リモート接続検出用
-#pragma comment(lib, "Wtsapi32.lib")
+#pragma comment(lib, _T("Wtsapi32.lib"))
 
 #if defined(_DEBUG)
 eBuildMode Common::m_buildMode = eBuildMode::Debug;
@@ -25,29 +25,29 @@ bool Common::m_x64Bit = true;
 bool Common::m_x64Bit = false;
 #endif
 
-std::string Common::m_GPUName;
+std::wstring Common::m_GPUName;
 
 std::vector<char> Common::get_model_texture_resource(
-    const std::string& model_name, const std::string& texture_name)
+    const std::wstring& model_name, const std::wstring& texture_name)
 {
     return std::vector<char>();
 }
 
-std::vector<char> Common::get_model_resource(const std::string& model_name)
+std::vector<char> Common::get_model_resource(const std::wstring& model_name)
 {
     return std::vector<char>();
 }
 
-std::vector<char> Common::get_sound_resource(const std::string& filename)
+std::vector<char> Common::get_sound_resource(const std::wstring& filename)
 {
     return std::vector<char>();
 }
 
-std::vector<std::string> Common::split(const std::string& s, char delim)
+std::vector<std::wstring> Common::split(const std::wstring& s, char delim)
 {
-    std::vector<std::string> result;
+    std::vector<std::wstring> result;
     std::stringstream ss(s);
-    std::string item;
+    std::wstring item;
 
     while (getline(ss, item, delim))
     {
@@ -57,7 +57,7 @@ std::vector<std::string> Common::split(const std::string& s, char delim)
     return result;
 }
 
-std::string Common::ToStringWithPrecision(const float value, const int precision)
+std::wstring Common::ToStringWithPrecision(const float value, const int precision)
 {
     std::ostringstream out;
     out << std::fixed << std::setprecision(precision) << value;
@@ -195,29 +195,29 @@ POINT Common::GetScreenPos()
     return p;
 }
 
-void Common::OutputMsg(const std::string& str, const int arg)
+void Common::OutputMsg(const std::wstring& str, const int arg)
 {
-    std::string work;
-    work = str + std::to_string(arg) + "\n";
+    std::wstring work;
+    work = str + std::to_wstring(arg) + _T("\n");
     OutputDebugString(work.c_str());
 }
 
-void Common::OutputMsg(const std::string& str, const D3DXVECTOR3& arg)
+void Common::OutputMsg(const std::wstring& str, const D3DXVECTOR3& arg)
 {
-    std::string work;
-    work = str + "x: " + std::to_string(arg.x) + ", ";
-    work += "y: " + std::to_string(arg.y) + ", ";
-    work += "z: " + std::to_string(arg.z) + "\n";
+    std::wstring work;
+    work = str + _T("x: " + std::to_wstring(arg.x) + "), ";
+    work += _T("y: " + std::to_wstring(arg.y) + "), ";
+    work += _T("z: " + std::to_wstring(arg.z) + "\n");
     OutputDebugString(work.c_str());
 }
 
-std::string Common::RemoveSubstring(const std::string& str, const std::string& toRemove)
+std::wstring Common::RemoveSubstring(const std::wstring& str, const std::wstring& toRemove)
 {
-    std::string result = str;
-    size_t pos = std::string::npos;
+    std::wstring result = str;
+    size_t pos = std::wstring::npos;
 
     // 指定された文字列が見つかる限りループ
-    while ((pos = result.find(toRemove)) != std::string::npos)
+    while ((pos = result.find(toRemove)) != std::wstring::npos)
     {
         result.erase(pos, toRemove.length());
     }
@@ -260,12 +260,12 @@ float Common::PointToSegmentDistance(const D3DXVECTOR3& p1, const D3DXVECTOR3& p
     return D3DXVec3Length(&temp2);
 }
 
-std::string Common::ModExt(const std::string& filepath)
+std::wstring Common::ModExt(const std::wstring& filepath)
 {
-    std::string work = filepath;
+    std::wstring work = filepath;
     if (Common::DeployEncryptMode())
     {
-        work = work.replace(work.size() - 3, 3, "enc");
+        work = work.replace(work.size() - 3, 3, _T("enc"));
     }
 
     return work;
@@ -328,8 +328,8 @@ bool Common::IsRemoteSession()
 //        {
 //            for (DWORD i = 0; i < sessionCount; ++i)
 //            {
-//                std::string work(pSessionInfo[i].pWinStationName);
-//                if (work.find("RDP") != std::string::npos)
+//                std::wstring work(pSessionInfo[i].pWinStationName);
+//                if (work.find(_T("RDP")) != std::wstring::npos)
 //                {
 //                    isRemote = true;
 //                    break;
@@ -363,36 +363,59 @@ bool Common::HitByBoundingBox(const D3DXVECTOR3& p1,
     return false;
 }
 
-void Common::SetGPUName(const std::string& GPUName)
+void Common::SetGPUName(const std::wstring& GPUName)
 {
     m_GPUName = GPUName;
 }
 
-std::string Common::GetGPUName()
+std::wstring Common::GetGPUName()
 {
     return m_GPUName;
 }
 
-std::string Common::LoadString_(const UINT resID)
+std::wstring Common::LoadString_(const UINT resID)
 {
     TCHAR buf[1024];
     HMODULE hInstance = GetModuleHandle(NULL);
     LoadString(hInstance, resID, buf, 1024);
-    return std::string(buf);
+    return std::wstring(buf);
 }
 
-std::string Common::LoadStringWithArg(const UINT resID, const std::string& arg1)
+std::wstring Common::LoadStringWithArg(const UINT resID, const std::wstring& arg1)
 {
-    // 「"%s"を受け取った」みたいな文字列
+    // 「_T("%s")を受け取った」みたいな文字列
     TCHAR buf[1024];
     HMODULE hInstance = GetModuleHandle(NULL);
     LoadString(hInstance, resID, buf, 1024);
-    std::string work(buf);
+    std::wstring work(buf);
 
     char buffer[1024];
     std::snprintf(buffer, sizeof(buffer), work.c_str(), arg1.c_str());
-    std::string message(buffer);
+    std::wstring message(buffer);
     return message;
 }
 
+static std::wstring Common::Utf8ToWstring(const std::string& utf8)
+{
+    if (utf8.empty()) return std::wstring();
+
+    int len = MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, nullptr, 0);
+    if (len == 0) throw std::runtime_error("UTF-8 to UTF-16 conversion failed.");
+
+    std::wstring result(len - 1, 0);
+    MultiByteToWideChar(CP_UTF8, 0, utf8.c_str(), -1, &result[0], len);
+    return result;
+}
+
+static std::string Common::WstringToUtf8(const std::wstring& wstr)
+{
+    if (wstr.empty()) return std::string();
+
+    int len = WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, nullptr, 0, nullptr, nullptr);
+    if (len == 0) throw std::runtime_error("UTF-16 to UTF-8 conversion failed.");
+
+    std::string result(len - 1, 0);
+    WideCharToMultiByte(CP_UTF8, 0, wstr.c_str(), -1, &result[0], len, nullptr, nullptr);
+    return result;
+}
 

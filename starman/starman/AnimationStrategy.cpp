@@ -6,9 +6,9 @@ void no_animation::update()
 };
 
  normal_animation::normal_animation(LPD3DXANIMATIONCONTROLLER controller)
-        : default_animation_ { "" },
+        : default_animation_ { },
         animation_time_ { },
-        playing_animation_ { "" }
+        playing_animation_ { }
 {
     SAFE_RELEASE(animation_controller_);
     animation_controller_ = controller;
@@ -27,7 +27,7 @@ void no_animation::update()
     }
 }
 
-void normal_animation::set_animation(const std::string& animation_set)
+void normal_animation::set_animation(const std::wstring& animation_set)
 {
     std::vector<LPD3DXANIMATIONSET>::const_iterator kit;
 
@@ -41,7 +41,7 @@ void normal_animation::set_animation(const std::string& animation_set)
     if (animation_sets_.cend() == kit)
     {
         // TODO return error
-    //    THROW_WITH_TRACE("An illegal animation set was sent.: " + animation_set);
+    //    THROW_WITH_TRACE(_T("An illegal animation set was sent.: ") + animation_set);
         return;
     }
 
@@ -76,13 +76,13 @@ void normal_animation::update()
         }
     }
 };
-void normal_animation::set_default_animation(const std::string& animation_name)
+void normal_animation::set_default_animation(const std::wstring& animation_name)
 {
     default_animation_ = animation_name;
     set_animation(default_animation_);
 }
 void normal_animation::set_animation_config(
-    const std::string& animation_name, const bool& loop, const float& duration)
+    const std::wstring& animation_name, const bool& loop, const float& duration)
 {
     animation_configs_.emplace(animation_name, animation_config { loop, duration });
 }

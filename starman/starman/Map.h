@@ -43,8 +43,8 @@ public:
     // 壁ずり処理
     D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit, bool* bInside);
 
-    void SetNpcPos(const std::string& name, const D3DXVECTOR3& pos);
-    void SetNpcRot(const std::string& name, const float yRot);
+    void SetNpcPos(const std::wstring& name, const D3DXVECTOR3& pos);
+    void SetNpcRot(const std::wstring& name, const float yRot);
 
     //------------------------------------
     // もの投げ
@@ -52,7 +52,7 @@ public:
 
     void AddThrownItem(const D3DXVECTOR3& pos,
                        const D3DXVECTOR3& move,
-                       const std::string& weaponName,
+                       const std::wstring& weaponName,
                        const NSStarmanLib::ItemInfo& itemInfo,
                        const float scale = 1.f,
                        const float power = 10.f,
@@ -113,7 +113,7 @@ private:
                              bool* bHit,
                              bool* bInside);
 
-    std::unordered_map<std::string, Mesh*> m_meshMap;
+    std::unordered_map<std::wstring, Mesh*> m_meshMap;
 
     std::vector<EnemyBase*> m_vecEnemy { };
 
@@ -121,7 +121,7 @@ private:
     MeshNoShade* m_pSun = nullptr;
 
     // NPC
-    std::unordered_map<std::string, AnimMesh*> m_NPC;
+    std::unordered_map<std::wstring, AnimMesh*> m_NPC;
 
     std::unordered_map<int, MeshClone*> m_meshCloneMap;
 

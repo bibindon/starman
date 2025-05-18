@@ -19,19 +19,19 @@ Title::Title(const bool blackFadeIn, const bool bFirst)
     m_titleCommand = NEW CommandManager();
     m_titleCommand->Init(CommandManager::eType::Title);
 
-    m_sprBack = NEW Sprite("res\\image\\black.png");
+    m_sprBack = NEW Sprite(_T("res\\image\\black.png"));
 
     if (SharedObj::IsEnglish())
     {
-        m_sprLogo = NEW Sprite("res\\image\\title01.en.png");
+        m_sprLogo = NEW Sprite(_T("res\\image\\title01.en.png"));
     }
     else
     {
-        m_sprLogo = NEW Sprite("res\\image\\title01.png");
+        m_sprLogo = NEW Sprite(_T("res\\image\\title01.png"));
     }
     
-    m_sprClock = NEW Sprite("res\\image\\load_clock.png");
-    m_sprLoading = NEW Sprite("res\\image\\loading.png");
+    m_sprClock = NEW Sprite(_T("res\\image\\load_clock.png"));
+    m_sprLoading = NEW Sprite(_T("res\\image\\loading.png"));
 
     Common::SetCursorVisibility(true);
 
@@ -45,7 +45,7 @@ Title::Title(const bool blackFadeIn, const bool bFirst)
                                  OUT_TT_ONLY_PRECIS,
                                  CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 "Courier New",
+                                 _T("Courier New"),
                                  &m_font);
 
     if (blackFadeIn)
@@ -145,9 +145,9 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
     }
     else
     {
-        std::string result = m_titleCommand->Operate();
+        std::wstring result = m_titleCommand->Operate();
 
-        if (result == "Start")
+        if (result == _T("Start"))
         {
             // 即座にオープニングが始まるのではなく、
             // フェードアウトを描画し、
@@ -177,7 +177,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             Rain::Get()->SetShow(true);
             m_bFirst = false;
         }
-        else if (result == "Continue")
+        else if (result == _T("Continue"))
         {
             m_eMenu = eTitleMenu::CONTINUE;
             m_bCameraFadeOut = true;
@@ -192,7 +192,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             Rain::Get()->SetShow(true);
             m_bFirst = false;
         }
-        else if (result == "Language")
+        else if (result == _T("Language"))
         {
             m_titleCommand->Finalize();
             SAFE_DELETE(m_titleCommand);
@@ -200,16 +200,16 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             m_titleCommand = NEW CommandManager();
             m_titleCommand->Init(CommandManager::eType::Title_Language);
         }
-        else if (result == "Exit")
+        else if (result == _T("Exit"))
         {
             m_eMenu = eTitleMenu::EXIT;
             *sequence = eSequence::EXIT;
         }
-        else if (result == "Japanese")
+        else if (result == _T("Japanese"))
         {
-            PopUp2::Get()->SetText("再起動時に有効になります。");
+            PopUp2::Get()->SetText(_T("再起動時に有効になります。"));
 
-            SaveManager::Get()->SetLangFile("Japanese");
+            SaveManager::Get()->SetLangFile(_T("Japanese"));
         }
         else if (result == "English")
         {
@@ -217,7 +217,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             SaveManager::Get()->SetLangFile("English");
         }
-        else if (result == "Back")
+        else if (result == _T("Back"))
         {
             m_titleCommand->Finalize();
             SAFE_DELETE(m_titleCommand);
@@ -320,7 +320,7 @@ void Title::Render()
 
     // GPU名を表示
     {
-        std::string GPUName = Common::GetGPUName();
+        std::wstring GPUName = Common::GetGPUName();
         RECT rect { };
         SetRect(&rect, 10, 850, 500, 890);
         m_font->DrawText(NULL,

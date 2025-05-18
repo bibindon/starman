@@ -3,10 +3,10 @@
 
 #include <algorithm>
 
-using std::string;
+using std::wstring;
 using std::vector;
 
-AnimMeshFrame::AnimMeshFrame(const string& name)
+AnimMeshFrame::AnimMeshFrame(const wstring& name)
     : D3DXFRAME { },
     m_combinedMatrix { }
 {
@@ -18,8 +18,8 @@ AnimMeshFrame::AnimMeshFrame(const string& name)
 }
 
 AnimMeshContainer::AnimMeshContainer(
-    const string& xFilename,
-    const string& meshName,
+    const wstring& xFilename,
+    const wstring& meshName,
     LPD3DXMESH d3dMesh,
     const D3DXMATERIAL* materials,
     const DWORD materialsCount,
@@ -74,8 +74,8 @@ AnimMeshContainer::AnimMeshContainer(
             pMaterials[i] = materials[i];
         }
 
-        std::string xFileDir = xFilename;
-        std::size_t lastPos = xFileDir.find_last_of("\\");
+        std::wstring xFileDir = xFilename;
+        std::size_t lastPos = xFileDir.find_last_of(_T("\\"));
         xFileDir = xFileDir.substr(0, lastPos + 1);
 
         for (DWORD i { 0 }; i < materialsCount; ++i)
@@ -83,7 +83,7 @@ AnimMeshContainer::AnimMeshContainer(
             pMaterials[i].MatD3D.Ambient = D3DCOLORVALUE { 0.2f, 0.2f, 0.2f, 0 };
             if (pMaterials[i].pTextureFilename != nullptr)
             {
-                std::string texPath = xFileDir;
+                std::wstring texPath = xFileDir;
                 texPath += materials[i].pTextureFilename;
                 LPDIRECT3DTEXTURE9 tempTexture { nullptr };
 
@@ -92,7 +92,7 @@ AnimMeshContainer::AnimMeshContainer(
                     texPath.c_str(),
                     &tempTexture)))
                 {
-                    throw std::exception("texture file is not found.");
+                    throw std::exception(_T("texture file is not found."));
                 }
                 else
                 {
@@ -110,7 +110,7 @@ AnimMeshContainer::AnimMeshContainer(
     }
 }
 
-AnimMeshAllocator::AnimMeshAllocator(const string& xFilename)
+AnimMeshAllocator::AnimMeshAllocator(const wstring& xFilename)
     : ID3DXAllocateHierarchy { },
     m_xFilename(xFilename)
 {

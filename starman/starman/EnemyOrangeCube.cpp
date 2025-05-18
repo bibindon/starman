@@ -28,37 +28,37 @@ bool EnemyOrangeCube::Init()
                 animSetting.m_startPos = 0.5f;
                 animSetting.m_duration = 0.5f;
                 animSetting.m_loop = true;
-                animSetMap["Idle"] = animSetting;
+                animSetMap[_T("Idle")] = animSetting;
             }
             {
                 AnimSetting animSetting { };
                 animSetting.m_startPos = 0.f;
                 animSetting.m_duration = 0.5f;
                 animSetting.m_loop = true;
-                animSetMap["Walk"] = animSetting;
+                animSetMap[_T("Walk")] = animSetting;
             }
             {
                 AnimSetting animSetting { };
                 animSetting.m_startPos = 1.f;
                 animSetting.m_duration = 1.f;
                 animSetting.m_loop = false;
-                animSetMap["Damaged"] = animSetting;
+                animSetMap[_T("Damaged")] = animSetting;
             }
             {
                 AnimSetting animSetting { };
                 animSetting.m_startPos = 2.f;
                 animSetting.m_duration = 0.5f;
                 animSetting.m_loop = false;
-                animSetMap["Attack"] = animSetting;
+                animSetMap[_T("Attack")] = animSetting;
             }
-            m_AnimMesh = NEW AnimMesh("res\\model\\enemyOrangeCube.x",
+            m_AnimMesh = NEW AnimMesh(_T("res\\model\\enemyOrangeCube.x"),
                 m_loadingPos, m_rotate, 0.5f, animSetMap);
-            SoundEffect::get_ton()->load("res\\sound\\damage01.wav");
+            SoundEffect::get_ton()->load(_T("res\\sound\\damage01.wav"));
             
             m_spriteHP = NEW Sprite("res\\image\\hp_green.png");
             m_spriteHPBack = NEW Sprite("res\\image\\hp_black.png");
 
-            m_AnimMesh->SetAnim("Idle", 0.f);
+            m_AnimMesh->SetAnim(_T("Idle"), 0.f);
             m_loaded.store(true);
         }
         );
@@ -89,7 +89,7 @@ void EnemyOrangeCube::Update()
         if (distance < 10.f)
         {
             m_state = eEnemyState::WALK;
-            m_AnimMesh->SetAnim("Walk", 0.f);
+            m_AnimMesh->SetAnim(_T("Walk"), 0.f);
         }
     }
     else if (m_state == eEnemyState::WALK)
@@ -102,8 +102,8 @@ void EnemyOrangeCube::Update()
         {
             int randNum = SharedObj::GetRandom();
 
-            //std::string msg;
-            //msg = "randNum: " + std::to_string(randNum) + "\n";
+            //std::wstring msg;
+            //msg = _T("randNum: " + std::to_wstring(randNum) + "\n");
             if (randNum % 30 == 0)
             {
                 m_state = eEnemyState::ATTACK;
@@ -125,7 +125,7 @@ void EnemyOrangeCube::Update()
         else if (20.f <= distance)
         {
             m_state = eEnemyState::IDLE;
-            m_AnimMesh->SetAnim("Idle", 0.f);
+            m_AnimMesh->SetAnim(_T("Idle"), 0.f);
         }
     }
     else if (m_state == eEnemyState::DAMAGED)
@@ -142,7 +142,7 @@ void EnemyOrangeCube::Update()
         ++m_attackTimeCounter;
         if (m_attackTimeCounter == 1)
         {
-            m_AnimMesh->SetAnim("Attack", 0.f);
+            m_AnimMesh->SetAnim(_T("Attack"), 0.f);
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 rot = pos - m_loadingPos;
@@ -154,8 +154,8 @@ void EnemyOrangeCube::Update()
             playerPos = player->GetPos();
             D3DXVECTOR3 subPos { attackPos - playerPos };
             FLOAT distance = D3DXVec3Length(&subPos);
-            std::string msg;
-            msg = "distance: " + std::to_string(distance) + "\n";
+            std::wstring msg;
+            msg = _T("distance: " + std::to_wstring(distance) + "\n");
 
             if (distance <= 1.0f)
             {

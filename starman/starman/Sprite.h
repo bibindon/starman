@@ -7,7 +7,7 @@
 class Sprite
 {
 public:
-    Sprite(std::string filename);
+    Sprite(std::wstring filename);
     ~Sprite();
 
     // ??? m_pos.x shows z-order. That should be 0.0f ~ 1.0f.

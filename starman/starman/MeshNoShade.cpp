@@ -4,11 +4,8 @@
 #include "Camera.h"
 #include "SharedObj.h"
 
-using std::string;
-using std::vector;
-
 MeshNoShade::MeshNoShade(
-    const string& xFilename,
+    const std::wstring& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
     const float& scale)
@@ -124,8 +121,8 @@ void MeshNoShade::Init()
 
     D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
 
-    std::string xFileDir = m_meshName;
-    std::size_t lastPos = xFileDir.find_last_of("\\");
+    std::wstring xFileDir = m_meshName;
+    std::size_t lastPos = xFileDir.find_last_of(_T("\\"));
     xFileDir = xFileDir.substr(0, lastPos + 1);
 
     for (DWORD i = 0; i < m_materialCount; ++i)

@@ -15,10 +15,10 @@ public:
     };
 
     void Init(const eType type);
-    std::string Operate();
+    std::wstring Operate();
     void Draw();
     void Finalize();
-    void Upsert(const std::string name, const bool visible);
+    void Upsert(const std::wstring name, const bool visible);
     void SetPreviousState(const eBattleState previousState);
     eBattleState GetPreviousState() const;
 

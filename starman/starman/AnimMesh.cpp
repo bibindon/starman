@@ -8,9 +8,6 @@
 #include "Camera.h"
 #include "SharedObj.h"
 
-using std::vector;
-using std::string;
-
 void AnimMesh::frame_root_deleter_object::operator()(const LPD3DXFRAME frameRoot)
 {
     release_mesh_allocator(frameRoot);
@@ -34,7 +31,7 @@ void AnimMesh::frame_root_deleter_object::release_mesh_allocator(const LPD3DXFRA
 }
 
 AnimMesh::AnimMesh(
-    const string& xFilename,
+    const std::wstring& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
     const float& scale,
@@ -108,7 +105,7 @@ void AnimMesh::Render()
     //D3DXVECTOR4 normal = Light::GetLightNormal();
     D3DXVECTOR4 normal = D3DXVECTOR4(0.f, 0.f, 0.f, 0.f);
 
-    if (m_meshName.find("hoshiman.x") != std::string::npos)
+    if (m_meshName.find(_T("hoshiman.x")) != std::wstring::npos)
     {
         int i = 0;
         ++i;
@@ -178,7 +175,7 @@ void AnimMesh::SetRotate(const D3DXVECTOR3& rotate)
     m_rotation.z = fmod(rotate.z, D3DX_PI * 2);
 }
 
-void AnimMesh::SetAnim(const std::string& animName, const DOUBLE& pos)
+void AnimMesh::SetAnim(const std::wstring& animName, const DOUBLE& pos)
 {
     m_animCtrlr.SetAnim(animName, pos);
 }
@@ -274,8 +271,6 @@ void AnimMesh::RenderMeshContainer(
     {
         m_D3DEffect->End();
         throw std::exception("Failed 'BeginPass' function.");
-        //THROW_WITH_TRACE("Failed 'BeginPass' function.");
-        // TODO return false;
     }
 
     AnimMeshContainer* meshContainer { static_cast<AnimMeshContainer*>(meshContainerBase) };

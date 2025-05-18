@@ -23,7 +23,7 @@ void PopUp::Init(const bool bEnglish)
 {
     m_singleTonObj = NEW PopUp();
 
-    m_singleTonObj->m_sprBack = NEW Sprite("res\\image\\PopupBack.png");
+    m_singleTonObj->m_sprBack = NEW Sprite(_T("res\\image\\PopupBack.png"));
 
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
 
@@ -39,7 +39,7 @@ void PopUp::Init(const bool bEnglish)
                        OUT_TT_ONLY_PRECIS,
                        ANTIALIASED_QUALITY,
                        FF_DONTCARE,
-                       "ＭＳ 明朝",
+                       _T("ＭＳ 明朝"),
                        &m_singleTonObj->m_D3DFont);
     }
     else
@@ -54,13 +54,13 @@ void PopUp::Init(const bool bEnglish)
                        OUT_TT_ONLY_PRECIS,
                        CLEARTYPE_NATURAL_QUALITY,
                        FF_DONTCARE,
-                       "Courier New",
+                       _T("Courier New"),
                        &m_singleTonObj->m_D3DFont);
     }
 
 }
 
-void PopUp::SetText(const std::vector<std::vector<std::string>>& arg)
+void PopUp::SetText(const std::vector<std::vector<std::wstring>>& arg)
 {
     if (arg.size() == 0)
     {

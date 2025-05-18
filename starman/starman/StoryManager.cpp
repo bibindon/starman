@@ -41,12 +41,12 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         LPD3DXSPRITE tempSprite { nullptr };
         if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
         {
-            throw std::exception("Failed to create a sprite.");
+            throw std::exception(_T("Failed to create a sprite."));
         }
 
         if (FAILED(D3DXCreateTextureFromFile(
@@ -54,13 +54,13 @@ public:
             filepath.c_str(),
             &m_pD3DTexture)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
 
         D3DSURFACE_DESC desc { };
         if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception("Failed to create a texture.");
+            throw std::exception(_T("Failed to create a texture."));
         }
         m_width = desc.Width;
         m_height = desc.Height;
@@ -117,7 +117,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "ＭＳ 明朝",
+                                _T("ＭＳ 明朝"),
                                 &m_pFont);
         }
         else
@@ -132,13 +132,13 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
         assert(hr == S_OK);
     }
 
-    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    virtual void DrawText_(const std::wstring& msg, const int x, const int y)
     {
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
@@ -161,26 +161,26 @@ class SoundEffect : public ISoundEffect
 {
     virtual void PlayMove() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\cursor_move.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\cursor_move.wav"));
     }
     virtual void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\cursor_move.wav");
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\cursor_move.wav"));
     }
 };
 }
 
-StoryManager::StoryManager(const std::string& csvFile)
+StoryManager::StoryManager(const std::wstring& csvFile)
 {
     {
         NSStoryTelling::ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
         pSE->Init();
 
         NSStoryTelling::ISprite* sprTextBack = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprTextBack->Load("res\\image\\textBack.png");
+        sprTextBack->Load(_T("res\\image\\textBack.png"));
 
         NSStoryTelling::ISprite* sprFade = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
-        sprFade->Load("res\\image\\black.png");
+        sprFade->Load(_T("res\\image\\black.png"));
 
         NSStoryTelling::IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
 

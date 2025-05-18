@@ -1,6 +1,7 @@
 ﻿#include "CppUnitTest.h"
 #include "../starman/Camera.h"
 #include "../starman/GamePad.h"
+#include <tchar.h>
 
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "d3d9.lib")
@@ -58,8 +59,8 @@ namespace UnitTest2
             HRESULT ret = DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
                 (LPVOID*)&m_directInput, NULL);
 
-            HWND hWnd = CreateWindow("dummy",
-                                     "dummy",
+            HWND hWnd = CreateWindow(_T("dummy"),
+                                     _T("dummy"),
                                      WS_OVERLAPPEDWINDOW,
                                      CW_USEDEFAULT,
                                      CW_USEDEFAULT,

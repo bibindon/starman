@@ -16,8 +16,8 @@ public:
     // 別スレッドから進捗を取得できるようにする
     int GetProgress();
 
-    std::string GetLangFile();
-    void SetLangFile(const std::string lang);
+    std::wstring GetLangFile();
+    void SetLangFile(const std::wstring lang);
 
     bool SaveFolderExists();
 
@@ -25,23 +25,23 @@ private:
 
     SaveManager();
 
-    bool DeleteFolderContents(const std::string& folderPath);
-    bool DeleteFolder(const std::string& folderPath);
+    bool DeleteFolderContents(const std::wstring& folderPath);
+    bool DeleteFolder(const std::wstring& folderPath);
 
     static SaveManager* m_obj;
 
-    const std::string ORIGIN_DATA_PATH = "res\\script\\origin\\";
-    const std::string SAVEDATA_PATH = "res\\script\\save\\";
-    const std::string SAVEDATA_FOLDER = "res\\script\\save";
+    const std::wstring ORIGIN_DATA_PATH = _T("res\\script\\origin\\");
+    const std::wstring SAVEDATA_PATH = _T("res\\script\\save\\");
+    const std::wstring SAVEDATA_FOLDER = _T("res\\script\\save");
 
-    std::string m_savedata_path;
-    std::string m_savedata_folder;
+    std::wstring m_savedata_path;
+    std::wstring m_savedata_folder;
 
-    std::string CreateOriginFilePath(const std::string& filename);
-    std::string CreateSaveFilePath(const std::string& filename);
+    std::wstring CreateOriginFilePath(const std::wstring& filename);
+    std::wstring CreateSaveFilePath(const std::wstring& filename);
 
-    std::string GetOriginMapPath();
-    std::string GetSavefileMapPath();
+    std::wstring GetOriginMapPath();
+    std::wstring GetSavefileMapPath();
 
     bool m_savedataLoaded = false;
 

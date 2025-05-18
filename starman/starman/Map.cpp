@@ -57,76 +57,76 @@ Map::~Map()
 void Map::Init()
 {
     {
-        Mesh* mesh = NEW Mesh("res\\model\\prolitan.x",
+        Mesh* mesh = NEW Mesh(_T("res\\model\\prolitan.x"),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               1.0f);
         mesh->Init();
-        m_meshMap["Map"] = mesh;
+        m_meshMap[_T("Map")] = mesh;
     }
     {
-        Mesh* mesh = NEW Mesh("res\\model\\river.x",
+        Mesh* mesh = NEW Mesh(_T("res\\model\\river.x"),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               1.0f);
         mesh->Init();
-        m_meshMap["river"] = mesh;
+        m_meshMap[_T("river")] = mesh;
     }
     {
-        Mesh* mesh = NEW Mesh("res\\model\\sea.x",
+        Mesh* mesh = NEW Mesh(_T("res\\model\\sea.x"),
                               D3DXVECTOR3(10.f, 10.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               10.0f);
         mesh->Init();
-        m_meshMap["sea"] = mesh;
+        m_meshMap[_T("sea")] = mesh;
     }
 
     // 主人公が島から大きく離れた場所にいるとき、タイトル画面で海が表示されなくなる。
     // その対策として海の下に、海を表示しておく
     {
-        Mesh* mesh = NEW Mesh("res\\model\\sea.x",
+        Mesh* mesh = NEW Mesh(_T("res\\model\\sea.x"),
                               D3DXVECTOR3(10.f, 5.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               10.0f);
         mesh->Init();
-        m_meshMap["sea2"] = mesh;
+        m_meshMap[_T("sea2")] = mesh;
     }
 //    {
-//        Mesh* mesh = NEW Mesh("res\\model\\testcube\\testcube.x",
+//        Mesh* mesh = NEW Mesh(_T("res\\model\\testcube\\testcube.x"),
 //                              D3DXVECTOR3(-290.f, 15.f, 540.f),
 //                              D3DXVECTOR3(0.f, 0.f, 0.f),
 //                              1.0f);
 //        mesh->Init();
-//        m_meshMap["testcube"] = mesh;
+//        m_meshMap[_T("testcube")] = mesh;
 //    }
     //{
-    //    Mesh* mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
+    //    Mesh* mesh = NEW Mesh(_T("res\\model\\cube6\\cube6.x"),
     //                          D3DXVECTOR3(-10.f, 0.f, 0.f),
     //                          D3DXVECTOR3(0.f, 0.f, 0.f),
     //                          1.0f);
     //    mesh->Init();
-    //    m_meshMap["cube61"] = mesh;
+    //    m_meshMap[_T("cube61")] = mesh;
 
-    //    mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
+    //    mesh = NEW Mesh(_T("res\\model\\cube6\\cube6.x"),
     //                    D3DXVECTOR3(-13.f, 1.f, 0.f),
     //                    D3DXVECTOR3(0.f, 0.f, 0.f),
     //                    1.0f);
     //    mesh->Init();
-    //    m_meshMap["cube62"] = mesh;
+    //    m_meshMap[_T("cube62")] = mesh;
 
-    //    mesh = NEW Mesh("res\\model\\cube6\\cube6.x",
+    //    mesh = NEW Mesh(_T("res\\model\\cube6\\cube6.x"),
     //                    D3DXVECTOR3(-16.f, 2.f, 0.f),
     //                    D3DXVECTOR3(0.f, 0.f, 0.f),
     //                    1.0f);
     //    mesh->Init();
-    //    m_meshMap["cube63"] = mesh;
+    //    m_meshMap[_T("cube63")] = mesh;
 
-    //    mesh = NEW Mesh("res\\model\\collisionTest\\colli.x",
+    //    mesh = NEW Mesh(_T("res\\model\\collisionTest\\colli.x"),
     //                    D3DXVECTOR3(0.f, 0.f, -20.f),
     //                    D3DXVECTOR3(0.f, 0.f, 0.f),
     //                    1.0f);
     //    mesh->Init();
-    //    m_meshMap["colli"] = mesh;
+    //    m_meshMap[_T("colli")] = mesh;
     //}
 
     {
@@ -135,18 +135,18 @@ void Map::Init()
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         mesh = NEW Mesh("res\\model\\hemisphere.x", pos, rot, 180000.0f);
         mesh->Init();
-        m_meshMap["sky"] = mesh;
+        m_meshMap[_T("sky")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(11.f, 491.5f, -572.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = NEW Mesh("res\\shader\\mesh_shader_cull_none.fx",
-                              "res\\model\\precision.x",
+                              _T("res\\model\\precision.x"),
                               pos,
                               rot,
                               1.3f);
         mesh->Init();
-        m_meshMap["precision"] = mesh;
+        m_meshMap[_T("precision")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(15.84f, 491.5f, -570.95f);
@@ -162,85 +162,85 @@ void Map::Init()
     //{
     //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
     //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
-    //    Mesh* mesh = NEW Mesh("res\\model\\rock1\\rock1.x", b, c, 1.f);
+    //    Mesh* mesh = NEW Mesh(_T("res\\model\\rock1\\rock1.x"), b, c, 1.f);
     //    mesh->Init();
-    //    m_meshMap["rock1"] = mesh;
+    //    m_meshMap[_T("rock1")] = mesh;
     //}
 
     // 灯台
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-1321.f, 632.f, -1529.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap["cottage"] = mesh;
+        m_meshMap[_T("cottage")] = mesh;
     }
 
     // 神社
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(15.8f, 492.8f, -1221.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap["cottage2"] = mesh;
+        m_meshMap[_T("cottage2")] = mesh;
     }
 
     // 洞窟
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(115.6f, 590.5f, -1484.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap["cottage3"] = mesh;
+        m_meshMap[_T("cottage3")] = mesh;
     }
 
     // 苔庭
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(628.9f, 773.9f, -1861.8f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap["cottage4"] = mesh;
+        m_meshMap[_T("cottage4")] = mesh;
     }
 
     // 港跡
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1814.3f, 28.5f, -899.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap["cottage5"] = mesh;
+        m_meshMap[_T("cottage5")] = mesh;
     }
 
     // 海岸洞窟
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap["cottage6"] = mesh;
+        m_meshMap[_T("cottage6")] = mesh;
     }
 
     // ソテツの場所
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\cottage.x", pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap["cottage7"] = mesh;
+        m_meshMap[_T("cottage7")] = mesh;
     }
 
     // 大陸
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-2000000.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\continent.x",
+        Mesh* mesh = NEW Mesh(_T("res\\model\\continent.x"),
                               pos,
                               rot,
                               1000000.f);
 
         mesh->Init();
-        m_meshMap["continent"] = mesh;
+        m_meshMap[_T("continent")] = mesh;
     }
 
     //------------------------------------------
@@ -249,15 +249,15 @@ void Map::Init()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-1425.4f, 20.1f, -598.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\model\\rock2.x", pos, rot, 10.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\rock2.x"), pos, rot, 10.f);
         mesh->Init();
-        m_meshMap["rock2"] = mesh;
+        m_meshMap[_T("rock2")] = mesh;
     }
 
     //--------------------------------------------
     // 太陽
     //--------------------------------------------
-    m_pSun = NEW MeshNoShade("res\\model\\sun.x",
+    m_pSun = NEW MeshNoShade(_T("res\\model\\sun.x"),
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
                              15000.0f);
@@ -268,7 +268,7 @@ void Map::Init()
     //--------------------------------------------
     auto npcManager = NpcManager::Get();
     {
-        auto status = npcManager->GetNpcStatus("daikeiman");
+        auto status = npcManager->GetNpcStatus(_T("daikeiman"));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -277,67 +277,67 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* daikeiman = NEW AnimMesh("res\\model\\daikeiman.x",
+        AnimMesh* daikeiman = NEW AnimMesh(_T("res\\model\\daikeiman.x"),
                                            pos,
                                            rot,
                                            1.f,
                                            animSetMap);
-        daikeiman->SetAnim("LieDown");
-        m_NPC["daikeiman"] = daikeiman;
+        daikeiman->SetAnim(_T("LieDown"));
+        m_NPC[_T("daikeiman")] = daikeiman;
     }
     {
-        auto status = npcManager->GetNpcStatus("sankakuman");
+        auto status = npcManager->GetNpcStatus(_T("sankakuman"));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -346,60 +346,60 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* sankakuman = NEW AnimMesh("res\\model\\sankakuman.x", pos, rot, 0.66f, animSetMap);
-        sankakuman->SetAnim("Sit");
-        m_NPC["sankakuman"] = sankakuman;
+        AnimMesh* sankakuman = NEW AnimMesh(_T("res\\model\\sankakuman.x"), pos, rot, 0.66f, animSetMap);
+        sankakuman->SetAnim(_T("Sit"));
+        m_NPC[_T("sankakuman")] = sankakuman;
     }
     {
         auto status = npcManager->GetNpcStatus("shikakuman");
@@ -411,67 +411,67 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
         AnimMesh* shikakuman = NEW AnimMesh("res\\model\\shikakuman.x",
                                             pos,
                                             rot,
                                             0.66f,
                                             animSetMap);
-        shikakuman->SetAnim("Sit");
+        shikakuman->SetAnim(_T("Sit"));
         m_NPC["shikakuman"] = shikakuman;
     }
     {
-        auto status = npcManager->GetNpcStatus("vim");
+        auto status = npcManager->GetNpcStatus(_T("vim"));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -480,60 +480,60 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vim.x", pos, rot, 1.f, animSetMap);
-        animMesh->SetAnim("Idle");
-        m_NPC["vim"] = animMesh;
+        AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\vim.x"), pos, rot, 1.f, animSetMap);
+        animMesh->SetAnim(_T("Idle"));
+        m_NPC[_T("vim")] = animMesh;
     }
     /*
     {
@@ -545,60 +545,60 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\vsco\\vsco.x", b, move, 1.f, animSetMap);
-        animMesh->SetAnim("Idle");
-        m_NPC["ブイエスコ"] = animMesh;
+        AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\vsco\\vsco.x"), b, move, 1.f, animSetMap);
+        animMesh->SetAnim(_T("Idle"));
+        m_NPC[_T("ブイエスコ")] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 551.f);
@@ -609,60 +609,60 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\webnin\\webnin.x", b, move, 1.f, animSetMap);
-        animMesh->SetAnim("Idle");
-        m_NPC["ウェブニン"] = animMesh;
+        AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\webnin\\webnin.x"), b, move, 1.f, animSetMap);
+        animMesh->SetAnim(_T("Idle"));
+        m_NPC[_T("ウェブニン")] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 533.f);
@@ -673,11 +673,11 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 2.0f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
-        //AnimMesh* animMesh = NEW AnimMesh("res\\model\\xeoff\\xeoff.x", b, move, 1.5f, animSetMap);
-        //animMesh->SetAnim("Idle");
-        //m_NPC["ジーオフ"] = animMesh;
+        //AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\xeoff\\xeoff.x"), b, move, 1.5f, animSetMap);
+        //animMesh->SetAnim(_T("Idle"));
+        //m_NPC[_T("ジーオフ")] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 555.f);
@@ -688,60 +688,60 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\gain\\gain.x", b, move, 1.f, animSetMap);
-        animMesh->SetAnim("Idle");
-        m_NPC["ガイン"] = animMesh;
+        AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\gain\\gain.x"), b, move, 1.f, animSetMap);
+        animMesh->SetAnim(_T("Idle"));
+        m_NPC[_T("ガイン")] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 557.f);
@@ -752,60 +752,60 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\nes\\nes.x", b, move, 1.f, animSetMap);
-        animMesh->SetAnim("Idle");
-        m_NPC["ネス"] = animMesh;
+        AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\nes\\nes.x"), b, move, 1.f, animSetMap);
+        animMesh->SetAnim(_T("Idle"));
+        m_NPC[_T("ネス")] = animMesh;
     }
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 559.f);
@@ -816,65 +816,65 @@ void Map::Init()
             animSetting.m_startPos = 0.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Idle"] = animSetting;
+            animSetMap[_T("Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 1.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Walk"] = animSetting;
+            animSetMap[_T("Walk")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 2.f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Attack"] = animSetting;
+            animSetMap[_T("Attack")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = false;
-            animSetMap["Damaged"] = animSetting;
+            animSetMap[_T("Damaged")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 3.5f;
             animSetting.m_duration = 1.f;
             animSetting.m_loop = false;
-            animSetMap["Dead"] = animSetting;
+            animSetMap[_T("Dead")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 5.f;
             animSetting.m_duration = 2.f;
             animSetting.m_loop = false;
-            animSetMap["Jump"] = animSetting;
+            animSetMap[_T("Jump")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.1f;
             animSetting.m_duration = 0.5f;
             animSetting.m_loop = true;
-            animSetMap["Sit"] = animSetting;
+            animSetMap[_T("Sit")] = animSetting;
         }
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 7.7f;
             animSetting.m_duration = 0.6f;
             animSetting.m_loop = true;
-            animSetMap["LieDown"] = animSetting;
+            animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* animMesh = NEW AnimMesh("res\\model\\noble\\noble.x", b, move, 1.f, animSetMap);
-        animMesh->SetAnim("Idle");
-        m_NPC["ノーブル"] = animMesh;
+        AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\noble\\noble.x"), b, move, 1.f, animSetMap);
+        animMesh->SetAnim(_T("Idle"));
+        m_NPC[_T("ノーブル")] = animMesh;
     }
     */
-    SoundEffect::get_ton()->load("res\\sound\\fireHit.wav");
-    SoundEffect::get_ton()->load("res\\sound\\iceHit.wav");
-    SoundEffect::get_ton()->load("res\\sound\\darkHit.wav");
+    SoundEffect::get_ton()->load(_T("res\\sound\\fireHit.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\iceHit.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\darkHit.wav"));
 
     MapLib()->ResetShow();
 }
@@ -929,43 +929,43 @@ void Map::Update()
                     if (eneList.at(i).GetDefeated() == false)
                     {
                         EnemyBase* enemy = nullptr;
-                        if (eneList.at(i).GetBreed() == "リッポウタイ")
+                        if (eneList.at(i).GetBreed() == _T("リッポウタイ"))
                         {
                             enemy = NEW EnemyCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "キュウ")
+                        else if (eneList.at(i).GetBreed() == _T("キュウ"))
                         {
                             enemy = NEW EnemySphere();
                         }
-                        else if (eneList.at(i).GetBreed() == "エンバン")
+                        else if (eneList.at(i).GetBreed() == _T("エンバン"))
                         {
                             enemy = NEW EnemyDisk();
                         }
-                        else if (eneList.at(i).GetBreed() == "エンチュウ")
+                        else if (eneList.at(i).GetBreed() == _T("エンチュウ"))
                         {
                             enemy = NEW EnemyEnchu();
                         }
-                        else if (eneList.at(i).GetBreed() == "ビッグリッポウタイ")
+                        else if (eneList.at(i).GetBreed() == _T("ビッグリッポウタイ"))
                         {
                             enemy = NEW EnemyBigCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "スモールリッポウタイ")
+                        else if (eneList.at(i).GetBreed() == _T("スモールリッポウタイ"))
                         {
                             enemy = NEW EnemySmallCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "ハンエン")
+                        else if (eneList.at(i).GetBreed() == _T("ハンエン"))
                         {
                             enemy = NEW EnemyHanen();
                         }
-                        else if (eneList.at(i).GetBreed() == "ハンキュウ")
+                        else if (eneList.at(i).GetBreed() == _T("ハンキュウ"))
                         {
                             enemy = NEW EnemyHankyuu();
                         }
-                        else if (eneList.at(i).GetBreed() == "オレンジリッポウタイ")
+                        else if (eneList.at(i).GetBreed() == _T("オレンジリッポウタイ"))
                         {
                             enemy = NEW EnemyOrangeCube();
                         }
-                        else if (eneList.at(i).GetBreed() == "島民の霊")
+                        else if (eneList.at(i).GetBreed() == _T("島民の霊"))
                         {
                             enemy = NEW EnemyGhost();
                         }
@@ -1002,13 +1002,13 @@ void Map::Update()
             // 主人公とカメラで分ける必要があるのは、タイトルで主人公とカメラの位置が大きく異なるから
             {
                 auto cameraPos = Camera::GetEyePos();
-                m_meshMap["sky"]->SetPos(cameraPos);
+                m_meshMap[_T("sky")]->SetPos(cameraPos);
 
                 auto player = SharedObj::GetPlayer();
                 auto work = player->GetPos();
                 work.y = 10.f;
 
-                m_meshMap["sea"]->SetPos(work);
+                m_meshMap[_T("sea")]->SetPos(work);
             }
 
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
@@ -1089,7 +1089,7 @@ void Map::Update()
                     rot.y = needShow.at(i).m_yRot;
                     rot.z = 0.f;
 
-                    std::string xName = mapObjManager->GetModelName(needShow.at(i).m_modelId);
+                    std::wstring xName = mapObjManager->GetModelName(needShow.at(i).m_modelId);
 
                     auto meshClone = NEW MeshClone(xName, pos, rot, needShow.at(i).m_scale);
                     meshClone->Init();
@@ -1139,11 +1139,11 @@ void Map::Update()
             // プレイヤーが廃墟に近づいたらカメラモードを変える
             {
                 float work = 0.f;
-                work = pos.x - m_meshMap["precision"]->GetPos().x;
+                work = pos.x - m_meshMap[_T("precision")]->GetPos().x;
                 work = std::abs(work);
                 if (work < 20.f)
                 {
-                    work = pos.z - m_meshMap["precision"]->GetPos().z;
+                    work = pos.z - m_meshMap[_T("precision")]->GetPos().z;
                     work = std::abs(work);
                     if (work < 20.f)
                     {
@@ -1160,10 +1160,10 @@ void Map::Update()
                 }
             }
 
-            if (!"m_vecEnemy.size()")
+            if (!_T("m_vecEnemy.size()"))
             {
-                std::string work;
-                work = "m_vecEnemy.size(): " + std::to_string(m_vecEnemy.size()) + "\n";
+                std::wstring work;
+                work = _T("m_vecEnemy.size(): " + std::to_wstring(m_vecEnemy.size()) + "\n");
                 OutputDebugString(work.c_str());
             }
 
@@ -1172,28 +1172,28 @@ void Map::Update()
                 auto ppos = SharedObj::GetPlayer()->GetPos();
                 if (ppos.y <= 20.f)
                 {
-                    BGM::Get()->PlayEnv("res\\sound\\sea.wav", 5);
+                    BGM::Get()->PlayEnv(_T("res\\sound\\sea.wav"), 5);
                 }
                 else
                 {
-                    BGM::Get()->StopEnv("res\\sound\\sea.wav");
+                    BGM::Get()->StopEnv(_T("res\\sound\\sea.wav"));
                 }
             }
 
             // NPCが死んでいたら、座標を(0, 0, 0)に移動
             {
                 auto npcManager = NpcManager::Get();
-                if (npcManager->GetNpcStatus("daikeiman").GetDead())
+                if (npcManager->GetNpcStatus(_T("daikeiman")).GetDead())
                 {
                     // TODO 全角カタカナ、直すべし
-                    SetNpcPos("daikeiman", D3DXVECTOR3(0.f, 0.f, 0.f));
-                    npcManager->SetPos("daikeiman", 0.f, 0.f, 0.f);
+                    SetNpcPos(_T("daikeiman"), D3DXVECTOR3(0.f, 0.f, 0.f));
+                    npcManager->SetPos(_T("daikeiman"), 0.f, 0.f, 0.f);
                 }
 
-                if (npcManager->GetNpcStatus("sankakuman").GetDead())
+                if (npcManager->GetNpcStatus(_T("sankakuman")).GetDead())
                 {
-                    SetNpcPos("sankakuman", D3DXVECTOR3(0.f, 0.f, 0.f));
-                    npcManager->SetPos("sankakuman", 0.f, 0.f, 0.f);
+                    SetNpcPos(_T("sankakuman"), D3DXVECTOR3(0.f, 0.f, 0.f));
+                    npcManager->SetPos(_T("sankakuman"), 0.f, 0.f, 0.f);
                 }
 
                 if (npcManager->GetNpcStatus("shikakuman").GetDead())
@@ -1275,15 +1275,15 @@ void Map::Update()
         {
             if (it->m_eMagicType == NSStarmanLib::eMagicType::Fire)
             {
-                SoundEffect::get_ton()->play("res\\sound\\fireHit.wav", 20);
+                SoundEffect::get_ton()->play(_T("res\\sound\\fireHit.wav"), 20);
             }
             else if (it->m_eMagicType == NSStarmanLib::eMagicType::Ice)
             {
-                SoundEffect::get_ton()->play("res\\sound\\iceHit.wav", 20);
+                SoundEffect::get_ton()->play(_T("res\\sound\\iceHit.wav"), 20);
             }
             else if (it->m_eMagicType == NSStarmanLib::eMagicType::Dark)
             {
-                SoundEffect::get_ton()->play("res\\sound\\darkHit.wav", 20);
+                SoundEffect::get_ton()->play(_T("res\\sound\\darkHit.wav"), 20);
             }
 
             delete it->m_mesh;
@@ -1319,15 +1319,15 @@ void Map::Update()
 
                     if (it->m_eMagicType == NSStarmanLib::eMagicType::Fire)
                     {
-                        SoundEffect::get_ton()->play("res\\sound\\fireHit.wav");
+                        SoundEffect::get_ton()->play(_T("res\\sound\\fireHit.wav"));
                     }
                     else if (it->m_eMagicType == NSStarmanLib::eMagicType::Ice)
                     {
-                        SoundEffect::get_ton()->play("res\\sound\\iceHit.wav");
+                        SoundEffect::get_ton()->play(_T("res\\sound\\iceHit.wav"));
                     }
                     else if (it->m_eMagicType == NSStarmanLib::eMagicType::Dark)
                     {
-                        SoundEffect::get_ton()->play("res\\sound\\darkHit.wav");
+                        SoundEffect::get_ton()->play(_T("res\\sound\\darkHit.wav"));
                     }
 
                     delete it->m_mesh;
@@ -1364,13 +1364,13 @@ void Map::Render()
         norm2.x = 0.f;
         norm2.y = -1.f;
         Light::SetLightNormal(norm2);
-        m_meshMap["sky"]->Render();
+        m_meshMap[_T("sky")]->Render();
         Light::SetLightNormal(norm);
     }
 
     for (auto& pair : m_meshMap)
     {
-        if (pair.first == "sky")
+        if (pair.first == _T("sky"))
         {
             continue;
         }
@@ -1619,7 +1619,7 @@ bool Map::IntersectSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone
 bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
     BOOL  bIsHit = false;
-    auto sea = m_meshMap["sea"];
+    auto sea = m_meshMap[_T("sea")];
     bIsHit = IntersectSub(pos, move, sea);
 
     if (bIsHit)
@@ -1627,7 +1627,7 @@ bool Map::IntersectWater(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
         return true;
     }
 
-    auto river = m_meshMap["river"];
+    auto river = m_meshMap[_T("river")];
     bIsHit = IntersectSub(pos, move, river);
 
     return bIsHit;
@@ -1668,7 +1668,7 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 bool Map::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
     BOOL  bIsHit = false;
-    bIsHit = IntersectSub(pos, move, m_meshMap["Map"]);
+    bIsHit = IntersectSub(pos, move, m_meshMap[_T("Map")]);
     return bIsHit;
 }
 
@@ -1732,19 +1732,19 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     for (auto& pair : m_meshMap)
     {
         if (
-            pair.first == "Map" ||
-            pair.first == "river" ||
-            pair.first == "sea" ||
-            pair.first == "precision" ||
+            pair.first == _T("Map") ||
+            pair.first == _T("river") ||
+            pair.first == _T("sea") ||
+            pair.first == _T("precision") ||
             pair.first == "chest" ||
-            pair.first == "rock2" ||
-            pair.first == "testcube"
+            pair.first == _T("rock2") ||
+            pair.first == _T("testcube")
             )
         {
             bool bIsHit = false;
             bool bEnableWallWalk = true;
 
-            if (pair.first == "precision")
+            if (pair.first == _T("precision"))
             {
                 bEnableWallWalk = false;
             }
@@ -1816,12 +1816,12 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     return result;
 }
 
-void Map::SetNpcPos(const std::string& name, const D3DXVECTOR3& pos)
+void Map::SetNpcPos(const std::wstring& name, const D3DXVECTOR3& pos)
 {
     m_NPC.at(name)->SetPos(pos);
 }
 
-void Map::SetNpcRot(const std::string& name, const float yRot)
+void Map::SetNpcRot(const std::wstring& name, const float yRot)
 {
     D3DXVECTOR3 rot(0.f, 0.f, 0.f);
     rot.y = yRot;
@@ -1831,7 +1831,7 @@ void Map::SetNpcRot(const std::string& name, const float yRot)
 
 void Map::AddThrownItem(const D3DXVECTOR3& pos,
                         const D3DXVECTOR3& move,
-                        const std::string& weaponName,
+                        const std::wstring& weaponName,
                         const NSStarmanLib::ItemInfo& itemInfo,
                         const float scale,
                         const float power,
@@ -1843,7 +1843,7 @@ void Map::AddThrownItem(const D3DXVECTOR3& pos,
     work.m_power = power;
 
     auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    std::string xfilename = weaponManager->GetXfilename(weaponName);
+    std::wstring xfilename = weaponManager->GetXfilename(weaponName);
 
     D3DXVECTOR3 rot(0.f, rotY, 0.f);
 
@@ -1906,19 +1906,19 @@ void Map::SetThrownMagic(const D3DXVECTOR3& pos,
     work.m_move = move;
     work.m_magicPower = power;
 
-    std::string xfilename;
+    std::wstring xfilename;
 
     if (magicType == NSStarmanLib::eMagicType::Fire)
     {
-        xfilename = "res\\model\\MagicFire.x";
+        xfilename = _T("res\\model\\MagicFire.x");
     }
     else if (magicType == NSStarmanLib::eMagicType::Ice)
     {
-        xfilename = "res\\model\\MagicIce.x";
+        xfilename = _T("res\\model\\MagicIce.x");
     }
     else if (magicType == NSStarmanLib::eMagicType::Dark)
     {
-        xfilename = "res\\model\\MagicDark.x";
+        xfilename = _T("res\\model\\MagicDark.x");
     }
 
     D3DXVECTOR3 rot(0.f, 0.f, 0.f);
@@ -1938,8 +1938,8 @@ bool Map::NearPlant(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId = MapLib()->GetModelId("plant.x");
-    int modelId2 = MapLib()->GetModelId("grass.x");
+    int modelId = MapLib()->GetModelId(_T("plant.x"));
+    int modelId2 = MapLib()->GetModelId(_T("grass.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -1983,7 +1983,7 @@ bool Map::NearSotetsu(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 20.f);
 
-    int modelId = MapLib()->GetModelId("sotetsu.x");
+    int modelId = MapLib()->GetModelId(_T("sotetsu.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2005,7 +2005,7 @@ bool Map::NearTree(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId = MapLib()->GetModelId("tree1.x");
+    int modelId = MapLib()->GetModelId(_T("tree1.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2022,7 +2022,7 @@ void Map::DeleteTree(const D3DXVECTOR3& pos)
 {
     std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int id = MapLib()->GetModelId("tree1.x");
+    int id = MapLib()->GetModelId(_T("tree1.x"));
 
     for (size_t i = 0; i < mapObjs.size(); ++i)
     {
@@ -2041,8 +2041,8 @@ void Map::DeletePlant(const D3DXVECTOR3& pos)
 {
     std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId1 = MapLib()->GetModelId("plant.x");
-    int modelId2 = MapLib()->GetModelId("grass.x");
+    int modelId1 = MapLib()->GetModelId(_T("plant.x"));
+    int modelId2 = MapLib()->GetModelId(_T("grass.x"));
 
     for (size_t i = 0; i < mapObjs.size(); ++i)
     {

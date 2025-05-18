@@ -193,21 +193,21 @@ void Camera::Update()
         m_eyePos.y = y;
     }
 
-    if (!"Output camera eyepos")
+    if (!_T("Output camera eyepos"))
     {
-        std::string work;
-        work += "m_eyePos.x: " + std::to_string(m_eyePos.x) + ", ";
-        work += "m_eyePos.y: " + std::to_string(m_eyePos.y) + ", ";
-        work += "m_eyePos.z: " + std::to_string(m_eyePos.z) + "\n";
+        std::wstring work;
+        work += _T("m_eyePos.x: " + std::to_wstring(m_eyePos.x) + "), ";
+        work += _T("m_eyePos.y: " + std::to_wstring(m_eyePos.y) + "), ";
+        work += _T("m_eyePos.z: " + std::to_wstring(m_eyePos.z) + "\n");
         OutputDebugString(work.c_str());
     }
     
-    if (!"Output camera lookAtPos")
+    if (!_T("Output camera lookAtPos"))
     {
-        std::string work;
-        work += "m_lookAtPos.x: " + std::to_string(m_lookAtPos.x) + ", ";
-        work += "m_lookAtPos.y: " + std::to_string(m_lookAtPos.y) + ", ";
-        work += "m_lookAtPos.z: " + std::to_string(m_lookAtPos.z) + "\n";
+        std::wstring work;
+        work += _T("m_lookAtPos.x: " + std::to_wstring(m_lookAtPos.x) + "), ";
+        work += _T("m_lookAtPos.y: " + std::to_wstring(m_lookAtPos.y) + "), ";
+        work += _T("m_lookAtPos.z: " + std::to_wstring(m_lookAtPos.z) + "\n");
         OutputDebugString(work.c_str());
     }
 }

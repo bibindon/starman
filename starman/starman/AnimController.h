@@ -7,7 +7,7 @@
 
 struct AnimSetting;
 
-using AnimSetMap = std::unordered_map<std::string, AnimSetting>;
+using AnimSetMap = std::unordered_map<std::wstring, AnimSetting>;
 
 struct AnimSetting
 {
@@ -24,7 +24,7 @@ public:
     AnimController();
     ~AnimController();
     void Init(const LPD3DXANIMATIONCONTROLLER controller, const AnimSetMap& animSetMap);
-    void SetAnim(const std::string& animName, const DOUBLE& pos = -1.f);
+    void SetAnim(const std::wstring& animName, const DOUBLE& pos = -1.f);
     void SetAnimSettings(const AnimSetMap& animSetMap);
     void Update();
     void Finalize();
@@ -34,7 +34,7 @@ private:
     LPD3DXANIMATIONCONTROLLER m_controller { nullptr };
     float m_animationTime { 0.f };
     AnimSetMap m_animSettingMap;
-    std::string m_animName { };
+    std::wstring m_animName { };
     float m_animSpeed = 0.f;
 
 };

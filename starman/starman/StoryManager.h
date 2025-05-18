@@ -9,7 +9,7 @@
 class StoryManager
 {
 public:
-    StoryManager(const std::string& csvFile);
+    StoryManager(const std::wstring& csvFile);
     ~StoryManager();
     void Update();
     void Render();

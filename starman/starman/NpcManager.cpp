@@ -14,7 +14,7 @@ NpcManager* NpcManager::Get()
     return m_ton;
 }
 
-void NpcManager::SetPos(const std::string& npcName, const float fx, const float fy, const float fz)
+void NpcManager::SetPos(const std::wstring& npcName, const float fx, const float fy, const float fz)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     auto status = npcStatusMgr->GetNpcStatus(npcName);
@@ -29,7 +29,7 @@ void NpcManager::SetPos(const std::string& npcName, const float fx, const float 
     map->SetNpcPos(npcName, vec);
 }
 
-void NpcManager::SetRot(const std::string& npcName, const float fRot)
+void NpcManager::SetRot(const std::wstring& npcName, const float fRot)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     auto status = npcStatusMgr->GetNpcStatus(npcName);
@@ -40,7 +40,7 @@ void NpcManager::SetRot(const std::string& npcName, const float fRot)
     map->SetNpcRot(npcName, fRot);
 }
 
-void NpcManager::SetTalkEnable(const std::string& npcName, const bool arg)
+void NpcManager::SetTalkEnable(const std::wstring& npcName, const bool arg)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     auto status = npcStatusMgr->GetNpcStatus(npcName);
@@ -48,7 +48,7 @@ void NpcManager::SetTalkEnable(const std::string& npcName, const bool arg)
     npcStatusMgr->SetNpcStatus(npcName, status);
 }
 
-void NpcManager::SetTalkScript(const std::string& npcName, const std::string& arg)
+void NpcManager::SetTalkScript(const std::wstring& npcName, const std::wstring& arg)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     auto status = npcStatusMgr->GetNpcStatus(npcName);
@@ -56,7 +56,7 @@ void NpcManager::SetTalkScript(const std::string& npcName, const std::string& ar
     npcStatusMgr->SetNpcStatus(npcName, status);
 }
 
-void NpcManager::SetEnableFeature(const std::string& npcName,
+void NpcManager::SetEnableFeature(const std::wstring& npcName,
                                   const bool arg)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
@@ -65,7 +65,7 @@ void NpcManager::SetEnableFeature(const std::string& npcName,
     npcStatusMgr->SetNpcStatus(npcName, status);
 }
 
-void NpcManager::SetShowMenu(const std::string& npcName, const bool arg)
+void NpcManager::SetShowMenu(const std::wstring& npcName, const bool arg)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     auto status = npcStatusMgr->GetNpcStatus(npcName);
@@ -73,7 +73,7 @@ void NpcManager::SetShowMenu(const std::string& npcName, const bool arg)
     npcStatusMgr->SetNpcStatus(npcName, status);
 }
 
-NSStarmanLib::NpcStatus NpcManager::GetNpcStatus(const std::string& npcName)
+NSStarmanLib::NpcStatus NpcManager::GetNpcStatus(const std::wstring& npcName)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     auto status = npcStatusMgr->GetNpcStatus(npcName);
@@ -81,13 +81,13 @@ NSStarmanLib::NpcStatus NpcManager::GetNpcStatus(const std::string& npcName)
     return status;
 }
 
-void NpcManager::SetNpcStatus(const std::string& npcName, const NSStarmanLib::NpcStatus& status)
+void NpcManager::SetNpcStatus(const std::wstring& npcName, const NSStarmanLib::NpcStatus& status)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
     npcStatusMgr->SetNpcStatus(npcName, status);
 }
 
-bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName)
+bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::wstring* npcName)
 {
     // 3メートル以内に話しかけられるNPCがいるか
     // 球だと重いのでバウンディングボックス
@@ -130,28 +130,28 @@ bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::string* npcName)
 void NpcManager::Update()
 {
     // 死亡していない→死亡しているに変わったらポップアップを表示
-    auto daikei = GetNpcStatus("daikeiman").GetDead();
-    auto sankaku = GetNpcStatus("sankakuman").GetDead();
+    auto daikei = GetNpcStatus(_T("daikeiman")).GetDead();
+    auto sankaku = GetNpcStatus(_T("sankakuman")).GetDead();
     auto shikaku = GetNpcStatus("shikakuman").GetDead();
 
     NSStarmanLib::NpcStatusManager::GetObj()->Update();
 
-    auto daikei2 = GetNpcStatus("daikeiman").GetDead();
-    auto sankaku2 = GetNpcStatus("sankakuman").GetDead();
+    auto daikei2 = GetNpcStatus(_T("daikeiman")).GetDead();
+    auto sankaku2 = GetNpcStatus(_T("sankakuman")).GetDead();
     auto shikaku2 = GetNpcStatus("shikakuman").GetDead();
 
     if (daikei != daikei2 && daikei2)
     {
-        PopUp2::Get()->SetText("ダイケイマンが死亡した");
+        PopUp2::Get()->SetText(_T("ダイケイマンが死亡した"));
     }
 
     if (sankaku != sankaku2 && sankaku2)
     {
-        PopUp2::Get()->SetText("サンカクマンが死亡した");
+        PopUp2::Get()->SetText(_T("サンカクマンが死亡した"));
     }
 
     if (shikaku != shikaku2 && shikaku2)
     {
-        PopUp2::Get()->SetText("シカクマンが死亡した");
+        PopUp2::Get()->SetText(_T("シカクマンが死亡した"));
     }
 }

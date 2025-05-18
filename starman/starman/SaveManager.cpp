@@ -47,14 +47,14 @@ SaveManager* SaveManager::Get()
     return m_obj;
 }
 
-bool CreateDirectoriesRecursively(const std::string& path) {
+bool CreateDirectoriesRecursively(const std::wstring& path) {
     std::stringstream ss(path);
-    std::string item;
-    std::string currentPath;
+    std::wstring item;
+    std::wstring currentPath;
 
     // Windowsのパス区切りに対応（\ または /）
     char delimiter = '\\';
-    if (path.find('/') != std::string::npos)
+    if (path.find('/') != std::wstring::npos)
     {
         delimiter = '/';
     }
@@ -90,9 +90,9 @@ SaveManager::SaveManager()
         char work[MAX_PATH];
         SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, work); // %APPDATA%
 
-        std::string savedir;
+        std::wstring savedir;
         savedir = work;
-        savedir += "\\Starman\\res\\script";
+        savedir += _T("\\Starman\\res\\script");
 
         if (PathFileExists(savedir.c_str()) == FALSE)
         {
@@ -109,11 +109,11 @@ SaveManager::SaveManager()
         SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, path); // %APPDATA%
 
         m_savedata_path = path;
-        m_savedata_path += "\\Starman\\";
+        m_savedata_path += _T("\\Starman\\");
         m_savedata_path += SAVEDATA_PATH;
 
         m_savedata_folder = path;
-        m_savedata_folder += "\\Starman\\";
+        m_savedata_folder += _T("\\Starman\\");
         m_savedata_folder += SAVEDATA_FOLDER;
     }
 }
@@ -123,9 +123,9 @@ void SaveManager::Destroy()
     SAFE_DELETE(m_obj);
 }
 
-std::string SaveManager::CreateOriginFilePath(const std::string& filename)
+std::wstring SaveManager::CreateOriginFilePath(const std::wstring& filename)
 {
-    std::string originDataPath;
+    std::wstring originDataPath;
 
     originDataPath = ORIGIN_DATA_PATH;
     originDataPath += filename;
@@ -133,15 +133,15 @@ std::string SaveManager::CreateOriginFilePath(const std::string& filename)
     {
         if (m_encrypt)
         {
-            originDataPath.replace(originDataPath.size() - 3, 3, "enc");
+            originDataPath.replace(originDataPath.size() - 3, 3, _T("enc"));
         }
     }
     return originDataPath;
 }
 
-std::string SaveManager::CreateSaveFilePath(const std::string& filename)
+std::wstring SaveManager::CreateSaveFilePath(const std::wstring& filename)
 {
-    std::string saveDataPath;
+    std::wstring saveDataPath;
 
     saveDataPath = m_savedata_path;
     saveDataPath += filename;
@@ -150,35 +150,35 @@ std::string SaveManager::CreateSaveFilePath(const std::string& filename)
     {
         if (m_encrypt)
         {
-            saveDataPath.replace(saveDataPath.size() - 3, 3, "enc");
+            saveDataPath.replace(saveDataPath.size() - 3, 3, _T("enc"));
         }
     }
     return saveDataPath;
 }
 
-std::string SaveManager::GetOriginMapPath()
+std::wstring SaveManager::GetOriginMapPath()
 {
-    std::string path= ORIGIN_DATA_PATH + "map_obj.bin";
+    std::wstring path= ORIGIN_DATA_PATH + _T("map_obj.bin");
     return path;
 }
 
-std::string SaveManager::GetSavefileMapPath()
+std::wstring SaveManager::GetSavefileMapPath()
 {
-    std::string path = m_savedata_path + "map_obj.bin";
+    std::wstring path = m_savedata_path + _T("map_obj.bin");
     return path;
 }
 
 void SaveManager::Save()
 {
     // フォルダがなければ作る
-    std::string savedir;
+    std::wstring savedir;
 
     char work[MAX_PATH];
     SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, work); // %APPDATA%
 
     savedir = work;
-    savedir += "\\Starman\\";
-    savedir += "res\\script\\save";
+    savedir += _T("\\Starman\\");
+    savedir += _T("res\\script\\save");
 
     if (PathFileExists(savedir.c_str()) == FALSE)
     {
@@ -190,69 +190,69 @@ void SaveManager::Save()
     }
 
     auto rynen = NSStarmanLib::Rynen::GetObj();
-    rynen->Save(CreateSaveFilePath("rynen.csv"), m_encrypt);
+    rynen->Save(CreateSaveFilePath(_T("rynen.csv")), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-	mgr->Save(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
+	mgr->Save(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Save(CreateSaveFilePath("humanInfoSub.csv"), m_encrypt);
 
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Save(CreateSaveFilePath("mapInfo.csv"), m_encrypt);
+    mapManager->Save(CreateSaveFilePath(_T("mapInfo.csv")), m_encrypt);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Save(CreateSaveFilePath("item_pos.csv"), m_encrypt);
+    itemManager->Save(CreateSaveFilePath(_T("item_pos.csv")), m_encrypt);
 
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-    inventory->Save(CreateSaveFilePath("inventory.csv"), m_encrypt);
+    inventory->Save(CreateSaveFilePath(_T("inventory.csv")), m_encrypt);
 
     auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
     storehouseManager->Save(CreateSaveFilePath("storehouseListSave.csv"), m_savedata_folder);
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Save(CreateSaveFilePath("weaponSave.csv"), m_encrypt);
+    weaponManager->Save(CreateSaveFilePath(_T("weaponSave.csv")), m_encrypt);
 
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-    enemyInfoManager->Save(CreateSaveFilePath("enemy.csv"),
-                           CreateSaveFilePath("enemyVisible.csv"),
+    enemyInfoManager->Save(CreateSaveFilePath(_T("enemy.csv")),
+                           CreateSaveFilePath(_T("enemyVisible.csv")),
                            m_encrypt);
 
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Save(CreateSaveFilePath("skillSub.csv"), m_encrypt);
+    skillManager->Save(CreateSaveFilePath(_T("skillSub.csv")), m_encrypt);
 
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-    statusManager->Save(CreateSaveFilePath("status.csv"),
+    statusManager->Save(CreateSaveFilePath(_T("status.csv")),
                         SharedObj::GetPlayer()->GetPos().x,
                         SharedObj::GetPlayer()->GetPos().y,
                         SharedObj::GetPlayer()->GetPos().z,
                         m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Save(CreateSaveFilePath("guide.csv"), m_encrypt);
+    guide->Save(CreateSaveFilePath(_T("guide.csv")), m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
-    datetime->Save(CreateSaveFilePath("datetime.csv"), m_encrypt);
+    datetime->Save(CreateSaveFilePath(_T("datetime.csv")), m_encrypt);
 
     // TODO 保存すると壊れる
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-    //mapObjManager->Save(CreateSaveFilePath("map_obj.csv"), m_encrypt);
+    //mapObjManager->Save(CreateSaveFilePath(_T("map_obj.csv")), m_encrypt);
     mapObjManager->SaveWithBinary(GetSavefileMapPath());
 
-    QuestManager::Get()->Save(CreateSaveFilePath("questSave.csv"));
+    QuestManager::Get()->Save(CreateSaveFilePath(_T("questSave.csv")));
 
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
     patchTestManager->Save(CreateSaveFilePath("patchTestInfoSave.csv"),
                            CreateSaveFilePath("patchTestQueSave.csv"));
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Save(CreateSaveFilePath("raftSave.csv"));
+    voyage->Save(CreateSaveFilePath(_T("raftSave.csv")));
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
-    activityBase->Save(CreateSaveFilePath("activityBase.csv"));
+    activityBase->Save(CreateSaveFilePath(_T("activityBase.csv")));
 
-    NSStarmanLib::CraftSystem::GetObj()->Save(CreateSaveFilePath("craftsmanSkillSave.csv"),
-                                              CreateSaveFilePath("craftsmanQueueSave.csv"));
+    NSStarmanLib::CraftSystem::GetObj()->Save(CreateSaveFilePath(_T("craftsmanSkillSave.csv")),
+                                              CreateSaveFilePath(_T("craftsmanQueueSave.csv")));
 
 	NSStarmanLib::Help::Get()->Save(CreateSaveFilePath("helpSave.csv"));
 }
@@ -289,11 +289,11 @@ void SaveManager::LoadOrigin()
     }
 
     auto rynen = NSStarmanLib::Rynen::GetObj();
-    rynen->Init(CreateOriginFilePath("rynen.csv"), m_encrypt);
+    rynen->Init(CreateOriginFilePath(_T("rynen.csv")), m_encrypt);
 
     m_progress.store(10);
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-	mgr->Init(CreateOriginFilePath("npcStatus.csv"), m_encrypt);
+	mgr->Init(CreateOriginFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
@@ -302,75 +302,75 @@ void SaveManager::LoadOrigin()
 
     m_progress.store(20);
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Init(CreateOriginFilePath("mapInfo.csv"), m_encrypt);
+    mapManager->Init(CreateOriginFilePath(_T("mapInfo.csv")), m_encrypt);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Init(CreateOriginFilePath("item.csv"),
-                      CreateOriginFilePath("item_pos.csv"),
+    itemManager->Init(CreateOriginFilePath(_T("item.csv")),
+                      CreateOriginFilePath(_T("item_pos.csv")),
                       m_encrypt);
 
     m_progress.store(25);
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-    inventory->Init(CreateOriginFilePath("inventory.csv"), m_encrypt);
+    inventory->Init(CreateOriginFilePath(_T("inventory.csv")), m_encrypt);
 
     auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
     storehouseManager->Init(CreateOriginFilePath("storehouseListOrigin.csv"));
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Init(CreateOriginFilePath("weapon.csv"),
-                        CreateOriginFilePath("weaponSave.csv"),
+    weaponManager->Init(CreateOriginFilePath(_T("weapon.csv")),
+                        CreateOriginFilePath(_T("weaponSave.csv")),
                         m_encrypt);
 
     m_progress.store(30);
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-    enemyInfoManager->Init(CreateOriginFilePath("enemyDef.csv"),
-                           CreateOriginFilePath("enemy.csv"),
-                           CreateOriginFilePath("enemyVisible.csv"),
+    enemyInfoManager->Init(CreateOriginFilePath(_T("enemyDef.csv")),
+                           CreateOriginFilePath(_T("enemy.csv")),
+                           CreateOriginFilePath(_T("enemyVisible.csv")),
                            m_encrypt);
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Init(CreateOriginFilePath("skill.csv"),
-                       CreateOriginFilePath("skillSub.csv"),
+    skillManager->Init(CreateOriginFilePath(_T("skill.csv")),
+                       CreateOriginFilePath(_T("skillSub.csv")),
                         m_encrypt);
             
     m_progress.store(35);
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-    statusManager->Init(CreateOriginFilePath("status.csv"), m_encrypt);
+    statusManager->Init(CreateOriginFilePath(_T("status.csv")), m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateOriginFilePath("guide.csv"), m_encrypt);
+    guide->Init(CreateOriginFilePath(_T("guide.csv")), m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
-    datetime->Init(CreateOriginFilePath("datetime.csv"), m_encrypt);
+    datetime->Init(CreateOriginFilePath(_T("datetime.csv")), m_encrypt);
 
     m_progress.store(40);
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-//    mapObjManager->Init(CreateOriginFilePath("map_obj.csv"),
-//                        CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
+//    mapObjManager->Init(CreateOriginFilePath(_T("map_obj.csv")),
+//                        CreateOriginFilePath(_T("map_obj_type.csv")), m_encrypt);
 
     mapObjManager->InitWithBinary(GetOriginMapPath(),
-                                  CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
+                                  CreateOriginFilePath(_T("map_obj_type.csv")), m_encrypt);
 
-    QuestManager::Get()->Init(CreateOriginFilePath("quest.csv"), "");
+    QuestManager::Get()->Init(CreateOriginFilePath(_T("quest.csv")), _T(""));
 
     m_progress.store(45);
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
     patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
-                           "",
-                           "");
+                           _T(""),
+                           _T(""));
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Init("");
+    voyage->Init(_T(""));
 
     m_progress.store(75);
     auto activityBase = NSStarmanLib::ActivityBase::Get();
-    activityBase->Init(CreateOriginFilePath("activityBase.csv"));
+    activityBase->Init(CreateOriginFilePath(_T("activityBase.csv")));
 
-    NSStarmanLib::CraftInfoManager::GetObj()->Init(CreateOriginFilePath("craftDef.csv"));
+    NSStarmanLib::CraftInfoManager::GetObj()->Init(CreateOriginFilePath(_T("craftDef.csv")));
 
-    NSStarmanLib::CraftSystem::GetObj()->Init(CreateOriginFilePath("craftsmanSkill.csv"),
-                                              CreateOriginFilePath("craftsmanQueue.csv"));
+    NSStarmanLib::CraftSystem::GetObj()->Init(CreateOriginFilePath(_T("craftsmanSkill.csv")),
+                                              CreateOriginFilePath(_T("craftsmanQueue.csv")));
 
 	NSStarmanLib::Help::Get()->Init(CreateOriginFilePath("help.csv"));
 }
@@ -380,10 +380,10 @@ void SaveManager::Load()
     m_progress.store(0);
 
     auto rynen = NSStarmanLib::Rynen::GetObj();
-    rynen->Init(CreateSaveFilePath("rynen.csv"), m_encrypt);
+    rynen->Init(CreateSaveFilePath(_T("rynen.csv")), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-	mgr->Init(CreateSaveFilePath("npcStatus.csv"), m_encrypt);
+	mgr->Init(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath("humanInfo.csv"),
@@ -392,17 +392,17 @@ void SaveManager::Load()
 
     m_progress.store(5);
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Init(CreateSaveFilePath("mapInfo.csv"), m_encrypt);
+    mapManager->Init(CreateSaveFilePath(_T("mapInfo.csv")), m_encrypt);
 
     m_progress.store(5);
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Init(CreateOriginFilePath("item.csv"),
-                      CreateSaveFilePath("item_pos.csv"),
+    itemManager->Init(CreateOriginFilePath(_T("item.csv")),
+                      CreateSaveFilePath(_T("item_pos.csv")),
                       m_encrypt);
 
     m_progress.store(5);
     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
-    inventory->Init(CreateSaveFilePath("inventory.csv"), m_encrypt);
+    inventory->Init(CreateSaveFilePath(_T("inventory.csv")), m_encrypt);
 
     m_progress.store(5);
 
@@ -411,52 +411,52 @@ void SaveManager::Load()
 
     m_progress.store(10);
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Init(CreateOriginFilePath("weapon.csv"),
-                        CreateSaveFilePath("weaponSave.csv"),
+    weaponManager->Init(CreateOriginFilePath(_T("weapon.csv")),
+                        CreateSaveFilePath(_T("weaponSave.csv")),
                         m_encrypt);
 
     m_progress.store(15);
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-    enemyInfoManager->Init(CreateOriginFilePath("enemyDef.csv"),
-                           CreateSaveFilePath("enemy.csv"),
-                           CreateSaveFilePath("enemyVisible.csv"),
+    enemyInfoManager->Init(CreateOriginFilePath(_T("enemyDef.csv")),
+                           CreateSaveFilePath(_T("enemy.csv")),
+                           CreateSaveFilePath(_T("enemyVisible.csv")),
                            m_encrypt);
             
     m_progress.store(20);
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Init(CreateOriginFilePath("skill.csv"),
-                       CreateSaveFilePath("skillSub.csv"),
+    skillManager->Init(CreateOriginFilePath(_T("skill.csv")),
+                       CreateSaveFilePath(_T("skillSub.csv")),
                         m_encrypt);
             
     m_progress.store(25);
 
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
-    statusManager->Init(CreateSaveFilePath("status.csv"), m_encrypt);
+    statusManager->Init(CreateSaveFilePath(_T("status.csv")), m_encrypt);
 
     m_progress.store(30);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateSaveFilePath("guide.csv"), m_encrypt);
+    guide->Init(CreateSaveFilePath(_T("guide.csv")), m_encrypt);
 
     m_progress.store(35);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
-    datetime->Init(CreateSaveFilePath("datetime.csv"), m_encrypt);
+    datetime->Init(CreateSaveFilePath(_T("datetime.csv")), m_encrypt);
 
     m_progress.store(40);
 
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-//    mapObjManager->Init(CreateSaveFilePath("map_obj.csv"),
-//                        CreateSaveFilePath("map_obj_type.csv"), m_encrypt);
+//    mapObjManager->Init(CreateSaveFilePath(_T("map_obj.csv")),
+//                        CreateSaveFilePath(_T("map_obj_type.csv")), m_encrypt);
 
     mapObjManager->InitWithBinary(GetSavefileMapPath(),
-                                  CreateOriginFilePath("map_obj_type.csv"), m_encrypt);
+                                  CreateOriginFilePath(_T("map_obj_type.csv")), m_encrypt);
 
     m_progress.store(45);
 
-    QuestManager::Get()->Init(CreateOriginFilePath("quest.csv"),
-                              CreateSaveFilePath("questSave.csv"));
+    QuestManager::Get()->Init(CreateOriginFilePath(_T("quest.csv")),
+                              CreateSaveFilePath(_T("questSave.csv")));
 
     m_progress.store(75);
 
@@ -466,15 +466,15 @@ void SaveManager::Load()
                            CreateSaveFilePath("patchTestQueSave.csv"));
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Init(CreateSaveFilePath("raftSave.csv"));
+    voyage->Init(CreateSaveFilePath(_T("raftSave.csv")));
 
     auto activityBase = NSStarmanLib::ActivityBase::Get();
-    activityBase->Init(CreateSaveFilePath("activityBase.csv"));
+    activityBase->Init(CreateSaveFilePath(_T("activityBase.csv")));
 
-    NSStarmanLib::CraftInfoManager::GetObj()->Init(CreateOriginFilePath("craftDef.csv"));
+    NSStarmanLib::CraftInfoManager::GetObj()->Init(CreateOriginFilePath(_T("craftDef.csv")));
 
-    NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath("craftsmanSkillSave.csv"),
-                                              CreateSaveFilePath("craftsmanQueueSave.csv"));
+    NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath(_T("craftsmanSkillSave.csv")),
+                                              CreateSaveFilePath(_T("craftsmanQueueSave.csv")));
 
 	NSStarmanLib::Help::Get()->Init(CreateSaveFilePath("helpSave.csv"));
 
@@ -482,10 +482,10 @@ void SaveManager::Load()
 }
 
 
-bool SaveManager::DeleteFolderContents(const std::string& folderPath)
+bool SaveManager::DeleteFolderContents(const std::wstring& folderPath)
 {
-    std::string work;
-    std::string searchPath = folderPath + "\\*";
+    std::wstring work;
+    std::wstring searchPath = folderPath + _T("\\*");
     WIN32_FIND_DATA findFileData;
     HANDLE hFind = FindFirstFile(searchPath.c_str(), &findFileData);
 
@@ -496,14 +496,14 @@ bool SaveManager::DeleteFolderContents(const std::string& folderPath)
 
     do
     {
-        std::string fileName = findFileData.cFileName;
+        std::wstring fileName = findFileData.cFileName;
 
-        // スキップする項目 ("." と "..")
-        if (fileName == "." || fileName == "..") {
+        // スキップする項目 (_T("." と ".."))
+        if (fileName == _T("." || fileName == "..")) {
             continue;
         }
 
-        std::string fullPath = folderPath + "\\" + fileName;
+        std::wstring fullPath = folderPath + _T("\\") + fileName;
 
         // ディレクトリの場合
         if (findFileData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) {
@@ -514,7 +514,7 @@ bool SaveManager::DeleteFolderContents(const std::string& folderPath)
             if (!RemoveDirectory(fullPath.c_str())) {
                 FindClose(hFind);
 
-                work = "Failed to delete directory: " + fullPath + "\n";
+                work = _T("Failed to delete directory: ") + fullPath + _T("\n");
                 throw std::exception(work.c_str());
 
                 return false;
@@ -524,7 +524,7 @@ bool SaveManager::DeleteFolderContents(const std::string& folderPath)
             if (!DeleteFile(fullPath.c_str())) {
                 FindClose(hFind);
 
-                work = "Failed to delete file: " + fullPath + "\n";
+                work = _T("Failed to delete file: ") + fullPath + _T("\n");
                 throw std::exception(work.c_str());
 
                 return false;
@@ -536,7 +536,7 @@ bool SaveManager::DeleteFolderContents(const std::string& folderPath)
     return true;
 }
 
-bool SaveManager::DeleteFolder(const std::string& folderPath)
+bool SaveManager::DeleteFolder(const std::wstring& folderPath)
 {
     if (!DeleteFolderContents(folderPath))
     {
@@ -545,7 +545,7 @@ bool SaveManager::DeleteFolder(const std::string& folderPath)
 
     if (!RemoveDirectory(folderPath.c_str()))
     {
-        std::string work = "Failed to delete folder: " + folderPath + "\n";
+        std::wstring work = _T("Failed to delete folder: ") + folderPath + _T("\n");
         throw std::exception(work.c_str());
         return false;
     }
@@ -571,23 +571,23 @@ int SaveManager::GetProgress()
     return m_progress.load();
 }
 
-std::string SaveManager::GetLangFile()
+std::wstring SaveManager::GetLangFile()
 {
-    std::string result;
+    std::wstring result;
 
-    std::string langFilePath;
+    std::wstring langFilePath;
     char appData[MAX_PATH];
     SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appData); // %APPDATA%
 
     langFilePath = appData;
-    langFilePath += "\\Starman\\res\\script\\lang.ini";
+    langFilePath += _T("\\Starman\\res\\script\\lang.ini");
 
     auto exists = PathFileExists(langFilePath.c_str());
     if (exists == TRUE)
     {
         std::ifstream file(langFilePath);
 
-        std::string word;
+        std::wstring word;
         file >> word;
         file.close();
         result = word;
@@ -596,14 +596,14 @@ std::string SaveManager::GetLangFile()
     return result;
 }
 
-void SaveManager::SetLangFile(const std::string lang)
+void SaveManager::SetLangFile(const std::wstring lang)
 {
-    std::string langFilePath;
+    std::wstring langFilePath;
     char appData[MAX_PATH];
     SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appData); // %APPDATA%
 
     langFilePath = appData;
-    langFilePath += "\\Starman\\res\\script\\lang.ini";
+    langFilePath += _T("\\Starman\\res\\script\\lang.ini");
 
     std::ofstream file(langFilePath, std::ios::out | std::ios::trunc);
     file << lang;

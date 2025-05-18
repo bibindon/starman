@@ -6,7 +6,7 @@
 
 QuestManager* QuestManager::m_single = nullptr;
 
-void QuestManager::Init(const std::string& originFile, const std::string& saveFile)
+void QuestManager::Init(const std::wstring& originFile, const std::wstring& saveFile)
 {
     m_single->m_questSystem.Init(originFile, saveFile, false);
     auto startedQuest = m_single->m_questSystem.GetStartedQuest();
@@ -17,9 +17,9 @@ void QuestManager::Init(const std::string& originFile, const std::string& saveFi
         auto eventList = m_single->m_questSystem.GetQuestStartEvent(quest);
         for (auto& event_ : eventList)
         {
-            if (event_.find("<hint>") != std::string::npos)
+            if (event_.find("<hint>") != std::wstring::npos)
             {
-				std::string work = event_;
+				std::wstring work = event_;
 				work = Common::RemoveSubstring(work, "<hint>");
 				SetHint(work);
             }
@@ -27,7 +27,7 @@ void QuestManager::Init(const std::string& originFile, const std::string& saveFi
     }
 }
 
-void QuestManager::Save(const std::string& originFile)
+void QuestManager::Save(const std::wstring& originFile)
 {
     m_single->m_questSystem.Save(originFile, false);
 }
@@ -54,48 +54,48 @@ void QuestManager::SetExamine()
     m_questSystem.SetExamine(playerPos.x, playerPos.y, playerPos.z);
 }
 
-void QuestManager::SetTalk(const std::string& npc)
+void QuestManager::SetTalk(const std::wstring& npc)
 {
     m_questSystem.SetTalk(npc);
 }
 
-std::string QuestManager::GetQuestIdStartByExamine()
+std::wstring QuestManager::GetQuestIdStartByExamine()
 {
     D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
     return m_questSystem.GetQuestIdStartByExamine(playerPos.x, playerPos.y, playerPos.z);
 }
 
-std::string QuestManager::GetQuestIdFinishByExamine()
+std::wstring QuestManager::GetQuestIdFinishByExamine()
 {
     D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
     return m_questSystem.GetQuestIdFinishByExamine(playerPos.x, playerPos.y, playerPos.z);
 }
 
-std::vector<std::string> QuestManager::GetStartQuest()
+std::vector<std::wstring> QuestManager::GetStartQuest()
 {
     auto startQuest = m_questSystem.GetStartQuest();
     return startQuest;
 }
 
-std::vector<std::string> QuestManager::GetQuestStartEvent(const std::string& quest)
+std::vector<std::wstring> QuestManager::GetQuestStartEvent(const std::wstring& quest)
 {
     auto startEvent = m_questSystem.GetQuestStartEvent(quest);
     return startEvent;
 }
 
-std::vector<std::string> QuestManager::GetFinishQuest()
+std::vector<std::wstring> QuestManager::GetFinishQuest()
 {
     auto questList = m_questSystem.GetFinishQuest();
     return questList;
 }
 
-std::vector<std::string> QuestManager::GetQuestFinishEvent(const std::string& quest)
+std::vector<std::wstring> QuestManager::GetQuestFinishEvent(const std::wstring& quest)
 {
     auto eventList = m_questSystem.GetQuestFinishEvent(quest);
     return eventList;
 }
 
-void QuestManager::SetQuestFinish(const std::string& quest)
+void QuestManager::SetQuestFinish(const std::wstring& quest)
 {
     m_questSystem.SetQuestFinish(quest);
 }
@@ -179,13 +179,13 @@ void QuestManager::Update()
         auto bAlive = false;
         auto bDead = false;
 
-        bDead = NpcManager::Get()->GetNpcStatus("daikeiman").GetDead();
+        bDead = NpcManager::Get()->GetNpcStatus(_T("daikeiman")).GetDead();
         bAlive = !bDead;
-        m_questSystem.SetNpcIsAlive("daikeiman", bAlive, false);
+        m_questSystem.SetNpcIsAlive(_T("daikeiman"), bAlive, false);
 
-        bDead = NpcManager::Get()->GetNpcStatus("sankakuman").GetDead();
+        bDead = NpcManager::Get()->GetNpcStatus(_T("sankakuman")).GetDead();
         bAlive = !bDead;
-        m_questSystem.SetNpcIsAlive("sankakuman", bAlive, false);
+        m_questSystem.SetNpcIsAlive(_T("sankakuman"), bAlive, false);
 
         bDead = NpcManager::Get()->GetNpcStatus("shikakuman").GetDead();
         bAlive = !bDead;
@@ -195,12 +195,12 @@ void QuestManager::Update()
     m_questSystem.UpdateQuestStatus();
 }
 
-void QuestManager::SetHint(const std::string& hint)
+void QuestManager::SetHint(const std::wstring& hint)
 {
     m_hint = hint;
 }
 
-std::string QuestManager::GetHint() const
+std::wstring QuestManager::GetHint() const
 {
     return m_hint;
 }

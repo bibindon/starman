@@ -59,7 +59,7 @@ public:
 
 private:
     AnimMesh* m_AnimMesh2 = nullptr;
-    std::unordered_map<std::string, Mesh*> m_weaponMesh;
+    std::unordered_map<std::wstring, Mesh*> m_weaponMesh;
     std::unordered_map<NSStarmanLib::eBagPos, Mesh*> m_bagMesh;
 
     // なぜloadingPosという名前なのか謎

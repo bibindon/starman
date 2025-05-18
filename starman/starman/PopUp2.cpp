@@ -15,7 +15,7 @@ void PopUp2::Finalize()
     SAFE_DELETE(m_singleTonObj);
 }
 
-void PopUp2::SetText(const std::string& arg)
+void PopUp2::SetText(const std::wstring& arg)
 {
     m_textQ.push(arg);
     m_isShow = true;
@@ -48,7 +48,7 @@ void PopUp2::Cancel()
     m_isShow = false;
 
     // 空にする
-    std::queue<std::string> work;
+    std::queue<std::wstring> work;
     std::swap(m_textQ, work);
 
     m_counter = 0;
@@ -115,7 +115,7 @@ PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
                                  OUT_TT_ONLY_PRECIS,
                                  ANTIALIASED_QUALITY,
                                  FF_DONTCARE,
-                                 "ＭＳ 明朝",
+                                 _T("ＭＳ 明朝"),
                                  &m_D3DFont);
     }
     else
@@ -130,14 +130,14 @@ PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
                                  OUT_TT_ONLY_PRECIS,
                                  CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 "Courier New",
+                                 _T("Courier New"),
                                  &m_D3DFont);
     }
 
     assert(hresult == S_OK);
 }
 
-void PopUpFont::Draw(const std::string& text, const int transparent)
+void PopUpFont::Draw(const std::wstring& text, const int transparent)
 {
 	D3DXVECTOR3 pos(0.0f, 0.0f, 0.0f);
 	RECT rect;

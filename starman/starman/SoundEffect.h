@@ -12,9 +12,9 @@ public:
     static void initialize(HWND hwnd);
     static void finalize(); // For memory leak check.
 
-    bool load(const std::string& filename);
-    void play(const std::string& filename, const int a_volume = 100);
-    void stop(const std::string& filename);
+    bool load(const std::wstring& filename);
+    void play(const std::wstring& filename, const int a_volume = 100);
+    void stop(const std::wstring& filename);
 
 private:
     static SoundEffect* single_ton_;
@@ -24,7 +24,7 @@ private:
     void operator=(const SoundEffect&) { }
 
     bool open_wave(
-        const std::string& filepath,
+        const std::wstring& filepath,
         WAVEFORMATEX& waveFormatEx,
         std::vector<char>* ppData,
         DWORD& dataSize);
@@ -32,5 +32,5 @@ private:
     int per_to_decibel(const int percent);
 
     LPDIRECTSOUND8 dx8sound_ { nullptr };
-    std::unordered_map<std::string, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
+    std::unordered_map<std::wstring, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
 };

@@ -45,7 +45,7 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         // スプライトは一つのみ確保し使いまわす
         if (m_D3DSprite == NULL)
@@ -115,17 +115,17 @@ private:
 
     // スプライトは一つを使いまわす
     static LPD3DXSPRITE m_D3DSprite;
-    std::string m_filepath;
+    std::wstring m_filepath;
 
     UINT m_width = 0;
     UINT m_height = 0;
 
     // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
-    static std::unordered_map<std::string, LPDIRECT3DTEXTURE9> m_texMap;
+    static std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> m_texMap;
 };
 
 LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
-std::unordered_map<std::string, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
+std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
 
 class Font : public IFont
 {
@@ -152,7 +152,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "ＭＳ 明朝",
+                                _T("ＭＳ 明朝"),
                                 &m_pFont);
         }
         else
@@ -167,14 +167,14 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
 
         assert(hr == S_OK);
     }
 
-    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    virtual void DrawText_(const std::wstring& msg, const int x, const int y)
     {
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
@@ -202,24 +202,24 @@ public:
 
     virtual void PlayMove() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_move.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_move.wav"));
     }
 
     virtual void PlayClick() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_confirm.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_confirm.wav"));
     }
 
     virtual void PlayBack() override
     {
-        ::SoundEffect::get_ton()->play("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->play(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
 
     virtual void Init() override
     {
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_move.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_confirm.wav");
-        ::SoundEffect::get_ton()->load("res\\sound\\menu_cursor_cancel.wav");
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_move.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_confirm.wav"));
+        ::SoundEffect::get_ton()->load(_T("res\\sound\\menu_cursor_cancel.wav"));
     }
 };
 }
@@ -227,16 +227,16 @@ public:
 void CraftManager::Init()
 {
     NSCraftLib::Sprite* sprCursor = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
-    sprCursor->Load("res\\image\\menu_cursor.png");
+    sprCursor->Load(_T("res\\image\\menu_cursor.png"));
 
     NSCraftLib::Sprite* sprBackground = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
-    sprBackground->Load("res\\image\\background.png");
+    sprBackground->Load(_T("res\\image\\background.png"));
 
     NSCraftLib::Sprite* sprPanelLeft = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
-    sprPanelLeft->Load("res\\image\\panelLeft.png");
+    sprPanelLeft->Load(_T("res\\image\\panelLeft.png"));
 
     NSCraftLib::Sprite* sprPanelTop = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
-    sprPanelTop->Load("res\\image\\craftPanel.png");
+    sprPanelTop->Load(_T("res\\image\\craftPanel.png"));
 
     NSCraftLib::IFont* pFont = NEW NSCraftLib::Font(SharedObj::GetD3DDevice());
 
@@ -286,7 +286,7 @@ void CraftManager::Operate(eBattleState* state)
         }
     }
 
-    std::string result;
+    std::wstring result;
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
@@ -407,7 +407,7 @@ void CraftManager::Operate(eBattleState* state)
 
     if (!result.empty())
     {
-        if (result == "EXIT")
+        if (result == _T("EXIT"))
         {
             *state = eBattleState::NORMAL;
             Camera::SetCameraMode(eCameraMode::BATTLE);
@@ -426,14 +426,14 @@ void CraftManager::Operate(eBattleState* state)
             else
             {
                 // クラフト開始
-                std::string work = result;
-                auto index = work.find("+");
-                if (index != std::string::npos)
+                std::wstring work = result;
+                auto index = work.find(_T("+"));
+                if (index != std::wstring::npos)
                 {
                     work.erase(index);
                 }
 
-                std::string errMsg;
+                std::wstring errMsg;
                 bool started = craftSys->QueueCraftRequest(work, &errMsg);
                 if (!started)
                 {
@@ -448,14 +448,14 @@ void CraftManager::Operate(eBattleState* state)
         else
         {
             // クラフト開始
-            std::string work = result;
-            auto index = work.find("+");
-            if (index != std::string::npos)
+            std::wstring work = result;
+            auto index = work.find(_T("+"));
+            if (index != std::wstring::npos)
             {
                 work.erase(index);
             }
 
-            std::string errMsg;
+            std::wstring errMsg;
             bool started = craftSys->QueueCraftRequest(work, &errMsg);
             if (!started)
             {
@@ -480,7 +480,7 @@ void CraftManager::Build()
     auto craftInfo = NSStarmanLib::CraftInfoManager::GetObj();
 
     {
-        std::vector<std::string> vs;
+        std::vector<std::wstring> vs;
 
         auto infoList = craftInfo->GetCraftItemList();
 
@@ -513,7 +513,7 @@ void CraftManager::Build()
         }
         else
         {
-            m_gui.SetCraftingItem("", 0);
+            m_gui.SetCraftingItem(_T(""), 0);
         }
 
         vs.clear();
@@ -521,7 +521,7 @@ void CraftManager::Build()
         // 2番目以降を予約リストに表示
         if (reqList.size() >= 2)
         {
-            std::string name;
+            std::wstring name;
             auto it = reqList.begin();
             ++it;
 
@@ -540,7 +540,7 @@ void CraftManager::Build()
 
         // 画像、説明文を登録
         {
-            std::string work;
+            std::wstring work;
 
             auto allCraftList = craftInfo->GetCraftItemList();
 
@@ -556,30 +556,30 @@ void CraftManager::Build()
                     continue;
                 }
 
-                work += Common::LoadString_(IDS_STRING172) + info.GetName() + "\n";
-                work += Common::LoadString_(IDS_STRING173) + std::to_string(info.GetNumber()) + "\n";
+                work += Common::LoadString_(IDS_STRING172) + info.GetName() + _T("\n");
+                work += Common::LoadString_(IDS_STRING173) + std::to_wstring(info.GetNumber()) + _T("\n");
                 if (info.GetLevel() != -1)
                 {
-                    work += Common::LoadString_(IDS_STRING174) + std::to_string(info.GetLevel()) + "\n";
+                    work += Common::LoadString_(IDS_STRING174) + std::to_wstring(info.GetLevel()) + _T("\n");
                 }
                 else
                 {
-                    work += Common::LoadString_(IDS_STRING174) + "---\n";
+                    work += Common::LoadString_(IDS_STRING174) + _T("---\n");
                 }
-                work += "\n";
+                work += _T("\n");
 
                 auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();
 
                 int i = 1;
                 for (auto& material : materials)
                 {
-                    work += Common::LoadStringWithArg(IDS_STRING175, std::to_string(i)) + material.GetName() + "\n";
-                    work += Common::LoadStringWithArg(IDS_STRING176, std::to_string(i)) + std::to_string(material.GetNumber()) + "\n";
+                    work += Common::LoadStringWithArg(IDS_STRING175, std::to_wstring(i)) + material.GetName() + _T("\n");
+                    work += Common::LoadStringWithArg(IDS_STRING176, std::to_wstring(i)) + std::to_wstring(material.GetNumber()) + _T("\n");
                     if (material.GetLevel() >= 1)
                     {
-                        work += Common::LoadStringWithArg(IDS_STRING177, std::to_string(i)) + std::to_string(material.GetLevel()) + "\n";
+                        work += Common::LoadStringWithArg(IDS_STRING177, std::to_wstring(i)) + std::to_wstring(material.GetLevel()) + _T("\n");
                     }
-                    work += "\n";
+                    work += _T("\n");
 
                     ++i;
                 }

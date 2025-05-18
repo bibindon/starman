@@ -110,11 +110,11 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         // システムのUI言語
         bool bJapan = false;
 
-        std::string lang = SaveManager::Get()->GetLangFile();
+        std::wstring lang = SaveManager::Get()->GetLangFile();
 
         if (!lang.empty())
         {
-            if (lang == "Japanese")
+            if (lang == _T("Japanese"))
             {
 //                bJapan = true;
             }
@@ -248,7 +248,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         D3DADAPTER_IDENTIFIER9 adapterInfo { };
         m_D3D->GetAdapterIdentifier(D3DADAPTER_DEFAULT, 0, &adapterInfo);
 
-        std::string GPUName = adapterInfo.Description;
+        std::wstring GPUName = adapterInfo.Description;
         Common::SetGPUName(GPUName);
 
         // TODO フルスクリーン対応
@@ -329,7 +329,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
                                  OUT_TT_ONLY_PRECIS,
                                  CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 "Courier New",
+                                 _T("Courier New"),
                                  &m_D3DFont);
 
         assert(hResult == S_OK);
@@ -535,7 +535,7 @@ SeqBattle* MainWindow::GetBattleSequence()
 
 void MainWindow::ShowDebugInfo(const int fps)
 {
-    std::string work;
+    std::wstring work;
 
     RECT rect { };
 
@@ -545,7 +545,7 @@ void MainWindow::ShowDebugInfo(const int fps)
     {
         SetRect(&rect, 0, 0, 50, 50);
 
-        work = "fps:" + std::to_string(fps);
+        work = _T("fps:") + std::to_wstring(fps);
         m_D3DFont->DrawText(NULL,
                             work.c_str(),
                             -1,
@@ -567,7 +567,7 @@ void MainWindow::ShowDebugInfo(const int fps)
 
         // X座標の表示
         SetRect(&rect, 0, 25, 100, 100);
-        work = "x:" + std::to_string(pos.x);
+        work = _T("x:") + std::to_wstring(pos.x);
 
         m_D3DFont->DrawText(NULL,
                             work.c_str(),
@@ -578,7 +578,7 @@ void MainWindow::ShowDebugInfo(const int fps)
 
         // Y座標の表示
         SetRect(&rect, 0, 50, 100, 100);
-        work = "y:" + std::to_string(pos.y);
+        work = _T("y:") + std::to_wstring(pos.y);
 
         m_D3DFont->DrawText(NULL,
                             work.c_str(),
@@ -589,7 +589,7 @@ void MainWindow::ShowDebugInfo(const int fps)
 
         // Z座標の表示
         SetRect(&rect, 0, 75, 100, 100);
-        work = "z:" + std::to_string(pos.z);
+        work = _T("z:") + std::to_wstring(pos.z);
 
         m_D3DFont->DrawText(NULL,
                             work.c_str(),

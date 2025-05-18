@@ -19,7 +19,7 @@
 
 struct stBgm
 {
-    std::string m_filename;
+    std::wstring m_filename;
     bool m_bPlay = false;
     int m_volume = 0;
 
@@ -29,7 +29,7 @@ struct stBgm
 
 struct envBgm
 {
-    std::string m_filename;
+    std::wstring m_filename;
     bool m_bPlay = false;
 
     // 再生・停止の切り替えが行われたか
@@ -61,7 +61,7 @@ public:
     // BGMを設定
     // イカダに乗ったら専用のBGMを流したいので、外からセットするのは可能にする。
     // しかし、10分経ったらイカダに乗っていてもBGMは変わる。
-    void SetBGM(const std::string& bgmType, const int volume);
+    void SetBGM(const std::wstring& bgmType, const int volume);
 
     // BGMを停止
     void StopBGM();
@@ -69,9 +69,9 @@ public:
     // 環境音は一度に複数再生できる。
     // なので停止しなければ環境音は延々と増えていく
     // 環境音は10分おきに切り替わったりしない。
-    std::unordered_map<std::string, envBgm> GetEnvBGM();
-    void SetEnvBGM(const std::string& bgmName, const int volume);
-    void StopEnvBGM(const std::string& bgmName);
+    std::unordered_map<std::wstring, envBgm> GetEnvBGM();
+    void SetEnvBGM(const std::wstring& bgmName, const int volume);
+    void StopEnvBGM(const std::wstring& bgmName);
 
     void StopAll();
 
@@ -82,7 +82,7 @@ private:
     bool m_bChanged = false;
     stBgm m_stBgmPrev;
 
-    std::unordered_map<std::string, envBgm> m_envBgmMap;
+    std::unordered_map<std::wstring, envBgm> m_envBgmMap;
     bool m_bRandomMode = false;
 };
 
@@ -96,13 +96,13 @@ public:
     void Update();
 
     // BGM再生中にPlayを実行したら再生中のBGMは止まる。Stopを実行する必要はない。
-    void Play(const std::string& filename, const int volume);
+    void Play(const std::wstring& filename, const int volume);
     void Stop();
 
     // 環境音再生中にPlayEnvを実行しても再生中の環境音は止まらない。
     // 止めたい場合はStopEnvを実行する。
-    void PlayEnv(const std::string& filename, const int volume = 100);
-    void StopEnv(const std::string& filename);
+    void PlayEnv(const std::wstring& filename, const int volume = 100);
+    void StopEnv(const std::wstring& filename);
 
     void StopAll();
 
@@ -111,9 +111,9 @@ public:
 
 private:
 
-    bool load(const std::string& filename);
-    void play(const std::string& filename, const int a_volume = 100, const bool fadeIn = false);
-    void stop(const std::string& filename);
+    bool load(const std::wstring& filename);
+    void play(const std::wstring& filename, const int a_volume = 100, const bool fadeIn = false);
+    void stop(const std::wstring& filename);
 
     static BGM* single_ton_;
     // hide ctor
@@ -122,7 +122,7 @@ private:
     void operator=(const BGM&) { }
 
     bool open_wave(
-        const std::string& filepath,
+        const std::wstring& filepath,
         WAVEFORMATEX& waveFormatEx,
         std::vector<char>* ppData,
         DWORD& dataSize);
@@ -130,7 +130,7 @@ private:
     int per_to_decibel(const int percent);
 
     LPDIRECTSOUND8 dx8sound_ { nullptr };
-    std::unordered_map<std::string, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
+    std::unordered_map<std::wstring, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
 
     std::thread* m_th1 = nullptr;
     std::thread* m_th2 = nullptr;

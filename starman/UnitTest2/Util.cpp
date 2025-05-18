@@ -27,13 +27,13 @@ void Util::InitWin_DX9_DI8(const bool bShow)
     WNDCLASS wc = {};
     wc.lpfnWndProc = DefWindowProc;
     wc.hInstance = GetModuleHandle(NULL);
-    wc.lpszClassName = "MyWindowClass";
+    wc.lpszClassName = _T("MyWindowClass");
 
     RegisterClass(&wc);
 
     auto hInstance = (HINSTANCE)GetModuleHandle(0);
-    HWND hWnd = CreateWindow("MyWindowClass",
-                             "dummy",
+    HWND hWnd = CreateWindow(_T("MyWindowClass"),
+                             _T("dummy"),
                              WS_OVERLAPPEDWINDOW,
                              CW_USEDEFAULT,
                              CW_USEDEFAULT,
@@ -55,7 +55,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
     m_D3D = nullptr;
     if (!(m_D3D = Direct3DCreate9(D3D_SDK_VERSION)))
     {
-        throw std::exception("");
+        throw std::exception(_T(""));
     }
 
     LPDIRECT3DDEVICE9 D3DDevice;
@@ -86,7 +86,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
 
     if (FAILED(result))
     {
-        throw std::exception("");
+        throw std::exception(_T(""));
     }
 
     SharedObj::SetD3DDevice(D3DDevice);
@@ -127,12 +127,12 @@ void Util::ReleaseWin_DX9_DI8()
     }
 }
 
-void MockPopUpFont::Draw(const std::string& text, const int transparent)
+void MockPopUpFont::Draw(const std::wstring& text, const int transparent)
 {
     m_text = text;
 }
 
-std::string MockPopUpFont::GetShowText()
+std::wstring MockPopUpFont::GetShowText()
 {
     return m_text;
 }
@@ -227,9 +227,9 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
     WIN32_FIND_DATA findData;
     HANDLE hFind;
 
-    // パス + "\*" を作成
+    // パス + _T("\*") を作成
     lstrcpy(searchPath, dirPath);
-    lstrcat(searchPath, _T("\\*"));
+    lstrcat(searchPath, _T(_T("\\*")));
 
     hFind = FindFirstFile(searchPath, &findData);
     if (hFind == INVALID_HANDLE_VALUE)
@@ -239,9 +239,9 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
 
     do
     {
-        // "." と ".." はスキップ
-        if (lstrcmp(findData.cFileName, _T(".")) == 0 ||
-            lstrcmp(findData.cFileName, _T("..")) == 0)
+        // _T("." と "..") はスキップ
+        if (lstrcmp(findData.cFileName, _T(_T("."))) == 0 ||
+            lstrcmp(findData.cFileName, _T(_T(".."))) == 0)
         {
             continue;
         }
@@ -249,7 +249,7 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
         // フルパスを作成
         TCHAR fullPath[MAX_PATH];
         lstrcpy(fullPath, dirPath);
-        lstrcat(fullPath, _T("\\"));
+        lstrcat(fullPath, _T(_T("\\")));
         lstrcat(fullPath, findData.cFileName);
 
         // ディレクトリなら再帰
@@ -276,7 +276,7 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
     return RemoveDirectory(dirPath);
 }
 
-bool Util::IsDirectory(const std::string& path)
+bool Util::IsDirectory(const std::wstring& path)
 {
     DWORD attribs = GetFileAttributes(path.c_str());
     return (attribs != INVALID_FILE_ATTRIBUTES && (attribs & FILE_ATTRIBUTE_DIRECTORY));

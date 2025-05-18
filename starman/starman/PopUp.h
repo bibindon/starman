@@ -10,7 +10,7 @@ public:
     static void Init(const bool bEnglish);
     static PopUp* Get();
     static void Finalize();
-    void SetText(const std::vector<std::vector<std::string>>& arg);
+    void SetText(const std::vector<std::vector<std::wstring>>& arg);
     bool IsShow();
     void Next();
     void Cancel();
@@ -23,7 +23,7 @@ private:
 
     Sprite* m_sprBack { nullptr };
     LPD3DXFONT m_D3DFont { nullptr };
-    std::vector<std::vector<std::string>> m_textList;
+    std::vector<std::vector<std::wstring>> m_textList;
     int m_counter { 0 };
     bool m_isShow { false };
     int m_currentIndex { 0 };

@@ -10,7 +10,7 @@ class MeshNoShade
 {
 public:
     MeshNoShade(
-        const std::string&,
+        const std::wstring&,
         const D3DXVECTOR3&,
         const D3DXVECTOR3&,
         const float&);
@@ -24,7 +24,7 @@ public:
     LPD3DXMESH GetD3DMesh();
 
 private:
-    const std::string SHADER_FILENAME { "res\\shader\\mesh_shader_no_shade.fx" };
+    const std::wstring SHADER_FILENAME { _T("res\\shader\\mesh_shader_no_shade.fx") };
     LPD3DXMESH m_D3DMesh { nullptr };
 
     LPD3DXEFFECT m_D3DEffect { nullptr };
@@ -38,7 +38,7 @@ private:
     D3DXVECTOR3 m_centerPos { 0.0f, 0.0f, 0.0f };
     float m_radius { 0.0f };
     float m_scale { 0.0f };
-    std::string m_meshName { "" };
+    std::wstring m_meshName { _T("") };
     bool m_bIsInit { false };
 };
 

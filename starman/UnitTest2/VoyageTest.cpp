@@ -44,7 +44,7 @@ namespace UnitTest2
         {
             Util::InitWin_DX9_DI8();
             auto voyage = NSStarmanLib::Voyage::Get();
-            voyage->Init("raft1.csv");
+            voyage->Init(_T("raft1.csv"));
 
             Raft2 raft;
 
@@ -74,7 +74,7 @@ namespace UnitTest2
             map->Init();
             SharedObj::SetMap(map);
 
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto player = NEW Player();
@@ -98,7 +98,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto player = NEW Player();
@@ -132,7 +132,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -156,7 +156,7 @@ namespace UnitTest2
             map->Init();
             SharedObj::SetMap(map);
 
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -182,7 +182,7 @@ namespace UnitTest2
             map->Init();
             SharedObj::SetMap(map);
 
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -207,7 +207,7 @@ namespace UnitTest2
             map->Init();
             SharedObj::SetMap(map);
 
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -227,7 +227,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod10)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -245,7 +245,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod11)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -264,7 +264,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod12)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -282,7 +282,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod13)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -301,7 +301,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod14)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             Raft2 raft;
@@ -372,7 +372,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -406,7 +406,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -424,7 +424,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod07)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -443,7 +443,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod08)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -483,7 +483,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod11)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -500,7 +500,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod12)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -567,7 +567,7 @@ namespace UnitTest2
         {
             Util::InitWin_DX9_DI8();
 
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             auto voyageMgr = VoyageManager::Get();
             voyageMgr->Init();
 
@@ -585,7 +585,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod20)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -603,7 +603,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod21)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -621,7 +621,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod22)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();
@@ -639,7 +639,7 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod23)
         {
             Util::InitWin_DX9_DI8();
-            NSStarmanLib::Voyage::Get()->Init("raft1.csv");
+            NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
             auto voyageMgr = VoyageManager::Get();

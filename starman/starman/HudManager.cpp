@@ -37,7 +37,7 @@ public:
 
     }
 
-    void Load(const std::string& filepath) override
+    void Load(const std::wstring& filepath) override
     {
         LPD3DXSPRITE tempSprite { nullptr };
         if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
@@ -102,7 +102,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 ANTIALIASED_QUALITY,
                                 FF_DONTCARE,
-                                "游明朝",
+                                _T("游明朝"),
                                 &m_pFont);
         }
         else
@@ -117,13 +117,13 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                "Courier New",
+                                _T("Courier New"),
                                 &m_pFont);
         }
         assert(hr == S_OK);
     }
 
-    virtual void DrawText_(const std::string& msg, const int x, const int y)
+    virtual void DrawText_(const std::wstring& msg, const int x, const int y)
     {
         RECT rect = { x, y, 0, 0 };
         m_pFont->DrawText(NULL, msg.c_str(), -1, &rect, DT_LEFT | DT_NOCLIP,
@@ -155,13 +155,13 @@ void HudManager::Init()
         NSHud::IFont* pFont = NEW NSHud::Font(SharedObj::GetD3DDevice());
 
         NSHud::ISprite* sprBack = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
-        sprBack->Load("res\\image\\status_back.png");
+        sprBack->Load(_T("res\\image\\status_back.png"));
 
         NSHud::ISprite* sprMiddle = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
-        sprMiddle->Load("res\\image\\status_middle.png");
+        sprMiddle->Load(_T("res\\image\\status_middle.png"));
 
         NSHud::ISprite* sprFront = NEW NSHud::Sprite(SharedObj::GetD3DDevice());
-        sprFront->Load("res\\image\\status_front.png");
+        sprFront->Load(_T("res\\image\\status_front.png"));
 
         m_hud->Init(pFont, sprBack, sprMiddle, sprFront, SharedObj::IsEnglish());
 

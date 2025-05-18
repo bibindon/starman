@@ -7,6 +7,7 @@
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\StatusManager.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\Inventory.h"
 #include "..\..\StarmanLib\StarmanLib\StarmanLib\ItemManager.h"
+#include <tchar.h>
 
 #if defined(_DEBUG)
 #define NEW ::new(_NORMAL_BLOCK, __FILE__, __LINE__)
@@ -66,12 +67,12 @@ class Common
 {
 public:
     static std::vector<char> get_model_texture_resource(
-        const std::string& model_name, const std::string& texture_name);
-    static std::vector<char> get_model_resource(const std::string& model_name);
-    static std::vector<char> get_sound_resource(const std::string& filename);
+        const std::wstring& model_name, const std::wstring& texture_name);
+    static std::vector<char> get_model_resource(const std::wstring& model_name);
+    static std::vector<char> get_sound_resource(const std::wstring& filename);
 
-    static std::vector<std::string> split(const std::string& s, char delim);
-    static std::string ToStringWithPrecision(const float value, const int precision = 1);
+    static std::vector<std::wstring> split(const std::wstring& s, char delim);
+    static std::wstring ToStringWithPrecision(const float value, const int precision = 1);
 
     static constexpr int KEY_DEQUE_MAX_SIZE { 300 };
     static constexpr int SIMULTANEOUS_ALLOW_FRAME { 3 };
@@ -91,10 +92,10 @@ public:
     static void SetCursorVisibility(const bool visibility);
     static POINT GetScreenPos();
 
-    static void OutputMsg(const std::string&, const int arg);
-    static void OutputMsg(const std::string&, const D3DXVECTOR3& arg);
+    static void OutputMsg(const std::wstring&, const int arg);
+    static void OutputMsg(const std::wstring&, const D3DXVECTOR3& arg);
 
-    static std::string RemoveSubstring(const std::string& str, const std::string& toRemove);
+    static std::wstring RemoveSubstring(const std::wstring& str, const std::wstring& toRemove);
 
     static bool EqualF(const float arg1, const float arg2);
 
@@ -103,7 +104,7 @@ public:
                                         const D3DXVECTOR3& p2,
                                         const D3DXVECTOR3& point);
 
-    static std::string ModExt(const std::string& filepath);
+    static std::wstring ModExt(const std::wstring& filepath);
     static NSStarmanLib::StatusManager* Status();
     static NSStarmanLib::Inventory* Inventory();
     static NSStarmanLib::ItemManager* ItemManager();
@@ -121,17 +122,21 @@ public:
                                  const D3DXVECTOR3& p2,
                                  const float length);
 
-    static void SetGPUName(const std::string& GPUName);
-    static std::string GetGPUName();
+    static void SetGPUName(const std::wstring& GPUName);
+    static std::wstring GetGPUName();
 
-    static std::string LoadString_(const UINT resID);
-    static std::string LoadStringWithArg(const UINT resID, const std::string& arg1);
+    static std::wstring LoadString_(const UINT resID);
+    static std::wstring LoadStringWithArg(const UINT resID, const std::wstring& arg1);
+
+    static std::wstring Utf8ToWstring(const std::string& utf8);
+
+    static std::string WstringToUtf8(const std::wstring& wstr);
 
 private:
 
     static eBuildMode m_buildMode;
     static bool m_x64Bit;
-    static std::string m_GPUName;
+    static std::wstring m_GPUName;
 };
 
 template <typename T>
