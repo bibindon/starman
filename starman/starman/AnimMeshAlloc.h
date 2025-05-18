@@ -9,7 +9,7 @@
 struct AnimMeshFrame : public D3DXFRAME
 {
     D3DXMATRIX m_combinedMatrix;
-    explicit AnimMeshFrame(const std::wstring&);
+    explicit AnimMeshFrame(const std::string&);
 };
 
 struct AnimMeshContainer : public D3DXMESHCONTAINER
@@ -17,7 +17,7 @@ struct AnimMeshContainer : public D3DXMESHCONTAINER
     std::vector<LPDIRECT3DTEXTURE9> m_vecTexture;
     AnimMeshContainer(
         const std::wstring&,
-        const std::wstring&,
+        const std::string&,
         LPD3DXMESH,
         const D3DXMATERIAL*,
         const DWORD,
@@ -28,7 +28,7 @@ class AnimMeshAllocator : public ID3DXAllocateHierarchy
 {
 public:
     AnimMeshAllocator(const std::wstring&);
-    STDMETHOD(CreateFrame)(THIS_ LPCTSTR, LPD3DXFRAME*);
+    STDMETHOD(CreateFrame)(THIS_ LPCSTR, LPD3DXFRAME*);
     STDMETHOD(CreateMeshContainer)
         (THIS_ LPCSTR,
          CONST D3DXMESHDATA*,

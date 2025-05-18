@@ -2,6 +2,7 @@
 
 #include <string>
 #include <atomic>
+#include <tchar.h>
 
 class SaveManager
 {

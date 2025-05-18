@@ -71,7 +71,7 @@ public:
     static std::vector<char> get_model_resource(const std::wstring& model_name);
     static std::vector<char> get_sound_resource(const std::wstring& filename);
 
-    static std::vector<std::wstring> split(const std::wstring& s, char delim);
+    static std::vector<std::wstring> split(const std::wstring& s, wchar_t delim);
     static std::wstring ToStringWithPrecision(const float value, const int precision = 1);
 
     static constexpr int KEY_DEQUE_MAX_SIZE { 300 };

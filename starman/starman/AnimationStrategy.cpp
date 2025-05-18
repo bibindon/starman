@@ -31,12 +31,12 @@ void normal_animation::set_animation(const std::wstring& animation_set)
 {
     std::vector<LPD3DXANIMATIONSET>::const_iterator kit;
 
-    kit = std::find_if(
-        animation_sets_.cbegin(), animation_sets_.cend(),
-        [&](const LPD3DXANIMATIONSET& a)
-        {
-            return animation_set == a->GetName();
-        });
+    kit = std::find_if(animation_sets_.cbegin(),
+                       animation_sets_.cend(),
+                       [&](const LPD3DXANIMATIONSET& a)
+                       {
+                           return Common::WstringToUtf8(animation_set) == a->GetName();
+                       });
 
     if (animation_sets_.cend() == kit)
     {

@@ -211,11 +211,11 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             SaveManager::Get()->SetLangFile(_T("Japanese"));
         }
-        else if (result == "English")
+        else if (result == _T("English"))
         {
-            PopUp2::Get()->SetText("This will take effect after a restart.");
+            PopUp2::Get()->SetText(_T("This will take effect after a restart."));
 
-            SaveManager::Get()->SetLangFile("English");
+            SaveManager::Get()->SetLangFile(_T("English"));
         }
         else if (result == _T("Back"))
         {

@@ -133,14 +133,14 @@ void Map::Init()
         Mesh* mesh { nullptr };
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        mesh = NEW Mesh("res\\model\\hemisphere.x", pos, rot, 180000.0f);
+        mesh = NEW Mesh(_T("res\\model\\hemisphere.x"), pos, rot, 180000.0f);
         mesh->Init();
         m_meshMap[_T("sky")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(11.f, 491.5f, -572.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh("res\\shader\\mesh_shader_cull_none.fx",
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader_cull_none.fx"),
                               _T("res\\model\\precision.x"),
                               pos,
                               rot,
@@ -151,13 +151,13 @@ void Map::Init()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(15.84f, 491.5f, -570.95f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
-        Mesh* mesh = NEW Mesh("res\\shader\\mesh_shader.fx",
-                              "res\\model\\chest.x",
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader.fx"),
+                              _T("res\\model\\chest.x"),
                               pos,
                               rot,
                               1.0f);
         mesh->Init();
-        m_meshMap["chest"] = mesh;
+        m_meshMap[_T("chest")] = mesh;
     }
     //{
     //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
@@ -402,7 +402,7 @@ void Map::Init()
         m_NPC[_T("sankakuman")] = sankakuman;
     }
     {
-        auto status = npcManager->GetNpcStatus("shikakuman");
+        auto status = npcManager->GetNpcStatus(_T("shikakuman"));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
         D3DXVECTOR3 rot = D3DXVECTOR3(0, status.GetRotY(), 0);
         AnimSetMap animSetMap;
@@ -462,13 +462,13 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap[_T("LieDown")] = animSetting;
         }
-        AnimMesh* shikakuman = NEW AnimMesh("res\\model\\shikakuman.x",
+        AnimMesh* shikakuman = NEW AnimMesh(_T("res\\model\\shikakuman.x"),
                                             pos,
                                             rot,
                                             0.66f,
                                             animSetMap);
         shikakuman->SetAnim(_T("Sit"));
-        m_NPC["shikakuman"] = shikakuman;
+        m_NPC[_T("shikakuman")] = shikakuman;
     }
     {
         auto status = npcManager->GetNpcStatus(_T("vim"));
@@ -1163,7 +1163,7 @@ void Map::Update()
             if (!_T("m_vecEnemy.size()"))
             {
                 std::wstring work;
-                work = _T("m_vecEnemy.size(): " + std::to_wstring(m_vecEnemy.size()) + "\n");
+                work = _T("m_vecEnemy.size(): ") + std::to_wstring(m_vecEnemy.size()) + _T("\n");
                 OutputDebugString(work.c_str());
             }
 
@@ -1196,10 +1196,10 @@ void Map::Update()
                     npcManager->SetPos(_T("sankakuman"), 0.f, 0.f, 0.f);
                 }
 
-                if (npcManager->GetNpcStatus("shikakuman").GetDead())
+                if (npcManager->GetNpcStatus(_T("shikakuman")).GetDead())
                 {
-                    SetNpcPos("shikakuman", D3DXVECTOR3(0.f, 0.f, 0.f));
-                    npcManager->SetPos("shikakuman", 0.f, 0.f, 0.f);
+                    SetNpcPos(_T("shikakuman"), D3DXVECTOR3(0.f, 0.f, 0.f));
+                    npcManager->SetPos(_T("shikakuman"), 0.f, 0.f, 0.f);
                 }
             }
         }
@@ -1736,7 +1736,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("river") ||
             pair.first == _T("sea") ||
             pair.first == _T("precision") ||
-            pair.first == "chest" ||
+            pair.first == _T("chest") ||
             pair.first == _T("rock2") ||
             pair.first == _T("testcube")
             )
@@ -1961,7 +1961,7 @@ bool Map::NearCoconut(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 20.f);
 
-    int modelId = MapLib()->GetModelId("yashi.x");
+    int modelId = MapLib()->GetModelId(_T("yashi.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {

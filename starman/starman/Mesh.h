@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <memory>
+#include <tchar.h>
 
 class Mesh
 {

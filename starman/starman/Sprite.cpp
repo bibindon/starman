@@ -3,16 +3,13 @@
 #include <vector>
 #include "SharedObj.h"
 
-using std::wstring;
-using std::vector;
-
-Sprite::Sprite(string filename)
+Sprite::Sprite(std::wstring filename)
 {
     LPDIRECT3DDEVICE9 D3DDevice = SharedObj::GetD3DDevice();
     // sprite setup
     if (FAILED(D3DXCreateSprite(D3DDevice, &m_D3DSprite)))
     {
-        throw std::exception(_T("Failed to create a sprite."));
+        throw std::exception("Failed to create a sprite.");
     }
 
     // texture setup
@@ -21,13 +18,13 @@ Sprite::Sprite(string filename)
         filename.c_str(),
         &m_D3DTexture)))
     {
-        throw std::exception(_T("Failed to create a texture."));
+        throw std::exception("Failed to create a texture.");
     }
 
     D3DSURFACE_DESC desc { };
     if (FAILED(m_D3DTexture->GetLevelDesc(0, &desc)))
     {
-        throw std::exception(_T("Failed to create a texture."));
+        throw std::exception("Failed to create a texture.");
     }
     m_width = desc.Width;
     m_height = desc.Height;

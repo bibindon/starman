@@ -9,7 +9,7 @@ public:
     StackBackTrace();
     virtual ~StackBackTrace();
 
-    std::wstring build() const;
+    std::string build() const;
 
 private:
     static const int MAX_FRAMES_TO_CAPTURE = 256;

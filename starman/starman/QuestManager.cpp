@@ -17,11 +17,11 @@ void QuestManager::Init(const std::wstring& originFile, const std::wstring& save
         auto eventList = m_single->m_questSystem.GetQuestStartEvent(quest);
         for (auto& event_ : eventList)
         {
-            if (event_.find("<hint>") != std::wstring::npos)
+            if (event_.find(_T("<hint>")) != std::wstring::npos)
             {
-				std::wstring work = event_;
-				work = Common::RemoveSubstring(work, "<hint>");
-				SetHint(work);
+                std::wstring work = event_;
+                work = Common::RemoveSubstring(work, _T("<hint>"));
+                SetHint(work);
             }
         }
     }
@@ -187,9 +187,9 @@ void QuestManager::Update()
         bAlive = !bDead;
         m_questSystem.SetNpcIsAlive(_T("sankakuman"), bAlive, false);
 
-        bDead = NpcManager::Get()->GetNpcStatus("shikakuman").GetDead();
+        bDead = NpcManager::Get()->GetNpcStatus(_T("shikakuman")).GetDead();
         bAlive = !bDead;
-        m_questSystem.SetNpcIsAlive("shikakuman", bAlive, false);
+        m_questSystem.SetNpcIsAlive(_T("shikakuman"), bAlive, false);
     }
 
     m_questSystem.UpdateQuestStatus();

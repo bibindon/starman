@@ -48,15 +48,15 @@ SaveManager* SaveManager::Get()
 }
 
 bool CreateDirectoriesRecursively(const std::wstring& path) {
-    std::stringstream ss(path);
+    std::wstringstream ss(path);
     std::wstring item;
     std::wstring currentPath;
 
     // Windowsのパス区切りに対応（\ または /）
-    char delimiter = '\\';
-    if (path.find('/') != std::wstring::npos)
+    wchar_t delimiter = L'\\';
+    if (path.find(L'/') != std::wstring::npos)
     {
-        delimiter = '/';
+        delimiter = L'/';
     }
 
     while (std::getline(ss, item, delimiter))
@@ -68,9 +68,9 @@ bool CreateDirectoriesRecursively(const std::wstring& path) {
 
         currentPath += item + delimiter;
 
-        if (GetFileAttributesA(currentPath.c_str()) == INVALID_FILE_ATTRIBUTES)
+        if (GetFileAttributes(currentPath.c_str()) == INVALID_FILE_ATTRIBUTES)
         {
-            if (!CreateDirectoryA(currentPath.c_str(), NULL))
+            if (!CreateDirectory(currentPath.c_str(), NULL))
             {
                 DWORD err = GetLastError();
                 if (err != ERROR_ALREADY_EXISTS)
@@ -87,7 +87,7 @@ bool CreateDirectoriesRecursively(const std::wstring& path) {
 SaveManager::SaveManager()
 {
     {
-        char work[MAX_PATH];
+        wchar_t work[MAX_PATH];
         SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, work); // %APPDATA%
 
         std::wstring savedir;
@@ -105,7 +105,7 @@ SaveManager::SaveManager()
     }
 
     {
-        char path[MAX_PATH];
+        wchar_t path[MAX_PATH];
         SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, path); // %APPDATA%
 
         m_savedata_path = path;
@@ -173,7 +173,7 @@ void SaveManager::Save()
     // フォルダがなければ作る
     std::wstring savedir;
 
-    char work[MAX_PATH];
+    wchar_t work[MAX_PATH];
     SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, work); // %APPDATA%
 
     savedir = work;
@@ -196,7 +196,7 @@ void SaveManager::Save()
 	mgr->Save(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Save(CreateSaveFilePath("humanInfoSub.csv"), m_encrypt);
+    him->Save(CreateSaveFilePath(_T("humanInfoSub.csv")), m_encrypt);
 
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
     mapManager->Save(CreateSaveFilePath(_T("mapInfo.csv")), m_encrypt);
@@ -208,7 +208,7 @@ void SaveManager::Save()
     inventory->Save(CreateSaveFilePath(_T("inventory.csv")), m_encrypt);
 
     auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
-    storehouseManager->Save(CreateSaveFilePath("storehouseListSave.csv"), m_savedata_folder);
+    storehouseManager->Save(CreateSaveFilePath(_T("storehouseListSave.csv")), m_savedata_folder);
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Save(CreateSaveFilePath(_T("weaponSave.csv")), m_encrypt);
@@ -242,8 +242,8 @@ void SaveManager::Save()
     QuestManager::Get()->Save(CreateSaveFilePath(_T("questSave.csv")));
 
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
-    patchTestManager->Save(CreateSaveFilePath("patchTestInfoSave.csv"),
-                           CreateSaveFilePath("patchTestQueSave.csv"));
+    patchTestManager->Save(CreateSaveFilePath(_T("patchTestInfoSave.csv")),
+                           CreateSaveFilePath(_T("patchTestQueSave.csv")));
 
     auto voyage = NSStarmanLib::Voyage::Get();
     voyage->Save(CreateSaveFilePath(_T("raftSave.csv")));
@@ -254,7 +254,7 @@ void SaveManager::Save()
     NSStarmanLib::CraftSystem::GetObj()->Save(CreateSaveFilePath(_T("craftsmanSkillSave.csv")),
                                               CreateSaveFilePath(_T("craftsmanQueueSave.csv")));
 
-	NSStarmanLib::Help::Get()->Save(CreateSaveFilePath("helpSave.csv"));
+	NSStarmanLib::Help::Get()->Save(CreateSaveFilePath(_T("helpSave.csv")));
 }
 
 void SaveManager::LoadOrigin()
@@ -296,8 +296,8 @@ void SaveManager::LoadOrigin()
 	mgr->Init(CreateOriginFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Init(CreateOriginFilePath("humanInfo.csv"),
-              CreateOriginFilePath("humanInfoSub.csv"),
+    him->Init(CreateOriginFilePath(_T("humanInfo.csv")),
+              CreateOriginFilePath(_T("humanInfoSub.csv")),
               m_encrypt);
 
     m_progress.store(20);
@@ -314,7 +314,7 @@ void SaveManager::LoadOrigin()
     inventory->Init(CreateOriginFilePath(_T("inventory.csv")), m_encrypt);
 
     auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
-    storehouseManager->Init(CreateOriginFilePath("storehouseListOrigin.csv"));
+    storehouseManager->Init(CreateOriginFilePath(_T("storehouseListOrigin.csv")));
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
     weaponManager->Init(CreateOriginFilePath(_T("weapon.csv")),
@@ -356,7 +356,7 @@ void SaveManager::LoadOrigin()
 
     m_progress.store(45);
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
-    patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
+    patchTestManager->Init(CreateOriginFilePath(_T("patchTestOrigin.csv")),
                            _T(""),
                            _T(""));
 
@@ -372,7 +372,7 @@ void SaveManager::LoadOrigin()
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateOriginFilePath(_T("craftsmanSkill.csv")),
                                               CreateOriginFilePath(_T("craftsmanQueue.csv")));
 
-	NSStarmanLib::Help::Get()->Init(CreateOriginFilePath("help.csv"));
+	NSStarmanLib::Help::Get()->Init(CreateOriginFilePath(_T("help.csv")));
 }
 
 void SaveManager::Load()
@@ -386,8 +386,8 @@ void SaveManager::Load()
 	mgr->Init(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Init(CreateOriginFilePath("humanInfo.csv"),
-              CreateSaveFilePath("humanInfoSub.csv"),
+    him->Init(CreateOriginFilePath(_T("humanInfo.csv")),
+              CreateSaveFilePath(_T("humanInfoSub.csv")),
               m_encrypt);
 
     m_progress.store(5);
@@ -407,7 +407,7 @@ void SaveManager::Load()
     m_progress.store(5);
 
     auto storehouseManager = NSStarmanLib::StorehouseManager::Get();
-    storehouseManager->Init(CreateSaveFilePath("storehouseListSave.csv"));
+    storehouseManager->Init(CreateSaveFilePath(_T("storehouseListSave.csv")));
 
     m_progress.store(10);
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
@@ -461,9 +461,9 @@ void SaveManager::Load()
     m_progress.store(75);
 
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
-    patchTestManager->Init(CreateOriginFilePath("patchTestOrigin.csv"),
-                           CreateSaveFilePath("patchTestInfoSave.csv"),
-                           CreateSaveFilePath("patchTestQueSave.csv"));
+    patchTestManager->Init(CreateOriginFilePath(_T("patchTestOrigin.csv")),
+                           CreateSaveFilePath(_T("patchTestInfoSave.csv")),
+                           CreateSaveFilePath(_T("patchTestQueSave.csv")));
 
     auto voyage = NSStarmanLib::Voyage::Get();
     voyage->Init(CreateSaveFilePath(_T("raftSave.csv")));
@@ -476,7 +476,7 @@ void SaveManager::Load()
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath(_T("craftsmanSkillSave.csv")),
                                               CreateSaveFilePath(_T("craftsmanQueueSave.csv")));
 
-	NSStarmanLib::Help::Get()->Init(CreateSaveFilePath("helpSave.csv"));
+	NSStarmanLib::Help::Get()->Init(CreateSaveFilePath(_T("helpSave.csv")));
 
     m_savedataLoaded = true;
 }
@@ -576,7 +576,7 @@ std::wstring SaveManager::GetLangFile()
     std::wstring result;
 
     std::wstring langFilePath;
-    char appData[MAX_PATH];
+    wchar_t appData[MAX_PATH];
     SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appData); // %APPDATA%
 
     langFilePath = appData;
@@ -588,8 +588,11 @@ std::wstring SaveManager::GetLangFile()
         std::ifstream file(langFilePath);
 
         std::wstring word;
-        file >> word;
+        std::string word2;
+        file >> word2;
         file.close();
+
+        word = Common::Utf8ToWstring(word2);
         result = word;
     }
 
@@ -599,14 +602,14 @@ std::wstring SaveManager::GetLangFile()
 void SaveManager::SetLangFile(const std::wstring lang)
 {
     std::wstring langFilePath;
-    char appData[MAX_PATH];
+    wchar_t appData[MAX_PATH];
     SHGetFolderPath(NULL, CSIDL_APPDATA, NULL, 0, appData); // %APPDATA%
 
     langFilePath = appData;
     langFilePath += _T("\\Starman\\res\\script\\lang.ini");
 
     std::ofstream file(langFilePath, std::ios::out | std::ios::trunc);
-    file << lang;
+    file << Common::WstringToUtf8(lang);
     file.close();
 }
 

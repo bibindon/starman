@@ -781,7 +781,7 @@ void SeqBattle::OperateStorehouse()
                     m_menuManager->DeleteItem(id_, subId_);
                 }
             }
-            else if (vs.at(0) == "right")
+            else if (vs.at(0) == _T("right"))
             {
                 NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
                 durability_ = itemInfo.GetDurabilityCurrent();
@@ -879,7 +879,7 @@ void SeqBattle::OperateStorehouse()
                         m_menuManager->DeleteItem(id_, subId_);
                     }
                 }
-                else if (vs.at(0) == "right")
+                else if (vs.at(0) == _T("right"))
                 {
                     NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
                     durability_ = itemInfo.GetDurabilityCurrent();
@@ -1012,7 +1012,7 @@ void SeqBattle::OperateStorehouse()
                     m_menuManager->DeleteItem(id_, subId_);
                 }
             }
-            else if (vs.at(0) == "right")
+            else if (vs.at(0) == _T("right"))
             {
                 NSStarmanLib::ItemInfo itemInfo = storehouse->GetItemInfo(id_, subId_);
                 durability_ = itemInfo.GetDurabilityCurrent();
@@ -1228,7 +1228,7 @@ void SeqBattle::OperateCommand()
             name = itemInfo.GetItemDef().GetName();
         }
 
-        if (name != _T("石斧" && name != "縦長の石"))
+        if (name != _T("石斧") && name != _T("縦長の石"))
         {
             PopUp2::Get()->SetText(IDS_STRING106);
         }
@@ -1349,7 +1349,7 @@ void SeqBattle::OperateCommand()
                 NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(true);
                 leave = true;
                 m_eState = eBattleState::NORMAL;
-                BGM::Get()->PlayEnv("res\\sound\\torch.wav", 10);
+                BGM::Get()->PlayEnv(_T("res\\sound\\torch.wav"), 10);
             }
         }
     }
@@ -1358,7 +1358,7 @@ void SeqBattle::OperateCommand()
         NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         leave = true;
         m_eState = eBattleState::NORMAL;
-        BGM::Get()->StopEnv("res\\sound\\torch.wav");
+        BGM::Get()->StopEnv(_T("res\\sound\\torch.wav"));
     }
     else if (result == Common::LoadString_(IDS_STRING194))
     {
@@ -1389,7 +1389,7 @@ void SeqBattle::OperateCommand()
         auto _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
         if (!_near)
         {
-            status = npcManager->GetNpcStatus("shikakuman");
+            status = npcManager->GetNpcStatus(_T("shikakuman"));
             npcPos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
             ppos = m_player->GetPos();
             _near = Common::HitByBoundingBox(npcPos, ppos, 2.f);
@@ -1861,10 +1861,10 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     m_eState = eBattleState::TALK;
                 }
-                else if (startEvent.at(0).find("<hint>") != std::wstring::npos)
+                else if (startEvent.at(0).find(_T("<hint>")) != std::wstring::npos)
                 {
                     std::wstring work = startEvent.at(0);
-                    work = Common::RemoveSubstring(work, "<hint>");
+                    work = Common::RemoveSubstring(work, _T("<hint>"));
                     QuestManager::Get()->SetHint(work);
                 }
             }
@@ -1906,10 +1906,10 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     m_eState = eBattleState::TALK;
                 }
-                else if (vs2.at(j).find("<hide>") != std::wstring::npos)
+                else if (vs2.at(j).find(_T("<hide>")) != std::wstring::npos)
                 {
                     std::wstring work = vs2.at(j);
-                    std::wstring::size_type it = work.find("<hide>");
+                    std::wstring::size_type it = work.find(_T("<hide>"));
                     work = work.erase(it, 6);
 
                     auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
@@ -1943,10 +1943,10 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 {
                     *sequence = eSequence::ENDING;
                 }
-                else if (vs2.at(j).find("<finish>") != std::wstring::npos)
+                else if (vs2.at(j).find(_T("<finish>")) != std::wstring::npos)
                 {
                     std::wstring work = vs2.at(j);
-                    std::wstring::size_type it = work.find("<finish>");
+                    std::wstring::size_type it = work.find(_T("<finish>"));
                     work = work.erase(it, 8);
                     QuestManager::Get()->SetQuestFinish(work);
                 }
@@ -1972,22 +1972,22 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     {
                         npcNameKey = _T("sankakuman");
                     }
-                    else if (work.find("<shikakuman>") != std::wstring::npos)
+                    else if (work.find(_T("<shikakuman>")) != std::wstring::npos)
                     {
-                        npcNameKey = "shikakuman";
+                        npcNameKey = _T("shikakuman");
                     }
                     else if (work.find(_T("vim")) != std::wstring::npos)
                     {
                         npcNameKey = _T("vim");
                     }
 
-                    work = Common::RemoveSubstring(work, _T("<" + npcNameKey + ">"));
+                    work = Common::RemoveSubstring(work, _T("<") + npcNameKey + _T(">"));
 
                     if (work.find(_T("<pos>")) != std::wstring::npos)
                     {
                         std::wstring work2;
                         work2 = Common::RemoveSubstring(work, _T("<pos>"));
-                        std::vector<std::wstring> vs = Common::split(work2, ':');
+                        std::vector<std::wstring> vs = Common::split(work2, L':');
                         float fx = std::stof(vs.at(0));
                         float fy = std::stof(vs.at(1));
                         float fz = std::stof(vs.at(2));
@@ -2032,10 +2032,10 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                             NpcManager::Get()->SetEnableFeature(npcNameKey, false);
                         }
                     }
-                    else if (work.find("<showMenu>") != std::wstring::npos)
+                    else if (work.find(_T("<showMenu>")) != std::wstring::npos)
                     {
                         std::wstring work2;
-                        work2 = Common::RemoveSubstring(work, "<showMenu>");
+                        work2 = Common::RemoveSubstring(work, _T("<showMenu>"));
                         if (work2 == _T("y"))
                         {
                             NpcManager::Get()->SetShowMenu(npcNameKey, true);
@@ -2108,11 +2108,11 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), subIdList.at(0));
                     Common::Status()->SetEquipWeapon(itemInfo);
                 }
-                else if (vs2.at(j).find("<shikakumanDeath>") != std::wstring::npos)
+                else if (vs2.at(j).find(_T("<shikakumanDeath>")) != std::wstring::npos)
                 {
-                    auto shikakuman = NpcManager::Get()->GetNpcStatus("shikakuman");
+                    auto shikakuman = NpcManager::Get()->GetNpcStatus(_T("shikakuman"));
                     shikakuman.SetDead();
-                    NpcManager::Get()->SetNpcStatus("shikakuman", shikakuman);
+                    NpcManager::Get()->SetNpcStatus(_T("shikakuman"), shikakuman);
                 }
                 else if (vs2.at(j).find(_T("<sotetsu>")) != std::wstring::npos)
                 {
@@ -3127,7 +3127,7 @@ void SeqBattle::UpdatePerSecond()
             {
                 dura = 0;
                 NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
-                BGM::Get()->StopEnv("res\\sound\\torch.wav");
+                BGM::Get()->StopEnv(_T("res\\sound\\torch.wav"));
             }
 
             Common::Inventory()->SetItemDurability(weapon.GetId(), weapon.GetSubId(), dura);
@@ -3136,7 +3136,7 @@ void SeqBattle::UpdatePerSecond()
         }
         else
         {
-            BGM::Get()->StopEnv("res\\sound\\torch.wav");
+            BGM::Get()->StopEnv(_T("res\\sound\\torch.wav"));
         }
     }
     {

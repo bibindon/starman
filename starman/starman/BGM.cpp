@@ -273,8 +273,8 @@ bool BGM::open_wave(const std::wstring& filepath,
 
     HMMIO _hmmio { nullptr };
 
-    char* Name = NEW char[filepath.length() + 1];
-    strcpy_s(Name, filepath.length() + 1, filepath.c_str());
+    wchar_t* Name = NEW wchar_t[filepath.length() + 1];
+    wcscpy_s(Name, filepath.length() + 1, filepath.c_str());
     _hmmio = mmioOpen(Name, nullptr, MMIO_READ);
 
     delete[] Name;

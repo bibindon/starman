@@ -1,6 +1,4 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ で生成されたインクルード ファイル。
-// starman.rc で使用
+﻿//{{NO_DEPENDENCIES}}
 //
 #define IDI_ICON1                       101
 #define IDS_STRING101                   101

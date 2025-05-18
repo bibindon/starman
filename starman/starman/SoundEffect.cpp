@@ -1,14 +1,11 @@
-﻿#pragma comment ( lib, _T("dxguid.lib") )
-#pragma comment ( lib, _T("dsound.lib") )
-#pragma comment ( lib, _T("winmm.lib") )
+﻿#pragma comment ( lib, "dxguid.lib")
+#pragma comment ( lib, "dsound.lib")
+#pragma comment ( lib, "winmm.lib")
 
 #include "SoundEffect.h"
 #include "Common.h"
 
 #include <mmsystem.h>
-
-using std::vector;
-using std::wstring;
 
 SoundEffect* SoundEffect::single_ton_;
 SoundEffect* SoundEffect::get_ton()
@@ -47,7 +44,7 @@ bool SoundEffect::load(const std::wstring& filename)
 
     // Open wave file.
     WAVEFORMATEX _waveformatex { };
-    vector<char> _wave_data;
+    std::vector<char> _wave_data;
     DWORD _wave_size { 0 };
     if (!open_wave(filename, _waveformatex, &_wave_data, _wave_size))
     {
@@ -89,7 +86,7 @@ bool SoundEffect::load(const std::wstring& filename)
 }
 
 // TODO take care when button is pushed repeatedly and quickly.
-void SoundEffect::play(const string& filename, const int a_volume)
+void SoundEffect::play(const std::wstring& filename, const int a_volume)
 {
     // Transform volume
     // 0 ~ 100 -> -10000 ~ 0
@@ -102,7 +99,7 @@ void SoundEffect::play(const string& filename, const int a_volume)
     dx8sound_buffers_.at(filename)->Play(0, 0, 0);
 }
 
-void SoundEffect::stop(const string& filename)
+void SoundEffect::stop(const std::wstring& filename)
 {
     dx8sound_buffers_.at(filename)->Stop();
 }
@@ -119,7 +116,7 @@ SoundEffect::SoundEffect(HWND hwnd)
 
 bool SoundEffect::open_wave(const std::wstring& filepath,
                             WAVEFORMATEX& waveformatex,
-                            vector<char>* buff,
+                            std::vector<char>* buff,
                             DWORD& wave_size)
 {
     if (filepath.empty())
@@ -129,8 +126,8 @@ bool SoundEffect::open_wave(const std::wstring& filepath,
 
     HMMIO _hmmio { nullptr };
 
-    char* Name = NEW char[filepath.length() + 1];
-    strcpy_s(Name, filepath.length() + 1, filepath.c_str());
+    wchar_t* Name = NEW wchar_t[filepath.length() + 1];
+    wcscpy_s(Name, filepath.length() + 1, filepath.c_str());
     _hmmio = mmioOpen(Name, nullptr, MMIO_READ);
 
     delete[] Name;

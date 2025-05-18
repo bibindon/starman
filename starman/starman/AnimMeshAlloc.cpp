@@ -3,10 +3,7 @@
 
 #include <algorithm>
 
-using std::wstring;
-using std::vector;
-
-AnimMeshFrame::AnimMeshFrame(const wstring& name)
+AnimMeshFrame::AnimMeshFrame(const std::string& name)
     : D3DXFRAME { },
     m_combinedMatrix { }
 {
@@ -18,8 +15,8 @@ AnimMeshFrame::AnimMeshFrame(const wstring& name)
 }
 
 AnimMeshContainer::AnimMeshContainer(
-    const wstring& xFilename,
-    const wstring& meshName,
+    const std::wstring& xFilename,
+    const std::string& meshName,
     LPD3DXMESH d3dMesh,
     const D3DXMATERIAL* materials,
     const DWORD materialsCount,
@@ -56,7 +53,7 @@ AnimMeshContainer::AnimMeshContainer(
 
     NumMaterials = (std::max)(1UL, materialsCount);
     pMaterials = NEW D3DXMATERIAL[NumMaterials];
-    vector<LPDIRECT3DTEXTURE9> tempTexture(NumMaterials);
+    std::vector<LPDIRECT3DTEXTURE9> tempTexture(NumMaterials);
     m_vecTexture.swap(tempTexture);
 
     DWORD adjacencyCount { d3dMesh->GetNumFaces() * 3 };
@@ -84,7 +81,7 @@ AnimMeshContainer::AnimMeshContainer(
             if (pMaterials[i].pTextureFilename != nullptr)
             {
                 std::wstring texPath = xFileDir;
-                texPath += materials[i].pTextureFilename;
+                texPath += Common::Utf8ToWstring(materials[i].pTextureFilename);
                 LPDIRECT3DTEXTURE9 tempTexture { nullptr };
 
                 if (FAILED(D3DXCreateTextureFromFile(
@@ -110,14 +107,14 @@ AnimMeshContainer::AnimMeshContainer(
     }
 }
 
-AnimMeshAllocator::AnimMeshAllocator(const wstring& xFilename)
+AnimMeshAllocator::AnimMeshAllocator(const std::wstring& xFilename)
     : ID3DXAllocateHierarchy { },
     m_xFilename(xFilename)
 {
     // do nothing
 }
 
-STDMETHODIMP AnimMeshAllocator::CreateFrame(LPCTSTR name, LPD3DXFRAME* newFrame)
+STDMETHODIMP AnimMeshAllocator::CreateFrame(LPCSTR name, LPD3DXFRAME* newFrame)
 {
     *newFrame = NEW AnimMeshFrame { name };
     return S_OK;

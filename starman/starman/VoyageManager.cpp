@@ -465,7 +465,7 @@ void Raft2::Init(const int id)
             animSetting.m_loop = false;
             animSetMap[_T("Pull")] = animSetting;
         }
-        m_meshOarRight = NEW AnimMesh("res\\model\\oarRight.x", pos, rot, 1.f, animSetMap);
+        m_meshOarRight = NEW AnimMesh(_T("res\\model\\oarRight.x"), pos, rot, 1.f, animSetMap);
         m_meshOarRight->SetAnim(_T("Idle"));
         m_meshOarRight->SetAnimSpeed(0.5f / 60.f);
     }

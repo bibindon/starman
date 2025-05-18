@@ -5,9 +5,10 @@
 #include <cfloat>
 #include <wtsapi32.h>
 #include "resource.h"
+#include <cstdio>
 
 // リモート接続検出用
-#pragma comment(lib, _T("Wtsapi32.lib"))
+#pragma comment(lib, "Wtsapi32.lib")
 
 #if defined(_DEBUG)
 eBuildMode Common::m_buildMode = eBuildMode::Debug;
@@ -43,10 +44,10 @@ std::vector<char> Common::get_sound_resource(const std::wstring& filename)
     return std::vector<char>();
 }
 
-std::vector<std::wstring> Common::split(const std::wstring& s, char delim)
+std::vector<std::wstring> Common::split(const std::wstring& s, wchar_t delim)
 {
     std::vector<std::wstring> result;
-    std::stringstream ss(s);
+    std::wstringstream ss(s);
     std::wstring item;
 
     while (getline(ss, item, delim))
@@ -59,7 +60,7 @@ std::vector<std::wstring> Common::split(const std::wstring& s, char delim)
 
 std::wstring Common::ToStringWithPrecision(const float value, const int precision)
 {
-    std::ostringstream out;
+    std::wostringstream out;
     out << std::fixed << std::setprecision(precision) << value;
     return out.str();
 }
@@ -205,9 +206,9 @@ void Common::OutputMsg(const std::wstring& str, const int arg)
 void Common::OutputMsg(const std::wstring& str, const D3DXVECTOR3& arg)
 {
     std::wstring work;
-    work = str + _T("x: " + std::to_wstring(arg.x) + "), ";
-    work += _T("y: " + std::to_wstring(arg.y) + "), ";
-    work += _T("z: " + std::to_wstring(arg.z) + "\n");
+    work = str + _T("x: ") + std::to_wstring(arg.x) + _T("), ");
+    work += _T("y: ") + std::to_wstring(arg.y) + _T("), ");
+    work += _T("z: ") + std::to_wstring(arg.z) + _T("\n");
     OutputDebugString(work.c_str());
 }
 
@@ -389,13 +390,13 @@ std::wstring Common::LoadStringWithArg(const UINT resID, const std::wstring& arg
     LoadString(hInstance, resID, buf, 1024);
     std::wstring work(buf);
 
-    char buffer[1024];
-    std::snwprintf(buffer, sizeof(buffer), work.c_str(), arg1.c_str());
+    wchar_t buffer[1024];
+    _snwprintf_s(buffer, sizeof(buffer), sizeof(buffer), work.c_str(), arg1.c_str());
     std::wstring message(buffer);
     return message;
 }
 
-static std::wstring Common::Utf8ToWstring(const std::string& utf8)
+std::wstring Common::Utf8ToWstring(const std::string& utf8)
 {
     if (utf8.empty()) return std::wstring();
 
@@ -407,7 +408,7 @@ static std::wstring Common::Utf8ToWstring(const std::string& utf8)
     return result;
 }
 
-static std::string Common::WstringToUtf8(const std::wstring& wstr)
+std::string Common::WstringToUtf8(const std::wstring& wstr)
 {
     if (wstr.empty()) return std::string();
 

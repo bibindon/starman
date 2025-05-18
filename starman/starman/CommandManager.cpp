@@ -590,7 +590,7 @@ void CommandManager::BuildCommand()
             if (!bShowSankakuHelp)
             {
                 auto npcMgr = NSStarmanLib::NpcStatusManager::GetObj();
-                auto status = npcMgr->GetNpcStatus("shikakuman");
+                auto status = npcMgr->GetNpcStatus(_T("shikakuman"));
                 auto enable = status.GetFeatureEnable();
                 if (enable)
                 {
@@ -600,7 +600,7 @@ void CommandManager::BuildCommand()
 
                     if (_near)
                     {
-                        bool canReceive = NSStarmanLib::Help::Get()->CanReceive("shikakuman");
+                        bool canReceive = NSStarmanLib::Help::Get()->CanReceive(_T("shikakuman"));
                         if (canReceive)
                         {
                             m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
@@ -649,7 +649,7 @@ void CommandManager::BuildLangCommand()
 
     m_commandLib->RemoveAll();
     m_commandLib->UpsertCommand(_T("Japanese"), true);
-    m_commandLib->UpsertCommand("English", true);
+    m_commandLib->UpsertCommand(_T("English"), true);
     m_commandLib->UpsertCommand(_T("Back"), true);
 }
 

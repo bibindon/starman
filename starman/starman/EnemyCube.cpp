@@ -55,8 +55,8 @@ bool EnemyCube::Init()
                 m_loadingPos, m_rotate, 0.5f, animSetMap);
             SoundEffect::get_ton()->load(_T("res\\sound\\damage01.wav"));
             
-            m_spriteHP = NEW Sprite("res\\image\\hp_green.png");
-            m_spriteHPBack = NEW Sprite("res\\image\\hp_black.png");
+            m_spriteHP = NEW Sprite(_T("res\\image\\hp_green.png"));
+            m_spriteHPBack = NEW Sprite(_T("res\\image\\hp_black.png"));
 
             m_AnimMesh->SetAnim(_T("Idle"), 0.f);
             m_loaded.store(true);
@@ -155,7 +155,7 @@ void EnemyCube::Update()
             D3DXVECTOR3 subPos { attackPos - playerPos };
             FLOAT distance = D3DXVec3Length(&subPos);
             std::wstring msg;
-            msg = _T("distance: " + std::to_wstring(distance) + "\n");
+            msg = _T("distance: ") + std::to_wstring(distance) + _T("\n");
 
             if (distance <= 1.0f)
             {

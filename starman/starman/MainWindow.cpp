@@ -248,7 +248,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         D3DADAPTER_IDENTIFIER9 adapterInfo { };
         m_D3D->GetAdapterIdentifier(D3DADAPTER_DEFAULT, 0, &adapterInfo);
 
-        std::wstring GPUName = adapterInfo.Description;
+        std::wstring GPUName = Common::Utf8ToWstring(adapterInfo.Description);
         Common::SetGPUName(GPUName);
 
         // TODO フルスクリーン対応

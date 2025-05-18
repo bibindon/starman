@@ -5,6 +5,7 @@
 
 #include "StackBackTrace.h"
 #include <dbghelp.h>
+#include <tchar.h>
 
 StackBackTrace::StackBackTrace()
     : _hProcess(GetCurrentProcess())
@@ -19,13 +20,13 @@ StackBackTrace::~StackBackTrace()
     }
 }
 
-std::wstring StackBackTrace::build() const
+std::string StackBackTrace::build() const
 {
     void *symbol[sizeof(SYMBOL_INFO) + MAX_SYMBOL_NAME_LEN];
     reinterpret_cast<SYMBOL_INFO *>(symbol)->SizeOfStruct = sizeof(SYMBOL_INFO);
     reinterpret_cast<SYMBOL_INFO *>(symbol)->MaxNameLen = MAX_SYMBOL_NAME_LEN;
 
-    std::wstring result;
+    std::string result;
     void *stack[MAX_FRAMES_TO_CAPTURE];
     const WORD frames = CaptureStackBackTrace(0, MAX_FRAMES_TO_CAPTURE, stack, NULL);
     for (WORD i = 0; i < frames; i++)
@@ -37,7 +38,7 @@ std::wstring StackBackTrace::build() const
 
         char buf[1024];
         sprintf_s(buf,
-                  _T("%05d: %s - 0x%llx\n"),
+                  "%05d: %s - 0x%llx\n",
                   frames - i - 1,
                   reinterpret_cast<SYMBOL_INFO *>(symbol)->Name,
                   reinterpret_cast<SYMBOL_INFO *>(symbol)->Address);

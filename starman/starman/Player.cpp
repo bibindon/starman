@@ -104,7 +104,7 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap[_T("Arrow")] = animSetting;
     }
-    m_AnimMesh2 = NEW AnimMesh("res\\model\\hoshiman.x", pos, rot, 1.f, animSetMap);
+    m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim(_T("Idle"));
     SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
 
@@ -208,7 +208,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, D3DX_PI);
-        Mesh * mesh = NEW Mesh("res\\model\\torch.x", pos, rot, 1.f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\torch.x"), pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
         m_weaponMesh[_T("松明")] = mesh;
