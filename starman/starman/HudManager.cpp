@@ -95,14 +95,14 @@ public:
             hr = D3DXCreateFont(m_pD3DDevice,
                                 16,
                                 0,
-                                FW_THIN,
+                                FW_NORMAL,
                                 1,
                                 false,
                                 SHIFTJIS_CHARSET,
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                _T("IPA明朝"),
+                                _T("BIZ UDMincho"),
                                 &m_pFont);
         }
         else

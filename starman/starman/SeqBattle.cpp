@@ -129,7 +129,7 @@ namespace NSStorehouseLib
                                     OUT_TT_ONLY_PRECIS,
                                     CLEARTYPE_NATURAL_QUALITY,
                                     FF_DONTCARE,
-                                    _T("IPA明朝"),
+                                    _T("BIZ UDMincho"),
                                     &m_pFont);
             }
             else
@@ -349,7 +349,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                _T("IPA明朝"),
+                                _T("BIZ UDMincho"),
                                 &m_pFont);
         }
         else
