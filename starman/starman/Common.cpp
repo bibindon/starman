@@ -390,7 +390,7 @@ std::wstring Common::LoadStringWithArg(const UINT resID, const std::wstring& arg
     std::wstring work(buf);
 
     char buffer[1024];
-    std::snprintf(buffer, sizeof(buffer), work.c_str(), arg1.c_str());
+    std::snwprintf(buffer, sizeof(buffer), work.c_str(), arg1.c_str());
     std::wstring message(buffer);
     return message;
 }

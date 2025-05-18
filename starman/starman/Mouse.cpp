@@ -25,7 +25,7 @@ void Mouse::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 
     if (FAILED(ret))
     {
-        throw std::exception(_T("Failed initialize mouse"));
+        throw std::exception("Failed initialize mouse");
     }
     ret = m_DIMouse->Acquire();
 }

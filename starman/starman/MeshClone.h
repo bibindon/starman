@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include <unordered_map>
+#include <tchar.h>
 
 // 同じ3Dモデルを沢山表示したいときに使うクラス
 // 同じ3Dモデルを沢山表示したいとき、3Dモデルの読み込みは1度でよく
@@ -49,7 +50,7 @@ public:
     bool ContainMeshName(const std::wstring& arg);
 
 private:
-    const std::wstring SHADER_FILENAME { "res\\shader\\mesh_shader.fx" };
+    const std::wstring SHADER_FILENAME { _T("res\\shader\\mesh_shader.fx") };
 
     // TODO エフェクトファイルはメッシュの数だけ用意するべき
     static std::unordered_map<std::wstring, LPD3DXEFFECT> m_D3DEffectMap;

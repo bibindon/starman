@@ -484,7 +484,7 @@ void SaveManager::Load()
 
 bool SaveManager::DeleteFolderContents(const std::wstring& folderPath)
 {
-    std::wstring work;
+    std::string work;
     std::wstring searchPath = folderPath + _T("\\*");
     WIN32_FIND_DATA findFileData;
     HANDLE hFind = FindFirstFile(searchPath.c_str(), &findFileData);
@@ -499,7 +499,7 @@ bool SaveManager::DeleteFolderContents(const std::wstring& folderPath)
         std::wstring fileName = findFileData.cFileName;
 
         // スキップする項目 (_T("." と ".."))
-        if (fileName == _T("." || fileName == "..")) {
+        if (fileName == _T(".") || fileName == _T("..")) {
             continue;
         }
 
@@ -514,7 +514,7 @@ bool SaveManager::DeleteFolderContents(const std::wstring& folderPath)
             if (!RemoveDirectory(fullPath.c_str())) {
                 FindClose(hFind);
 
-                work = _T("Failed to delete directory: ") + fullPath + _T("\n");
+                work = "Failed to delete directory: " + Common::WstringToUtf8(fullPath) + "\n";
                 throw std::exception(work.c_str());
 
                 return false;
@@ -524,7 +524,7 @@ bool SaveManager::DeleteFolderContents(const std::wstring& folderPath)
             if (!DeleteFile(fullPath.c_str())) {
                 FindClose(hFind);
 
-                work = _T("Failed to delete file: ") + fullPath + _T("\n");
+                work = "Failed to delete file: " + Common::WstringToUtf8(fullPath) + "\n";
                 throw std::exception(work.c_str());
 
                 return false;
@@ -545,7 +545,7 @@ bool SaveManager::DeleteFolder(const std::wstring& folderPath)
 
     if (!RemoveDirectory(folderPath.c_str()))
     {
-        std::wstring work = _T("Failed to delete folder: ") + folderPath + _T("\n");
+        std::string work = "Failed to delete folder: " + Common::WstringToUtf8(folderPath) + "\n";
         throw std::exception(work.c_str());
         return false;
     }

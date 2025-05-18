@@ -21,6 +21,7 @@
 #include <cassert>
 #include "resource.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
+#include <cstdio>
 
 namespace NSMenulib
 {
@@ -50,11 +51,11 @@ public:
             static_cast<LONG>(m_width),
             static_cast<LONG>(m_height) };
         D3DXVECTOR3 center { 0, 0, 0 };
-		m_D3DSprite->Draw(m_texMap.at(m_filepath),
-			              &rect,
-			              &center,
-			              &pos,
-			              D3DCOLOR_ARGB(transparency, 255, 255, 255));
+        m_D3DSprite->Draw(m_texMap.at(m_filepath),
+                          &rect,
+                          &center,
+                          &pos,
+                          D3DCOLOR_ARGB(transparency, 255, 255, 255));
 
         m_D3DSprite->End();
 
@@ -67,7 +68,7 @@ public:
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
             {
-                throw std::exception(_T("Failed to create a sprite."));
+                throw std::exception("Failed to create a sprite.");
             }
         }
 
@@ -81,7 +82,7 @@ public:
             D3DSURFACE_DESC desc { };
             if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
             {
-                throw std::exception(_T("Failed to create a texture."));
+                throw std::exception("Failed to create a texture.");
             }
             m_width = desc.Width;
             m_height = desc.Height;
@@ -94,8 +95,8 @@ public:
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
         {
-            std::wstring work;
-            work = _T("Failed to create a texture. HRESULT: ") + std::to_wstring(hr);
+            std::string work;
+            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
             throw std::exception(work.c_str());
         }
 
@@ -105,7 +106,7 @@ public:
         D3DSURFACE_DESC desc { };
         if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception(_T("Failed to create a texture."));
+            throw std::exception("Failed to create a texture.");
         }
         m_width = desc.Width;
         m_height = desc.Height;
@@ -917,432 +918,432 @@ std::wstring MenuManager::OperateMenu()
 
     // ステータス画面の表示内容を更新
     {
-		std::vector<NSMenulib::StatusInfo> infoList;
+        std::vector<NSMenulib::StatusInfo> infoList;
 
         // ホシマン
         {
 
-			NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
+            NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
 
-			NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
-			std::wstring weaponName;
+            NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
+            std::wstring weaponName;
 
-			if (itemInfo.GetId() != -1)
-			{
-				NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-				NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
-				weaponName = itemDef.GetName();
-			}
+            if (itemInfo.GetId() != -1)
+            {
+                NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
+                NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
+                weaponName = itemDef.GetName();
+            }
 
-			// 状態異常リスト
-			std::wstring condition;
-			{
-				if (statusManager->GetFractureArm())
-				{
-					condition += Common::LoadString_(IDS_STRING155)+ _T("/");
-				}
+            // 状態異常リスト
+            std::wstring condition;
+            {
+                if (statusManager->GetFractureArm())
+                {
+                    condition += Common::LoadString_(IDS_STRING155)+ _T("/");
+                }
 
-				if (statusManager->GetFractureLeg())
-				{
-					condition += Common::LoadString_(IDS_STRING156)+ _T("/");
-				}
+                if (statusManager->GetFractureLeg())
+                {
+                    condition += Common::LoadString_(IDS_STRING156)+ _T("/");
+                }
 
-				if (statusManager->GetHeadache())
-				{
-					condition += Common::LoadString_(IDS_STRING157)+ _T("/");
-				}
+                if (statusManager->GetHeadache())
+                {
+                    condition += Common::LoadString_(IDS_STRING157)+ _T("/");
+                }
 
-				if (statusManager->GetCold())
-				{
-					condition += Common::LoadString_(IDS_STRING158)+ _T("/");
-				}
+                if (statusManager->GetCold())
+                {
+                    condition += Common::LoadString_(IDS_STRING158)+ _T("/");
+                }
 
-				if (statusManager->GetStomachache())
-				{
-					condition += Common::LoadString_(IDS_STRING159)+ _T("/");
-				}
+                if (statusManager->GetStomachache())
+                {
+                    condition += Common::LoadString_(IDS_STRING159)+ _T("/");
+                }
 
-				if (statusManager->GetSleep())
-				{
-					condition += Common::LoadString_(IDS_STRING160)+ _T("/");
-				}
+                if (statusManager->GetSleep())
+                {
+                    condition += Common::LoadString_(IDS_STRING160)+ _T("/");
+                }
 
-				if (statusManager->GetDehydration())
-				{
-					condition += Common::LoadString_(IDS_STRING161)+ _T("/");
-				}
+                if (statusManager->GetDehydration())
+                {
+                    condition += Common::LoadString_(IDS_STRING161)+ _T("/");
+                }
 
-				if (statusManager->GetLackOfSleep())
-				{
-					condition += Common::LoadString_(IDS_STRING162)+ _T("/");
-				}
+                if (statusManager->GetLackOfSleep())
+                {
+                    condition += Common::LoadString_(IDS_STRING162)+ _T("/");
+                }
 
-				if (statusManager->GetDead())
-				{
-					condition += Common::LoadString_(IDS_STRING163)+ _T("/");
-				}
+                if (statusManager->GetDead())
+                {
+                    condition += Common::LoadString_(IDS_STRING163)+ _T("/");
+                }
 
-				if (condition.empty() == false)
-				{
-					condition.pop_back();
-				}
-			}
+                if (condition.empty() == false)
+                {
+                    condition.pop_back();
+                }
+            }
 
-			NSMenulib::StatusInfo info;
-			info.SetName(Common::LoadString_(IDS_STRING211));
+            NSMenulib::StatusInfo info;
+            info.SetName(Common::LoadString_(IDS_STRING211));
 
-			NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-			sprItem->Load("res\\image\\hoshiman00.png");
-			info.SetSprite(sprItem);
+            NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+            sprItem->Load(_T("res\\image\\hoshiman00.png"));
+            info.SetSprite(sprItem);
 
-			char buf[1024];
-			std::wstring work;
-			work =  Common::LoadString_(IDS_STRING210) + _T("\n");
+            wchar_t buf[1024];
+            std::wstring work;
+            work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING146).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + _T("/");
-			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + _T("/");
-			work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING146).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + _T("/");
+            work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + _T("/");
+            work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING147).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + _T("/");
-			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + _T("/");
-			work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING147).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + _T("/");
+            work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + _T("/");
+            work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING209).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + _T("/-/-\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING209).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + _T("/-/-\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING149).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + _T("/-/");
-			work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING149).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + _T("/-/");
+            work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + _T("/-/");
-			work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + _T("/-/");
+            work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + _T("/-/");
-			work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + _T("/-/");
+            work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + _T("/-/");
-			work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + _T("/-/");
+            work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + _T("/-/");
-			work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + _T("/-/");
+            work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + _T("/-/");
-			work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + _T("/-/");
+            work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + _T("/-/");
-			work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + _T("\n");
-	//        work += _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + _T("/-/");
+            work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + _T("\n");
+    //        work += _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING213).c_str());
-			work += buf;
-			work += condition;
-			work += _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING213).c_str());
+            work += buf;
+            work += condition;
+            work += _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING214).c_str());
-			work += buf;
-			work += weaponName;
-			work += _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING214).c_str());
+            work += buf;
+            work += weaponName;
+            work += _T("\n");
 
-			snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING215).c_str());
-			work += buf;
-			work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + _T("\n");
+            _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING215).c_str());
+            work += buf;
+            work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + _T("\n");
 
-			auto rynen = NSStarmanLib::Rynen::GetObj();
-			if (rynen->GetContracted())
-			{
-				work += _T("ワードブレス   ");
+            auto rynen = NSStarmanLib::Rynen::GetObj();
+            if (rynen->GetContracted())
+            {
+                work += _T("ワードブレス   ");
 
-				if (rynen->GetReviveEnable())
-				{
-					work += _T("復活可能\n");
-				}
-				else
-				{
-					work += _T("復活済み\n");
-				}
-			}
+                if (rynen->GetReviveEnable())
+                {
+                    work += _T("復活可能\n");
+                }
+                else
+                {
+                    work += _T("復活済み\n");
+                }
+            }
 
-			info.SetDetail(work);
-			infoList.push_back(info);
+            info.SetDetail(work);
+            infoList.push_back(info);
         }
 
-		//----------------------------------------------------
-		// イカダのステータス
-		//----------------------------------------------------
-		{
-			if (SharedObj::Voyage()->GetRaftMode())
-			{
-				// イカダは複数個持つことができるが、ステータスに表示するのは乗船中のイカダだけ
-				// ・耐久度
-				// ・強化値
-				NSMenulib::StatusInfo info;
-				info.SetName(_T("イカダ"));
-				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-				sprItem->Load(_T("res\\image\\raft.png"));
-				info.SetSprite(sprItem);
-				std::wstring work;
-				work += _T("現在の耐久値\n");
-				work += std::to_wstring(SharedObj::Voyage()->GetRaftDurability()) + _T("\n");
-				work += _T("現在の強化値\n");
-				work += std::to_wstring(SharedObj::Voyage()->GetRaftLevel()) + _T("\n");
+        //----------------------------------------------------
+        // イカダのステータス
+        //----------------------------------------------------
+        {
+            if (SharedObj::Voyage()->GetRaftMode())
+            {
+                // イカダは複数個持つことができるが、ステータスに表示するのは乗船中のイカダだけ
+                // ・耐久度
+                // ・強化値
+                NSMenulib::StatusInfo info;
+                info.SetName(_T("イカダ"));
+                NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                sprItem->Load(_T("res\\image\\raft.png"));
+                info.SetSprite(sprItem);
+                std::wstring work;
+                work += _T("現在の耐久値\n");
+                work += std::to_wstring(SharedObj::Voyage()->GetRaftDurability()) + _T("\n");
+                work += _T("現在の強化値\n");
+                work += std::to_wstring(SharedObj::Voyage()->GetRaftLevel()) + _T("\n");
 
-				info.SetDetail(work);
-				infoList.push_back(info);
-			}
-		}
+                info.SetDetail(work);
+                infoList.push_back(info);
+            }
+        }
 
         // ダイケイマン
         {
-			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
+            auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
             auto status = npcStatusMgr->GetNpcStatus(_T("daikeiman"));
             if (status.GetMenuShow())
             {
-				NSMenulib::StatusInfo info;
-				info.SetName(Common::LoadString_(IDS_STRING121));
+                NSMenulib::StatusInfo info;
+                info.SetName(Common::LoadString_(IDS_STRING121));
 
-				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-				sprItem->Load(_T("res\\image\\daikeiman00.png"));
-				info.SetSprite(sprItem);
+                NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                sprItem->Load(_T("res\\image\\daikeiman00.png"));
+                info.SetSprite(sprItem);
 
-				char buf[1024];
-				std::wstring work;
-				work =  Common::LoadString_(IDS_STRING210) + _T("\n");
+                wchar_t buf[1024];
+                std::wstring work;
+                work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
-		        work += _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                work += _T("\n");
 
-				if (status.GetRynenContract())
-				{
-					work += _T("ワードブレス   ");
+                if (status.GetRynenContract())
+                {
+                    work += _T("ワードブレス   ");
 
-					if (status.GetDrinkWordbress())
-					{
-						work += _T("使用済み\n");
-					}
-					else
-					{
-						work += _T("未使用\n");
-					}
-				}
+                    if (status.GetDrinkWordbress())
+                    {
+                        work += _T("使用済み\n");
+                    }
+                    else
+                    {
+                        work += _T("未使用\n");
+                    }
+                }
 
                 if (status.GetDead())
                 {
                     work += _T("死亡\n");
                 }
-				else
+                else
                 {
-					work += _T("生存\n");
-				}
+                    work += _T("生存\n");
+                }
 
-				info.SetDetail(work);
-				infoList.push_back(info);
+                info.SetDetail(work);
+                infoList.push_back(info);
             }
         }
 
         // サンカクマン
         {
-			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
+            auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
             auto status = npcStatusMgr->GetNpcStatus(_T("sankakuman"));
             if (status.GetMenuShow())
             {
-				NSMenulib::StatusInfo info;
-				info.SetName(Common::LoadString_(IDS_STRING112));
+                NSMenulib::StatusInfo info;
+                info.SetName(Common::LoadString_(IDS_STRING112));
 
-				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-				sprItem->Load(_T("res\\image\\sankakuman00.png"));
-				info.SetSprite(sprItem);
+                NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                sprItem->Load(_T("res\\image\\sankakuman00.png"));
+                info.SetSprite(sprItem);
 
-				char buf[1024];
-				std::wstring work;
-				work =  Common::LoadString_(IDS_STRING210) + _T("\n");
+                wchar_t buf[1024];
+                std::wstring work;
+                work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
-		        work += _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                work += _T("\n");
 
-				if (status.GetRynenContract())
-				{
-					work += _T("ワードブレス   ");
+                if (status.GetRynenContract())
+                {
+                    work += _T("ワードブレス   ");
 
-					if (status.GetDrinkWordbress())
-					{
-						work += _T("使用済み\n");
-					}
-					else
-					{
-						work += _T("未使用\n");
-					}
-				}
+                    if (status.GetDrinkWordbress())
+                    {
+                        work += _T("使用済み\n");
+                    }
+                    else
+                    {
+                        work += _T("未使用\n");
+                    }
+                }
 
                 if (status.GetDead())
                 {
                     work += _T("死亡\n");
                 }
-				else
+                else
                 {
-					work += _T("生存\n");
-				}
+                    work += _T("生存\n");
+                }
 
 
-				info.SetDetail(work);
-				infoList.push_back(info);
+                info.SetDetail(work);
+                infoList.push_back(info);
             }
         }
 
         // シカクマン
         {
-			auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
+            auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
-            auto status = npcStatusMgr->GetNpcStatus("shikakuman");
+            auto status = npcStatusMgr->GetNpcStatus(_T("shikakuman"));
             if (status.GetMenuShow())
             {
-				NSMenulib::StatusInfo info;
-				info.SetName(Common::LoadString_(IDS_STRING112));
+                NSMenulib::StatusInfo info;
+                info.SetName(Common::LoadString_(IDS_STRING112));
 
-				NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-				sprItem->Load("res\\image\\shikakuman00.png");
-				info.SetSprite(sprItem);
+                NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
+                sprItem->Load(_T("res\\image\\shikakuman00.png"));
+                info.SetSprite(sprItem);
 
-				char buf[1024];
-				std::wstring work;
-				work =  Common::LoadString_(IDS_STRING210) + _T("\n");
+                wchar_t buf[1024];
+                std::wstring work;
+                work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-				snprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
-				work += buf;
-				work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
-				work += Common::ToStringWithPrecision(100, 2) + _T("\n");
-		        work += _T("\n");
+                _snwprintf(buf, sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
+                work += Common::ToStringWithPrecision(100, 2) + _T("\n");
+                work += _T("\n");
 
-				if (status.GetRynenContract())
-				{
-					work += _T("ワードブレス   ");
+                if (status.GetRynenContract())
+                {
+                    work += _T("ワードブレス   ");
 
-					if (status.GetDrinkWordbress())
-					{
-						work += _T("使用済み\n");
-					}
-					else
-					{
-						work += _T("未使用\n");
-					}
-				}
+                    if (status.GetDrinkWordbress())
+                    {
+                        work += _T("使用済み\n");
+                    }
+                    else
+                    {
+                        work += _T("未使用\n");
+                    }
+                }
 
                 if (status.GetDead())
                 {
                     work += _T("死亡\n");
                 }
-				else
+                else
                 {
-					work += _T("生存\n");
-				}
+                    work += _T("生存\n");
+                }
 
 
-				info.SetDetail(work);
-				infoList.push_back(info);
+                info.SetDetail(work);
+                infoList.push_back(info);
             }
         }
 
-		m_menu.SetStatus(infoList);
+        m_menu.SetStatus(infoList);
     }
     return result;
 }

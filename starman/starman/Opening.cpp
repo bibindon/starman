@@ -47,7 +47,7 @@ public:
         LPD3DXSPRITE tempSprite { nullptr };
         if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
         {
-            throw std::exception(_T("Failed to create a sprite."));
+            throw std::exception("Failed to create a sprite.");
         }
 
         if (FAILED(D3DXCreateTextureFromFile(
@@ -55,13 +55,13 @@ public:
             filepath.c_str(),
             &m_pD3DTexture)))
         {
-            throw std::exception(_T("Failed to create a texture."));
+            throw std::exception("Failed to create a texture.");
         }
 
         D3DSURFACE_DESC desc { };
         if (FAILED(m_pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception(_T("Failed to create a texture."));
+            throw std::exception("Failed to create a texture.");
         }
         m_width = desc.Width;
         m_height = desc.Height;

@@ -58,7 +58,7 @@ public:
         {
             if (FAILED(D3DXCreateSprite(m_pD3DDevice, &m_D3DSprite)))
             {
-                throw std::exception(_T("Failed to create a sprite."));
+                throw std::exception("Failed to create a sprite.");
             }
         }
 
@@ -72,7 +72,7 @@ public:
             D3DSURFACE_DESC desc { };
             if (FAILED(m_texMap.at(m_filepath)->GetLevelDesc(0, &desc)))
             {
-                throw std::exception(_T("Failed to create a texture."));
+                throw std::exception("Failed to create a texture.");
             }
             m_width = desc.Width;
             m_height = desc.Height;
@@ -85,8 +85,8 @@ public:
         HRESULT hr = D3DXCreateTextureFromFile(m_pD3DDevice, filepath.c_str(), &pD3DTexture);
         if (FAILED(hr))
         {
-            std::wstring work;
-            work = _T("Failed to create a texture. HRESULT: ") + std::to_wstring(hr);
+            std::string work;
+            work = "Failed to create a texture. HRESULT: " + std::to_string(hr);
             throw std::exception(work.c_str());
         }
 
@@ -96,7 +96,7 @@ public:
         D3DSURFACE_DESC desc { };
         if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
-            throw std::exception(_T("Failed to create a texture."));
+            throw std::exception("Failed to create a texture.");
         }
         m_width = desc.Width;
         m_height = desc.Height;

@@ -7,9 +7,6 @@
 #include "Rain.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
 
-using std::wstring;
-using std::vector;
-
 std::unordered_map<std::wstring, LPD3DXEFFECT> MeshClone::m_D3DEffectMap;
 std::unordered_map<std::wstring, LPD3DXMESH> MeshClone::m_D3DMeshMap;
 std::unordered_map<std::wstring, std::vector<LPDIRECT3DTEXTURE9>> MeshClone::m_vecTextureMap;
@@ -18,7 +15,7 @@ std::unordered_map<std::wstring, std::vector<D3DXVECTOR4>> MeshClone::m_vecColor
 std::unordered_map<std::wstring, bool> MeshClone::m_bFirstMap;
 
 MeshClone::MeshClone(
-    const string& xFilename,
+    const std::wstring& xFilename,
     const D3DXVECTOR3& position,
     const D3DXVECTOR3& rotation,
     const float scale,
@@ -60,7 +57,7 @@ MeshClone::~MeshClone()
         if (m_meshName.find(_T("tree1.x")) != std::wstring::npos)
         {
             std::wstring work;
-            work = _T("m_vecTextureMap.at(") + m_meshName + _T(") ref count: " + std::to_wstring(ulong) + "\n");
+            work = _T("m_vecTextureMap.at(") + m_meshName + _T(") ref count: ") + std::to_wstring(ulong) + _T("\n");
             OutputDebugString(work.c_str());
         }
     }
@@ -87,7 +84,7 @@ void MeshClone::Init()
 
         if (FAILED(result))
         {
-            throw std::exception(_T("Failed to create an effect file."));
+            throw std::exception("Failed to create an effect file.");
         }
 
         m_D3DEffectMap[m_meshName] = _D3DEffect;;
@@ -129,7 +126,7 @@ void MeshClone::Init()
 
         if (FAILED(result))
         {
-            throw std::exception(_T("Failed to load a x-file."));
+            throw std::exception("Failed to load a x-file.");
         }
 
         m_materialCountMap[m_meshName] = materialCount;
@@ -195,7 +192,7 @@ void MeshClone::Init()
 
         if (FAILED(result))
         {
-            throw std::exception(_T("Failed 'D3DXComputeNormals' function."));
+            throw std::exception("Failed 'D3DXComputeNormals' function.");
         }
 
         result = tempMesh->OptimizeInplace(
@@ -211,11 +208,11 @@ void MeshClone::Init()
 
         if (FAILED(result))
         {
-            throw std::exception(_T("Failed 'OptimizeInplace' function."));
+            throw std::exception("Failed 'OptimizeInplace' function.");
         }
 
         m_vecColorMap[m_meshName].insert(begin(m_vecColorMap[m_meshName]), materialCount, D3DXVECTOR4 { });
-        vector<LPDIRECT3DTEXTURE9> tempVecTexture { materialCount };
+        std::vector<LPDIRECT3DTEXTURE9> tempVecTexture { materialCount };
         m_vecTextureMap[m_meshName].swap(tempVecTexture);
 
         D3DXMATERIAL* materials { static_cast<D3DXMATERIAL*>(materialBuffer->GetBufferPointer()) };
@@ -233,14 +230,14 @@ void MeshClone::Init()
             if (materials[i].pTextureFilename != nullptr)
             {
                 std::wstring texPath = xFileDir;
-                texPath += materials[i].pTextureFilename;
+                texPath += Common::Utf8ToWstring(materials[i].pTextureFilename);
                 LPDIRECT3DTEXTURE9 tempTexture { nullptr };
                 if (FAILED(D3DXCreateTextureFromFile(
                     SharedObj::GetD3DDevice(),
                     texPath.c_str(),
                     &tempTexture)))
                 {
-                    throw std::exception(_T("texture file is not found."));
+                    throw std::exception("texture file is not found.");
                 }
                 else
                 {
@@ -379,7 +376,7 @@ void MeshClone::Render()
             worldViewProjMatrix *= SharedObj::GetRightHandMat();
         }
     }
-    m_D3DEffectMap.at(m_meshName)->SetMatrix(_T("g_world"), &worldViewProjMatrix);
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world", &worldViewProjMatrix);
 //    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
 
     D3DXVECTOR4 vec4Color = {
@@ -389,12 +386,12 @@ void MeshClone::Render()
         0.f
     };
 
-    m_D3DEffectMap.at(m_meshName)->SetVector(_T("g_cameraPos"), &vec4Color);
+    m_D3DEffectMap.at(m_meshName)->SetVector("g_cameraPos", &vec4Color);
 
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
-    m_D3DEffectMap.at(m_meshName)->SetMatrix(_T("g_world_view_projection"), &worldViewProjMatrix);
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
 
     //--------------------------------------------------------
     // 雨だったら霧を濃くする
@@ -410,7 +407,7 @@ void MeshClone::Render()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
             assert(hResult == S_OK);
@@ -426,14 +423,14 @@ void MeshClone::Render()
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
             assert(hResult == S_OK);
         }
     }
 
-    hResult = m_D3DEffectMap.at(m_meshName)->SetVector(_T("fog_color"), &fog_color);
+    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("fog_color", &fog_color);
     assert(hResult == S_OK);
 
     m_D3DEffectMap.at(m_meshName)->Begin(nullptr, 0);
@@ -442,7 +439,7 @@ void MeshClone::Render()
     if (FAILED(result = m_D3DEffectMap.at(m_meshName)->BeginPass(0)))
     {
         m_D3DEffectMap.at(m_meshName)->End();
-        throw std::exception(_T("Failed 'BeginPass' function."));
+        throw std::exception("Failed 'BeginPass' function.");
     }
 
     // マテリアルが二つ以上あることなんてあるのか？
@@ -459,7 +456,7 @@ void MeshClone::Render()
     {
         m_bFirstMap.at(m_meshName) = true;
 
-        m_D3DEffectMap.at(m_meshName)->SetVector(_T("g_diffuse"), &m_vecColorMap[m_meshName].at(0));
+        m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
 
         // TODO テクスチャなしにしたほうが良いかも
         m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
@@ -480,7 +477,7 @@ void MeshClone::Begin()
     if (FAILED(result = m_D3DEffectMap.at(m_meshName)->BeginPass(0)))
     {
         m_D3DEffectMap.at(m_meshName)->End();
-        throw std::exception(_T("Failed 'BeginPass' function."));
+        throw std::exception("Failed 'BeginPass' function.");
     }
 
     //--------------------------------------------------------
@@ -528,7 +525,7 @@ void MeshClone::Begin()
         0.f
     };
 
-    m_D3DEffectMap.at(m_meshName)->SetVector(_T("g_cameraPos"), &vec4Color);
+    m_D3DEffectMap.at(m_meshName)->SetVector("g_cameraPos", &vec4Color);
 
     //--------------------------------------------------------
     // 雨だったら霧を濃くする
@@ -544,7 +541,7 @@ void MeshClone::Begin()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
             assert(hResult == S_OK);
@@ -560,21 +557,21 @@ void MeshClone::Begin()
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == "res\\shader\\mesh_shader.fx")
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
             assert(hResult == S_OK);
         }
     }
 
-    hResult = m_D3DEffectMap.at(m_meshName)->SetVector(_T("fog_color"), &fog_color);
+    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("fog_color", &fog_color);
     assert(hResult == S_OK);
 
     if (!m_bFirstMap.at(m_meshName))
     {
         m_bFirstMap.at(m_meshName) = true;
 
-        m_D3DEffectMap.at(m_meshName)->SetVector(_T("g_diffuse"), &m_vecColorMap[m_meshName].at(0));
+        m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
 
         // TODO テクスチャなしにしたほうが良いかも
         m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
@@ -640,13 +637,13 @@ void MeshClone::Render2()
             worldViewProjMatrix *= SharedObj::GetRightHandMat();
         }
     }
-    m_D3DEffectMap.at(m_meshName)->SetMatrix(_T("g_world"), &worldViewProjMatrix);
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world", &worldViewProjMatrix);
 //    m_D3DEffect->SetMatrix("g_light_pos", &worldViewProjMatrix);
 
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
-    m_D3DEffectMap.at(m_meshName)->SetMatrix(_T("g_world_view_projection"), &worldViewProjMatrix);
+    m_D3DEffectMap.at(m_meshName)->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
 
     m_D3DEffectMap.at(m_meshName)->CommitChanges();
     m_D3DMeshMap[m_meshName]->DrawSubset(0);

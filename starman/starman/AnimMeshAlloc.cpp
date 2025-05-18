@@ -92,7 +92,7 @@ AnimMeshContainer::AnimMeshContainer(
                     texPath.c_str(),
                     &tempTexture)))
                 {
-                    throw std::exception(_T("texture file is not found."));
+                    throw std::exception("texture file is not found.");
                 }
                 else
                 {
