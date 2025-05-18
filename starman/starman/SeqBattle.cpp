@@ -127,9 +127,9 @@ namespace NSStorehouseLib
                                     false,
                                     SHIFTJIS_CHARSET,
                                     OUT_TT_ONLY_PRECIS,
-                                    ANTIALIASED_QUALITY,
+                                    CLEARTYPE_NATURAL_QUALITY,
                                     FF_DONTCARE,
-                                    _T("ＭＳ 明朝"),
+                                    _T("Shippori Mincho"),
                                     &m_pFont);
             }
             else
@@ -340,16 +340,16 @@ public:
         if (!bEnglish)
         {
             hr = D3DXCreateFont(m_pD3DDevice,
-                                24,
+                                36,
                                 0,
                                 FW_NORMAL,
                                 1,
                                 false,
                                 SHIFTJIS_CHARSET,
                                 OUT_TT_ONLY_PRECIS,
-                                ANTIALIASED_QUALITY,
+                                CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                _T("ＭＳ 明朝"),
+                                _T("Shippori Mincho"),
                                 &m_pFont);
         }
         else

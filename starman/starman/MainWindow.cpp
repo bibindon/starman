@@ -335,6 +335,12 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         assert(hResult == S_OK);
     }
 
+
+    {
+        // 一時的にシステムにフォントを登録
+        AddFontResourceEx(_T("res\\font\\ShipporiMincho-Regular.ttf"), FR_PRIVATE, nullptr);
+    }
+
     //-------------------------------------------------
     // キーボード、マウス、ゲームパッド、サウンドの初期化
     //-------------------------------------------------
