@@ -1000,69 +1000,69 @@ std::wstring MenuManager::OperateMenu()
             std::wstring work;
             work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING146).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING146).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaCurrent(), 2) + _T("/");
             work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMaxSub(), 2) + _T("/");
             work += Common::ToStringWithPrecision(statusManager->GetBodyStaminaMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING147).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING147).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaCurrent(), 2) + _T("/");
             work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMaxSub(), 2) + _T("/");
             work += Common::ToStringWithPrecision(statusManager->GetBrainStaminaMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING209).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING209).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetExplosivePower(), 2) + _T("/-/-\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING149).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING149).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetMuscleCurrent(), 2) + _T("/-/");
             work += Common::ToStringWithPrecision(statusManager->GetMuscleMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetCarboCurrent(), 2) + _T("/-/");
             work += Common::ToStringWithPrecision(statusManager->GetCarboMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetProteinCurrent(), 2) + _T("/-/");
             work += Common::ToStringWithPrecision(statusManager->GetProteinMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetLipidCurrent(), 2) + _T("/-/");
             work += Common::ToStringWithPrecision(statusManager->GetLipidMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetVitaminCurrent(), 2) + _T("/-/");
             work += Common::ToStringWithPrecision(statusManager->GetVitaminMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetMineralCurrent(), 2) + _T("/-/");
             work += Common::ToStringWithPrecision(statusManager->GetMineralMax(), 2) + _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetWaterCurrent(), 2) + _T("/-/");
             work += Common::ToStringWithPrecision(statusManager->GetWaterMax(), 2) + _T("\n");
     //        work += _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING213).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING213).c_str());
             work += buf;
             work += condition;
             work += _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING214).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING214).c_str());
             work += buf;
             work += weaponName;
             work += _T("\n");
 
-            _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING215).c_str());
+            _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING215).c_str());
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + _T("\n");
 
@@ -1128,32 +1128,32 @@ std::wstring MenuManager::OperateMenu()
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
@@ -1205,32 +1205,32 @@ std::wstring MenuManager::OperateMenu()
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
@@ -1283,32 +1283,32 @@ std::wstring MenuManager::OperateMenu()
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING150).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetCarbo(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING151).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetProtein(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING152).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetLipid(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING153).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetVitamin(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING154).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetMineral(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
 
-                _snwprintf_s(buf, sizeof(buf), sizeof(buf), _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%-20s"), Common::LoadString_(IDS_STRING148).c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision(status.GetWater(), 2) + _T("/-/");
                 work += Common::ToStringWithPrecision(100, 2) + _T("\n");
