@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include "HeaderOnlyCsv.hpp"
 #include <algorithm>
+#include <cmath>
 
 //---------------------------------------------------------------------------------
 // prolitan.xを読み込み、木や石の配置データと敵の配置データをcsvで作成する。
@@ -24,28 +25,7 @@
 // - 同じ種類のモンスターや同じ種類のオブジェクトがまとまって配置されるようにする
 //---------------------------------------------------------------------------------
 
-//---------------------------------------------------------------------------------
-// 座標構造体
-//---------------------------------------------------------------------------------
-struct stPos;
-
-//---------------------------------------------------------------------------------
-// 分割関数
-//---------------------------------------------------------------------------------
-std::vector<std::string> split(const std::string& input, char delimiter);
-
-//---------------------------------------------------------------------------------
-// 読み込み関数
-//---------------------------------------------------------------------------------
-std::vector<stPos> ReadX(const std::string& xPath);
-
-//---------------------------------------------------------------------------------
-// 割り当て関数
-//---------------------------------------------------------------------------------
-void AssignContent(const std::vector<stPos>& posList,
-                   std::vector<stPos>* mapObjList,
-                   std::vector<stPos>* enemyList);
-
+// TODO こちらを使うように修正
 // 確率 (0% ~ 100%)
 
 const int MapObj1 = 1;
@@ -67,19 +47,22 @@ const int Enemy5 = 1;
 const int Enemy6 = 1;
 
 //---------------------------------------------------------------------------------
-// main関数
+// 座標構造体
 //---------------------------------------------------------------------------------
-int main(int argc, char* argv[])
-{
-    auto posList = ReadX(argv[1]);
+struct stPos;
 
-    std::vector<stPos> mapObjList;
-    std::vector<stPos> enemyList;
+//---------------------------------------------------------------------------------
+// 分割関数
+//---------------------------------------------------------------------------------
+std::vector<std::string> split(const std::string& input, char delimiter);
 
-    AssignContent(posList, &mapObjList, &enemyList);
+// 2点間の距離
+float distance(const float& x1, const float& z1, const float& x2, const float& z2);
 
-    return 0;
-}
+//---------------------------------------------------------------------------------
+// 読み込み関数
+//---------------------------------------------------------------------------------
+std::vector<stPos> ReadX(const std::string& xPath);
 
 struct stPos
 {
@@ -121,6 +104,54 @@ struct stPos
     }
 };
 
+
+// マップオブジェクト情報
+struct stMapObj
+{
+    stPos m_pos;
+
+    int m_id = 0;
+
+    // 表示倍率
+    int m_scale = 1;
+};
+
+// 敵情報
+struct stEnemyInfo
+{
+    stPos m_pos;
+
+    int m_id = 0;
+    std::string m_name;
+    int m_HP = 100;
+};
+
+//---------------------------------------------------------------------------------
+// 割り当て関数
+//---------------------------------------------------------------------------------
+void AssignContent(const std::vector<stPos>& posList,
+                   std::vector<stMapObj>* mapObjList,
+                   std::vector<stEnemyInfo>* enemyList);
+
+void WriteToCsv(const std::vector<stMapObj>& mapObjList, std::vector<stEnemyInfo>& enemyList);
+
+//---------------------------------------------------------------------------------
+// main関数
+//---------------------------------------------------------------------------------
+int main(int argc, char* argv[])
+{
+    auto posList = ReadX(argv[1]);
+
+    std::vector<stMapObj> mapObjList;
+    std::vector<stEnemyInfo> enemyList;
+
+    AssignContent(posList, &mapObjList, &enemyList);
+
+    WriteToCsv(mapObjList, enemyList);
+
+    return 0;
+}
+
 std::vector<std::string> split(const std::string& input, char delimiter)
 {
     std::vector<std::string> result;
@@ -143,6 +174,13 @@ std::vector<std::string> split(const std::string& input, char delimiter)
     result.push_back(current);
 
     return result;
+}
+
+float distance(const float& x1, const float& z1, const float& x2, const float& z2)
+{
+    float dx = x2 - x1;
+    float dz = z2 - z1;
+    return std::sqrt(dx * dx + dz * dz);
 }
 
 std::vector<stPos> ReadX(const std::string& xPath)
@@ -209,7 +247,7 @@ std::vector<stPos> ReadX(const std::string& xPath)
         std::string line = vertexLine.at(i);
         line.pop_back();
         auto vs = split(line, ';');
-        stPos _stPos;
+        stPos _stPos { };
         _stPos.x = std::stof(vs.at(0));
         _stPos.y = std::stof(vs.at(2));
         _stPos.z = std::stof(vs.at(1));
@@ -223,15 +261,12 @@ std::vector<stPos> ReadX(const std::string& xPath)
     return posList;
 }
 
-struct stMapObj
+struct stMapDef
 {
-    std::string m_id;
+    int m_id;
 
     // このエリアには必ず現れてほしい、という位置情報
     std::vector<stPos> m_mustAreaList;
-
-    // このエリアにだけ現れてほしい、という区分情報
-    std::vector<stPos> m_onlyAreaList;
 
     // どこにでも現れるオブジェクトか否か
     bool m_bCommon = true;
@@ -243,12 +278,12 @@ struct stMapObj
     int m_scale = 1;
 };
 
-struct stEnemy
+struct stEnemyDef
 {
-    std::string m_id;
+    int m_id;
     std::string m_name;
 
-    // このエリアには必ず現れてほしい、という区分情報
+    // このエリアには必ず現れてほしい、という位置情報
     std::vector<stPos> m_mustAreaList;
 
     // どこにでも現れる敵か否か
@@ -257,12 +292,12 @@ struct stEnemy
     // 出現確率 0.0f ~ 100.0f 小数点以下1桁まで
     float m_rate = 0.f;
 
-    int HP = 100;
+    int m_HP = 100;
 };
 
 void AssignContent(const std::vector<stPos>& posList,
-                   std::vector<stPos>* mapObjList,
-                   std::vector<stPos>* enemyList)
+                   std::vector<stMapObj>* mapObjList,
+                   std::vector<stEnemyInfo>* enemyList)
 {
     // 「このエリアにはこのモンスター」・・・というのがある。
     // 同様に「このエリアにはこの植物」・・・というのがある。
@@ -275,13 +310,13 @@ void AssignContent(const std::vector<stPos>& posList,
     //
     // 70％の確率でCommonの中から一つ、30％の確率でUniqueから1つというようにする？
 
-    std::vector<stMapObj> mapInfoList;
+    std::vector<stMapDef> mapInfoList;
 
     //---------------------------------------------------------
     // 木
     //---------------------------------------------------------
     {
-        stMapObj obj;
+        stMapDef obj;
         obj.m_id = 1;
         obj.m_bCommon = true;
         obj.m_rate = 40.f;
@@ -292,10 +327,10 @@ void AssignContent(const std::vector<stPos>& posList,
     // 草
     //---------------------------------------------------------
     {
-        stMapObj obj;
+        stMapDef obj;
         obj.m_id = 4;
         obj.m_bCommon = true;
-        obj.m_rate = 20.f;
+        obj.m_rate = 30.f;
         mapInfoList.push_back(obj);
     }
 
@@ -303,10 +338,10 @@ void AssignContent(const std::vector<stPos>& posList,
     // 草2
     //---------------------------------------------------------
     {
-        stMapObj obj;
+        stMapDef obj;
         obj.m_id = 5;
         obj.m_bCommon = true;
-        obj.m_rate = 5.f;
+        obj.m_rate = 15.f;
         mapInfoList.push_back(obj);
     }
 
@@ -314,7 +349,7 @@ void AssignContent(const std::vector<stPos>& posList,
     // 岩
     //---------------------------------------------------------
     {
-        stMapObj obj;
+        stMapDef obj;
         obj.m_id = 6;
         obj.m_bCommon = true;
         obj.m_rate = 1.f;
@@ -326,44 +361,361 @@ void AssignContent(const std::vector<stPos>& posList,
     // どんぐり
     //---------------------------------------------------------
     {
-        stMapObj obj;
+        stMapDef obj;
         obj.m_id = 7;
         obj.m_bCommon = true;
         obj.m_rate = 1.f;
+        mapInfoList.push_back(obj);
     }
 
     //---------------------------------------------------------
     // 沢山の草
     //---------------------------------------------------------
     {
-
+        stMapDef obj;
+        obj.m_id = 8;
+        obj.m_bCommon = true;
+        obj.m_rate = 1.f;
+        mapInfoList.push_back(obj);
     }
 
     //---------------------------------------------------------
     // ソテツ
     //---------------------------------------------------------
-    stMapObj obj7;
-    obj7.m_id = 10;
-    obj7.m_bCommon = false;
-    obj7.m_rate = 0.f;
+    {
+        stMapDef obj;
+        obj.m_id = 10;
+        obj.m_bCommon = false;
+        obj.m_rate = 0.f;
+        mapInfoList.push_back(obj);
+    }
 
     //---------------------------------------------------------
     // 砂利
     //---------------------------------------------------------
-    stMapObj obj8;
-    obj8.m_id = 11;
-    obj8.m_bCommon = true;
-    obj8.m_rate = 1.f;
+    {
+        stMapDef obj;
+        obj.m_id = 11;
+        obj.m_bCommon = true;
+        obj.m_rate = 1.f;
+        mapInfoList.push_back(obj);
+    }
 
     //---------------------------------------------------------
     // 大きな木
     //---------------------------------------------------------
-    stMapObj obj9;
-    obj9.m_id = 12;
-    obj9.m_bCommon = true;
-    obj9.m_rate = 10.f;
+    {
+        stMapDef obj;
+        obj.m_id = 12;
+        obj.m_bCommon = true;
+        obj.m_rate = 7.f;
+        mapInfoList.push_back(obj);
+    }
 
+    std::vector<stEnemyDef> enemyInfoList;
 
+    //---------------------------------------------------------
+    // リッポウタイ
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 1;
+        enemy.m_name = "リッポウタイ";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
 
+    //---------------------------------------------------------
+    // キュウ
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 2;
+        enemy.m_name = "キュウ";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    //---------------------------------------------------------
+    // エンバン
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 3;
+        enemy.m_name = "エンバン";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+    
+    //---------------------------------------------------------
+    // エンチュウ
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 4;
+        enemy.m_name = "エンチュウ";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    //---------------------------------------------------------
+    // ビッグリッポウタイ
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 5;
+        enemy.m_name = "ビッグリッポウタイ";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    //---------------------------------------------------------
+    // スモールリッポウタイ
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 6;
+        enemy.m_name = "スモールリッポウタイ";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    //---------------------------------------------------------
+    // ハンキュウ
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 7;
+        enemy.m_name = "ハンキュウ";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    //---------------------------------------------------------
+    // ハンエン
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 8;
+        enemy.m_name = "ハンエン";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    //---------------------------------------------------------
+    // オレンジリッポウタイ
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 9;
+        enemy.m_name = "オレンジリッポウタイ";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    //---------------------------------------------------------
+    // 島民の霊
+    //---------------------------------------------------------
+    {
+        stEnemyDef enemy;
+        enemy.m_id = 10;
+        enemy.m_name = "島民の霊";
+        enemy.m_bCommon = true;
+        enemy.m_rate = 10.f;
+        enemyInfoList.push_back(enemy);
+    }
+
+    srand((unsigned int)time(NULL));
+
+    for (size_t i = 0; i < posList.size(); ++i)
+    {
+        auto& pos = posList.at(i);
+        auto _rand1 = rand() % 100; // 0 ~ 99
+        auto _rand2 = rand() % 1000; // 0 ~ 999
+
+        // 70%の確率でCommonから1つ、30%の確率でUniqueから1つを選ぶ
+        // 共通オブジェクト
+        if (_rand1 < 70)
+        {
+            for (size_t j = 0; j < mapInfoList.size(); ++j)
+            {
+                auto& mapInfo = mapInfoList.at(j);
+                if (mapInfo.m_bCommon)
+                {
+                    int work = (int)(mapInfo.m_rate * 10);
+                    _rand2 -= work;
+                
+					// 確率を引いていき、0以下になったら当選
+					if (_rand2 < 0)
+					{
+						stMapObj _stMapObj;
+						_stMapObj.m_id = mapInfo.m_id;
+						_stMapObj.m_pos = pos;
+						_stMapObj.m_scale = mapInfo.m_scale;
+
+						mapObjList->push_back(_stMapObj);
+
+                        break;
+					}
+                }
+            }
+
+            continue;
+        }
+        // ユニークオブジェクト
+        else
+        {
+            //--------------------------------------------------------------
+            // この位置の近くだったら必ずこれが表示されてほしい、というのがある。
+            // それを探す。
+            // 複数該当する場合がある。その場合は近いものを選択する。
+            //--------------------------------------------------------------
+            struct stCandidate
+            {
+                // マップオブジェクトか敵情報か
+                bool m_isMapObj = true;
+
+                int m_id = 0;
+
+                float m_distance = 0.f;
+            };
+
+            std::vector<stCandidate> candidateList;
+
+            // 100メートル以内のものをリストアップ
+            for (size_t j = 0; j < mapInfoList.size(); ++j)
+            {
+                auto& mapInfo = mapInfoList.at(j);
+                if (!mapInfo.m_bCommon)
+                {
+                    for (size_t k = 0; k < mapInfo.m_mustAreaList.size(); ++k)
+                    {
+                        float distance_ = distance(pos.x,
+                                                   pos.z,
+                                                   mapInfo.m_mustAreaList.at(k).x,
+                                                   mapInfo.m_mustAreaList.at(k).z);
+                        if (distance_ < 100.f)
+                        {
+                            stCandidate candidate;
+                            candidate.m_isMapObj = true;
+                            candidate.m_id = mapInfo.m_id;
+                            candidate.m_distance = distance_;
+
+                            candidateList.push_back(candidate);
+                        }
+                    }
+                }
+            }
+
+            // 100メートル以内のものをリストアップ
+            for (size_t j = 0; j < enemyInfoList.size(); ++j)
+            {
+                auto& enemyInfo = enemyInfoList.at(j);
+				for (size_t k = 0; k < enemyInfo.m_mustAreaList.size(); ++k)
+				{
+					float distance_ = distance(pos.x,
+											   pos.z,
+											   enemyInfo.m_mustAreaList.at(k).x,
+											   enemyInfo.m_mustAreaList.at(k).z);
+					if (distance_ < 100.f)
+					{
+						stCandidate candidate;
+						candidate.m_isMapObj = false;
+						candidate.m_id = enemyInfo.m_id;
+						candidate.m_distance = distance_;
+
+						candidateList.push_back(candidate);
+					}
+				}
+            }
+
+            // 100メートル以内のものがあれば一番近いものを登録
+            if (!candidateList.empty())
+            {
+                auto it = std::min_element(candidateList.begin(), candidateList.end(),
+                                           [](const stCandidate& a, const stCandidate& b)
+                                           {
+                                               return a.m_distance < b.m_distance;
+                                           });
+                if (it != candidateList.end())
+                {
+                    if (it->m_isMapObj)
+                    {
+                        auto it2 = std::find_if(mapInfoList.begin(), mapInfoList.end(),
+                                                [&](const stMapDef& mapDef)
+                                                {
+                                                    return mapDef.m_id == it->m_id;
+                                                });
+
+						stMapObj _stMapObj;
+						_stMapObj.m_id = it->m_id;
+						_stMapObj.m_pos = pos;
+						_stMapObj.m_scale = it2->m_scale;
+
+						mapObjList->push_back(_stMapObj);
+                    }
+                    else
+                    {
+                        auto it2 = std::find_if(enemyInfoList.begin(), enemyInfoList.end(),
+                                                [&](const stEnemyDef& enemyDef)
+                                                {
+                                                    return enemyDef.m_id == it->m_id;
+                                                });
+
+						stEnemyInfo _stEnemyInfo;
+						_stEnemyInfo.m_id = it->m_id;
+						_stEnemyInfo.m_pos = pos;
+						_stEnemyInfo.m_name = it2->m_name;
+						_stEnemyInfo.m_HP = it2->m_HP;
+
+						enemyList->push_back(_stEnemyInfo);
+                    }
+
+                    continue;
+                }
+            }
+
+            //--------------------------------------------------------------
+            // 敵は同じ種類が固まって出現してほしいので
+            // 座標の3桁目の数値を使って決める
+            // x = 1234, z = 567だったら、12と5を足して17とする。
+            // 敵は10種類なので17を10で割って7、とすれば
+            // 100メートルごとに違う種類の敵が現れることになる。
+            //--------------------------------------------------------------
+            {
+				int enemyId = 0;
+				enemyId += (int)pos.x / 100;
+				enemyId += (int)pos.z / 100;
+                enemyId = std::abs(enemyId);
+				enemyId = enemyId % 10 + 1;
+
+                auto it = std::find_if(enemyInfoList.begin(), enemyInfoList.end(),
+                                       [&](const stEnemyDef& enemyDef)
+                                       {
+                                           return enemyDef.m_id == enemyId;
+                                       });
+
+                stEnemyInfo enemyInfo;
+                enemyInfo.m_id = enemyId;
+                enemyInfo.m_name = it->m_name;
+                enemyInfo.m_pos = pos;
+                enemyInfo.m_HP = it->m_HP;
+                enemyList->push_back(enemyInfo);
+            }
+        }
+    }
+}
+
+void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEnemyInfo>& enemyList)
+{
 }
 
