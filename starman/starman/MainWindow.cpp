@@ -175,7 +175,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     if (!result)
     {
         DWORD err = GetLastError();
-        throw std::exception("RegisterClassEx関数の実行が失敗しました。");
+        throw std::exception(Common::WstringToUtf8(L"RegisterClassEx関数の実行が失敗しました。").c_str());
     } 
 
     //-------------------------------------------------
@@ -215,7 +215,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         if (!m_hWnd)
         {
-            throw std::exception("ウィンドウの作成ができませんでした");
+            throw std::exception(Common::WstringToUtf8(L"ウィンドウの作成ができませんでした").c_str());
         }
 
         SharedObj::SetWindowHandle(m_hWnd);
@@ -229,7 +229,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         if (!m_D3D)
         {
-            throw std::exception("DirectXの初期化に失敗しました");
+            throw std::exception(Common::WstringToUtf8(L"DirectXの初期化に失敗しました").c_str());
         }
     }
 
@@ -291,7 +291,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
                                           &D3DDevice);
             if (FAILED(hResult))
             {
-                throw std::exception("Direct3D::CreateDevice関数が失敗しました");
+                throw std::exception(Common::WstringToUtf8(L"Direct3D::CreateDevice関数が失敗しました").c_str());
             }
         }
 
@@ -311,7 +311,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         if (FAILED(hResult))
         {
-            throw std::exception("DirectInput8Create関数が失敗しました");
+            throw std::exception(Common::WstringToUtf8(L"DirectInput8Create関数が失敗しました").c_str());
         }
     }
 
