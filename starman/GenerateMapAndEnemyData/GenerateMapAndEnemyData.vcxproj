@@ -124,7 +124,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GenerateMapAndEnemyData.cpp" />
-    <ClCompile Include="HeaderOnlyCSV.cpp" />
+    <ClCompile Include="HeaderOnlyCsv.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
