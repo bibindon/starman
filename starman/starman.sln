@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.35706.149
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36109.1 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "starman", "starman\starman.vcxproj", "{6DD95551-4853-454C-9F8F-E15464132F19}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest2", "UnitTest2\UnitTest2.vcxproj", "{68EF5F22-589B-4A66-8B6E-B54144629AF5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenerateWixScript", "GenerateWixScript\GenerateWixScript.vcxproj", "{AAF101BA-6C0A-4636-BCAC-158693664B4D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenerateMapAndEnemyData", "GenerateMapAndEnemyData\GenerateMapAndEnemyData.vcxproj", "{A10062D2-901B-43C4-968B-308528E488AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,22 @@ Global
 		{AAF101BA-6C0A-4636-BCAC-158693664B4D}.Release|x64.Build.0 = Release|x64
 		{AAF101BA-6C0A-4636-BCAC-158693664B4D}.Release|x86.ActiveCfg = Release|Win32
 		{AAF101BA-6C0A-4636-BCAC-158693664B4D}.Release|x86.Build.0 = Release|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.Debug|x64.ActiveCfg = Debug|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.Debug|x64.Build.0 = Debug|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.Debug|x86.ActiveCfg = Debug|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.Debug|x86.Build.0 = Debug|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.Deploy|x64.ActiveCfg = Release|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.Deploy|x64.Build.0 = Release|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.Deploy|x86.ActiveCfg = Release|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.Deploy|x86.Build.0 = Release|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.DeployEncrypt|x64.ActiveCfg = Release|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.DeployEncrypt|x64.Build.0 = Release|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.DeployEncrypt|x86.ActiveCfg = Release|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.DeployEncrypt|x86.Build.0 = Release|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.Release|x64.ActiveCfg = Release|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.Release|x64.Build.0 = Release|x64
+		{A10062D2-901B-43C4-968B-308528E488AE}.Release|x86.ActiveCfg = Release|Win32
+		{A10062D2-901B-43C4-968B-308528E488AE}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
