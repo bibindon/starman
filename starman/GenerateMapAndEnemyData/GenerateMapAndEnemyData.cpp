@@ -133,7 +133,7 @@ void AssignContent(const std::vector<stPos>& posList,
                    std::vector<stMapObj>* mapObjList,
                    std::vector<stEnemyInfo>* enemyList);
 
-void WriteToCsv(const std::vector<stMapObj>& mapObjList, std::vector<stEnemyInfo>& enemyList);
+void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEnemyInfo>& enemyList);
 
 //---------------------------------------------------------------------------------
 // main関数
@@ -409,6 +409,7 @@ void AssignContent(const std::vector<stPos>& posList,
         obj.m_id = 12;
         obj.m_bCommon = true;
         obj.m_rate = 7.f;
+        obj.m_scale = 5;
         mapInfoList.push_back(obj);
     }
 
@@ -420,7 +421,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 1;
-        enemy.m_name = "リッポウタイ";
+        enemy.m_name = u8"リッポウタイ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -432,7 +433,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 2;
-        enemy.m_name = "キュウ";
+        enemy.m_name = u8"キュウ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -444,7 +445,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 3;
-        enemy.m_name = "エンバン";
+        enemy.m_name = u8"エンバン";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -456,7 +457,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 4;
-        enemy.m_name = "エンチュウ";
+        enemy.m_name = u8"エンチュウ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -468,7 +469,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 5;
-        enemy.m_name = "ビッグリッポウタイ";
+        enemy.m_name = u8"ビッグリッポウタイ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -480,7 +481,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 6;
-        enemy.m_name = "スモールリッポウタイ";
+        enemy.m_name = u8"スモールリッポウタイ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -492,7 +493,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 7;
-        enemy.m_name = "ハンキュウ";
+        enemy.m_name = u8"ハンキュウ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -504,7 +505,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 8;
-        enemy.m_name = "ハンエン";
+        enemy.m_name = u8"ハンエン";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -516,7 +517,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 9;
-        enemy.m_name = "オレンジリッポウタイ";
+        enemy.m_name = u8"オレンジリッポウタイ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -528,7 +529,7 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         stEnemyDef enemy;
         enemy.m_id = 10;
-        enemy.m_name = "島民の霊";
+        enemy.m_name = u8"島民の霊";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -717,5 +718,74 @@ void AssignContent(const std::vector<stPos>& posList,
 
 void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEnemyInfo>& enemyList)
 {
+    {
+		std::vector<std::vector<std::string>> vvs;
+        std::vector<std::string> vs;
+        vs.push_back("ID");
+        vs.push_back(u8"モデルID");
+        vs.push_back("X");
+        vs.push_back("Y");
+        vs.push_back("Z");
+        vs.push_back("RotY");
+        vs.push_back("Scale");
+        vs.push_back(u8"表示");
+        vvs.push_back(vs);
+        vs.clear();
+
+        for (size_t i = 0; i < mapObjList.size(); ++i)
+        {
+            vs.clear();
+            auto& mapObj = mapObjList.at(i);
+
+            vs.push_back(std::to_string(i + 1));
+            vs.push_back(std::to_string(mapObj.m_id));
+            vs.push_back(std::to_string(mapObj.m_pos.x));
+            vs.push_back(std::to_string(mapObj.m_pos.y));
+            vs.push_back(std::to_string(mapObj.m_pos.z));
+            vs.push_back("0");
+            vs.push_back(std::to_string(mapObj.m_scale));
+            vs.push_back("y");
+            vvs.push_back(vs);
+        }
+
+		csv::Write("map_obj.csv", vvs);
+    }
+
+    {
+		std::vector<std::vector<std::string>> vvs;
+        std::vector<std::string> vs;
+        vs.push_back("ID");
+        vs.push_back(u8"タイプ");
+        vs.push_back("PosX");
+        vs.push_back("PosY");
+        vs.push_back("PosZ");
+        vs.push_back("RotX");
+        vs.push_back("RotY");
+        vs.push_back("RotZ");
+        vs.push_back(u8"残りHP");
+        vs.push_back(u8"討伐済み");
+        vvs.push_back(vs);
+        vs.clear();
+
+        for (size_t i = 0; i < enemyList.size(); ++i)
+        {
+            vs.clear();
+            auto& enemyInfo = enemyList.at(i);
+
+            vs.push_back(std::to_string(i + 1));
+            vs.push_back(enemyInfo.m_name);
+            vs.push_back(std::to_string(enemyInfo.m_pos.x));
+            vs.push_back(std::to_string(enemyInfo.m_pos.y));
+            vs.push_back(std::to_string(enemyInfo.m_pos.z));
+            vs.push_back("0");
+            vs.push_back("0");
+            vs.push_back("0");
+            vs.push_back(std::to_string(enemyInfo.m_HP));
+            vs.push_back("");
+            vvs.push_back(vs);
+        }
+
+		csv::Write("enemy.csv", vvs);
+    }
 }
 
