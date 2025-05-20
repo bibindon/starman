@@ -434,8 +434,20 @@ void AssignContent(const std::vector<stPos>& posList,
         stMapDef obj;
         obj.m_id = 12;
         obj.m_bCommon = true;
-        obj.m_rate = 7.f;
+        obj.m_rate = 4.f;
         obj.m_scale = 5;
+        mapInfoList.push_back(obj);
+    }
+
+    //---------------------------------------------------------
+    // 細い木
+    //---------------------------------------------------------
+    {
+        stMapDef obj;
+        obj.m_id = 13;
+        obj.m_bCommon = true;
+        obj.m_rate = 3.f;
+        obj.m_scale = 1;
         mapInfoList.push_back(obj);
     }
 
