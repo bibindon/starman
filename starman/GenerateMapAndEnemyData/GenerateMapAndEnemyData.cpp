@@ -66,34 +66,50 @@ std::vector<stPos> ReadX(const std::string& xPath);
 
 struct stPos
 {
-    float x;
-    float y;
-    float z;
+    stPos()
+        : m_x(0.f)
+        , m_y(0.f)
+        , m_z(0.f)
+    {
+
+    }
+
+    stPos(const float _x, const float _y, const float _z)
+        : m_x(_x)
+        , m_y(_y)
+        , m_z(_z)
+    {
+
+    }
+
+    float m_x;
+    float m_y;
+    float m_z;
 
     // 比較演算子（ソート用）
     bool operator<(const stPos& other) const
     {
-        if (x != other.x)
+        if (m_x != other.m_x)
         {
-            return x < other.x;
+            return m_x < other.m_x;
         }
 
-        if (y != other.y)
+        if (m_y != other.m_y)
         {
-            return y < other.y;
+            return m_y < other.m_y;
         }
 
-        return z < other.z;
+        return m_z < other.m_z;
     }
 
     // 同値判定（重複判定用）
     bool operator==(const stPos& other) const
     {
-        if ((other.x - 0.1f) < x && x < (other.x + 0.1f))
+        if ((other.m_x - 0.1f) < m_x && m_x < (other.m_x + 0.1f))
         {
-            if ((other.y - 0.1f) < y && y < (other.y + 0.1f))
+            if ((other.m_y - 0.1f) < m_y && m_y < (other.m_y + 0.1f))
             {
-                if ((other.z - 0.1f) < z && z < (other.z + 0.1f))
+                if ((other.m_z - 0.1f) < m_z && m_z < (other.m_z + 0.1f))
                 {
                     return true;
                 }
@@ -248,9 +264,9 @@ std::vector<stPos> ReadX(const std::string& xPath)
         line.pop_back();
         auto vs = split(line, ';');
         stPos _stPos { };
-        _stPos.x = std::stof(vs.at(0));
-        _stPos.y = std::stof(vs.at(2));
-        _stPos.z = std::stof(vs.at(1));
+        _stPos.m_x = std::stof(vs.at(0));
+        _stPos.m_y = std::stof(vs.at(2));
+        _stPos.m_z = std::stof(vs.at(1));
         posList.push_back(_stPos);
     }
 
@@ -535,6 +551,541 @@ void AssignContent(const std::vector<stPos>& posList,
         enemyInfoList.push_back(enemy);
     }
 
+    //---------------------------------------------------------
+    // マップデータには、「最初の60個はこれが出力されてほしい」、というのがあるのでそれを設定する。
+    //---------------------------------------------------------
+    {
+        // 1
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 2;
+            _stMapObj.m_pos = stPos(-270, 19, 523);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 2
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 2;
+            _stMapObj.m_pos = stPos(-258, 19, 504);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 3
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 2;
+            _stMapObj.m_pos = stPos(-248, 24, 544);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 4
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 2;
+            _stMapObj.m_pos = stPos(-225, 26, 615);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 5
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 2;
+            _stMapObj.m_pos = stPos(-230, 26, 590);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 6
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 2;
+            _stMapObj.m_pos = stPos(-266, 19, 556);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 7
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 3;
+            _stMapObj.m_pos = stPos(-270, 19, 523);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 8
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 3;
+            _stMapObj.m_pos = stPos(-268, 19, 504);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 9
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 3;
+            _stMapObj.m_pos = stPos(-248, 24, 544);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 10
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 3;
+            _stMapObj.m_pos = stPos(-225, 26, 615);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 11
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 3;
+            _stMapObj.m_pos = stPos(-230, 26, 590);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 12
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 3;
+            _stMapObj.m_pos = stPos(-266, 19, 556);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 13
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 7;
+            _stMapObj.m_pos = stPos(-214, 33, 545);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 14
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 7;
+            _stMapObj.m_pos = stPos(-220, 31, 553);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 15
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 7;
+            _stMapObj.m_pos = stPos(-197, 37, 569);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 16
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-220, 29, 574);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 17
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-228, 28, 552);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 18
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-222, 31, 536);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 19
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-227, 31, 519);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 20
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-230, 33, 478);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 21
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-220, 34, 503);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 22
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-214, 34, 522);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 23
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 8;
+            _stMapObj.m_pos = stPos(-216, 33, 548);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 24, 25, 26, 27 Pass
+
+        // 28
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 6;
+            _stMapObj.m_pos = stPos(-420, 1, 415);
+            _stMapObj.m_scale = 10;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 29
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 6;
+            _stMapObj.m_pos = stPos(-425, 1, 410);
+            _stMapObj.m_scale = 10;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 30
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 6;
+            _stMapObj.m_pos = stPos(-430, 1, 405);
+            _stMapObj.m_scale = 10;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 31
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1344, 14, -594);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 32
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1344, 14, -584);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 33
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1344, 14, -574);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 34
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1344, 14, -564);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 35
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1344, 14, -554);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 36 passed
+
+        // 37
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1354, 14, -594);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 38
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1354, 14, -584);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 39
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1354, 14, -574);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 40
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1354, 14, -564);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 41
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1354, 14, -554);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 42 passed
+
+        // 43
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1364, 14, -594);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 44
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1364, 14, -584);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 45
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1364, 14, -574);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 46
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1364, 14, -564);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 47
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1364, 14, -554);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 48 passed
+
+        // 49
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1374, 14, -594);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 50
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1374, 14, -584);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 51
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1374, 14, -574);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 52
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1374, 14, -564);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 53
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1374, 14, -554);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 54 passed
+        
+        // 55
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1384, 14, -594);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 56
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1384, 14, -584);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 57
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1384, 14, -574);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 58
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1384, 14, -564);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 59
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 9;
+            _stMapObj.m_pos = stPos(-1384, 14, -554);
+            _stMapObj.m_scale = 1;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 60
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 6;
+            _stMapObj.m_pos = stPos(-207, 87, 202);
+            _stMapObj.m_scale = 10;
+
+            mapObjList->push_back(_stMapObj);
+        }
+    }
+
     srand((unsigned int)time(NULL));
 
     for (size_t i = 0; i < posList.size(); ++i)
@@ -555,18 +1106,18 @@ void AssignContent(const std::vector<stPos>& posList,
                     int work = (int)(mapInfo.m_rate * 10);
                     _rand2 -= work;
                 
-					// 確率を引いていき、0以下になったら当選
-					if (_rand2 < 0)
-					{
-						stMapObj _stMapObj;
-						_stMapObj.m_id = mapInfo.m_id;
-						_stMapObj.m_pos = pos;
-						_stMapObj.m_scale = mapInfo.m_scale;
+                    // 確率を引いていき、0以下になったら当選
+                    if (_rand2 < 0)
+                    {
+                        stMapObj _stMapObj;
+                        _stMapObj.m_id = mapInfo.m_id;
+                        _stMapObj.m_pos = pos;
+                        _stMapObj.m_scale = mapInfo.m_scale;
 
-						mapObjList->push_back(_stMapObj);
+                        mapObjList->push_back(_stMapObj);
 
                         break;
-					}
+                    }
                 }
             }
 
@@ -600,10 +1151,10 @@ void AssignContent(const std::vector<stPos>& posList,
                 {
                     for (size_t k = 0; k < mapInfo.m_mustAreaList.size(); ++k)
                     {
-                        float distance_ = distance(pos.x,
-                                                   pos.z,
-                                                   mapInfo.m_mustAreaList.at(k).x,
-                                                   mapInfo.m_mustAreaList.at(k).z);
+                        float distance_ = distance(pos.m_x,
+                                                   pos.m_z,
+                                                   mapInfo.m_mustAreaList.at(k).m_x,
+                                                   mapInfo.m_mustAreaList.at(k).m_z);
                         if (distance_ < 100.f)
                         {
                             stCandidate candidate;
@@ -621,22 +1172,22 @@ void AssignContent(const std::vector<stPos>& posList,
             for (size_t j = 0; j < enemyInfoList.size(); ++j)
             {
                 auto& enemyInfo = enemyInfoList.at(j);
-				for (size_t k = 0; k < enemyInfo.m_mustAreaList.size(); ++k)
-				{
-					float distance_ = distance(pos.x,
-											   pos.z,
-											   enemyInfo.m_mustAreaList.at(k).x,
-											   enemyInfo.m_mustAreaList.at(k).z);
-					if (distance_ < 100.f)
-					{
-						stCandidate candidate;
-						candidate.m_isMapObj = false;
-						candidate.m_id = enemyInfo.m_id;
-						candidate.m_distance = distance_;
+                for (size_t k = 0; k < enemyInfo.m_mustAreaList.size(); ++k)
+                {
+                    float distance_ = distance(pos.m_x,
+                                               pos.m_z,
+                                               enemyInfo.m_mustAreaList.at(k).m_x,
+                                               enemyInfo.m_mustAreaList.at(k).m_z);
+                    if (distance_ < 100.f)
+                    {
+                        stCandidate candidate;
+                        candidate.m_isMapObj = false;
+                        candidate.m_id = enemyInfo.m_id;
+                        candidate.m_distance = distance_;
 
-						candidateList.push_back(candidate);
-					}
-				}
+                        candidateList.push_back(candidate);
+                    }
+                }
             }
 
             // 100メートル以内のものがあれば一番近いものを登録
@@ -657,12 +1208,12 @@ void AssignContent(const std::vector<stPos>& posList,
                                                     return mapDef.m_id == it->m_id;
                                                 });
 
-						stMapObj _stMapObj;
-						_stMapObj.m_id = it->m_id;
-						_stMapObj.m_pos = pos;
-						_stMapObj.m_scale = it2->m_scale;
+                        stMapObj _stMapObj;
+                        _stMapObj.m_id = it->m_id;
+                        _stMapObj.m_pos = pos;
+                        _stMapObj.m_scale = it2->m_scale;
 
-						mapObjList->push_back(_stMapObj);
+                        mapObjList->push_back(_stMapObj);
                     }
                     else
                     {
@@ -672,13 +1223,13 @@ void AssignContent(const std::vector<stPos>& posList,
                                                     return enemyDef.m_id == it->m_id;
                                                 });
 
-						stEnemyInfo _stEnemyInfo;
-						_stEnemyInfo.m_id = it->m_id;
-						_stEnemyInfo.m_pos = pos;
-						_stEnemyInfo.m_name = it2->m_name;
-						_stEnemyInfo.m_HP = it2->m_HP;
+                        stEnemyInfo _stEnemyInfo;
+                        _stEnemyInfo.m_id = it->m_id;
+                        _stEnemyInfo.m_pos = pos;
+                        _stEnemyInfo.m_name = it2->m_name;
+                        _stEnemyInfo.m_HP = it2->m_HP;
 
-						enemyList->push_back(_stEnemyInfo);
+                        enemyList->push_back(_stEnemyInfo);
                     }
 
                     continue;
@@ -693,11 +1244,11 @@ void AssignContent(const std::vector<stPos>& posList,
             // 100メートルごとに違う種類の敵が現れることになる。
             //--------------------------------------------------------------
             {
-				int enemyId = 0;
-				enemyId += (int)pos.x / 100;
-				enemyId += (int)pos.z / 100;
+                int enemyId = 0;
+                enemyId += (int)pos.m_x / 100;
+                enemyId += (int)pos.m_z / 100;
                 enemyId = std::abs(enemyId);
-				enemyId = enemyId % 10 + 1;
+                enemyId = enemyId % 10 + 1;
 
                 auto it = std::find_if(enemyInfoList.begin(), enemyInfoList.end(),
                                        [&](const stEnemyDef& enemyDef)
@@ -719,7 +1270,7 @@ void AssignContent(const std::vector<stPos>& posList,
 void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEnemyInfo>& enemyList)
 {
     {
-		std::vector<std::vector<std::string>> vvs;
+        std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
         vs.push_back(u8"モデルID");
@@ -739,20 +1290,20 @@ void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEne
 
             vs.push_back(std::to_string(i + 1));
             vs.push_back(std::to_string(mapObj.m_id));
-            vs.push_back(std::to_string(mapObj.m_pos.x));
-            vs.push_back(std::to_string(mapObj.m_pos.y));
-            vs.push_back(std::to_string(mapObj.m_pos.z));
+            vs.push_back(std::to_string(mapObj.m_pos.m_x));
+            vs.push_back(std::to_string(mapObj.m_pos.m_y));
+            vs.push_back(std::to_string(mapObj.m_pos.m_z));
             vs.push_back("0");
             vs.push_back(std::to_string(mapObj.m_scale));
             vs.push_back("y");
             vvs.push_back(vs);
         }
 
-		csv::Write("map_obj.csv", vvs);
+        csv::Write("map_obj.csv", vvs);
     }
 
     {
-		std::vector<std::vector<std::string>> vvs;
+        std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
         vs.push_back("ID");
         vs.push_back(u8"タイプ");
@@ -774,9 +1325,9 @@ void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEne
 
             vs.push_back(std::to_string(i + 1));
             vs.push_back(enemyInfo.m_name);
-            vs.push_back(std::to_string(enemyInfo.m_pos.x));
-            vs.push_back(std::to_string(enemyInfo.m_pos.y));
-            vs.push_back(std::to_string(enemyInfo.m_pos.z));
+            vs.push_back(std::to_string(enemyInfo.m_pos.m_x));
+            vs.push_back(std::to_string(enemyInfo.m_pos.m_y));
+            vs.push_back(std::to_string(enemyInfo.m_pos.m_z));
             vs.push_back("0");
             vs.push_back("0");
             vs.push_back("0");
@@ -785,7 +1336,7 @@ void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEne
             vvs.push_back(vs);
         }
 
-		csv::Write("enemy.csv", vvs);
+        csv::Write("enemy.csv", vvs);
     }
 }
 
