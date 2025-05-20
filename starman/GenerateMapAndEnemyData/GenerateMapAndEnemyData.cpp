@@ -156,6 +156,12 @@ void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEne
 //---------------------------------------------------------------------------------
 int main(int argc, char* argv[])
 {
+    if (argc != 2)
+    {
+        MessageBox(NULL, L"xファイルを一つ渡してください", L"エラー", MB_OK);
+        return -1;
+    }
+
     auto posList = ReadX(argv[1]);
 
     std::vector<stMapObj> mapObjList;
@@ -405,7 +411,7 @@ void AssignContent(const std::vector<stPos>& posList,
         obj.m_rate = 0.f;
 
         // この辺り一帯にソテツを植えまくる
-        stPos _stPos { -2050, 30, -1563 };
+        stPos _stPos { -1727.95f, 201.72f, -1231.66f };
         obj.m_mustAreaList.push_back(_stPos);
         mapInfoList.push_back(obj);
     }
@@ -445,7 +451,11 @@ void AssignContent(const std::vector<stPos>& posList,
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
 
-        stPos _stPos { -270, 19, 523 };
+        stPos _stPos;
+        _stPos = stPos { -285, 14, 540 };
+        enemy.m_mustAreaList.push_back(_stPos);
+
+        _stPos = stPos { -160, 56, 530 };
         enemy.m_mustAreaList.push_back(_stPos);
 
         enemyInfoList.push_back(enemy);
@@ -1089,6 +1099,16 @@ void AssignContent(const std::vector<stPos>& posList,
             _stMapObj.m_id = 6;
             _stMapObj.m_pos = stPos(-207, 87, 202);
             _stMapObj.m_scale = 10;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 61
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 10;
+            _stMapObj.m_pos = stPos(-1727.95f, 201.72f, -1231.66f);
+            _stMapObj.m_scale = 1;
 
             mapObjList->push_back(_stMapObj);
         }

@@ -18,7 +18,7 @@
     <ClCompile Include="GenerateMapAndEnemyData.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="HeaderOnlyCSV.cpp">
+    <ClCompile Include="HeaderOnlyCsv.hpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClCompile>
   </ItemGroup>
