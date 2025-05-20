@@ -403,6 +403,10 @@ void AssignContent(const std::vector<stPos>& posList,
         obj.m_id = 10;
         obj.m_bCommon = false;
         obj.m_rate = 0.f;
+
+        // この辺り一帯にソテツを植えまくる
+        stPos _stPos { -2050, 30, -1563 };
+        obj.m_mustAreaList.push_back(_stPos);
         mapInfoList.push_back(obj);
     }
 
@@ -440,6 +444,10 @@ void AssignContent(const std::vector<stPos>& posList,
         enemy.m_name = u8"リッポウタイ";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
+
+        stPos _stPos { -270, 19, 523 };
+        enemy.m_mustAreaList.push_back(_stPos);
+
         enemyInfoList.push_back(enemy);
     }
 
