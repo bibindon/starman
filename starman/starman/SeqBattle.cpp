@@ -2188,7 +2188,19 @@ void SeqBattle::OperatePickPlant()
         // 近くにココナツの木があったらココナッツを取得する
         if (m_map->NearCoconut(SharedObj::GetPlayer()->GetPos()))
         {
-            pickId = 5;
+            unsigned int rand = SharedObj::GetRandom();
+            auto rand_ = rand % 100;
+
+            // 10%の確率で熟したココナッツの実
+
+            if (rand_ < 90)
+            {
+                pickId = 5;
+            }
+            else
+            {
+                pickId = 6;
+            }
         }
         // 近くにソテツの木があったらソテツを取得する
         else if (m_map->NearSotetsu(SharedObj::GetPlayer()->GetPos()))
