@@ -1999,6 +1999,25 @@ bool Map::NearSotetsu(const D3DXVECTOR3& pos)
     return isHit;
 }
 
+bool Map::NearThinTree(const D3DXVECTOR3& pos)
+{
+    bool isHit = false;
+
+    auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int modelId = MapLib()->GetModelId(_T("treeThin.x"));
+
+    for (size_t i = 0; i < list.size(); ++i)
+    {
+        if (list.at(i).m_modelId == modelId && list.at(i).m_visible)
+        {
+            isHit = true;
+        }
+    }
+
+    return isHit;
+}
+
 bool Map::NearTree(const D3DXVECTOR3& pos)
 {
     bool isHit = false;
@@ -2018,11 +2037,49 @@ bool Map::NearTree(const D3DXVECTOR3& pos)
     return isHit;
 }
 
+bool Map::NearDonguri(const D3DXVECTOR3& pos)
+{
+    bool isHit = false;
+
+    auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int modelId = MapLib()->GetModelId(_T("donguri.x"));
+
+    for (size_t i = 0; i < list.size(); ++i)
+    {
+        if (list.at(i).m_modelId == modelId && list.at(i).m_visible)
+        {
+            isHit = true;
+        }
+    }
+
+    return isHit;
+}
+
+bool Map::NearStone(const D3DXVECTOR3& pos)
+{
+    bool isHit = false;
+
+    auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int modelId = MapLib()->GetModelId(_T("rocks.x"));
+
+    for (size_t i = 0; i < list.size(); ++i)
+    {
+        if (list.at(i).m_modelId == modelId && list.at(i).m_visible)
+        {
+            isHit = true;
+        }
+    }
+
+    return isHit;
+}
+
 void Map::DeleteTree(const D3DXVECTOR3& pos)
 {
     std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int id = MapLib()->GetModelId(_T("tree1.x"));
+    int id = MapLib()->GetModelId(_T("treeThin.x"));
 
     for (size_t i = 0; i < mapObjs.size(); ++i)
     {

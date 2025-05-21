@@ -84,8 +84,17 @@ public:
     // ソテツの木が近くにあるか
     bool NearSotetsu(const D3DXVECTOR3& pos);
 
+    // 細い木の近くにいるか
+    bool NearThinTree(const D3DXVECTOR3& pos);
+
     // 木の近くにいるか
     bool NearTree(const D3DXVECTOR3& pos);
+
+    // どんぐりの山の近くにいるか
+    bool NearDonguri(const D3DXVECTOR3& pos);
+
+    // 砂利の近くにいるか
+    bool NearStone(const D3DXVECTOR3& pos);
 
     // ２メートル以内の木を１本消す
     void DeleteTree(const D3DXVECTOR3& pos);

@@ -340,10 +340,10 @@ void CommandManager::BuildCommand()
     auto raftMode = voyage->GetRaftMode();
     auto ppos = SharedObj::GetPlayer()->GetPos();
 
-    // 伐採・・・近くに木があるときに表示される。イカダモードの時は表示されない。
+    // 伐採・・・近くに細い木があるときに表示される。イカダモードの時は表示されない。
     if (!raftMode)
     {
-        if (SharedObj::GetMap()->NearTree(ppos))
+        if (SharedObj::GetMap()->NearThinTree(ppos))
         {
             m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING178), true);
         }
@@ -360,6 +360,7 @@ void CommandManager::BuildCommand()
     {
         if (SharedObj::GetMap()->NearPlant(ppos) ||
             SharedObj::GetMap()->NearCoconut(ppos) ||
+            SharedObj::GetMap()->NearTree(ppos) ||
             SharedObj::GetMap()->NearSotetsu(ppos))
         {
             m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), true);

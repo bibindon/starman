@@ -2185,8 +2185,35 @@ void SeqBattle::OperatePickPlant()
     {
         int pickId = 0;
 
-        // 近くにココナツの木があったらココナッツを取得する
-        if (m_map->NearCoconut(SharedObj::GetPlayer()->GetPos()))
+        // 近くに木があったら以下を取得する
+        // 木の枝 / パパイヤ / マンゴー / バナナ
+        if (m_map->NearTree(SharedObj::GetPlayer()->GetPos()))
+        {
+            unsigned int rand = SharedObj::GetRandom();
+            auto rand_ = rand % 100;
+
+            if (rand_ < 50)
+            {
+                // 木の枝
+                pickId = 54;
+            }
+            else if (rand_ < 70)
+            {
+                // パパイヤ
+                pickId = 38;
+            }
+            else if (rand_ < 85)
+            {
+                // マンゴー
+                pickId = 39;
+            }
+            else if (rand_ < 100)
+            {
+                // バナナ
+                pickId = 40;
+            }
+        }
+        else if (m_map->NearCoconut(SharedObj::GetPlayer()->GetPos()))
         {
             unsigned int rand = SharedObj::GetRandom();
             auto rand_ = rand % 100;
@@ -2207,12 +2234,63 @@ void SeqBattle::OperatePickPlant()
         {
             pickId = 3;
         }
+        // 近くにどんぐりの山があったらどんぐりなどを取得する
+        else if (m_map->NearDonguri(SharedObj::GetPlayer()->GetPos()))
+        {
+            unsigned int rand = SharedObj::GetRandom();
+            auto rand_ = rand % 100;
+
+            if (rand_ < 25)
+            {
+                pickId = 7;
+            }
+            else if (rand_ < 50)
+            {
+                pickId = 8;
+            }
+            else if (rand_ < 75)
+            {
+                pickId = 9;
+            }
+            else if (rand_ < 99)
+            {
+                pickId = 54;
+            }
+            else if (rand_ == 99)
+            {
+                pickId = 35;
+            }
+        }
+        // 砂利の近く
+        else if (m_map->NearStone(SharedObj::GetPlayer()->GetPos()))
+        {
+            unsigned int rand = SharedObj::GetRandom();
+            auto rand_ = rand % 100;
+
+            if (rand_ < 50)
+            {
+                // 石
+                pickId = 57;
+            }
+            else if (rand_ < 65)
+            {
+                // 縦長の石
+                pickId = 41;
+            }
+            else if (rand_ < 80)
+            {
+                // いい形の石（斧）
+                pickId = 33;
+            }
+            else if (rand_ < 100)
+            {
+                // いい形の石（槍）
+                pickId = 34;
+            }
+        }
         else
         {
             unsigned int rand = SharedObj::GetRandom();
-
-            // TODO 完全ランダムではなく、場所と見た目によって多少のばらつきがあってほしい
-            // TODO 個々の文字列はリソースファイルから取得するのではなく、CSVファイルから取得すべき
 
             // 0~99
             auto rand_ = rand % 100;
@@ -2268,22 +2346,7 @@ void SeqBattle::OperatePickPlant()
                 // キノコ
                 pickId = 22;
             }
-            else if (rand_ < 80)
-            {
-                // パパイヤ
-                pickId = 38;
-            }
-            else if (rand_ < 85)
-            {
-                // マンゴー
-                pickId = 39;
-            }
             else if (rand_ < 90)
-            {
-                // バナナ
-                pickId = 40;
-            }
-            else if (rand_ < 95)
             {
                 // ツタ
                 pickId = 56;
