@@ -1641,7 +1641,7 @@ void SeqBattle::RenderLoad()
             }
             else
             {
-                if (progress2 < 50)
+                if (progress2 < 40)
                 {
                     width_ = 180;
                 }
@@ -1649,7 +1649,7 @@ void SeqBattle::RenderLoad()
                 {
                     width_ = 270;
                 }
-                else if (progress2 <= 99)
+                else if (progress2 < 100)
                 {
                     width_ = -1;
                 }
