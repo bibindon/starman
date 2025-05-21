@@ -102,7 +102,10 @@ public:
     // ２メートル以内の草を１本消す
     void DeletePlant(const D3DXVECTOR3& pos);
 
+    int GetProgress();
+
 private:
+
     NSStarmanLib::MapObjManager* MapLib();
 
     // bInside : 壁の中にいる場合にtrue
@@ -184,5 +187,7 @@ private:
 
     std::vector<ThrownMagic> m_thrownMagicList;
 
+    // ロード処理の進み具合
+    std::atomic<int> m_progress = 0;
 };
 

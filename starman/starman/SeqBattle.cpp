@@ -1621,65 +1621,71 @@ void SeqBattle::RenderLoad()
         ++counter4;
 
         int progress = SaveManager::Get()->GetProgress();
+        int progress2 = m_map->GetProgress();
 
         if (!SharedObj::IsEnglish())
         {
-            if (progress <= 20)
+            if (progress < 50)
             {
                 width_ = 0;
             }
-            else if (progress <= 40)
+            else if (progress < 100)
             {
                 width_ = 90;
             }
-            else if (progress <= 60)
             {
-                width_ = 180;
-            }
-            else if (progress <= 80)
-            {
-                width_ = 270;
-            }
-            else if (progress <= 99)
-            {
-                width_ = -1;
+                if (progress2 < 50)
+                {
+                    width_ = 180;
+                }
+                else if (progress2 < 80)
+                {
+                    width_ = 270;
+                }
+                else if (progress2 <= 99)
+                {
+                    width_ = -1;
+                }
             }
         }
         else
         {
             pos.x = 600;
 
-            if (progress <= 10)
+            if (progress < 50)
             {
                 width_ = 62 * 0;
             }
-            else if (progress <= 20)
+            else if (progress < 100)
             {
                 width_ = 62 * 1;
             }
-            else if (progress <= 30)
+            else
             {
-                width_ = 62 * 2;
-            }
-            else if (progress <= 40)
-            {
-                width_ = 62 * 3;
-            }
-            else if (progress <= 50)
-            {
-                width_ = 62 * 4;
-            }
-            else if (progress <= 60)
-            {
-                width_ = 62 * 5;
-            }
-            else if (progress <= 70)
-            {
-                width_ = 62 * 6;
-            }
-            else if (progress <= 99)
-            {
-                width_ = 62 * 6;
+                if (progress2 < 30)
+                {
+                    width_ = 62 * 2;
+                }
+                else if (progress2 < 40)
+                {
+                    width_ = 62 * 3;
+                }
+                else if (progress2 < 50)
+                {
+                    width_ = 62 * 4;
+                }
+                else if (progress2 < 60)
+                {
+                    width_ = 62 * 5;
+                }
+                else if (progress2 < 70)
+                {
+                    width_ = 62 * 6;
+                }
+                else if (progress2 < 100)
+                {
+                    width_ = 62 * 6;
+                }
             }
         }
 

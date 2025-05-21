@@ -372,7 +372,9 @@ void SaveManager::LoadOrigin()
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateOriginFilePath(_T("craftsmanSkill.csv")),
                                               CreateOriginFilePath(_T("craftsmanQueue.csv")));
 
-	NSStarmanLib::Help::Get()->Init(CreateOriginFilePath(_T("help.csv")));
+    NSStarmanLib::Help::Get()->Init(CreateOriginFilePath(_T("help.csv")));
+
+    m_progress.store(100);
 }
 
 void SaveManager::Load()
@@ -479,6 +481,8 @@ void SaveManager::Load()
 	NSStarmanLib::Help::Get()->Init(CreateSaveFilePath(_T("helpSave.csv")));
 
     m_savedataLoaded = true;
+
+    m_progress.store(100);
 }
 
 

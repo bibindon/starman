@@ -56,6 +56,8 @@ Map::~Map()
 
 void Map::Init()
 {
+    m_progress.store(0);
+
     {
         Mesh* mesh = NEW Mesh(_T("res\\model\\prolitan.x"),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
@@ -91,6 +93,7 @@ void Map::Init()
         mesh->Init();
         m_meshMap[_T("sea2")] = mesh;
     }
+
 //    {
 //        Mesh* mesh = NEW Mesh(_T("res\\model\\testcube\\testcube.x"),
 //                              D3DXVECTOR3(-290.f, 15.f, 540.f),
@@ -263,6 +266,8 @@ void Map::Init()
                              15000.0f);
     m_pSun->Init();
 
+    m_progress.store(20);
+
     //--------------------------------------------
     // NPC
     //--------------------------------------------
@@ -336,6 +341,9 @@ void Map::Init()
         daikeiman->SetAnim(_T("LieDown"));
         m_NPC[_T("daikeiman")] = daikeiman;
     }
+
+    m_progress.store(40);
+
     {
         auto status = npcManager->GetNpcStatus(_T("sankakuman"));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
@@ -470,6 +478,9 @@ void Map::Init()
         shikakuman->SetAnim(_T("Sit"));
         m_NPC[_T("shikakuman")] = shikakuman;
     }
+
+    m_progress.store(60);
+
     {
         auto status = npcManager->GetNpcStatus(_T("vim"));
         D3DXVECTOR3 pos = D3DXVECTOR3(status.GetX(), status.GetY(), status.GetZ());
@@ -535,6 +546,9 @@ void Map::Init()
         animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("vim")] = animMesh;
     }
+
+    m_progress.store(80);
+
     /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 549.f);
@@ -877,6 +891,8 @@ void Map::Init()
     SoundEffect::get_ton()->load(_T("res\\sound\\darkHit.wav"));
 
     MapLib()->ResetShow();
+
+    m_progress.store(100);
 }
 
 void Map::Update()
@@ -2358,5 +2374,10 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
         result = move;
     }
     return result;
+}
+
+int Map::GetProgress()
+{
+    return m_progress.load();
 }
 
