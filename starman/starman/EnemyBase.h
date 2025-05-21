@@ -53,6 +53,8 @@ public:
 
     eEnemyType GetEnemyType();
 
+    void SetShowMenu(const int id);
+
 protected:
 
     AnimMesh* m_AnimMesh { nullptr };

@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include <random>
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/EnemyInfoManager.h"
 
 EnemyBase::EnemyBase()
 {
@@ -289,6 +290,24 @@ int EnemyBase::GetIdSub() const
 eEnemyType EnemyBase::GetEnemyType()
 {
     return m_eType;
+}
+
+void EnemyBase::SetShowMenu(const int id)
+{
+    auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
+    auto enemyNameList = enemyInfoManager->GetEnemyNameList();
+    std::wstring enemyName_;
+    for (auto& enemyName : enemyNameList)
+    {
+        auto enemyDef = enemyInfoManager->GetEnemyDef(enemyName);
+        int id_ = enemyDef.GetIDDef();
+        if (id == id_)
+        {
+            enemyName_ = enemyName;
+        }
+    }
+
+    enemyInfoManager->SetEnemyVisible(enemyName_, true);
 }
 
 D3DXVECTOR3 EnemyBase::GetAttackPos() const

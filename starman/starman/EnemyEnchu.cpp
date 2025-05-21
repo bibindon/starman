@@ -78,6 +78,7 @@ void EnemyEnchu::Update()
         if (m_deadTimeCounter >= 60)
         {
             m_state = eEnemyState::DISABLE;
+            SetShowMenu(4);
         }
     }
     else if (m_state == eEnemyState::IDLE)
