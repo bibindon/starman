@@ -1621,7 +1621,13 @@ void SeqBattle::RenderLoad()
         ++counter4;
 
         int progress = SaveManager::Get()->GetProgress();
-        int progress2 = m_map->GetProgress();
+
+        int progress2 = 0;
+
+        if (m_map != nullptr)
+        {
+            progress2 = m_map->GetProgress();
+        }
 
         if (!SharedObj::IsEnglish())
         {
@@ -1633,6 +1639,7 @@ void SeqBattle::RenderLoad()
             {
                 width_ = 90;
             }
+            else
             {
                 if (progress2 < 50)
                 {
