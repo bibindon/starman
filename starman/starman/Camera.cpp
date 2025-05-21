@@ -14,7 +14,7 @@ const D3DXVECTOR3 Camera::UPWARD (0.0f, 1.0f, 0.0f);
 // m_eyePosに何をセットしても視点は変わらない。視点はm_radianによって決まる。
 D3DXVECTOR3 Camera::m_eyePos(0.f, 0.f, 0.f);
 D3DXVECTOR3 Camera::m_lookAtPos(0.0f, 0.0f, 0.0f);
-float Camera::m_viewAngle = D3DX_PI / 4;
+float Camera::m_viewAngle = (D3DX_PI / 4);
 // m_radian == D3DX_PI * 3 / 2の時（270度の時）カメラは正面を向く
 float Camera::m_radian = D3DX_PI * 3 / 2;
 float Camera::m_y = 3.f;
