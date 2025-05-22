@@ -76,9 +76,9 @@ void Map::Init()
     }
     {
         Mesh* mesh = NEW Mesh(_T("res\\model\\sea.x"),
+                              D3DXVECTOR3(0.f, -90.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
-                              D3DXVECTOR3(0.f, 0.f, 0.f),
-                              1.0f);
+                              10.0f);
         mesh->Init();
         m_meshMap[_T("sea")] = mesh;
     }
@@ -87,9 +87,9 @@ void Map::Init()
     // その対策として海の下に、海を表示しておく
     {
         Mesh* mesh = NEW Mesh(_T("res\\model\\sea.x"),
-                              D3DXVECTOR3(0.f, -5.f, 0.f),
+                              D3DXVECTOR3(0.f, -110.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
-                              1.0f);
+                              10.0f);
         mesh->Init();
         m_meshMap[_T("sea2")] = mesh;
     }
@@ -1956,8 +1956,8 @@ bool Map::NearPlant(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId = MapLib()->GetModelId(_T("plant.x"));
-    int modelId2 = MapLib()->GetModelId(_T("grass.x"));
+    int modelId = MapLib()->GetModelId(_T("res\\\\model\\\\plant.x"));
+    int modelId2 = MapLib()->GetModelId(_T("res\\\\model\\\\grass.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -1979,7 +1979,7 @@ bool Map::NearCoconut(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 20.f);
 
-    int modelId = MapLib()->GetModelId(_T("yashi.x"));
+    int modelId = MapLib()->GetModelId(_T("res\\\\model\\\\yashi.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2001,7 +2001,7 @@ bool Map::NearSotetsu(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 20.f);
 
-    int modelId = MapLib()->GetModelId(_T("sotetsu.x"));
+    int modelId = MapLib()->GetModelId(_T("res\\\\model\\\\sotetsu.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2023,7 +2023,7 @@ bool Map::NearThinTree(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId = MapLib()->GetModelId(_T("treeThin.x"));
+    int modelId = MapLib()->GetModelId(_T("res\\\\model\\\\treeThin.blend.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2042,7 +2042,7 @@ bool Map::NearTree(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId = MapLib()->GetModelId(_T("tree1.x"));
+    int modelId = MapLib()->GetModelId(_T("res\\\\model\\\\tree1.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2061,7 +2061,7 @@ bool Map::NearDonguri(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId = MapLib()->GetModelId(_T("donguri.x"));
+    int modelId = MapLib()->GetModelId(_T("res\\\\model\\\\donguri.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2080,7 +2080,7 @@ bool Map::NearStone(const D3DXVECTOR3& pos)
 
     auto list = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId = MapLib()->GetModelId(_T("rocks.x"));
+    int modelId = MapLib()->GetModelId(_T("res\\\\model\\\\rocks.x"));
 
     for (size_t i = 0; i < list.size(); ++i)
     {
@@ -2097,7 +2097,7 @@ void Map::DeleteTree(const D3DXVECTOR3& pos)
 {
     std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int id = MapLib()->GetModelId(_T("treeThin.x"));
+    int id = MapLib()->GetModelId(_T("res\\\\model\\\\treeThin.blend.x"));
 
     for (size_t i = 0; i < mapObjs.size(); ++i)
     {
@@ -2116,8 +2116,8 @@ void Map::DeletePlant(const D3DXVECTOR3& pos)
 {
     std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
-    int modelId1 = MapLib()->GetModelId(_T("plant.x"));
-    int modelId2 = MapLib()->GetModelId(_T("grass.x"));
+    int modelId1 = MapLib()->GetModelId(_T("res\\\\model\\\\plant.x"));
+    int modelId2 = MapLib()->GetModelId(_T("res\\\\model\\\\grass.x"));
 
     for (size_t i = 0; i < mapObjs.size(); ++i)
     {

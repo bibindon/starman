@@ -72,6 +72,7 @@ sampler mesh_texture_sampler = sampler_state {
     MagFilter = LINEAR;
 };
 
+// 多分、赤色成分が少ないテクスチャ画像を使うと、赤色部分の演算結果がオーバーフローして真っ白になる。
 void pixel_shader(
     in float4 in_diffuse  : COLOR0,
     in float2 in_texcood  : TEXCOORD0,
@@ -97,11 +98,10 @@ void pixel_shader(
     //------------------------------------------------------
     float4 fog_color2 = fog_color * g_light_brightness;
 
-
     out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
 
     // 夜空は青色にしたい
-    out_diffuse.rg *= (g_light_brightness*1.414f);
+    out_diffuse.rg *= (g_light_brightness * 1.414f);
     out_diffuse.b *= (2.f - g_light_brightness);
 
     //------------------------------------------------------
