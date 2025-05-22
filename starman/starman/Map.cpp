@@ -76,9 +76,9 @@ void Map::Init()
     }
     {
         Mesh* mesh = NEW Mesh(_T("res\\model\\sea.x"),
-                              D3DXVECTOR3(10.f, 10.f, 10.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
-                              10.0f);
+                              D3DXVECTOR3(0.f, 0.f, 0.f),
+                              1.0f);
         mesh->Init();
         m_meshMap[_T("sea")] = mesh;
     }
@@ -87,9 +87,9 @@ void Map::Init()
     // その対策として海の下に、海を表示しておく
     {
         Mesh* mesh = NEW Mesh(_T("res\\model\\sea.x"),
-                              D3DXVECTOR3(10.f, 5.f, 10.f),
+                              D3DXVECTOR3(0.f, -5.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
-                              10.0f);
+                              1.0f);
         mesh->Init();
         m_meshMap[_T("sea2")] = mesh;
     }
@@ -1021,10 +1021,12 @@ void Map::Update()
                 m_meshMap[_T("sky")]->SetPos(cameraPos);
 
                 auto player = SharedObj::GetPlayer();
-                auto work = player->GetPos();
-                work.y = 10.f;
+                auto work1 = m_meshMap[_T("sea")]->GetPos();
+                auto work2 = player->GetPos();
+                work1.x = work2.x;
+                work1.z = work2.z;
 
-                m_meshMap[_T("sea")]->SetPos(work);
+                m_meshMap[_T("sea")]->SetPos(work1);
             }
 
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
