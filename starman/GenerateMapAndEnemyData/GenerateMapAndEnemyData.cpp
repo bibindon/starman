@@ -285,7 +285,7 @@ std::vector<stPos> ReadX(const std::string& xPath)
 
 struct stMapDef
 {
-    int m_id;
+    int m_id = 0;
 
     // このエリアには必ず現れてほしい、という位置情報
     std::vector<stPos> m_mustAreaList;
@@ -302,7 +302,7 @@ struct stMapDef
 
 struct stEnemyDef
 {
-    int m_id;
+    int m_id = 0;
     std::string m_name;
 
     // このエリアには必ず現れてほしい、という位置情報
