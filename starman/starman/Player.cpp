@@ -1135,6 +1135,12 @@ bool Player::SetAttack()
             int hp = vecEnemy.at(i)->GetHP();
 
             float attackPower = statusManager->GetAttackPower();
+
+            if (Common::StrongMode() && Common::DebugMode())
+            {
+				attackPower = 1000.f;
+            }
+
             vecEnemy.at(i)->SetHP(hp - (int)attackPower);
 
             // 松明だったら一度で壊れる。火も消える

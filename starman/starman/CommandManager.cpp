@@ -361,7 +361,10 @@ void CommandManager::BuildCommand()
         if (SharedObj::GetMap()->NearPlant(ppos) ||
             SharedObj::GetMap()->NearCoconut(ppos) ||
             SharedObj::GetMap()->NearTree(ppos) ||
-            SharedObj::GetMap()->NearSotetsu(ppos))
+            SharedObj::GetMap()->NearSotetsu(ppos) ||
+            SharedObj::GetMap()->NearDonguri(ppos) ||
+            SharedObj::GetMap()->NearStone(ppos)
+            )
         {
             m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), true);
         }
