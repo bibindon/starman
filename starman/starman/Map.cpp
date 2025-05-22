@@ -2378,6 +2378,25 @@ D3DXVECTOR3 Map::WallSlideSub(const D3DXVECTOR3& pos,
     return result;
 }
 
+void Map::DeleteObj(const D3DXVECTOR3& pos, const eMapObjType eMapObjType_)
+{
+    std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
+
+    int id = (int)eMapObjType_;
+
+    for (size_t i = 0; i < mapObjs.size(); ++i)
+    {
+        if (id == mapObjs.at(i).m_modelId)
+        {
+            MapLib()->SetVisible(mapObjs.at(i).m_frameX,
+                                 mapObjs.at(i).m_frameZ,
+                                 mapObjs.at(i).m_id,
+                                 false);
+            break;
+        }
+    }
+}
+
 int Map::GetProgress()
 {
     return m_progress.load();

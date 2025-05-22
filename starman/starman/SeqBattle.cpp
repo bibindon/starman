@@ -1218,7 +1218,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == Common::LoadString_(IDS_STRING178))
     {
-        // 石か石斧を装備していないと切れない
+        // 石斧を装備しているか、縦長の石を所有していないと切れない
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
 
@@ -1228,7 +1228,23 @@ void SeqBattle::OperateCommand()
             name = itemInfo.GetItemDef().GetName();
         }
 
-        if (name != _T("石斧") && name != _T("縦長の石"))
+        bool bHaveAxe = false;
+        if (name == _T("石斧"))
+        {
+            bHaveAxe = true;
+        }
+
+        auto itemDef = NSStarmanLib::ItemManager::GetObj()->GetItemDef(_T("縦長の石"));
+        auto subIdList = Common::Inventory()->GetSubIdList(itemDef.GetId());
+
+        bool bHaveLongStone = false;
+
+        if (!subIdList.empty())
+        {
+            bHaveLongStone = true;
+        }
+
+        if (!bHaveAxe && !bHaveLongStone)
         {
             PopUp2::Get()->SetText(IDS_STRING106);
         }

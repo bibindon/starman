@@ -9,6 +9,23 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/StatusManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 
+enum class eMapObjType
+{
+    TREE = 1,
+    WATER,
+    ROCK_WITH_DEPRESSIONS,
+    GRASS,
+    PLANT,
+    ROCK,
+    DONGURI,
+    PLANT_MANY,
+    YASHI,
+    SOTETSU,
+    STONES,
+    BIG_TREE,
+    THIN_TREE,
+};
+
 class Map
 {
 public:
@@ -101,6 +118,9 @@ public:
 
     // ２メートル以内の草を１本消す
     void DeletePlant(const D3DXVECTOR3& pos);
+
+    // ２メートル以内のマップオブジェクトを１個消す
+    void DeleteObj(const D3DXVECTOR3& pos, const eMapObjType eMapObjType_);
 
     int GetProgress();
 
