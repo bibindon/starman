@@ -234,9 +234,7 @@ void SaveManager::Save()
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Save(CreateSaveFilePath(_T("datetime.csv")), m_encrypt);
 
-    // TODO 保存すると壊れる
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-    //mapObjManager->Save(CreateSaveFilePath(_T("map_obj.csv")), m_encrypt);
     mapObjManager->SaveWithBinary(GetSavefileMapPath());
 
     QuestManager::Get()->Save(CreateSaveFilePath(_T("questSave.csv")));
@@ -346,9 +344,6 @@ void SaveManager::LoadOrigin()
 
     m_progress.store(40);
     NSStarmanLib::MapObjManager* mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-//    mapObjManager->Init(CreateOriginFilePath(_T("map_obj.csv")),
-//                        CreateOriginFilePath(_T("map_obj_type.csv")), m_encrypt);
-
     mapObjManager->InitWithBinary(GetOriginMapPath(),
                                   CreateOriginFilePath(_T("map_obj_type.csv")), m_encrypt);
 

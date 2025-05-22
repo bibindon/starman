@@ -2241,6 +2241,8 @@ void SeqBattle::OperatePickPlant()
                 // バナナ
                 pickId = 40;
             }
+
+			m_map->DeleteObj(m_player->GetPos(), eMapObjType::TREE);
         }
         else if (m_map->NearCoconut(SharedObj::GetPlayer()->GetPos()))
         {
@@ -2257,11 +2259,14 @@ void SeqBattle::OperatePickPlant()
             {
                 pickId = 6;
             }
+
+			m_map->DeleteObj(m_player->GetPos(), eMapObjType::YASHI);
         }
         // 近くにソテツの木があったらソテツを取得する
         else if (m_map->NearSotetsu(SharedObj::GetPlayer()->GetPos()))
         {
             pickId = 3;
+			m_map->DeleteObj(m_player->GetPos(), eMapObjType::SOTETSU);
         }
         // 近くにどんぐりの山があったらどんぐりなどを取得する
         else if (m_map->NearDonguri(SharedObj::GetPlayer()->GetPos()))
@@ -2289,6 +2294,8 @@ void SeqBattle::OperatePickPlant()
             {
                 pickId = 35;
             }
+
+			m_map->DeleteObj(m_player->GetPos(), eMapObjType::DONGURI);
         }
         // 砂利の近く
         else if (m_map->NearStone(SharedObj::GetPlayer()->GetPos()))
@@ -2316,8 +2323,10 @@ void SeqBattle::OperatePickPlant()
                 // いい形の石（槍）
                 pickId = 34;
             }
+
+			m_map->DeleteObj(m_player->GetPos(), eMapObjType::STONES);
         }
-        else
+        else if (m_map->NearPlant(SharedObj::GetPlayer()->GetPos()))
         {
             unsigned int rand = SharedObj::GetRandom();
 
@@ -2497,7 +2506,7 @@ void SeqBattle::OperateCutTree()
         Common::Inventory()->AddItem(itemDef.GetId());
 
         // 木を消す処理
-        m_map->DeleteTree(m_player->GetPos());
+        m_map->DeleteThinTree(m_player->GetPos());
 
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
@@ -3413,6 +3422,12 @@ void SeqBattle::OperateTitle(eSequence* sequence)
         InitializeAfterLoad();
 
         FinalizeLoad();
+
+		SAFE_DELETE(m_map);
+		m_map = NEW Map();
+		SharedObj::SetMap(m_map);
+		m_map->Init();
+
         m_Opening = NEW Opening();
     }
     else if (m_eState == eBattleState::NORMAL)

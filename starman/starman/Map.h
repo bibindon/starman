@@ -114,7 +114,7 @@ public:
     bool NearStone(const D3DXVECTOR3& pos);
 
     // ２メートル以内の木を１本消す
-    void DeleteTree(const D3DXVECTOR3& pos);
+    void DeleteThinTree(const D3DXVECTOR3& pos);
 
     // ２メートル以内の草を１本消す
     void DeletePlant(const D3DXVECTOR3& pos);

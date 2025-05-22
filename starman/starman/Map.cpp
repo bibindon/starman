@@ -2093,7 +2093,7 @@ bool Map::NearStone(const D3DXVECTOR3& pos)
     return isHit;
 }
 
-void Map::DeleteTree(const D3DXVECTOR3& pos)
+void Map::DeleteThinTree(const D3DXVECTOR3& pos)
 {
     std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);
 
