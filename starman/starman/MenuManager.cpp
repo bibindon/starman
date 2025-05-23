@@ -351,6 +351,15 @@ void MenuManager::InitMenu()
                             itemInfoG.SetEquip(true);
                         }
                     }
+                    // 菅笠
+                    else if (itemInfo.GetItemDef().GetId() == 36)
+                    {
+                        itemInfoG.SetEquipEnable(true);
+                        if (Common::Status()->GetSugegasa())
+                        {
+                            itemInfoG.SetEquip(true);
+                        }
+                    }
                     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
                     {
                         itemInfoG.SetEquipEnable(true);
@@ -1551,6 +1560,15 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
             itemInfoG.SetEquip(true);
         }
     }
+    else if (itemDef.GetId() == 36)
+    {
+        itemInfoG.SetEquipEnable(true);
+
+        if (Common::Status()->GetSugegasa())
+        {
+            itemInfoG.SetEquip(true);
+        }
+    }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
         itemInfoG.SetEquipEnable(true);
@@ -1695,8 +1713,22 @@ void MenuManager::Equip(const int id, const int subId)
         m_menu.UpdateItem(itemInfoG);
 
     }
+    // 菅笠だったら
+    else if (id == 36)
+    {
+        auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
+        Common::Status()->SetSugegasa(true);
+
+        NSMenulib::ItemInfo itemInfoG;
+        itemInfoG.SetId(id);
+        itemInfoG.SetSubId(subId);
+        itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+        itemInfoG.SetLevel(itemInfo.GetItemDef().GetLevel());
+        itemInfoG.SetEquip(true);
+        m_menu.UpdateItem(itemInfoG);
+    }
     // 袋だったら
-    else
+    else if (id == 27 || id == 28 || id == 29 || id == 30 || id == 31 || id == 32)
     {
         // 袋を5個装備していたら装備しない
         if (Common::Status()->GetBagState().size() >= 5)
@@ -1733,13 +1765,20 @@ void MenuManager::Unequip(const int id, const int subId)
     itemInfoG.SetEquip(false);
     m_menu.UpdateItem(itemInfoG);
 
+    // 武器だったら
     if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
         NSStarmanLib::ItemInfo itemInfo;
         itemInfo.SetId(-1);
         Common::Status()->SetEquipWeapon(itemInfo);
     }
-    else
+    // 菅笠だったら
+    else if (id == 36)
+    {
+        Common::Status()->SetSugegasa(false);
+    }
+    // 袋だったら
+    else if (id == 27 || id == 28 || id == 29 || id == 30 || id == 31 || id == 32)
     {
         Common::Status()->UnequipBag(id, subId);
 
