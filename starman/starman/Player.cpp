@@ -293,6 +293,10 @@ Player::~Player()
     {
         SAFE_DELETE(it->second);
     }
+
+    // TODO 袋の解放
+
+    // TODO 菅笠の解放
 }
 
 void Player::Update(Map* map)
