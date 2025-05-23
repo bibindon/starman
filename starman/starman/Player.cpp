@@ -251,6 +251,15 @@ Player::Player()
         m_bagMesh[NSStarmanLib::eBagPos::Right] = mesh;
     }
 
+    // 菅笠
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 2.f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh * mesh = NEW Mesh(_T("res\\model\\sugegasa.blend.x"), pos, rot, 1.0f);
+        mesh->Init();
+        m_sugegasaMesh = mesh;
+    }
+
     float x = 0.f;
     float y = 0.f;
     float z = 0.f;
@@ -993,7 +1002,17 @@ void Player::Render()
 
         }
         m_bagMesh[(*it)]->Render();
+    }
 
+    if (Common::Status()->GetSugegasa())
+    {
+        auto pos = m_loadingPos;
+        pos.y += 2.0f;
+
+        m_sugegasaMesh->SetPos(pos);
+        m_sugegasaMesh->SetRotY(m_rotate.y);
+
+        m_sugegasaMesh->Render();
     }
 }
 

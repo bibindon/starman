@@ -473,7 +473,7 @@ int MainWindow::MainLoop()
 
         if (counter % 60 == 59)
         {
-			BGM::Get()->Update();
+            BGM::Get()->Update();
         }
 
         if (m_sequence == eSequence::BATTLE)
