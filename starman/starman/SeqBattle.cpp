@@ -21,6 +21,7 @@
 #include "PopUp2.h"
 #include "SaveManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/MapInfoManager.h"
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
@@ -2142,6 +2143,14 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto shikakuman = NpcManager::Get()->GetNpcStatus(_T("shikakuman"));
                     shikakuman.SetDead();
                     NpcManager::Get()->SetNpcStatus(_T("shikakuman"), shikakuman);
+                }
+                else if (vs2.at(j).find(_T("<showMap>")) != std::wstring::npos)
+                {
+                    std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<showMap>"));
+                    int id = std::stoi(work2);
+
+                    auto mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
+                    mapInfoManager->SetDiscovered(id);
                 }
                 else if (vs2.at(j).find(_T("<sotetsu>")) != std::wstring::npos)
                 {
