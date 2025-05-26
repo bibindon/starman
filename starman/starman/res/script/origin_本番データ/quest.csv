@@ -298,7 +298,8 @@ Q28,"クエストが完了していたら
 クエストが完了していないなら","Q27
 Q28",,"調べたら
 NPCのXが生存","24:492:-569:2
-daikeiman",,<talk>res\\script\\origin\\talkFinishQuest9-3.csv
+daikeiman",,"<talk>res\\script\\origin\\talkFinishQuest9-3.csv
+<showMap>3"
 Q29,"クエストが完了していたら
 クエストが完了していないなら","Q28
 Q29",,"位置
@@ -309,7 +310,8 @@ daikeiman",,"<npc><daikeiman><pos>20:491.7:-563
 <talk>res\\script\\origin\\talkFinishQuest9-4.csv"
 Q30,"クエストが完了していたら
 クエストが完了していないなら","Q29
-Q30",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:10,,<talk>res\\script\\origin\\talkFinishQuest10.csv
+Q30",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:10,,"<talk>res\\script\\origin\\talkFinishQuest10.csv
+<showMap>7"
 Q31,"クエストが完了していたら
 クエストが完了していないなら","Q30
 Q31",<hint>ホシマン（ココナッツを彼のもとに持っていこう）,"位置
@@ -457,7 +459,8 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest29.csv
 <item>石槍:1:999"
 Q50,"クエストが完了していたら
 クエストが完了していないなら","Q49
-Q50",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest30.csv
+Q50",<hint>ホシマン（川の近くに建物が見える）,位置,15.8:492.8:-1221.2:30,,"<talk>res\\script\\origin\\talkFinishQuest30.csv
+<showMap>4"
 Q51,"クエストが完了していたら
 クエストが完了していないなら","Q50
 Q51",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -469,7 +472,16 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest31.csv
 Q52,"クエストが完了していたら
 クエストが完了していないなら","Q51
-Q52",<hint>ホシマン（地図上の神社の位置に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest32.csv
+Q52",<hint>ホシマン（神社の奥に行ってみよう）,位置,15.8:492.8:-1221.2:30,,"<talk>res\\script\\origin\\talkFinishQuest32.csv
+<showMap>5
+<showMap>6
+<showMap>8
+<showMap>9
+<showMap>10
+<showMap>15
+<showMap>16
+<showMap>17
+<showMap>18"
 Q53,"クエストが完了していたら
 クエストが完了していないなら","Q52
 Q53",<hint>ホシマン（一度、廃墟に向かおう）,"位置
