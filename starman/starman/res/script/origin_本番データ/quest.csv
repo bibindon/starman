@@ -589,7 +589,8 @@ NPCのXが生存
 NPCのXが生存","1092.0:40.8:504.1:200.0
 daikeiman
 sankakuman
-shikakuman",,<talk>res\\script\\origin\\talkFinishQuest50.csv
+shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
+<activityBase>DirectNex"
 Q71,"クエストが完了していたら
 クエストが完了していないなら","Q70
 Q71",<hint>ホシマン（１か月くらいを使って拠点を整えよう）,"時間が経過したら

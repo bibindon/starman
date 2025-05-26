@@ -26,6 +26,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/NpcStatusManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
 #include "QuestManager.h"
 #include "Rain.h"
 #include <cassert>
@@ -2151,6 +2152,15 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     auto mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
                     mapInfoManager->SetDiscovered(id);
+                }
+                else if (vs2.at(j).find(_T("<activityBase>")) != std::wstring::npos)
+                {
+                    std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<activityBase>"));
+                    if (work2 == L"DirectNex")
+                    {
+                        auto activityBase = NSStarmanLib::ActivityBase::Get();
+                        activityBase->SetBaseType(NSStarmanLib::eBaseType::DirectNex);
+                    }
                 }
                 else if (vs2.at(j).find(_T("<sotetsu>")) != std::wstring::npos)
                 {
