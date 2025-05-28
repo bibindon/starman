@@ -116,7 +116,7 @@ void EnemyCube::Update()
             D3DXVec3Normalize(&norm, &enemyVector);
             // 壁ずり
             Map* map = SharedObj::GetMap();
-            D3DXVECTOR3 move = norm / 50;
+            D3DXVECTOR3 move = norm * 0.02f;
             bool bHit = false;
             bool bInside = false;
             move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
