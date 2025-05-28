@@ -942,7 +942,43 @@ void Player::Update(Map* map)
     // 壁ずりは足に対してだけ行う
     bool bHit = false;
     bool bInside = false;
+
+    // y方向に大きく移動していて、y方向の移動がなくなったら骨折
+    float _y1 = m_move.y;
+    float _y2 = 0.f;
     m_move = map->WallSlide(m_loadingPos, m_move, &bHit, &bInside);
+    _y2 = m_move.y;
+
+    if (_y1 <= -1.f && _y2 > -1.f)
+    {
+        if (Common::DebugMode() && Common::StrongMode())
+        {
+            // Do nothing
+        }
+        else
+        {
+            unsigned int rand_ = SharedObj::GetRandom();
+
+            if (rand_ % 101 < 25)
+            {
+                Common::Status()->SetFractureArm(true);
+                PopUp2::Get()->SetText(L"腕の骨が折れた。");
+            }
+            else if (rand_ % 101 < 50)
+            {
+                Common::Status()->SetFractureLeg(true);
+                PopUp2::Get()->SetText(L"足の骨が折れた。");
+            }
+            else
+            {
+                Common::Status()->SetFractureArm(true);
+                PopUp2::Get()->SetText(L"腕の骨が折れた。");
+
+                Common::Status()->SetFractureLeg(true);
+                PopUp2::Get()->SetText(L"足の骨が折れた。");
+            }
+        }
+    }
 
     if (!bInside)
     {
