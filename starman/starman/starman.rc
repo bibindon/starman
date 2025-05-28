@@ -15,7 +15,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Japanese (Japan) resources
+// 日本語 (日本) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
 LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
@@ -194,7 +194,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_STRING209           "瞬発力"
-    IDS_STRING210           "パラメータ      現在値/回復可能値/最大値"
+    IDS_STRING210           "パラメータ          現在値/回復可能値/最大値"
     IDS_STRING211           "ホシマン"
     IDS_STRING212           "袋"
     IDS_STRING213           "状態異常"
@@ -202,12 +202,12 @@ BEGIN
     IDS_STRING215           "攻撃力"
 END
 
-#endif    // Japanese (Japan) resources
+#endif    // 日本語 (日本) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
 /////////////////////////////////////////////////////////////////////////////
-// English (United States) resources
+// 英語 (米国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
@@ -358,7 +358,7 @@ BEGIN
     IDS_STRING215           "Attack Power"
 END
 
-#endif    // English (United States) resources
+#endif    // 英語 (米国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
