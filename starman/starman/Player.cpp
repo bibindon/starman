@@ -473,21 +473,21 @@ void Player::Update(Map* map)
         // ジョギング
         if (SharedObj::KeyBoard()->IsDown(DIK_LSHIFT))
         {
-            move.x += -std::sin(radian + D3DX_PI) * 0.5f;
+            move.x += -std::sin(radian) * 0.5f;
             move.z += std::sin(radian + D3DX_PI / 2) * 0.5f;
             SetJogging();
         }
         // ダッシュ
         else if (SharedObj::KeyBoard()->IsDown(DIK_LCONTROL))
         {
-            move.x += -std::sin(radian + D3DX_PI);
+            move.x += -std::sin(radian);
             move.z += std::sin(radian + D3DX_PI / 2);
             SetDash();
         }
         // 歩く
         else
         {
-            move.x += -std::sin(radian + D3DX_PI) * 0.1f;
+            move.x += -std::sin(radian) * 0.1f;
             move.z += std::sin(radian + D3DX_PI / 2) * 0.1f;
             SetWalk();
         }
