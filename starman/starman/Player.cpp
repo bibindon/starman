@@ -1532,7 +1532,7 @@ D3DXVECTOR3 Player::GetAttackPos() const
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
     norm.x = std::sin(m_rotate.y + D3DX_PI);
     norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
-    pos += norm * 2;
+    pos += norm * 1.f;
     return pos;
 }
 
