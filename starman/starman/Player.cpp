@@ -315,13 +315,12 @@ void Player::Update(Map* map)
             auto status = NSStarmanLib::StatusManager::GetObj();
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::IDLE_WATER);
 
-            // 水中で寝たら死亡
+            // 水中にいたら寝ることはない
             auto sleep = Common::Status()->GetSleep();
 
             if (sleep)
             {
-                Common::Status()->SetDead(true);
-                Common::Status()->SetDeadReason(NSStarmanLib::eDeadReason::DROWNING);
+                Common::Status()->SetSleep(false);
             }
         }
     }
