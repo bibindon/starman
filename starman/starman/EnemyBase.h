@@ -16,6 +16,7 @@ enum class eEnemyState
     DISABLE,
     ATTACK,
     STEP,
+    DASH,
 };
 
 enum class eEnemyType

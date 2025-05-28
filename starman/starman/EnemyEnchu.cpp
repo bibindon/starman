@@ -101,13 +101,12 @@ void EnemyEnchu::Update()
         FLOAT distance = D3DXVec3Length(&enemyVector);
         if (distance < 3.f)
         {
-            int randNum = SharedObj::GetRandom();
+            // 0 ~ 100
+            int randNum = SharedObj::GetRandom() % 101;
 
-            //std::wstring msg;
-            //msg = _T("randNum: " + std::to_wstring(randNum) + "\n");
-            if (randNum % 30 == 0)
+            if (randNum < 3)
             {
-                m_state = eEnemyState::ATTACK;
+                m_state = eEnemyState::DASH;
             }
         }
         else if (3.f <= distance && distance < 20.f)
@@ -116,7 +115,7 @@ void EnemyEnchu::Update()
             D3DXVec3Normalize(&norm, &enemyVector);
             // 壁ずり
             Map* map = SharedObj::GetMap();
-            D3DXVECTOR3 move = norm / 50;
+            D3DXVECTOR3 move = norm * 0.02f;
             bool bHit = false;
             bool bInside = false;
             move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
@@ -138,29 +137,35 @@ void EnemyEnchu::Update()
             m_state = eEnemyState::IDLE;
         }
     }
-    else if (m_state == eEnemyState::ATTACK)
+    else if (m_state == eEnemyState::DASH)
     {
         ++m_attackTimeCounter;
         if (m_attackTimeCounter == 1)
         {
-            m_AnimMesh->SetAnim(_T("Attack"), 0.f);
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
-            D3DXVECTOR3 rot = pos - m_loadingPos;
-            m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
+            D3DXVECTOR3 enemyVector = pos - m_loadingPos;
 
+            D3DXVec3Normalize(&m_vDash, &enemyVector);
+            m_vDash *= 0.2f;
 
-            D3DXVECTOR3 attackPos { GetAttackPos() };
-            D3DXVECTOR3 playerPos { 0.f, 0.f, 0.f };
-            playerPos = player->GetPos();
-            D3DXVECTOR3 subPos { attackPos - playerPos };
+            m_bAttack = true;
+        }
+        else if (m_attackTimeCounter < 10)
+        {
+            m_loadingPos += m_vDash;
+
+            D3DXVECTOR3 attackPos = GetAttackPos();
+            D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+            D3DXVECTOR3 subPos(attackPos - playerPos);
             FLOAT distance = D3DXVec3Length(&subPos);
             std::wstring msg;
             msg = _T("distance: ") + std::to_wstring(distance) + _T("\n");
 
             if (distance <= 1.0f)
             {
-                player->SetDamaged();
+                m_bAttack = false;
+                SharedObj::GetPlayer()->SetDamaged();
                 auto status = NSStarmanLib::StatusManager::GetObj();
 
                 auto muscle = status->GetMuscleCurrent();
@@ -169,7 +174,6 @@ void EnemyEnchu::Update()
                 auto brain = status->GetBrainStaminaCurrent();
                 status->SetBrainStaminaCurrent(brain - 1);
             }
-
         }
         else if (m_attackTimeCounter >= 60)
         {

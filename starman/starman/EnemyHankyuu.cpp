@@ -103,8 +103,6 @@ void EnemyHankyuu::Update()
         {
             int randNum = SharedObj::GetRandom() % 100;
 
-            //std::wstring msg;
-            //msg = _T("randNum: " + std::to_wstring(randNum) + "\n");
             if (randNum < 3)
             {
                 m_state = eEnemyState::ATTACK;
