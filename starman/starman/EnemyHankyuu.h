@@ -20,5 +20,7 @@ private:
 
     int m_stepTimeCounter { 0 };
 
+    // ステップ方向
+    D3DXVECTOR3 m_vStep { 0.f, 0.f, 0.f };
 };
 

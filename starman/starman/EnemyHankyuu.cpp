@@ -182,24 +182,26 @@ void EnemyHankyuu::Update()
     else if (m_state == eEnemyState::STEP)
     {
         ++m_stepTimeCounter;
-        if (m_stepTimeCounter < 15)
+
+        if (m_stepTimeCounter == 1)
         {
+            m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
+
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 enemyVector = pos - m_loadingPos;
-            D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
-            D3DXVec3Normalize(&norm, &enemyVector);
-            // 壁ずり
-            Map* map = SharedObj::GetMap();
-            D3DXVECTOR3 move = norm * 0.2f;
-            bool bHit = false;
-            bool bInside = false;
-            move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
-            m_loadingPos += move;
-            m_rotate.y = atan2(-enemyVector.x, -enemyVector.z) + (D3DX_PI * 0.5f);
-
+            D3DXMATRIX rotY;
+            D3DXMatrixRotationY(&rotY, D3DXToRadian(90));
+            D3DXVECTOR3 moveDir2;
+            D3DXVec3TransformCoord(&moveDir2, &enemyVector, &rotY);
+            D3DXVec3Normalize(&m_vStep, &moveDir2);
+            m_vStep *= 0.2f;
         }
-        else if (m_stepTimeCounter >= 60)
+        else if (m_stepTimeCounter < 10)
+        {
+            m_loadingPos += m_vStep;
+        }
+        else if (m_stepTimeCounter >= 30)
         {
             m_stepTimeCounter = 0;
             m_state = eEnemyState::IDLE;
