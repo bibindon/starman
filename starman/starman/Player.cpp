@@ -780,18 +780,7 @@ void Player::Update(Map* map)
         }
         else
         {
-            if (action == NSStarmanLib::StatusManager::PlayerState::WALK)
-            {
-                MAX_XZ_MOVE = 0.02f;
-            }
-            else if (action == NSStarmanLib::StatusManager::PlayerState::JOGGING)
-            {
-                MAX_XZ_MOVE = 0.05f;
-            }
-            else if (action == NSStarmanLib::StatusManager::PlayerState::SPRINTING)
-            {
-                MAX_XZ_MOVE = 0.1f;
-            }
+            MAX_XZ_MOVE = 0.1f;
         }
     }
 
