@@ -2261,7 +2261,7 @@ void SeqBattle::OperatePickPlant()
                 pickId = 40;
             }
 
-			m_map->DeleteObj(m_player->GetPos(), eMapObjType::TREE);
+            m_map->DeleteObj(m_player->GetPos(), eMapObjType::TREE);
         }
         else if (m_map->NearCoconut(SharedObj::GetPlayer()->GetPos()))
         {
@@ -2279,13 +2279,13 @@ void SeqBattle::OperatePickPlant()
                 pickId = 6;
             }
 
-			m_map->DeleteObj(m_player->GetPos(), eMapObjType::YASHI);
+            m_map->DeleteObj(m_player->GetPos(), eMapObjType::YASHI);
         }
         // 近くにソテツの木があったらソテツを取得する
         else if (m_map->NearSotetsu(SharedObj::GetPlayer()->GetPos()))
         {
             pickId = 3;
-			m_map->DeleteObj(m_player->GetPos(), eMapObjType::SOTETSU);
+            m_map->DeleteObj(m_player->GetPos(), eMapObjType::SOTETSU);
         }
         // 近くにどんぐりの山があったらどんぐりなどを取得する
         else if (m_map->NearDonguri(SharedObj::GetPlayer()->GetPos()))
@@ -2314,7 +2314,7 @@ void SeqBattle::OperatePickPlant()
                 pickId = 35;
             }
 
-			m_map->DeleteObj(m_player->GetPos(), eMapObjType::DONGURI);
+            m_map->DeleteObj(m_player->GetPos(), eMapObjType::DONGURI);
         }
         // 砂利の近く
         else if (m_map->NearStone(SharedObj::GetPlayer()->GetPos()))
@@ -2343,7 +2343,7 @@ void SeqBattle::OperatePickPlant()
                 pickId = 34;
             }
 
-			m_map->DeleteObj(m_player->GetPos(), eMapObjType::STONES);
+            m_map->DeleteObj(m_player->GetPos(), eMapObjType::STONES);
         }
         else if (m_map->NearPlant(SharedObj::GetPlayer()->GetPos()))
         {
@@ -3442,10 +3442,10 @@ void SeqBattle::OperateTitle(eSequence* sequence)
 
         FinalizeLoad();
 
-		SAFE_DELETE(m_map);
-		m_map = NEW Map();
-		SharedObj::SetMap(m_map);
-		m_map->Init();
+        SAFE_DELETE(m_map);
+        m_map = NEW Map();
+        SharedObj::SetMap(m_map);
+        m_map->Init();
 
         m_Opening = NEW Opening();
     }
