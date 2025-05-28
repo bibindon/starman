@@ -15,6 +15,7 @@ enum class eEnemyState
     DEAD,
     DISABLE,
     ATTACK,
+    STEP,
 };
 
 enum class eEnemyType
@@ -64,6 +65,7 @@ protected:
 
     bool m_bAttack { false };
     int m_attackTimeCounter { 0 };
+
     int m_HP { 100 };
     Sprite* m_spriteHP { nullptr };
     Sprite* m_spriteHPBack { nullptr };

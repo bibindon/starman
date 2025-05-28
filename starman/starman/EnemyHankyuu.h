@@ -15,5 +15,10 @@ public:
     ~EnemyHankyuu() override;
     bool Init() override;
     void Update() override;
+
+private:
+
+    int m_stepTimeCounter { 0 };
+
 };
 

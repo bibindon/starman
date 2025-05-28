@@ -101,13 +101,17 @@ void EnemyHankyuu::Update()
         FLOAT distance = D3DXVec3Length(&enemyVector);
         if (distance < 3.f)
         {
-            int randNum = SharedObj::GetRandom();
+            int randNum = SharedObj::GetRandom() % 100;
 
             //std::wstring msg;
             //msg = _T("randNum: " + std::to_wstring(randNum) + "\n");
-            if (randNum % 30 == 0)
+            if (randNum < 3)
             {
                 m_state = eEnemyState::ATTACK;
+            }
+            else if (randNum < 8)
+            {
+                m_state = eEnemyState::STEP;
             }
         }
         else if (3.f <= distance && distance < 20.f)
@@ -116,7 +120,7 @@ void EnemyHankyuu::Update()
             D3DXVec3Normalize(&norm, &enemyVector);
             // 壁ずり
             Map* map = SharedObj::GetMap();
-            D3DXVECTOR3 move = norm / 50;
+            D3DXVECTOR3 move = norm * 0.02f;
             bool bHit = false;
             bool bInside = false;
             move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
@@ -174,6 +178,32 @@ void EnemyHankyuu::Update()
         else if (m_attackTimeCounter >= 60)
         {
             m_attackTimeCounter = 0;
+            m_state = eEnemyState::IDLE;
+        }
+    }
+    else if (m_state == eEnemyState::STEP)
+    {
+        ++m_stepTimeCounter;
+        if (m_stepTimeCounter < 15)
+        {
+            Player* player = SharedObj::GetPlayer();
+            D3DXVECTOR3 pos = player->GetPos();
+            D3DXVECTOR3 enemyVector = pos - m_loadingPos;
+            D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
+            D3DXVec3Normalize(&norm, &enemyVector);
+            // 壁ずり
+            Map* map = SharedObj::GetMap();
+            D3DXVECTOR3 move = norm * 0.2f;
+            bool bHit = false;
+            bool bInside = false;
+            move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
+            m_loadingPos += move;
+            m_rotate.y = atan2(-enemyVector.x, -enemyVector.z) + (D3DX_PI * 0.5f);
+
+        }
+        else if (m_stepTimeCounter >= 60)
+        {
+            m_stepTimeCounter = 0;
             m_state = eEnemyState::IDLE;
         }
     }
