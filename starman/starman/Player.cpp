@@ -1183,7 +1183,20 @@ bool Player::SetAttack()
         D3DXVECTOR3 subPos { attackPos - enemyPos };
         FLOAT distance = D3DXVec3Length(&subPos);
 
-        if (distance <= 1.5f)
+        FLOAT range_ = 1.f;
+
+        // スモールリッポウタイだったら当たりにくくする
+        if (vecEnemy.at(i)->GetEnemyType() == eEnemyType::SmallCube)
+        {
+            range_ = 0.25f;
+        }
+        else if (vecEnemy.at(i)->GetEnemyType() == eEnemyType::BigCube)
+        {
+            range_ = 1.5f;
+        }
+
+
+        if (distance <= range_)
         {
             vecEnemy.at(i)->SetState(eEnemyState::DAMAGED);
             int hp = vecEnemy.at(i)->GetHP();

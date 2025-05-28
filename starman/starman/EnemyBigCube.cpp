@@ -10,6 +10,7 @@
 EnemyBigCube::EnemyBigCube()
 {
     m_eType = eEnemyType::BigCube;
+    m_HP = 300;
 }
 
 EnemyBigCube::~EnemyBigCube()
@@ -116,7 +117,7 @@ void EnemyBigCube::Update()
             D3DXVec3Normalize(&norm, &enemyVector);
             // 壁ずり
             Map* map = SharedObj::GetMap();
-            D3DXVECTOR3 move = norm / 50;
+            D3DXVECTOR3 move = norm * 0.02f;
             bool bHit = false;
             bool bInside = false;
             move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
@@ -147,7 +148,7 @@ void EnemyBigCube::Update()
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 rot = pos - m_loadingPos;
-            m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
+            m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI * 3 / 2;
 
 
             D3DXVECTOR3 attackPos { GetAttackPos() };
@@ -164,10 +165,10 @@ void EnemyBigCube::Update()
                 auto status = NSStarmanLib::StatusManager::GetObj();
 
                 auto muscle = status->GetMuscleCurrent();
-                status->SetMuscleCurrent(muscle - 1);
+                status->SetMuscleCurrent(muscle - 3);
 
                 auto brain = status->GetBrainStaminaCurrent();
-                status->SetBrainStaminaCurrent(brain - 1);
+                status->SetBrainStaminaCurrent(brain - 3);
             }
 
         }

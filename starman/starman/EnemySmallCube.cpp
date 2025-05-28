@@ -10,6 +10,7 @@
 EnemySmallCube::EnemySmallCube()
 {
     m_eType = eEnemyType::SmallCube;
+    m_HP = 30;
 }
 
 EnemySmallCube::~EnemySmallCube()
@@ -99,7 +100,7 @@ void EnemySmallCube::Update()
         D3DXVECTOR3 pos = player->GetPos();
         D3DXVECTOR3 enemyVector = pos - m_loadingPos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
-        if (distance < 3.f)
+        if (distance < 2.f)
         {
             int randNum = SharedObj::GetRandom();
 
@@ -110,13 +111,13 @@ void EnemySmallCube::Update()
                 m_state = eEnemyState::ATTACK;
             }
         }
-        else if (3.f <= distance && distance < 20.f)
+        else if (2.f <= distance && distance < 20.f)
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
             // 壁ずり
             Map* map = SharedObj::GetMap();
-            D3DXVECTOR3 move = norm / 50;
+            D3DXVECTOR3 move = norm * 0.02f;
             bool bHit = false;
             bool bInside = false;
             move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
@@ -164,10 +165,10 @@ void EnemySmallCube::Update()
                 auto status = NSStarmanLib::StatusManager::GetObj();
 
                 auto muscle = status->GetMuscleCurrent();
-                status->SetMuscleCurrent(muscle - 1);
+                status->SetMuscleCurrent(muscle - 0.5f);
 
                 auto brain = status->GetBrainStaminaCurrent();
-                status->SetBrainStaminaCurrent(brain - 1);
+                status->SetBrainStaminaCurrent(brain - 0.5f);
             }
 
         }
