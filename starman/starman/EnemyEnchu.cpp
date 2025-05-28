@@ -99,7 +99,7 @@ void EnemyEnchu::Update()
         D3DXVECTOR3 pos = player->GetPos();
         D3DXVECTOR3 enemyVector = pos - m_loadingPos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
-        if (distance < 3.f)
+        if (distance < 5.f)
         {
             // 0 ~ 100
             int randNum = SharedObj::GetRandom() % 101;
@@ -109,7 +109,7 @@ void EnemyEnchu::Update()
                 m_state = eEnemyState::DASH;
             }
         }
-        else if (3.f <= distance && distance < 20.f)
+        else if (5.f <= distance && distance < 20.f)
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
@@ -146,12 +146,14 @@ void EnemyEnchu::Update()
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 enemyVector = pos - m_loadingPos;
 
+            m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
+
             D3DXVec3Normalize(&m_vDash, &enemyVector);
-            m_vDash *= 0.2f;
+            m_vDash *= 0.4f;
 
             m_bAttack = true;
         }
-        else if (m_attackTimeCounter < 10)
+        else if (m_attackTimeCounter < 20)
         {
             m_loadingPos += m_vDash;
 
@@ -162,7 +164,7 @@ void EnemyEnchu::Update()
             std::wstring msg;
             msg = _T("distance: ") + std::to_wstring(distance) + _T("\n");
 
-            if (distance <= 1.0f)
+            if (distance <= 2.0f && m_bAttack)
             {
                 m_bAttack = false;
                 SharedObj::GetPlayer()->SetDamaged();
@@ -179,6 +181,7 @@ void EnemyEnchu::Update()
         {
             m_attackTimeCounter = 0;
             m_state = eEnemyState::IDLE;
+            m_bAttack = false;
         }
     }
 }

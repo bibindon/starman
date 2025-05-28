@@ -782,7 +782,7 @@ void Player::Update(Map* map)
         {
             if (Common::FasterMode())
             {
-                MAX_XZ_MOVE = 50.0f;
+                MAX_XZ_MOVE = 5.0f;
             }
             else
             {
@@ -800,7 +800,7 @@ void Player::Update(Map* map)
         {
             if (Common::FasterMode())
             {
-                MAX_XZ_MOVE = 500.f;
+                MAX_XZ_MOVE = 5.f;
             }
             else
             {
