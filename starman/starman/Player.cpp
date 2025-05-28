@@ -371,12 +371,30 @@ void Player::Update(Map* map)
 
     if (SharedObj::KeyBoard()->IsDown(DIK_W))
     {
-        move.x += -std::sin(radian + D3DX_PI / 2);
-        move.z += std::sin(radian + D3DX_PI);
+        // ジョギング
+        if (SharedObj::KeyBoard()->IsDown(DIK_LSHIFT))
+        {
+            move.x += -std::sin(radian + D3DX_PI / 2) * 0.5f;
+            move.z += std::sin(radian + D3DX_PI) * 0.5f;
+            SetJogging();
+        }
+        // ダッシュ
+        else if (SharedObj::KeyBoard()->IsDown(DIK_LCONTROL))
+        {
+            move.x += -std::sin(radian + D3DX_PI / 2);
+            move.z += std::sin(radian + D3DX_PI);
+            SetDash();
+        }
+        // 歩く
+        else
+        {
+            move.x += -std::sin(radian + D3DX_PI / 2) * 0.2f;
+            move.z += std::sin(radian + D3DX_PI) * 0.2f;
+            SetWalk();
+        }
 
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         SetRotate(rotate);
-        SetWalk();
     }
 
     if (Common::DebugMode())
@@ -701,6 +719,9 @@ void Player::Update(Map* map)
 
     // 1フレームで50センチ以上移動しようとしたら50センチにする
     // ただし、XZ平面のみ。Y軸方向は加味しない。
+
+    auto action = Common::Status()->GetPlayerAction();
+
     if (Common::DebugMode())
     {
         if (!m_bUnderwater)
@@ -711,13 +732,13 @@ void Player::Update(Map* map)
             }
             else
             {
-				if (!m_bStep)
-				{
-					MAX_XZ_MOVE = 0.5f;
-				}
+                if (!m_bStep)
+                {
+                    MAX_XZ_MOVE = 0.5f;
+                }
                 else
                 {
-					MAX_XZ_MOVE = 1.f;
+                    MAX_XZ_MOVE = 1.f;
                 }
             }
         }
@@ -737,18 +758,40 @@ void Player::Update(Map* map)
     {
         if (!m_bUnderwater)
         {
-			if (!m_bStep)
-			{
-				MAX_XZ_MOVE = 0.5f;
-			}
-			else
-			{
-				MAX_XZ_MOVE = 1.f;
-			}
+            if (!m_bStep)
+            {
+                if (action == NSStarmanLib::StatusManager::PlayerState::WALK)
+                {
+                    MAX_XZ_MOVE = 0.1f;
+                }
+                else if (action == NSStarmanLib::StatusManager::PlayerState::JOGGING)
+                {
+                    MAX_XZ_MOVE = 0.25f;
+                }
+                else if (action == NSStarmanLib::StatusManager::PlayerState::SPRINTING)
+                {
+                    MAX_XZ_MOVE = 0.5f;
+                }
+            }
+            else
+            {
+                MAX_XZ_MOVE = 1.f;
+            }
         }
         else
         {
-            MAX_XZ_MOVE = 0.1f;
+            if (action == NSStarmanLib::StatusManager::PlayerState::WALK)
+            {
+                MAX_XZ_MOVE = 0.02f;
+            }
+            else if (action == NSStarmanLib::StatusManager::PlayerState::JOGGING)
+            {
+                MAX_XZ_MOVE = 0.05f;
+            }
+            else if (action == NSStarmanLib::StatusManager::PlayerState::SPRINTING)
+            {
+                MAX_XZ_MOVE = 0.1f;
+            }
         }
     }
 
@@ -773,8 +816,8 @@ void Player::Update(Map* map)
     // XZ平面上の移動量は毎フレーム半分にする。ジャンプしているときは半分にしない。
     if (!m_bJump && !m_bStep)
     {
-		m_move.x *= 0.5f;
-		m_move.z *= 0.5f;
+        m_move.x *= 0.5f;
+        m_move.z *= 0.5f;
     }
 
     if (map == nullptr)
@@ -1160,7 +1203,7 @@ bool Player::SetAttack()
 
             if (Common::StrongMode() && Common::DebugMode())
             {
-				attackPower = 1000.f;
+                attackPower = 1000.f;
             }
 
             vecEnemy.at(i)->SetHP(hp - (int)attackPower);
@@ -1369,7 +1412,49 @@ void Player::SetWalk()
         if (m_bUnderwater == false)
         {
             m_AnimMesh2->SetAnim(_T("Walk"));
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::WALK);
+        }
+        else
+        {
+            m_AnimMesh2->SetAnim(_T("Swim"));
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
+        }
+    }
+}
+
+void Player::SetJogging()
+{
+    auto status = NSStarmanLib::StatusManager::GetObj();
+    if (!m_bJump &&
+        !m_bStep &&
+        !status->GetDead() &&
+        !m_bAttack)
+    {
+        if (m_bUnderwater == false)
+        {
+            m_AnimMesh2->SetAnim(_T("Walk"));
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::JOGGING);
+        }
+        else
+        {
+            m_AnimMesh2->SetAnim(_T("Swim"));
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
+        }
+    }
+}
+
+void Player::SetDash()
+{
+    auto status = NSStarmanLib::StatusManager::GetObj();
+    if (!m_bJump &&
+        !m_bStep &&
+        !status->GetDead() &&
+        !m_bAttack)
+    {
+        if (m_bUnderwater == false)
+        {
+            m_AnimMesh2->SetAnim(_T("Walk"));
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SPRINTING);
         }
         else
         {
@@ -1514,7 +1599,7 @@ void Player::SetStep(const eDir dir)
     float radian = Camera::GetRadian();
     float yaw = -1.f * (radian - (D3DX_PI / 2));
     D3DXVECTOR3 move(0.f, 0.f, 0.f);
-	D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
+    D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
 
     if (dir == eDir::LEFT)
     {
@@ -1538,8 +1623,8 @@ void Player::SetStep(const eDir dir)
     SetRotate(rotate);
 
     m_bStep = true;
-	SoundEffect::get_ton()->load(_T("res\\sound\\jump.wav"));
-	SoundEffect::get_ton()->play(_T("res\\sound\\jump.wav"), 90);
+    SoundEffect::get_ton()->load(_T("res\\sound\\jump.wav"));
+    SoundEffect::get_ton()->play(_T("res\\sound\\jump.wav"), 90);
 
     Common::Status()->ConsumeJumpCost();
 }
