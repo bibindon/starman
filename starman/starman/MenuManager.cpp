@@ -544,7 +544,20 @@ void MenuManager::InitMenu()
             info.SetDetail(work_str);
 
             NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-            sprItem->Load(_T("res\\image\\test.png"));
+
+            if (i == 0)
+            {
+                sprItem->Load(_T("res\\image\\magicFire.png"));
+            }
+            else if (i == 1)
+            {
+                sprItem->Load(_T("res\\image\\magicIce.png"));
+            }
+            else if (i == 2)
+            {
+                sprItem->Load(_T("res\\image\\magicDark.png"));
+            }
+
             info.SetSprite(sprItem);
             infoList.push_back(info);
         }
