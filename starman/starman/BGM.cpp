@@ -391,6 +391,20 @@ void BGMModel::SetRandomMode(const bool mode)
 // 1秒に1回呼ばれる想定
 void BGMModel::Update()
 {
+    // BGMの選曲
+    // 上のルールほど優先度が高い
+    //
+    // 死亡していたら死亡時のBGM
+    // タイトルだったらタイトルのBGM
+    // オープニングだったらオープニングのBGM
+    // エンディングだったらエンディングのBGM
+    // 戦闘だったら戦闘のBGM
+    // 瀕死だったら瀕死のBGM
+    // 体力が少ないなら体力が少ないBGM
+    // 夜だったら夜のBGM
+    // 航海中だったら航海中のBGM
+    // 特定の地域なら特定のBGM
+
     if (!m_bRandomMode)
     {
         return;
@@ -407,11 +421,11 @@ void BGMModel::Update()
         int rand_ = rand();
         if (rand_ % 2 == 0)
         {
-            m_stBgm.m_filename = _T("res\\sound\\field.wav");
+            m_stBgm.m_filename = _T("res\\sound\\field3.wav");
         }
         else if (rand_ % 2 == 1)
         {
-            m_stBgm.m_filename = _T("res\\sound\\novel.wav");
+            m_stBgm.m_filename = _T("res\\sound\\field1.wav");
         }
 
         if (m_stBgm.m_filename == m_stBgmPrev.m_filename)

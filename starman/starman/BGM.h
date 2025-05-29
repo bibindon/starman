@@ -84,6 +84,64 @@ private:
 
     std::unordered_map<std::wstring, envBgm> m_envBgmMap;
     bool m_bRandomMode = false;
+
+    // BGMの選曲
+    // 上のルールほど優先度が高い
+    //
+    // 死亡していたら死亡時のBGM
+    // タイトルだったらタイトルのBGM
+    // オープニングだったらオープニングのBGM
+    // エンディングだったらエンディングのBGM
+    // 戦闘だったら戦闘のBGM
+    // 瀕死だったら瀕死のBGM
+    // 体力が少ないなら体力が少ないBGM
+    // 夜だったら夜のBGM
+    // 航海中だったら航海中のBGM
+    // 特定の地域なら特定のBGM
+    // それ以外ならランダム再生
+    //
+    // 基本的にBGMModel内で判定をする。外からじゃないと設定できない時もある。
+    // そのときはそのときだ。
+
+    bool m_bDead = false;
+    bool m_bTitle = false;
+    bool m_bOpening = false;
+    bool m_bEnding = false;
+    bool m_bBattle = false;
+    bool m_bDying = false;
+    bool m_bWeak = false;
+    bool m_bNight = false;
+    bool m_bVoyage = false;
+    bool m_bHaikyo = false; // 廃墟の近くにいる
+    bool m_bToudai = false; // 灯台の近くにいる
+    bool m_bKaiganDoukutsu = false; // 海岸洞窟の近くにいる
+    bool m_bJinja = false; // 神社の近くにいる
+    bool m_bKokeniwa = false; // 苔庭の近くにいる
+    bool m_bMinatoAto = false; // 港跡の近くにいる
+    bool m_bDoukutsu = false; // 洞窟の中にいる
+
+    std::string m_strTitle = "res\\sound\\title.wav";
+    std::string m_strOpening = "res\\sound\\opening.wav";
+
+    std::string m_strEnding = "res\\sound\\ending.wav";
+    std::string m_strBattle1 = "res\\sound\\battle1.wav";
+    std::string m_strBattle2 = "res\\sound\\battle2.wav";
+    std::string m_strDying = "res\\sound\\dying.wav";
+    std::string m_strWeak = "res\\sound\\weak.wav";
+    std::string m_strNight = "res\\sound\\night.wav";
+    std::string m_strVoyage = "res\\sound\\voyage.wav";
+    std::string m_strHaikyo = "res\\sound\\haikyo.wav";
+    std::string m_strToudai = "res\\sound\\toudai.wav";
+    std::string m_strKaiganDoukutsu = "res\\sound\\kaiganDoukutsu.wav";
+    std::string m_strJinja = "res\\sound\\jinja.wav";
+    std::string m_strKokeniwa = "res\\sound\\kokeniwa.wav";
+    std::string m_strMinatoAto = "res\\sound\\minatoato.wav";
+    std::string m_strDoukutsu = "res\\sound\\doukutsu.wav";
+
+    std::string m_strField1 = "res\\sound\\field1.wav";
+    std::string m_strField2 = "res\\sound\\field2.wav";
+    std::string m_strField3 = "res\\sound\\field3.wav";
+
 };
 
 class BGM

@@ -1313,7 +1313,7 @@ void SeqBattle::OperateCommand()
         SharedObj::GetPlayer()->SetIdle();
 
         BGM::Get()->StopAll();
-        BGM::Get()->Play(_T("res\\sound\\field.wav"), 10);
+        BGM::Get()->Play(_T("res\\sound\\field3.wav"), 10);
         BGM::Get()->SetRandomMode(true);
     }
     else if (result == Common::LoadString_(IDS_STRING188))
@@ -1737,7 +1737,7 @@ void SeqBattle::OperateOpening()
         Common::SetCursorVisibility(false);
 
         BGM::Get()->StopAll();
-        BGM::Get()->Play(_T("res\\sound\\novel.wav"), 10);
+        BGM::Get()->Play(_T("res\\sound\\field1.wav"), 10);
         BGM::Get()->SetRandomMode(true);
         BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
     }
@@ -3457,7 +3457,7 @@ void SeqBattle::OperateTitle(eSequence* sequence)
         Common::SetCursorVisibility(false);
 
         BGM::Get()->StopAll();
-        BGM::Get()->Play(_T("res\\sound\\novel.wav"), 10);
+        BGM::Get()->Play(_T("res\\sound\\field1.wav"), 10);
         BGM::Get()->SetRandomMode(true);
         BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
     }
