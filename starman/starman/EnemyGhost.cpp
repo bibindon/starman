@@ -108,6 +108,7 @@ void EnemyGhost::Update()
             if (randNum % 30 == 0)
             {
                 m_state = eEnemyState::ATTACK;
+                SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
             }
         }
         else if (3.f <= distance && distance < 20.f)
@@ -127,6 +128,7 @@ void EnemyGhost::Update()
         {
             m_state = eEnemyState::IDLE;
             m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
+                SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
         }
     }
     else if (m_state == eEnemyState::DAMAGED)
@@ -144,6 +146,7 @@ void EnemyGhost::Update()
         if (m_attackTimeCounter == 1)
         {
             m_AnimMesh->SetAnim(_T("Attack"), 0.f);
+            SoundEffect::get_ton()->play(_T("res\\sound\\enemyAttack.wav"), 90);
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 rot = pos - m_loadingPos;

@@ -11,6 +11,8 @@
 
 EnemyBase::EnemyBase()
 {
+    SoundEffect::get_ton()->load(_T("res\\sound\\enemyStep.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\enemyAttack.wav"));
 }
 
 EnemyBase::~EnemyBase()

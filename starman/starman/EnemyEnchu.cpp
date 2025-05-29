@@ -91,6 +91,7 @@ void EnemyEnchu::Update()
         {
             m_state = eEnemyState::WALK;
             m_AnimMesh->SetAnim(_T("Walk"), 0.f);
+            SoundEffect::get_ton()->play(_T("res\\sound\\enemyStep.wav"), 90);
         }
     }
     else if (m_state == eEnemyState::WALK)
@@ -107,6 +108,7 @@ void EnemyEnchu::Update()
             if (randNum < 3)
             {
                 m_state = eEnemyState::DASH;
+                SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
             }
         }
         else if (5.f <= distance && distance < 20.f)
@@ -126,6 +128,7 @@ void EnemyEnchu::Update()
         {
             m_state = eEnemyState::IDLE;
             m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
+                SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
         }
     }
     else if (m_state == eEnemyState::DAMAGED)
@@ -147,6 +150,7 @@ void EnemyEnchu::Update()
             D3DXVECTOR3 enemyVector = pos - m_loadingPos;
 
             m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
+            SoundEffect::get_ton()->play(_T("res\\sound\\enemyAttack.wav"), 90);
 
             D3DXVec3Normalize(&m_vDash, &enemyVector);
             m_vDash *= 0.4f;

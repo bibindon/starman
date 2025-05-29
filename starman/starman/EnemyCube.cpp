@@ -91,6 +91,7 @@ void EnemyCube::Update()
         {
             m_state = eEnemyState::WALK;
             m_AnimMesh->SetAnim(_T("Walk"), 0.f);
+            SoundEffect::get_ton()->play(_T("res\\sound\\enemyStep.wav"), 90);
         }
     }
     else if (m_state == eEnemyState::WALK)
@@ -107,6 +108,7 @@ void EnemyCube::Update()
             //msg = _T("randNum: " + std::to_wstring(randNum) + "\n");
             if (randNum % 30 == 0)
             {
+                SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
                 m_state = eEnemyState::ATTACK;
             }
         }
@@ -127,6 +129,7 @@ void EnemyCube::Update()
         {
             m_state = eEnemyState::IDLE;
             m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
+            SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
         }
     }
     else if (m_state == eEnemyState::DAMAGED)
@@ -143,6 +146,8 @@ void EnemyCube::Update()
         ++m_attackTimeCounter;
         if (m_attackTimeCounter == 1)
         {
+            SoundEffect::get_ton()->play(_T("res\\sound\\enemyAttack.wav"), 90);
+
             m_AnimMesh->SetAnim(_T("Attack"), 0.f);
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
