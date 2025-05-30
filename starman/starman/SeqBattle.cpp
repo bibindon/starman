@@ -421,12 +421,7 @@ SeqBattle::SeqBattle()
 
     D3DXVECTOR3 pos = D3DXVECTOR3(6.f, 0.f, 10.f);
 
-    BGM::Get()->StopAll();
-    BGM::Get()->Play(_T("res\\sound\\title.wav"), 10);
-    BGM::Get()->SetRandomMode(false);
-    BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
-
-    ::SoundEffect::get_ton()->load(_T("res\\sound\\drink.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\drink.wav"));
 
     m_spriteGameover = NEW Sprite(_T("res\\image\\gameover.png"));
 
@@ -1311,10 +1306,6 @@ void SeqBattle::OperateCommand()
         SharedObj::Voyage()->SetRaftMode(false);
         m_eState = eBattleState::NORMAL;
         SharedObj::GetPlayer()->SetIdle();
-
-        BGM::Get()->StopAll();
-        BGM::Get()->Play(_T("res\\sound\\field3.wav"), 10);
-        BGM::Get()->SetRandomMode(true);
     }
     else if (result == Common::LoadString_(IDS_STRING188))
     {
@@ -1325,11 +1316,6 @@ void SeqBattle::OperateCommand()
             m_eState = eBattleState::VOYAGE;
             VoyageManager::Get()->Ride();
             leave = true;
-
-            BGM::Get()->StopAll();
-            BGM::Get()->Play(_T("res\\sound\\voyage.wav"), 10);
-            BGM::Get()->SetRandomMode(true);
-            BGM::Get()->PlayEnv(_T("res\\sound\\sea.wav"), 5);
         }
         else
         {
@@ -1367,7 +1353,6 @@ void SeqBattle::OperateCommand()
                 NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(true);
                 leave = true;
                 m_eState = eBattleState::NORMAL;
-                BGM::Get()->PlayEnv(_T("res\\sound\\torch.wav"), 10);
             }
         }
     }
@@ -1376,7 +1361,6 @@ void SeqBattle::OperateCommand()
         NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         leave = true;
         m_eState = eBattleState::NORMAL;
-        BGM::Get()->StopEnv(_T("res\\sound\\torch.wav"));
     }
     else if (result == Common::LoadString_(IDS_STRING194))
     {
@@ -1735,11 +1719,6 @@ void SeqBattle::OperateOpening()
         SAFE_DELETE(m_Opening);
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
-
-        BGM::Get()->StopAll();
-        BGM::Get()->Play(_T("res\\sound\\field1.wav"), 10);
-        BGM::Get()->SetRandomMode(true);
-        BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
     }
 }
 
@@ -3259,16 +3238,11 @@ void SeqBattle::UpdatePerSecond()
             {
                 dura = 0;
                 NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
-                BGM::Get()->StopEnv(_T("res\\sound\\torch.wav"));
             }
 
             Common::Inventory()->SetItemDurability(weapon.GetId(), weapon.GetSubId(), dura);
             weapon.SetDurabilityCurrent(dura);
             Common::Status()->SetEquipWeapon(weapon);
-        }
-        else
-        {
-            BGM::Get()->StopEnv(_T("res\\sound\\torch.wav"));
         }
     }
     {
@@ -3455,11 +3429,6 @@ void SeqBattle::OperateTitle(eSequence* sequence)
 
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
-
-        BGM::Get()->StopAll();
-        BGM::Get()->Play(_T("res\\sound\\field1.wav"), 10);
-        BGM::Get()->SetRandomMode(true);
-        BGM::Get()->PlayEnv(_T("res\\sound\\forest.wav"), 10);
     }
 }
 

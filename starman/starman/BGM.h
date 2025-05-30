@@ -47,9 +47,6 @@ class BGMModel
 public:
     BGMModel();
 
-    // 10分に1度BGMを変更するモード
-    void SetRandomMode(const bool mode);
-
     // 1秒に一度呼ばれる想定
     // 10分経過したらランダムで切り替え。
     void Update();
@@ -83,7 +80,6 @@ private:
     stBgm m_stBgmPrev;
 
     std::unordered_map<std::wstring, envBgm> m_envBgmMap;
-    bool m_bRandomMode = false;
 
     // BGMの選曲
     // 上のルールほど優先度が高い
@@ -102,6 +98,9 @@ private:
     //
     // 基本的にBGMModel内で判定をする。外からじゃないと設定できない時もある。
     // そのときはそのときだ。
+    // TODO クエストでこの会話中はこのBGMを流したい、というのがありそう。
+    // m_bQuest123、のように個別に変数を用意してしまったほうが楽かもしれない。
+    // 不細工ではあるが。
 
     bool m_bDead = false;
     bool m_bTitle = false;
@@ -119,6 +118,8 @@ private:
     bool m_bKokeniwa = false; // 苔庭の近くにいる
     bool m_bMinatoAto = false; // 港跡の近くにいる
     bool m_bDoukutsu = false; // 洞窟の中にいる
+
+    std::string m_strDead = "res\\sound\\dead.wav";
 
     std::string m_strTitle = "res\\sound\\title.wav";
     std::string m_strOpening = "res\\sound\\opening.wav";
@@ -142,50 +143,53 @@ private:
     std::string m_strField2 = "res\\sound\\field2.wav";
     std::string m_strField3 = "res\\sound\\field3.wav";
 
+    std::string m_currentBGM = "";
+
+    void InvestigateCurrentStatus();
+    std::string SelectBGM();
+};
+
+// 環境音のモデル
+class BGMEnvModel
+{
+public:
+    void Update();
+    std::vector<std::string> SelectBGM();
+
+private:
+
+    bool m_bTorch = false;
+    bool m_bSea = false;
+    bool m_bForest = false;
+    bool m_bRain = false;
+
+    std::string m_strTorch = "res\\sound\\torch.wav";
+    std::string m_strSea = "res\\sound\\sea.wav";
+    std::string m_strForest = "res\\sound\\forest.wav";
+    std::string m_strRain = "res\\sound\\rain.wav";
 };
 
 class BGM
 {
 public:
-    static BGM* Get();
-    static void Init(HWND hwnd);
-    static void Finalize(); // For memory leak check.
+    void Init(HWND hwnd);
+    void Finalize(); // For memory leak check.
 
-    void Update();
-
-    // BGM再生中にPlayを実行したら再生中のBGMは止まる。Stopを実行する必要はない。
-    void Play(const std::wstring& filename, const int volume);
-    void Stop();
-
-    // 環境音再生中にPlayEnvを実行しても再生中の環境音は止まらない。
-    // 止めたい場合はStopEnvを実行する。
-    void PlayEnv(const std::wstring& filename, const int volume = 100);
-    void StopEnv(const std::wstring& filename);
+    bool Load(const std::wstring& filename);
+    void Play(const std::wstring& filename, const int a_volume = 100, const bool fadeIn = false);
+    void Stop(const std::wstring& filename);
 
     void StopAll();
 
-    // 10分に1度BGMを変更するモード
-    void SetRandomMode(const bool mode);
-
 private:
 
-    bool load(const std::wstring& filename);
-    void play(const std::wstring& filename, const int a_volume = 100, const bool fadeIn = false);
-    void stop(const std::wstring& filename);
-
-    static BGM* single_ton_;
-    // hide ctor
-    BGM(HWND hwnd);
-    BGM(const BGM&) { }
-    void operator=(const BGM&) { }
-
-    bool open_wave(
+    bool OpenWave(
         const std::wstring& filepath,
         WAVEFORMATEX& waveFormatEx,
         std::vector<char>* ppData,
         DWORD& dataSize);
 
-    int per_to_decibel(const int percent);
+    int PerToDecimal(const int percent);
 
     LPDIRECTSOUND8 dx8sound_ { nullptr };
     std::unordered_map<std::wstring, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
@@ -194,7 +198,23 @@ private:
     std::thread* m_th2 = nullptr;
     bool m_cancel1 = false;
     bool m_cancel2 = false;
+};
 
-    BGMModel m_model;
+class BGMManager
+{
+public:
+    static BGMManager* Get();
+    void Init(HWND hWnd);
+    void Finalize();
+    void Update();
+
+private:
+    static BGMManager* m_obj;
+
+    BGMManager();
+
+    BGMModel m_BGMModel;
+    BGMEnvModel m_BGMEnvModel;
+    BGM m_BGM;
 };
 

@@ -7,118 +7,38 @@
 
 #include <mmsystem.h>
 #include <thread>
+#include "SharedObj.h"
+#include "MainWindow.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
 
 using std::vector;
 using std::wstring;
 
-BGM* BGM::single_ton_;
-
-void BGM::Update()
-{
-    m_model.Update();
-
-
-    // BGM
-    {
-        bool bChanged = false;
-        stBgm _stBgmPrev;
-        stBgm _stBgm = m_model.GetBGM(&bChanged, &_stBgmPrev);
-
-        // 停止されたなら停止
-        if (!_stBgm.m_filename.empty())
-        {
-            if (!_stBgm.m_bPlay)
-            {
-                stop(_stBgm.m_filename);
-            }
-
-            // 音量変更されたか
-            if (_stBgm.m_bChangedVolume)
-            {
-                int volume = per_to_decibel(_stBgm.m_volume);
-                dx8sound_buffers_.at(_stBgm.m_filename)->SetVolume(volume);
-            }
-        }
-
-        // 別のBGMにかわったなら以前のBGMを停止
-        if (bChanged)
-        {
-            if (!_stBgmPrev.m_filename.empty())
-            {
-                stop(_stBgmPrev.m_filename);
-            }
-
-            load(_stBgm.m_filename);
-            play(_stBgm.m_filename, _stBgm.m_volume, true);
-        }
-    }
-
-    // 環境音
-    {
-        auto envBgmMap = m_model.GetEnvBGM();
-
-        for (auto& envBgm : envBgmMap)
-        {
-            if (envBgm.second.m_bChanged)
-            {
-                if (envBgm.second.m_bPlay)
-                {
-                    load(envBgm.second.m_filename);
-
-                    // 効果音に対してフェードインをやるとBGMが鳴らなくなってしまう。
-                    // 現状困っていないので放置
-                    play(envBgm.second.m_filename, envBgm.second.m_volume, false);
-                }
-                else
-                {
-                    // 再生と停止を同時に行われると一度もplay関数が呼ばれずにstop関数が呼ばれることがある。
-                    if (dx8sound_buffers_.find(envBgm.second.m_filename) != dx8sound_buffers_.end())
-                    {
-                        stop(envBgm.second.m_filename);
-                    }
-                }
-            }
-        }
-    }
-}
-
-BGM* BGM::Get()
-{
-    return single_ton_;
-}
+BGMManager* BGMManager::m_obj = nullptr;
 
 void BGM::Init(HWND hwnd)
 {
-    if (single_ton_ == nullptr)
-    {
-        single_ton_ = NEW BGM { hwnd };
-    }
+    // Create sound device.
+    LPDIRECTSOUND8 _dx8sound { nullptr };
+    DirectSoundCreate8(nullptr, &_dx8sound, nullptr);
+    SAFE_RELEASE(dx8sound_);
+    dx8sound_ = _dx8sound;
+    dx8sound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
 }
 
 void BGM::Finalize()
 {
-    for (auto& pair : single_ton_->dx8sound_buffers_)
+    for (auto& pair : dx8sound_buffers_)
     {
         SAFE_RELEASE(pair.second);
     }
 
-    SAFE_RELEASE(single_ton_->dx8sound_);
-    SAFE_DELETE(single_ton_);
-}
-
-void BGM::Play(const std::wstring& filename, const int volume)
-{
-    m_model.SetBGM(filename, volume);
-}
-
-void BGM::Stop()
-{
-    m_model.StopBGM();
+    SAFE_RELEASE(dx8sound_);
 }
 
 // Reference
 // http://marupeke296.com/DSSMP_No2_GetSoundFromWave.html
-bool BGM::load(const std::wstring& filename)
+bool BGM::Load(const std::wstring& filename)
 {
     // Already loaded.
     if (dx8sound_buffers_.find(filename) != dx8sound_buffers_.end())
@@ -130,7 +50,7 @@ bool BGM::load(const std::wstring& filename)
     WAVEFORMATEX _waveformatex { };
     vector<char> _wave_data;
     DWORD _wave_size { 0 };
-    if (!open_wave(filename, _waveformatex, &_wave_data, _wave_size))
+    if (!OpenWave(filename, _waveformatex, &_wave_data, _wave_size))
     {
         return false;
     }
@@ -169,12 +89,12 @@ bool BGM::load(const std::wstring& filename)
     return true;
 }
 
-void BGM::play(const wstring& filename, const int a_volume, const bool fadeIn)
+void BGM::Play(const wstring& filename, const int a_volume, const bool fadeIn)
 {
     // Transform volume
     // 0 ~ 100 -> -10000 ~ 0
     int volume { 0 };
-    volume = per_to_decibel(a_volume);
+    volume = PerToDecimal(a_volume);
     dx8sound_buffers_.at(filename)->SetVolume(volume);
     dx8sound_buffers_.at(filename)->SetCurrentPosition(0);
     dx8sound_buffers_.at(filename)->Play(0, 0, DSBPLAY_LOOPING);
@@ -193,7 +113,7 @@ void BGM::play(const wstring& filename, const int a_volume, const bool fadeIn)
                                         // 30回に分けて音量を0.1秒ごとに上げる
                                         for (int i = 0; i < 30; ++i)
                                         {
-                                            int volume2 = per_to_decibel(a_volume * i / 30);
+                                            int volume2 = PerToDecimal(a_volume * i / 30);
                                             soundBuffer->SetVolume(volume2);
                                             Sleep(100);
                                             if (this->m_cancel1)
@@ -213,7 +133,7 @@ void BGM::play(const wstring& filename, const int a_volume, const bool fadeIn)
                                         // 100回に分けて音量を0.1秒ごとに上げる
                                         for (int i = 0; i < 30; ++i)
                                         {
-                                            int volume2 = per_to_decibel(a_volume * i / 30);
+                                            int volume2 = PerToDecimal(a_volume * i / 30);
                                             soundBuffer->SetVolume(volume2);
                                             Sleep(100);
                                             if (this->m_cancel2)
@@ -226,42 +146,12 @@ void BGM::play(const wstring& filename, const int a_volume, const bool fadeIn)
     }
 }
 
-void BGM::stop(const wstring& filename)
+void BGM::Stop(const wstring& filename)
 {
     dx8sound_buffers_.at(filename)->Stop();
 }
 
-void BGM::PlayEnv(const std::wstring& filename, const int volume)
-{
-    m_model.SetEnvBGM(filename, volume);
-}
-
-void BGM::StopEnv(const std::wstring& filename)
-{
-    m_model.StopEnvBGM(filename);
-}
-
-void BGM::StopAll()
-{
-    m_model.StopAll();
-}
-
-void BGM::SetRandomMode(const bool mode)
-{
-    m_model.SetRandomMode(mode);
-}
-
-BGM::BGM(HWND hwnd)
-{
-    // Create sound device.
-    LPDIRECTSOUND8 _dx8sound { nullptr };
-    DirectSoundCreate8(nullptr, &_dx8sound, nullptr);
-    SAFE_RELEASE(dx8sound_);
-    dx8sound_ = _dx8sound;
-    dx8sound_->SetCooperativeLevel(hwnd, DSSCL_PRIORITY);
-}
-
-bool BGM::open_wave(const std::wstring& filepath,
+bool BGM::OpenWave(const std::wstring& filepath,
                     WAVEFORMATEX& waveformatex,
                     vector<char>* buff,
                     DWORD& wave_size)
@@ -337,7 +227,7 @@ bool BGM::open_wave(const std::wstring& filepath,
 
 // convert percent to decibel.
 // https://katze.hatenablog.jp/entry/2013/07/01/000343
-int BGM::per_to_decibel(int percent)
+int BGM::PerToDecimal(int percent)
 {
     int decibel { 0 };
 
@@ -383,14 +273,11 @@ BGMModel::BGMModel()
     srand((unsigned int)NULL);
 }
 
-void BGMModel::SetRandomMode(const bool mode)
-{
-    m_bRandomMode = mode;
-}
-
 // 1秒に1回呼ばれる想定
 void BGMModel::Update()
 {
+    InvestigateCurrentStatus();
+
     // BGMの選曲
     // 上のルールほど優先度が高い
     //
@@ -404,39 +291,52 @@ void BGMModel::Update()
     // 夜だったら夜のBGM
     // 航海中だったら航海中のBGM
     // 特定の地域なら特定のBGM
+    std::string newBGM =  SelectBGM();
 
-    if (!m_bRandomMode)
+    if (newBGM.empty())
     {
         return;
     }
-
-    m_counter++;
-
-    // 10分でBGM変更
-    if (m_counter > 60 * 10)
+    else
     {
-        m_counter = 0;
         m_stBgmPrev = m_stBgm;
-
-        int rand_ = rand();
-        if (rand_ % 2 == 0)
-        {
-            m_stBgm.m_filename = _T("res\\sound\\field3.wav");
-        }
-        else if (rand_ % 2 == 1)
-        {
-            m_stBgm.m_filename = _T("res\\sound\\field1.wav");
-        }
-
-        if (m_stBgm.m_filename == m_stBgmPrev.m_filename)
-        {
-            m_bChanged = false;
-        }
-        else
-        {
-            m_bChanged = true;
-        }
+        m_stBgm.m_filename = _T("res\\sound\\field1.wav");
+        m_bChanged = true;
     }
+
+    // ランダム選曲はいったん廃止
+//    if (!m_bRandomMode)
+//    {
+//        return;
+//    }
+//
+//    m_counter++;
+//
+//    // 10分でBGM変更
+//    if (m_counter > 60 * 10)
+//    {
+//        m_counter = 0;
+//        m_stBgmPrev = m_stBgm;
+//
+//        int rand_ = rand();
+//        if (rand_ % 2 == 0)
+//        {
+//            m_stBgm.m_filename = _T("res\\sound\\field3.wav");
+//        }
+//        else if (rand_ % 2 == 1)
+//        {
+//            m_stBgm.m_filename = _T("res\\sound\\field1.wav");
+//        }
+//
+//        if (m_stBgm.m_filename == m_stBgmPrev.m_filename)
+//        {
+//            m_bChanged = false;
+//        }
+//        else
+//        {
+//            m_bChanged = true;
+//        }
+//    }
 }
 
 stBgm BGMModel::GetBGM(bool* bChanged, stBgm* bgmPrev)
@@ -525,3 +425,404 @@ void BGMModel::StopAll()
         StopEnvBGM(envBgm.first);
     }
 }
+
+void BGMModel::InvestigateCurrentStatus()
+{
+    //------------------------------------------
+    // 死亡
+    //------------------------------------------
+    if (Common::Status()->GetDead())
+    {
+        m_bDead = true;
+    }
+    else
+    {
+        m_bDead = false;
+    }
+
+    auto seq = MainWindow::GetBattleSequence();
+    if (seq != nullptr)
+    {
+        //------------------------------------------
+        // タイトル
+        //------------------------------------------
+        if (seq->GetState() == eBattleState::TITLE)
+        {
+            m_bTitle = true;
+        }
+        else
+        {
+            m_bTitle = false;
+        }
+
+        //------------------------------------------
+        // オープニング
+        //------------------------------------------
+        if (seq->GetState() == eBattleState::OPENING)
+        {
+            m_bOpening = true;
+        }
+        else
+        {
+            m_bOpening = false;
+        }
+    }
+
+    //------------------------------------------
+    // エンディング
+    //------------------------------------------
+    // TODO bEnding
+
+    //------------------------------------------
+    // 戦闘
+    //------------------------------------------
+    // TODO bBattle
+    // 攻撃したらバトル開始
+    // 30秒攻撃しなかったらバトル終了
+
+    //------------------------------------------
+    // 瀕死
+    //------------------------------------------
+    if (Common::Status()->GetMuscleCurrent() < 10.f ||
+        Common::Status()->GetWaterCurrent() < 92.f ||
+        (Common::Status()->GetCarboCurrent() < 10.f && Common::Status()->GetLipidCurrent() < 10.f))
+    {
+        m_bDying = true;
+    }
+    else
+    {
+        m_bDying = false;
+    }
+
+    //------------------------------------------
+    // 体力少な目
+    //------------------------------------------
+    if (Common::Status()->GetMuscleCurrent() < 50.f ||
+        Common::Status()->GetWaterCurrent() < 95.f ||
+        (Common::Status()->GetCarboCurrent() < 50.f && Common::Status()->GetLipidCurrent() < 10.f))
+    {
+        m_bWeak = true;
+    }
+    else
+    {
+        m_bWeak = false;
+    }
+
+    //------------------------------------------
+    // 夜
+    //------------------------------------------
+    auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
+
+    if (6 < datetime->GetHour() && datetime->GetHour() < 18)
+    {
+        m_bNight = false;
+    }
+    else
+    {
+        m_bNight = true;
+    }
+
+    //------------------------------------------
+    // 航海
+    //------------------------------------------
+    auto voyage = VoyageManager::Get();
+    if (voyage->GetRaftMode())
+    {
+        m_bVoyage = true;
+    }
+    else
+    {
+        m_bVoyage = false;
+    }
+
+    //------------------------------------------
+    // 廃墟の近くにいる
+    //------------------------------------------
+    {
+        auto ppos = SharedObj::GetPlayer()->GetPos();
+
+        D3DXVECTOR3 targetPos{ 10.6f, 491.5f, -564.f };
+        auto nearHaikyo = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+        if (nearHaikyo)
+        {
+            m_bHaikyo = true;
+        }
+        else
+        {
+            m_bHaikyo = false;
+        }
+    }
+
+    //------------------------------------------
+    // 灯台の近くにいる
+    //------------------------------------------
+    {
+        auto ppos = SharedObj::GetPlayer()->GetPos();
+
+        D3DXVECTOR3 targetPos { -1321.f, 632.f, -1529.f };
+        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+        if (nearTarget)
+        {
+            m_bToudai = true;
+        }
+        else
+        {
+            m_bToudai = false;
+        }
+    }
+
+    //------------------------------------------
+    // 海岸洞窟の近くにいる
+    //------------------------------------------
+    {
+        auto ppos = SharedObj::GetPlayer()->GetPos();
+
+        D3DXVECTOR3 targetPos { 1092.0f, 40.8f, 504.1f };
+        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+        if (nearTarget)
+        {
+            m_bKaiganDoukutsu = true;
+        }
+        else
+        {
+            m_bKaiganDoukutsu = false;
+        }
+    }
+
+    //------------------------------------------
+    // 神社の近くにいる
+    //------------------------------------------
+    {
+        auto ppos = SharedObj::GetPlayer()->GetPos();
+
+        D3DXVECTOR3 targetPos { 15.8f, 492.8f, -1221.2f };
+        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+        if (nearTarget)
+        {
+            m_bJinja = true;
+        }
+        else
+        {
+            m_bJinja = false;
+        }
+    }
+
+    //------------------------------------------
+    // 苔庭の近くにいる
+    //------------------------------------------
+    {
+        auto ppos = SharedObj::GetPlayer()->GetPos();
+
+        D3DXVECTOR3 targetPos { 629.f, 773.9f, -1861.8f };
+        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+        if (nearTarget)
+        {
+            m_bJinja = true;
+        }
+        else
+        {
+            m_bJinja = false;
+        }
+    }
+
+    //------------------------------------------
+    // 港跡の近くにいる
+    //------------------------------------------
+    {
+        auto ppos = SharedObj::GetPlayer()->GetPos();
+
+        D3DXVECTOR3 targetPos { 1814.3f, 28.6f, -899.2f };
+        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+        if (nearTarget)
+        {
+            m_bJinja = true;
+        }
+        else
+        {
+            m_bJinja = false;
+        }
+    }
+
+    //------------------------------------------
+    // 洞窟の近くにいる
+    //------------------------------------------
+
+    // TODO
+}
+
+// 変更ナシなら空文字
+std::string BGMModel::SelectBGM()
+{
+    std::string newBGM;
+
+    // 複数のフラグがONになることがあることに注意
+
+    if (m_bDead)
+    {
+        newBGM = m_strDead;
+    }
+    else if (m_bTitle)
+    {
+        newBGM = m_strTitle;
+    }
+    else if (m_bOpening)
+    {
+        newBGM = m_strOpening;
+    }
+    else if (m_bEnding)
+    {
+        newBGM = m_strEnding;
+    }
+    else if (m_bEnding)
+    {
+        newBGM = m_strEnding;
+    }
+    else if (m_bBattle)
+    {
+        // 戦闘曲じゃないところから戦闘曲になったら
+        // 戦闘曲１か戦闘曲２のどちらかを選曲する
+        if (m_currentBGM == m_strBattle1 || m_currentBGM == m_strBattle2)
+        {
+            // Do nothing
+        }
+        else
+        {
+            auto rand_ = SharedObj::GetRandom() % 2;
+            if (rand_ == 0)
+            {
+                newBGM = m_strBattle1;
+            }
+            else
+            {
+                newBGM = m_strBattle2;
+            }
+        }
+    }
+    else if (m_bDying)
+    {
+        newBGM = m_strDying;
+    }
+    else if (m_bWeak)
+    {
+        newBGM = m_strWeak;
+    }
+    else if (m_bNight)
+    {
+        newBGM = m_strNight;
+    }
+    else if (m_bVoyage)
+    {
+        newBGM = m_strVoyage;
+    }
+    else if (m_bHaikyo)
+    {
+        newBGM = m_strHaikyo;
+    }
+    else if (m_bToudai)
+    {
+        newBGM = m_strToudai;
+    }
+    else if (m_bKaiganDoukutsu)
+    {
+        newBGM = m_strKaiganDoukutsu;
+    }
+    else if (m_bJinja)
+    {
+        newBGM = m_strJinja;
+    }
+    else if (m_bKokeniwa)
+    {
+        newBGM = m_strKokeniwa;
+    }
+    else if (m_bMinatoAto)
+    {
+        newBGM = m_strMinatoAto;
+    }
+    else if (m_bDoukutsu)
+    {
+        newBGM = m_strDoukutsu;
+    }
+    // どれでもないなら通常曲をランダムで選曲
+    else
+    {
+        // 通常曲じゃないところから通常曲になったら
+        // 通常曲の中からどれかを選曲する
+        if (m_currentBGM == m_strField1 ||
+            m_currentBGM == m_strField2 ||
+            m_currentBGM == m_strField3)
+        {
+            // Do nothing
+        }
+        else
+        {
+            auto rand_ = SharedObj::GetRandom() % 3;
+            if (rand_ == 0)
+            {
+                newBGM = m_strField1;
+            }
+            else if (rand_ == 1)
+            {
+                newBGM = m_strField2;
+            }
+            else
+            {
+                newBGM = m_strField3;
+            }
+        }
+    }
+
+    if (m_currentBGM == newBGM)
+    {
+        return std::string();
+    }
+
+    return newBGM;
+}
+
+void BGMEnvModel::Update()
+{
+
+}
+
+std::vector<std::string> BGMEnvModel::SelectBGM()
+{
+    // プレイヤーの標高が低かったら海の環境音
+    // プレイヤーの標高が高かったら森の環境音
+    // 松明持ってたら松明の環境音
+    // 雨が降っていたら雨の環境音
+    return std::vector<std::string>();
+
+}
+
+BGMManager* BGMManager::Get()
+{
+    if (m_obj == nullptr)
+    {
+        m_obj = NEW BGMManager();
+    }
+
+    return m_obj;
+}
+
+BGMManager::BGMManager()
+{
+}
+
+void BGMManager::Init(HWND hWnd)
+{
+    m_BGM.Init(hWnd);
+}
+
+void BGMManager::Finalize()
+{
+    m_BGM.Finalize();
+}
+
+void BGMManager::Update()
+{
+    m_BGMModel.Update();
+    m_BGMEnvModel.Update();
+}
+
+
+

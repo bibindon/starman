@@ -280,15 +280,6 @@ void Opening::Update(eBattleState* eState)
             m_firstPage = false;
         }
 
-        if (m_firstPage == false && m_bPlay == false)
-        {
-            BGM::Get()->StopAll();
-            BGM::Get()->Play(_T("res\\sound\\opening.wav"), 80);
-            BGM::Get()->SetRandomMode(false);
-
-            m_bPlay = true;
-        }
-
         bool bStoryFinish = m_storyTelling->Update();
         if (bStoryFinish)
         {

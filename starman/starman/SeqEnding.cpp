@@ -176,10 +176,6 @@ class SoundEffect : public ISoundEffect
 
 SeqEnding::SeqEnding()
 {
-    BGM::Get()->Play(_T("res\\sound\\ending.wav"), 10);
-    BGM::Get()->SetRandomMode(false);
-//    BGM::get_ton()->play(10);
-
     {
         ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
 

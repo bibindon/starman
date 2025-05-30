@@ -55,7 +55,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
     m_D3D = nullptr;
     if (!(m_D3D = Direct3DCreate9(D3D_SDK_VERSION)))
     {
-        throw std::exception(_T(""));
+        throw std::exception((""));
     }
 
     LPDIRECT3DDEVICE9 D3DDevice;
@@ -86,7 +86,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
 
     if (FAILED(result))
     {
-        throw std::exception(_T(""));
+        throw std::exception((""));
     }
 
     SharedObj::SetD3DDevice(D3DDevice);
@@ -101,7 +101,7 @@ void Util::InitWin_DX9_DI8(const bool bShow)
 
     Mouse::Init(m_directInput, hWnd);
     GamePad::Init(m_directInput, hWnd);
-    BGM::Init(hWnd);
+    BGMManager::Get()->Init(hWnd);
     SoundEffect::initialize(hWnd);
 }
 
@@ -109,7 +109,7 @@ void Util::ReleaseWin_DX9_DI8()
 {
     Mouse::Finalize();
     GamePad::Finalize();
-    BGM::Finalize();
+    BGMManager::Get()->Finalize();
     SoundEffect::finalize();
 
     SharedObj::Finalize();
@@ -229,7 +229,7 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
 
     // パス + _T("\*") を作成
     lstrcpy(searchPath, dirPath);
-    lstrcat(searchPath, _T(_T("\\*")));
+    lstrcat(searchPath, _T("\\*"));
 
     hFind = FindFirstFile(searchPath, &findData);
     if (hFind == INVALID_HANDLE_VALUE)
@@ -240,8 +240,8 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
     do
     {
         // _T("." と "..") はスキップ
-        if (lstrcmp(findData.cFileName, _T(_T("."))) == 0 ||
-            lstrcmp(findData.cFileName, _T(_T(".."))) == 0)
+        if (lstrcmp(findData.cFileName, _T(".")) == 0 ||
+            lstrcmp(findData.cFileName, _T("..")) == 0)
         {
             continue;
         }
@@ -249,7 +249,7 @@ BOOL Util::DeleteDirectory(LPCTSTR dirPath)
         // フルパスを作成
         TCHAR fullPath[MAX_PATH];
         lstrcpy(fullPath, dirPath);
-        lstrcat(fullPath, _T(_T("\\")));
+        lstrcat(fullPath, _T("\\"));
         lstrcat(fullPath, findData.cFileName);
 
         // ディレクトリなら再帰

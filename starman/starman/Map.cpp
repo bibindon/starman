@@ -1185,19 +1185,6 @@ void Map::Update()
                 OutputDebugString(work.c_str());
             }
 
-            // プレイヤーの位置が低くなったら海のBGMを流す
-            {
-                auto ppos = SharedObj::GetPlayer()->GetPos();
-                if (ppos.y <= 20.f)
-                {
-                    BGM::Get()->PlayEnv(_T("res\\sound\\sea.wav"), 5);
-                }
-                else
-                {
-                    BGM::Get()->StopEnv(_T("res\\sound\\sea.wav"));
-                }
-            }
-
             // NPCが死んでいたら、座標を(0, 0, 0)に移動
             {
                 auto npcManager = NpcManager::Get();

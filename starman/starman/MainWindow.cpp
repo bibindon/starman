@@ -350,7 +350,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         Mouse::Init(m_directInput, m_hWnd);
         GamePad::Init(m_directInput, m_hWnd);
-        BGM::Init(m_hWnd);
+        BGMManager::Get()->Init(m_hWnd);
         SoundEffect::initialize(m_hWnd);
     }
 
@@ -411,7 +411,7 @@ MainWindow::~MainWindow()
     PopUp::Finalize();
 
     SoundEffect::finalize();
-    BGM::Finalize();
+    BGMManager::Get()->Finalize();
     GamePad::Finalize();
     Mouse::Finalize();
     SharedObj::KeyBoard()->Finalize();
@@ -473,7 +473,7 @@ int MainWindow::MainLoop()
 
         if (counter % 60 == 59)
         {
-            BGM::Get()->Update();
+            BGMManager::Get()->Update();
         }
 
         if (m_sequence == eSequence::BATTLE)

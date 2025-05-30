@@ -32,6 +32,5 @@ private:
     std::array<D3DXVECTOR3, RAINDROP> m_pos;
 
     bool m_bShow = false;
-    bool m_bPreviousRain = false;
 };
 

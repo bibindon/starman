@@ -77,25 +77,6 @@ void Rain::Update()
             m_pos.at(i).x = (float)(rand() % 1600);
         }
     }
-
-    // 雨が降り始めたら雨の音のBGMを開始
-    // 雨が止んだら雨の音のBGMを停止
-    {
-        bool bRain = NSStarmanLib::RainModel::Get()->IsRain();
-
-        if (!m_bPreviousRain && bRain)
-        {
-            BGM::Get()->PlayEnv(_T("res\\sound\\rain.wav"), 70);
-            NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
-        }
-
-        if (m_bPreviousRain && !bRain)
-        {
-            BGM::Get()->StopEnv(_T("res\\sound\\rain.wav"));
-        }
-
-        m_bPreviousRain = bRain;
-    }
 }
 
 void Rain::Draw()

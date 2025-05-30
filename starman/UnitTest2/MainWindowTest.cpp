@@ -20,11 +20,11 @@ TEST_MODULE_INITIALIZE(ModuleInit)
     if (exist1 && exist2)
     {
         Util::DeleteDirectory(_T("res\\script\\save"));
-        int result1 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+        int result1 = rename("res\\script\\save.bak", "res\\script\\save");
     }
     else if (!exist1 && exist2)
     {
-        int result1 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+        int result1 = rename("res\\script\\save.bak", "res\\script\\save");
     }
 }
 
@@ -46,7 +46,7 @@ public:
     {
         Sleep(500);
 
-        int result1 = rename(_T("res\\script\\save"), _T("res\\script\\save.bak"));
+        int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
         Sleep(500);
 
@@ -60,7 +60,7 @@ public:
         }
         catch (...)
         {
-            int result2 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+            int result2 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result2 == 0);
             Sleep(500);
             Assert::Fail();
@@ -82,7 +82,7 @@ public:
         BOOL result2 = UnregisterClass(_T("ホシマン"), hInstance);
         assert(result2 == 1);
 
-        int result3 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+        int result3 = rename("res\\script\\save.bak", "res\\script\\save");
         assert(result3 == 0);
         Sleep(500);
     }
@@ -93,7 +93,7 @@ public:
     {
         Sleep(500);
 
-        int result1 = rename(_T("res\\script\\save"), _T("res\\script\\save.bak"));
+        int result1 = rename("res\\script\\save", "res\\script\\save.bak");
         assert(result1 == 0);
         Sleep(500);
 
@@ -122,7 +122,7 @@ public:
         }
         catch (...)
         {
-            int result2 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+            int result2 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result2 == 0);
             Sleep(500);
             Assert::Fail();
@@ -138,13 +138,13 @@ public:
         if (exist1 && exist2)
         {
             Util::DeleteDirectory(_T("res\\script\\save"));
-            int result1 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+            int result1 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result1 == 0);
             Sleep(500);
         }
         else if (!exist1 && exist2)
         {
-            int result1 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+            int result1 = rename("res\\script\\save.bak", "res\\script\\save");
             assert(result1 == 0);
             Sleep(500);
         }
@@ -164,7 +164,7 @@ public:
     {
         Sleep(1000);
 
-        int result1 = rename(_T("res\\script\\save"), _T("res\\script\\save.bak"));
+        int result1 = rename(("res\\script\\save"), ("res\\script\\save.bak"));
         assert(result1 == 0);
 
         MockKeyBoard keyboard;
@@ -199,7 +199,7 @@ public:
         catch (...)
         {
             Util::DeleteDirectory(_T("res\\script\\save"));
-            int result2 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+            int result2 = rename(("res\\script\\save.bak"), ("res\\script\\save"));
             assert(result2 == 0);
             Sleep(500);
             Assert::Fail();
@@ -208,7 +208,7 @@ public:
         std::wstring savedata;
 
         {
-            std::ifstream ifs(_T("res\\script\\save\\questSave.csv"));
+            std::wifstream ifs(_T("res\\script\\save\\questSave.csv"));
             ifs >> savedata;
         }
 
@@ -218,14 +218,14 @@ public:
         Sleep(500);
 
         // Target
-        auto it = savedata.find("Q1,FINISHED");
+        auto it = savedata.find(L"Q1,FINISHED");
         Assert::AreNotEqual(std::wstring::npos, it);
 
         hInstance = (HINSTANCE)GetModuleHandle(0);
         BOOL result2 = UnregisterClass(_T("ホシマン"), hInstance);
         assert(result2 == 1);
 
-        int result3 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+        int result3 = rename(("res\\script\\save.bak"), ("res\\script\\save"));
         assert(result3 == 0);
         Sleep(500);
     }
@@ -235,7 +235,7 @@ public:
     {
         Sleep(1000);
 
-        int result1 = rename(_T("res\\script\\save"), _T("res\\script\\save.bak"));
+        int result1 = rename(("res\\script\\save"), ("res\\script\\save.bak"));
         assert(result1 == 0);
 
         MockKeyBoard keyboard;
@@ -271,7 +271,7 @@ public:
         catch (...)
         {
             Util::DeleteDirectory(_T("res\\script\\save"));
-            int result2 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+            int result2 = rename(("res\\script\\save.bak"), ("res\\script\\save"));
             assert(result2 == 0);
             Sleep(500);
             Assert::Fail();
@@ -309,7 +309,7 @@ public:
         catch (...)
         {
             Util::DeleteDirectory(_T("res\\script\\save"));
-            int result2 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+            int result2 = rename(("res\\script\\save.bak"), ("res\\script\\save"));
             assert(result2 == 0);
             Sleep(500);
             Assert::Fail();
@@ -323,7 +323,7 @@ public:
         Util::DeleteDirectory(_T("res\\script\\save"));
         Sleep(500);
 
-        int result4 = rename(_T("res\\script\\save.bak"), _T("res\\script\\save"));
+        int result4 = rename(("res\\script\\save.bak"), ("res\\script\\save"));
         assert(result4 == 0);
         Sleep(500);
     }
