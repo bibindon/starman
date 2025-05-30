@@ -302,7 +302,7 @@ void BGMModel::Update()
         m_stBGMPrev = m_stBGM;
         m_stBGM = stBGM { };
         m_stBGM.m_filename = newBGM;
-        m_stBGM.m_eBGMStatus = eBGMStatus::NOT_YET;
+        m_stBGM.m_eBGMStatus = eBGMStatus::START_REQUEST;
         m_stBGM.m_volume = 10;
     }
 }
@@ -310,7 +310,7 @@ void BGMModel::Update()
 bool BGMModel::GetChangeRequest(stBGM* stBGM1, stBGM* stBGM2)
 {
     bool bResult = false;
-    if (m_stBGM.m_eBGMStatus == eBGMStatus::NOT_YET)
+    if (m_stBGM.m_eBGMStatus == eBGMStatus::START_REQUEST)
     {
         *stBGM1 = m_stBGM;
         *stBGM2 = m_stBGMPrev;
@@ -322,7 +322,7 @@ bool BGMModel::GetChangeRequest(stBGM* stBGM1, stBGM* stBGM2)
 
 void BGMModel::SetChangeRequestComplete()
 {
-    if (m_stBGM.m_eBGMStatus == eBGMStatus::NOT_YET)
+    if (m_stBGM.m_eBGMStatus == eBGMStatus::START_REQUEST)
     {
         m_stBGM.m_eBGMStatus = eBGMStatus::STARTED;
         m_stBGMPrev.m_eBGMStatus = eBGMStatus::STOPPED;
@@ -687,12 +687,35 @@ std::string BGMModel::SelectBGM()
     return newBGM;
 }
 
+BGMEnvModel::BGMEnvModel()
+{
+    envBGM work;
+    work.m_eBGMStatus = eBGMStatus::NONE;
+
+    work.m_volume = 20;
+    work.m_filename = m_strTorch;
+    m_envBgmMap[m_strTorch] = work;
+
+    work.m_volume = 20;
+    work.m_filename = m_strSea;
+    m_envBgmMap[m_strSea] = work;
+
+    work.m_volume = 60;
+    work.m_filename = m_strForest;
+    m_envBgmMap[m_strForest] = work;
+
+    work.m_volume = 20;
+    work.m_filename = m_strRain;
+    m_envBgmMap[m_strRain] = work;
+}
+
 void BGMEnvModel::Update()
 {
+    InvestigateBGMEnv();
 
 }
 
-std::vector<std::string> BGMEnvModel::SelectBGM()
+void BGMEnvModel::InvestigateBGMEnv()
 {
     // プレイヤーの標高が低かったら海の環境音
     // プレイヤーの標高が高かったら森の環境音
@@ -702,7 +725,7 @@ std::vector<std::string> BGMEnvModel::SelectBGM()
     // 環境音は複数が同時になっていても問題ない。
 
     auto ppos = SharedObj::GetPlayer()->GetPos();
-    if (ppos.y < 10.f)
+    if (ppos.y < 20.f)
     {
         m_bSea = true;
         m_bForest = false;
@@ -732,7 +755,91 @@ std::vector<std::string> BGMEnvModel::SelectBGM()
         m_bRain = false;
     }
 
-    return std::vector<std::string>();
+    // 松明の環境音
+    // 松明ついてるのに、松明の環境音が鳴っていなかったら再生リクエスト
+    if (m_bTorch &&
+        (m_envBgmMap.at(m_strTorch).m_eBGMStatus == eBGMStatus::NONE ||
+         m_envBgmMap.at(m_strTorch).m_eBGMStatus == eBGMStatus::STOPPED))
+    {
+        m_envBgmMap.at(m_strTorch).m_eBGMStatus = eBGMStatus::START_REQUEST;
+    }
+    // 松明ついてないのに、松明の環境音が鳴っていたら停止リクエスト
+    else if (!m_bTorch &&
+             m_envBgmMap.at(m_strTorch).m_eBGMStatus == eBGMStatus::STARTED)
+    {
+        m_envBgmMap.at(m_strTorch).m_eBGMStatus = eBGMStatus::STOP_REQUEST;
+    }
+
+    // 海の環境音
+    if (m_bSea &&
+        (m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::NONE ||
+         m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::STOPPED))
+    {
+        m_envBgmMap.at(m_strSea).m_eBGMStatus = eBGMStatus::START_REQUEST;
+    }
+    else if (!m_bSea &&
+             m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::STARTED)
+    {
+        m_envBgmMap.at(m_strSea).m_eBGMStatus = eBGMStatus::STOP_REQUEST;
+    }
+
+    // 森の環境音
+    if (m_bForest &&
+        (m_envBgmMap.at(m_strForest).m_eBGMStatus == eBGMStatus::NONE ||
+         m_envBgmMap.at(m_strForest).m_eBGMStatus == eBGMStatus::STOPPED))
+    {
+        m_envBgmMap.at(m_strForest).m_eBGMStatus = eBGMStatus::START_REQUEST;
+    }
+    else if (!m_bForest &&
+             m_envBgmMap.at(m_strForest).m_eBGMStatus == eBGMStatus::STARTED)
+    {
+        m_envBgmMap.at(m_strForest).m_eBGMStatus = eBGMStatus::STOP_REQUEST;
+    }
+
+    // 雨の環境音
+    if (m_bRain &&
+        (m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::NONE ||
+         m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::STOPPED))
+    {
+        m_envBgmMap.at(m_strSea).m_eBGMStatus = eBGMStatus::START_REQUEST;
+    }
+    else if (!m_bSea &&
+             m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::STARTED)
+    {
+        m_envBgmMap.at(m_strSea).m_eBGMStatus = eBGMStatus::STOP_REQUEST;
+    }
+}
+
+std::vector<envBGM> BGMEnvModel::GetChangeRequest()
+{
+    std::vector<envBGM> requests;
+
+    for (auto& BGMEnv : m_envBgmMap)
+    {
+        if (BGMEnv.second.m_eBGMStatus == eBGMStatus::START_REQUEST ||
+            BGMEnv.second.m_eBGMStatus == eBGMStatus::STOP_REQUEST)
+        {
+            requests.push_back(BGMEnv.second);
+        }
+    }
+
+    return requests;
+}
+
+void BGMEnvModel::SetChangeRequestComplete()
+{
+    for (auto& BGMEnv : m_envBgmMap)
+    {
+        if (BGMEnv.second.m_eBGMStatus == eBGMStatus::START_REQUEST)
+        {
+            BGMEnv.second.m_eBGMStatus = eBGMStatus::STARTED;
+        }
+        else if (BGMEnv.second.m_eBGMStatus == eBGMStatus::STOP_REQUEST)
+        {
+            BGMEnv.second.m_eBGMStatus = eBGMStatus::STOPPED;
+        }
+    }
+
 }
 
 BGMManager* BGMManager::Get()
@@ -761,30 +868,52 @@ void BGMManager::Finalize()
 
 void BGMManager::Update()
 {
-    m_BGMModel.Update();
-
-    stBGM currentBGM;
-    stBGM prevBGM;
-
-    bool bRequest = m_BGMModel.GetChangeRequest(&currentBGM, &prevBGM);
-
-    if (bRequest)
+    // BGM
     {
-        if (currentBGM.m_eBGMStatus == eBGMStatus::NOT_YET)
+        m_BGMModel.Update();
+
+        stBGM currentBGM;
+        stBGM prevBGM;
+
+        bool bRequest = m_BGMModel.GetChangeRequest(&currentBGM, &prevBGM);
+
+        if (bRequest)
         {
-            if (prevBGM.m_eBGMStatus == eBGMStatus::STARTED)
+            if (currentBGM.m_eBGMStatus == eBGMStatus::START_REQUEST)
             {
-                m_BGM.Stop(prevBGM.m_filename);
+                if (prevBGM.m_eBGMStatus == eBGMStatus::STARTED)
+                {
+                    m_BGM.Stop(prevBGM.m_filename);
+                }
+
+                m_BGM.Load(currentBGM.m_filename);
+                m_BGM.Play(currentBGM.m_filename, currentBGM.m_volume, false);
+
+                m_BGMModel.SetChangeRequestComplete();
             }
-
-            m_BGM.Load(currentBGM.m_filename);
-            m_BGM.Play(currentBGM.m_filename, currentBGM.m_volume, false);
-
-            m_BGMModel.SetChangeRequestComplete();
         }
     }
 
-    m_BGMEnvModel.Update();
+    // 環境音
+    {
+        m_BGMEnvModel.Update();
+        auto requests = m_BGMEnvModel.GetChangeRequest();
+
+        for (auto& request : requests)
+        {
+            if (request.m_eBGMStatus == eBGMStatus::START_REQUEST)
+            {
+                m_BGM.Load(request.m_filename);
+                m_BGM.Play(request.m_filename, request.m_volume, false);
+            }
+            else if (request.m_eBGMStatus == eBGMStatus::STOP_REQUEST)
+            {
+                m_BGM.Stop(request.m_filename);
+            }
+        }
+
+        m_BGMEnvModel.SetChangeRequestComplete();
+    }
 }
 
 

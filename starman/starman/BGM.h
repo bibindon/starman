@@ -19,7 +19,8 @@
 
 enum class eBGMStatus
 {
-    NOT_YET,
+    NONE,
+    START_REQUEST,
     STARTED,
     STOP_REQUEST,
     STOPPED,
@@ -28,21 +29,17 @@ enum class eBGMStatus
 struct stBGM
 {
     std::string m_filename;
-    eBGMStatus m_eBGMStatus = eBGMStatus::NOT_YET;
+    eBGMStatus m_eBGMStatus = eBGMStatus::NONE;
     int m_volume = 0;
 
     // 音量が変わったか
     bool m_bChangedVolume = false;
 };
 
-struct envBgm
+struct envBGM
 {
     std::string m_filename;
-    bool m_bPlay = false;
-
-    // 再生・停止の切り替えが行われたか
-    bool m_bChanged = false;
-
+    eBGMStatus m_eBGMStatus = eBGMStatus::NONE;
     int m_volume = 0;
 
     // 音量が変わったか
@@ -136,12 +133,16 @@ private:
 class BGMEnvModel
 {
 public:
+    BGMEnvModel();
     void Update();
-    std::vector<std::string> SelectBGM();
+    void InvestigateBGMEnv();
+
+    std::vector<envBGM> GetChangeRequest();
+    void SetChangeRequestComplete();
 
 private:
 
-    std::unordered_map<std::string, envBgm> m_envBgmMap;
+    std::unordered_map<std::string, envBGM> m_envBgmMap;
 
     bool m_bTorch = false;
     bool m_bSea = false;
