@@ -333,50 +333,6 @@ void BGMModel::SetChangeRequestComplete()
     }
 }
 
-/*
-std::unordered_map<std::wstring, envBgm> BGMModel::GetEnvBGM()
-{
-    auto _copy = m_envBgmMap;
-
-    for (auto& envBgm : m_envBgmMap)
-    {
-        envBgm.second.m_bChanged = false;
-    }
-
-    return _copy;
-}
-
-void BGMModel::SetEnvBGM(const std::wstring& bgmName, const int volume)
-{
-    if (!m_envBgmMap[bgmName].m_bPlay)
-    {
-        m_envBgmMap[bgmName].m_filename = bgmName;
-        m_envBgmMap[bgmName].m_bChanged = true;
-        m_envBgmMap[bgmName].m_bPlay = true;
-        m_envBgmMap[bgmName].m_volume = volume;
-    }
-}
-
-void BGMModel::StopEnvBGM(const std::wstring& bgmName)
-{
-    if (m_envBgmMap[bgmName].m_bPlay)
-    {
-        m_envBgmMap[bgmName].m_bChanged = true;
-        m_envBgmMap[bgmName].m_bPlay = false;
-    }
-}
-
-void BGMModel::StopAll()
-{
-    StopBGM();
-
-    for (auto& envBgm : m_envBgmMap)
-    {
-        StopEnvBGM(envBgm.first);
-    }
-}
-*/
-
 void BGMModel::InvestigateCurrentStatus()
 {
     //------------------------------------------

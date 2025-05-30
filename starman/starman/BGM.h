@@ -139,17 +139,9 @@ public:
     void Update();
     std::vector<std::string> SelectBGM();
 
-    // 環境音は一度に複数再生できる。
-    // なので停止しなければ環境音は延々と増えていく
-    // 環境音は10分おきに切り替わったりしない。
-    std::unordered_map<std::string, envBgm> GetEnvBGM();
-
 private:
 
     std::unordered_map<std::string, envBgm> m_envBgmMap;
-
-    void SetEnvBGM(const std::string& bgmName, const int volume);
-    void StopEnvBGM(const std::string& bgmName);
 
     bool m_bTorch = false;
     bool m_bSea = false;
@@ -171,8 +163,6 @@ public:
     bool Load(const std::string& filename);
     void Play(const std::string& filename, const int a_volume = 100, const bool fadeIn = false);
     void Stop(const std::string& filename);
-
-    void StopAll();
 
 private:
 
