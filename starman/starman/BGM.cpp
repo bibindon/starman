@@ -9,10 +9,8 @@
 #include <thread>
 #include "SharedObj.h"
 #include "MainWindow.h"
+#include "Rain.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/PowereggDateTime.h"
-
-using std::vector;
-using std::wstring;
 
 BGMManager* BGMManager::m_obj = nullptr;
 
@@ -38,7 +36,7 @@ void BGM::Finalize()
 
 // Reference
 // http://marupeke296.com/DSSMP_No2_GetSoundFromWave.html
-bool BGM::Load(const std::wstring& filename)
+bool BGM::Load(const std::string& filename)
 {
     // Already loaded.
     if (dx8sound_buffers_.find(filename) != dx8sound_buffers_.end())
@@ -48,7 +46,7 @@ bool BGM::Load(const std::wstring& filename)
 
     // Open wave file.
     WAVEFORMATEX _waveformatex { };
-    vector<char> _wave_data;
+    std::vector<char> _wave_data;
     DWORD _wave_size { 0 };
     if (!OpenWave(filename, _waveformatex, &_wave_data, _wave_size))
     {
@@ -89,7 +87,7 @@ bool BGM::Load(const std::wstring& filename)
     return true;
 }
 
-void BGM::Play(const wstring& filename, const int a_volume, const bool fadeIn)
+void BGM::Play(const std::string& filename, const int a_volume, const bool fadeIn)
 {
     // Transform volume
     // 0 ~ 100 -> -10000 ~ 0
@@ -146,20 +144,22 @@ void BGM::Play(const wstring& filename, const int a_volume, const bool fadeIn)
     }
 }
 
-void BGM::Stop(const wstring& filename)
+void BGM::Stop(const std::string& filename)
 {
     dx8sound_buffers_.at(filename)->Stop();
 }
 
-bool BGM::OpenWave(const std::wstring& filepath,
+bool BGM::OpenWave(const std::string& _filepath,
                     WAVEFORMATEX& waveformatex,
-                    vector<char>* buff,
+                    std::vector<char>* buff,
                     DWORD& wave_size)
 {
-    if (filepath.empty())
+    if (_filepath.empty())
     {
         return false;
     }
+
+    std::wstring filepath = Common::Utf8ToWstring(_filepath);
 
     HMMIO _hmmio { nullptr };
 
@@ -299,91 +299,41 @@ void BGMModel::Update()
     }
     else
     {
-        m_stBgmPrev = m_stBgm;
-        m_stBgm.m_filename = _T("res\\sound\\field1.wav");
-        m_bChanged = true;
+        m_stBGMPrev = m_stBGM;
+        m_stBGM = stBGM { };
+        m_stBGM.m_filename = newBGM;
+        m_stBGM.m_eBGMStatus = eBGMStatus::NOT_YET;
+        m_stBGM.m_volume = 50;
     }
-
-    // ランダム選曲はいったん廃止
-//    if (!m_bRandomMode)
-//    {
-//        return;
-//    }
-//
-//    m_counter++;
-//
-//    // 10分でBGM変更
-//    if (m_counter > 60 * 10)
-//    {
-//        m_counter = 0;
-//        m_stBgmPrev = m_stBgm;
-//
-//        int rand_ = rand();
-//        if (rand_ % 2 == 0)
-//        {
-//            m_stBgm.m_filename = _T("res\\sound\\field3.wav");
-//        }
-//        else if (rand_ % 2 == 1)
-//        {
-//            m_stBgm.m_filename = _T("res\\sound\\field1.wav");
-//        }
-//
-//        if (m_stBgm.m_filename == m_stBgmPrev.m_filename)
-//        {
-//            m_bChanged = false;
-//        }
-//        else
-//        {
-//            m_bChanged = true;
-//        }
-//    }
 }
 
-stBgm BGMModel::GetBGM(bool* bChanged, stBgm* bgmPrev)
+bool BGMModel::GetChangeRequest(stBGM* stBGM1, stBGM* stBGM2)
 {
-    if (m_bChanged)
+    bool bResult = false;
+    if (m_stBGM.m_eBGMStatus == eBGMStatus::NOT_YET)
     {
-        *bChanged = true;
-        m_bChanged = false;
-        *bgmPrev = m_stBgmPrev;
-    }
-    else
-    {
-        *bChanged = false;
+        *stBGM1 = m_stBGM;
+        *stBGM2 = m_stBGMPrev;
+        bResult = true;
     }
 
-    return m_stBgm;
+    return bResult;
 }
 
-void BGMModel::SetBGM(const std::wstring& bgmName, const int volume)
+void BGMModel::SetChangeRequestComplete()
 {
-    if (bgmName == m_stBgm.m_filename)
+    if (m_stBGM.m_eBGMStatus == eBGMStatus::NOT_YET)
     {
-        m_stBgm.m_volume = volume;
-
-        m_stBgm.m_bChangedVolume = true;
+        m_stBGM.m_eBGMStatus = eBGMStatus::STARTED;
+        m_stBGMPrev.m_eBGMStatus = eBGMStatus::STOPPED;
     }
-    else
+    else if (m_stBGM.m_eBGMStatus == eBGMStatus::STOP_REQUEST)
     {
-        m_counter = 0;
-        m_stBgmPrev = m_stBgm;
-        m_stBgm.m_filename = bgmName;
-        m_stBgm.m_volume = volume;
-        m_stBgm.m_bPlay = true;
-
-        m_bChanged = true;
+        m_stBGM.m_eBGMStatus = eBGMStatus::STOPPED;
     }
 }
 
-void BGMModel::StopBGM()
-{
-    if (m_stBgm.m_bPlay)
-    {
-        m_stBgm.m_bPlay = false;
-        m_bChanged = true;
-    }
-}
-
+/*
 std::unordered_map<std::wstring, envBgm> BGMModel::GetEnvBGM()
 {
     auto _copy = m_envBgmMap;
@@ -425,6 +375,7 @@ void BGMModel::StopAll()
         StopEnvBGM(envBgm.first);
     }
 }
+*/
 
 void BGMModel::InvestigateCurrentStatus()
 {
@@ -681,7 +632,7 @@ std::string BGMModel::SelectBGM()
     {
         // 戦闘曲じゃないところから戦闘曲になったら
         // 戦闘曲１か戦闘曲２のどちらかを選曲する
-        if (m_currentBGM == m_strBattle1 || m_currentBGM == m_strBattle2)
+        if (m_stBGM.m_filename == m_strBattle1 || m_stBGM.m_filename == m_strBattle2)
         {
             // Do nothing
         }
@@ -747,9 +698,9 @@ std::string BGMModel::SelectBGM()
     {
         // 通常曲じゃないところから通常曲になったら
         // 通常曲の中からどれかを選曲する
-        if (m_currentBGM == m_strField1 ||
-            m_currentBGM == m_strField2 ||
-            m_currentBGM == m_strField3)
+        if (m_stBGM.m_filename == m_strField1 ||
+            m_stBGM.m_filename == m_strField2 ||
+            m_stBGM.m_filename == m_strField3)
         {
             // Do nothing
         }
@@ -771,7 +722,7 @@ std::string BGMModel::SelectBGM()
         }
     }
 
-    if (m_currentBGM == newBGM)
+    if (m_stBGM.m_filename == newBGM)
     {
         return std::string();
     }
@@ -790,8 +741,41 @@ std::vector<std::string> BGMEnvModel::SelectBGM()
     // プレイヤーの標高が高かったら森の環境音
     // 松明持ってたら松明の環境音
     // 雨が降っていたら雨の環境音
-    return std::vector<std::string>();
 
+    // 環境音は複数が同時になっていても問題ない。
+
+    auto ppos = SharedObj::GetPlayer()->GetPos();
+    if (ppos.y < 10.f)
+    {
+        m_bSea = true;
+        m_bForest = false;
+    }
+    else
+    {
+        m_bSea = false;
+        m_bForest = true;
+    }
+
+    auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
+    if (lit)
+    {
+        m_bTorch = true;
+    }
+    else
+    {
+        m_bTorch = false;
+    }
+
+    if (Rain::Get()->IsRain())
+    {
+        m_bRain = true;
+    }
+    else
+    {
+        m_bRain = false;
+    }
+
+    return std::vector<std::string>();
 }
 
 BGMManager* BGMManager::Get()
@@ -821,6 +805,28 @@ void BGMManager::Finalize()
 void BGMManager::Update()
 {
     m_BGMModel.Update();
+
+    stBGM currentBGM;
+    stBGM prevBGM;
+
+    bool bRequest = m_BGMModel.GetChangeRequest(&currentBGM, &prevBGM);
+
+    if (bRequest)
+    {
+        if (currentBGM.m_eBGMStatus == eBGMStatus::NOT_YET)
+        {
+            if (prevBGM.m_eBGMStatus == eBGMStatus::STARTED)
+            {
+                m_BGM.Stop(prevBGM.m_filename);
+            }
+
+            m_BGM.Load(currentBGM.m_filename);
+            m_BGM.Play(currentBGM.m_filename, 50, false);
+
+            m_BGMModel.SetChangeRequestComplete();
+        }
+    }
+
     m_BGMEnvModel.Update();
 }
 

@@ -17,10 +17,18 @@
 // ・BGMの音量だけが変更されたときは最初から再生するのではなく音量の変更だけ行われるようにする
 //------------------------------------------------
 
-struct stBgm
+enum class eBGMStatus
 {
-    std::wstring m_filename;
-    bool m_bPlay = false;
+    NOT_YET,
+    STARTED,
+    STOP_REQUEST,
+    STOPPED,
+};
+
+struct stBGM
+{
+    std::string m_filename;
+    eBGMStatus m_eBGMStatus = eBGMStatus::NOT_YET;
     int m_volume = 0;
 
     // 音量が変わったか
@@ -29,7 +37,7 @@ struct stBgm
 
 struct envBgm
 {
-    std::wstring m_filename;
+    std::string m_filename;
     bool m_bPlay = false;
 
     // 再生・停止の切り替えが行われたか
@@ -48,38 +56,15 @@ public:
     BGMModel();
 
     // 1秒に一度呼ばれる想定
-    // 10分経過したらランダムで切り替え。
     void Update();
 
-    // 再生中のBGMを取得
-    // bChanged: 最近BGMが変更されたか。
-    stBgm GetBGM(bool* bChanged, stBgm* bgmPrev);
-
-    // BGMを設定
-    // イカダに乗ったら専用のBGMを流したいので、外からセットするのは可能にする。
-    // しかし、10分経ったらイカダに乗っていてもBGMは変わる。
-    void SetBGM(const std::wstring& bgmType, const int volume);
-
-    // BGMを停止
-    void StopBGM();
-
-    // 環境音は一度に複数再生できる。
-    // なので停止しなければ環境音は延々と増えていく
-    // 環境音は10分おきに切り替わったりしない。
-    std::unordered_map<std::wstring, envBgm> GetEnvBGM();
-    void SetEnvBGM(const std::wstring& bgmName, const int volume);
-    void StopEnvBGM(const std::wstring& bgmName);
-
-    void StopAll();
+    bool GetChangeRequest(stBGM* stBGM1, stBGM* stBGM2);
+    void SetChangeRequestComplete();
 
 private:
 
-    int m_counter = 0;
-    stBgm m_stBgm;
-    bool m_bChanged = false;
-    stBgm m_stBgmPrev;
-
-    std::unordered_map<std::wstring, envBgm> m_envBgmMap;
+    stBGM m_stBGM;
+    stBGM m_stBGMPrev;
 
     // BGMの選曲
     // 上のルールほど優先度が高い
@@ -143,8 +128,6 @@ private:
     std::string m_strField2 = "res\\sound\\field2.wav";
     std::string m_strField3 = "res\\sound\\field3.wav";
 
-    std::string m_currentBGM = "";
-
     void InvestigateCurrentStatus();
     std::string SelectBGM();
 };
@@ -156,7 +139,17 @@ public:
     void Update();
     std::vector<std::string> SelectBGM();
 
+    // 環境音は一度に複数再生できる。
+    // なので停止しなければ環境音は延々と増えていく
+    // 環境音は10分おきに切り替わったりしない。
+    std::unordered_map<std::string, envBgm> GetEnvBGM();
+
 private:
+
+    std::unordered_map<std::string, envBgm> m_envBgmMap;
+
+    void SetEnvBGM(const std::string& bgmName, const int volume);
+    void StopEnvBGM(const std::string& bgmName);
 
     bool m_bTorch = false;
     bool m_bSea = false;
@@ -175,16 +168,16 @@ public:
     void Init(HWND hwnd);
     void Finalize(); // For memory leak check.
 
-    bool Load(const std::wstring& filename);
-    void Play(const std::wstring& filename, const int a_volume = 100, const bool fadeIn = false);
-    void Stop(const std::wstring& filename);
+    bool Load(const std::string& filename);
+    void Play(const std::string& filename, const int a_volume = 100, const bool fadeIn = false);
+    void Stop(const std::string& filename);
 
     void StopAll();
 
 private:
 
     bool OpenWave(
-        const std::wstring& filepath,
+        const std::string& filepath,
         WAVEFORMATEX& waveFormatEx,
         std::vector<char>* ppData,
         DWORD& dataSize);
@@ -192,7 +185,7 @@ private:
     int PerToDecimal(const int percent);
 
     LPDIRECTSOUND8 dx8sound_ { nullptr };
-    std::unordered_map<std::wstring, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
+    std::unordered_map<std::string, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
 
     std::thread* m_th1 = nullptr;
     std::thread* m_th2 = nullptr;
