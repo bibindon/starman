@@ -176,6 +176,7 @@ class SoundEffect : public ISoundEffect
 
 SeqEnding::SeqEnding()
 {
+    BGMManager::Get()->SetEnding(true);
     {
         ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
 
@@ -627,6 +628,7 @@ SeqEnding::SeqEnding()
 
 SeqEnding::~SeqEnding()
 {
+    BGMManager::Get()->SetEnding(false);
 }
 
 void SeqEnding::Update(eSequence* sequence)

@@ -1248,6 +1248,8 @@ void Map::Update()
                     auto hp = (*it2)->GetHP();
                     (*it2)->SetHP(hp - (int)it->m_power);
                     it->m_bHit = true;
+
+                    BGMManager::Get()->SetBattle(true);
                 }
             }
         }
@@ -1321,6 +1323,8 @@ void Map::Update()
                     (*it2)->SetHP(hp - (int)it->m_magicPower);
                     it->m_bHit = true;
                     bHit = true;
+
+                    BGMManager::Get()->SetBattle(true);
 
                     if (it->m_eMagicType == NSStarmanLib::eMagicType::Fire)
                     {

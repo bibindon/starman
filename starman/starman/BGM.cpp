@@ -101,46 +101,46 @@ void BGM::Play(const std::string& filename, const int a_volume, const bool fadeI
     {
         LPDIRECTSOUNDBUFFER8 soundBuffer = dx8sound_buffers_.at(filename);
 
-        if (m_th1 == nullptr)
-        {
-            m_cancel1 = false;
-            m_cancel2 = true;
-            m_th2 = nullptr;
-            m_th1 = new std::thread([=]
-                                    {
-                                        // 30回に分けて音量を0.1秒ごとに上げる
-                                        for (int i = 0; i < 30; ++i)
-                                        {
-                                            int volume2 = PerToDecimal(a_volume * i / 30);
-                                            soundBuffer->SetVolume(volume2);
-                                            Sleep(100);
-                                            if (this->m_cancel1)
-                                            {
-                                                break;
-                                            }
-                                        }
-                                    });
-        }
-        else if (m_th2 == nullptr)
-        {
-            m_cancel1 = true;
-            m_cancel2 = false;
-            m_th1 = nullptr;
-            m_th2 = new std::thread([=]
-                                    {
-                                        // 100回に分けて音量を0.1秒ごとに上げる
-                                        for (int i = 0; i < 30; ++i)
-                                        {
-                                            int volume2 = PerToDecimal(a_volume * i / 30);
-                                            soundBuffer->SetVolume(volume2);
-                                            Sleep(100);
-                                            if (this->m_cancel2)
-                                            {
-                                                break;
-                                            }
-                                        }
-                                    });
-        }
+//        if (m_th1 == nullptr)
+//        {
+//            m_cancel1 = false;
+//            m_cancel2 = true;
+//            m_th2 = nullptr;
+//            m_th1 = new std::thread([=]
+//                                    {
+//                                        // 30回に分けて音量を0.1秒ごとに上げる
+//                                        for (int i = 0; i < 30; ++i)
+//                                        {
+//                                            int volume2 = PerToDecimal(a_volume * i / 30);
+//                                            soundBuffer->SetVolume(volume2);
+//                                            Sleep(100);
+//                                            if (this->m_cancel1)
+//                                            {
+//                                                break;
+//                                            }
+//                                        }
+//                                    });
+//        }
+//        else if (m_th2 == nullptr)
+//        {
+//            m_cancel1 = true;
+//            m_cancel2 = false;
+//            m_th1 = nullptr;
+//            m_th2 = new std::thread([=]
+//                                    {
+//                                        // 100回に分けて音量を0.1秒ごとに上げる
+//                                        for (int i = 0; i < 30; ++i)
+//                                        {
+//                                            int volume2 = PerToDecimal(a_volume * i / 30);
+//                                            soundBuffer->SetVolume(volume2);
+//                                            Sleep(100);
+//                                            if (this->m_cancel2)
+//                                            {
+//                                                break;
+//                                            }
+//                                        }
+//                                    });
+//        }
     }
 }
 
@@ -379,14 +379,14 @@ void BGMModel::InvestigateCurrentStatus()
     //------------------------------------------
     // エンディング
     //------------------------------------------
-    // TODO bEnding
+    // 外部から渡す
 
     //------------------------------------------
     // 戦闘
     //------------------------------------------
-    // TODO bBattle
+    // 外部から渡す
     // 攻撃したらバトル開始
-    // 30秒攻撃しなかったらバトル終了
+    // 20秒攻撃しなかったらバトル終了
 
     //------------------------------------------
     // 瀕死
@@ -587,6 +587,12 @@ std::string BGMModel::SelectBGM()
     }
     else if (m_bBattle)
     {
+        m_battleCounter--;
+        if (m_battleCounter <= 0)
+        {
+            m_bBattle = false;
+        }
+
         // 戦闘曲じゃないところから戦闘曲になったら
         // 戦闘曲１か戦闘曲２のどちらかを選曲する
         if (m_stBGM.m_filename == m_strBattle1 || m_stBGM.m_filename == m_strBattle2)
@@ -914,6 +920,33 @@ void BGMManager::Update()
 
         m_BGMEnvModel.SetChangeRequestComplete();
     }
+}
+
+void BGMModel::SetEnding(const bool arg)
+{
+    m_bEnding = arg;
+}
+
+void BGMModel::SetBattle(const bool arg)
+{
+    m_bBattle = arg;
+
+    if (arg)
+    {
+        m_battleCounter = 20;
+    }
+}
+
+void BGMManager::SetEnding(const bool arg)
+{
+    m_BGMModel.SetEnding(arg);
+}
+
+// 攻撃が当たったらバトル開始
+// ２０秒攻撃が当たらなかったらバトル終了
+void BGMManager::SetBattle(const bool arg)
+{
+    m_BGMModel.SetBattle(arg);
 }
 
 

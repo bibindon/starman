@@ -58,6 +58,9 @@ public:
     bool GetChangeRequest(stBGM* stBGM1, stBGM* stBGM2);
     void SetChangeRequestComplete();
 
+    void SetEnding(const bool arg);
+    void SetBattle(const bool arg);
+
 private:
 
     stBGM m_stBGM;
@@ -127,6 +130,8 @@ private:
 
     void InvestigateCurrentStatus();
     std::string SelectBGM();
+
+    int m_battleCounter = 0;
 };
 
 // 環境音のモデル
@@ -178,8 +183,8 @@ private:
     LPDIRECTSOUND8 dx8sound_ { nullptr };
     std::unordered_map<std::string, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
 
-    std::thread* m_th1 = nullptr;
-    std::thread* m_th2 = nullptr;
+//    std::thread* m_th1 = nullptr;
+//    std::thread* m_th2 = nullptr;
     bool m_cancel1 = false;
     bool m_cancel2 = false;
 };
@@ -191,6 +196,10 @@ public:
     void Init(HWND hWnd);
     void Finalize();
     void Update();
+
+    // エンディング中、とバトル中はBGMManagerのほうで知ることができないので外部から渡す。
+    void SetEnding(const bool arg);
+    void SetBattle(const bool arg);
 
 private:
     static BGMManager* m_obj;

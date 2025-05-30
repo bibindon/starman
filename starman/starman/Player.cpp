@@ -12,6 +12,7 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 #include "PopUp2.h"
 #include "resource.h"
+#include "BGM.h"
 
 Player::Player()
 {
@@ -1288,6 +1289,8 @@ bool Player::SetAttack()
 
         if (distance <= range_)
         {
+            BGMManager::Get()->SetBattle(true);
+
             vecEnemy.at(i)->SetState(eEnemyState::DAMAGED);
             int hp = vecEnemy.at(i)->GetHP();
 
