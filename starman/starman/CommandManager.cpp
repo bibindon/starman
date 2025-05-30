@@ -529,7 +529,11 @@ void CommandManager::BuildCommand()
                 auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
                 if (!lit)
                 {
-                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING192), true);
+                    auto enableMagic = NSStarmanLib::Rynen::GetObj()->GetContracted();
+                    if (enableMagic)
+                    {
+                        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING192), true);
+                    }
                 }
                 else
                 {
