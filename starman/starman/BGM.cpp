@@ -303,7 +303,7 @@ void BGMModel::Update()
         m_stBGM = stBGM { };
         m_stBGM.m_filename = newBGM;
         m_stBGM.m_eBGMStatus = eBGMStatus::NOT_YET;
-        m_stBGM.m_volume = 50;
+        m_stBGM.m_volume = 10;
     }
 }
 
@@ -397,7 +397,8 @@ void BGMModel::InvestigateCurrentStatus()
         //------------------------------------------
         // タイトル
         //------------------------------------------
-        if (seq->GetState() == eBattleState::TITLE)
+        if (seq->GetState() == eBattleState::TITLE ||
+            seq->GetState() == eBattleState::LOAD)
         {
             m_bTitle = true;
         }
@@ -821,7 +822,7 @@ void BGMManager::Update()
             }
 
             m_BGM.Load(currentBGM.m_filename);
-            m_BGM.Play(currentBGM.m_filename, 50, false);
+            m_BGM.Play(currentBGM.m_filename, currentBGM.m_volume, false);
 
             m_BGMModel.SetChangeRequestComplete();
         }
