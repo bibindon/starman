@@ -93,6 +93,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
                 }
             }
         }
+        // DestroyWindow(hWnd);
     }
 
     return DefWindowProc(hWnd, mes, wParam, lParam);
