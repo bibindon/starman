@@ -68,14 +68,13 @@ AnimMesh::AnimMesh(
     LPD3DXFRAME temp_root_frame { nullptr };
     LPD3DXANIMATIONCONTROLLER temp_animation_controller { nullptr };
 
-    result = D3DXLoadMeshHierarchyFromX(
-        xFilename.c_str(),
-        D3DXMESH_MANAGED,
-        SharedObj::GetD3DDevice(),
-        m_allocator.get(),
-        nullptr,
-        &temp_root_frame,
-        &temp_animation_controller);
+    result = D3DXLoadMeshHierarchyFromX(xFilename.c_str(),
+                                        D3DXMESH_MANAGED,
+                                        SharedObj::GetD3DDevice(),
+                                        m_allocator.get(),
+                                        nullptr,
+                                        &temp_root_frame,
+                                        &temp_animation_controller);
 
     if (FAILED(result))
     {

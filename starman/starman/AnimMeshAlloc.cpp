@@ -46,6 +46,8 @@ AnimMeshContainer::AnimMeshContainer(
     }
     else
     {
+        // グーローシェーディングはナシにしておく
+//        D3DXComputeNormals(d3dMesh, adjacency);
         MeshData.pMesh = d3dMesh;
         MeshData.Type = D3DXMESHTYPE_MESH;
         d3dMesh->AddRef();
