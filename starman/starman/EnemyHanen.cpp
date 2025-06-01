@@ -10,6 +10,7 @@
 EnemyHanen::EnemyHanen()
 {
     m_eType = eEnemyType::Hanen;
+    SoundEffect::get_ton()->load(_T("res\\sound\\enemyHanen.wav"));
 }
 
 EnemyHanen::~EnemyHanen()
@@ -47,7 +48,7 @@ bool EnemyHanen::Init()
             {
                 AnimSetting animSetting { };
                 animSetting.m_startPos = 2.f;
-                animSetting.m_duration = 0.5f;
+                animSetting.m_duration = 1.97f;
                 animSetting.m_loop = false;
                 animSetMap[_T("Attack")] = animSetting;
             }
@@ -100,25 +101,25 @@ void EnemyHanen::Update()
         D3DXVECTOR3 pos = player->GetPos();
         D3DXVECTOR3 enemyVector = pos - m_loadingPos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
-        if (distance < 3.f)
+        if (distance < 5.f)
         {
-            int randNum = SharedObj::GetRandom();
+            // 0 ~ 100
+            int randNum = SharedObj::GetRandom() % 101;
 
-            //std::wstring msg;
-            //msg = _T("randNum: " + std::to_wstring(randNum) + "\n");
-            if (randNum % 30 == 0)
+            if (randNum < 3)
             {
-                m_state = eEnemyState::ATTACK;
+                m_state = eEnemyState::DASH;
                 SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
             }
         }
-        else if (3.f <= distance && distance < 20.f)
+        else if (5.f <= distance && distance < 20.f)
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
+
             // 壁ずり
             Map* map = SharedObj::GetMap();
-            D3DXVECTOR3 move = norm / 50;
+            D3DXVECTOR3 move = norm * 0.02f;
             bool bHit = false;
             bool bInside = false;
             move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
@@ -141,30 +142,42 @@ void EnemyHanen::Update()
             m_state = eEnemyState::IDLE;
         }
     }
-    else if (m_state == eEnemyState::ATTACK)
+    else if (m_state == eEnemyState::DASH)
     {
         ++m_attackTimeCounter;
         if (m_attackTimeCounter == 1)
         {
-            m_AnimMesh->SetAnim(_T("Attack"), 0.f);
-            SoundEffect::get_ton()->play(_T("res\\sound\\enemyAttack.wav"), 90);
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
-            D3DXVECTOR3 rot = pos - m_loadingPos;
-            m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
+            D3DXVECTOR3 enemyVector = pos - m_loadingPos;
 
+            m_AnimMesh->SetAnim(_T("Attack"), 0.f);
 
-            D3DXVECTOR3 attackPos { GetAttackPos() };
-            D3DXVECTOR3 playerPos { 0.f, 0.f, 0.f };
-            playerPos = player->GetPos();
-            D3DXVECTOR3 subPos { attackPos - playerPos };
+            D3DXVec3Normalize(&m_vDash, &enemyVector);
+            m_vDash *= 0.1f;
+
+            m_bAttack = true;
+        }
+        else if (m_attackTimeCounter == 60)
+        {
+            // 酸の攻撃によるじゅわ～という音
+            SoundEffect::get_ton()->play(_T("res\\sound\\enemyHanen.wav"), 90);
+        }
+        else if (m_attackTimeCounter < 120)
+        {
+            m_loadingPos += m_vDash;
+
+            D3DXVECTOR3 attackPos = GetAttackPos();
+            D3DXVECTOR3 playerPos = SharedObj::GetPlayer()->GetPos();
+            D3DXVECTOR3 subPos(attackPos - playerPos);
             FLOAT distance = D3DXVec3Length(&subPos);
             std::wstring msg;
             msg = _T("distance: ") + std::to_wstring(distance) + _T("\n");
 
-            if (distance <= 1.0f)
+            if (distance <= 2.0f && m_bAttack)
             {
-                player->SetDamaged();
+                m_bAttack = false;
+                SharedObj::GetPlayer()->SetDamaged();
                 auto status = NSStarmanLib::StatusManager::GetObj();
 
                 auto muscle = status->GetMuscleCurrent();
@@ -173,12 +186,12 @@ void EnemyHanen::Update()
                 auto brain = status->GetBrainStaminaCurrent();
                 status->SetBrainStaminaCurrent(brain - 1);
             }
-
         }
         else if (m_attackTimeCounter >= 60)
         {
             m_attackTimeCounter = 0;
             m_state = eEnemyState::IDLE;
+            m_bAttack = false;
         }
     }
 }

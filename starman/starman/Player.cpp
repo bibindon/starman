@@ -1589,7 +1589,7 @@ void Player::SetIdle()
 
 void Player::SetDamaged()
 {
-    if (NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
+    if (!NSStarmanLib::StatusManager::GetObj()->GetDead())
     {
         SoundEffect::get_ton()->play(_T("res\\sound\\damage01.wav"), 90);
         m_AnimMesh2->SetAnim(_T("Damaged"), 0.f);
