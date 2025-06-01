@@ -119,6 +119,13 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap[_T("Step")] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 16.0f;
+        animSetting.m_duration = 0.97f;
+        animSetting.m_loop = false;
+        animSetMap[_T("PullOar")] = animSetting;
+    }
     m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim(_T("0_Idle"));
     SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
@@ -1823,6 +1830,11 @@ bool Player::IsInCave()
 bool Player::IsUnderWater()
 {
     return m_bUnderwater;
+}
+
+void Player::PlayPullOarAnim()
+{
+    m_AnimMesh2->SetAnim(_T("PullOar"));
 }
 
 void Player::Throw()

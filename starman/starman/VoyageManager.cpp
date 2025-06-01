@@ -799,6 +799,8 @@ void Raft2::PullOarBoth(D3DXVECTOR3* _move)
 
     SoundEffect::get_ton()->play(_T("res\\sound\\pullOar.wav"), 80);
     SoundEffect::get_ton()->play(_T("res\\sound\\pullOar2.wav"), 80);
+
+    SharedObj::GetPlayer()->PlayPullOarAnim();
 }
 
 void Raft2::PullOarLeft()
@@ -808,6 +810,8 @@ void Raft2::PullOarLeft()
 
     SoundEffect::get_ton()->play(_T("res\\sound\\pullOar.wav"), 80);
     SoundEffect::get_ton()->play(_T("res\\sound\\pullOar2.wav"), 80);
+
+    SharedObj::GetPlayer()->PlayPullOarAnim();
 }
 
 void Raft2::PullOarRight()
@@ -817,6 +821,8 @@ void Raft2::PullOarRight()
 
     SoundEffect::get_ton()->play(_T("res\\sound\\pullOar.wav"), 80);
     SoundEffect::get_ton()->play(_T("res\\sound\\pullOar2.wav"), 80);
+
+    SharedObj::GetPlayer()->PlayPullOarAnim();
 }
 
 void Raft2::Pull3Hours()
