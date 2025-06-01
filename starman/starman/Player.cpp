@@ -112,6 +112,13 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap[_T("Throw")] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 14.0f;
+        animSetting.m_duration = 0.97f;
+        animSetting.m_loop = false;
+        animSetMap[_T("Step")] = animSetting;
+    }
     m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim(_T("0_Idle"));
     SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
@@ -1775,6 +1782,8 @@ void Player::SetStep(const eDir dir)
     SoundEffect::get_ton()->play(_T("res\\sound\\jump.wav"), 90);
 
     Common::Status()->ConsumeJumpCost();
+
+    m_AnimMesh2->SetAnim(_T("Step"), 0.f);
 }
 
 void Player::SetExamine()
