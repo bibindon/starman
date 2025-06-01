@@ -32,12 +32,12 @@ Frame Root {
         1;
         1;
         0;
-        Material Material_000 {
-           0.000000; 0.000000; 0.000000; 1.000000;;
+        Material Material_002 {
+           0.640000; 0.640000; 0.640000; 1.000000;;
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"tex.png";}
+          TextureFilename {"raft_tex.png";}
         }
       } // End of Plane_001 material list
     } // End of Plane_001 mesh
