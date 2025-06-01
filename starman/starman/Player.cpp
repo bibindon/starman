@@ -1750,6 +1750,12 @@ void Player::SetLieDown()
 
 void Player::SetStep(const eDir dir)
 {
+    auto stamina = Common::Status()->GetBodyStaminaCurrent();
+    if (stamina <= 30.f)
+    {
+        return;
+    }
+
     const float STEP_VELOCITY = 1.f;
     float radian = Camera::GetRadian();
     float yaw = -1.f * (radian - (D3DX_PI / 2));
