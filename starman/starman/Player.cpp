@@ -124,6 +124,7 @@ Player::Player()
         animSetting.m_startPos = 16.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
+        animSetting.m_stopEnd = true;
         animSetMap[_T("PullOar")] = animSetting;
     }
     m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
@@ -1834,7 +1835,7 @@ bool Player::IsUnderWater()
 
 void Player::PlayPullOarAnim()
 {
-    m_AnimMesh2->SetAnim(_T("PullOar"));
+    m_AnimMesh2->SetAnim(_T("PullOar"), 0.f);
 }
 
 void Player::Throw()
