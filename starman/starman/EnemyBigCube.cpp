@@ -110,6 +110,7 @@ void EnemyBigCube::Update()
             if (randNum % 30 == 0)
             {
                 m_state = eEnemyState::ATTACK;
+                SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
             }
         }
         else if (3.f <= distance && distance < 20.f)
@@ -129,6 +130,7 @@ void EnemyBigCube::Update()
         {
             m_state = eEnemyState::IDLE;
             m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
+            SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
         }
     }
     else if (m_state == eEnemyState::DAMAGED)

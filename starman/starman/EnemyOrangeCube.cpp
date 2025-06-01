@@ -130,7 +130,7 @@ void EnemyOrangeCube::Update()
         {
             m_state = eEnemyState::IDLE;
             m_AnimMesh->SetAnim(_T("0_Idle"), 0.f);
-                SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
+            SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
         }
     }
     else if (m_state == eEnemyState::DAMAGED)
