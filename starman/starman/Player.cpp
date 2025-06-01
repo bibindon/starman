@@ -105,6 +105,13 @@ Player::Player()
         animSetting.m_loop = false;
         animSetMap[_T("Arrow")] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 12.0f;
+        animSetting.m_duration = 1.97f;
+        animSetting.m_loop = false;
+        animSetMap[_T("Throw")] = animSetting;
+    }
     m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim(_T("0_Idle"));
     SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
@@ -1621,11 +1628,57 @@ void Player::SetSleep(const bool arg)
 
 D3DXVECTOR3 Player::GetAttackPos() const
 {
+    float length = 1.f;
+
+    // 木の棒
+    if (Common::Status()->GetEquipWeapon().GetId() == 58 ||
+        Common::Status()->GetEquipWeapon().GetId() == 59 ||
+        Common::Status()->GetEquipWeapon().GetId() == 60 ||
+        Common::Status()->GetEquipWeapon().GetId() == 61 ||
+        Common::Status()->GetEquipWeapon().GetId() == 62 ||
+        Common::Status()->GetEquipWeapon().GetId() == 63
+        )
+    {
+        length = 1.5f;
+    }
+    // 石槍
+    else if (Common::Status()->GetEquipWeapon().GetId() == 64 ||
+             Common::Status()->GetEquipWeapon().GetId() == 65 ||
+             Common::Status()->GetEquipWeapon().GetId() == 66 ||
+             Common::Status()->GetEquipWeapon().GetId() == 67 ||
+             Common::Status()->GetEquipWeapon().GetId() == 68 ||
+             Common::Status()->GetEquipWeapon().GetId() == 69
+        )
+    {
+        length = 2.0f;
+    }
+    // 鉄パイプ
+    else if (Common::Status()->GetEquipWeapon().GetId() == 81)
+    {
+        length = 1.5f;
+    }
+    // 石付き鉄パイプ
+    else if (Common::Status()->GetEquipWeapon().GetId() == 82)
+    {
+        length = 1.5f;
+    }
+    // 石斧
+    else if (Common::Status()->GetEquipWeapon().GetId() == 83 ||
+             Common::Status()->GetEquipWeapon().GetId() == 84 ||
+             Common::Status()->GetEquipWeapon().GetId() == 85 ||
+             Common::Status()->GetEquipWeapon().GetId() == 86 ||
+             Common::Status()->GetEquipWeapon().GetId() == 87 ||
+             Common::Status()->GetEquipWeapon().GetId() == 88)
+    {
+        length = 1.5f;
+    }
+
     D3DXVECTOR3 pos { m_loadingPos };
     D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
     norm.x = std::sin(m_rotate.y + D3DX_PI);
     norm.z = std::sin(m_rotate.y + (D3DX_PI * 3 / 2));
-    pos += norm * 1.f;
+
+    pos += norm * length;
     return pos;
 }
 
@@ -1829,7 +1882,7 @@ void Player::Throw()
         statusManager->SetEquipWeapon(itemInfo);
 
         SoundEffect::get_ton()->play(_T("res\\sound\\attack01.wav"), 90);
-        m_AnimMesh2->SetAnim(_T("Attack"), 0.f);
+        m_AnimMesh2->SetAnim(_T("Throw"), 0.f);
     }
 
     // 体力を消耗する

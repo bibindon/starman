@@ -1218,7 +1218,7 @@ void Map::Update()
         ++it->m_counter;
 
         // 0.5秒経過したら発射
-        if (it->m_counter <= 30)
+        if (it->m_counter <= 60)
         {
             continue;
         }
