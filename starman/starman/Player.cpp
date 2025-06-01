@@ -510,8 +510,8 @@ void Player::Update(Map* map)
         // 歩く
         else
         {
-            move.x += -std::sin(radian) * 0.1f;
-            move.z += std::sin(radian + D3DX_PI / 2) * 0.1f;
+            move.x += -std::sin(radian) * 0.2f;
+            move.z += std::sin(radian + D3DX_PI / 2) * 0.2f;
             SetWalk();
         }
 
@@ -864,7 +864,7 @@ void Player::Update(Map* map)
     D3DXVECTOR2 move_XZ(m_move.x, m_move.z);
     FLOAT speed = D3DXVec2Length(&move_XZ);
 
-    MAX_XZ_MOVE *= statusManager->GetWalkSpeed();
+    MAX_XZ_MOVE *= (statusManager->GetWalkSpeed());
 
     // もし100センチ移動しようとしていたら2で割ればよい。
     if (speed >= MAX_XZ_MOVE)
