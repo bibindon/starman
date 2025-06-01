@@ -181,11 +181,11 @@ void Map::Init()
 
     // 神社
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(15.8f, 492.8f, -1221.2f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.8f, 492.8f, -1221.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\shrine.blend.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap[_T("cottage2")] = mesh;
+        m_meshMap[_T("shrine")] = mesh;
     }
 
     // 洞窟
@@ -1748,6 +1748,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("chest") ||
             pair.first == _T("rock2") ||
             pair.first == _T("lighthouse") ||
+            pair.first == _T("shrine") ||
             pair.first == _T("testcube")
             )
         {
