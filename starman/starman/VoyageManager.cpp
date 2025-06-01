@@ -679,25 +679,16 @@ void Raft2::Update()
 
     // 海と接触していたらそれ以上、落下させない
     D3DXVECTOR3 _pos = m_pos;
-
     // 少し浮いていてほしいので20センチ下の部分を接地判定に使用する
     _pos.y += -0.2f;
-    _move = SharedObj::GetMap()->WallSlide(_pos, _move, &bHit, &bInside);
-
-    // 少し浮いていてほしいので20センチ下の部分を接地判定に使用する
-//    _pos.y += -0.2f;
-//    bool isHit1 = SharedObj::GetMap()->IntersectWater(_pos, _move);
-//
-//    if (isHit1)
-//    {
-//        _move.y += 0.1f;
-//    }
 
     // 陸地と接触していたら停止
-    bool isHit2 = SharedObj::GetMap()->CollisionGround(m_pos, _move);
+    bool isHit2 = SharedObj::GetMap()->CollisionGround(_pos, _move);
 
     if (!isHit2)
     {
+        _move = SharedObj::GetMap()->WallSlide(_pos, _move, &bHit, &bInside);
+
         m_move = _move;
         m_pos += m_move;
         FLOAT speed = D3DXVec3Length(&_move);
