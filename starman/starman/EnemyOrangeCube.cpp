@@ -10,6 +10,7 @@
 EnemyOrangeCube::EnemyOrangeCube()
 {
     m_eType = eEnemyType::OrangeCube;
+    SoundEffect::get_ton()->load(_T("res\\sound\\enemyOrange.wav"));
 }
 
 EnemyOrangeCube::~EnemyOrangeCube()
@@ -147,14 +148,14 @@ void EnemyOrangeCube::Update()
         if (m_attackTimeCounter == 1)
         {
             m_AnimMesh->SetAnim(_T("Attack"), 0.f);
-            SoundEffect::get_ton()->play(_T("res\\sound\\enemyAttack.wav"), 90);
+            SoundEffect::get_ton()->play(_T("res\\sound\\enemyOrange.wav"), 90);
             Player* player = SharedObj::GetPlayer();
             D3DXVECTOR3 pos = player->GetPos();
             D3DXVECTOR3 rot = pos - m_loadingPos;
             m_rotate.y = -atan2(rot.z, rot.x) + D3DX_PI*3/2;
 
-
-            D3DXVECTOR3 attackPos { GetAttackPos() };
+            // オレンジ立方体の攻撃は回転攻撃なので攻撃位置は敵の位置
+            D3DXVECTOR3 attackPos { m_loadingPos };
             D3DXVECTOR3 playerPos { 0.f, 0.f, 0.f };
             playerPos = player->GetPos();
             D3DXVECTOR3 subPos { attackPos - playerPos };
@@ -162,7 +163,7 @@ void EnemyOrangeCube::Update()
             std::wstring msg;
             msg = _T("distance: ") + std::to_wstring(distance) + _T("\n");
 
-            if (distance <= 1.0f)
+            if (distance <= 2.5f)
             {
                 player->SetDamaged();
                 auto status = NSStarmanLib::StatusManager::GetObj();
