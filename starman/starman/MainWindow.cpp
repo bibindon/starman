@@ -260,7 +260,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
         d3dpp.BackBufferCount = 0;
 
-        d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+//        d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+        d3dpp.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;
         d3dpp.MultiSampleQuality = 0;
 
         d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
@@ -297,6 +298,14 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         }
 
         SharedObj::SetD3DDevice(D3DDevice);
+
+//        // 試しに異方性フィルタを使う
+//        {
+//            D3DDevice->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_ANISOTROPIC);
+//            D3DDevice->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_ANISOTROPIC);
+//            D3DDevice->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+//            D3DDevice->SetSamplerState(0, D3DSAMP_MAXANISOTROPY, 8);
+//        }
     }
 
     //-------------------------------------------------
