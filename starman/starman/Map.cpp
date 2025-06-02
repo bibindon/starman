@@ -199,11 +199,11 @@ void Map::Init()
 
     // 苔庭
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(628.9f, 773.9f, -1861.8f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(675.9f, 773.9f, -1891.8f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\kokeniwa.blend.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap[_T("cottage4")] = mesh;
+        m_meshMap[_T("kokeniwa")] = mesh;
     }
 
     // 港跡
@@ -1773,6 +1773,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("rock2") ||
             pair.first == _T("lighthouse") ||
             pair.first == _T("shrine") ||
+            pair.first == _T("kokeniwa") ||
             pair.first == _T("kaiganDoukutsu") ||
             pair.first == _T("testcube")
             )
