@@ -916,6 +916,52 @@ void Map::Update()
     Player* player = SharedObj::GetPlayer();
     D3DXVECTOR3 pos = player->GetPos();
 
+    {
+        //-------------------------------------
+        // 太陽の明るさ
+        //-------------------------------------
+        // 昼の12時が最も明るく、夜の0時が最も暗いこととする
+        auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+        float hour = (float)dateTime->GetHour();
+        float work1 = 0.f;
+        if (hour <= 12)
+        {
+            work1 = hour / 12;
+        }
+        else
+        {
+            work1 = (24 - hour) / 12;
+        }
+
+        // プレイヤーが洞窟内にいたら明るさ0
+        if (SharedObj::GetPlayer()->IsInCave())
+        {
+            // 3秒くらいかけて暗くする
+            auto brightness = Light::GetBrightness();
+            work1 /= (60 * 3);
+            brightness -= work1;
+            if (brightness < 0.f)
+            {
+                brightness = 0.f;
+            }
+
+            Light::SetBrightness(brightness);
+        }
+        else
+        {
+            // 3秒くらいかけて明るくする
+            auto brightness = Light::GetBrightness();
+            work1 /= (60 * 3);
+            brightness += work1;
+            if (brightness > work1)
+            {
+                brightness = work1;
+            }
+
+            Light::SetBrightness(brightness);
+        }
+    }
+
     // 60回に一回（＝1秒ごと）の処理
     {
         static int counter = 0;
@@ -1030,27 +1076,6 @@ void Map::Update()
             }
 
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();
-
-            //-------------------------------------
-            // 太陽の明るさ
-            //-------------------------------------
-            // 昼の12時が最も明るく、夜の0時が最も暗いこととする
-            // TODO サインカーブにしたほうが良い。
-            float hour = (float)dateTime->GetHour();
-            if (hour <= 12)
-            {
-                Light::SetBrightness(hour / 12);
-            }
-            else
-            {
-                Light::SetBrightness((24 - hour) / 12);
-            }
-
-            // プレイヤーが洞窟内にいたら明るさ0
-            if (SharedObj::GetPlayer()->IsInCave())
-            {
-                Light::SetBrightness(0.f);
-            }
 
             //-------------------------------------
             // 陰の表示

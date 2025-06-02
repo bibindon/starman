@@ -250,7 +250,7 @@ Q17",<hint>ホシマン（食べられるものを探そう）,調べたら,-216
 <talk>res\\script\\origin\\talkFinishQuest3.csv"
 Q18,"一つでもクエストが完了していたら
 クエストが完了していないなら","Q10:Q11:Q12:Q13:Q14:Q15:Q16:Q17
-Q18",<hint>ホシマン（食べられるものを探そう）,位置が範囲外,-240.0:33.0:550.0:100.0,,<talk>res\\script\\origin\\talkFinishQuest4.csv
+Q18",<hint>ホシマン（食べられるものを探そう）,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest4.csv
 Q19,"クエストが完了していたら
 クエストが完了していないなら","Q18
 Q19",<hint>ホシマン（食べられるものを探そう）,調べたら,-214:33:545:3 ,,"<sound>res\\sound\\get_item.wav
