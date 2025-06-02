@@ -208,11 +208,11 @@ void Map::Init()
 
     // 港跡
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(1814.3f, 28.5f, -899.2f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(1894.3f, 13.5f, -899.2f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\minatoato.blend.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap[_T("cottage5")] = mesh;
+        m_meshMap[_T("minatoato")] = mesh;
     }
 
     // 海岸洞窟
@@ -1773,6 +1773,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("rock2") ||
             pair.first == _T("lighthouse") ||
             pair.first == _T("shrine") ||
+            pair.first == _T("minatoato") ||
             pair.first == _T("kokeniwa") ||
             pair.first == _T("kaiganDoukutsu") ||
             pair.first == _T("testcube")
