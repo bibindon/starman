@@ -217,20 +217,11 @@ void Map::Init()
 
     // 海岸洞窟
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(1216.f, 10.8f, 582.1f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\kaiganDoukutsu.blend.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap[_T("cottage6")] = mesh;
-    }
-
-    // ソテツの場所
-    {
-        D3DXVECTOR3 pos = D3DXVECTOR3(1092.f, 40.8f, 504.1f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
-        mesh->Init();
-        m_meshMap[_T("cottage7")] = mesh;
+        m_meshMap[_T("kaiganDoukutsu")] = mesh;
     }
 
     // 大陸
@@ -951,11 +942,12 @@ void Map::Update()
         {
             // 3秒くらいかけて明るくする
             auto brightness = Light::GetBrightness();
+            auto work2 = brightness;
             work1 /= (60 * 3);
             brightness += work1;
             if (brightness > work1)
             {
-                brightness = work1;
+                brightness = work2;
             }
 
             Light::SetBrightness(brightness);
@@ -1703,6 +1695,13 @@ bool Map::CollisionGround(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
 {
     BOOL  bIsHit = false;
     bIsHit = IntersectSub(pos, move, m_meshMap[_T("Map")]);
+
+    if (bIsHit)
+    {
+        return true;
+    }
+
+    bIsHit = IntersectSub(pos, move, m_meshMap[_T("kaiganDoukutsu")]);
     return bIsHit;
 }
 
@@ -1774,6 +1773,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("rock2") ||
             pair.first == _T("lighthouse") ||
             pair.first == _T("shrine") ||
+            pair.first == _T("kaiganDoukutsu") ||
             pair.first == _T("testcube")
             )
         {

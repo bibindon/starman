@@ -304,13 +304,13 @@ void Mesh::Render()
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
             {
-				hResult = m_D3DEffect->SetFloat("g_fog_strength", 0.0f);
-				assert(hResult == S_OK);
+                hResult = m_D3DEffect->SetFloat("g_fog_strength", 0.0f);
+                assert(hResult == S_OK);
             }
             else
             {
-				hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
-				assert(hResult == S_OK);
+                hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
+                assert(hResult == S_OK);
             }
         }
     }
@@ -405,8 +405,8 @@ void Mesh::Render()
     hResult = m_D3DEffect->Begin(nullptr, 0);
     assert(hResult == S_OK);
 
-	hResult = m_D3DEffect->BeginPass(0);
-	assert(hResult == S_OK);
+    hResult = m_D3DEffect->BeginPass(0);
+    assert(hResult == S_OK);
 
     //--------------------------------------------------------
     // マテリアルの数だけ色とテクスチャを設定して描画
