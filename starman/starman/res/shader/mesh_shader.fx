@@ -68,8 +68,9 @@ float4 light_color = { 0.5f, 0.25f, 0.0f, 1.0f };
 sampler mesh_texture_sampler = sampler_state {
     Texture   = (g_mesh_texture);
     MipFilter = LINEAR;
-    MinFilter = LINEAR;
-    MagFilter = LINEAR;
+    MinFilter = ANISOTROPIC;
+    MagFilter = ANISOTROPIC;
+    MaxAnisotropy = 8;
 };
 
 // 多分、赤色成分が少ないテクスチャ画像を使うと、赤色部分の演算結果がオーバーフローして真っ白になる。
