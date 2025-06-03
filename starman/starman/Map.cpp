@@ -164,6 +164,17 @@ void Map::Init()
         mesh->Init();
         m_meshMap[_T("chest")] = mesh;
     }
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(1163.2f, 17.1f, 529.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader.fx"),
+                              _T("res\\model\\chest.x"),
+                              pos,
+                              rot,
+                              1.0f);
+        mesh->Init();
+        m_meshMap[_T("chest2")] = mesh;
+    }
     //{
     //    D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 20.f, 520.f);
     //    D3DXVECTOR3 c = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -1816,6 +1827,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("sea") ||
             pair.first == _T("precision") ||
             pair.first == _T("chest") ||
+            pair.first == _T("chest2") ||
             pair.first == _T("rock2") ||
             pair.first == _T("lighthouse") ||
             pair.first == _T("shrine") ||
