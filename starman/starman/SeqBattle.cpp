@@ -1912,6 +1912,23 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::wstring::size_type it = work.find(_T("<talk>"));
                     work = work.erase(it, 6);
 
+                    // 花輪が飾られていたら会話を少し変える。
+                    if (work == L"res\\script\\origin\\talkFinishQuest59.csv")
+                    {
+                        if (NSStarmanLib::ActivityBase::Get()->GetHanawa())
+                        {
+                            work = L"res\\script\\origin\\talkFinishQuest59-2.csv";
+                        }
+                    }
+
+                    if (work == L"res\\script\\origin\\talkFinishQuest61.csv")
+                    {
+                        if (NSStarmanLib::ActivityBase::Get()->GetHanawa())
+                        {
+                            work = L"res\\script\\origin\\talkFinishQuest61-2.csv";
+                        }
+                    }
+
                     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
                     NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
                     NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
@@ -2156,6 +2173,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     if (!subIdList.empty())
                     {
                         Common::Inventory()->RemoveItem(12, subIdList.at(0));
+                        NSStarmanLib::ActivityBase::Get()->SetHanaw(true);
+                        PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
                     }
                     // インベントリになければ倉庫を見る
                     else
@@ -2168,6 +2187,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         if (!subIdList2.empty())
                         {
                             storehouse->RemoveItem(12, subIdList2.at(0));
+                            NSStarmanLib::ActivityBase::Get()->SetHanaw(true);
+                            PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
                         }
                     }
                 }
