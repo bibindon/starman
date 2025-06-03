@@ -617,7 +617,15 @@ void SeqBattle::OperateMenu(eSequence* sequence)
     }
     else if (result == _T("EXIT"))
     {
-        m_eState = eBattleState::NORMAL;
+        if (VoyageManager::Get()->GetRaftMode())
+        {
+            m_eState = eBattleState::VOYAGE;
+        }
+        else
+        {
+            m_eState = eBattleState::NORMAL;
+        }
+
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
     }

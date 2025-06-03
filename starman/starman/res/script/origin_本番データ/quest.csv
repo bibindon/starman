@@ -355,7 +355,9 @@ NPCのXが生存
 NPCのXが生存","11:492:-559:20
 sankakuman
 shikakuman",,"
-<talk>res\\script\\origin\\talkFinishQuest16.csv"
+<talk>res\\script\\origin\\talkFinishQuest16.csv
+<npc><daikeiman><talkEnable>y
+<npc><daikeiman><talkScript>res\\script\\origin\\talkFinishQuest13-2.csv"
 Q37,"クエストが完了していたら
 クエストが完了していないなら","Q36
 Q37",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,"位置
@@ -383,7 +385,8 @@ Q40,"クエストが完了していたら
 クエストが完了していないなら","Q39
 Q40",<hint>ホシマン（少し遠くまで行ってみよう）,位置が範囲外,11:492:-559:300,,"<talk>res\\script\\origin\\talkFinishQuest20.csv
 <rynenContract>
-<drinkWordBress>"
+<drinkWordBress>
+<item>モンスターの体:-1:-1"
 Q41,"クエストが完了していたら
 クエストが完了していないなら","Q40
 Q41",<hint>ホシマン（廃墟に戻ろう）,位置,11:492:-559:100,,"<talk>res\\script\\origin\\talkFinishQuest21.csv
