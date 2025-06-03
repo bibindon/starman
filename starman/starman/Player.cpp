@@ -1155,7 +1155,21 @@ void Player::Render()
     if (Common::Status()->GetSugegasa())
     {
         auto pos = m_loadingPos;
-        pos.y += 2.0f;
+
+        if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SIT ||
+            Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::LYING_DOWN)
+        {
+            pos.y += 1.0f;
+        }
+        else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::IDLE_WATER ||
+                 Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SWIM)
+        {
+            pos.y += 0.4f;
+        }
+        else
+        {
+            pos.y += 1.8f;
+        }
 
         m_sugegasaMesh->SetPos(pos);
         m_sugegasaMesh->SetRotY(m_rotate.y);
