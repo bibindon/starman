@@ -18,12 +18,14 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/MapObjManager.h"
 #include "NpcManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/WeaponManager.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
 #include "SoundEffect.h"
 #include "Camera.h"
 #include "BGM.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Storehouse.h"
 #include "Rain.h"
 #include "resource.h"
+#include "QuestManager.h"
 
 Map::Map()
 {
@@ -1416,12 +1418,34 @@ void Map::Render()
         Light::SetLightNormal(norm);
     }
 
+    // Q78が終わっているか＝シカクマンが死亡したか
+    bool bQ78Finished = QuestManager::Get()->GetQuestFinished(L"Q78");
+
     for (auto& pair : m_meshMap)
     {
         if (pair.first == _T("sky"))
         {
             continue;
         }
+
+        // シカクマンが死亡していたら墓を表示
+        if (pair.first == _T("grave"))
+        {
+            if (bQ78Finished)
+            {
+                continue;
+            }
+        }
+
+        // 花輪を飾っていたら表示
+        if (pair.first == _T("hanawa"))
+        {
+            if (!NSStarmanLib::ActivityBase::Get()->GetHanawa())
+            {
+                continue;
+            }
+        }
+
         pair.second->Render();
     }
 

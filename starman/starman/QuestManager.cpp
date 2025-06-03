@@ -195,6 +195,12 @@ void QuestManager::Update()
     m_questSystem.UpdateQuestStatus();
 }
 
+bool QuestManager::GetQuestFinished(const std::wstring& id)
+{
+    bool bFinished = m_questSystem.GetQuestFinished(id);
+    return bFinished;
+}
+
 void QuestManager::SetHint(const std::wstring& hint)
 {
     m_hint = hint;

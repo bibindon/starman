@@ -23,6 +23,7 @@ public:
 
     std::vector<std::wstring> GetFinishQuest();
     std::vector<std::wstring> GetQuestFinishEvent(const std::wstring& quest);
+    bool GetQuestFinished(const std::wstring& id);
 
     void SetQuestFinish(const std::wstring& quest);
 
@@ -37,6 +38,5 @@ private:
     NSQuestSystem::QuestSystem m_questSystem;
 
     std::wstring m_hint;
-
 };
 
