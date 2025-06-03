@@ -1445,11 +1445,23 @@ void Map::Render()
     // Q78が終わっているか＝シカクマンが死亡したか
     bool bQ78Finished = QuestManager::Get()->GetQuestFinished(L"Q78");
 
+    // Q40が終わっているか＝廃墟の掃除をしたか
+    bool bQ40Finished = QuestManager::Get()->GetQuestFinished(L"Q40");
+
     for (auto& pair : m_meshMap)
     {
         if (pair.first == _T("sky"))
         {
             continue;
+        }
+
+        // 廃墟の掃除が終わっていたらごみを非表示
+        if (pair.first == _T("garbage"))
+        {
+            if (bQ40Finished)
+            {
+                continue;
+            }
         }
 
         // シカクマンが死亡していたら墓を表示
