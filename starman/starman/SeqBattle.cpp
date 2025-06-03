@@ -2149,6 +2149,28 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         activityBase->SetBaseType(NSStarmanLib::eBaseType::DirectNex);
                     }
                 }
+                else if (vs2.at(j).find(_T("<hanawa>")) != std::wstring::npos)
+                {
+                    // 花輪があれば一つ減らす
+                    auto subIdList = Common::Inventory()->GetSubIdList(12);
+                    if (!subIdList.empty())
+                    {
+                        Common::Inventory()->RemoveItem(12, subIdList.at(0));
+                    }
+                    // インベントリになければ倉庫を見る
+                    else
+                    {
+                        auto storeHouseManager = NSStarmanLib::StorehouseManager::Get();
+
+                        // 海岸洞窟の倉庫を見る
+                        auto storehouse = storeHouseManager->GetStorehouse(2);
+                        auto subIdList2 = storehouse->GetSubIdList(12);
+                        if (!subIdList2.empty())
+                        {
+                            storehouse->RemoveItem(12, subIdList2.at(0));
+                        }
+                    }
+                }
                 else if (vs2.at(j).find(_T("<sotetsu>")) != std::wstring::npos)
                 {
                     auto status = Common::Status();
