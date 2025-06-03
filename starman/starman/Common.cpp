@@ -108,7 +108,7 @@ bool Common::FasterMode()
 
 bool Common::StrongMode()
 {
-    return false;
+    return true;
 }
 
 bool Common::X64Bit()

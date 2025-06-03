@@ -485,8 +485,8 @@ void BGMModel::InvestigateCurrentStatus()
     {
         auto ppos = SharedObj::GetPlayer()->GetPos();
 
-        D3DXVECTOR3 targetPos { 1092.0f, 40.8f, 504.1f };
-        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+        D3DXVECTOR3 targetPos { 1234.0f, 16.8f, 530.1f };
+        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 300.f);
         if (nearTarget)
         {
             m_bKaiganDoukutsu = true;
