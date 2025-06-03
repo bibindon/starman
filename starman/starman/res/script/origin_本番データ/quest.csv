@@ -635,7 +635,8 @@ Q77,"クエストが完了していたら
 Q77",<hint>ホシマン（神社に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest57.csv
 Q78,"クエストが完了していたら
 クエストが完了していないなら","Q77
-Q78",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest58.csv
+Q78",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest58.csv
+<hanawa>"
 Q79,"クエストが完了していたら
 クエストが完了していないなら","Q78
 Q79",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest59.csv
