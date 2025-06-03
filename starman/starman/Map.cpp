@@ -1431,7 +1431,7 @@ void Map::Render()
         // シカクマンが死亡していたら墓を表示
         if (pair.first == _T("grave"))
         {
-            if (bQ78Finished)
+            if (!bQ78Finished)
             {
                 continue;
             }
