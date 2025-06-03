@@ -2401,6 +2401,30 @@ void SeqBattle::OperatePickPlant()
             // 草を消す処理
             m_map->DeletePlant(m_player->GetPos());
         }
+        else
+        {
+            auto ppos = SharedObj::GetPlayer()->GetPos();
+
+            // 海岸洞窟のあたり
+            {
+                D3DXVECTOR3 pos = D3DXVECTOR3(1216.f, 10.8f, 582.1f);
+                if (Common::HitByBoundingBox(ppos, pos, 100.f))
+                {
+                    // 黒い貝
+                    pickId = 42;
+                }
+            }
+
+            // 港跡のあたり
+            {
+                D3DXVECTOR3 pos = D3DXVECTOR3(1894.3f, 13.5f, -899.2f);
+                if (Common::HitByBoundingBox(ppos, pos, 100.f))
+                {
+                    // ブイ
+                    pickId = 25;
+                }
+            }
+        }
 
         auto itemDef = Common::ItemManager()->GetItemDef(pickId);
         std::wstring pick = itemDef.GetName();
