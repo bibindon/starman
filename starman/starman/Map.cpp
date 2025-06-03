@@ -248,6 +248,28 @@ void Map::Init()
         m_meshMap[_T("rock2")] = mesh;
     }
 
+    //------------------------------------------
+    // 墓
+    //------------------------------------------
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(1107.3f, 158.36f, 664.9f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\grave.blend.x"), pos, rot, 1.f);
+        mesh->Init();
+        m_meshMap[_T("grave")] = mesh;
+    }
+
+    //------------------------------------------
+    // 花輪
+    //------------------------------------------
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(1107.23f, 159.46f, 664.9f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\hanawa.blend.x"), pos, rot, 1.f);
+        mesh->Init();
+        m_meshMap[_T("hanawa")] = mesh;
+    }
+
     //--------------------------------------------
     // 太陽
     //--------------------------------------------
@@ -1773,6 +1795,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("rock2") ||
             pair.first == _T("lighthouse") ||
             pair.first == _T("shrine") ||
+            pair.first == _T("grave") ||
             pair.first == _T("minatoato") ||
             pair.first == _T("kokeniwa") ||
             pair.first == _T("kaiganDoukutsu") ||
