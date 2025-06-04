@@ -124,3 +124,6 @@ prolitan2.blend
 /starman/GenerateMapAndEnemyData/x64/Debug
 /starman/GenerateMapAndEnemyData/x64/Release
 /starman/.VSCodeCounter
+/starman/Bootstrapper1/bin/Release
+/starman/Bootstrapper1/obj/Release
+/starman/Bootstrapper1/starman.msi
