@@ -216,11 +216,11 @@ void Map::Init()
 
     // 洞窟
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(115.6f, 590.5f, -1484.2f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\model\\cottage.x"), pos, rot, 1.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.0f, 0.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.0f, 0.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\doukutsu.blend.x"), pos, rot, 1.f);
         mesh->Init();
-        m_meshMap[_T("cottage3")] = mesh;
+        m_meshMap[_T("doukutsu")] = mesh;
     }
 
     // 苔庭
@@ -1856,6 +1856,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
             pair.first == _T("rock2") ||
             pair.first == _T("lighthouse") ||
             pair.first == _T("shrine") ||
+            pair.first == _T("doukutsu") ||
             pair.first == _T("garbage") ||
             pair.first == _T("grave") ||
             pair.first == _T("minatoato") ||
