@@ -2311,6 +2311,12 @@ void SeqBattle::OperatePickPlant()
 
             m_map->DeleteObj(m_player->GetPos(), eMapObjType::YASHI);
         }
+        // 近くに死体があったらワードブレスを取得する
+        else if (m_map->NearDead(SharedObj::GetPlayer()->GetPos()))
+        {
+            pickId = 35;
+            m_map->SetDeadItem(m_player->GetPos());
+        }
         // 近くにソテツの木があったらソテツを取得する
         else if (m_map->NearSotetsu(SharedObj::GetPlayer()->GetPos()))
         {

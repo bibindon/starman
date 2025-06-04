@@ -555,7 +555,17 @@ void BGMModel::InvestigateCurrentStatus()
     // 洞窟の近くにいる
     //------------------------------------------
 
-    // TODO
+    {
+        auto inCave = SharedObj::GetPlayer()->IsInCave();
+        if (inCave)
+        {
+            m_bDoukutsu = true;
+        }
+        else
+        {
+            m_bDoukutsu = false;
+        }
+    }
 }
 
 // 変更ナシなら空文字

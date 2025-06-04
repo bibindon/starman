@@ -126,6 +126,12 @@ public:
 
     bool IsFinishCaveInFade() const { return m_bInCaveFadeFinish; }
 
+    // 死体の近くにいるか
+    bool NearDead(const D3DXVECTOR3& pos);
+
+    // 死体の近くのアイテムを取得した
+    void SetDeadItem(const D3DXVECTOR3& pos);
+
 private:
 
     NSStarmanLib::MapObjManager* MapLib();
@@ -214,5 +220,11 @@ private:
 
     // 洞窟内に入ったら３秒かけて暗くする。３秒経過し暗くするのが完了したことのフラグ
     bool m_bInCaveFadeFinish = true;
+
+    // 洞窟の死体で採取を行った
+    // ゲームを再起動したらアイテムが復活する
+    bool m_bDeadItem1Exist = true;
+    bool m_bDeadItem2Exist = true;
+    bool m_bDeadItem3Exist = true;
 };
 

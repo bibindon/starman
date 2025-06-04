@@ -363,6 +363,7 @@ void CommandManager::BuildCommand()
             SharedObj::GetMap()->NearTree(ppos) ||
             SharedObj::GetMap()->NearSotetsu(ppos) ||
             SharedObj::GetMap()->NearDonguri(ppos) ||
+            SharedObj::GetMap()->NearDead(ppos) ||
             SharedObj::GetMap()->NearStone(ppos)
             )
         {

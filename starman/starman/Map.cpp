@@ -296,6 +296,35 @@ void Map::Init()
         m_meshMap[_T("hanawa")] = mesh;
     }
 
+    //------------------------------------------
+    // 洞窟の死体
+    //------------------------------------------
+    {
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(509.1f, 19.5f, -1263.9f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\dead.blend.x"), pos, rot, 1.f);
+            mesh->Init();
+            m_meshMap[_T("dead1")] = mesh;
+        }
+
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(586.8f, 156.0f, -813.3f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\dead.blend.x"), pos, rot, 1.f);
+            mesh->Init();
+            m_meshMap[_T("dead2")] = mesh;
+        }
+
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(1112.2f, 210.7f, -1063.2f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\dead.blend.x"), pos, rot, 1.f);
+            mesh->Init();
+            m_meshMap[_T("dead3")] = mesh;
+        }
+    }
+
     //--------------------------------------------
     // 太陽
     //--------------------------------------------
@@ -2509,5 +2538,66 @@ void Map::DeleteObj(const D3DXVECTOR3& pos, const eMapObjType eMapObjType_)
 int Map::GetProgress()
 {
     return m_progress.load();
+}
+
+bool Map::NearDead(const D3DXVECTOR3& pos)
+{
+    if (this == nullptr)
+    {
+        return false;
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead1"))->GetPos(), 3.f);
+        if (hit)
+        {
+            return m_bDeadItem1Exist;
+        }
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead2"))->GetPos(), 3.f);
+        if (hit)
+        {
+            return m_bDeadItem2Exist;
+        }
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead3"))->GetPos(), 3.f);
+        if (hit)
+        {
+            return m_bDeadItem3Exist;
+        }
+    }
+
+    return false;
+}
+
+void Map::SetDeadItem(const D3DXVECTOR3& pos)
+{
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead1"))->GetPos(), 3.f);
+        if (hit)
+        {
+            m_bDeadItem1Exist = false;
+        }
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead2"))->GetPos(), 3.f);
+        if (hit)
+        {
+            m_bDeadItem2Exist = false;
+        }
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead3"))->GetPos(), 3.f);
+        if (hit)
+        {
+            m_bDeadItem3Exist = false;
+        }
+    }
 }
 
