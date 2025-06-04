@@ -286,6 +286,18 @@ void Mesh::Render()
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
+    // 洞窟
+    //--------------------------------------------------------
+    if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+    {
+        if (SharedObj::GetMap()->IsFinishCaveInFade())
+        {
+            hResult = m_D3DEffect->SetBool("g_inCaveFadeFinish", SharedObj::GetPlayer()->IsInCave());
+            assert(hResult == S_OK);
+        }
+    }
+
+    //--------------------------------------------------------
     // 雨だったら霧を濃くする
     //--------------------------------------------------------
     D3DXVECTOR4 fog_color;

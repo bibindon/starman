@@ -124,6 +124,8 @@ public:
 
     int GetProgress();
 
+    bool IsFinishCaveInFade() const { return m_bInCaveFadeFinish; }
+
 private:
 
     NSStarmanLib::MapObjManager* MapLib();
@@ -209,5 +211,8 @@ private:
 
     // ロード処理の進み具合
     std::atomic<int> m_progress = 0;
+
+    // 洞窟内に入ったら３秒かけて暗くする。３秒経過し暗くするのが完了したことのフラグ
+    bool m_bInCaveFadeFinish = true;
 };
 

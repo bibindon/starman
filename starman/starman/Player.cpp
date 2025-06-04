@@ -357,22 +357,20 @@ void Player::Update(Map* map)
     {
         D3DXVECTOR3 pos = m_loadingPos;
 
-        // TODO
-        D3DXVECTOR3 inCave(100.f, 0.f, 0.f);
+        D3DXVECTOR3 inCave(153.f, 475.f, -1392.f);
 
-        // TODO
-        D3DXVECTOR3 outCave(200.f, 0.f, 0.f);
+        D3DXVECTOR3 outCave(87.f, 483.f, -1393.f);
 
         if (!m_bInCave)
         {
-            if (Common::HitByBoundingBox(pos, inCave, 20.f))
+            if (Common::HitByBoundingBox(pos, inCave, 40.f))
             {
                 m_bInCave = true;
             }
         }
         else
         {
-            if (Common::HitByBoundingBox(pos, outCave, 20.f))
+            if (Common::HitByBoundingBox(pos, outCave, 40.f))
             {
                 m_bInCave = false;
             }

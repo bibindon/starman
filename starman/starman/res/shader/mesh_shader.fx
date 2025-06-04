@@ -13,6 +13,8 @@ float g_fog_strength;
 float4 g_point_light_pos = { 1, 1, 1, 0};
 bool pointLightEnable;
 
+bool g_inCaveFadeFinish = false;
+
 void vertex_shader(
     in  float4 in_position  : POSITION,
     in  float4 in_normal    : NORMAL0,
@@ -31,7 +33,13 @@ void vertex_shader(
 
     float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
 
-    out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
+    float4 _ambient = g_ambient;
+    if (g_inCaveFadeFinish)
+    {
+        _ambient = 0.f;
+    }
+
+    out_diffuse = g_diffuse * max(0, light_intensity) + _ambient;
     out_diffuse.r *= 0.7f; // 暗くしてみる
     out_diffuse.gb *= 0.5f; // 暗くしてみる
     out_diffuse.a = 1.0f;
@@ -142,7 +150,7 @@ void pixel_shader(
         float NdotL = max(dot(N, L), 0);
 
         // 最終カラー
-        out_diffuse += light_color * NdotL * attenuation;
+        out_diffuse += color_result * light_color * NdotL * attenuation;
     }
 
 }

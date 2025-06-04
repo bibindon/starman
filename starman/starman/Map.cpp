@@ -972,7 +972,7 @@ void Map::Update()
             work1 = (24 - hour) / 12;
         }
 
-        // プレイヤーが洞窟内にいたら明るさ0
+        // プレイヤーが洞窟内にいたら明るさ0.0
         if (SharedObj::GetPlayer()->IsInCave())
         {
             // 3秒くらいかけて暗くする
@@ -982,6 +982,7 @@ void Map::Update()
             if (brightness < 0.f)
             {
                 brightness = 0.f;
+                m_bInCaveFadeFinish = true;
             }
 
             Light::SetBrightness(brightness);
@@ -990,15 +991,17 @@ void Map::Update()
         {
             // 3秒くらいかけて明るくする
             auto brightness = Light::GetBrightness();
-            auto work2 = brightness;
-            work1 /= (60 * 3);
-            brightness += work1;
+            auto work2 = work1;
+            work2 /= (60 * 3);
+            brightness += work2;
             if (brightness > work1)
             {
-                brightness = work2;
+                brightness = work1;
             }
 
             Light::SetBrightness(brightness);
+
+            m_bInCaveFadeFinish = false;
         }
     }
 
