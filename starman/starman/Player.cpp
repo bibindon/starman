@@ -687,18 +687,45 @@ void Player::Update(Map* map)
         float joyRadian = GamePad::GetLeftRadian();
         float cameRadian = Camera::GetRadian();
         float radian = joyRadian + (cameRadian - D3DX_PI * 3 / 2);
-        move.x += std::cos(radian);
-        move.z += std::sin(radian);
+
+        // ジョギング
+        if (GamePad::IsHold(eGamePadButtonType::L2))
+        {
+            move.x += std::cos(radian) * 0.5f;
+            move.z += std::sin(radian) * 0.5f;
+            SetJogging();
+        }
+        // ダッシュ
+        else if (GamePad::IsHold(eGamePadButtonType::R2))
+        {
+            move.x += std::cos(radian);
+            move.z += std::sin(radian);
+            SetDash();
+        }
+        // 歩き
+        else
+        {
+            move.x += std::cos(radian) * 0.2f;
+            move.z += std::sin(radian) * 0.2f;
+            SetWalk();
+        }
 
         yaw = -1.f * (radian + D3DX_PI / 2);
         D3DXVECTOR3 rotate { 0.f, yaw, 0.f };
         SetRotate(rotate);
-        SetWalk();
+
     }
 
     if (GamePad::IsDown(eGamePadButtonType::R1))
     {
-        bool ret = SetAttack();
+        if (GamePad::IsHold(eGamePadButtonType::R2))
+        {
+            SetMagic();
+        }
+        else
+        {
+            SetAttack();
+        }
     }
 
     if (GamePad::IsDown(eGamePadButtonType::L1))
