@@ -76,7 +76,7 @@
             <Component Id="ProductComponent" Guid="*">
                 <File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes">
                     <Shortcut Id="WixInstStartmenu" Directory="ProgramMenuFolder"
-                              Name="starman" WorkingDirectory="INSTALLFOLDER"
+                              Name="Star Man" WorkingDirectory="INSTALLFOLDER"
                               Advertise="yes">
                         <Icon Id="WixInstIco.exe" SourceFile="$(var.starman.TargetPath)"/>
                     </Shortcut>
