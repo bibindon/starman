@@ -34,7 +34,7 @@ SaveManager* SaveManager::Get()
     {
         m_obj = NEW SaveManager();
 
-        if (Common::DeployEncryptMode())
+        if (Common::EncryptMode())
         {
             m_obj->m_encrypt = true;
         }
@@ -129,7 +129,7 @@ std::wstring SaveManager::CreateOriginFilePath(const std::wstring& filename)
 
     originDataPath = ORIGIN_DATA_PATH;
     originDataPath += filename;
-    if (Common::DeployEncryptMode())
+    if (Common::EncryptMode())
     {
         if (m_encrypt)
         {
@@ -146,7 +146,7 @@ std::wstring SaveManager::CreateSaveFilePath(const std::wstring& filename)
     saveDataPath = m_savedata_path;
     saveDataPath += filename;
 
-    if (Common::DeployEncryptMode())
+    if (Common::EncryptMode())
     {
         if (m_encrypt)
         {

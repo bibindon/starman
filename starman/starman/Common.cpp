@@ -11,13 +11,9 @@
 #pragma comment(lib, "Wtsapi32.lib")
 
 #if defined(_DEBUG)
-eBuildMode Common::m_buildMode = eBuildMode::Debug;
-#elif defined(DEPLOY)
-eBuildMode Common::m_buildMode = eBuildMode::Deploy;
-#elif defined(DEPLOY_ENCRYPT)
-eBuildMode Common::m_buildMode = eBuildMode::DeployEncrypt;
+bool Common::m_bDebugMode = true;
 #else
-eBuildMode Common::m_buildMode = eBuildMode::Release;
+bool Common::m_bDebugMode = false;
 #endif
 
 #ifdef _WIN64
@@ -67,48 +63,38 @@ std::wstring Common::ToStringWithPrecision(const float value, const int precisio
 
 bool Common::DebugMode()
 {
-    if (m_buildMode == eBuildMode::Debug)
-    {
-        return true;
-    }
-    return false;
+    return m_bDebugMode;
 }
 
-bool Common::ReleaseMode()
+bool Common::EncryptMode()
 {
-    if (m_buildMode == eBuildMode::Release)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool Common::DeployMode()
-{
-    if (m_buildMode == eBuildMode::Deploy)
-    {
-        return true;
-    }
-    return false;
-}
-
-bool Common::DeployEncryptMode()
-{
-    if (m_buildMode == eBuildMode::DeployEncrypt)
-    {
-        return true;
-    }
     return false;
 }
 
 bool Common::FasterMode()
 {
-    return true;
+    bool bFasterMode = false;
+
+    // デバッグモードじゃなければ常にOFF
+    if (!m_bDebugMode)
+    {
+        return false;
+    }
+
+    return bFasterMode;
 }
 
 bool Common::StrongMode()
 {
-    return true;
+    bool bStrongMode = false;
+
+    // デバッグモードじゃなければ常にOFF
+    if (!m_bDebugMode)
+    {
+        return false;
+    }
+
+    return bStrongMode;
 }
 
 bool Common::X64Bit()
@@ -264,7 +250,7 @@ float Common::PointToSegmentDistance(const D3DXVECTOR3& p1, const D3DXVECTOR3& p
 std::wstring Common::ModExt(const std::wstring& filepath)
 {
     std::wstring work = filepath;
-    if (Common::DeployEncryptMode())
+    if (Common::EncryptMode())
     {
         work = work.replace(work.size() - 3, 3, _T("enc"));
     }

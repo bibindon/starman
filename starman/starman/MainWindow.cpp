@@ -87,7 +87,7 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
             if (seq->GetState() == eBattleState::NORMAL ||
                 seq->GetState() == eBattleState::MENU)
             {
-                if (Common::DeployMode() || Common::DeployEncryptMode())
+                if (!Common::DebugMode())
                 {
                     SaveManager::Get()->Save();
                 }
@@ -469,7 +469,7 @@ int MainWindow::MainLoop()
 
         // 実際のFPSを求める
         int fps = 0;
-        if (Common::DebugMode() || Common::ReleaseMode())
+        if (Common::DebugMode())
         {
             fps = CalcFPS();
         }
@@ -531,7 +531,7 @@ int MainWindow::MainLoop()
             m_seqEnding->Render();
         }
 
-        if (Common::DebugMode() || Common::ReleaseMode())
+        if (Common::DebugMode())
         {
             ShowDebugInfo(fps);
         }

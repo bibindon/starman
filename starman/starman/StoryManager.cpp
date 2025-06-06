@@ -193,7 +193,7 @@ StoryManager::StoryManager(const std::wstring& csvFile)
                              sprFade, 
                              Common::ModExt(csvFile),
                              sprite,
-                             Common::DeployEncryptMode(),
+                             Common::EncryptMode(),
                              SharedObj::IsEnglish());
 
         bFinish = false;

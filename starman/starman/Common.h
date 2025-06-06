@@ -55,14 +55,6 @@ enum class eTitleMenu
     EXIT,
 };
 
-enum class eBuildMode
-{
-    Debug,
-    Release,
-    Deploy,
-    DeployEncrypt,
-};
-
 class Common
 {
 public:
@@ -80,9 +72,9 @@ public:
     static constexpr float ANIMATION_SPEED { 1.0f / 60 };
 
     static bool DebugMode();
-    static bool ReleaseMode();
-    static bool DeployMode();
-    static bool DeployEncryptMode();
+
+    // ゲームデータを暗号化されているものとして扱い、セーブデータは暗号化するモード
+    static bool EncryptMode();
 
     static bool FasterMode();
     static bool StrongMode();
@@ -134,7 +126,7 @@ public:
 
 private:
 
-    static eBuildMode m_buildMode;
+    static bool m_bDebugMode;
     static bool m_x64Bit;
     static std::wstring m_GPUName;
 };

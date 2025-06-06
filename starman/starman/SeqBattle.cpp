@@ -680,7 +680,7 @@ void SeqBattle::OperateStorehouse()
     // KeyBoard
     //---------------------------------------------------------
 
-    if (Common::DebugMode() || Common::ReleaseMode())
+    if (Common::DebugMode())
     {
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F1))
         {
@@ -739,7 +739,7 @@ void SeqBattle::OperateStorehouse()
         float z_ = SharedObj::GetPlayer()->GetPos().z;
         auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
 
-        if (Common::DebugMode() || Common::ReleaseMode())
+        if (Common::DebugMode())
         {
             storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
         }
@@ -837,7 +837,7 @@ void SeqBattle::OperateStorehouse()
             float z_ = SharedObj::GetPlayer()->GetPos().z;
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
 
-            if (Common::DebugMode() || Common::ReleaseMode())
+            if (Common::DebugMode())
             {
                 storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
             }
@@ -970,7 +970,7 @@ void SeqBattle::OperateStorehouse()
         float z_ = SharedObj::GetPlayer()->GetPos().z;
         auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
 
-        if (Common::DebugMode() || Common::ReleaseMode())
+        if (Common::DebugMode())
         {
             storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
         }
@@ -1452,7 +1452,7 @@ void SeqBattle::InitLoad()
         m_loadThread = NEW std::thread(
             [&]
             {
-                if (Common::DeployMode() || Common::DeployEncryptMode())
+                if (!Common::DebugMode())
                 {
                     try
                     {
@@ -1492,7 +1492,7 @@ void SeqBattle::InitLoad()
         m_loadThread = NEW std::thread(
             [&]
             {
-                if (Common::DeployMode() || Common::DeployEncryptMode())
+                if (!Common::DebugMode())
                 {
                     try
                     {
@@ -1874,7 +1874,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
                                  _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
-                                 Common::DeployEncryptMode(),
+                                 Common::EncryptMode(),
                                  SharedObj::IsEnglish());
 
                     m_eState = eBattleState::TALK;
@@ -1936,7 +1936,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     m_talk = NEW NSTalkLib2::Talk();
                     m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
                                  _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
-                                 Common::DeployEncryptMode(),
+                                 Common::EncryptMode(),
                                  SharedObj::IsEnglish());
 
                     m_eState = eBattleState::TALK;
@@ -2784,7 +2784,7 @@ void SeqBattle::Confirm(eSequence* sequence)
             m_talk = NEW NSTalkLib2::Talk();
             m_talk->Init(Common::ModExt(csvfile), pFont, pSE, sprite,
                          _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
-                         Common::DeployEncryptMode(),
+                         Common::EncryptMode(),
                          SharedObj::IsEnglish());
 
             m_eState = eBattleState::TALK;
@@ -3519,7 +3519,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
 
     if (m_nDeadCounter == 1)
     {
-        if (Common::DeployMode() || Common::DeployEncryptMode())
+        if (!Common::DebugMode())
         {
             SaveManager::Get()->DeleteSavedata();
         }
