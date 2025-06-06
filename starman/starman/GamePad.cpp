@@ -22,24 +22,26 @@ bool GamePad::Init(LPDIRECTINPUT8 DI, HWND hwnd)
     m_DI = DI;
     // Init button_queue_
     GamePadInfo temp { };
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::UP, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::DOWN, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::LEFT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::RIGHT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::X, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Y, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::A, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::B, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_LEFT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_RIGHT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_UP, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_DOWN, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::L1, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::R1, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::L2, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::R2, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::BACK, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::START, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::UP, eGamePadButtonState::NONE });
+    temp.m_holdCounterMap.insert({ eGamePadButtonType::UP, 0 });
+
+    temp.m_statusMap.insert({ eGamePadButtonType::DOWN, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::LEFT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::RIGHT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::X, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Y, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::A, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::B, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_LEFT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_RIGHT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_UP, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_DOWN, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::L1, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::R1, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::L2, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::R2, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::BACK, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::START, eGamePadButtonState::NONE });
     m_deqButton.push_back(temp);
     m_deqButton.push_back(temp);
     m_deqButton.push_back(temp);
@@ -172,24 +174,24 @@ void GamePad::Update()
     }
 
     GamePadInfo temp { };
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::UP, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::DOWN, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::LEFT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::RIGHT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::X, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Y, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::A, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::B, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_LEFT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_RIGHT, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_UP, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::Z_DOWN, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::L1, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::R1, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::L2, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::R2, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::BACK, eGamePadButtonState::NONE });
-    temp.m_buttonStatusMap.insert({ eGamePadButtonType::START, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::UP, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::DOWN, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::LEFT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::RIGHT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::X, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Y, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::A, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::B, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_LEFT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_RIGHT, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_UP, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::Z_DOWN, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::L1, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::R1, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::L2, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::R2, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::BACK, eGamePadButtonState::NONE });
+    temp.m_statusMap.insert({ eGamePadButtonType::START, eGamePadButtonState::NONE });
     m_deqButton.push_front(temp);
 
     if (m_deqButton.size() > Common::KEY_DEQUE_MAX_SIZE)
@@ -350,24 +352,69 @@ void GamePad::Update()
     {
         if (_is_push.second == true)
         {
-            if (m_deqButton.at(1).m_buttonStatusMap.at(_is_push.first) == eGamePadButtonState::NONE)
+            if (m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::NONE)
             {
-                m_deqButton.at(0).m_buttonStatusMap.at(_is_push.first) = eGamePadButtonState::DOWN;
+                m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::DOWN_FIRST;
             }
             else
             {
-                m_deqButton.at(0).m_buttonStatusMap.at(_is_push.first) = eGamePadButtonState::HOLD;
+                if (m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::HOLD)
+                {
+                    m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::HOLD;
+                }
+                else if (m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::DOWN_FIRST)
+                {
+                    m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::DOWN;
+                }
+                else if (m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::HOLD)
+                {
+                    m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::HOLD;
+                }
+                else if (m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::DOWN)
+                {
+                    bool bHold = false;
+
+                    for (int i = 0; i < m_deqButton.size(); ++i)
+                    {
+                        if (i >= 60)
+                        {
+                            bHold = true;
+                            break;
+                        }
+
+                        if (m_deqButton.at(i).m_statusMap.at(_is_push.first) == eGamePadButtonState::DOWN)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    if (bHold)
+                    {
+                        m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::HOLD;
+                    }
+                    else
+                    {
+                        m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::DOWN;
+                    }
+                }
             }
         }
         else
         {
-            if (m_deqButton.at(1).m_buttonStatusMap.at(_is_push.first) == eGamePadButtonState::HOLD)
+            if (m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::HOLD ||
+                m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::DOWN ||
+                m_deqButton.at(1).m_statusMap.at(_is_push.first) == eGamePadButtonState::DOWN_FIRST
+                )
             {
-                m_deqButton.at(0).m_buttonStatusMap.at(_is_push.first) = eGamePadButtonState::UP;
+                m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::UP;
             }
             else
             {
-                m_deqButton.at(0).m_buttonStatusMap.at(_is_push.first) = eGamePadButtonState::NONE;
+                m_deqButton.at(0).m_statusMap.at(_is_push.first) = eGamePadButtonState::NONE;
             }
         }
     }
@@ -375,7 +422,7 @@ void GamePad::Update()
 
 bool GamePad::IsHold(eGamePadButtonType button)
 {
-    if (m_deqButton.at(0).m_buttonStatusMap.at(button) == eGamePadButtonState::HOLD)
+    if (m_deqButton.at(0).m_statusMap.at(button) == eGamePadButtonState::HOLD)
     {
         return true;
     }
@@ -384,7 +431,7 @@ bool GamePad::IsHold(eGamePadButtonType button)
 
 bool GamePad::IsUp(eGamePadButtonType button)
 {
-    if (m_deqButton.at(0).m_buttonStatusMap.at(button) == eGamePadButtonState::UP)
+    if (m_deqButton.at(0).m_statusMap.at(button) == eGamePadButtonState::UP)
     {
         return true;
     }
@@ -393,7 +440,7 @@ bool GamePad::IsUp(eGamePadButtonType button)
 
 bool GamePad::IsDown(eGamePadButtonType button)
 {
-    if (m_deqButton.at(0).m_buttonStatusMap.at(button) == eGamePadButtonState::DOWN)
+    if (m_deqButton.at(0).m_statusMap.at(button) == eGamePadButtonState::DOWN_FIRST)
     {
         return true;
     }
@@ -418,7 +465,7 @@ bool GamePad::CheckSimultaneous(eGamePadButtonType button)
         {
             break;
         }
-        if (m_deqButton.at(i).m_buttonStatusMap.at(button) == eGamePadButtonState::DOWN)
+        if (m_deqButton.at(i).m_statusMap.at(button) == eGamePadButtonState::DOWN_FIRST)
         {
             return true;
         }

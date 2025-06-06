@@ -37,6 +37,7 @@ static constexpr int BUTTON_KIND_MAX { 8 };
 enum class eGamePadButtonState
 {
     NONE,
+    DOWN_FIRST,
     DOWN,
     HOLD,
     UP,
@@ -60,7 +61,8 @@ public:
     static LPDIRECTINPUTDEVICE8 m_DIDevice;
     struct GamePadInfo
     {
-        std::unordered_map<eGamePadButtonType, eGamePadButtonState> m_buttonStatusMap;
+        std::unordered_map<eGamePadButtonType, eGamePadButtonState> m_statusMap;
+        std::unordered_map<eGamePadButtonType, int> m_holdCounterMap;
     };
     static std::deque<GamePadInfo> m_deqButton;
 
@@ -69,7 +71,6 @@ private:
     static BOOL StartGamePadControl();
     static float m_leftRadian;
     static bool m_bLeftStickUsed;
-
 };
 
 
