@@ -102,6 +102,18 @@ static LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lPara
 MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 {
     //-------------------------------------------------
+    // 解像度が1680x1050以下だったら警告を出す
+    //-------------------------------------------------
+    {
+        int dispx = GetSystemMetrics(SM_CXSCREEN);
+        int dispy = GetSystemMetrics(SM_CYSCREEN);
+        if (dispx < 1680 || dispy < 1050)
+        {
+            MessageBox(NULL, _T("モニターの解像度が1680x1050以下の場合、正常動作しません。"), _T("警告"), MB_OK);
+        }
+    }
+
+    //-------------------------------------------------
     // 言語設定
     // 英語と日本語のみ
     // システムが日本語だったら日本語、それ以外だったら英語
