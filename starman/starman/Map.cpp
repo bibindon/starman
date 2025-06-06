@@ -138,7 +138,7 @@ void Map::Init()
         Mesh* mesh { nullptr };
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        mesh = NEW Mesh(_T("res\\model\\hemisphere.x"), pos, rot, 180000.0f);
+        mesh = NEW Mesh(_T("res\\model\\hemisphere.x"), pos, rot, 18'000.0f);
         mesh->Init();
         m_meshMap[_T("sky")] = mesh;
     }
@@ -252,15 +252,28 @@ void Map::Init()
 
     // 大陸
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(-2000000.f, 0.f, 0.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(-200000.f, -100.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = NEW Mesh(_T("res\\model\\continent.x"),
                               pos,
                               rot,
-                              1000000.f);
+                              100000.f);
 
         mesh->Init();
         m_meshMap[_T("continent")] = mesh;
+    }
+
+    // 大陸2
+    {
+        D3DXVECTOR3 pos = D3DXVECTOR3(-100000.f, -100.f, -200000.f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+        Mesh* mesh = NEW Mesh(_T("res\\model\\continent.x"),
+                              pos,
+                              rot,
+                              100000.f);
+
+        mesh->Init();
+        m_meshMap[_T("continent2")] = mesh;
     }
 
     //------------------------------------------
@@ -682,6 +695,8 @@ void Map::Init()
         animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ブイエスコ")] = animMesh;
     }
+    */
+    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 551.f);
         D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
@@ -746,6 +761,8 @@ void Map::Init()
         animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ウェブニン")] = animMesh;
     }
+    */
+    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 533.f);
         D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
@@ -761,6 +778,8 @@ void Map::Init()
         //animMesh->SetAnim(_T("0_Idle"));
         //m_NPC[_T("ジーオフ")] = animMesh;
     }
+    */
+    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 555.f);
         D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
@@ -825,6 +844,8 @@ void Map::Init()
         animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("ガイン")] = animMesh;
     }
+    */
+    /*
     {
         D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 557.f);
         D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);

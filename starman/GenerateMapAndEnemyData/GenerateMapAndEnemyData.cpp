@@ -1054,7 +1054,7 @@ void AssignContent(const std::vector<stPos>& posList,
         }
 
         // 54 passed
-        
+
         // 55
         {
             stMapObj _stMapObj;
@@ -1123,6 +1123,37 @@ void AssignContent(const std::vector<stPos>& posList,
             _stMapObj.m_scale = 1;
 
             mapObjList->push_back(_stMapObj);
+        }
+    }
+
+    // 固定で配置したい敵情報
+    {
+        {
+            stEnemyInfo _stEnemyInfo;
+            _stEnemyInfo.m_id = 10;
+            _stEnemyInfo.m_pos = stPos(223, 226, -1399);
+            _stEnemyInfo.m_name = u8"島民の霊";
+            _stEnemyInfo.m_HP = 40;
+
+            enemyList->push_back(_stEnemyInfo);
+        }
+        {
+            stEnemyInfo _stEnemyInfo;
+            _stEnemyInfo.m_id = 10;
+            _stEnemyInfo.m_pos = stPos(509, 19, -1263);
+            _stEnemyInfo.m_name = u8"島民の霊";
+            _stEnemyInfo.m_HP = 40;
+
+            enemyList->push_back(_stEnemyInfo);
+        }
+        {
+            stEnemyInfo _stEnemyInfo;
+            _stEnemyInfo.m_id = 10;
+            _stEnemyInfo.m_pos = stPos(1112, 210, -1063);
+            _stEnemyInfo.m_name = u8"島民の霊";
+            _stEnemyInfo.m_HP = 40;
+
+            enemyList->push_back(_stEnemyInfo);
         }
     }
 

@@ -1,16 +1,14 @@
-"ID","オプション1","オプション2","オプション3","Unnamed: 4","Unnamed: 5"
-1.0,"Star Man drank all the rainwater he could find nearby.
-Still, it wasn't enough to quench his thirst.","","","",""
-2.0,"(Maybe it was just the sunlight reflecting off the waves...)","res\\image\\hoshiman00.png","","",""
-3.0,"(I should sit down and rest...)","res\\image\\hoshiman00.png","","",""
-4.0,"One hour later...","","","",""
-5.0,"(Ugh... it hurts...)","res\\image\\hoshiman00.png","","","・オプション1は表示したいテキスト
+ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
+1,"Just a small amount of water wasn’t enough, so Star Man drank all the rainwater around him. Even after that, he was still thirsty.",,,,
+2,(Maybe it was just the sunlight reflecting off the waves...),res\\image\\hoshiman00.png,,,
+3,(I should sit down and rest...),res\\image\\hoshiman00.png,,,
+4,One hour later,,,,
+5,(Ugh... it hurts...),res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
 ・半角英数字は使用禁止
 ・３行まで
 ・オプション2は左に表示したい画像
 ・オプション3は右に表示したい画像"
-6.0,"Suddenly, a sharp pain shot through his stomach.","res\\image\\hoshiman00.png","","",""
-7.0,"Star Man clutched his belly and dropped to the ground.","res\\image\\hoshiman00.png","","",""
-8.0,"His whole body trembled as the pain intensified.","res\\image\\hoshiman00.png","","",""
-9.0,"Was it something in the water?","res\\image\\hoshiman00.png","","",""
-"","He lay there, groaning, trying to endure.","","","",""
+6,"After sitting down to rest, he was immediately struck with stomach pain and had diarrhea. Still, his thirst was less than before drinking the rainwater.",res\\image\\hoshiman00.png,,,
+7,(My head hurts too... but I think I can move a little.),res\\image\\hoshiman00.png,,,
+8,"The opposite side of the beach was forest. The forest was untouched by people, but there were gaps wide enough to walk through.",res\\image\\hoshiman00.png,,,
+9,(Maybe I should try heading that way.),res\\image\\hoshiman00.png,,,

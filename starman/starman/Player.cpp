@@ -420,11 +420,18 @@ void Player::Update(Map* map)
 
     if (Common::DebugMode())
     {
+        float magni = 10.f;
+
+        if (Common::FasterMode())
+        {
+            magni = 100.f;
+        }
+
         if (SharedObj::KeyBoard()->IsDown(DIK_G))
         {
             // デバッグ目的でGキーだけ移動速度アップ
-            move.x += -std::sin(radian + (D3DX_PI / 2)) * 10;
-            move.z += std::sin(radian + D3DX_PI) * 10;
+            move.x += -std::sin(radian + (D3DX_PI / 2)) * magni;
+            move.z += std::sin(radian + D3DX_PI) * magni;
 
             D3DXVECTOR3 rotate{ 0.f, yaw, 0.f };
             SetRotate(rotate);
@@ -848,7 +855,7 @@ void Player::Update(Map* map)
         {
             if (Common::FasterMode())
             {
-                MAX_XZ_MOVE = 5.f;
+                MAX_XZ_MOVE = 50000.f;
             }
             else
             {
