@@ -1053,6 +1053,26 @@ void Map::Update()
 
             m_bInCaveFadeFinish = false;
         }
+
+        //-------------------------------------
+        // 空
+        //-------------------------------------
+
+        // 主人公が東に移動したら海も東に移動する
+        // カメラが東に移動したら空も東に移動する
+        // 主人公とカメラで分ける必要があるのは、タイトルで主人公とカメラの位置が大きく異なるから
+        {
+            auto cameraPos = Camera::GetEyePos();
+            m_meshMap[_T("sky")]->SetPos(cameraPos);
+
+            auto player = SharedObj::GetPlayer();
+            auto work1 = m_meshMap[_T("sea")]->GetPos();
+            auto work2 = player->GetPos();
+            work1.x = work2.x;
+            work1.z = work2.z;
+
+            m_meshMap[_T("sea")]->SetPos(work1);
+        }
     }
 
     // 60回に一回（＝1秒ごと）の処理
@@ -1146,26 +1166,6 @@ void Map::Update()
                         (*it)->Init();
                     }
                 }
-            }
-
-            //-------------------------------------
-            // 空
-            //-------------------------------------
-
-            // 主人公が東に移動したら海も東に移動する
-            // カメラが東に移動したら空も東に移動する
-            // 主人公とカメラで分ける必要があるのは、タイトルで主人公とカメラの位置が大きく異なるから
-            {
-                auto cameraPos = Camera::GetEyePos();
-                m_meshMap[_T("sky")]->SetPos(cameraPos);
-
-                auto player = SharedObj::GetPlayer();
-                auto work1 = m_meshMap[_T("sea")]->GetPos();
-                auto work2 = player->GetPos();
-                work1.x = work2.x;
-                work1.z = work2.z;
-
-                m_meshMap[_T("sea")]->SetPos(work1);
             }
 
             NSStarmanLib::PowereggDateTime* dateTime = NSStarmanLib::PowereggDateTime::GetObj();

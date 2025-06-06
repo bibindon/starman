@@ -250,7 +250,7 @@ Q17",<hint>ホシマン（食べられるものを探そう）,調べたら,-216
 <talk>res\\script\\origin\\talkFinishQuest3.csv"
 Q18,"一つでもクエストが完了していたら
 クエストが完了していないなら","Q10:Q11:Q12:Q13:Q14:Q15:Q16:Q17
-Q18",<hint>ホシマン（食べられるものを探そう）,位置が範囲外,-240.0:33.0:550.0:100.0,,<talk>res\\script\\origin\\talkFinishQuest4.csv
+Q18",<hint>ホシマン（食べられるものを探そう）,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest4.csv
 Q19,"クエストが完了していたら
 クエストが完了していないなら","Q18
 Q19",<hint>ホシマン（食べられるものを探そう）,調べたら,-214:33:545:3 ,,"<sound>res\\sound\\get_item.wav
@@ -355,7 +355,9 @@ NPCのXが生存
 NPCのXが生存","11:492:-559:20
 sankakuman
 shikakuman",,"
-<talk>res\\script\\origin\\talkFinishQuest16.csv"
+<talk>res\\script\\origin\\talkFinishQuest16.csv
+<npc><daikeiman><talkEnable>y
+<npc><daikeiman><talkScript>res\\script\\origin\\talkFinishQuest13-2.csv"
 Q37,"クエストが完了していたら
 クエストが完了していないなら","Q36
 Q37",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,"位置
@@ -383,7 +385,8 @@ Q40,"クエストが完了していたら
 クエストが完了していないなら","Q39
 Q40",<hint>ホシマン（少し遠くまで行ってみよう）,位置が範囲外,11:492:-559:300,,"<talk>res\\script\\origin\\talkFinishQuest20.csv
 <rynenContract>
-<drinkWordBress>"
+<drinkWordBress>
+<item>モンスターの体:-1:-1"
 Q41,"クエストが完了していたら
 クエストが完了していないなら","Q40
 Q41",<hint>ホシマン（廃墟に戻ろう）,位置,11:492:-559:100,,"<talk>res\\script\\origin\\talkFinishQuest21.csv
@@ -589,7 +592,8 @@ NPCのXが生存
 NPCのXが生存","1092.0:40.8:504.1:200.0
 daikeiman
 sankakuman
-shikakuman",,<talk>res\\script\\origin\\talkFinishQuest50.csv
+shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
+<activityBase>DirectNex"
 Q71,"クエストが完了していたら
 クエストが完了していないなら","Q70
 Q71",<hint>ホシマン（１か月くらいを使って拠点を整えよう）,"時間が経過したら
@@ -631,7 +635,8 @@ Q77,"クエストが完了していたら
 Q77",<hint>ホシマン（神社に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest57.csv
 Q78,"クエストが完了していたら
 クエストが完了していないなら","Q77
-Q78",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest58.csv
+Q78",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest58.csv
+<hanawa>"
 Q79,"クエストが完了していたら
 クエストが完了していないなら","Q78
 Q79",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest59.csv
