@@ -646,6 +646,9 @@ std::wstring MenuManager::OperateMenu()
     std::wstring result;
     std::wstring work_str;
 
+    // 長押ししたときのカーソルの移動が速すぎるので3回に1回の移動に減速させる
+    static int holdCounter = true;
+
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
         m_menu.Up();
@@ -653,7 +656,11 @@ std::wstring MenuManager::OperateMenu()
 
     if (SharedObj::KeyBoard()->IsHold(DIK_UP))
     {
-        m_menu.Up();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+            m_menu.Up();
+        }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
@@ -663,7 +670,11 @@ std::wstring MenuManager::OperateMenu()
 
     if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
     {
-        m_menu.Down();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+            m_menu.Down();
+        }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
@@ -863,37 +874,45 @@ std::wstring MenuManager::OperateMenu()
         m_menu.Previous();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::UP))
+    if (GamePad::IsDownFirst(eGamePadButtonType::UP))
     {
         m_menu.Up();
     }
 
     if (GamePad::IsHold(eGamePadButtonType::UP))
     {
-        m_menu.Up();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+            m_menu.Up();
+        }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    if (GamePad::IsDownFirst(eGamePadButtonType::DOWN))
     {
         m_menu.Down();
     }
 
     if (GamePad::IsHold(eGamePadButtonType::DOWN))
     {
-        m_menu.Down();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+            m_menu.Down();
+        }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::LEFT))
     {
         m_menu.Left();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::RIGHT))
     {
         m_menu.Right();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         result = m_menu.Into();
 
@@ -953,7 +972,7 @@ std::wstring MenuManager::OperateMenu()
         }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+    if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         // EXIT以外なら無視する
         result = m_menu.Back();

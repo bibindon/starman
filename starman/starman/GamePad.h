@@ -52,6 +52,7 @@ public:
     static void Update();
     static bool IsHold(eGamePadButtonType button);
     static bool IsUp(eGamePadButtonType button);
+    static bool IsDownFirst(eGamePadButtonType button);
     static bool IsDown(eGamePadButtonType button);
     static float GetLeftRadian();
     static bool IsLeftStickUsed();
@@ -62,7 +63,6 @@ public:
     struct GamePadInfo
     {
         std::unordered_map<eGamePadButtonType, eGamePadButtonState> m_statusMap;
-        std::unordered_map<eGamePadButtonType, int> m_holdCounterMap;
     };
     static std::deque<GamePadInfo> m_deqButton;
 

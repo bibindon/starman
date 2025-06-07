@@ -371,7 +371,7 @@ std::wstring PatchTestManager2::Operate()
         m_guiLib.Previous();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::UP))
+    if (GamePad::IsDownFirst(eGamePadButtonType::UP))
     {
         m_guiLib.Up();
     }
@@ -381,7 +381,7 @@ std::wstring PatchTestManager2::Operate()
         m_guiLib.Up();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    if (GamePad::IsDownFirst(eGamePadButtonType::DOWN))
     {
         m_guiLib.Down();
     }
@@ -391,23 +391,23 @@ std::wstring PatchTestManager2::Operate()
         m_guiLib.Down();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::LEFT))
     {
         m_guiLib.Left();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::RIGHT))
     {
         m_guiLib.Right();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         result = m_guiLib.Into();
         QueueTest(result);
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+    if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         result = m_guiLib.Back();
     }

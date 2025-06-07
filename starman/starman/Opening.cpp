@@ -256,7 +256,7 @@ void Opening::Update(eBattleState* eState)
 {
     if (m_storyTelling != nullptr)
     {
-        if (GamePad::IsDown(eGamePadButtonType::A))
+        if (GamePad::IsDownFirst(eGamePadButtonType::A))
         {
             m_storyTelling->Next();
             m_firstPage = false;

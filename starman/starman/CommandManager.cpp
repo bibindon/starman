@@ -264,22 +264,22 @@ std::wstring CommandManager::Operate()
         m_commandLib->MouseMove(p.x, p.y);
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::LEFT))
     {
         m_commandLib->Previous();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::RIGHT))
     {
         m_commandLib->Next();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         result = m_commandLib->Into();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+    if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         result = _T("EXIT");
     }

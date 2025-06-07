@@ -23,8 +23,6 @@ bool GamePad::Init(LPDIRECTINPUT8 DI, HWND hwnd)
     // Init button_queue_
     GamePadInfo temp { };
     temp.m_statusMap.insert({ eGamePadButtonType::UP, eGamePadButtonState::NONE });
-    temp.m_holdCounterMap.insert({ eGamePadButtonType::UP, 0 });
-
     temp.m_statusMap.insert({ eGamePadButtonType::DOWN, eGamePadButtonState::NONE });
     temp.m_statusMap.insert({ eGamePadButtonType::LEFT, eGamePadButtonState::NONE });
     temp.m_statusMap.insert({ eGamePadButtonType::RIGHT, eGamePadButtonState::NONE });
@@ -374,9 +372,9 @@ void GamePad::Update()
                 {
                     bool bHold = false;
 
-                    for (int i = 0; i < m_deqButton.size(); ++i)
+                    for (int i = 1; i < m_deqButton.size(); ++i)
                     {
-                        if (i >= 60)
+                        if (i >= 30)
                         {
                             bHold = true;
                             break;
@@ -438,9 +436,19 @@ bool GamePad::IsUp(eGamePadButtonType button)
     return false;
 }
 
-bool GamePad::IsDown(eGamePadButtonType button)
+bool GamePad::IsDownFirst(eGamePadButtonType button)
 {
     if (m_deqButton.at(0).m_statusMap.at(button) == eGamePadButtonState::DOWN_FIRST)
+    {
+        return true;
+    }
+    return false;
+}
+
+bool GamePad::IsDown(eGamePadButtonType button)
+{
+    if (m_deqButton.at(0).m_statusMap.at(button) == eGamePadButtonState::DOWN ||
+        m_deqButton.at(0).m_statusMap.at(button) == eGamePadButtonState::HOLD)
     {
         return true;
     }

@@ -365,7 +365,7 @@ void CraftManager::Operate(eBattleState* state)
         m_gui.Previous();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::UP))
+    if (GamePad::IsDownFirst(eGamePadButtonType::UP))
     {
         m_gui.Up();
     }
@@ -375,7 +375,7 @@ void CraftManager::Operate(eBattleState* state)
         m_gui.Up();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    if (GamePad::IsDownFirst(eGamePadButtonType::DOWN))
     {
         m_gui.Down();
     }
@@ -385,22 +385,22 @@ void CraftManager::Operate(eBattleState* state)
         m_gui.Down();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::LEFT))
     {
         m_gui.Left();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::RIGHT))
     {
         m_gui.Right();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         result = m_gui.Into();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+    if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         result = m_gui.Back();
     }

@@ -82,19 +82,19 @@ void Camera::Update()
         LONG x = Mouse::GetXDelta();
         float y = (float)Mouse::GetYDelta();
         float joyX { 0.0f };
-        if (GamePad::IsHold(eGamePadButtonType::Z_LEFT))
+        if (GamePad::IsDown(eGamePadButtonType::Z_LEFT))
         {
             joyX = 0.05f;
         }
-        else if (GamePad::IsHold(eGamePadButtonType::Z_RIGHT))
+        else if (GamePad::IsDown(eGamePadButtonType::Z_RIGHT))
         {
             joyX = -0.05f;
         }
-        if (GamePad::IsHold(eGamePadButtonType::Z_UP))
+        if (GamePad::IsDown(eGamePadButtonType::Z_UP))
         {
             y = -10;
         }
-        else if (GamePad::IsHold(eGamePadButtonType::Z_DOWN))
+        else if (GamePad::IsDown(eGamePadButtonType::Z_DOWN))
         {
             y = 10;
         }

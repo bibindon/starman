@@ -694,14 +694,14 @@ void Player::Update(Map* map)
         float radian = joyRadian + (cameRadian - D3DX_PI * 3 / 2);
 
         // ジョギング
-        if (GamePad::IsHold(eGamePadButtonType::L2))
+        if (GamePad::IsDown(eGamePadButtonType::L2))
         {
             move.x += std::cos(radian) * 0.5f;
             move.z += std::sin(radian) * 0.5f;
             SetJogging();
         }
         // ダッシュ
-        else if (GamePad::IsHold(eGamePadButtonType::R2))
+        else if (GamePad::IsDown(eGamePadButtonType::R2))
         {
             move.x += std::cos(radian);
             move.z += std::sin(radian);
@@ -721,9 +721,9 @@ void Player::Update(Map* map)
 
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::R1))
+    if (GamePad::IsDownFirst(eGamePadButtonType::R1))
     {
-        if (GamePad::IsHold(eGamePadButtonType::R2))
+        if (GamePad::IsDown(eGamePadButtonType::R2))
         {
             SetMagic();
         }
@@ -733,17 +733,18 @@ void Player::Update(Map* map)
         }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::L1))
+    if (GamePad::IsDownFirst(eGamePadButtonType::L1))
     {
         Throw();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+    if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         SetJump();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::UP))
+    if (GamePad::IsDownFirst(eGamePadButtonType::UP) &&
+        !GamePad::IsLeftStickUsed())
     {
         if (NSStarmanLib::Rynen::GetObj()->GetContracted())
         {
@@ -773,7 +774,8 @@ void Player::Update(Map* map)
         }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    if (GamePad::IsDownFirst(eGamePadButtonType::DOWN) &&
+        !GamePad::IsLeftStickUsed())
     {
         if (NSStarmanLib::Rynen::GetObj()->GetContracted())
         {
