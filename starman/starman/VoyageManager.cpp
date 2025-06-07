@@ -718,6 +718,15 @@ void Raft2::Update()
 
     SharedObj::GetPlayer()->SetPos(ppos);
     SharedObj::GetPlayer()->SetRotate(workRotate);
+
+    if (m_pos.y <= 15.f)
+    {
+        Voyage()->SetPosTypeCurrentRaft(NSStarmanLib::Raft::ePosType::Sea);
+    }
+    else
+    {
+        Voyage()->SetPosTypeCurrentRaft(NSStarmanLib::Raft::ePosType::River);
+    }
 }
 
 void Raft2::Draw()
