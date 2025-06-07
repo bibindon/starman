@@ -763,26 +763,24 @@ void Map::Init()
         m_NPC[_T("ウェブニン")] = animMesh;
     }
     */
-    /*
     {
-        D3DXVECTOR3 b = D3DXVECTOR3(-285.f, 16.f, 533.f);
-        D3DXVECTOR3 move = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 pos = D3DXVECTOR3(1116.6f, 158.3f, 647.4f);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
             animSetting.m_startPos = 0.f;
-            animSetting.m_duration = 2.0f;
+            animSetting.m_duration = 1.0f;
             animSetting.m_loop = true;
             animSetMap[_T("0_Idle")] = animSetting;
         }
-        //AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\xeoff\\xeoff.x"), b, move, 1.5f, animSetMap);
-        //animMesh->SetAnim(_T("0_Idle"));
-        //m_NPC[_T("ジーオフ")] = animMesh;
+        AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\xeoff.blend.x"), pos, rot, 1.5f, animSetMap);
+        animMesh->SetAnim(_T("0_Idle"));
+        m_NPC[_T("ジーオフ")] = animMesh;
     }
-    */
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-1359.1f, 629.9f, -1522.5f);
-        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
+        D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI/2, 0);
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
