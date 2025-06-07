@@ -15,6 +15,9 @@ bool pointLightEnable;
 
 bool g_inCaveFadeFinish = false;
 
+// 悪いやり方。小さく表示して敷き詰めるモード
+bool g_tileMode = false;
+
 void vertex_shader(
     in  float4 in_position  : POSITION,
     in  float4 in_normal    : NORMAL0,
@@ -92,12 +95,15 @@ void pixel_shader(
     )
 {
     float4 color_result = (float4)0;
+
     color_result = tex2D(mesh_texture_sampler, in_texcood);
+
     out_diffuse = (in_diffuse * color_result);
-    if (out_diffuse.r == 0.0f && out_diffuse.r == 0.0f && out_diffuse.r == 0.0f)
-    {
-        out_diffuse = in_diffuse;
-    }
+
+//    if (out_diffuse.r == 0.0f && out_diffuse.r == 0.0f && out_diffuse.r == 0.0f)
+//    {
+//        out_diffuse = in_diffuse;
+//    }
 
     //------------------------------------------------------
     // 霧の描画
@@ -159,6 +165,11 @@ technique technique_
 {
     pass pass_
     {
+
+        AlphaBlendEnable = TRUE;
+        SrcBlend = SRCALPHA;
+        DestBlend = INVSRCALPHA;
+
         VertexShader = compile vs_2_0 vertex_shader();
         PixelShader  = compile ps_2_0 pixel_shader();
     }

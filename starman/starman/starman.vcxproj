@@ -529,6 +529,9 @@
   <ItemGroup>
     <Image Include="res\image\starman.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="res\shader\mesh_shader_2Texture.fx" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets" Condition="Exists('..\packages\Microsoft.DXSDK.D3DX.9.29.952.8\build\native\Microsoft.DXSDK.D3DX.targets')" />

@@ -353,4 +353,9 @@
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="res\shader\mesh_shader_2Texture.fx">
+      <Filter>リソース ファイル</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>

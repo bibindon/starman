@@ -59658,7 +59658,7 @@ Frame Root {
          0.520986; 0.777288;;
       } // End of Grid UV coordinates
       MeshMaterialList { // Grid material list
-        1;
+        2;
         6621;
         0,
         0,
@@ -66287,6 +66287,13 @@ Frame Root {
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
           TextureFilename {"prolitan_grass.png";}
+        }
+        Material Material_004 {
+           0.640000; 0.640000; 0.640000; 1.000000;;
+           96.078431;
+           0.500000; 0.500000; 0.500000;;
+           0.000000; 0.000000; 0.000000;;
+          TextureFilename {"coast_sand_rocks_02_diff_4k.png";}
         }
       } // End of Grid material list
     } // End of Grid mesh

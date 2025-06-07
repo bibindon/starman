@@ -311,7 +311,8 @@ void Mesh::Render()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx")||
+            SHADER_FILENAME == _T("res\\shader\\mesh_shader_2Texture.fx"))
         {
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
@@ -336,7 +337,8 @@ void Mesh::Render()
         // 雨だったら霧を3倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx")||
+            SHADER_FILENAME == _T("res\\shader\\mesh_shader_2Texture.fx"))
         {
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
@@ -431,6 +433,13 @@ void Mesh::Render()
         if (i < m_vecTexture.size())
         {
             hResult = m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
+            assert(hResult == S_OK);
+        }
+
+        // prolitan.xの場合に限り、もう一枚テクスチャを使う
+        if (m_meshName == L"res\\model\\prolitan.x")
+        {
+            hResult = m_D3DEffect->SetTexture("g_mesh_texture2", m_vecTexture.at(1));
             assert(hResult == S_OK);
         }
 

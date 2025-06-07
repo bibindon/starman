@@ -61,7 +61,8 @@ void Map::Init()
     m_progress.store(0);
 
     {
-        Mesh* mesh = NEW Mesh(_T("res\\model\\prolitan.x"),
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader_2Texture.fx"),
+                              _T("res\\model\\prolitan.x"),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               1.0f);
