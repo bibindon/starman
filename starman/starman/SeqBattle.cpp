@@ -31,6 +31,7 @@
 #include "Rain.h"
 #include <cassert>
 #include "resource.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
 
 using namespace NSQuestSystem;
 
@@ -2189,6 +2190,11 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         auto activityBase = NSStarmanLib::ActivityBase::Get();
                         activityBase->SetBaseType(NSStarmanLib::eBaseType::DirectNex);
                     }
+                }
+                else if (vs2.at(j).find(_T("<showGuide>")) != std::wstring::npos)
+                {
+                    std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<showGuide>"));
+                    NSStarmanLib::Guide::GetObj()->SetVisible(std::stoi(work2));
                 }
                 else if (vs2.at(j).find(_T("<hanawa>")) != std::wstring::npos)
                 {
