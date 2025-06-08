@@ -3624,7 +3624,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"coast_sand_rocks_02_diff_4k.png";}
+          TextureFilename {"coast_sand_rocks_02_diff_4k.bak.dds";}
         }
       } // End of Cylinder material list
     } // End of Cylinder mesh
@@ -20250,7 +20250,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"aerial_rocks_02_diff_4k.png";}
+          TextureFilename {"aerial_rocks_02_diff_4k.dds";}
         }
       } // End of Rock_Medium_3_002 material list
     } // End of Rock_Medium_3_002 mesh

@@ -4703,7 +4703,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"rock_face_03_diff_4k.jpg";}
+          TextureFilename {"rock_face_03_diff_4k.dds";}
         }
       } // End of Rock_Medium_3 material list
     } // End of Rock_Medium_3 mesh

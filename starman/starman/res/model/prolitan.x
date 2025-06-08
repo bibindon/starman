@@ -66286,14 +66286,14 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"prolitan_grass.png";}
+          TextureFilename {"prolitan_grass.dds";}
         }
         Material Material_004 {
            0.640000; 0.640000; 0.640000; 1.000000;;
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"coast_sand_rocks_02_diff_4k.png";}
+          TextureFilename {"coast_sand_rocks_02_diff_4k.dds";}
         }
       } // End of Grid material list
     } // End of Grid mesh

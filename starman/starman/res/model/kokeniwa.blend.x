@@ -176,7 +176,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"ganges_river_pebbles_diff_4k.png";}
+          TextureFilename {"ganges_river_pebbles_diff_4k.dds";}
         }
       } // End of Cube_001 material list
     } // End of Cube_001 mesh
@@ -4355,7 +4355,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"aerial_rocks_02_diff_4k.png";}
+          TextureFilename {"aerial_rocks_02_diff_4k.dds";}
         }
       } // End of Rock_Medium_3 material list
     } // End of Rock_Medium_3 mesh
@@ -54173,7 +54173,7 @@ Frame Root {
            96.078431;
            0.500000; 0.500000; 0.500000;;
            0.000000; 0.000000; 0.000000;;
-          TextureFilename {"Grass003_4K_Color.png";}
+          TextureFilename {"Grass003_4K_Color.dds";}
         }
       } // End of Rock_Medium_3_005 material list
     } // End of Rock_Medium_3_005 mesh
