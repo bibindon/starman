@@ -63,6 +63,7 @@
                         <Directory Id="FONT" Name="font"/>
                         <Directory Id="SCRIPT_" Name="script">
                             <Directory Id="SCRIPT_ORIGIN" Name="origin"/>
+                            <Directory Id="SCRIPT_DEMO" Name="demo"/>
                         </Directory>
                         <Directory Id="SOUND" Name="sound"/>
                     </Directory>
@@ -76,7 +77,7 @@
             <Component Id="ProductComponent" Guid="*">
                 <File Id="WixInstallerEXE" Name="starman.exe" Source="$(var.starman.TargetPath)" KeyPath="yes">
                     <Shortcut Id="WixInstStartmenu" Directory="ProgramMenuFolder"
-                              Name="Star Man" WorkingDirectory="INSTALLFOLDER"
+                              Name="starman" WorkingDirectory="INSTALLFOLDER"
                               Advertise="yes">
                         <Icon Id="WixInstIco.exe" SourceFile="$(var.starman.TargetPath)"/>
                     </Shortcut>
@@ -359,6 +360,12 @@
                 <File Source="../starman/res/image/orange.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/package.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/package2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/panel.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -530,6 +537,9 @@
                 <File Source="../starman/res/shader/mesh_shader.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
+                <File Source="../starman/res/shader/mesh_shader_2Texture.fx" />
+            </Component>
+            <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/mesh_shader_cull_none.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
@@ -575,13 +585,16 @@
                 <File Source="../starman/res/model/chest.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/coast_sand_rocks_02_diff_4k.bak.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/coast_sand_rocks_02_diff_4k.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/colli.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/continent.png" />
+                <File Source="../starman/res/model/continent.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/continent.x" />
@@ -692,7 +705,13 @@
                 <File Source="../starman/res/model/enymySmall_tex1.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/gain.blend.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/gain.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/gainModel.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/ganges_river_pebbles_diff_4k.png" />
@@ -717,6 +736,12 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/grass2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/grassModel.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/Grass_BaseColor.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/grave.blend.x" />
@@ -773,10 +798,22 @@
                 <File Source="../starman/res/model/minatoato.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/nes.blend.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/nes.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/nesModel.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/noble.blend.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/noble.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/nobleModel.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/oarLeft.x" />
@@ -807,6 +844,9 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/prolitan_grass.bak.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/prolitan_grass.bak2.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/prolitan_grass.png" />
@@ -1010,10 +1050,16 @@
                 <File Source="../starman/res/model/vim.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/vsco.blend.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/vsco.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/vsco.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/vscoModel.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/water.x" />
@@ -1022,10 +1068,16 @@
                 <File Source="../starman/res/model/weathered_brown_planks_diff_2k.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/webnin.blend.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/webnin.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/webnin.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/webninModel.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/WindowBlue1.jpg" />
@@ -1050,6 +1102,9 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/wood_diffuseOriginal2.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/xeoff.blend.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/xeoff.x" />
@@ -1190,6 +1245,9 @@
                 <File Source="../starman/res/script/origin/talkFinishQuest1.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/talkFinishQuest1.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest10.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1221,6 +1279,9 @@
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/talkFinishQuest2.en.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest20.csv" />
@@ -1367,6 +1428,9 @@
                 <File Source="../starman/res/script/origin/talkFinishQuest61.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/talkFinishQuest62.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest7.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1398,6 +1462,348 @@
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/weaponSave.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="activityBase.csv.demo" Source="../starman/res/script/demo/activityBase.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="BinToCsv.exe.demo" Source="../starman/res/script/demo/BinToCsv.exe" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="craftDef.csv.demo" Source="../starman/res/script/demo/craftDef.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="craftsmanQueue.csv.demo" Source="../starman/res/script/demo/craftsmanQueue.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="craftsmanSkill.csv.demo" Source="../starman/res/script/demo/craftsmanSkill.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="CsvToBin.exe.demo" Source="../starman/res/script/demo/CsvToBin.exe" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="datetime.csv.demo" Source="../starman/res/script/demo/datetime.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="decrypt.exe.demo" Source="../starman/res/script/demo/decrypt.exe" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="encrypt.exe.demo" Source="../starman/res/script/demo/encrypt.exe" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="enemy.csv.demo" Source="../starman/res/script/demo/enemy.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="enemyDef.csv.demo" Source="../starman/res/script/demo/enemyDef.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="enemyVisible.csv.demo" Source="../starman/res/script/demo/enemyVisible.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="guide.csv.demo" Source="../starman/res/script/demo/guide.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="help.csv.demo" Source="../starman/res/script/demo/help.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="humanInfo.csv.demo" Source="../starman/res/script/demo/humanInfo.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="humanInfoSub.csv.demo" Source="../starman/res/script/demo/humanInfoSub.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="inventory.csv.demo" Source="../starman/res/script/demo/inventory.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="item.csv.demo" Source="../starman/res/script/demo/item.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="item_pos.csv.demo" Source="../starman/res/script/demo/item_pos.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="mapInfo.csv.demo" Source="../starman/res/script/demo/mapInfo.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="map_obj.bak.csv.demo" Source="../starman/res/script/demo/map_obj.bak.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="map_obj.bin.demo" Source="../starman/res/script/demo/map_obj.bin" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="map_obj.csv.demo" Source="../starman/res/script/demo/map_obj.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="map_obj.ods.demo" Source="../starman/res/script/demo/map_obj.ods" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="map_obj_type.csv.demo" Source="../starman/res/script/demo/map_obj_type.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="npcStatus.csv.demo" Source="../starman/res/script/demo/npcStatus.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="patchTestOrigin.csv.demo" Source="../starman/res/script/demo/patchTestOrigin.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="quest.csv.demo" Source="../starman/res/script/demo/quest.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="questSample.csv.demo" Source="../starman/res/script/demo/questSample.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="rynen.csv.demo" Source="../starman/res/script/demo/rynen.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="skill.csv.demo" Source="../starman/res/script/demo/skill.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="skillSub.csv.demo" Source="../starman/res/script/demo/skillSub.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="status.csv.demo" Source="../starman/res/script/demo/status.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="storehouse.csv.demo" Source="../starman/res/script/demo/storehouse.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="storehouse2.csv.demo" Source="../starman/res/script/demo/storehouse2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="storehouseListOrigin.csv.demo" Source="../starman/res/script/demo/storehouseListOrigin.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="storehouseRaft1.csv.demo" Source="../starman/res/script/demo/storehouseRaft1.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="storyDream.csv.demo" Source="../starman/res/script/demo/storyDream.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talk2Sample.csv.demo" Source="../starman/res/script/demo/talk2Sample.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talk2Sample2.csv.demo" Source="../starman/res/script/demo/talk2Sample2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest1.csv.demo" Source="../starman/res/script/demo/talkFinishQuest1.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest1.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest1.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest10.csv.demo" Source="../starman/res/script/demo/talkFinishQuest10.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest11.csv.demo" Source="../starman/res/script/demo/talkFinishQuest11.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest13_2.csv.demo" Source="../starman/res/script/demo/talkFinishQuest13-2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest13.csv.demo" Source="../starman/res/script/demo/talkFinishQuest13.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest14.csv.demo" Source="../starman/res/script/demo/talkFinishQuest14.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest15.csv.demo" Source="../starman/res/script/demo/talkFinishQuest15.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest16.csv.demo" Source="../starman/res/script/demo/talkFinishQuest16.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest17.csv.demo" Source="../starman/res/script/demo/talkFinishQuest17.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest18.csv.demo" Source="../starman/res/script/demo/talkFinishQuest18.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest19.csv.demo" Source="../starman/res/script/demo/talkFinishQuest19.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest2.csv.demo" Source="../starman/res/script/demo/talkFinishQuest2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest2.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest2.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest20.csv.demo" Source="../starman/res/script/demo/talkFinishQuest20.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest21.csv.demo" Source="../starman/res/script/demo/talkFinishQuest21.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest22.csv.demo" Source="../starman/res/script/demo/talkFinishQuest22.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest23.csv.demo" Source="../starman/res/script/demo/talkFinishQuest23.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest24.csv.demo" Source="../starman/res/script/demo/talkFinishQuest24.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest25.csv.demo" Source="../starman/res/script/demo/talkFinishQuest25.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest26.csv.demo" Source="../starman/res/script/demo/talkFinishQuest26.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest27.csv.demo" Source="../starman/res/script/demo/talkFinishQuest27.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest28.csv.demo" Source="../starman/res/script/demo/talkFinishQuest28.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest29.csv.demo" Source="../starman/res/script/demo/talkFinishQuest29.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest3.csv.demo" Source="../starman/res/script/demo/talkFinishQuest3.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest30.csv.demo" Source="../starman/res/script/demo/talkFinishQuest30.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest31.csv.demo" Source="../starman/res/script/demo/talkFinishQuest31.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest32.csv.demo" Source="../starman/res/script/demo/talkFinishQuest32.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest33.csv.demo" Source="../starman/res/script/demo/talkFinishQuest33.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest34.csv.demo" Source="../starman/res/script/demo/talkFinishQuest34.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest35.csv.demo" Source="../starman/res/script/demo/talkFinishQuest35.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest36.csv.demo" Source="../starman/res/script/demo/talkFinishQuest36.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest37.csv.demo" Source="../starman/res/script/demo/talkFinishQuest37.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest38.csv.demo" Source="../starman/res/script/demo/talkFinishQuest38.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest39.csv.demo" Source="../starman/res/script/demo/talkFinishQuest39.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest4.csv.demo" Source="../starman/res/script/demo/talkFinishQuest4.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest40.csv.demo" Source="../starman/res/script/demo/talkFinishQuest40.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest41.csv.demo" Source="../starman/res/script/demo/talkFinishQuest41.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest42.csv.demo" Source="../starman/res/script/demo/talkFinishQuest42.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest43.csv.demo" Source="../starman/res/script/demo/talkFinishQuest43.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest44.csv.demo" Source="../starman/res/script/demo/talkFinishQuest44.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest45.csv.demo" Source="../starman/res/script/demo/talkFinishQuest45.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest46.csv.demo" Source="../starman/res/script/demo/talkFinishQuest46.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest47.csv.demo" Source="../starman/res/script/demo/talkFinishQuest47.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest48.csv.demo" Source="../starman/res/script/demo/talkFinishQuest48.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest49.csv.demo" Source="../starman/res/script/demo/talkFinishQuest49.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest5.csv.demo" Source="../starman/res/script/demo/talkFinishQuest5.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest50.csv.demo" Source="../starman/res/script/demo/talkFinishQuest50.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest51.csv.demo" Source="../starman/res/script/demo/talkFinishQuest51.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest52.csv.demo" Source="../starman/res/script/demo/talkFinishQuest52.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest53.csv.demo" Source="../starman/res/script/demo/talkFinishQuest53.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest54.csv.demo" Source="../starman/res/script/demo/talkFinishQuest54.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest55.csv.demo" Source="../starman/res/script/demo/talkFinishQuest55.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest56.csv.demo" Source="../starman/res/script/demo/talkFinishQuest56.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest57.csv.demo" Source="../starman/res/script/demo/talkFinishQuest57.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest58.csv.demo" Source="../starman/res/script/demo/talkFinishQuest58.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest59_2.csv.demo" Source="../starman/res/script/demo/talkFinishQuest59-2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest59.csv.demo" Source="../starman/res/script/demo/talkFinishQuest59.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest6.csv.demo" Source="../starman/res/script/demo/talkFinishQuest6.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest60.csv.demo" Source="../starman/res/script/demo/talkFinishQuest60.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest61_2.csv.demo" Source="../starman/res/script/demo/talkFinishQuest61-2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest61.csv.demo" Source="../starman/res/script/demo/talkFinishQuest61.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest62.csv.demo" Source="../starman/res/script/demo/talkFinishQuest62.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest7.csv.demo" Source="../starman/res/script/demo/talkFinishQuest7.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest8.csv.demo" Source="../starman/res/script/demo/talkFinishQuest8.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest9_2.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-2.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest9_3.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-3.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest9_4.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-4.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest9_5.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-5.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest9.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="voyageOrigin.csv.demo" Source="../starman/res/script/demo/voyageOrigin.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="weapon.back.csv.demo" Source="../starman/res/script/demo/weapon.back.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="weapon.csv.demo" Source="../starman/res/script/demo/weapon.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="weaponSave.csv.demo" Source="../starman/res/script/demo/weaponSave.csv" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/attack01.wav" />

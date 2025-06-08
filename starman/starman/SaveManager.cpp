@@ -302,6 +302,7 @@ void SaveManager::LoadOrigin()
         NSStarmanLib::PowereggDateTime::Destroy();
         NSStarmanLib::MapObjManager::Destroy();
         NSStarmanLib::ActivityBase::Get()->Finalize();
+        NSStarmanLib::Voyage::Get()->Destroy();
         NSStarmanLib::CraftInfoManager::Destroy();
         NSStarmanLib::CraftSystem::Destroy();
         NSStarmanLib::Help::Destroy();
@@ -527,6 +528,7 @@ void SaveManager::LoadDemoData()
         NSStarmanLib::PowereggDateTime::Destroy();
         NSStarmanLib::MapObjManager::Destroy();
         NSStarmanLib::ActivityBase::Get()->Finalize();
+        NSStarmanLib::Voyage::Get()->Destroy();
         NSStarmanLib::CraftInfoManager::Destroy();
         NSStarmanLib::CraftSystem::Destroy();
         NSStarmanLib::Help::Destroy();
@@ -604,7 +606,8 @@ void SaveManager::LoadDemoData()
                            _T(""));
 
     auto voyage = NSStarmanLib::Voyage::Get();
-    voyage->Init(_T(""));
+    voyage->Init(CreateDemoFilePath(_T("raftSave.csv")));
+
 
     m_progress.store(75);
     auto activityBase = NSStarmanLib::ActivityBase::Get();

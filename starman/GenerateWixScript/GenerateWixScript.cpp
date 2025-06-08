@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <Windows.h>
+#include <algorithm>
 
 static std::vector<std::string> ListFilesInFolder(const std::string& folder)
 {
@@ -98,6 +99,7 @@ int main()
                         <Directory Id="FONT" Name="font"/>
                         <Directory Id="SCRIPT_" Name="script">
                             <Directory Id="SCRIPT_ORIGIN" Name="origin"/>
+                            <Directory Id="SCRIPT_DEMO" Name="demo"/>
                         </Directory>
                         <Directory Id="SOUND" Name="sound"/>
                     </Directory>
@@ -170,6 +172,25 @@ int main()
         {
             text += "            <Component Directory=\"SCRIPT_ORIGIN\" Guid=\"*\" Win64=\"yes\">\n";
             text += "                <File Source=\"../starman/res/script/origin/" + filename + "\" />\n";
+            text += "            </Component>\n";
+        }
+    }
+
+    {
+        auto fileList = ListFilesInFolder("..\\starman\\res\\script\\demo");
+        for (auto& filename : fileList)
+        {
+            if (filename.find('#') != std::string::npos)
+            {
+                continue;
+            }
+
+            std::string id = filename + ".demo";
+
+            std::replace(id.begin(), id.end(), '-', '_');
+
+            text += "            <Component Directory=\"SCRIPT_DEMO\" Guid=\"*\" Win64=\"yes\">\n";
+            text += "                <File Id=\"" + id + "\" Source=\"../starman/res/script/demo/" + filename + "\" />\n";
             text += "            </Component>\n";
         }
     }

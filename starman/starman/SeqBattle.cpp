@@ -1327,7 +1327,7 @@ void SeqBattle::OperateCommand()
         }
         else
         {
-            PopUp2::Get()->SetText(IDS_STRING110);
+            PopUp2::Get()->SetText(IDS_STRING109);
         }
     }
     else if (result == Common::LoadString_(IDS_STRING189))

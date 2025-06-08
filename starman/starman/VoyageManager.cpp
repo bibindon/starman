@@ -47,6 +47,7 @@ void VoyageManager::Init()
 
 void VoyageManager::Finalize()
 {
+    Voyage()->Destroy();
     for (auto it = m_raftMap.begin(); it != m_raftMap.end(); ++it)
     {
         it->second.Finalize();
