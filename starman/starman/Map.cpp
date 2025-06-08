@@ -1727,9 +1727,9 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     // 摩擦
     // result.xとresult.zが小さいなら0にする
     //if (-0.005f <= result.x && result.x <= 0.005f)
-    if (-0.01f <= result.x && result.x <= 0.01f)
+    if (-0.02f <= result.x && result.x <= 0.02f)
     {
-        if (-0.01f <= result.z && result.z <= 0.01f)
+        if (-0.02f <= result.z && result.z <= 0.02f)
         {
             result.x = 0.f;
             result.z = 0.f;

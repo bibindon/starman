@@ -930,7 +930,6 @@ void Player::Update(Map* map)
         {
             m_move.y = 0.05f;
         }
-
     }
 
     if (map == nullptr)
