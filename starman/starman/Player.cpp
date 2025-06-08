@@ -918,8 +918,8 @@ void Player::Update(Map* map)
     // XZ平面上の移動量は毎フレーム半分にする。ジャンプしているときは半分にしない。
     if (!m_bJump && !m_bStep)
     {
-        m_move.x *= 0.9f;
-        m_move.z *= 0.9f;
+        m_move.x *= 0.8f;
+        m_move.z *= 0.8f;
     }
 
     // 走って止まった時に上に浮かんでしまうのを防ぐ
