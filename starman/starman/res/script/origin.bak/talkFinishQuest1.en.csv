@@ -1,0 +1,20 @@
+ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
+1,"Star Man, half-conscious, walked in search of water. Fortunately, rainwater had collected in the hollows of rocks due to the recent typhoon.",,,,"・オプション1は表示したいテキスト
+・半角英数字は使用禁止
+・３行まで
+・オプション2は左に表示したい画像
+・オプション3は右に表示したい画像"
+2,(Is this okay...?),res\\image\\hoshiman00.png,,,
+3,Star Man had only ever drunk processed water like tap water or bottled drinks.,,,,
+4,His smartphone no longer powered on. Star Man looked around.,res\\image\\hoshiman00.png,,,
+5,(...),res\\image\\hoshiman00.png,,,
+6,"About 100 meters away, Star Man saw a flying saucer. It was moving about one meter above the ground.",,res\\image\\enban00.png,,
+7,(It's too far to see clearly...),res\\image\\hoshiman00.png,,,
+8,"Star Man was curious about the flying object, but the water in front of him was the priority right now.",res\\image\\hoshiman00.png,,,
+9,"(I don’t have anything to boil it with, and I’m at my limit.)",res\\image\\hoshiman00.png,,,
+10,Star Man brought his nose close to the rainwater.,res\\image\\hoshiman00.png,,,
+11,(Ugh... it smells like river water...),res\\image\\hoshiman00.png,,,
+12,Star Man put his face into the water and drank directly.,,,,
+13,(It tastes strange... But I can’t tell if that’s good or bad...),res\\image\\hoshiman00.png,,,
+14,"Right after drinking it, it wasn’t that bad, but as time passed, the saltiness came on.",,,,
+15,(Ugh... it's salty... Could this be making things worse...?),res\\image\\hoshiman00.png,,,
