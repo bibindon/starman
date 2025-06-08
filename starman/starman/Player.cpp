@@ -1140,61 +1140,53 @@ void Player::Render()
     auto bagState = Common::Status()->GetBagState();
     for (auto it = bagState.begin(); it != bagState.end(); ++it)
     {
+		auto pos = m_loadingPos;
+
         if ((*it) == NSStarmanLib::eBagPos::Back1)
         {
-            auto pos = m_loadingPos;
             pos.y += 0.6f;
-
             pos.x += std::sin(m_rotate.y) * 0.1f;
             pos.z += std::cos(m_rotate.y) * 0.1f;
 
-            m_bagMesh[(*it)]->SetPos(pos);
-            m_bagMesh[(*it)]->SetRotY(m_rotate.y);
         }
         else if ((*it) == NSStarmanLib::eBagPos::Back2)
         {
-            auto pos = m_loadingPos;
             pos.y += 0.7f;
             pos.x += std::sin(m_rotate.y) * 0.5f;
             pos.z += std::cos(m_rotate.y) * 0.5f;
-
-            m_bagMesh[(*it)]->SetPos(pos);
-            m_bagMesh[(*it)]->SetRotY(m_rotate.y);
-
         }
         else if ((*it) == NSStarmanLib::eBagPos::Front)
         {
-            auto pos = m_loadingPos;
             pos.y += 0.5f;
             pos.x += std::sin(m_rotate.y + D3DX_PI) * 0.1f;
             pos.z += std::cos(m_rotate.y + D3DX_PI) * 0.1f;
-
-            m_bagMesh[(*it)]->SetPos(pos);
-            m_bagMesh[(*it)]->SetRotY(m_rotate.y + D3DX_PI);
-
         }
         else if ((*it) == NSStarmanLib::eBagPos::Left)
         {
-            auto pos = m_loadingPos;
             pos.y += 0.1f;
             pos.x += std::sin(m_rotate.y + (D3DX_PI/2.f)) * 0.5f;
             pos.z += std::cos(m_rotate.y + (D3DX_PI/2.f)) * 0.5f;
-
-            m_bagMesh[(*it)]->SetPos(pos);
-            m_bagMesh[(*it)]->SetRotY(m_rotate.y + D3DX_PI + (D3DX_PI/2.f));
-
         }
         else if ((*it) == NSStarmanLib::eBagPos::Right)
         {
-            auto pos = m_loadingPos;
             pos.y += 0.1f;
             pos.x += std::sin(m_rotate.y - (D3DX_PI/2.f)) * 0.5f;
             pos.z += std::cos(m_rotate.y - (D3DX_PI/2.f)) * 0.5f;
-
-            m_bagMesh[(*it)]->SetPos(pos);
-            m_bagMesh[(*it)]->SetRotY(m_rotate.y + D3DX_PI - (D3DX_PI/2.f));
-
         }
+
+        if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SIT ||
+            Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::LYING_DOWN)
+        {
+            pos.y -= 0.4f;
+        }
+        else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::IDLE_WATER ||
+                 Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SWIM)
+        {
+            pos.y -= 1.0f;
+        }
+
+		m_bagMesh[(*it)]->SetPos(pos);
+		m_bagMesh[(*it)]->SetRotY(m_rotate.y);
         m_bagMesh[(*it)]->Render();
     }
 
@@ -1202,19 +1194,25 @@ void Player::Render()
     {
         auto pos = m_loadingPos;
 
-        if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SIT ||
-            Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::LYING_DOWN)
+        if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SIT)
         {
             pos.y += 1.0f;
         }
-        else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::IDLE_WATER ||
-                 Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SWIM)
+		else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::LYING_DOWN)
+        {
+            pos.y += 0.2f;
+        }
+        else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::IDLE_WATER)
+        {
+            pos.y += 0.6f;
+        }
+        else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SWIM)
         {
             pos.y += 0.4f;
         }
         else
         {
-            pos.y += 1.8f;
+            pos.y += 1.4f;
         }
 
         m_sugegasaMesh->SetPos(pos);
