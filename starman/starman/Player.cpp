@@ -1196,7 +1196,14 @@ void Player::Render()
 
         if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::SIT)
         {
-            pos.y += 1.0f;
+            if (VoyageManager::Get()->GetRaftMode())
+            {
+                pos.y += 1.2f;
+            }
+            else
+            {
+				pos.y += 1.0f;
+            }
         }
 		else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::LYING_DOWN)
         {
