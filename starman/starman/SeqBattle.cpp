@@ -3516,15 +3516,25 @@ void SeqBattle::OperateTitle(eSequence* sequence)
 
     if (m_eState == eBattleState::OPENING)
     {
+		bool bFirstTitleShow = m_title->GetFirst();
+
         SAFE_DELETE(m_title);
         InitializeAfterLoad();
 
         FinalizeLoad();
 
-        SAFE_DELETE(m_map);
-        m_map = NEW Map();
-        SharedObj::SetMap(m_map);
-        m_map->Init();
+		bool saveExist = SaveManager::Get()->SaveFolderExists();
+
+		// セーブデータがあったら初期データを読む。
+		// セーブデータがなくても、一度ゲームを開始してから
+		// タイトル画面に戻ってきたなら再読み込みをする。
+        if (saveExist || !bFirstTitleShow)
+        {
+			SAFE_DELETE(m_map);
+			m_map = NEW Map();
+			SharedObj::SetMap(m_map);
+			m_map->Init();
+        }
 
         m_Opening = NEW Opening();
     }

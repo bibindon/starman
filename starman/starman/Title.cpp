@@ -123,6 +123,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
         {
             m_bCameraFadeIn = false;
             Camera::SetCameraMode(eCameraMode::TITLE);
+            m_bFirst = false;
         }
     }
     else if (m_bCameraFadeOut)
@@ -175,7 +176,6 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             }
 
             Rain::Get()->SetShow(true);
-            m_bFirst = false;
         }
         else if (result == _T("Continue"))
         {
@@ -190,7 +190,6 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             Camera::SetLookAtPos(ppos);
 
             Rain::Get()->SetShow(true);
-            m_bFirst = false;
         }
         else if (result == _T("Demo"))
         {
@@ -221,7 +220,6 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             }
 
             Rain::Get()->SetShow(true);
-            m_bFirst = false;
         }
         else if (result == _T("Language"))
         {

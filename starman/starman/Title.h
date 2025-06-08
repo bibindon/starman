@@ -30,6 +30,7 @@ public:
     void Render();
 
     bool GetLoading() const;
+    bool GetFirst() const { return m_bFirst; }
 
 private:
     Sprite* m_sprite1 { nullptr };
