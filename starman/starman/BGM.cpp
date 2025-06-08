@@ -630,6 +630,14 @@ std::string BGMModel::SelectBGM()
     {
         newBGM = m_strWeak;
     }
+    else if (m_bToudai)
+    {
+        newBGM = m_strToudai;
+    }
+    else if (m_bDoukutsu)
+    {
+        newBGM = m_strDoukutsu;
+    }
     else if (m_bNight)
     {
         newBGM = m_strNight;
@@ -641,10 +649,6 @@ std::string BGMModel::SelectBGM()
     else if (m_bHaikyo)
     {
         newBGM = m_strHaikyo;
-    }
-    else if (m_bToudai)
-    {
-        newBGM = m_strToudai;
     }
     else if (m_bKaiganDoukutsu)
     {
@@ -661,10 +665,6 @@ std::string BGMModel::SelectBGM()
     else if (m_bMinatoAto)
     {
         newBGM = m_strMinatoAto;
-    }
-    else if (m_bDoukutsu)
-    {
-        newBGM = m_strDoukutsu;
     }
     // どれでもないなら通常曲をランダムで選曲
     else
