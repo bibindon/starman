@@ -1551,6 +1551,9 @@
                 <File Id="questSample.csv.demo" Source="../starman/res/script/demo/questSample.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="raftSave.csv.demo" Source="../starman/res/script/demo/raftSave.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="rynen.csv.demo" Source="../starman/res/script/demo/rynen.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
