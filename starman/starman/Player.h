@@ -133,4 +133,7 @@ private:
     // ステップ中
     bool m_bStep = false;
     int m_stepCounter = 0;
+
+    // WASDや左スティックを操作したフラグ
+    bool m_bTryMove = false;
 };

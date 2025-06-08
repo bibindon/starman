@@ -324,6 +324,8 @@ Player::~Player()
 
 void Player::Update(Map* map)
 {
+    m_bTryMove = false;
+
     //-----------------------------------------------
     // 海と接しているか
     //-----------------------------------------------
@@ -910,14 +912,25 @@ void Player::Update(Map* map)
         }
         move_XZ *= work;
         m_move.x = move_XZ.x;
-        m_move.z = move_XZ.y;
+        m_move.z = move_XZ.y; // yをzに代入しているが正しい。
     }
 
     // XZ平面上の移動量は毎フレーム半分にする。ジャンプしているときは半分にしない。
     if (!m_bJump && !m_bStep)
     {
-        m_move.x *= 0.5f;
-        m_move.z *= 0.5f;
+        m_move.x *= 0.9f;
+        m_move.z *= 0.9f;
+    }
+
+    // 走って止まった時に上に浮かんでしまうのを防ぐ
+    // ジャンプしておらず、移動していないのにY軸方向に移動している。
+    if (!m_bJump && !m_bTryMove)
+    {
+        if (m_move.y > 0.05f)
+        {
+            m_move.y = 0.05f;
+        }
+
     }
 
     if (map == nullptr)
@@ -1585,6 +1598,8 @@ void Player::SetWalk()
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
         }
     }
+
+    m_bTryMove = true;
 }
 
 void Player::SetJogging()
@@ -1606,6 +1621,8 @@ void Player::SetJogging()
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
         }
     }
+
+    m_bTryMove = true;
 }
 
 void Player::SetDash()
@@ -1627,6 +1644,8 @@ void Player::SetDash()
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
         }
     }
+
+    m_bTryMove = true;
 }
 
 void Player::SetIdle()
