@@ -22,8 +22,6 @@ bool Common::m_x64Bit = true;
 bool Common::m_x64Bit = false;
 #endif
 
-bool Common::m_bDemoMode = false;
-
 std::wstring Common::m_GPUName;
 
 std::vector<char> Common::get_model_texture_resource(

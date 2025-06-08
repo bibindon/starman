@@ -22,6 +22,7 @@ public:
     void SetLangFile(const std::wstring lang);
 
     bool SaveFolderExists();
+    bool DemoFolderExists();
 
 private:
 
@@ -36,14 +37,22 @@ private:
     const std::wstring SAVEDATA_PATH = _T("res\\script\\save\\");
     const std::wstring SAVEDATA_FOLDER = _T("res\\script\\save");
 
+    const std::wstring DEMODATA_PATH = _T("res\\script\\demo\\");
+    const std::wstring DEMODATA_FOLDER = _T("res\\script\\demo");
+
     std::wstring m_savedata_path;
     std::wstring m_savedata_folder;
 
+    std::wstring m_demodata_path;
+    std::wstring m_demodata_folder;
+
     std::wstring CreateOriginFilePath(const std::wstring& filename);
     std::wstring CreateSaveFilePath(const std::wstring& filename);
+    std::wstring CreateDemoFilePath(const std::wstring& filename);
 
     std::wstring GetOriginMapPath();
     std::wstring GetSavefileMapPath();
+    std::wstring GetDemofileMapPath();
 
     bool m_savedataLoaded = false;
 

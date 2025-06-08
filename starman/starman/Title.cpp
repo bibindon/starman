@@ -192,6 +192,37 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             Rain::Get()->SetShow(true);
             m_bFirst = false;
         }
+        else if (result == _T("Demo"))
+        {
+
+            // 即座にオープニングが始まるのではなく、
+            // フェードアウトを描画し、
+            // フェードアウトが完了したらオープニングが始まるようにする。
+            m_eMenu = eTitleMenu::DEMO;
+            m_bFadeOut = true;
+            m_fadeOutCount = 0;
+            Common::SetCursorVisibility(false);
+
+            bool demoExist = SaveManager::Get()->DemoFolderExists();
+
+            // セーブデータがあったら初期データを読む。
+            // セーブデータがなくても、一度ゲームを開始してから
+            // タイトル画面に戻ってきたなら再読み込みをする。
+            if (demoExist || !m_bFirst)
+            {
+                m_bLoading = true;
+                SAFE_DELETE(m_thread);
+                m_loaded.store(false);
+                m_thread = NEW std::thread([&]
+                                           {
+                                               SaveManager::Get()->LoadDemoData();
+                                               m_loaded.store(true);
+                                           });
+            }
+
+            Rain::Get()->SetShow(true);
+            m_bFirst = false;
+        }
         else if (result == _T("Language"))
         {
             m_titleCommand->Finalize();

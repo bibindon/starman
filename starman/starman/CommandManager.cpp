@@ -645,6 +645,12 @@ void CommandManager::BuildOpeningCommand()
     m_commandLib->UpsertCommand(_T("Start"), true);
     m_commandLib->UpsertCommand(_T("Continue"), enable);
     m_commandLib->UpsertCommand(_T("Language"), true);
+
+    if (Common::DemoMode())
+    {
+		m_commandLib->UpsertCommand(_T("Demo"), true);
+    }
+
     m_commandLib->UpsertCommand(_T("Exit"), true);
 }
 

@@ -52,6 +52,7 @@ enum class eTitleMenu
     NOT_DECIDE,
     START,
     CONTINUE,
+    DEMO,
     EXIT,
 };
 
@@ -80,7 +81,7 @@ public:
     static bool StrongMode();
 
     // 即売会でのデモなど
-    static bool DemoMode() { return m_bDemoMode; }
+    static bool DemoMode() { return true; }
 
     static bool X64Bit();
 
@@ -130,7 +131,6 @@ public:
 private:
 
     static bool m_bDebugMode;
-    static bool m_bDemoMode;
     static bool m_x64Bit;
     static std::wstring m_GPUName;
 };
