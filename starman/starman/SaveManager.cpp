@@ -374,6 +374,12 @@ void SaveManager::LoadOrigin()
 
 void SaveManager::Load()
 {
+    if (Common::DemoMode())
+    {
+        LoadDemoData();
+        return;
+    }
+
     m_progress.store(0);
 
     auto rynen = NSStarmanLib::Rynen::GetObj();
@@ -478,6 +484,10 @@ void SaveManager::Load()
     m_savedataLoaded = true;
 
     m_progress.store(100);
+}
+
+void SaveManager::LoadDemoData()
+{
 }
 
 

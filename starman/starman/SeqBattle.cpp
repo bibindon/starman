@@ -2015,6 +2015,30 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     {
                         npcNameKey = _T("vim");
                     }
+                    else if (work.find(_T("<vsco>")) != std::wstring::npos)
+                    {
+                        npcNameKey = _T("vsco");
+                    }
+                    else if (work.find(_T("<webnin>")) != std::wstring::npos)
+                    {
+                        npcNameKey = _T("webnin");
+                    }
+                    else if (work.find(_T("<gain>")) != std::wstring::npos)
+                    {
+                        npcNameKey = _T("gain");
+                    }
+                    else if (work.find(_T("<nes>")) != std::wstring::npos)
+                    {
+                        npcNameKey = _T("nes");
+                    }
+                    else if (work.find(_T("<noble>")) != std::wstring::npos)
+                    {
+                        npcNameKey = _T("noble");
+                    }
+                    else if (work.find(_T("<xeoff>")) != std::wstring::npos)
+                    {
+                        npcNameKey = _T("xeoff");
+                    }
 
                     work = Common::RemoveSubstring(work, _T("<") + npcNameKey + _T(">"));
 

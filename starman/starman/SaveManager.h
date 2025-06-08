@@ -12,6 +12,7 @@ public:
     void Save();
     void LoadOrigin();
     void Load();
+    void LoadDemoData();
     void DeleteSavedata();
 
     // 別スレッドから進捗を取得できるようにする
