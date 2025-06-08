@@ -1242,7 +1242,7 @@ void Map::Render()
     }
 
     // Q78が終わっているか＝シカクマンが死亡したか
-    bool bQ78Finished = QuestManager::Get()->GetQuestFinished(L"Q78");
+    bool bQ81Finished = QuestManager::Get()->GetQuestFinished(L"Q81");
 
     // Q40が終わっているか＝廃墟の掃除をしたか
     bool bQ40Finished = QuestManager::Get()->GetQuestFinished(L"Q40");
@@ -1266,7 +1266,7 @@ void Map::Render()
         // シカクマンが死亡していたら墓を表示
         if (pair.first == _T("grave"))
         {
-            if (!bQ78Finished)
+            if (!bQ81Finished)
             {
                 continue;
             }

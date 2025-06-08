@@ -192,7 +192,7 @@ SeqEnding::SeqEnding()
 
         auto finishQuest = QuestManager::Get()->GetFinishQuest();
 
-        auto it = std::find(finishQuest.begin(), finishQuest.end(), _T("Q81"));
+        auto it = std::find(finishQuest.begin(), finishQuest.end(), _T("Q85"));
         if (it != finishQuest.end())
         {
             bTrueEnding = true;
