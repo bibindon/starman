@@ -43,8 +43,8 @@ private:
     std::wstring m_savedata_path;
     std::wstring m_savedata_folder;
 
-    std::wstring m_demodata_path;
-    std::wstring m_demodata_folder;
+    std::wstring m_demodata_path = DEMODATA_PATH;
+    std::wstring m_demodata_folder = DEMODATA_FOLDER;
 
     std::wstring CreateOriginFilePath(const std::wstring& filename);
     std::wstring CreateSaveFilePath(const std::wstring& filename);

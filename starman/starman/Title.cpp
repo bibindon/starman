@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Rain.h"
 #include "PopUp2.h"
+#include <assert.h>
 
 Title::Title(const bool blackFadeIn, const bool bFirst)
 {
@@ -203,11 +204,9 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             Common::SetCursorVisibility(false);
 
             bool demoExist = SaveManager::Get()->DemoFolderExists();
+            assert(demoExist);
 
-            // セーブデータがあったら初期データを読む。
-            // セーブデータがなくても、一度ゲームを開始してから
-            // タイトル画面に戻ってきたなら再読み込みをする。
-            if (demoExist || !m_bFirst)
+            if (demoExist)
             {
                 m_bLoading = true;
                 SAFE_DELETE(m_thread);
