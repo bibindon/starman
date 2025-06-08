@@ -75,7 +75,7 @@ bool Common::EncryptMode()
 
 bool Common::FasterMode()
 {
-    bool bFasterMode = true;
+    bool bFasterMode = false;
 
     // デバッグモードじゃなければ常にOFF
     if (!m_bDebugMode)
