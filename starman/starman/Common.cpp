@@ -406,3 +406,18 @@ std::string Common::WstringToUtf8(const std::wstring& wstr)
     return result;
 }
 
+std::wstring Common::AddEnToFilename(const std::wstring& filename)
+{
+	const std::wstring extension = L".csv";
+	size_t pos = filename.rfind(extension);
+
+	if (pos == std::wstring::npos || pos + extension.length() != filename.length())
+	{
+		// 拡張子が .csv でない場合は何もしない
+		return filename;
+	}
+
+	// "abc" + ".en" + ".csv"
+	return filename.substr(0, pos) + L".en" + extension;
+}
+

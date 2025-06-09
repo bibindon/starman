@@ -494,7 +494,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest31.csv
 Q52,"クエストが完了していたら
 クエストが完了していないなら","Q51
-Q52",<hint>ホシマン（神社に行ってみよう）,,,,<talk>res\\script\\origin\\talkFinishQuest31-2.csv
+Q52",<hint>ホシマン（神社に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest31-2.csv
 Q53,"クエストが完了していたら
 クエストが完了していないなら","Q52
 Q53",<hint>ホシマン（洞くつの中を見てみよう）,位置,509:19.5:-1264:30,,<talk>res\\script\\origin\\talkFinishQuest31-3.csv
