@@ -82,6 +82,9 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance
     // 例外で終了したときに、例外発生時のスタックトレースを出力する
     _set_se_translator(se_translator);
 
+    // Windowsによるスケーリングをさせないようにする。
+    SetProcessDPIAware();
+
     HWND hWnd = FindWindow(_T("ホシマン"), nullptr);
     if (hWnd != nullptr)
     {
