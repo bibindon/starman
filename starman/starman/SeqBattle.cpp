@@ -1993,6 +1993,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::wstring work = vs2.at(j);
                     std::wstring::size_type it = work.find(_T("<story>"));
                     work = work.erase(it, 7);
+                    work = Common::AddEnToFilename(work);
                     m_story = NEW StoryManager(work);
                     m_eState = eBattleState::STORY;
                 }
