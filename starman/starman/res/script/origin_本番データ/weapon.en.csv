@@ -1,0 +1,64 @@
+﻿ID,名称,詳細,モデル名,画像のファイル名,重量(kg),体積(mL),強化可能回数,攻撃力補正(瞬発力ｘ攻撃力補正＝攻撃力),強化時の攻撃力補正の上昇値,飛距離(m),強化時の飛距離の上昇値(m),消費スタミナ,耐久値(壊れるまでの回数),強化時の耐久値の上昇値,使用時の肉体損傷
+w1,石,"Can be thrown or used as a club.
+Ridiculously strong. Never breaks, no
+matter how many times you use it.",res\\model\\rock1.x,res\\image\\stone.png,0.5,500,0,3.0,0.0,30,0,10,999,0,10
+w2,木の棒,"Breaks after roughly three swings and is
+far weaker than bare fists. A person
+struck with a thin branch takes little
+damage, but a solid wooden bat can be
+fatal. If you keep crafting you'll
+eventually be able to make a proper
+bat‑like weapon.  Can be upgraded from
++1 to +5.",res\\model\\stick.x,res\\image\\stick.png,1.0,2000,5,0.2,0.3,10,0,10,3,10,10
+w3,石槍,"Breaks after about three thrusts and is
+much weaker than punches. A beginner’s
+first stone spear has virtually zero
+attack power, but at least you won’t cut
+your hands. By making them repeatedly
+you’ll craft a spear that’s actually
+usable. Some people have even taken down
+lions with one.  Can be upgraded from +1
+to +5.",res\\model\\spear.x,res\\image\\spear2.png,1.0,2000,5,0.2,0.3,10,0,10,3,10,10
+w4,弓矢の弓,"Homemade bow and arrows; the bow breaks
+after roughly ten shots. A novice’s
+first bow only shoots about five metres
+and its attack power is almost zero.
+Repeated crafting will turn it into a
+serviceable weapon.  Can be upgraded
+from +1 to +10. The distance the bow
+itself flies when thrown does not
+change.",res\\model\\bow.x,res\\image\\bow.png,1.0,3000,10,0.1,0.1,3,1,10,10,1,10
+w5,鉄パイプ,"Hard to break but can’t deal significant
+damage. On the upside, it saves your
+hands from injury.",res\\model\\ironPipe.x,res\\image\\pipe.png,1.0,2000,0,1.0,0.0,20,0,10,999,0,10
+w6,石付き鉄パイプ,"An iron pipe with a stone tied securely
+to the tip.",res\\model\\ironPipeEx.x,res\\image\\ironPipe.png,2.0,3000,0,4.0,0.0,15,0,10,10,0,10
+w7,石斧,"A stone lashed to a branch; the bindings
+are fragile so it breaks quickly. By
+making it over and over you’ll learn to
+craft a more durable axe. After several
+attempts you’ll realise that sharpening
+the stone edge is the key.  Can be
+upgraded from +1 to +5.",res\\model\\ax.x,res\\image\\ax.png,1.5,2000,5,4.0,0.0,20,0,10,30,10,10
+w8,弓矢の矢,"Arrows are very labour‑intensive to
+craft. Any arrow you fire can be picked
+up and reused.",res\\model\\arrow.x,res\\image\\arrow.png,0.2,500,1,2.0,0.0,40,1,5,10,1,5
+w9,アトラトル,"It’s an atlatl, not “astral”. Star Man
+once saw an atlatl on a video‑sharing
+site. An ordinary person would probably
+suffer crippling muscle pain after using
+it.",res\\model\\atlatl.x,res\\image\\atlatl.png,0.4,500,0,1.0,0.0,10,0,10,999,0,10
+w10,アトラトルに使う槍,"If the shaft isn’t made of a flexible,
+springy material it actually doesn’t fly
+at all. You’ll notice that only after
+using it many times.  Can be upgraded
+from +1 to +5.",res\\model\\arrow.x,res\\image\\arrow.png,0.6,2000,5,2.0,0.0,40,0,5,10,10,5
+w11,松明,"When you have a wooden stick equipped
+you can craft a torch from the action
+menu. While holding a torch you can
+choose “Light the torch”. It breaks the
+first time you use it as a weapon. If
+it’s lit you can choose “Extinguish the
+torch”.  You must extinguish the flame
+to unequip the torch, though you can
+also throw it away to remove it.",res\\model\\\torch.x,res\\image\\torch2.png,1.0,2000,0,0.2,0.0,10,0,10,300,0,10
