@@ -768,7 +768,8 @@ void BGMEnvModel::InvestigateBGMEnv()
     }
     else
     {
-        m_bRain = false;
+        //m_bRain = false;
+        m_bRain = true;
     }
 
     // 松明の環境音
@@ -814,15 +815,15 @@ void BGMEnvModel::InvestigateBGMEnv()
 
     // 雨の環境音
     if (m_bRain &&
-        (m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::NONE ||
-         m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::STOPPED))
+        (m_envBgmMap.at(m_strRain).m_eBGMStatus == eBGMStatus::NONE ||
+         m_envBgmMap.at(m_strRain).m_eBGMStatus == eBGMStatus::STOPPED))
     {
-        m_envBgmMap.at(m_strSea).m_eBGMStatus = eBGMStatus::START_REQUEST;
+        m_envBgmMap.at(m_strRain).m_eBGMStatus = eBGMStatus::START_REQUEST;
     }
-    else if (!m_bSea &&
-             m_envBgmMap.at(m_strSea).m_eBGMStatus == eBGMStatus::STARTED)
+    else if (!m_bRain &&
+             m_envBgmMap.at(m_strRain).m_eBGMStatus == eBGMStatus::STARTED)
     {
-        m_envBgmMap.at(m_strSea).m_eBGMStatus = eBGMStatus::STOP_REQUEST;
+        m_envBgmMap.at(m_strRain).m_eBGMStatus = eBGMStatus::STOP_REQUEST;
     }
 }
 
