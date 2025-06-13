@@ -125,7 +125,8 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         std::wstring lang = SaveManager::Get()->GetLangFile();
 
-        if (!lang.empty())
+        //if (!lang.empty())
+        if (lang.empty())
         {
             if (lang == _T("Japanese"))
             {
@@ -141,8 +142,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
             }
         }
 
-        //SharedObj::SetEnglish(!bJapan);
-        SharedObj::SetEnglish(true);
+        SharedObj::SetEnglish(!bJapan);
 
         if (bJapan)
         {
