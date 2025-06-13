@@ -4,8 +4,8 @@
 ・３行まで
 ・オプション2は左に表示したい画像
 ・オプション3は右に表示したい画像"
-2,「この位置に危険な男がいる。,res\\image\\hoshiman00.png,,,
-3,　会ってすぐにナイフで襲ってきた」,res\\image\\hoshiman00.png,,,
+2,「この位置に危険な男がいる」,res\\image\\hoshiman00.png,,,
+3,「会ってすぐにナイフで襲ってきた」,res\\image\\hoshiman00.png,,,
 4,「もう一度会って、ちゃんと話してみたら？」,res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
 5,サンカクマンは言った。,res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
 6,「いや・・・話が通じる感じではなかった」,res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
@@ -18,8 +18,8 @@
 13,"「ネスとノーブルは関わるな。
 　俺の足がこうなってるのもあいつらのせいみたいなもんだ」",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 14,「なにがあったんだ・・・？」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-15,「・・・。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-16,　まぁ、いろいろだ・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+15,「・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+16,「まぁ、いろいろだ・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 17,「・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 18,"「今はギップ灯台にいるのか。前は港跡に・・・、
 　多分このバーチャルベックス港跡にいたんだ。
@@ -28,9 +28,9 @@
 　イカダを作らなくても、そこに行けば船が手に入るかもしれない」",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 20,"「船はなかったと思う。
 　船に使えそうな材料くらいは見つかるかもしれないが」",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-21,「・・・。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-22,　今度、行ってみるよ」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+21,「・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+22,「今度、行ってみるよ」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 23,　ダイケイマンは少し考えた。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-24,「・・・。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-25,　用心してくれ」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+24,「・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+25,「用心してくれ」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 26,「ああ」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
