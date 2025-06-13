@@ -1867,7 +1867,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::wstring work = startEvent.at(0);
                     std::wstring::size_type it = work.find(_T("<talk>"));
                     work = work.erase(it, 6);
-                    work = Common::AddEnToFilename(work);
+                    work = Common::AddEnIfEng(work);
 
                     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
                     NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
@@ -1913,7 +1913,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::wstring work = vs2.at(j);
                     std::wstring::size_type it = work.find(_T("<talk>"));
                     work = work.erase(it, 6);
-                    work = Common::AddEnToFilename(work);
+                    work = Common::AddEnIfEng(work);
 
                     // 花輪が飾られていたら会話を少し変える。
                     if (work == L"res\\script\\origin\\talkFinishQuest59.csv")
@@ -1993,7 +1993,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::wstring work = vs2.at(j);
                     std::wstring::size_type it = work.find(_T("<story>"));
                     work = work.erase(it, 7);
-                    work = Common::AddEnToFilename(work);
+                    work = Common::AddEnIfEng(work);
                     m_story = NEW StoryManager(work);
                     m_eState = eBattleState::STORY;
                 }
@@ -2080,6 +2080,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     {
                         std::wstring work2;
                         work2 = Common::RemoveSubstring(work, _T("<talkScript>"));
+                        work2 = Common::AddEnIfEng(work2);
                         NpcManager::Get()->SetTalkScript(npcNameKey, work2);
                     }
                     else if (work.find(_T("<enableFeature>")) != std::wstring::npos)

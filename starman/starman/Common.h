@@ -128,7 +128,7 @@ public:
 
     static std::string WstringToUtf8(const std::wstring& wstr);
 
-	static std::wstring AddEnToFilename(const std::wstring& filename);
+	static std::wstring AddEnIfEng(const std::wstring& filename);
 private:
 
     static bool m_bDebugMode;
