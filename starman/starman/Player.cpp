@@ -154,7 +154,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\rock1.x"), pos, rot, 0.1f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("石")] = mesh;
+        m_weaponMesh[_T("w1")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -162,7 +162,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\stick.x"), pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("木の棒")] = mesh;
+        m_weaponMesh[_T("w2")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -170,7 +170,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\ax.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("石斧")] = mesh;
+        m_weaponMesh[_T("w7")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -178,7 +178,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\atlatl.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("アトラトル")] = mesh;
+        m_weaponMesh[_T("w9")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -186,7 +186,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\arrow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("アトラトルの矢")] = mesh;
+        m_weaponMesh[_T("w10")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -194,7 +194,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\ironPipe.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("鉄パイプ")] = mesh;
+        m_weaponMesh[_T("w5")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -202,7 +202,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\ironPipeEx.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("石付き鉄パイプ")] = mesh;
+        m_weaponMesh[_T("w6")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -210,7 +210,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\spear.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("石槍")] = mesh;
+        m_weaponMesh[_T("w3")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -218,7 +218,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\bow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("弓矢の弓")] = mesh;
+        m_weaponMesh[_T("w4")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, -0.3f);
@@ -226,7 +226,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\arrow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("弓矢の矢")] = mesh;
+        m_weaponMesh[_T("w8")] = mesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -234,7 +234,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\torch.x"), pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("松明")] = mesh;
+        m_weaponMesh[_T("w11")] = mesh;
     }
     
     // 袋
@@ -1134,7 +1134,7 @@ void Player::Render()
     {
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
         NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
-        m_weaponMesh.at(itemDef.GetName())->Render();
+        m_weaponMesh.at(itemDef.GetWeaponId())->Render();
     }
 
     auto bagState = Common::Status()->GetBagState();
