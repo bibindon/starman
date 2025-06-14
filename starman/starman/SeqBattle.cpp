@@ -1181,7 +1181,7 @@ void SeqBattle::OperateCommand()
         m_player->SetLieDown();
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == _T("３時間休憩する"))
+    else if (result == Common::LoadString_(IDS_STRING203))
     {
         leave = true;
         m_player->SetSit();

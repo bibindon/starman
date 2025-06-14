@@ -189,6 +189,7 @@ BEGIN
     IDS_STRING200           "装備中の武器を捨てることはできない"
     IDS_STRING201           "このゲームをクリアすることができなくなりました"
     IDS_STRING202           "袋を6個以上装備することはできない"
+    IDS_STRING203           "３時間休憩する"
 END
 
 STRINGTABLE
@@ -345,6 +346,7 @@ BEGIN
     IDS_STRING200           "Cannot discard a weapon while it is equipped."
     IDS_STRING201           "You can no longer complete this game."
     IDS_STRING202           "Starman cannot equip more than 6 bags."
+    IDS_STRING203           "Rest 3 Hours"
 END
 
 STRINGTABLE

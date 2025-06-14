@@ -386,7 +386,7 @@ void CommandManager::BuildCommand()
     m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING181), !bUnderwater);
 
     // ３時間休憩する・・・常に表示される
-    m_commandLib->UpsertCommand(_T("３時間休憩する"), !bUnderwater);
+    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING203), !bUnderwater);
 
     // 瞑想・・・常に表示される
     m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING182), true);

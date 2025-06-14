@@ -105,6 +105,7 @@
 #define IDS_STRING200                   200
 #define IDS_STRING201                   201
 #define IDS_STRING202                   202
+#define IDS_STRING203                   203
 #define IDS_STRING209                   209
 #define IDS_STRING210                   210
 #define IDS_STRING211                   211
