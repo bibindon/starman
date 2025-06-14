@@ -327,7 +327,7 @@ void SaveManager::LoadOrigin()
     mapManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("mapInfo.csv"))), m_encrypt);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Init(CreateOriginFilePath(_T("item.csv")),
+    itemManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("item.csv"))),
                       CreateOriginFilePath(_T("item_pos.csv")),
                       m_encrypt);
 
@@ -417,7 +417,7 @@ void SaveManager::Load()
 
     m_progress.store(5);
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Init(CreateOriginFilePath(_T("item.csv")),
+    itemManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("item.csv"))),
                       CreateSaveFilePath(_T("item_pos.csv")),
                       m_encrypt);
 
@@ -553,7 +553,7 @@ void SaveManager::LoadDemoData()
     mapManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("mapInfo.csv"))), m_encrypt);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
-    itemManager->Init(CreateDemoFilePath(_T("item.csv")),
+    itemManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("item.csv"))),
                       CreateDemoFilePath(_T("item_pos.csv")),
                       m_encrypt);
 
