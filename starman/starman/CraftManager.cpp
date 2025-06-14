@@ -437,7 +437,21 @@ void CraftManager::Operate(eBattleState* state)
                 bool started = craftSys->QueueCraftRequest(work, &errMsg);
                 if (!started)
                 {
-                    PopUp2::Get()->SetText(errMsg);
+                    if (!SharedObj::IsEnglish())
+                    {
+						PopUp2::Get()->SetText(errMsg);
+                    }
+                    else
+                    {
+						if (errMsg == _T("予約は５件までにしておこう"))
+						{
+							PopUp2::Get()->SetText(L"Let's limit the reservations to five.");
+						}
+                        else if (errMsg == _T("素材が足りない"))
+                        {
+							PopUp2::Get()->SetText(L"Lack of materials");
+                        }
+                    }
                 }
                 else
                 {
