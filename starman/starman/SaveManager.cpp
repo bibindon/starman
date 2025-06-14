@@ -318,7 +318,7 @@ void SaveManager::LoadOrigin()
 	mgr->Init(CreateOriginFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Init(CreateOriginFilePath(_T("humanInfo.csv")),
+    him->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("humanInfo.csv"))),
               CreateOriginFilePath(_T("humanInfoSub.csv")),
               m_encrypt);
 
@@ -407,7 +407,7 @@ void SaveManager::Load()
 	mgr->Init(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Init(CreateOriginFilePath(_T("humanInfo.csv")),
+    him->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("humanInfo.csv"))),
               CreateSaveFilePath(_T("humanInfoSub.csv")),
               m_encrypt);
 
@@ -544,7 +544,7 @@ void SaveManager::LoadDemoData()
 	mgr->Init(CreateDemoFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
-    him->Init(CreateDemoFilePath(_T("humanInfo.csv")),
+    him->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("humanInfo.csv"))),
               CreateDemoFilePath(_T("humanInfoSub.csv")),
               m_encrypt);
 
