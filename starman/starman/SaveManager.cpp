@@ -352,7 +352,7 @@ void SaveManager::LoadOrigin()
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Init(CreateOriginFilePath(_T("skill.csv")),
+    skillManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("skill.csv"))),
                        CreateOriginFilePath(_T("skillSub.csv")),
                         m_encrypt);
             
@@ -446,7 +446,7 @@ void SaveManager::Load()
     m_progress.store(20);
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Init(CreateOriginFilePath(_T("skill.csv")),
+    skillManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("skill.csv"))),
                        CreateSaveFilePath(_T("skillSub.csv")),
                         m_encrypt);
             
@@ -578,7 +578,7 @@ void SaveManager::LoadDemoData()
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
-    skillManager->Init(CreateDemoFilePath(_T("skill.csv")),
+    skillManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("skill.csv"))),
                        CreateDemoFilePath(_T("skillSub.csv")),
                         m_encrypt);
             
