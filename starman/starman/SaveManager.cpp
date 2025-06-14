@@ -252,7 +252,7 @@ void SaveManager::Save()
                         m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Save(CreateSaveFilePath(_T("guide.csv")), m_encrypt);
+    guide->Save(CreateSaveFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Save(CreateSaveFilePath(_T("datetime.csv")), m_encrypt);
@@ -361,7 +361,7 @@ void SaveManager::LoadOrigin()
     statusManager->Init(CreateOriginFilePath(_T("status.csv")), m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateOriginFilePath(_T("guide.csv")), m_encrypt);
+    guide->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Init(CreateOriginFilePath(_T("datetime.csv")), m_encrypt);
@@ -458,7 +458,7 @@ void SaveManager::Load()
     m_progress.store(30);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateSaveFilePath(_T("guide.csv")), m_encrypt);
+    guide->Init(CreateSaveFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
 
     m_progress.store(35);
 
@@ -587,7 +587,7 @@ void SaveManager::LoadDemoData()
     statusManager->Init(CreateDemoFilePath(_T("status.csv")), m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateDemoFilePath(_T("guide.csv")), m_encrypt);
+    guide->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Init(CreateDemoFilePath(_T("datetime.csv")), m_encrypt);
