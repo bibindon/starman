@@ -1,0 +1,28 @@
+﻿ID,地名,発見済み,説明文,X,Y,画像ファイル名
+1,Poweregg Planet,○,"Planet where Starman and his friends
+live.
+Its rotational axis is sharply tilted.",342,345,res\\image\\poweregg.png
+2,Prolitan Island,○,"Uninhabited island.
+20 km circumference; 25 km² of land.",464,809,res\\image\\widemap1.png
+3,Precision,○,"Ruined building.
+Seems to have been the city hall.",304,794,res\\image\\narrowmap1.png
+4,CentOZ Church,○,,781,156,res\\image\\narrowmap3.png
+5,Ubuntu Cave,○,,648,898,res\\image\\narrowmap2.png
+6,RedPat Riverside,○,,651,826,res\\image\\narrowmap8.png
+7,ThinkHat Beach,○,A palm‑lined beach.,220,909,res\\image\\narrowmap10.png
+8,BitNabi Forest,○,,300,282,res\\image\\narrowmap9.png
+9,Redmize Mountain,○,,110,115,res\\image\\narrowmap12.png
+10,Jenking Swamp,○,,624,348,res\\image\\narrowmap6.png
+11,Republic of GEFORQE,○,Country located to the west.,461,426,res\\image\\widemap3.png
+12,The Radeou Union,○,Homeland of Starman.,411,957,res\\image\\widemap2.png
+13,Optiple Island,○,"Island they were originally headed for.
+A biker's pilgrimage spot—populated
+with many brown bears.",686,19,res\\image\\widemap5.png
+14,QueSee,○,"Primary star of Poweregg Planet.
+Near the end of its life, red and dim.",637,461,res\\image\\qc.png
+15,Gip Lighthouse,○,,920,990,res\\image\\narrowmap7.png
+16,VirtualBecks Port ruins,○,,227,659,res\\image\\narrowmap5.png
+17,DirectNex Coastal Cave,○,,475,480,res\\image\\narrowmap11.png
+18,Sea Poroporo Moss Garden,○,,549,23,res\\image\\narrowmap4.png
+19,Blenber Sea Area,○,"Southern sea area.
+Vast waters; no land in sight.",649,1,res\\image\\widemap4.png
