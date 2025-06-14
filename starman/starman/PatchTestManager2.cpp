@@ -439,7 +439,7 @@ void PatchTestManager2::CreateList()
             {
                 NSPatchTestLib::TestItem testItem;
 
-                testItem.SetName(keyList.at(i));
+                testItem.SetName(itemDef.GetName());
                 testItem.SetId(itemDef.GetId());
                 testItem.SetSubId(subIdList.at(j));
 
@@ -510,7 +510,10 @@ void PatchTestManager2::QueueTest(const std::wstring& result)
     std::wstring name = vs.at(1);
 
     // パッチテストをキューイングする
-    bool result2 = GetPatchLib()->QueuePatchTest(name);
+
+    auto itemDef = Common::ItemManager()->GetItemDef(name);
+
+    bool result2 = GetPatchLib()->QueuePatchTest(itemDef.GetId());
 
     if (result2)
     {
