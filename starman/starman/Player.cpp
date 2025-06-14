@@ -1960,7 +1960,7 @@ void Player::Throw()
         auto itemManager = NSStarmanLib::ItemManager::GetObj();
         auto itemDef = itemManager->GetItemDef(itemInfo.GetId());
         auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
-        std::wstring xfilename = weaponManager->GetXfilename(itemDef.GetName());
+        std::wstring xfilename = weaponManager->GetXfilename2(itemDef.GetWeaponId());
 
         if (xfilename.find(_T("rock")) != std::wstring::npos)
         {

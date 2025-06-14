@@ -1766,7 +1766,7 @@ void Map::AddThrownItem(const D3DXVECTOR3& pos,
     work.m_power = power;
 
     auto weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    std::wstring xfilename = weaponManager->GetXfilename(weaponName);
+    std::wstring xfilename = weaponManager->GetXfilename2(itemInfo.GetItemDef().GetWeaponId());
 
     D3DXVECTOR3 rot(0.f, rotY, 0.f);
 

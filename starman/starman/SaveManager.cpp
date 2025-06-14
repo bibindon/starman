@@ -339,7 +339,7 @@ void SaveManager::LoadOrigin()
     storehouseManager->Init(CreateOriginFilePath(_T("storehouseListOrigin.csv")));
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Init(CreateOriginFilePath(_T("weapon.csv")),
+    weaponManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("weapon.csv"))),
                         CreateOriginFilePath(_T("weaponSave.csv")),
                         m_encrypt);
 
@@ -432,7 +432,7 @@ void SaveManager::Load()
 
     m_progress.store(10);
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Init(CreateOriginFilePath(_T("weapon.csv")),
+    weaponManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("weapon.csv"))),
                         CreateSaveFilePath(_T("weaponSave.csv")),
                         m_encrypt);
 
@@ -565,7 +565,7 @@ void SaveManager::LoadDemoData()
     storehouseManager->Init(CreateDemoFilePath(_T("storehouseListOrigin.csv")));
 
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();
-    weaponManager->Init(CreateDemoFilePath(_T("weapon.csv")),
+    weaponManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("weapon.csv"))),
                         CreateDemoFilePath(_T("weaponSave.csv")),
                         m_encrypt);
 

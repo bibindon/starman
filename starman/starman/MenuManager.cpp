@@ -315,7 +315,7 @@ void MenuManager::InitMenu()
                     }
                     else
                     {
-                        work_str = weaponManager->GetImageName(itemDef.GetName());
+                        work_str = weaponManager->GetImageName2(itemDef.GetWeaponId());
                     }
 
                     sprItem->Load(work_str);
@@ -327,7 +327,7 @@ void MenuManager::InitMenu()
                     }
                     else
                     {
-                        work_str = weaponManager->GetDetail(itemDef.GetName());
+                        work_str = weaponManager->GetDetail2(itemDef.GetWeaponId());
                     }
                     work_str = itemDef.GetDetail();
                     work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
@@ -457,12 +457,12 @@ void MenuManager::InitMenu()
 
                     NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
 
-                    work_str = weaponManager->GetImageName(itemDef.GetName());
+                    work_str = weaponManager->GetImageName2(itemDef.GetWeaponId());
 
                     sprItem->Load(work_str);
                     weaponInfoG.SetSprite(sprItem);
 
-                    work_str = weaponManager->GetDetail(itemDef.GetName());
+                    work_str = weaponManager->GetDetail2(itemDef.GetWeaponId());
                     work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
 
                     weaponInfoG.SetDetail(work_str);
@@ -1632,7 +1632,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     }
     else
     {
-        work_str = weaponManager->GetImageName(itemDef.GetName());
+        work_str = weaponManager->GetImageName2(itemDef.GetWeaponId());
     }
 
     sprItem->Load(work_str);
@@ -1644,7 +1644,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     }
     else
     {
-        work_str = weaponManager->GetDetail(itemDef.GetName());
+        work_str = weaponManager->GetDetail2(itemDef.GetWeaponId());
     }
     work_str = itemDef.GetDetail();
     work_str.erase(std::remove(work_str.begin(), work_str.end(), '"'), work_str.end());
