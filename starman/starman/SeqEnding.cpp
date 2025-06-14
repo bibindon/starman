@@ -202,6 +202,7 @@ SeqEnding::SeqEnding()
 
         if (bTrueEnding)
         {
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -238,6 +239,45 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending01.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+                vs.push_back(_T("After a few hours, Starman woke up and walked inland from the beach."));
+                vs.push_back(_T("Before long, he came across a paved road."));
+                vs.push_back(_T("He followed the road and eventually reached a gas station."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("There he confirmed he was in the Republic of GEFORQE."));
+                vs.push_back(_T("He thought he’d been heading northwest, but had drifted far south."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("From that day on, he decided to ignore the law and put rescue above all else."));
+                vvs.push_back(vs);
+
+                // If he doesn’t have the house key, add one more line
+                {
+                    auto homeKey = Common::Inventory()->GetSubIdList(2);
+                    if (homeKey.empty())
+                    {
+                        vs.clear();
+                        vs.push_back(_T("Startled, Starman rummaged through his belongings."));
+                        vs.push_back(_T("(I lost my house key... Damn it...)"));
+                        vvs.push_back(vs);
+                    }
+                }
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -249,64 +289,160 @@ SeqEnding::SeqEnding()
                 vs.push_back(_T("ホシマンは深夜の海岸にいた。"));
                 vs.push_back(_T("ホシマンはラデオウ連邦に密入国していた。政府に頼るわけにはいかなかった。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("プロリタン島は国家的な犯罪の舞台となっているため、政府が救助に協力するか分からなかった。"));
                 vs.push_back(_T("それどころかホシマンが暗殺されてしまう可能性もあるとホシマンは考えた。"));
                 vs.push_back(_T("島には危険人物が二人いるため急いで救出に向かう必要もあった。自分で向かうしかなかった。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("モーターボートに乗るための免許は二日でとることができ、誰でも受かるようだった。"));
                 vs.push_back(_T("しかし陸から９ｋｍしか運転できなかった。"));
                 vs.push_back(_T("ラデオウ連邦からプロリタン島までは１４０ｋｍあり、個人が合法的に行くことはほぼ不可能だった。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("小型船舶の免許を取得するにもホシマンは密入国者だった。"));
                 vs.push_back(_T("ホシマンは借金をして中古のモーターボートをネットで購入した。"));
                 vs.push_back(_T("そして自家用車にボート取付用の器具を取り付け、モーターボートを取り付けた。"));
                 vvs.push_back(vs);
+
                 vs.clear();
-                vs.push_back(_T("さらに海上でも現在地を確認できるGPS受信機を購入した。"));
+                vs.push_back(_T("さらに海上でも現在地を確認できるＧＰＳ受信機を購入した。"));
                 vs.push_back(_T("日に日に無人島での生活はホシマンにとって過去の記憶となっていき、"));
                 vs.push_back(_T("記憶の中のダイケイマンとサンカクマンの声、形が曖昧となっていた。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("今も二人はプロリタン島にいる。命がけの逃亡生活をしているかもしれない。"));
                 vs.push_back(_T("どちらかは悪魔と契約しているかもしれない。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("決意が薄れ、このまま二人の救出をやめて普通の生活をし始めてしまうのではないか、"));
                 vs.push_back(_T("そのことがホシマンは恐怖だった。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("そして、８月３１日まで息を潜め、８月３１日に海岸までやってきた。"));
                 vs.push_back(_T("最悪、二人を救出した後なら、警察に捕まっても良い。警察に捕まれば助かるからだ。"));
                 vs.push_back(_T("ホシマンは郵便ポストに封筒を数枚いれた。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("封筒のあて先は存在しない住所であり、送り主が警察やマスコミとなっていた。"));
                 vs.push_back(_T("存在しない住所が書かれた郵便物は送り主のもとへ帰ってくる。"));
                 vs.push_back(_T("そして、送り主のもとへ帰ってくるのは１～２週間かかる。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("ホシマン単独による救助が失敗し、死亡した場合、プロリタン島に生存者がいるということを誰も知らなくなってしまう。"));
                 vs.push_back(_T("かと言って、警察に頼れば救助自体ができなくなる可能性があった。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("ホシマンが救助に失敗した場合、警察に郵便物が届き、"));
                 vs.push_back(_T("ホシマンが死亡した場合でもプロリタン島に生存者いるという情報が残せる、という作戦だった。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("郵便物には、生存者がいるということだけが書いてあり、差出人や生存者の情報は載せていなかった。"));
                 vs.push_back(_T("もし救出に成功すればそのままで問題なかった。"));
                 vs.push_back(_T("ホシマンは意を決してプロリタン島に向かって出発した。"));
                 vvs.push_back(vs);
+
                 vs.clear();
                 vs.push_back(_T("何もない真っ暗な海をモーターボートで進んだ。モーターボートの最高速度は時速２０ｋｍ程度。"));
-                vs.push_back(_T("時々、GPS受信機で現在地を確認した。"));
+                vs.push_back(_T("時々、ＧＰＳ受信機で現在地を確認した。"));
                 vs.push_back(_T("イカダで航海したときとは打って変わって危なげなく目的地まで到達できそうだった。"));
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending02.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+                vs.push_back(_T("Three months later, August 31."));
+                vs.push_back(_T("Starman stood on the beach in the middle of the night."));
+                vs.push_back(_T("He had illegally entered the Radeou Federation; relying on the authorities was impossible."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("Because Prolitan Island was the stage of a national-level crime, he doubted any government would help with a rescue."));
+                vs.push_back(_T("Starman even feared he might be assassinated."));
+                vs.push_back(_T("Two dangerous people were on the island, so he had to hurry there and rescue them himself."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("A motorboat license could be earned in two days, and almost anyone passed."));
+                vs.push_back(_T("However, it allowed travel only within nine kilometers of shore."));
+                vs.push_back(_T("Prolitan Island lay 140 kilometers from the Radeou Federation, making a legal trip nearly impossible."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("Since he was an illegal entrant, applying for a small-vessel license was not an option."));
+                vs.push_back(_T("Starman went into debt and bought a used motorboat online."));
+                vs.push_back(_T("He then fitted his car with a trailer hitch and mounted the boat."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("He also bought a GPS receiver so he could track his position at sea."));
+                vs.push_back(_T("Day by day, life on the deserted island faded into distant memory,"));
+                vs.push_back(_T("and the voices and faces of Trapezoid Man and Triangle Man grew hazy."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("The two were likely still on Prolitan Island, perhaps living on the run."));
+                vs.push_back(_T("One of them might even have struck a deal with a demon."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("He feared his resolve would weaken and he would simply return to an ordinary life without rescuing them,"));
+                vs.push_back(_T("and that possibility terrified Starman."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("So he laid low until August 31, then made his way to the coast."));
+                vs.push_back(_T("At worst, once the rescue was done, being arrested would be fine—getting caught meant survival."));
+                vs.push_back(_T("Starman slipped several envelopes into a mailbox."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("Each envelope was addressed to a nonexistent location and listed the police or the press as the sender."));
+                vs.push_back(_T("Mail sent to a fake address is returned to the sender,"));
+                vs.push_back(_T("and that return takes about one to two weeks."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("If his solo rescue failed and he died, no one would learn there were survivors on Prolitan Island."));
+                vs.push_back(_T("Yet asking the police outright might make the rescue impossible."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("His plan was that, if he failed, the mail would reach the police,"));
+                vs.push_back(_T("so the fact that survivors existed on Prolitan Island would remain even if he died."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("The letters said only that survivors were there; no sender or survivor details were given."));
+                vs.push_back(_T("If the rescue succeeded, they could simply be ignored."));
+                vs.push_back(_T("Steeling himself, Starman set out for Prolitan Island."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("He guided the motorboat across a pitch-black, empty sea at roughly twenty kilometers per hour."));
+                vs.push_back(_T("From time to time he checked the GPS to confirm his position."));
+                vs.push_back(_T("Unlike his raft voyage, it seemed he would reach the island without incident."));
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -336,6 +472,43 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending03.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                vs.clear();
+                vs.push_back(_T("The next morning, Starman reached the area near Directnex Coastal Cave."));
+                vs.push_back(_T("As he brought the boat closer to the cave, he spotted someone."));
+                vs.push_back(_T("It was Triangle Man, who noticed him and waved."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("Triangle Man slipped back inside for a moment, then Trapezoid Man emerged, leaning on his staff."));
+                vs.push_back(_T("When Starman pulled up to the cave, he waved to them before tying the motorboat to a rock with a rope."));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("\"It'd be a disaster if that drifted away,\""));
+                vs.push_back(_T("Trapezoid Man said with a laugh."));
+                vs.push_back(_T("\"Ha ha ha.\""));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("\"Give me a break,\""));
+                vs.push_back(_T("Starman climbed out of the water and stepped onto the sand. Trapezoid Man and Triangle Man joined him there."));
+                vs.push_back(_T("\"I'm so glad... truly glad...\""));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -373,6 +546,60 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending04.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                // ――― Greeting ―――
+                vs.clear();
+                vs.push_back(_T("\"We've been waiting for you!\""));
+                vs.push_back(_T("\"Looks like you can walk again.\""));
+                vs.push_back(_T("\"Yeah—so long as I've got this cane.\""));
+                vvs.push_back(vs);
+
+                // ――― Asking about the others ―――
+                vs.clear();
+                vs.push_back(_T("\"...\""));
+                vs.push_back(_T("\"So they never came, huh?\""));
+                vvs.push_back(vs);
+
+                // ――― Report on Gain ―――
+                vs.clear();
+                vs.push_back(_T("\"They did show up. Both of them were on the brink of starvation."));
+                vs.push_back(_T("  Gain tried to steal food in the middle of the night."));
+                vs.push_back(_T("  He could have just asked, but when he saw us he bolted—haven't seen him since.\""));
+                vvs.push_back(vs);
+
+                // ――― Report on Nes ―――
+                vs.clear();
+                vs.push_back(_T("\"As for Nes, well... the usual threats, so I sent him packing."));
+                vs.push_back(_T("No idea what’s become of either of them.\""));
+                vvs.push_back(vs);
+
+                // ――― Hurry back & grave suggestion ―――
+                vs.clear();
+                vs.push_back(_T("\"Understood. Sorry, but the police might show up, so we need to head back fast. Civilians aren’t allowed out here.\""));
+                vs.push_back(_T("\"O-okay.\""));
+                vs.push_back(_T("\"Want to stop by Square Man’s grave first?\""));
+                vvs.push_back(vs);
+
+                // ――― Visiting Square Man’s grave ―――
+                vs.clear();
+                vs.push_back(_T("\"...\""));
+                vs.push_back(_T("\"Y-yeah...\""));
+                vs.push_back(_T("Passing the coastal cave and moving inland, they found Square Man’s grave exactly as they remembered it."));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -390,6 +617,29 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending05.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                vs.push_back(_T("Starman knelt before the grave, pressed his hands together, and closed his eyes."));
+                vs.push_back(_T("\"\"\"...\"\"\""));
+                vvs.push_back(vs);
+
+                vs.clear();
+                vs.push_back(_T("\"Alright... let's go.\""));
+                vs.push_back(_T("Starman rose to his feet, and the three of them headed back toward the motorboat."));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -425,6 +675,55 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending06.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                // ―― Fuel preparation ――
+                vs.clear();
+                vs.push_back(_T("There were eight fuel tanks on the motorboat."));
+                vs.push_back(_T("\"Boats burn fuel like crazy—only about 2 km per liter."));
+                vs.push_back(_T("I brought 160 liters. Let me top her off, so hang tight.\""));
+                vvs.push_back(vs);
+
+                // ―― Refueling & calculation ――
+                vs.clear();
+                vs.push_back(_T("Less than ten percent of the boat’s fuel remained, and one jerry can was already empty."));
+                vs.push_back(_T("Starman used three 20-liter cans to fill the tank to the brim."));
+                vs.push_back(_T("\"The trip back will have three passengers and the current against us, so about 80 liters should be enough.\""));
+                vvs.push_back(vs);
+
+                // ―― Boarding ――
+                vs.clear();
+                vs.push_back(_T("\"Got it.\""));
+                vs.push_back(_T("\"Climb aboard. It’ll take roughly ten hours. Food and water are stowed inside.\""));
+                vs.push_back(_T("The three of them boarded the motorboat."));
+                vvs.push_back(vs);
+
+                // ―― Snacks & departure ――
+                vs.clear();
+                vs.push_back(_T("\"Snacks—haven’t had those in ages.\""));
+                vs.push_back(_T("\"Everything’s small, light, and calorie-dense, so it’s mostly sweets. Eat as much as you like.\""));
+                vs.push_back(_T("The smell of gasoline filled the air. When he turned the key, the engine roared to life."));
+                vvs.push_back(vs);
+
+                // ―― Silent prayer & launch ――
+                vs.clear();
+                vs.push_back(_T("(Please… let us get home safely…)"));
+                vs.push_back(_T("They cast off the rope and set out."));
+                vs.push_back(_T("Starman checked the GPS as they pushed forward."));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -444,6 +743,32 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending07.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                // ボート上での第一声
+                vs.push_back(_T("\"Whoa—amazing!\""));
+                vs.push_back(_T("\"This takes me back to when we boarded a boat a year ago.\""));
+                vs.push_back(_T("\"...\""));
+                vvs.push_back(vs);
+
+                // 後方の島と岸の人物に気づく場面
+                vs.clear();
+                vs.push_back(_T("Trapezoid Man and Triangle Man soaked up the salty breeze. When they glanced back, the island was already far in the distance."));
+                vs.push_back(_T("Triangle Man spotted someone with horns standing on the shore and waved to them."));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -472,6 +797,48 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending08.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                // ―― 本土到着 ――
+                vs.push_back(_T("Nine hours later, the three arrived on the mainland of the Radeou Federation."));
+                vvs.push_back(vs);
+
+                // ―― ホシマン宅で一泊・電話 ――
+                vs.clear();
+                vs.push_back(_T("They decided to spend the night at Starman's house."));
+                vs.push_back(_T("After arriving, Triangle Man called his maternal grandparents."));
+                vs.push_back(_T("They agreed to pick him up."));
+                vvs.push_back(vs);
+
+                // ―― 両親が事故で死亡と判明 ――
+                vs.clear();
+                vs.push_back(_T("There he learned that his parents had died in the maritime accident a year earlier."));
+                vvs.push_back(vs);
+
+                // ―― 翌日・老夫婦来訪・病院へ ――
+                vs.clear();
+                vs.push_back(_T("The next day an elderly couple arrived by car; Triangle Man left with them."));
+                vs.push_back(_T("After that, Starman took Trapezoid Man to the hospital."));
+                vs.push_back(_T("News spread that survivors of last year's shipwreck had finally returned."));
+                vvs.push_back(vs);
+
+                // ―― 警察の事情聴取 ――
+                vs.clear();
+                vs.push_back(_T("Starman and the others were summoned for questioning by the police."));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -552,6 +919,116 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending09.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                // ―― 再会シーン ――
+                vs.push_back(_T("One year later, the three met at a café near Triangle Man's house."));
+                vs.push_back(_T("They had stayed in touch through social media, but decided it was time to see each other again."));
+                vs.push_back(_T("When they returned to the Radeou Federation a year ago, Starman was arrested, questioned, and later released."));
+                vvs.push_back(vs);
+
+                // ―― 沈没事故の真相 ――
+                vs.clear();
+                vs.push_back(_T("The real reason the ship heading to Optipl Island sank"));
+                vs.push_back(_T("was that officials pocketed the subsidy the government had allocated for repairs."));
+                vs.push_back(_T("The vessel was listed as fixed, but no work had ever been done."));
+                vvs.push_back(vs);
+
+                // ―― 帰還報道が小さい理由 ――
+                vs.clear();
+                vs.push_back(_T("Because government-ordered journalist assassinations were routine in the Radeou Federation,"));
+                vs.push_back(_T("news of their return received only minimal coverage."));
+                vvs.push_back(vs);
+
+                // ―― ニュースが埋もれる情報社会 ――
+                vs.clear();
+                vs.push_back(_T("In a hyper-connected information society,"));
+                vs.push_back(_T("the headline \"Survivors Return from Deserted Island\" was quickly buried by the endless flow of online news."));
+                vvs.push_back(vs);
+
+                // ―― ３人の近況 ――
+                vs.clear();
+                vs.push_back(_T("To repay his debts, Starman had taken a warehouse job."));
+                vs.push_back(_T("Trapezoid Man underwent several orthopedic surgeries and could finally walk."));
+                vs.push_back(_T("Triangle Man now lived with his maternal grandparents and was in sixth grade."));
+                vvs.push_back(vs);
+
+                // ―― 喫茶店でメニューを見る ――
+                vs.clear();
+                vs.push_back(_T("Browsing the menu, the three debated what to order."));
+                vs.push_back(_T("\"Guess we have to order this one,\""));
+                vs.push_back(_T("Trapezoid Man said, showing them a photo."));
+                vvs.push_back(vs);
+
+                // ―― パエリアの話題 ――
+                vs.clear();
+                vs.push_back(_T("Starman and Triangle Man leaned in; the dish was paella."));
+                vs.push_back(_T("\"Turns out those black shells really were mussels after all,\" Starman said."));
+                vvs.push_back(vs);
+
+                // ―― 味比べの提案 ――
+                vs.clear();
+                vs.push_back(_T("\"Let's compare the taste. I never liked finding shells mixed in with the rice.\""));
+                vs.push_back(_T("\"How about now?\""));
+                vs.push_back(_T("\"Hmm...\""));
+                vvs.push_back(vs);
+
+                // ―― 無人島の食事を思い出す ――
+                vs.clear();
+                vs.push_back(_T("\"We ate so many muddy things back on that island...\""));
+                vs.push_back(_T("\"Yeah, I know...\""));
+                vs.push_back(_T("Soon the paella, a nata-de-coco dessert, and fresh fruit arrived."));
+                vvs.push_back(vs);
+
+                // ―― フルーツばかり頼む理由 ――
+                vs.clear();
+                vs.push_back(_T("\"They're probably wondering why we ordered so much fruit,\" Trapezoid Man joked."));
+                vs.push_back(_T("The three of them tried the mussels."));
+                vvs.push_back(vs);
+
+                // ―― 無人島のムール貝には勝てない ――
+                vs.clear();
+                vs.push_back(_T("\"Tastes the same... but nothing beats the mussels we had on the island,\" Triangle Man said proudly."));
+                vs.push_back(_T("Starman drifted back to that day."));
+                vvs.push_back(vs);
+
+                // ―― 思い出話 ――
+                vs.clear();
+                vs.push_back(_T("\"We once hiked all night through the forest from the village hall to the coastal cave."));
+                vs.push_back(_T("We reached it at night, built a fire, and the four of us played cards"));
+                vs.push_back(_T("while eating these mussels. Good times.\""));
+                vvs.push_back(vs);
+
+                // ―― 次の約束 ――
+                vs.clear();
+                vs.push_back(_T("\"... Should we hit the beach next time we meet—just the three of us?\""));
+                vs.push_back(_T("\"I’m in!\""));
+                vvs.push_back(vs);
+
+                // ―― 決定 ――
+                vs.clear();
+                vs.push_back(_T("\"...\""));
+                vs.push_back(_T("They looked at one another."));
+                vs.push_back(_T("\"It’s settled, then,\""));
+                vvs.push_back(vs);
+
+                // ―― ホシマンの一言 ――
+                vs.clear();
+                vs.push_back(_T("Starman said."));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -565,9 +1042,24 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending10.en.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                vs.push_back(_T(""));
+                vvs.push_back(vs);
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
         }
         else
         {
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
@@ -606,10 +1098,72 @@ SeqEnding::SeqEnding()
                 page.SetTextList(vvs);
                 pageList.push_back(page);
             }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending01.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                // ―― 砂浜から内陸へ ――
+                vs.push_back(_T("Several hours later, Starman awoke and headed inland from the beach."));
+                vs.push_back(_T("After a while he found a road."));
+                vs.push_back(_T("Following it, he came upon a gas station."));
+                vvs.push_back(vs);
+
+                // ―― 現在地の確認 ――
+                vs.clear();
+                vs.push_back(_T("There he confirmed he was in the Republic of GEFORQE."));
+                vs.push_back(_T("He thought he’d been walking northwest, but he had drifted far south."));
+                vvs.push_back(vs);
+
+                // ―― 通報と保護 ――
+                vs.clear();
+                vs.push_back(_T("A passer-by who saw him alerted the authorities, and Starman was quickly taken into protective custody."));
+                vs.push_back(_T("He explained the situation to the police, and a rescue team was dispatched to the deserted island."));
+                vvs.push_back(vs);
+
+                // ―― 救助隊の発見 ――
+                vs.clear();
+                vs.push_back(_T("The rescuers found only one survivor."));
+                vvs.push_back(vs);
+
+                // ―― 追加の生存者確認 ――
+                vs.clear();
+                vs.push_back(_T("They asked the survivor if anyone else was still alive."));
+                vvs.push_back(vs);
+
+                // ―― 生存者の返答 ――
+                vs.clear();
+                vs.push_back(_T("The survivor answered,"));
+                vs.push_back(_T("\"I've never seen anyone else on that island besides myself.\""));
+                vvs.push_back(vs);
+
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+
+            if (!SharedObj::IsEnglish())
             {
                 Page page;
                 ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
                 sprite->Load(_T("res\\image\\ending10.png"));
+                page.SetSprite(sprite);
+                std::vector<std::vector<std::wstring> > vvs;
+                std::vector<std::wstring> vs;
+
+                vs.push_back(_T(""));
+                vvs.push_back(vs);
+                page.SetTextList(vvs);
+                pageList.push_back(page);
+            }
+            else
+            {
+                Page page;
+                ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
+                sprite->Load(_T("res\\image\\ending10.en.png"));
                 page.SetSprite(sprite);
                 std::vector<std::vector<std::wstring> > vvs;
                 std::vector<std::wstring> vs;
