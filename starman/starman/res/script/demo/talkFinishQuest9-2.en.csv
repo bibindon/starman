@@ -1,0 +1,7 @@
+ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
+1,Star Man spotted a ruin in the distance.,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
+・半角英数字は使用禁止
+・３行まで
+・オプション2は左に表示したい画像
+・オプション3は右に表示したい画像"
+2,(Let’s search inside the ruin.),res\\image\\hoshiman00.png,,,

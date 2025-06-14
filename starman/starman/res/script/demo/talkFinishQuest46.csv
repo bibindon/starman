@@ -30,13 +30,13 @@
 18,"どういうことかわからず、理解が追い付かなかった。
 ダイケイマンたちの方を見たが目を合わせず何も言わなかった。",res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 19,「オメーらが人の家に勝手に入ってンだろうが！！」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-20,「・・・？,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-21,　ここに以前住んでたのか？」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+20,「・・・？」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+21,「ここに以前住んでたのか？」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 22,"「そうだよ！　ずっと前から住んでたのにちょっと家、
 　離れたらめちゃくちゃにしやがって！
 　どう責任とンだよ！　えぇ！？」",res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-23,「・・・。,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-24,　言いたいことは分かったが、まずは『返せ、出ていけ』と言えよ」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+23,「・・・」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+24,「言いたいことは分かったが、まずは『返せ、出ていけ』と言えよ」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 25,"「はぁ？！　ちげぇよ。
 　こっちが説明しようとしてんのにこいつらが先にやってきたんだ」",res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 26,男はダイケイマンたちの方を指さした。,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
@@ -58,15 +58,15 @@
 40,「今、謝罪したよなぁ！　じゃあ自分が悪いって認めたんじゃねぇか！」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 41,「・・・」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 42,「あとこれから、手に入れた食料は半分ここに毎日収めろ」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-43,「・・・！？,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-44,　そんな要求は引き受けられない。,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-45,　こっちだってギリギリでやってるんだ」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+43,「・・・！？」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+44,「そんな要求は引き受けられない」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+45,「こっちだってギリギリでやってるんだ」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 46,「んだとテメェ！」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 47,男はホシマンを蹴った。,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 48,「・・・」,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 49,男はホシマンの首を絞め、揺さぶる。,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-50,（もう・・・こいつを殺すしか・・・。,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
-51,　やるか・・・やらないと・・・）,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+50,（もう・・・こいつを殺すしか・・・）,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
+51,（やるか・・・やらないと・・・）,res\\image\\hoshiman00.png,res\\image\\gain00.png,,
 52,"男は手を離し、子供のほうに歩いて行った。
 座っていた子供たちは手で頭を覆う。",,res\\image\\gain00.png,,
 53,"男はサンカクマンを殴った。
@@ -94,17 +94,17 @@
 67,「大丈夫か・・・？」,res\\image\\hoshiman00.png,,,
 68,「・・・」,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
 69,返事はなかった。,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
-70,「・・・。,res\\image\\daikeiman00.png,,,
-71,"　あいつは、ガインと言う奴だ。
+70,「・・・」,res\\image\\daikeiman00.png,,,
+71,"「あいつは、ガインと言う奴だ。
 　あの、言っておくと、あいつが言っていた、
-　『こいつらが先に手を出した』って話。あれは嘘。",res\\image\\daikeiman00.png,,,
-72,　会うなり殴りかかってきた」,res\\image\\daikeiman00.png,,,
+　『こいつらが先に手を出した』って話。あれは嘘」",res\\image\\daikeiman00.png,,,
+72,「会うなり殴りかかってきた」,res\\image\\daikeiman00.png,,,
 73,ダイケイマンが言った。,res\\image\\daikeiman00.png,,,
 74,「・・・そうか。そうだと思う」,res\\image\\hoshiman00.png,,,
 75,「あの人、船でみたよ。僕たちと同じ船に乗ってた」,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
 76,シカクマンが言った。,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
-77,「・・・。,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
-78,　じゃあずっと前からここにいたってのも嘘か・・・」,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
+77,「・・・」,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
+78,「じゃあずっと前からここにいたってのも嘘か・・・」,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
 79,「なんで僕たちが出ていかないといけないの？！　おかしいじゃん！」,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
 80,サンカクマンが言った。,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
 81,「・・・」,res\\image\\hoshiman00.png,,,
