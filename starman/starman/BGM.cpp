@@ -768,8 +768,7 @@ void BGMEnvModel::InvestigateBGMEnv()
     }
     else
     {
-        //m_bRain = false;
-        m_bRain = true;
+        m_bRain = false;
     }
 
     // 松明の環境音

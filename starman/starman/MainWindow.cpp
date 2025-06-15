@@ -125,8 +125,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
 
         std::wstring lang = SaveManager::Get()->GetLangFile();
 
-        //if (!lang.empty())
-        if (lang.empty())
+        if (!lang.empty())
         {
             if (lang == _T("Japanese"))
             {
