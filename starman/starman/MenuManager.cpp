@@ -1146,6 +1146,55 @@ std::wstring MenuManager::OperateMenu()
             work += buf;
             work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + _T("\n");
 
+            // 見づらい。ページを変えるとか右のほうに表示するとかしないとまずい。
+			if (statusManager->GetFractureArm())
+            {
+				label = PadRightDisplayWidth(L"腕の骨折が治るまでの日数", 30);
+				_snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
+				work += buf;
+                work += Common::ToStringWithPrecision((float)statusManager->GetFractureArmCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
+            }
+
+            if (statusManager->GetFractureLeg())
+            {
+                label = PadRightDisplayWidth(L"足の骨折が治るまでの日数", 30);
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision((float)statusManager->GetFractureLegCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
+            }
+
+            if (statusManager->GetHeadache())
+            {
+                label = PadRightDisplayWidth(L"頭痛が治るまでの日数", 30);
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision((float)statusManager->GetHeadacheCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
+            }
+
+            if (statusManager->GetCold())
+            {
+                label = PadRightDisplayWidth(L"風邪が治るまでの日数", 30);
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision((float)statusManager->GetColdCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
+            }
+
+            if (statusManager->GetStomachache())
+            {
+                label = PadRightDisplayWidth(L"腹痛が治るまでの日数", 30);
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision((float)statusManager->GetStomachacheCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
+            }
+
+            if (statusManager->GetStomachache())
+            {
+                label = PadRightDisplayWidth(L"脱水症状が治るまでの日数", 30);
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
+                work += buf;
+                work += Common::ToStringWithPrecision((float)statusManager->GetDehydrationCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
+            }
+
             auto rynen = NSStarmanLib::Rynen::GetObj();
             if (rynen->GetContracted())
             {
