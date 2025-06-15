@@ -742,7 +742,28 @@ void Player::Update(Map* map)
 
     if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
-        SetJump();
+        if (m_bUnderwater == false)
+        {
+			float joyRadian = GamePad::GetLeftRadian();
+            // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
+            // if (joyRadian < 1.f)
+            if (GamePad::IsDown(eGamePadButtonType::LEFT))
+            {
+                SetStep(eDir::LEFT);
+            }
+            else if (GamePad::IsDown(eGamePadButtonType::DOWN))
+            {
+                SetStep(eDir::BACK);
+            }
+            else if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+            {
+                SetStep(eDir::RIGHT);
+            }
+            else
+            {
+                SetJump();
+            }
+        }
     }
 
     if (GamePad::IsDownFirst(eGamePadButtonType::UP) &&
