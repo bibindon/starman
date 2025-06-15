@@ -691,24 +691,35 @@ void SeqBattle::OperateStorehouse()
         }
     }
 
+    // 長押ししたときのカーソルの移動が速すぎるので3回に1回の移動に減速させる
+    static int holdCounter = 0;
+
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
-        m_storehouse->Up();
+		m_storehouse->Up();
     }
 
     if (SharedObj::KeyBoard()->IsHold(DIK_UP))
     {
-        m_storehouse->Up();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_storehouse->Up();
+        }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
     {
-        m_storehouse->Down();
+		m_storehouse->Down();
     }
 
     if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
     {
-        m_storehouse->Down();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_storehouse->Down();
+        }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
@@ -932,14 +943,40 @@ void SeqBattle::OperateStorehouse()
     // GamePad
     //---------------------------------------------------------
 
-    if (GamePad::IsDown(eGamePadButtonType::UP))
+    if (GamePad::IsDownFirst(eGamePadButtonType::UP))
     {
-        m_storehouse->Up();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_storehouse->Up();
+        }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::DOWN))
+    if (GamePad::IsHold(eGamePadButtonType::UP))
     {
-        m_storehouse->Down();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_storehouse->Up();
+        }
+    }
+
+    if (GamePad::IsDownFirst(eGamePadButtonType::DOWN))
+    {
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_storehouse->Down();
+        }
+    }
+
+    if (GamePad::IsHold(eGamePadButtonType::DOWN))
+    {
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_storehouse->Down();
+        }
     }
 
     if (GamePad::IsDown(eGamePadButtonType::LEFT))

@@ -647,7 +647,7 @@ std::wstring MenuManager::OperateMenu()
     std::wstring work_str;
 
     // 長押ししたときのカーソルの移動が速すぎるので3回に1回の移動に減速させる
-    static int holdCounter = true;
+    static int holdCounter = 0;
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {

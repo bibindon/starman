@@ -290,6 +290,8 @@ std::wstring PatchTestManager2::Operate()
     std::wstring result;
     std::wstring work_str;
 
+    static int holdCounter = 0;
+
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
         m_guiLib.Up();
@@ -297,7 +299,11 @@ std::wstring PatchTestManager2::Operate()
 
     if (SharedObj::KeyBoard()->IsHold(DIK_UP))
     {
-        m_guiLib.Up();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_guiLib.Up();
+        }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
@@ -307,7 +313,11 @@ std::wstring PatchTestManager2::Operate()
 
     if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
     {
-        m_guiLib.Down();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_guiLib.Down();
+        }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_LEFT))
@@ -378,7 +388,11 @@ std::wstring PatchTestManager2::Operate()
 
     if (GamePad::IsHold(eGamePadButtonType::UP))
     {
-        m_guiLib.Up();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_guiLib.Up();
+        }
     }
 
     if (GamePad::IsDownFirst(eGamePadButtonType::DOWN))
@@ -388,7 +402,11 @@ std::wstring PatchTestManager2::Operate()
 
     if (GamePad::IsHold(eGamePadButtonType::DOWN))
     {
-        m_guiLib.Down();
+        holdCounter++;
+        if (holdCounter % 3 == 0)
+        {
+			m_guiLib.Down();
+        }
     }
 
     if (GamePad::IsDownFirst(eGamePadButtonType::LEFT))
