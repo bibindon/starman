@@ -606,6 +606,17 @@ void AssignContent(const std::vector<stPos>& posList,
         }
 
         // 3
+        // なぜか映らないので二つ表示する
+        {
+            stMapObj _stMapObj;
+            _stMapObj.m_id = 2;
+            _stMapObj.m_pos = stPos(-248, -23.5, 544);
+            _stMapObj.m_scale = 2;
+
+            mapObjList->push_back(_stMapObj);
+        }
+
+        // 3
         {
             stMapObj _stMapObj;
             _stMapObj.m_id = 2;

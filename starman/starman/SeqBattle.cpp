@@ -1988,8 +1988,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     work = work.erase(it, 6);
 
                     auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
-                    std::vector<NSStarmanLib::stMapObj> mapObjs =
-                        mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
+                    auto mapObjs = mapObjManager->GetMapObjListR(m_player->GetPos().x, m_player->GetPos().z, 5.f);
 
                     for (int i = 0; i < (int)mapObjs.size(); ++i)
                     {
