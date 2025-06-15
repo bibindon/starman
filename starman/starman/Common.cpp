@@ -86,7 +86,7 @@ bool Common::FasterMode()
 
 bool Common::StrongMode()
 {
-    bool bStrongMode = false;
+    bool bStrongMode = true;
 
     // デバッグモードじゃなければ常にOFF
     if (!m_bDebugMode)
