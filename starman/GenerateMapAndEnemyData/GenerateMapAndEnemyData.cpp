@@ -589,7 +589,7 @@ void AssignContent(const std::vector<stPos>& posList,
         {
             stMapObj _stMapObj;
             _stMapObj.m_id = 2;
-            _stMapObj.m_pos = stPos(-270, 19, 523);
+            _stMapObj.m_pos = stPos(-270, 18.5, 523);
             _stMapObj.m_scale = 2;
 
             mapObjList->push_back(_stMapObj);
@@ -599,7 +599,7 @@ void AssignContent(const std::vector<stPos>& posList,
         {
             stMapObj _stMapObj;
             _stMapObj.m_id = 2;
-            _stMapObj.m_pos = stPos(-258, 19, 504);
+            _stMapObj.m_pos = stPos(-268, 19, 504);
             _stMapObj.m_scale = 2;
 
             mapObjList->push_back(_stMapObj);
@@ -609,7 +609,7 @@ void AssignContent(const std::vector<stPos>& posList,
         {
             stMapObj _stMapObj;
             _stMapObj.m_id = 2;
-            _stMapObj.m_pos = stPos(-248, 24, 544);
+            _stMapObj.m_pos = stPos(-248, 23.5, 544);
             _stMapObj.m_scale = 2;
 
             mapObjList->push_back(_stMapObj);
@@ -649,7 +649,7 @@ void AssignContent(const std::vector<stPos>& posList,
         {
             stMapObj _stMapObj;
             _stMapObj.m_id = 3;
-            _stMapObj.m_pos = stPos(-270, 19, 523);
+            _stMapObj.m_pos = stPos(-270, 18.5, 523);
             _stMapObj.m_scale = 2;
 
             mapObjList->push_back(_stMapObj);
@@ -669,7 +669,7 @@ void AssignContent(const std::vector<stPos>& posList,
         {
             stMapObj _stMapObj;
             _stMapObj.m_id = 3;
-            _stMapObj.m_pos = stPos(-248, 24, 544);
+            _stMapObj.m_pos = stPos(-248, 23.5, 544);
             _stMapObj.m_scale = 2;
 
             mapObjList->push_back(_stMapObj);
@@ -705,115 +705,117 @@ void AssignContent(const std::vector<stPos>& posList,
             mapObjList->push_back(_stMapObj);
         }
 
-        // 13
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 7;
-            _stMapObj.m_pos = stPos(-214, 33, 545);
-            _stMapObj.m_scale = 2;
+        // 13 ~ 23 pass
 
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 14
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 7;
-            _stMapObj.m_pos = stPos(-220, 31, 553);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 15
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 7;
-            _stMapObj.m_pos = stPos(-197, 37, 569);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 16
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-220, 29, 574);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 17
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-228, 28, 552);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 18
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-222, 31, 536);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 19
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-227, 31, 519);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 20
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-230, 33, 478);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 21
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-220, 34, 503);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 22
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-214, 34, 522);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
-
-        // 23
-        {
-            stMapObj _stMapObj;
-            _stMapObj.m_id = 8;
-            _stMapObj.m_pos = stPos(-216, 33, 548);
-            _stMapObj.m_scale = 2;
-
-            mapObjList->push_back(_stMapObj);
-        }
+//        // 13
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 7;
+//            _stMapObj.m_pos = stPos(-214, -33, 545);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 14
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 7;
+//            _stMapObj.m_pos = stPos(-220, -31, 553);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 15
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 7;
+//            _stMapObj.m_pos = stPos(-197, -37, 569);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 16
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-220, -29, 574);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 17
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-228, -28, 552);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 18
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-222, -31, 536);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 19
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-227, -31, 519);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 20
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-230, -33, 478);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 21
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-220, -34, 503);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 22
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-214, -34, 522);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
+//
+//        // 23
+//        {
+//            stMapObj _stMapObj;
+//            _stMapObj.m_id = 8;
+//            _stMapObj.m_pos = stPos(-216, -33, 548);
+//            _stMapObj.m_scale = 2;
+//
+//            mapObjList->push_back(_stMapObj);
+//        }
 
         // 24, 25, 26, 27 Pass
 
