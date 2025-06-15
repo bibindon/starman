@@ -422,12 +422,7 @@ void Player::Update(Map* map)
 
     if (Common::DebugMode())
     {
-        float magni = 10.f;
-
-        if (Common::FasterMode())
-        {
-            magni = 100.f;
-        }
+        float magni = 2.f;
 
         if (SharedObj::KeyBoard()->IsDown(DIK_G))
         {
