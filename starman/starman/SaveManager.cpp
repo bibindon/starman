@@ -371,7 +371,7 @@ void SaveManager::LoadOrigin()
     mapObjManager->InitWithBinary(GetOriginMapPath(),
                                   CreateOriginFilePath(_T("map_obj_type.csv")), m_encrypt);
 
-    QuestManager::Get()->Init(CreateOriginFilePath(_T("quest.csv")), _T(""));
+    QuestManager::Get()->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("quest.csv"))), _T(""));
 
     m_progress.store(45);
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
@@ -476,7 +476,7 @@ void SaveManager::Load()
 
     m_progress.store(45);
 
-    QuestManager::Get()->Init(CreateOriginFilePath(_T("quest.csv")),
+    QuestManager::Get()->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("quest.csv"))),
                               CreateSaveFilePath(_T("questSave.csv")));
 
     m_progress.store(75);
@@ -597,7 +597,7 @@ void SaveManager::LoadDemoData()
     mapObjManager->InitWithBinary(GetDemofileMapPath(),
                                   CreateDemoFilePath(_T("map_obj_type.csv")), m_encrypt);
 
-    QuestManager::Get()->Init(CreateDemoFilePath(_T("quest.csv")), _T(""));
+    QuestManager::Get()->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("quest.csv"))), _T(""));
 
     m_progress.store(45);
     NSStarmanLib::PatchTestManager* patchTestManager = NSStarmanLib::PatchTestManager::Get();
