@@ -464,13 +464,33 @@ void CraftManager::Operate(eBattleState* state)
             // クラフト開始
             std::wstring work = result;
             auto index = work.find(_T("+"));
+            int num = 0;
             if (index != std::wstring::npos)
             {
+                auto sub = work.substr(index + 1);
+                num = std::stoi(sub);
                 work.erase(index);
             }
 
             std::wstring errMsg;
-            bool started = craftSys->QueueCraftRequest(work, &errMsg);
+
+            auto itemId = Common::ItemManager()->GetItemDef(work).GetId();
+            bool started = false;
+            if (itemId == 4)
+            {
+                ++num;
+				started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
+            }
+            else if (itemId == 10)
+            {
+                num += 5;
+				started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
+            }
+            else
+            {
+				started = craftSys->QueueCraftRequest(work, &errMsg);
+            }
+
             if (!started)
             {
 				if (!SharedObj::IsEnglish())
@@ -525,6 +545,53 @@ void CraftManager::Build()
             {
                 continue;
             }
+
+			// 毒抜きの場合、成果物は同じだが個数が違うというクラフトがある。
+			// 例えば、毒抜き用の袋（レベル1）で毒抜きすると多めに成果物を得られる。
+			if (info.GetItemId() == 4 || info.GetItemId() == 10)
+			{
+				int bagLevel = 0;
+				auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();
+				for (auto& material : materials)
+				{
+					// 98 == 毒抜き用の袋
+					if (material.GetId() == 98)
+					{
+						bagLevel = 0;
+						break;
+					}
+					else if (material.GetId() == 99)
+					{
+						bagLevel = 1;
+						break;
+					}
+					else if (material.GetId() == 100)
+					{
+						bagLevel = 2;
+						break;
+					}
+					else if (material.GetId() == 101)
+					{
+						bagLevel = 3;
+						break;
+					}
+					else if (material.GetId() == 102)
+					{
+						bagLevel = 4;
+						break;
+					}
+					else if (material.GetId() == 103)
+					{
+						bagLevel = 5;
+						break;
+					}
+				}
+
+				if (bagLevel != 0)
+				{
+					name += L"+" + std::to_wstring(bagLevel);
+				}
+			}
             vs.push_back(name);
         }
 
@@ -611,15 +678,61 @@ void CraftManager::Build()
 
                     ++i;
                 }
+                auto name = info.GetName();
 
-                m_gui.SetOutputInfo(info.GetName(), work);
+                // 毒抜きの場合、成果物は同じだが個数が違うというクラフトがある。
+                // 例えば、毒抜き用の袋（レベル1）で毒抜きすると多めに成果物を得られる。
+                if (info.GetItemId() == 4 || info.GetItemId() == 10)
+                {
+                    int bagLevel = 0;
+                    for (auto& material : materials)
+                    {
+                        // 98 == 毒抜き用の袋
+                        if (material.GetId() == 98)
+                        {
+                            bagLevel = 0;
+                            break;
+                        }
+                        else if (material.GetId() == 99)
+                        {
+                            bagLevel = 1;
+                            break;
+                        }
+                        else if (material.GetId() == 100)
+                        {
+                            bagLevel = 2;
+                            break;
+                        }
+                        else if (material.GetId() == 101)
+                        {
+                            bagLevel = 3;
+                            break;
+                        }
+                        else if (material.GetId() == 102)
+                        {
+                            bagLevel = 4;
+                            break;
+                        }
+                        else if (material.GetId() == 103)
+                        {
+                            bagLevel = 5;
+                            break;
+                        }
+                    }
+                    if (bagLevel != 0)
+                    {
+						name += L"+" + std::to_wstring(bagLevel);
+                    }
+                }
+
+                m_gui.SetOutputInfo(name, work);
                 work.clear();
 
                 NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                 auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
                 auto imagePath = itemDef.GetImagePath();
 
-                m_gui.SetOutputImage(info.GetName(), imagePath, sprite1);
+                m_gui.SetOutputImage(name, imagePath, sprite1);
             }
 
         }
