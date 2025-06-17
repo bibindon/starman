@@ -227,7 +227,8 @@ void MeshClone::Init()
             m_vecColorMap[m_meshName].at(i).y = materials[i].MatD3D.Diffuse.g;
             m_vecColorMap[m_meshName].at(i).z = materials[i].MatD3D.Diffuse.b;
             m_vecColorMap[m_meshName].at(i).w = materials[i].MatD3D.Diffuse.a;
-            if (materials[i].pTextureFilename != nullptr)
+            if (materials[i].pTextureFilename != nullptr &&
+                strlen(materials[i].pTextureFilename) != 0)
             {
                 std::wstring texPath = xFileDir;
                 texPath += Common::Utf8ToWstring(materials[i].pTextureFilename);
