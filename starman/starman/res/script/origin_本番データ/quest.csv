@@ -239,7 +239,7 @@ daikeiman",,"<npc><daikeiman><pos>20:491.7:-563
 <talk>res\\script\\origin\\talkFinishQuest9-4.csv"
 Q30,"クエストが完了していたら
 クエストが完了していないなら","Q29
-Q30",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:10,,"<talk>res\\script\\origin\\talkFinishQuest10.csv
+Q30",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:50,,"<talk>res\\script\\origin\\talkFinishQuest10.csv
 <showMap>7"
 Q31,"クエストが完了していたら
 クエストが完了していないなら","Q30

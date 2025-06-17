@@ -30,7 +30,7 @@ void PopUp::Init(const bool bEnglish)
     if (!bEnglish)
     {
         D3DXCreateFont(D3DDevice,
-                       32,
+                       24,
                        0,
                        FW_NORMAL,
                        1,
@@ -45,7 +45,7 @@ void PopUp::Init(const bool bEnglish)
     else
     {
         D3DXCreateFont(D3DDevice,
-                       30,
+                       24,
                        0,
                        FW_NORMAL,
                        1,
