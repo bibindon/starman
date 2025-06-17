@@ -177,7 +177,8 @@ void Mesh::Init()
         //--------------------------------------------------------
         // テクスチャの読み込み
         //--------------------------------------------------------
-        if (materialList[i].pTextureFilename != nullptr)
+        if (materialList[i].pTextureFilename != nullptr &&
+            strlen(materialList[i].pTextureFilename) != 0)
         {
             std::wstring texturePath = xFileDir;
             texturePath += Common::Utf8ToWstring(materialList[i].pTextureFilename);
