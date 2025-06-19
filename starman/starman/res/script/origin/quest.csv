@@ -239,7 +239,7 @@ daikeiman",,"<npc><daikeiman><pos>20:491.7:-563
 <talk>res\\script\\origin\\talkFinishQuest9-4.csv"
 Q30,"クエストが完了していたら
 クエストが完了していないなら","Q29
-Q30",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:10,,"<talk>res\\script\\origin\\talkFinishQuest10.csv
+Q30",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:50,,"<talk>res\\script\\origin\\talkFinishQuest10.csv
 <showMap>7"
 Q31,"クエストが完了していたら
 クエストが完了していないなら","Q30
@@ -272,7 +272,7 @@ Q35,"クエストが完了していたら
 クエストが完了していないなら","Q34
 Q35",<hint>ホシマン（子供たちは大きな岩のあたりにいたはずだ）,"調べたら
 NPCのXが生存
-NPCのXが生存","'-206:106:198:10
+NPCのXが生存","-206:106:198:10
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest15.csv
 <npc><sankakuman><showMenu>y
@@ -291,7 +291,7 @@ Q37,"クエストが完了していたら
 クエストが完了していないなら","Q36
 Q37",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,"位置
 NPCのXが生存
-NPCのXが生存","'-1365:12:-581:20
+NPCのXが生存","-1365:12:-581:20
 sankakuman
 shikakuman",,"
 <talk>res\\script\\origin\\talkFinishQuest17.csv
@@ -354,7 +354,7 @@ Q45,"クエストが完了していたら
 クエストが完了していないなら","Q44
 Q45",<hint>ホシマン（ヤシの木があった場所に行こう）,"位置
 NPCのXが生存
-NPCのXが生存","'-1365:12:-581:100
+NPCのXが生存","-1365:12:-581:100
 sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest25.csv
 Q46,"クエストが完了していたら
