@@ -18,6 +18,8 @@ public:
     {
         TREE,
         GRASS,
+        WATER,
+        SEA,
         OTHER,
     };
 

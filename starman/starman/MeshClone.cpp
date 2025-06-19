@@ -260,6 +260,14 @@ void MeshClone::Init()
     {
         m_eMeshType = eMeshType::GRASS;
     }
+    else if (ContainMeshName(_T("water.x")))
+    {
+        m_eMeshType = eMeshType::WATER;
+    }
+    else if (ContainMeshName(_T("sea.x")))
+    {
+        m_eMeshType = eMeshType::SEA;
+    }
     else
     {
         m_eMeshType = eMeshType::OTHER;
@@ -459,7 +467,6 @@ void MeshClone::Render()
 
         m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
 
-        // TODO テクスチャなしにしたほうが良いかも
         m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
     }
 

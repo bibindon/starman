@@ -1284,9 +1284,26 @@ void Map::Render()
         pair.second->Render();
     }
 
+    // 半透明の都合上、water.xは最後に表示してほしいので描画順を変える
     for (auto& pair : m_meshCloneMap)
     {
         if (pair.second->GetMeshType() == MeshClone::eMeshType::OTHER)
+        {
+            pair.second->Render();
+        }
+    }
+
+    for (auto& pair : m_meshCloneMap)
+    {
+        if (pair.second->GetMeshType() == MeshClone::eMeshType::WATER)
+        {
+            pair.second->Render();
+        }
+    }
+
+    for (auto& pair : m_meshCloneMap)
+    {
+        if (pair.second->GetMeshType() == MeshClone::eMeshType::SEA)
         {
             pair.second->Render();
         }
