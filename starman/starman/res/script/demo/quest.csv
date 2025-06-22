@@ -402,7 +402,7 @@ Q49,"クエストが完了していたら
 Q49",<hint>ホシマン（毒抜き用の袋を何度か作ってもらおう）,"インベントリに強化値XのYがZ個あったら
 NPCのXが生存
 NPCのXが生存
-NPCのXが生存","2:毒抜き用の袋:1
+NPCのXが生存","1:毒抜き用の袋:1
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest29.csv
