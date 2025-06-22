@@ -608,11 +608,10 @@ Q82",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest59.csv
 Q83,"クエストが完了していたら
 クエストが完了していないなら","Q82
 Q83",<hint>ホシマン（出発の準備を整えよう）,"時間が経過したら
-夜だったら
 NPCのXが生存
 NPCのXが生存
-位置","0:0:2:0:0:0
-
+位置
+夜だったら","0:0:2:0:0:0
 daikeiman
 sankakuman
 1092.0:40.8:504.1:100.0",,<talk>res\\script\\origin\\talkFinishQuest60.csv
