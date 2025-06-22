@@ -607,7 +607,7 @@ Q82,"クエストが完了していたら
 Q82",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest59.csv
 Q83,"クエストが完了していたら
 クエストが完了していないなら","Q82
-Q83",<hint>ホシマン（出発の準備を整えよう）,"時間が経過したら
+Q83",<hint>ホシマン（二日ほどかけて、出発の準備を整えて、夜に出発しよう）,"時間が経過したら
 NPCのXが生存
 NPCのXが生存
 位置
@@ -621,6 +621,6 @@ Q84",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest61.csv
 <npc><xeoff><pos>1116.6:158.3:647.4"
 Q85,"クエストが完了していたら
 クエストが完了していないなら","Q84
-Q85",,位置が範囲外,11:492:-559:30000,,<talk>res\\script\\origin\\talkFinishQuest62.csv
+Q85",<hint>ホシマン（イカダで大陸を目指そう）,位置が範囲外,11:492:-559:30000,,<talk>res\\script\\origin\\talkFinishQuest62.csv
 Q86,クエストが完了していたら,Q1,,位置,-200000:0:0:100000,,<ending>
 Q87,クエストが完了していたら,Q1,,位置,-100000:0:200000:100000,,<ending>
