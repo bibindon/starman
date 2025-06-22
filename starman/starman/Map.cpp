@@ -644,7 +644,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\vsco.blend.x"), pos, rot, 1.f, animSetMap);
         animMesh->SetAnim(_T("0_Idle"));
-        m_NPC[_T("ブイエスコ")] = animMesh;
+        m_NPC[_T("vsco")] = animMesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-16.5f, 496.5f, -1210.6f);
@@ -659,7 +659,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\webnin.blend.x"), pos, rot, 1.f, animSetMap);
         animMesh->SetAnim(_T("0_Idle"));
-        m_NPC[_T("ウェブニン")] = animMesh;
+        m_NPC[_T("webnin")] = animMesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1116.6f, 158.3f, 647.4f);
@@ -674,7 +674,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\xeoff.blend.x"), pos, rot, 1.5f, animSetMap);
         animMesh->SetAnim(_T("0_Idle"));
-        m_NPC[_T("ジーオフ")] = animMesh;
+        m_NPC[_T("xeoff")] = animMesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(-1359.1f, 629.9f, -1522.5f);
@@ -689,7 +689,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\gain.blend.x"), pos, rot, 1.f, animSetMap);
         animMesh->SetAnim(_T("0_Idle"));
-        m_NPC[_T("ガイン")] = animMesh;
+        m_NPC[_T("gain")] = animMesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1933.8f, 12.4f, -863.9f);
@@ -704,7 +704,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\nes.blend.x"), pos, rot, 1.f, animSetMap);
         animMesh->SetAnim(_T("0_Idle"));
-        m_NPC[_T("ネス")] = animMesh;
+        m_NPC[_T("nes")] = animMesh;
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1898.9f, 14.3f, -903.8f);
@@ -719,7 +719,7 @@ void Map::Init()
         }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\noble.blend.x"), pos, rot, 1.f, animSetMap);
         animMesh->SetAnim(_T("0_Idle"));
-        m_NPC[_T("ノーブル")] = animMesh;
+        m_NPC[_T("noble")] = animMesh;
     }
     SoundEffect::get_ton()->load(_T("res\\sound\\fireHit.wav"));
     SoundEffect::get_ton()->load(_T("res\\sound\\iceHit.wav"));
