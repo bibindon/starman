@@ -650,14 +650,14 @@ void CraftManager::Build()
 
             for (auto& info : allCraftList)
             {
-                auto name = Common::ItemManager()->GetItemDef(info.GetItemId()).GetName();
-                auto skill = craftSys->GetCraftsmanSkill(name);
+                auto skill = craftSys->GetCraftsmanSkill(info.GetItemId());
 
                 if (skill != info.GetLevel())
                 {
                     continue;
                 }
 
+                auto name = Common::ItemManager()->GetItemDef(info.GetItemId()).GetName();
                 work += Common::LoadString_(IDS_STRING172) + name + _T("\n");
                 work += Common::LoadString_(IDS_STRING173) + std::to_wstring(info.GetNumber()) + _T("\n");
                 if (info.GetLevel() != -1)

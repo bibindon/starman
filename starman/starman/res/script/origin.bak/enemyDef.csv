@@ -3,7 +3,7 @@
 。大きさ、動きから数百キロ
 はあるとみられる。
 一定の距離に近づくまでは石
-のように動かない。",res\image\rippoutai00.png
+のように動かない。",res\image\rippoutai01.png
 2,キュウ,"近づいてくる速度が速い。雑
 魚。リッポウタイほどは重く
 ないがそれでも数百キロはあ
@@ -14,9 +14,9 @@
 3,エンバン,"弾を撃ってくる。
 浮いているように見えるが近
 くで見ると脚がある。 
-",res\image\enban00.png
+",res\image\enban01.png
 4,エンチュウ,"超スピードで攻撃してくる。
-",res\image\enchuu00.png
+",res\image\enchuu01.png
 5,ビッグリッポウタイ,"ビッグなリッポウタイ。ＨＰ
 が高く、攻撃力が高い。 
 ",res\image\bigCube.png
@@ -27,7 +27,7 @@
 ",res\image\hankyuu.png
 8,ハンエン,"半円状の敵。翼があり空を飛
 んでいる。酸をまき散らす。
-",res\image\hanen00.png
+",res\image\hanen01.png
 9,オレンジリッポウタイ,"オレンジ色のリッポウタイ。
 回転攻撃をしてくる。 
 ",res\image\orange.png
