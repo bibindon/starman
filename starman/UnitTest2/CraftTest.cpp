@@ -204,8 +204,8 @@ namespace UnitTest2
 
             SaveManager::Get()->Load();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-            storehouse->AddItem(_T("細い木の幹"));
-            storehouse->AddItem(_T("ツタ"));
+            storehouse->AddItem(_T("trunk"));
+            storehouse->AddItem(_T("tsuta"));
 
             MockPopUpFont font;
             PopUp2::Init(&font);
@@ -288,8 +288,8 @@ namespace UnitTest2
 
             for (int i = 0; i < 100; ++i)
             {
-                storehouse->AddItem(_T("細い木の幹"));
-                storehouse->AddItem(_T("ツタ"));
+                storehouse->AddItem(_T("trunk"));
+                storehouse->AddItem(_T("tsuta"));
             }
 
             MockPopUpFont font;
@@ -351,7 +351,7 @@ namespace UnitTest2
             {
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
                 Assert::AreEqual(false, reqList.empty());
-                Assert::AreEqual(_T("イカダ"), reqList.front().GetName().c_str());
+                Assert::AreEqual(_T("raft"), reqList.front().GetId().c_str());
             }
 
             Assert::AreEqual(_T(""), font.GetShowText().c_str());
@@ -378,8 +378,8 @@ namespace UnitTest2
 
             for (int i = 0; i < 100; ++i)
             {
-                storehouse->AddItem(_T("細い木の幹"));
-                storehouse->AddItem(_T("ツタ"));
+                storehouse->AddItem(_T("trunk"));
+                storehouse->AddItem(_T("tsuta"));
             }
 
             MockPopUpFont font;
