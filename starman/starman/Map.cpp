@@ -1799,7 +1799,7 @@ NSStarmanLib::ItemInfo Map::GetThrownItem(const D3DXVECTOR3& pos)
 {
     bool exist = false;
     NSStarmanLib::ItemInfo result;
-    result.SetId(-1);
+    result.SetId(L"");
 
     // 2メートル以内のアイテムを拾えるようにする
     // ラクするために円ではなく四角で範囲チェック

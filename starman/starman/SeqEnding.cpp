@@ -226,7 +226,7 @@ SeqEnding::SeqEnding()
 
                 // 家のカギがない場合は一言添える
                 {
-                    auto homeKey = Common::Inventory()->GetSubIdList(2);
+                    auto homeKey = Common::Inventory()->GetSubIdList(L"homeKey");
                     if (homeKey.empty())
                     {
                         vs.clear();
@@ -263,7 +263,7 @@ SeqEnding::SeqEnding()
 
                 // If he doesn’t have the house key, add one more line
                 {
-                    auto homeKey = Common::Inventory()->GetSubIdList(2);
+                    auto homeKey = Common::Inventory()->GetSubIdList(L"homeKey");
                     if (homeKey.empty())
                     {
                         vs.clear();

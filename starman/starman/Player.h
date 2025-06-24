@@ -109,7 +109,7 @@ private:
     int m_throwTimeCounter = 0;
 
     // 投げている物
-    int m_throwItemId = 0;
+    std::wstring m_throwItemId;
 
     //---------------------------------------------------
     // 魔法
