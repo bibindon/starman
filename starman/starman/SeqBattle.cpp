@@ -2633,7 +2633,7 @@ void SeqBattle::OperateCutTree()
         Common::Status()->CutTree(name, level);
 
         // アイテムをインベントリに追加
-        auto itemDef = Common::ItemManager()->GetItemDef(Common::LoadString_(IDS_STRING132));
+        auto itemDef = Common::ItemManager()->GetItemDef(L"trunk");
         Common::Inventory()->AddItem(itemDef.GetId());
 
         // 木を消す処理
@@ -2684,7 +2684,7 @@ void SeqBattle::OperateCreateTorch()
         auto weapon = Common::Status()->GetEquipWeapon();
         Common::Inventory()->RemoveItem(weapon.GetId(), weapon.GetSubId());
 
-        auto itemDef = Common::ItemManager()->GetItemDef(Common::LoadString_(IDS_STRING133));
+        auto itemDef = Common::ItemManager()->GetItemDef(L"torch");
         auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
 
         auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), newSubId);
