@@ -1242,10 +1242,10 @@ void Map::Render()
     }
 
     // Q78が終わっているか＝シカクマンが死亡したか
-    bool bQ81Finished = QuestManager::Get()->GetQuestFinished(L"Q81");
+    bool bQ81Finished = QuestManager::Get()->GetQuestFinished(L"Q8100");
 
     // Q40が終わっているか＝廃墟の掃除をしたか
-    bool bQ40Finished = QuestManager::Get()->GetQuestFinished(L"Q40");
+    bool bQ40Finished = QuestManager::Get()->GetQuestFinished(L"Q4000");
 
     for (auto& pair : m_meshMap)
     {
