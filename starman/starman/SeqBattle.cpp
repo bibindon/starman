@@ -1277,7 +1277,7 @@ void SeqBattle::OperateCommand()
             bHaveAxe = true;
         }
 
-        auto itemDef = NSStarmanLib::ItemManager::GetObj()->GetItemDef(_T("縦長の石"));
+        auto itemDef = NSStarmanLib::ItemManager::GetObj()->GetItemDef(L"longstone");
         auto subIdList = Common::Inventory()->GetSubIdList(itemDef.GetId());
 
         bool bHaveLongStone = false;

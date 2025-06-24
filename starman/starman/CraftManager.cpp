@@ -591,6 +591,7 @@ void CraftManager::Build()
 
 				if (bagLevel != 0)
 				{
+					id += L"+" + std::to_wstring(bagLevel);
 					name += L"+" + std::to_wstring(bagLevel);
 				}
 			}
@@ -657,7 +658,9 @@ void CraftManager::Build()
                     continue;
                 }
 
-                auto name = Common::ItemManager()->GetItemDef(info.GetItemId()).GetName();
+                auto id = info.GetItemId();
+                auto unreinforcedId = Common::ItemManager()->GetItemDef(id).GetUnreinforcedId();
+                auto name = Common::ItemManager()->GetItemDef(id).GetName();
                 work += Common::LoadString_(IDS_STRING172) + name + _T("\n");
                 work += Common::LoadString_(IDS_STRING173) + std::to_wstring(info.GetNumber()) + _T("\n");
                 if (info.GetLevel() != -1)
@@ -726,18 +729,18 @@ void CraftManager::Build()
                     }
                     if (bagLevel != 0)
                     {
-						name += L"+" + std::to_wstring(bagLevel);
+						unreinforcedId += L"+" + std::to_wstring(bagLevel);
                     }
                 }
 
-                m_gui.SetOutputInfo(name, work);
+                m_gui.SetOutputInfo(unreinforcedId, work);
                 work.clear();
 
                 NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
                 auto itemDef = Common::ItemManager()->GetItemDef(info.GetItemId());
                 auto imagePath = itemDef.GetImagePath();
 
-                m_gui.SetOutputImage(name, imagePath, sprite1);
+                m_gui.SetOutputImage(unreinforcedId, imagePath, sprite1);
             }
 
         }
