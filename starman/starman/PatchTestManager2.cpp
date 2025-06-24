@@ -535,7 +535,7 @@ void PatchTestManager2::QueueTest(const std::wstring& result)
 
     if (result2)
     {
-        int id = std::stoi(vs.at(2));
+        auto& id = vs.at(2);
         int subId = std::stoi(vs.at(3));
 
         Common::Inventory()->RemoveItem(id, subId);

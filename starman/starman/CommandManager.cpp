@@ -494,7 +494,7 @@ void CommandManager::BuildCommand()
         {
             auto weapon = Common::Status()->GetEquipWeapon();
 
-            if (weapon.GetId() == -1 || weapon.GetId() == 0)
+            if (weapon.GetId().size() >= 1)
             {
                 m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING190), false);
             }
@@ -523,7 +523,7 @@ void CommandManager::BuildCommand()
         auto weapon = Common::Status()->GetEquipWeapon();
 
         // 何かしらは装備している。
-        if (weapon.GetId() != 0 && weapon.GetId() != -1)
+        if (weapon.GetId().size() >= 1)
         {
             if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == Common::LoadString_(IDS_STRING133))
             {

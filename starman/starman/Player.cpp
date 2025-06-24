@@ -1146,7 +1146,7 @@ void Player::Render()
     NSStarmanLib::StatusManager* statusManager = NSStarmanLib::StatusManager::GetObj();
     NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
 
-    if (itemInfo.GetId() != -1)
+    if (!itemInfo.GetId().empty())
     {
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
         NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
@@ -1330,7 +1330,7 @@ bool Player::SetAttack()
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
 
     // 右手にバッグを持っているときは攻撃できない。
-    if (statusManager->GetBag(NSStarmanLib::eBagPos::Right).GetId() != -1)
+    if (statusManager->GetBag(NSStarmanLib::eBagPos::Right).GetId().size() >= 1)
     {
         return false;
     }
@@ -1339,7 +1339,7 @@ bool Player::SetAttack()
 
     auto itemManager = NSStarmanLib::ItemManager::GetObj();
     auto weaponId = statusManager->GetEquipWeapon().GetId();
-    if (statusManager->GetEquipWeapon().GetId() != -1)
+    if (statusManager->GetEquipWeapon().GetId().size() >= 1)
     {
         auto itemDef = itemManager->GetItemDef(weaponId);
         auto weaponName = itemDef.GetName();
@@ -1408,7 +1408,7 @@ bool Player::SetAttack()
 
             // 松明だったら一度で壊れる。火も消える
             auto itemInfo = Common::Status()->GetEquipWeapon();
-            if (itemInfo.GetId() != -1)
+            if (itemInfo.GetId().size() >= 1)
             {
                 if (itemInfo.GetItemDef().GetName() == Common::LoadString_(IDS_STRING133))
                 {
@@ -1432,7 +1432,7 @@ bool Player::SetAttackArrow()
 
     // 強化値の強い矢のほうからなくなる
     int arrowCnt = 0;
-    arrowCnt = inventory->CountItem(Common::LoadString_(IDS_STRING143), 1);
+    arrowCnt = inventory->CountItem(L"arrow1");
 
     int arrowLevel = 0;
 
@@ -1441,7 +1441,7 @@ bool Player::SetAttackArrow()
 
     if (arrowCnt > 0)
     {
-        itemDef = itemManager->GetItemDef(Common::LoadString_(IDS_STRING143), 1);
+        itemDef = itemManager->GetItemDef(L"arrow1");
 
         auto subIdList = inventory->GetSubIdList(itemDef.GetId());
 
@@ -1452,10 +1452,10 @@ bool Player::SetAttackArrow()
     }
     else
     {
-        arrowCnt = inventory->CountItem(Common::LoadString_(IDS_STRING143), -1);
+        arrowCnt = inventory->CountItem(L"arrow");
         if (arrowCnt > 0)
         {
-            itemDef = itemManager->GetItemDef(Common::LoadString_(IDS_STRING143), -1);
+            itemDef = itemManager->GetItemDef(L"arrow");
 
             auto subIdList = inventory->GetSubIdList(itemDef.GetId());
 
@@ -1526,9 +1526,18 @@ bool Player::SetAttackAtlatl()
     // 強化値の強い槍のほうからなくなる
     // 強化値は-1,1,2,3,4,5の6種類
     int arrowLevel = 0;
+
+    std::vector<std::wstring> spearLists;
+    spearLists.push_back(L"spearForAtlatl");
+    spearLists.push_back(L"spearForAtlatl1");
+    spearLists.push_back(L"spearForAtlatl2");
+    spearLists.push_back(L"spearForAtlatl3");
+    spearLists.push_back(L"spearForAtlatl4");
+    spearLists.push_back(L"spearForAtlatl5");
+
     for (int i = 5; ;)
     {
-        int arrowCnt = inventory->CountItem(Common::LoadString_(IDS_STRING144), i);
+        int arrowCnt = inventory->CountItem(spearLists.at(i));
         if (arrowCnt >= 1)
         {
             arrowLevel = i;
@@ -1556,7 +1565,7 @@ bool Player::SetAttackAtlatl()
 
     // インベントリから槍を一つ減らす
     {
-        itemDef = itemManager->GetItemDef(Common::LoadString_(IDS_STRING144), arrowLevel);
+        itemDef = itemManager->GetItemDef(spearLists.at(arrowLevel));
         auto subIdList = inventory->GetSubIdList(itemDef.GetId());
         itemInfo = inventory->GetItemInfo(itemDef.GetId(), subIdList.at(0));
         inventory->RemoveItem(itemDef.GetId(), subIdList.at(0));
@@ -1732,45 +1741,32 @@ D3DXVECTOR3 Player::GetAttackPos() const
 {
     float length = 1.f;
 
+    auto work = Common::Status()->GetEquipWeapon().GetId();
+
+    auto unreinforcedId = Common::ItemManager()->GetItemDef(work).GetUnreinforcedId();
+
     // 木の棒
-    if (Common::Status()->GetEquipWeapon().GetId() == 58 ||
-        Common::Status()->GetEquipWeapon().GetId() == 59 ||
-        Common::Status()->GetEquipWeapon().GetId() == 60 ||
-        Common::Status()->GetEquipWeapon().GetId() == 61 ||
-        Common::Status()->GetEquipWeapon().GetId() == 62 ||
-        Common::Status()->GetEquipWeapon().GetId() == 63
-        )
+    if (unreinforcedId == L"stick")
     {
         length = 1.5f;
     }
     // 石槍
-    else if (Common::Status()->GetEquipWeapon().GetId() == 64 ||
-             Common::Status()->GetEquipWeapon().GetId() == 65 ||
-             Common::Status()->GetEquipWeapon().GetId() == 66 ||
-             Common::Status()->GetEquipWeapon().GetId() == 67 ||
-             Common::Status()->GetEquipWeapon().GetId() == 68 ||
-             Common::Status()->GetEquipWeapon().GetId() == 69
-        )
+    else if (unreinforcedId == L"stoneSpear")
     {
         length = 2.0f;
     }
     // 鉄パイプ
-    else if (Common::Status()->GetEquipWeapon().GetId() == 81)
+    else if (unreinforcedId == L"ironPipe")
     {
         length = 1.5f;
     }
     // 石付き鉄パイプ
-    else if (Common::Status()->GetEquipWeapon().GetId() == 82)
+    else if (unreinforcedId == L"ironPipeEx")
     {
         length = 1.5f;
     }
     // 石斧
-    else if (Common::Status()->GetEquipWeapon().GetId() == 83 ||
-             Common::Status()->GetEquipWeapon().GetId() == 84 ||
-             Common::Status()->GetEquipWeapon().GetId() == 85 ||
-             Common::Status()->GetEquipWeapon().GetId() == 86 ||
-             Common::Status()->GetEquipWeapon().GetId() == 87 ||
-             Common::Status()->GetEquipWeapon().GetId() == 88)
+    else if (unreinforcedId == L"stoneAxe")
     {
         length = 1.5f;
     }
@@ -1944,7 +1940,7 @@ void Player::Throw()
 
     // 素手だったら何もしない。
     auto itemInfo = statusManager->GetEquipWeapon();
-    if (itemInfo.GetId() == -1)
+    if (itemInfo.GetId().empty())
     {
         return;
     }
@@ -1993,7 +1989,7 @@ void Player::Throw()
     // 素手にする
     {
         NSStarmanLib::ItemInfo itemInfo;
-        itemInfo.SetId(-1);
+        itemInfo.SetId(L"");
         statusManager->SetEquipWeapon(itemInfo);
 
         SoundEffect::get_ton()->play(_T("res\\sound\\attack01.wav"), 90);

@@ -737,11 +737,11 @@ void SeqBattle::OperateStorehouse()
         result = m_storehouse->Into();
         std::vector<std::wstring> vs = Common::split(result, ':');
 
-        int id_ = 0;
+        std::wstring id_;
         int subId_ = 0;
         int durability_ = 0;
 
-        id_ = std::stoi(vs.at(2));
+        id_ = vs.at(2);
         subId_ = std::stoi(vs.at(3));
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -835,11 +835,11 @@ void SeqBattle::OperateStorehouse()
 
         if (!vs.empty())
         {
-            int id_ = 0;
+            std::wstring id_;
             int subId_ = 0;
             int durability_ = 0;
 
-            id_ = std::stoi(vs.at(2));
+            id_ = vs.at(2);
             subId_ = std::stoi(vs.at(3));
 
             NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -994,11 +994,11 @@ void SeqBattle::OperateStorehouse()
         result = m_storehouse->Into();
         std::vector<std::wstring> vs = Common::split(result, ':');
 
-        int id_ = 0;
+        std::wstring id_;
         int subId_ = 0;
         int durability_ = 0;
 
-        id_ = std::stoi(vs.at(2));
+        id_ = vs.at(2);
         subId_ = std::stoi(vs.at(3));
 
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -1120,7 +1120,7 @@ void SeqBattle::ShowStorehouse()
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
-        std::vector<int> idList = itemManager->GetItemIdList();
+        auto idList = itemManager->GetItemIdList();
 
         std::vector<NSStorehouseLib::StoreItem> itemInfoList;
         for (std::size_t i = 0; i < idList.size(); ++i)
@@ -1146,7 +1146,7 @@ void SeqBattle::ShowStorehouse()
     {
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
-        std::vector<int> idList = itemManager->GetItemIdList();
+        auto idList = itemManager->GetItemIdList();
 
         std::vector<NSStorehouseLib::StoreItem> itemInfoList;
         for (std::size_t i = 0; i < idList.size(); ++i)
@@ -1266,7 +1266,7 @@ void SeqBattle::OperateCommand()
         auto itemInfo = status->GetEquipWeapon();
 
         std::wstring name;
-        if (itemInfo.GetId() != -1 && itemInfo.GetId() != 0)
+        if (itemInfo.GetId().size() >= 1)
         {
             name = itemInfo.GetItemDef().GetName();
         }
@@ -2178,7 +2178,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     auto vs = Common::split(work2, ':');
                     auto level = std::stoi(vs.at(1));
                     auto durability = std::stoi(vs.at(2));
-                    auto itemDef = Common::ItemManager()->GetItemDef(vs.at(0), level);
+                    auto itemDef = Common::ItemManager()->GetItemDef(vs.at(0));
                     auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
                     Common::Inventory()->SetItemDurability(itemDef.GetId(), newSubId, durability);
                 }
@@ -2239,10 +2239,10 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find(_T("<hanawa>")) != std::wstring::npos)
                 {
                     // 花輪があれば一つ減らす
-                    auto subIdList = Common::Inventory()->GetSubIdList(12);
+                    auto subIdList = Common::Inventory()->GetSubIdList(L"kakan");
                     if (!subIdList.empty())
                     {
-                        Common::Inventory()->RemoveItem(12, subIdList.at(0));
+                        Common::Inventory()->RemoveItem(L"kakan", subIdList.at(0));
                         NSStarmanLib::ActivityBase::Get()->SetHanaw(true);
                         PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
                     }
@@ -2253,10 +2253,10 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                         // 海岸洞窟の倉庫を見る
                         auto storehouse = storeHouseManager->GetStorehouse(2);
-                        auto subIdList2 = storehouse->GetSubIdList(12);
+                        auto subIdList2 = storehouse->GetSubIdList(L"kakan");
                         if (!subIdList2.empty())
                         {
-                            storehouse->RemoveItem(12, subIdList2.at(0));
+                            storehouse->RemoveItem(L"kakan", subIdList2.at(0));
                             NSStarmanLib::ActivityBase::Get()->SetHanaw(true);
                             PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
                         }
@@ -2331,7 +2331,7 @@ void SeqBattle::OperatePickPlant()
 {
     if (m_eFadeSeq == eFadeSeq::Finish)
     {
-        int pickId = 0;
+        std::wstring pickId;
 
         // 近くに木があったら以下を取得する
         // 木の枝 / パパイヤ / マンゴー / バナナ
@@ -2342,23 +2342,19 @@ void SeqBattle::OperatePickPlant()
 
             if (rand_ < 50)
             {
-                // 木の枝
-                pickId = 54;
+                pickId = L"branch";
             }
             else if (rand_ < 70)
             {
-                // パパイヤ
-                pickId = 38;
+                pickId = L"papaiya";
             }
             else if (rand_ < 85)
             {
-                // マンゴー
-                pickId = 39;
+                pickId = L"mango";
             }
             else if (rand_ < 100)
             {
-                // バナナ
-                pickId = 40;
+                pickId = L"banana";
             }
 
             m_map->DeleteObj(m_player->GetPos(), eMapObjType::TREE);
@@ -2372,11 +2368,11 @@ void SeqBattle::OperatePickPlant()
 
             if (rand_ < 90)
             {
-                pickId = 5;
+                pickId = L"coconut";
             }
             else
             {
-                pickId = 6;
+                pickId = L"coconutRipe";
             }
 
             m_map->DeleteObj(m_player->GetPos(), eMapObjType::YASHI);
@@ -2384,13 +2380,13 @@ void SeqBattle::OperatePickPlant()
         // 近くに死体があったらワードブレスを取得する
         else if (m_map->NearDead(SharedObj::GetPlayer()->GetPos()))
         {
-            pickId = 35;
+            pickId = L"workbress";
             m_map->SetDeadItem(m_player->GetPos());
         }
         // 近くにソテツの木があったらソテツを取得する
         else if (m_map->NearSotetsu(SharedObj::GetPlayer()->GetPos()))
         {
-            pickId = 3;
+            pickId = L"sotetsu";
             m_map->DeleteObj(m_player->GetPos(), eMapObjType::SOTETSU);
         }
         // 近くにどんぐりの山があったらどんぐりなどを取得する
@@ -2401,23 +2397,23 @@ void SeqBattle::OperatePickPlant()
 
             if (rand_ < 25)
             {
-                pickId = 7;
+                pickId = L"donguri1";
             }
             else if (rand_ < 50)
             {
-                pickId = 8;
+                pickId = L"donguri2";
             }
             else if (rand_ < 75)
             {
-                pickId = 9;
+                pickId = L"donguri3";
             }
             else if (rand_ < 99)
             {
-                pickId = 54;
+                pickId = L"branch";
             }
             else if (rand_ == 99)
             {
-                pickId = 35;
+                pickId = L"wordbress";
             }
 
             m_map->DeleteObj(m_player->GetPos(), eMapObjType::DONGURI);
@@ -2430,23 +2426,19 @@ void SeqBattle::OperatePickPlant()
 
             if (rand_ < 50)
             {
-                // 石
-                pickId = 57;
+                pickId = L"stone";
             }
             else if (rand_ < 65)
             {
-                // 縦長の石
-                pickId = 41;
+                pickId = L"longstone";
             }
             else if (rand_ < 80)
             {
-                // いい形の石（斧）
-                pickId = 33;
+                pickId = L"stoneForAxe";
             }
             else if (rand_ < 100)
             {
-                // いい形の石（槍）
-                pickId = 34;
+                pickId = L"stoneForSpear";
             }
 
             m_map->DeleteObj(m_player->GetPos(), eMapObjType::STONES);
@@ -2460,69 +2452,59 @@ void SeqBattle::OperatePickPlant()
 
             if (rand_ < 10)
             {
-                // 謎の草１
-                pickId = 14;
+                pickId = L"unknownPlant1";
             }
             else if (rand_ < 20)
             {
-                // 謎の草２
-                pickId = 15;
+                pickId = L"unknownPlant2";
             }
             else if (rand_ < 30)
             {
-                pickId = 16;
+                pickId = L"unknownPlant3";
             }
             else if (rand_ < 40)
             {
-                pickId = 17;
+                pickId = L"unknownPlant4";
             }
             else if (rand_ < 45)
             {
-                pickId = 18;
+                pickId = L"unknownPlant5";
             }
             else if (rand_ < 50)
             {
-                pickId = 19;
+                pickId = L"unknownPlant6";
             }
             else if (rand_ < 55)
             {
-                // ツクシ
-                pickId = 13;
+                pickId = L"tsukushi";
             }
             else if (rand_ < 60)
             {
-                // ハイビスカス
-                pickId = 11;
+                pickId = L"flower";
             }
             else if (rand_ < 65)
             {
-                // タンポポ
-                pickId = 20;
+                pickId = L"tanpopo";
             }
             else if (rand_ < 70)
             {
-                // ニラ、もしくはスイセン
-                pickId = 21;
+                pickId = L"nira";
             }
             else if (rand_ < 75)
             {
-                // キノコ
-                pickId = 22;
+                pickId = L"kinoko";
             }
             else if (rand_ < 90)
             {
-                // ツタ
-                pickId = 56;
+                pickId = L"tsuta";
             }
             else if (rand_ <= 98)
             {
-                // 木の枝
-                pickId = 54;
+                pickId = L"branch";
             }
             else if (rand_ <= 99)
             {
-                // ワードブレス
-                pickId = 35;
+                pickId = L"wordbress";
             }
 
             // 草を消す処理
@@ -2538,7 +2520,7 @@ void SeqBattle::OperatePickPlant()
                 if (Common::HitByBoundingBox(ppos, pos, 100.f))
                 {
                     // 黒い貝
-                    pickId = 42;
+                    pickId = L"mu-rugai";
                 }
             }
 
@@ -2548,7 +2530,7 @@ void SeqBattle::OperatePickPlant()
                 if (Common::HitByBoundingBox(ppos, pos, 100.f))
                 {
                     // ブイ
-                    pickId = 25;
+                    pickId = L"bui";
                 }
             }
         }
@@ -2874,7 +2856,7 @@ void SeqBattle::Confirm(eSequence* sequence)
 
         NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
-        if (thrownItem.GetId() != -1)
+        if (thrownItem.GetId().size() >= 1)
         {
             SharedObj::GetMap()->DeleteThrownItem(thrownItem);
             
@@ -3106,7 +3088,7 @@ void SeqBattle::UpdateDebug()
                     NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
                     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
-                    std::vector<int> idList = itemManager->GetItemIdList();
+                    auto idList = itemManager->GetItemIdList();
 
                     std::vector<NSStorehouseLib::StoreItem> itemInfoList;
                     for (std::size_t i = 0; i < idList.size(); ++i)
@@ -3147,7 +3129,7 @@ void SeqBattle::UpdateDebug()
 
                     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
 
-                    std::vector<int> idList = itemManager->GetItemIdList();
+                    auto idList = itemManager->GetItemIdList();
 
                     std::vector<NSStorehouseLib::StoreItem> itemInfoList;
                     for (std::size_t i = 0; i < idList.size(); ++i)
@@ -3344,7 +3326,7 @@ void SeqBattle::UpdatePerSecond()
     //-------------------------------------
     auto thrownItem = SharedObj::GetMap()->GetThrownItem(playerPos);
 
-    if (thrownItem.GetId() != -1)
+    if (thrownItem.GetId().size() >= 1)
     {
         m_bObtainWeapon = true;
     }

@@ -476,12 +476,12 @@ void CraftManager::Operate(eBattleState* state)
 
             auto itemId = Common::ItemManager()->GetItemDef(work).GetId();
             bool started = false;
-            if (itemId == 4)
+            if (itemId == L"sotetsuDetox")
             {
                 ++num;
 				started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
             }
-            else if (itemId == 10)
+            else if (itemId == L"donguriDetox")
             {
                 num += 5;
 				started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
@@ -528,7 +528,8 @@ void CraftManager::Build()
     auto craftInfo = NSStarmanLib::CraftInfoManager::GetObj();
 
     {
-        std::vector<std::wstring> vs;
+        std::vector<std::wstring> idList;
+        std::vector<std::wstring> nameList;
 
         auto infoList = craftInfo->GetCraftItemList();
 
@@ -539,7 +540,8 @@ void CraftManager::Build()
         // 強化値を選択できる必要はない
         for (auto& info : infoList)
         {
-            auto name = info.GetName();
+            auto id = info.GetItemId();
+            auto name = Common::ItemManager()->GetItemDef(id).GetName();
             auto level = info.GetLevel();
             if (level >= 1)
             {
@@ -548,39 +550,39 @@ void CraftManager::Build()
 
 			// 毒抜きの場合、成果物は同じだが個数が違うというクラフトがある。
 			// 例えば、毒抜き用の袋（レベル1）で毒抜きすると多めに成果物を得られる。
-			if (info.GetItemId() == 4 || info.GetItemId() == 10)
+			if (info.GetItemId() == L"sotetsuDetox" || info.GetItemId() == L"donguriDetox")
 			{
 				int bagLevel = 0;
 				auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();
 				for (auto& material : materials)
 				{
 					// 98 == 毒抜き用の袋
-					if (material.GetId() == 98)
+					if (material.GetId() == L"bagForDetox")
 					{
 						bagLevel = 0;
 						break;
 					}
-					else if (material.GetId() == 99)
+					else if (material.GetId() == L"bagForDetox1")
 					{
 						bagLevel = 1;
 						break;
 					}
-					else if (material.GetId() == 100)
+					else if (material.GetId() == L"bagForDetox2")
 					{
 						bagLevel = 2;
 						break;
 					}
-					else if (material.GetId() == 101)
+					else if (material.GetId() == L"bagForDetox3")
 					{
 						bagLevel = 3;
 						break;
 					}
-					else if (material.GetId() == 102)
+					else if (material.GetId() == L"bagForDetox4")
 					{
 						bagLevel = 4;
 						break;
 					}
-					else if (material.GetId() == 103)
+					else if (material.GetId() == L"bagForDetox5")
 					{
 						bagLevel = 5;
 						break;
@@ -592,16 +594,19 @@ void CraftManager::Build()
 					name += L"+" + std::to_wstring(bagLevel);
 				}
 			}
-            vs.push_back(name);
+
+            idList.push_back(id);
+            nameList.push_back(name);
         }
 
-        m_gui.SetOutputList(vs);
+        m_gui.SetOutputList(idList, nameList);
 
         auto reqList = craftSys->GetCraftRequestList();
 
         if (reqList.size() >= 1)
         {
-            auto outputName = reqList.front().GetCraftInfo().GetOutput().GetName();
+			auto itemid = reqList.front().GetCraftInfo().GetOutput().GetItemId();
+            auto outputName = Common::ItemManager()->GetItemDef(itemid).GetName();
             auto progress = craftSys->GetProgress();
 
             m_gui.SetCraftingItem(outputName, progress);
@@ -611,7 +616,7 @@ void CraftManager::Build()
             m_gui.SetCraftingItem(_T(""), 0);
         }
 
-        vs.clear();
+        nameList.clear();
 
         // 2番目以降を予約リストに表示
         if (reqList.size() >= 2)
@@ -622,15 +627,16 @@ void CraftManager::Build()
 
             for (; it != reqList.end(); ++it)
             {
-                name = it->GetCraftInfo().GetOutput().GetName();
-                vs.push_back(name);
+                auto itemid = it->GetCraftInfo().GetOutput().GetItemId();
+                name = Common::ItemManager()->GetItemDef(itemid).GetName();
+                nameList.push_back(name);
             }
 
-            m_gui.SetCraftQue(vs);
+            m_gui.SetCraftQue(nameList);
         }
         else
         {
-            m_gui.SetCraftQue(vs);
+            m_gui.SetCraftQue(nameList);
         }
 
         // 画像、説明文を登録
@@ -644,14 +650,15 @@ void CraftManager::Build()
 
             for (auto& info : allCraftList)
             {
-                auto skill = craftSys->GetCraftsmanSkill(info.GetName());
+                auto name = Common::ItemManager()->GetItemDef(info.GetItemId()).GetName();
+                auto skill = craftSys->GetCraftsmanSkill(name);
 
                 if (skill != info.GetLevel())
                 {
                     continue;
                 }
 
-                work += Common::LoadString_(IDS_STRING172) + info.GetName() + _T("\n");
+                work += Common::LoadString_(IDS_STRING172) + name + _T("\n");
                 work += Common::LoadString_(IDS_STRING173) + std::to_wstring(info.GetNumber()) + _T("\n");
                 if (info.GetLevel() != -1)
                 {
@@ -678,42 +685,40 @@ void CraftManager::Build()
 
                     ++i;
                 }
-                auto name = info.GetName();
 
                 // 毒抜きの場合、成果物は同じだが個数が違うというクラフトがある。
                 // 例えば、毒抜き用の袋（レベル1）で毒抜きすると多めに成果物を得られる。
-                if (info.GetItemId() == 4 || info.GetItemId() == 10)
+                if (info.GetItemId() == L"sotetsuDetox" || info.GetItemId() == L"donguriDetox")
                 {
                     int bagLevel = 0;
                     for (auto& material : materials)
                     {
-                        // 98 == 毒抜き用の袋
-                        if (material.GetId() == 98)
+                        if (material.GetId() == L"bagForDetox")
                         {
                             bagLevel = 0;
                             break;
                         }
-                        else if (material.GetId() == 99)
+                        else if (material.GetId() == L"bagForDetox1")
                         {
                             bagLevel = 1;
                             break;
                         }
-                        else if (material.GetId() == 100)
+                        else if (material.GetId() == L"bagForDetox2")
                         {
                             bagLevel = 2;
                             break;
                         }
-                        else if (material.GetId() == 101)
+                        else if (material.GetId() == L"bagForDetox3")
                         {
                             bagLevel = 3;
                             break;
                         }
-                        else if (material.GetId() == 102)
+                        else if (material.GetId() == L"bagForDetox4")
                         {
                             bagLevel = 4;
                             break;
                         }
-                        else if (material.GetId() == 103)
+                        else if (material.GetId() == L"bagForDetox5")
                         {
                             bagLevel = 5;
                             break;
@@ -729,7 +734,7 @@ void CraftManager::Build()
                 work.clear();
 
                 NSCraftLib::ISprite* sprite1 = NEW NSCraftLib::Sprite(SharedObj::GetD3DDevice());
-                auto itemDef = Common::ItemManager()->GetItemDef(info.GetName(), info.GetLevel());
+                auto itemDef = Common::ItemManager()->GetItemDef(info.GetItemId());
                 auto imagePath = itemDef.GetImagePath();
 
                 m_gui.SetOutputImage(name, imagePath, sprite1);

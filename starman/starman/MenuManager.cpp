@@ -284,7 +284,7 @@ void MenuManager::InitMenu()
     {
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-        std::vector<int> idList = itemManager->GetItemIdList();
+        std::vector<std::wstring> idList = itemManager->GetItemIdList();
 
         std::vector<ItemInfo> itemInfoList;
         for (std::size_t i = 0; i < idList.size(); ++i)
@@ -337,12 +337,7 @@ void MenuManager::InitMenu()
                     itemInfoG.SetDetail(work_str);
 
                     // ID : 27 ~ 32 == 袋
-                    if (itemInfo.GetItemDef().GetId() == 27 ||
-                        itemInfo.GetItemDef().GetId() == 28 ||
-                        itemInfo.GetItemDef().GetId() == 29 ||
-                        itemInfo.GetItemDef().GetId() == 30 ||
-                        itemInfo.GetItemDef().GetId() == 31 ||
-                        itemInfo.GetItemDef().GetId() == 32)
+                    if (itemInfo.GetItemDef().GetUnreinforcedId() == L"bag")
                     {
                         itemInfoG.SetEquipEnable(true);
 
@@ -352,7 +347,7 @@ void MenuManager::InitMenu()
                         }
                     }
                     // 菅笠
-                    else if (itemInfo.GetItemDef().GetId() == 36)
+                    else if (itemInfo.GetItemDef().GetId() == L"sugegasa")
                     {
                         itemInfoG.SetEquipEnable(true);
                         if (Common::Status()->GetSugegasa())
@@ -423,7 +418,7 @@ void MenuManager::InitMenu()
     {
         NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
 
-        std::vector<int> idList = itemManager->GetItemIdList();
+        auto idList = itemManager->GetItemIdList();
 
         std::vector<WeaponInfo> weaponInfoList;
         for (std::size_t i = 0; i < idList.size(); ++i)
@@ -697,7 +692,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを使う
             if (vs.at(4) == _T("Use"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 if (UseItem(id, subId))
@@ -708,7 +703,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを捨てる
             else if (vs.at(4) == _T("Discard"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
@@ -723,7 +718,7 @@ std::wstring MenuManager::OperateMenu()
                 }
                 else
                 {
-                    int id = std::stoi(vs.at(2));
+                    auto id = vs.at(2);
                     int subId = std::stoi(vs.at(3));
                     Equip(id, subId);
                 }
@@ -738,7 +733,7 @@ std::wstring MenuManager::OperateMenu()
                 }
                 else
                 {
-                    int id = std::stoi(vs.at(2));
+                    auto id = vs.at(2);
                     int subId = std::stoi(vs.at(3));
                     Unequip(id, subId);
                 }
@@ -748,7 +743,7 @@ std::wstring MenuManager::OperateMenu()
         {
             if (vs.at(4) == _T("Equip"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 Equip(id, subId);
@@ -793,7 +788,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを使う
             if (vs.at(4) == _T("Use"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 if (UseItem(id, subId))
@@ -804,19 +799,19 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを捨てる
             else if (vs.at(4) == _T("Discard"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
             else if (vs.at(4) == _T("Equip"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
             else if (vs.at(4) == _T("Unequip"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
@@ -825,7 +820,7 @@ std::wstring MenuManager::OperateMenu()
         {
             if (vs.at(4) == _T("Equip"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -922,7 +917,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを使う
             if (vs.at(4) == _T("Use"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 if (UseItem(id, subId))
@@ -933,19 +928,19 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを捨てる
             else if (vs.at(4) == _T("Discard"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
             else if (vs.at(4) == _T("Equip"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
             else if (vs.at(4) == _T("Unequip"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
@@ -954,7 +949,7 @@ std::wstring MenuManager::OperateMenu()
         {
             if (vs.at(4) == _T("Equip"))
             {
-                int id = std::stoi(vs.at(2));
+                auto id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();
@@ -994,7 +989,7 @@ std::wstring MenuManager::OperateMenu()
             NSStarmanLib::ItemInfo itemInfo = statusManager->GetEquipWeapon();
             std::wstring weaponName;
 
-            if (itemInfo.GetId() != -1)
+            if (itemInfo.GetId().size() >= 1)
             {
                 NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
                 NSStarmanLib::ItemDef itemDef = itemManager->GetItemDef(itemInfo.GetId());
@@ -1513,7 +1508,7 @@ std::wstring MenuManager::OperateMenu()
     return result;
 }
 
-bool MenuManager::UseItem(const int id, const int subId)
+bool MenuManager::UseItem(const std::wstring& id, const int subId)
 {
     bool result = false;
 
@@ -1540,13 +1535,13 @@ bool MenuManager::UseItem(const int id, const int subId)
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::VALUABLES)
     {
         // スマホ
-        if (itemDef.GetId() == 1)
+        if (itemDef.GetId() == L"sumaho")
         {
             PopUp2::Get()->SetText(_T("ホシマン（反応しない。海水で基盤がダメになったのだろう）"));
             result = false;
         }
         // 家の鍵
-        else if (itemDef.GetId() == 2)
+        else if (itemDef.GetId() == L"homeKey")
         {
             PopUp2::Get()->SetText(_T("ホシマン（まだ捨てないで取っておこう）"));
             result = false;
@@ -1555,7 +1550,7 @@ bool MenuManager::UseItem(const int id, const int subId)
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::OTHERS)
     {
         // ワードブレス
-        if (itemDef.GetId() == 35)
+        if (itemDef.GetId() == L"wordbress")
         {
             auto pos = SharedObj::GetPlayer();
             statusManager->DrinkWordBress(pos->GetPos().x, pos->GetPos().y, pos->GetPos().z);
@@ -1571,7 +1566,7 @@ bool MenuManager::UseItem(const int id, const int subId)
     return result;
 }
 
-void MenuManager::DeleteItem(const int id, const int subId)
+void MenuManager::DeleteItem(const std::wstring& id, const int subId)
 {
     // 装備中の袋だったら削除できないようにする
     {
@@ -1618,7 +1613,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
         auto allBag = Common::Status()->GetAllBag();
         for (auto it = allBag.begin(); it != allBag.end(); ++it)
         {
-            if (it->GetId() == -1)
+            if (it->GetId().empty())
             {
                 continue;
             }
@@ -1656,7 +1651,7 @@ void MenuManager::DeleteItem(const int id, const int subId)
     m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
 }
 
-void MenuManager::AddItem(const int id, const int subId, const int durability)
+void MenuManager::AddItem(const std::wstring& id, const int subId, const int durability)
 {
     using namespace NSMenulib;
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
@@ -1702,12 +1697,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     itemInfoG.SetSubId(subId);
 
     // ID : 27 ~ 32 == 袋
-    if (itemDef.GetId() == 27 ||
-        itemDef.GetId() == 28 ||
-        itemDef.GetId() == 29 ||
-        itemDef.GetId() == 30 ||
-        itemDef.GetId() == 31 ||
-        itemDef.GetId() == 32)
+    if (itemDef.GetUnreinforcedId() == L"bag")
     {
         itemInfoG.SetEquipEnable(true);
 
@@ -1716,7 +1706,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
             itemInfoG.SetEquip(true);
         }
     }
-    else if (itemDef.GetId() == 36)
+    else if (itemDef.GetId() == L"sugegasa")
     {
         itemInfoG.SetEquipEnable(true);
 
@@ -1763,7 +1753,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
         auto allBag = Common::Status()->GetAllBag();
         for (auto it = allBag.begin(); it != allBag.end(); ++it)
         {
-            if (it->GetId() == -1)
+            if (it->GetId().empty())
             {
                 continue;
             }
@@ -1801,7 +1791,7 @@ void MenuManager::AddItem(const int id, const int subId, const int durability)
     m_menu.SetVolumeMax((int)Common::Inventory()->GetVolumeMax());
 }
 
-bool MenuManager::IsBagEquiped(const int id, const int subId)
+bool MenuManager::IsBagEquiped(const std::wstring& id, const int subId)
 {
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
     auto allBag = statusManager->GetAllBag();
@@ -1821,14 +1811,15 @@ bool MenuManager::IsBagEquiped(const int id, const int subId)
     }
 }
 
-void MenuManager::Equip(const int id, const int subId)
+void MenuManager::Equip(const std::wstring& id, const int subId)
 {
     //--------------------------------------
     // 袋か武器か
     //--------------------------------------
+    auto itemdef = Common::ItemManager()->GetItemDef(id);
 
     // 武器だったら
-    if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
+    if (itemdef.GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
         //--------------------------------------
         // すでに装備していたものがあったら、その装備状態は解除する
@@ -1851,7 +1842,7 @@ void MenuManager::Equip(const int id, const int subId)
             }
 
             auto weapon = Common::Status()->GetEquipWeapon();
-            if (weapon.GetId() != -1)
+            if (weapon.GetId().size() >= 1)
             {
                 Unequip(weapon.GetId(), weapon.GetSubId());
             }
@@ -1870,7 +1861,7 @@ void MenuManager::Equip(const int id, const int subId)
 
     }
     // 菅笠だったら
-    else if (id == 36)
+    else if (id == L"sugegasa")
     {
         auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
         Common::Status()->SetSugegasa(true);
@@ -1884,7 +1875,7 @@ void MenuManager::Equip(const int id, const int subId)
         m_menu.UpdateItem(itemInfoG);
     }
     // 袋だったら
-    else if (id == 27 || id == 28 || id == 29 || id == 30 || id == 31 || id == 32)
+    else if (itemdef.GetUnreinforcedId() == L"bag")
     {
         // 袋を5個装備していたら装備しない
         if (Common::Status()->GetBagState().size() >= 5)
@@ -1910,7 +1901,7 @@ void MenuManager::Equip(const int id, const int subId)
     }
 }
 
-void MenuManager::Unequip(const int id, const int subId)
+void MenuManager::Unequip(const std::wstring& id, const int subId)
 {
     auto itemInfo = Common::Inventory()->GetItemInfo(id, subId);
     NSMenulib::ItemInfo itemInfoG;
@@ -1921,20 +1912,22 @@ void MenuManager::Unequip(const int id, const int subId)
     itemInfoG.SetEquip(false);
     m_menu.UpdateItem(itemInfoG);
 
+    auto itemdef = Common::ItemManager()->GetItemDef(id);
+
     // 武器だったら
-    if (Common::ItemManager()->GetItemDef(id).GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
+    if (itemdef.GetType() == NSStarmanLib::ItemDef::ItemType::WEAPON)
     {
         NSStarmanLib::ItemInfo itemInfo;
-        itemInfo.SetId(-1);
+        itemInfo.SetId(L"");
         Common::Status()->SetEquipWeapon(itemInfo);
     }
     // 菅笠だったら
-    else if (id == 36)
+    else if (id == L"sugegasa")
     {
         Common::Status()->SetSugegasa(false);
     }
     // 袋だったら
-    else if (id == 27 || id == 28 || id == 29 || id == 30 || id == 31 || id == 32)
+    else if (itemdef.GetUnreinforcedId() == L"bag")
     {
         Common::Status()->UnequipBag(id, subId);
 
