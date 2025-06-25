@@ -741,9 +741,6 @@
                 <File Source="../starman/res/model/gain.blend.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/gain.x" />
-            </Component>
-            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/gainModel.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
@@ -831,6 +828,9 @@
                 <File Source="../starman/res/model/MagicIce.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/MeshConvert.exe" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/minatoato.blend.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
@@ -840,16 +840,10 @@
                 <File Source="../starman/res/model/nes.blend.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/nes.x" />
-            </Component>
-            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/nesModel.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/noble.blend.x" />
-            </Component>
-            <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/noble.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/nobleModel.jpg" />
@@ -1107,10 +1101,10 @@
                 <File Source="../starman/res/model/vsco.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/vsco.x" />
+                <File Source="../starman/res/model/vscoModel.jpg" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/vscoModel.jpg" />
+                <File Source="../starman/res/model/water.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/water.x" />
@@ -1123,9 +1117,6 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/webnin.png" />
-            </Component>
-            <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/webnin.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/webninModel.jpg" />
@@ -1158,10 +1149,10 @@
                 <File Source="../starman/res/model/xeoff.blend.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/xeoff.x" />
+                <File Source="../starman/res/model/xeoff_tex.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
-                <File Source="../starman/res/model/xeoff_tex.png" />
+                <File Source="../starman/res/model/XFilesConvert.bat" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/yashi.png" />
@@ -1248,16 +1239,7 @@
                 <File Source="../starman/res/script/origin/mapInfo.en.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/map_obj.bak.csv" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/map_obj.bin" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/map_obj.csv" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/map_obj.ods" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/map_obj_type.csv" />
@@ -1839,16 +1821,7 @@
                 <File Id="mapInfo.en.csv.demo" Source="../starman/res/script/demo/mapInfo.en.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="map_obj.bak.csv.demo" Source="../starman/res/script/demo/map_obj.bak.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="map_obj.bin.demo" Source="../starman/res/script/demo/map_obj.bin" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="map_obj.csv.demo" Source="../starman/res/script/demo/map_obj.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="map_obj.ods.demo" Source="../starman/res/script/demo/map_obj.ods" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="map_obj_type.csv.demo" Source="../starman/res/script/demo/map_obj_type.csv" />
@@ -1867,9 +1840,6 @@
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="questSample.csv.demo" Source="../starman/res/script/demo/questSample.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="raftSave.csv.demo" Source="../starman/res/script/demo/raftSave.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="rynen.csv.demo" Source="../starman/res/script/demo/rynen.csv" />
