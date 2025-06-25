@@ -69,7 +69,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod04)
         {
             Util::InitWin_DX9_DI8();
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             Map* map = NEW Map();
             map->Init();
             SharedObj::SetMap(map);
@@ -151,7 +151,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod07)
         {
             Util::InitWin_DX9_DI8();
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             Map* map = NEW Map();
             map->Init();
             SharedObj::SetMap(map);
@@ -177,7 +177,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod08)
         {
             Util::InitWin_DX9_DI8();
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             Map* map = NEW Map();
             map->Init();
             SharedObj::SetMap(map);
@@ -202,7 +202,7 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod09)
         {
             Util::InitWin_DX9_DI8();
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             Map* map = NEW Map();
             map->Init();
             SharedObj::SetMap(map);

@@ -36,7 +36,7 @@ namespace UnitTest2
         TEST_METHOD(CraftTest_TestMethod02)
         {
             Util::InitWin_DX9_DI8();
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             CraftManager craft;
 
             // Target
@@ -77,7 +77,7 @@ namespace UnitTest2
         TEST_METHOD(CraftTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             CraftManager craft;
             craft.Init();
 
@@ -106,7 +106,7 @@ namespace UnitTest2
         TEST_METHOD(CraftTest_TestMethod06)
         {
             Util::InitWin_DX9_DI8(true);
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             CraftManager craft;
 
             // Target
@@ -124,7 +124,7 @@ namespace UnitTest2
         {
             Util::InitWin_DX9_DI8(true);
 
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             MockPopUpFont font;
             PopUp2::Init(&font);
 
@@ -202,7 +202,7 @@ namespace UnitTest2
         {
             Util::InitWin_DX9_DI8();
 
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
             storehouse->AddItem(_T("trunk"));
             storehouse->AddItem(_T("tsuta"));
@@ -283,7 +283,7 @@ namespace UnitTest2
         {
             Util::InitWin_DX9_DI8(true);
 
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
 
             for (int i = 0; i < 100; ++i)
@@ -369,7 +369,7 @@ namespace UnitTest2
             NSStarmanLib::CraftSystem::Destroy();
             Util::InitWin_DX9_DI8();
 
-            SaveManager::Get()->Load();
+            SaveManager::Get()->LoadOrigin();
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
 
             NSStarmanLib::Raft raft;
