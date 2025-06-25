@@ -44,6 +44,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\wix.3.14.1\build\wix.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\wix.3.14.1\build\wix.props'))" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>COPY /Y  ..\..\..\Installer\bin\x64\$(ConfigurationName)\starman.msi ..\..\starman.msi</PreBuildEvent>
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
