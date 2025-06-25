@@ -14,6 +14,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GenerateMapAndEnemyData", "GenerateMapAndEnemyData\GenerateMapAndEnemyData.vcxproj", "{A10062D2-901B-43C4-968B-308528E488AE}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Bootstrapper1", "Bootstrapper1\Bootstrapper1.wixproj", "{C9FC7BDC-3B49-4609-9D7C-345BB05D54DE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9747D8D-4045-4589-B83C-3FEA057EE296} = {B9747D8D-4045-4589-B83C-3FEA057EE296}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
