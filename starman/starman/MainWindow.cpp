@@ -440,6 +440,7 @@ MainWindow::~MainWindow()
     GamePad::Finalize();
     Mouse::Finalize();
     SharedObj::KeyBoard()->Finalize();
+    SharedObj::SetKeyBoard(nullptr);
 
     SAFE_RELEASE(m_D3DFont);
     SAFE_RELEASE(m_directInput);

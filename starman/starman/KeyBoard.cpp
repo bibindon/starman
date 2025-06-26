@@ -1,4 +1,5 @@
 ﻿#include "KeyBoard.h"
+#include "Common.h"
 
 void KeyBoard::Init(LPDIRECTINPUT8 directInput, HWND hWnd)
 {
@@ -39,7 +40,7 @@ void KeyBoard::Update()
 
 void KeyBoard::Finalize()
 {
-    m_keyboard->Release();
+    SAFE_RELEASE(m_keyboard);
 }
 
 bool KeyBoard::IsDown(int keyCode)

@@ -87,9 +87,15 @@ namespace UnitTest2
             raft.Update();
 
             raft.Finalize();
+
             delete player;
+            SharedObj::SetPlayer(nullptr);
+
             NSStarmanLib::Voyage::Destroy();
+
             delete map;
+            SharedObj::SetMap(nullptr);
+
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
@@ -98,8 +104,14 @@ namespace UnitTest2
         TEST_METHOD(RaftTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8();
+            SaveManager::Get()->LoadOrigin();
+
             NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
+
+            Map* map = NEW Map();
+            map->Init();
+            SharedObj::SetMap(map);
 
             auto player = NEW Player();
             SharedObj::SetPlayer(player);
@@ -122,6 +134,10 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             delete player;
+            SharedObj::SetPlayer(nullptr);
+
+            delete map;
+            SharedObj::SetMap(nullptr);
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
@@ -171,8 +187,13 @@ namespace UnitTest2
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
+
             delete player;
+            SharedObj::SetPlayer(nullptr);
+
             delete map;
+            SharedObj::SetMap(nullptr);
+
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
@@ -200,8 +221,12 @@ namespace UnitTest2
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
+
             delete player;
+            SharedObj::SetPlayer(nullptr);
+
             delete map;
+            SharedObj::SetMap(nullptr);
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
@@ -229,8 +254,12 @@ namespace UnitTest2
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
+
             delete player;
+            SharedObj::SetPlayer(nullptr);
+
             delete map;
+            SharedObj::SetMap(nullptr);
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
         }
@@ -413,9 +442,13 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
             delete player;
+            SharedObj::SetPlayer(nullptr);
+
+            delete map;
+            SharedObj::SetMap(nullptr);
             VoyageManager::Destroy();
             NSStarmanLib::Voyage::Destroy();
-            delete map;
+
             Util::ReleaseWin_DX9_DI8();
         }
 

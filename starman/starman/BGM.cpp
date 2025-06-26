@@ -31,6 +31,8 @@ void BGM::Finalize()
         SAFE_RELEASE(pair.second);
     }
 
+    dx8sound_buffers_.clear();
+
     SAFE_RELEASE(dx8sound_);
 }
 
@@ -880,6 +882,8 @@ void BGMManager::Init(HWND hWnd)
 void BGMManager::Finalize()
 {
     m_BGM.Finalize();
+
+    SAFE_DELETE(m_obj);
 }
 
 void BGMManager::Update()

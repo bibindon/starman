@@ -112,6 +112,24 @@ void Util::ReleaseWin_DX9_DI8()
     BGMManager::Get()->Finalize();
     SoundEffect::finalize();
 
+    if (SharedObj::KeyBoard() != nullptr)
+    {
+        delete SharedObj::KeyBoard();
+    }
+    SharedObj::SetKeyBoard(nullptr);
+
+    if (SharedObj::GetPlayer() != nullptr)
+    {
+        delete SharedObj::GetPlayer();
+    }
+    SharedObj::SetPlayer(nullptr);
+
+    if (SharedObj::GetMap() != nullptr)
+    {
+        delete SharedObj::GetMap();
+    }
+    SharedObj::SetMap(nullptr);
+
     SharedObj::Finalize();
     SAFE_RELEASE(m_D3D);
     SAFE_RELEASE(m_directInput);

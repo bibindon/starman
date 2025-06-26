@@ -468,7 +468,11 @@ SeqBattle::~SeqBattle()
     m_commandManager.Finalize();
     SAFE_DELETE(m_loadThread);
     SAFE_DELETE(m_player);
+    SharedObj::SetPlayer(nullptr);
+
     SAFE_DELETE(m_map);
+    SharedObj::SetMap(nullptr);
+
     SAFE_DELETE(m_enemyManager);
 
     SAFE_DELETE(m_talk);

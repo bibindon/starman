@@ -66,8 +66,8 @@ namespace UnitTest2
             CraftManager craft;
             eBattleState state;
 
-            MockKeyBoard keyboard;
-            SharedObj::SetKeyBoard(&keyboard);
+            MockKeyBoard* keyboard = NEW MockKeyBoard();
+            SharedObj::SetKeyBoard(keyboard);
 
             // Target
             craft.Operate(&state);
@@ -131,8 +131,8 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
-            MockKeyBoard keyboard;
-            SharedObj::SetKeyBoard(&keyboard);
+            MockKeyBoard* keyboard = NEW MockKeyBoard();
+            SharedObj::SetKeyBoard(keyboard);
 
             CraftManager craft;
 
@@ -145,8 +145,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
 
@@ -165,8 +165,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -213,8 +213,8 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
-            MockKeyBoard keyboard;
-            SharedObj::SetKeyBoard(&keyboard);
+            MockKeyBoard* keyboard = NEW MockKeyBoard();
+            SharedObj::SetKeyBoard(keyboard);
 
             CraftManager craft;
 
@@ -227,8 +227,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
 
@@ -247,8 +247,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -298,8 +298,8 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
-            MockKeyBoard keyboard;
-            SharedObj::SetKeyBoard(&keyboard);
+            MockKeyBoard* keyboard = NEW MockKeyBoard();
+            SharedObj::SetKeyBoard(keyboard);
 
             CraftManager craft;
 
@@ -312,8 +312,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -331,8 +331,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -388,8 +388,8 @@ namespace UnitTest2
             MockPopUpFont font;
             PopUp2::Init(&font);
 
-            MockKeyBoard keyboard;
-            SharedObj::SetKeyBoard(&keyboard);
+            MockKeyBoard* keyboard = NEW MockKeyBoard();
+            SharedObj::SetKeyBoard(keyboard);
 
             CraftManager craft;
 
@@ -402,8 +402,8 @@ namespace UnitTest2
 
             eBattleState state = eBattleState::CRAFT;
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
             SharedObj::GetD3DDevice()->Clear(0,
@@ -421,8 +421,8 @@ namespace UnitTest2
             SharedObj::GetD3DDevice()->EndScene();
             SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
 
-            keyboard.SetKeyDownFirst(DIK_RETURN);
-            keyboard.Update();
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
 
             craft.Operate(&state);
             craft.Draw();

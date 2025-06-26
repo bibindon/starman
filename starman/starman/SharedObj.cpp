@@ -30,6 +30,10 @@ void SharedObj::SetWindowHandle(const HWND hWnd)
 void SharedObj::Finalize()
 {
     SAFE_RELEASE(m_D3DDevice);
+    SAFE_DELETE(m_map);
+    SAFE_DELETE(m_player);
+    SAFE_DELETE(m_questSystem);
+    SAFE_DELETE(m_keyBoard);
 }
 
 unsigned int SharedObj::GetRandom()
