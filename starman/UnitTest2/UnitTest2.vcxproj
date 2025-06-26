@@ -426,7 +426,6 @@
     <ClInclude Include="..\starman\PopUp2.h" />
     <ClInclude Include="..\starman\QuestManager.h" />
     <ClInclude Include="..\starman\Rain.h" />
-    <ClInclude Include="..\starman\resource.h" />
     <ClInclude Include="..\starman\SaveManager.h" />
     <ClInclude Include="..\starman\SeqBattle.h" />
     <ClInclude Include="..\starman\SeqEnding.h" />

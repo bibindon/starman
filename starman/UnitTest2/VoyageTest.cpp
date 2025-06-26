@@ -156,6 +156,9 @@ namespace UnitTest2
             map->Init();
             SharedObj::SetMap(map);
 
+            auto player = NEW Player();
+            SharedObj::SetPlayer(player);
+
             NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
@@ -168,6 +171,7 @@ namespace UnitTest2
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
+            delete player;
             delete map;
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
@@ -182,6 +186,9 @@ namespace UnitTest2
             map->Init();
             SharedObj::SetMap(map);
 
+            auto player = NEW Player();
+            SharedObj::SetPlayer(player);
+
             NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
@@ -193,6 +200,7 @@ namespace UnitTest2
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
+            delete player;
             delete map;
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
@@ -207,6 +215,9 @@ namespace UnitTest2
             map->Init();
             SharedObj::SetMap(map);
 
+            auto player = NEW Player();
+            SharedObj::SetPlayer(player);
+
             NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
@@ -218,6 +229,7 @@ namespace UnitTest2
 
             raft.Finalize();
             NSStarmanLib::Voyage::Destroy();
+            delete player;
             delete map;
             Util::DestroyLibData();
             Util::ReleaseWin_DX9_DI8();
@@ -372,6 +384,10 @@ namespace UnitTest2
         TEST_METHOD(VoyageTest_TestMethod05)
         {
             Util::InitWin_DX9_DI8(true);
+            SaveManager::Get()->LoadOrigin();
+            Map* map = NEW Map();
+            map->Init();
+            SharedObj::SetMap(map);
             NSStarmanLib::Voyage::Get()->Init(_T("raft1.csv"));
             NSStarmanLib::Voyage::Get()->SetRaftCurrentId(1);
 
@@ -399,6 +415,7 @@ namespace UnitTest2
             delete player;
             VoyageManager::Destroy();
             NSStarmanLib::Voyage::Destroy();
+            delete map;
             Util::ReleaseWin_DX9_DI8();
         }
 

@@ -414,7 +414,7 @@ void CraftManager::Operate(eBattleState* state)
             Common::SetCursorVisibility(false);
         }
         // イカダの場合は活動拠点の船着き場にイカダがないかチェック
-        else if (result == Common::LoadString_(IDS_STRING169))
+        else if (result == L"raft")
         {
             bool raftExist = NSStarmanLib::ActivityBase::Get()->CheckRaftExist();
 

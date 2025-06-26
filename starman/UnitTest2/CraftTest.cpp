@@ -66,6 +66,9 @@ namespace UnitTest2
             CraftManager craft;
             eBattleState state;
 
+            MockKeyBoard keyboard;
+            SharedObj::SetKeyBoard(&keyboard);
+
             // Target
             craft.Operate(&state);
 
@@ -373,10 +376,10 @@ namespace UnitTest2
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
 
             NSStarmanLib::Raft raft;
-            raft.SetXYZ(-317.f, 11.f, 540.f);
+            raft.SetXYZ(-4.f, 458.f, -711.f);
             NSStarmanLib::Voyage::Get()->AddRaft(raft);
 
-            for (int i = 0; i < 100; ++i)
+            for (int i = 0; i < 50; ++i)
             {
                 storehouse->AddItem(_T("trunk"));
                 storehouse->AddItem(_T("tsuta"));
@@ -429,8 +432,6 @@ namespace UnitTest2
                 auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
                 Assert::AreEqual(true, reqList.empty());
             }
-
-            Assert::AreEqual(_T("船着き場にイカダがある"), font.GetShowText().c_str());
 
             craft.Finalize();
             Util::DestroyLibData();

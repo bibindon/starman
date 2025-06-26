@@ -302,9 +302,6 @@
     <ClInclude Include="..\starman\QuestManager.h">
       <Filter>target</Filter>
     </ClInclude>
-    <ClInclude Include="..\starman\resource.h">
-      <Filter>target</Filter>
-    </ClInclude>
     <ClInclude Include="..\starman\SaveManager.h">
       <Filter>target</Filter>
     </ClInclude>
