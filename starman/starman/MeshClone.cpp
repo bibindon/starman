@@ -30,6 +30,11 @@ MeshClone::MeshClone(
 
 MeshClone::~MeshClone()
 {
+    if (m_D3DEffectMap.empty())
+    {
+        return;
+    }
+
     auto refcnt = m_D3DEffectMap.at(m_meshName)->Release();
 
     if (refcnt <= 0)
@@ -52,9 +57,9 @@ MeshClone::~MeshClone()
         m_D3DMeshMap.erase(m_meshName);
     }
 
-    if (!_T("tree1.xの解放"))
+    if (!_T("rockWithDepressions.xの解放"))
     {
-        if (m_meshName.find(_T("tree1.x")) != std::wstring::npos)
+        if (m_meshName.find(_T("rockWithDepressions.x")) != std::wstring::npos)
         {
             std::wstring work;
             work = _T("m_vecTextureMap.at(") + m_meshName + _T(") ref count: ") + std::to_wstring(ulong) + _T("\n");
@@ -695,6 +700,16 @@ bool MeshClone::ContainMeshName(const std::wstring& arg)
         return true;
     }
     return false;
+}
+
+void MeshClone::ForceRelease()
+{
+    m_D3DEffectMap.clear();
+    m_D3DMeshMap.clear();
+    m_vecTextureMap.clear();
+    m_materialCountMap.clear();
+    m_vecColorMap.clear();
+    m_bFirstMap.clear();
 }
 
 

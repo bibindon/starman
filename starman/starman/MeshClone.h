@@ -51,6 +51,8 @@ public:
     std::wstring GetMeshName();
     bool ContainMeshName(const std::wstring& arg);
 
+    static void ForceRelease();
+
 private:
     const std::wstring SHADER_FILENAME { _T("res\\shader\\mesh_shader.fx") };
 

@@ -54,6 +54,11 @@ Map::~Map()
     {
         SAFE_DELETE(item.second);
     }
+
+    for (auto& item : m_meshCloneMap)
+    {
+        item.second->ForceRelease();
+    }
 }
 
 void Map::Init()

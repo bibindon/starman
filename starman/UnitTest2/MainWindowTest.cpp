@@ -79,7 +79,7 @@ public:
     // MainLoop関数
     TEST_METHOD(MainWindowTest_TestMethod02)
     {
-		MockKeyBoard* keyboard = NEW MockKeyBoard();
+        MockKeyBoard* keyboard = NEW MockKeyBoard();
         auto hInstance = (HINSTANCE)GetModuleHandle(0);
 
         try
@@ -134,9 +134,9 @@ public:
             std::thread th1([&]
                             {
                                 // 1分エンターを押し続ける
-                                for (int i = 0; i <120; ++i)
+                                for (int i = 0; i < 90; ++i)
                                 {
-                                    Sleep(1000 * 1);
+                                    Sleep(500 * 1);
                                     keyboard->SetKeyDownFirst(DIK_RETURN);
                                 }
 
@@ -175,12 +175,12 @@ public:
                 }
                 else
                 {
-					Assert::Fail();
+                    Assert::Fail();
                 }
             }
             else
             {
-				Assert::Fail();
+                Assert::Fail();
             }
         }
 
@@ -208,9 +208,9 @@ public:
             std::thread th1([&]
                             {
                                 // 1分エンターを押し続ける
-                                for (int i = 0; i < 60; ++i)
+                                for (int i = 0; i < 90; ++i)
                                 {
-                                    Sleep(1000 * 1); 
+                                    Sleep(500 * 1); 
                                     keyboard->SetKeyDownFirst(DIK_RETURN);
                                 }
 
@@ -234,7 +234,7 @@ public:
 
         try
         {
-			keyboard = NEW MockKeyBoard();
+            keyboard = NEW MockKeyBoard();
             MainWindow sut(hInstance, keyboard);
 
             std::thread th1([&]
@@ -244,11 +244,11 @@ public:
                                 // Continueを選択して決定
                                 keyboard->SetKeyDownFirst(DIK_RIGHT);
 
-                                Sleep(1000 * 1); 
+                                Sleep(500 * 1); 
 
                                 keyboard->SetKeyDownFirst(DIK_RETURN);
 
-                                Sleep(1000 * 30); 
+                                Sleep(1000 * 10); 
 
                                 keyboard->SetAltF4();
                             });

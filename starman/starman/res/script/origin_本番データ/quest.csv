@@ -233,7 +233,7 @@ Q2900,"クエストが完了していたら
 クエストが完了していないなら","Q2800
 Q2900",,"位置
 NPCのXが生存","10.6:491.5:-564:3
-daikeiman",,"<npc><daikeiman><pos>20:491.7:-563
+daikeiman",,"<npc><daikeiman><pos>23.4:491.5:-561.0
 <npc><daikeiman><talkEnable>y
 <npc><daikeiman><talkScript>res\\script\\origin\\talkFinishQuest9-5.csv
 <talk>res\\script\\origin\\talkFinishQuest9-4.csv"
@@ -266,8 +266,7 @@ NPCのXが生存","daikeiman
 daikeiman",,<npc><daikeiman><showMenu>y
 Q3400,"クエストが完了していたら
 クエストが完了していないなら","Q3300
-Q3400",<hint>ホシマン（子供たちを呼びに行こう）,調べたら,-206:106:198:120,,"<npc><daikeiman><pos>0:0:0
-<talk>res\\script\\origin\\talkFinishQuest14.csv"
+Q3400",<hint>ホシマン（子供たちを呼びに行こう）,調べたら,-206:106:198:120,,<talk>res\\script\\origin\\talkFinishQuest14.csv
 Q3500,"クエストが完了していたら
 クエストが完了していないなら","Q3400
 Q3500",<hint>ホシマン（子供たちは大きな岩のあたりにいたはずだ）,"調べたら
