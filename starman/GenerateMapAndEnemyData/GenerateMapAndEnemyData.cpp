@@ -25,27 +25,6 @@
 // - 同じ種類のモンスターや同じ種類のオブジェクトがまとまって配置されるようにする
 //---------------------------------------------------------------------------------
 
-// TODO こちらを使うように修正
-// 確率 (0% ~ 100%)
-
-const int MapObj1 = 1;
-const int MapObj2 = 1;
-const int MapObj3 = 1;
-const int MapObj4 = 1;
-const int MapObj6 = 1;
-const int MapObj7 = 1;
-const int MapObj8 = 1;
-const int MapObj9 = 1;
-const int MapObj10 = 1;
-const int MapObj11 = 1;
-const int MapObj12 = 1;
-const int Enemy1 = 1;
-const int Enemy2 = 1;
-const int Enemy3 = 1;
-const int Enemy4 = 1;
-const int Enemy5 = 1;
-const int Enemy6 = 1;
-
 //---------------------------------------------------------------------------------
 // 座標構造体
 //---------------------------------------------------------------------------------
@@ -341,7 +320,7 @@ void AssignContent(const std::vector<stPos>& posList,
         stMapDef obj;
         obj.m_id = 1;
         obj.m_bCommon = true;
-        obj.m_rate = 40.f;
+        obj.m_rate = 30.f;
         mapInfoList.push_back(obj);
     }
 
@@ -352,7 +331,7 @@ void AssignContent(const std::vector<stPos>& posList,
         stMapDef obj;
         obj.m_id = 4;
         obj.m_bCommon = true;
-        obj.m_rate = 30.f;
+        obj.m_rate = 24.f;
         mapInfoList.push_back(obj);
     }
 
@@ -386,7 +365,7 @@ void AssignContent(const std::vector<stPos>& posList,
         stMapDef obj;
         obj.m_id = 7;
         obj.m_bCommon = true;
-        obj.m_rate = 1.f;
+        obj.m_rate = 4.f;
         mapInfoList.push_back(obj);
     }
 
@@ -423,7 +402,7 @@ void AssignContent(const std::vector<stPos>& posList,
         stMapDef obj;
         obj.m_id = 11;
         obj.m_bCommon = true;
-        obj.m_rate = 1.f;
+        obj.m_rate = 4.f;
         mapInfoList.push_back(obj);
     }
 
@@ -446,7 +425,7 @@ void AssignContent(const std::vector<stPos>& posList,
         stMapDef obj;
         obj.m_id = 13;
         obj.m_bCommon = true;
-        obj.m_rate = 3.f;
+        obj.m_rate = 13.f;
         obj.m_scale = 1;
         mapInfoList.push_back(obj);
     }

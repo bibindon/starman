@@ -222,7 +222,7 @@ sankakuman
 shikakuman",,
 Q2700,"クエストが完了していたら
 クエストが完了していないなら","Q2600
-Q2700",<hint>ホシマン（人工物はないだろうか）,位置,14:500:-594:40,,<talk>res\\script\\origin\\talkFinishQuest9-2.csv
+Q2700",<hint>ホシマン（人工物はないだろうか）,位置,14:500:-594:100,,<talk>res\\script\\origin\\talkFinishQuest9-2.csv
 Q2800,"クエストが完了していたら
 クエストが完了していないなら","Q2700
 Q2800",,"調べたら
