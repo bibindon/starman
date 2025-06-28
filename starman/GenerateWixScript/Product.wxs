@@ -1095,6 +1095,9 @@
                 <File Source="../starman/res/model/vim.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/vimModel.jpg" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/vsco.blend.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
@@ -1162,6 +1165,18 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/ZKWawel_1558_Skrzynia.png" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/.~lock.item.csv#" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/.~lock.npcStatus.csv#" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/.~lock.quest.csv#" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/.~lock.talkFinishQuest9-3.csv#" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/activityBase.csv" />
@@ -1725,7 +1740,7 @@
                 <File Source="../starman/res/script/origin/talkFinishQuest9-5.en.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/talkFinishQuest9.csv" />
+                <File Source="../starman/res/script/origin/talkFinishQuest9-removed.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest9.en.csv" />
@@ -1840,6 +1855,9 @@
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="questSample.csv.demo" Source="../starman/res/script/demo/questSample.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="raftSave.csv.demo" Source="../starman/res/script/demo/raftSave.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="rynen.csv.demo" Source="../starman/res/script/demo/rynen.csv" />
@@ -2307,7 +2325,7 @@
                 <File Id="talkFinishQuest9_5.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-5.en.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="talkFinishQuest9.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9.csv" />
+                <File Id="talkFinishQuest9_removed.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-removed.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="talkFinishQuest9.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9.en.csv" />
