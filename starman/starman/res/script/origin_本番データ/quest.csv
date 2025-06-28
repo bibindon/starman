@@ -225,13 +225,13 @@ Q2700,"クエストが完了していたら
 Q2700",<hint>ホシマン（人工物はないだろうか）,位置,14:500:-594:100,,<talk>res\\script\\origin\\talkFinishQuest9-2.csv
 Q2800,"クエストが完了していたら
 クエストが完了していないなら","Q2700
-Q2800",,"調べたら
-NPCのXが生存","24:492:-569:2
+Q2800",<hint>ホシマン（廃墟内を調べてみよう）,"調べたら
+NPCのXが生存","31.2:491.5:-558.4:2
 daikeiman",,"<talk>res\\script\\origin\\talkFinishQuest9-3.csv
 <showMap>3"
 Q2900,"クエストが完了していたら
 クエストが完了していないなら","Q2800
-Q2900",,"位置
+Q2900",<hint>ホシマン（廃墟の外を調べてみよう）,"位置
 NPCのXが生存","10.6:491.5:-564:3
 daikeiman",,"<npc><daikeiman><pos>23.4:491.5:-561.0
 <npc><daikeiman><talkEnable>y
@@ -262,7 +262,7 @@ daikeiman",,"<npc><daikeiman><talkEnable>y
 <npc><daikeiman><talkScript>res\\script\\origin\\talkFinishQuest13.csv"
 Q3300,"クエストが完了していたら
 クエストが完了していないなら","Q3200
-Q3300",,"人と話したら
+Q3300",<hint>ホシマン（ココナッツを彼のもとに持っていこう）,"人と話したら
 NPCのXが生存","daikeiman
 daikeiman",,<npc><daikeiman><showMenu>y
 Q3400,"クエストが完了していたら

@@ -611,55 +611,6 @@ void Map::Init()
             animSetting.m_loop = true;
             animSetMap[_T("0_Idle")] = animSetting;
         }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 1.f;
-            animSetting.m_duration = 1.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Walk")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 2.f;
-            animSetting.m_duration = 1.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Attack")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 3.f;
-            animSetting.m_duration = 0.5f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Damaged")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 3.5f;
-            animSetting.m_duration = 1.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Dead")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 5.f;
-            animSetting.m_duration = 2.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Jump")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 7.1f;
-            animSetting.m_duration = 0.5f;
-            animSetting.m_loop = true;
-            animSetMap[_T("Sit")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 7.7f;
-            animSetting.m_duration = 0.6f;
-            animSetting.m_loop = true;
-            animSetMap[_T("LieDown")] = animSetting;
-        }
         AnimMesh* animMesh = NEW AnimMesh(_T("res\\model\\vim.x"), pos, rot, 1.f, animSetMap);
         animMesh->SetAnim(_T("0_Idle"));
         m_NPC[_T("vim")] = animMesh;
