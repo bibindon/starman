@@ -161,7 +161,7 @@ void EnemyGhost::Update()
             std::wstring msg;
             msg = _T("distance: ") + std::to_wstring(distance) + _T("\n");
 
-            if (distance <= 1.0f)
+            if (distance <= 2.0f)
             {
                 SoundEffect::get_ton()->play(_T("res\\sound\\fireHit.wav"), 90);
                 player->SetDamaged();
