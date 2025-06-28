@@ -342,6 +342,22 @@ void Map::Init()
             mesh->Init();
             m_meshMap[_T("dead3")] = mesh;
         }
+
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(-483.5f, 279.5f, 2226.6f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\dead.blend.x"), pos, rot, 1.f);
+            mesh->Init();
+            m_meshMap[_T("dead4")] = mesh;
+        }
+
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(-1316.5f, 128.3f, 2158.f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\dead.blend.x"), pos, rot, 1.f);
+            mesh->Init();
+            m_meshMap[_T("dead5")] = mesh;
+        }
     }
 
     //------------------------------------------
@@ -2345,6 +2361,22 @@ bool Map::NearDead(const D3DXVECTOR3& pos)
         }
     }
 
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead4"))->GetPos(), 3.f);
+        if (hit)
+        {
+            return m_bDeadItem4Exist;
+        }
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead5"))->GetPos(), 3.f);
+        if (hit)
+        {
+            return m_bDeadItem5Exist;
+        }
+    }
+
     return false;
 }
 
@@ -2371,6 +2403,22 @@ void Map::SetDeadItem(const D3DXVECTOR3& pos)
         if (hit)
         {
             m_bDeadItem3Exist = false;
+        }
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead4"))->GetPos(), 3.f);
+        if (hit)
+        {
+            m_bDeadItem4Exist = false;
+        }
+    }
+
+    {
+        auto hit = Common::HitByBoundingBox(pos, m_meshMap.at(_T("dead5"))->GetPos(), 3.f);
+        if (hit)
+        {
+            m_bDeadItem5Exist = false;
         }
     }
 }

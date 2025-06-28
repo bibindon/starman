@@ -229,5 +229,7 @@ private:
     bool m_bDeadItem1Exist = true;
     bool m_bDeadItem2Exist = true;
     bool m_bDeadItem3Exist = true;
+    bool m_bDeadItem4Exist = true;
+    bool m_bDeadItem5Exist = true;
 };
 
