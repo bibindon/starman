@@ -592,6 +592,12 @@ void Player::Update(Map* map)
 
             SharedObj::GetMap()->SetEnemy(vecEnemy);
         }
+
+        // マップ表示をリセットする
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F10))
+        {
+            SharedObj::GetMap()->ResetShow();
+        }
     }
 
     // Shift + F → もの投げ

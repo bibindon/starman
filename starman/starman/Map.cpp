@@ -953,6 +953,8 @@ void Map::Update()
             // 3Dモデルの遅延読み込み
             //-------------------------------------
             {
+                ResetShow();
+
                 auto player = SharedObj::GetPlayer();
                 auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
                 std::vector<NSStarmanLib::stMapObj> needShow;
@@ -982,17 +984,18 @@ void Map::Update()
                                            true);
                 }
 
-                mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
-                for (int i = 0; i < (int)needHide.size(); ++i)
-                {
-                    mapObjManager->SetShow(needHide.at(i).m_frameX,
-                                           needHide.at(i).m_frameZ,
-                                           needHide.at(i).m_id,
-                                           false);
-
-                    delete m_meshCloneMap.at(needHide.at(i).m_id);
-                    m_meshCloneMap.erase(needHide.at(i).m_id);
-                }
+                // ResetShow()で一度全部消してるのでこの処理がいらない。
+//                mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
+//                for (int i = 0; i < (int)needHide.size(); ++i)
+//                {
+//                    mapObjManager->SetShow(needHide.at(i).m_frameX,
+//                                           needHide.at(i).m_frameZ,
+//                                           needHide.at(i).m_id,
+//                                           false);
+//
+//                    delete m_meshCloneMap.at(needHide.at(i).m_id);
+//                    m_meshCloneMap.erase(needHide.at(i).m_id);
+//                }
             }
 
             // 100メートル以上離れた敵は消す
@@ -2383,5 +2386,11 @@ void Map::SetDeadItem(const D3DXVECTOR3& pos)
             m_bDeadItem3Exist = false;
         }
     }
+}
+
+void Map::ResetShow()
+{
+    MapLib()->ResetShow();
+    m_meshCloneMap.clear();
 }
 

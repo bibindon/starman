@@ -132,6 +132,9 @@ public:
     // 死体の近くのアイテムを取得した
     void SetDeadItem(const D3DXVECTOR3& pos);
 
+    // 
+    void ResetShow();
+
 private:
 
     NSStarmanLib::MapObjManager* MapLib();
