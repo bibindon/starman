@@ -364,7 +364,9 @@ void CommandManager::BuildCommand()
             SharedObj::GetMap()->NearSotetsu(ppos) ||
             SharedObj::GetMap()->NearDonguri(ppos) ||
             SharedObj::GetMap()->NearDead(ppos) ||
-            SharedObj::GetMap()->NearStone(ppos)
+            SharedObj::GetMap()->NearStone(ppos) ||
+            SharedObj::GetMap()->NearKaiganDoukutsu(ppos) ||
+            SharedObj::GetMap()->NearMinatoato(ppos)
             )
         {
             m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), true);

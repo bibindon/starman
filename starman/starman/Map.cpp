@@ -2021,6 +2021,32 @@ bool Map::NearStone(const D3DXVECTOR3& pos)
     return isHit;
 }
 
+bool Map::NearKaiganDoukutsu(const D3DXVECTOR3& ppos)
+{
+    D3DXVECTOR3 pos = D3DXVECTOR3(1216.f, 10.8f, 582.1f);
+    if (Common::HitByBoundingBox(ppos, pos, 100.f))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Map::NearMinatoato(const D3DXVECTOR3& ppos)
+{
+    D3DXVECTOR3 pos = D3DXVECTOR3(1894.3f, 13.5f, -899.2f);
+    if (Common::HitByBoundingBox(ppos, pos, 100.f))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
 void Map::DeleteThinTree(const D3DXVECTOR3& pos)
 {
     std::vector<NSStarmanLib::stMapObj> mapObjs = MapLib()->GetMapObjListR(pos.x, pos.z, 2.f);

@@ -113,6 +113,12 @@ public:
     // 砂利の近くにいるか
     bool NearStone(const D3DXVECTOR3& pos);
 
+    // 海岸洞窟のあたりにいるか
+    bool NearKaiganDoukutsu(const D3DXVECTOR3& pos);
+
+    // 港跡のあたりにいるか
+    bool NearMinatoato(const D3DXVECTOR3& pos);
+
     // ２メートル以内の木を１本消す
     void DeleteThinTree(const D3DXVECTOR3& pos);
 
