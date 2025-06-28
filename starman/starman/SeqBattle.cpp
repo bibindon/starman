@@ -1416,6 +1416,7 @@ void SeqBattle::OperateCommand()
     {
         m_eState = eBattleState::CRAFT;
 
+        Camera::SetCameraMode(eCameraMode::SLEEP);
         Common::SetCursorVisibility(true);
         m_craft.Build();
         leave = true;
@@ -1424,6 +1425,7 @@ void SeqBattle::OperateCommand()
     {
         m_eState = eBattleState::PATCH_TEST;
 
+        Camera::SetCameraMode(eCameraMode::SLEEP);
         Common::SetCursorVisibility(true);
         m_patchManager2.Finalize();
         m_patchManager2.InitPatch();
@@ -1457,7 +1459,6 @@ void SeqBattle::OperateCommand()
             {
                 m_eState = eBattleState::NORMAL;
 
-                Common::SetCursorVisibility(true);
                 leave = true;
 
                 auto items = help->ReceiveItems(npcName);
