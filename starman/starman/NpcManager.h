@@ -25,9 +25,6 @@ public:
     void SetEnableFeature(const std::wstring& npcName,
                           const bool arg);
 
-    void SetShowMenu(const std::wstring& npcName,
-                     const bool arg);
-
     NSStarmanLib::NpcStatus GetNpcStatus(const std::wstring& npcName);
 
     void SetNpcStatus(const std::wstring& npcName, const NSStarmanLib::NpcStatus& status);

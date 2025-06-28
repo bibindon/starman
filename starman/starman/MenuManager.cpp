@@ -387,12 +387,12 @@ void MenuManager::InitMenu()
     std::vector<HumanInfo> humanInfoList;
     {
         NSStarmanLib::HumanInfoManager* humanInfoManager = NSStarmanLib::HumanInfoManager::GetObj();
-        std::vector<std::wstring> humanNameList = humanInfoManager->GetHumanNameList();
-        for (std::size_t i = 0; i < humanNameList.size(); ++i)
+        std::vector<std::wstring> humanIdList = humanInfoManager->GetHumanIdList();
+        for (std::size_t i = 0; i < humanIdList.size(); ++i)
         {
             HumanInfo humanInfo;
 
-            NSStarmanLib::HumanInfo libHumanInfo = humanInfoManager->GetHumanInfo(humanNameList.at(i));
+            NSStarmanLib::HumanInfo libHumanInfo = humanInfoManager->GetHumanInfo(humanIdList.at(i));
 
             if (libHumanInfo.GetVisible() == false)
             {
@@ -1239,7 +1239,8 @@ std::wstring MenuManager::OperateMenu()
             auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
             auto status = npcStatusMgr->GetNpcStatus(_T("daikeiman"));
-            if (status.GetMenuShow())
+            auto humanInfo = NSStarmanLib::HumanInfoManager::GetObj()->GetHumanInfo(L"daikeiman");
+            if (humanInfo.GetVisible())
             {
                 NSMenulib::StatusInfo info;
                 info.SetName(Common::LoadString_(IDS_STRING121));
@@ -1328,7 +1329,8 @@ std::wstring MenuManager::OperateMenu()
             auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
             auto status = npcStatusMgr->GetNpcStatus(_T("sankakuman"));
-            if (status.GetMenuShow())
+            auto humanInfo = NSStarmanLib::HumanInfoManager::GetObj()->GetHumanInfo(L"sankakuman");
+            if (humanInfo.GetVisible())
             {
                 NSMenulib::StatusInfo info;
                 info.SetName(Common::LoadString_(IDS_STRING112));
@@ -1418,7 +1420,8 @@ std::wstring MenuManager::OperateMenu()
             auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
 
             auto status = npcStatusMgr->GetNpcStatus(_T("shikakuman"));
-            if (status.GetMenuShow())
+            auto humanInfo = NSStarmanLib::HumanInfoManager::GetObj()->GetHumanInfo(L"shikakuman");
+            if (humanInfo.GetVisible())
             {
                 NSMenulib::StatusInfo info;
                 info.SetName(Common::LoadString_(IDS_STRING112));

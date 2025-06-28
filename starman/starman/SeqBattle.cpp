@@ -32,6 +32,7 @@
 #include <cassert>
 #include "resource.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Guide.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/HumanInfoManager.h"
 
 using namespace NSQuestSystem;
 
@@ -2141,11 +2142,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         work2 = Common::RemoveSubstring(work, _T("<showMenu>"));
                         if (work2 == _T("y"))
                         {
-                            NpcManager::Get()->SetShowMenu(npcNameKey, true);
-                        }
-                        else
-                        {
-                            NpcManager::Get()->SetShowMenu(npcNameKey, false);
+                            NSStarmanLib::HumanInfoManager::GetObj()->SetHumanVisible(npcNameKey);
                         }
                     }
                 }

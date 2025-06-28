@@ -65,14 +65,6 @@ void NpcManager::SetEnableFeature(const std::wstring& npcName,
     npcStatusMgr->SetNpcStatus(npcName, status);
 }
 
-void NpcManager::SetShowMenu(const std::wstring& npcName, const bool arg)
-{
-    auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
-    auto status = npcStatusMgr->GetNpcStatus(npcName);
-    status.SetMenuShow(arg);
-    npcStatusMgr->SetNpcStatus(npcName, status);
-}
-
 NSStarmanLib::NpcStatus NpcManager::GetNpcStatus(const std::wstring& npcName)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();
