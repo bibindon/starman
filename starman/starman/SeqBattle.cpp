@@ -2577,16 +2577,16 @@ void SeqBattle::OperateCutTree()
 
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
-        auto name = itemInfo.GetItemDef().GetName();
+        auto itemId = itemInfo.GetItemDef().GetUnreinforcedId();
         auto level = itemInfo.GetItemDef().GetLevel();
 
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
-        if (name == Common::LoadString_(IDS_STRING130))
+        if (itemId == L"longStone")
         {
             dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
         }
-        else if (name == Common::LoadString_(IDS_STRING131))
+        else if (itemId == L"stoneAxe")
         {
             auto durability = itemInfo.GetDurabilityCurrent();
 
@@ -2634,7 +2634,7 @@ void SeqBattle::OperateCutTree()
 
         // 体力を消費
         // 装備武器で消費する時間や体力が変わる
-        Common::Status()->CutTree(name, level);
+        Common::Status()->CutTree(itemId, level);
 
         // アイテムをインベントリに追加
         auto itemDef = Common::ItemManager()->GetItemDef(L"trunk");
