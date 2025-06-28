@@ -344,6 +344,37 @@ void Map::Init()
         }
     }
 
+    //------------------------------------------
+    // ヤシの木
+    // MeshCloneとして表示するが、Meshとしても表示する。
+    // 遠くから見えるようにするため
+    //------------------------------------------
+    {
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(-1379.f, 14.f, -569.f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\yashi.x"), pos, rot, 3.f);
+            mesh->Init();
+            m_meshMap[_T("bigYashi1")] = mesh;
+        }
+
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(-1389.f, 14.f, -579.f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\yashi.x"), pos, rot, 3.f);
+            mesh->Init();
+            m_meshMap[_T("bigYashi2")] = mesh;
+        }
+
+        {
+            D3DXVECTOR3 pos = D3DXVECTOR3(-1399.f, 14.f, -589.f);
+            D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
+            Mesh* mesh = NEW Mesh(_T("res\\model\\yashi.x"), pos, rot, 3.f);
+            mesh->Init();
+            m_meshMap[_T("bigYashi3")] = mesh;
+        }
+    }
+
     //--------------------------------------------
     // 太陽
     //--------------------------------------------

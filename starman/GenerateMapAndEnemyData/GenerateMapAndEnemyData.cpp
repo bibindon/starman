@@ -839,6 +839,8 @@ void AssignContent(const std::vector<stPos>& posList,
             mapObjList->push_back(_stMapObj);
         }
 
+        // yashi pass
+
         // 31
         {
             stMapObj _stMapObj;
