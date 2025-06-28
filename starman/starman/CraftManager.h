@@ -21,5 +21,6 @@ public:
 private:
 
     NSCraftLib::CraftLib m_gui;
+
 };
 

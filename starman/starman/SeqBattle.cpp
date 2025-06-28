@@ -1417,7 +1417,6 @@ void SeqBattle::OperateCommand()
         m_eState = eBattleState::CRAFT;
 
         Camera::SetCameraMode(eCameraMode::SLEEP);
-        Common::SetCursorVisibility(true);
         m_craft.Build();
         leave = true;
     }
@@ -1426,7 +1425,6 @@ void SeqBattle::OperateCommand()
         m_eState = eBattleState::PATCH_TEST;
 
         Camera::SetCameraMode(eCameraMode::SLEEP);
-        Common::SetCursorVisibility(true);
         m_patchManager2.Finalize();
         m_patchManager2.InitPatch();
         leave = true;
@@ -2322,6 +2320,14 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
 void SeqBattle::OperatePatch()
 {
+    static bool bFirst = true;
+
+    if (bFirst)
+    {
+        bFirst = false;
+        Common::SetCursorVisibility(false);
+    }
+
     std::wstring result = m_patchManager2.Operate();
 
     if (result == _T("EXIT"))
@@ -2329,6 +2335,7 @@ void SeqBattle::OperatePatch()
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
         Common::SetCursorVisibility(false);
+        bFirst = true;
     }
 }
 

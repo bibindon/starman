@@ -276,6 +276,11 @@ void CraftManager::Operate(eBattleState* state)
     static int counter = 0;
     ++counter;
 
+    if (counter == 1)
+    {
+        Common::SetCursorVisibility(true);
+    }
+
     // 1秒に一回
     if (counter % 60 == 1)
     {
@@ -412,6 +417,7 @@ void CraftManager::Operate(eBattleState* state)
             *state = eBattleState::NORMAL;
             Camera::SetCameraMode(eCameraMode::BATTLE);
             Common::SetCursorVisibility(false);
+            counter = 0;
         }
         // イカダの場合は活動拠点の船着き場にイカダがないかチェック
         else if (result == L"raft")
@@ -439,17 +445,17 @@ void CraftManager::Operate(eBattleState* state)
                 {
                     if (!SharedObj::IsEnglish())
                     {
-						PopUp2::Get()->SetText(errMsg);
+                        PopUp2::Get()->SetText(errMsg);
                     }
                     else
                     {
-						if (errMsg == _T("予約は５件までにしておこう"))
-						{
-							PopUp2::Get()->SetText(L"Let's limit the reservations to five.");
-						}
+                        if (errMsg == _T("予約は５件までにしておこう"))
+                        {
+                            PopUp2::Get()->SetText(L"Let's limit the reservations to five.");
+                        }
                         else if (errMsg == _T("素材が足りない"))
                         {
-							PopUp2::Get()->SetText(L"Lack of materials");
+                            PopUp2::Get()->SetText(L"Lack of materials");
                         }
                     }
                 }
@@ -479,35 +485,35 @@ void CraftManager::Operate(eBattleState* state)
             if (itemId == L"sotetsuDetox")
             {
                 ++num;
-				started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
+                started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
             }
             else if (itemId == L"donguriDetox")
             {
                 num += 5;
-				started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
+                started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
             }
             else
             {
-				started = craftSys->QueueCraftRequest(work, &errMsg);
+                started = craftSys->QueueCraftRequest(work, &errMsg);
             }
 
             if (!started)
             {
-				if (!SharedObj::IsEnglish())
-				{
-					PopUp2::Get()->SetText(errMsg);
-				}
-				else
-				{
-					if (errMsg == _T("予約は５件までにしておこう"))
-					{
-						PopUp2::Get()->SetText(L"Let's limit the reservations to five.");
-					}
-					else if (errMsg == _T("素材が足りない"))
-					{
-						PopUp2::Get()->SetText(L"Lack of materials");
-					}
-				}
+                if (!SharedObj::IsEnglish())
+                {
+                    PopUp2::Get()->SetText(errMsg);
+                }
+                else
+                {
+                    if (errMsg == _T("予約は５件までにしておこう"))
+                    {
+                        PopUp2::Get()->SetText(L"Let's limit the reservations to five.");
+                    }
+                    else if (errMsg == _T("素材が足りない"))
+                    {
+                        PopUp2::Get()->SetText(L"Lack of materials");
+                    }
+                }
             }
             else
             {
@@ -548,53 +554,53 @@ void CraftManager::Build()
                 continue;
             }
 
-			// 毒抜きの場合、成果物は同じだが個数が違うというクラフトがある。
-			// 例えば、毒抜き用の袋（レベル1）で毒抜きすると多めに成果物を得られる。
-			if (info.GetItemId() == L"sotetsuDetox" || info.GetItemId() == L"donguriDetox")
-			{
-				int bagLevel = 0;
-				auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();
-				for (auto& material : materials)
-				{
-					// 98 == 毒抜き用の袋
-					if (material.GetId() == L"bagForDetox")
-					{
-						bagLevel = 0;
-						break;
-					}
-					else if (material.GetId() == L"bagForDetox1")
-					{
-						bagLevel = 1;
-						break;
-					}
-					else if (material.GetId() == L"bagForDetox2")
-					{
-						bagLevel = 2;
-						break;
-					}
-					else if (material.GetId() == L"bagForDetox3")
-					{
-						bagLevel = 3;
-						break;
-					}
-					else if (material.GetId() == L"bagForDetox4")
-					{
-						bagLevel = 4;
-						break;
-					}
-					else if (material.GetId() == L"bagForDetox5")
-					{
-						bagLevel = 5;
-						break;
-					}
-				}
+            // 毒抜きの場合、成果物は同じだが個数が違うというクラフトがある。
+            // 例えば、毒抜き用の袋（レベル1）で毒抜きすると多めに成果物を得られる。
+            if (info.GetItemId() == L"sotetsuDetox" || info.GetItemId() == L"donguriDetox")
+            {
+                int bagLevel = 0;
+                auto materials = craftInfo->GetCraftInfo(info).GetCraftMaterialDef();
+                for (auto& material : materials)
+                {
+                    // 98 == 毒抜き用の袋
+                    if (material.GetId() == L"bagForDetox")
+                    {
+                        bagLevel = 0;
+                        break;
+                    }
+                    else if (material.GetId() == L"bagForDetox1")
+                    {
+                        bagLevel = 1;
+                        break;
+                    }
+                    else if (material.GetId() == L"bagForDetox2")
+                    {
+                        bagLevel = 2;
+                        break;
+                    }
+                    else if (material.GetId() == L"bagForDetox3")
+                    {
+                        bagLevel = 3;
+                        break;
+                    }
+                    else if (material.GetId() == L"bagForDetox4")
+                    {
+                        bagLevel = 4;
+                        break;
+                    }
+                    else if (material.GetId() == L"bagForDetox5")
+                    {
+                        bagLevel = 5;
+                        break;
+                    }
+                }
 
-				if (bagLevel != 0)
-				{
-					id += L"+" + std::to_wstring(bagLevel);
-					name += L"+" + std::to_wstring(bagLevel);
-				}
-			}
+                if (bagLevel != 0)
+                {
+                    id += L"+" + std::to_wstring(bagLevel);
+                    name += L"+" + std::to_wstring(bagLevel);
+                }
+            }
 
             idList.push_back(id);
             nameList.push_back(name);
@@ -606,7 +612,7 @@ void CraftManager::Build()
 
         if (reqList.size() >= 1)
         {
-			auto itemid = reqList.front().GetCraftInfo().GetOutput().GetItemId();
+            auto itemid = reqList.front().GetCraftInfo().GetOutput().GetItemId();
             auto outputName = Common::ItemManager()->GetItemDef(itemid).GetName();
             auto progress = craftSys->GetProgress();
 
@@ -729,7 +735,7 @@ void CraftManager::Build()
                     }
                     if (bagLevel != 0)
                     {
-						unreinforcedId += L"+" + std::to_wstring(bagLevel);
+                        unreinforcedId += L"+" + std::to_wstring(bagLevel);
                     }
                 }
 
