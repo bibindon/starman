@@ -1031,11 +1031,11 @@ void Map::Update()
                 float work = 0.f;
                 work = pos.x - m_meshMap[_T("precision")]->GetPos().x;
                 work = std::abs(work);
-                if (work < 20.f)
+                if (work < 50.f)
                 {
                     work = pos.z - m_meshMap[_T("precision")]->GetPos().z;
                     work = std::abs(work);
-                    if (work < 20.f)
+                    if (work < 50.f)
                     {
                         Camera::SetHouseMode(true);
                     }
