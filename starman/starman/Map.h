@@ -183,7 +183,7 @@ private:
     {
         NSStarmanLib::ItemInfo m_itemInfo;
         D3DXVECTOR3 m_move;
-        MeshClone* m_mesh;
+        MeshClone* m_mesh = nullptr;
 
         // 一度でも敵にヒットした
         bool m_bHit = false;
@@ -207,7 +207,7 @@ private:
     // 投げるもの（魔法）
     struct ThrownMagic
     {
-        NSStarmanLib::eMagicType m_eMagicType;
+        NSStarmanLib::eMagicType m_eMagicType = NSStarmanLib::eMagicType::None;
         D3DXVECTOR3 m_move;
 
         MeshNoShade* m_mesh;

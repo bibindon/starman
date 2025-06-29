@@ -195,7 +195,7 @@ void QuestManager::Update()
     // イカダの個数
     {
         auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
-        m_questSystem.SetRaftNum(raftList.size());
+        m_questSystem.SetRaftNum((int)raftList.size(), false);
     }
 
     m_questSystem.UpdateQuestStatus();
