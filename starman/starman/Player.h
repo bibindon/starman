@@ -56,7 +56,7 @@ public:
 
     // 洞窟の中にいるか。
     bool IsInCave();
-    void SetIsInCave(const bool arg) { m_bInCave = arg; }
+    void SetIsInCave(const bool arg);
 
     bool IsUnderWater();
 
@@ -128,8 +128,6 @@ private:
     bool m_bSwitchMagic = false;
 
     LPD3DXFONT m_D3DFont = nullptr;
-
-    bool m_bInCave = false;
 
     // ステップ中
     bool m_bStep = false;

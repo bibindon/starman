@@ -363,18 +363,18 @@ void Player::Update(Map* map)
 
         D3DXVECTOR3 outCave(87.f, 483.f, -1393.f);
 
-        if (!m_bInCave)
+        if (!Common::Status()->GetInCave())
         {
             if (Common::HitByBoundingBox(pos, inCave, 40.f))
             {
-                m_bInCave = true;
+                Common::Status()->SetInCave(true);
             }
         }
         else
         {
             if (Common::HitByBoundingBox(pos, outCave, 40.f))
             {
-                m_bInCave = false;
+                Common::Status()->SetInCave(false);
             }
         }
     }
@@ -1140,6 +1140,7 @@ void Player::Update(Map* map)
     if (statusManager->GetDead())
     {
         SetDead();
+        Common::Status()->SetInCave(false);
     }
 }
 
@@ -1916,7 +1917,12 @@ void Player::RideRaft()
 
 bool Player::IsInCave()
 {
-    return m_bInCave;
+    return Common::Status()->GetInCave();
+}
+
+void Player::SetIsInCave(const bool arg)
+{
+    Common::Status()->SetInCave(arg);
 }
 
 bool Player::IsUnderWater()
