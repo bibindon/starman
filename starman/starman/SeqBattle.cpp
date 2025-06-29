@@ -1211,26 +1211,26 @@ void SeqBattle::OperateCommand()
             m_eState = eBattleState::VOYAGE;
         }
     }
-    else if (result == Common::LoadString_(IDS_STRING181))
+    else if (result == L"sit")
     {
         leave = true;
         m_player->SetSit();
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == Common::LoadString_(IDS_STRING180))
+    else if (result == L"lieDown")
     {
         leave = true;
         m_player->SetLieDown();
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == Common::LoadString_(IDS_STRING203))
+    else if (result == L"rest3Hours")
     {
         leave = true;
         m_player->SetSit();
         m_eState = eBattleState::REST;
         StartFadeInOut();
     }
-    else if (result == Common::LoadString_(IDS_STRING182))
+    else if (result == L"meisou")
     {
         leave = true;
         m_eState = eBattleState::POPUP;
@@ -1257,27 +1257,27 @@ void SeqBattle::OperateCommand()
             PopUp::Get()->SetText(vvs);
         }
     }
-    else if (result == Common::LoadString_(IDS_STRING183))
+    else if (result == L"escape")
     {
         leave = true;
         D3DXVECTOR3 pos(-285.f, 16.f, 539.f);
         m_player->SetPos(pos);
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == Common::LoadString_(IDS_STRING178))
+    else if (result == L"cutTree")
     {
         // 石斧を装備しているか、縦長の石を所有していないと切れない
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
 
-        std::wstring name;
+        std::wstring id;
         if (itemInfo.GetId().size() >= 1)
         {
-            name = itemInfo.GetItemDef().GetName();
+            id = itemInfo.GetItemDef().GetUnreinforcedId();
         }
 
         bool bHaveAxe = false;
-        if (name == _T("石斧"))
+        if (id == L"stoneAxe")
         {
             bHaveAxe = true;
         }
@@ -1315,7 +1315,7 @@ void SeqBattle::OperateCommand()
             }
         }
     }
-    else if (result == Common::LoadString_(IDS_STRING179))
+    else if (result == L"pickPlant")
     {
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto stamina = status->GetBodyStaminaCurrent();
@@ -1331,15 +1331,15 @@ void SeqBattle::OperateCommand()
             StartFadeInOut();
         }
     }
-    else if (result == Common::LoadString_(IDS_STRING184))
+    else if (result == L"raiseSail")
     {
         SharedObj::Voyage()->SetSail(true);
     }
-    else if (result == Common::LoadString_(IDS_STRING185))
+    else if (result == L"lowerSail")
     {
         SharedObj::Voyage()->SetSail(false);
     }
-    else if (result == Common::LoadString_(IDS_STRING186))
+    else if (result == L"oar3Hours")
     {
         if (!SharedObj::Voyage()->Can3HoursAuto())
         {
@@ -1352,13 +1352,13 @@ void SeqBattle::OperateCommand()
             m_eState = eBattleState::VOYAGE3HOURS;
         }
     }
-    else if (result == Common::LoadString_(IDS_STRING187))
+    else if (result == L"stand")
     {
         SharedObj::Voyage()->SetRaftMode(false);
         m_eState = eBattleState::NORMAL;
         SharedObj::GetPlayer()->SetIdle();
     }
-    else if (result == Common::LoadString_(IDS_STRING188))
+    else if (result == L"rideRaft")
     {
         // 袋を装備していたらイカダに乗ることはできない
         auto bagState = Common::Status()->GetBagState();
@@ -1373,17 +1373,17 @@ void SeqBattle::OperateCommand()
             PopUp2::Get()->SetText(IDS_STRING109);
         }
     }
-    else if (result == Common::LoadString_(IDS_STRING189))
+    else if (result == L"checkRaftBag")
     {
         ShowStorehouse();
     }
-    else if (result == Common::LoadString_(IDS_STRING190))
+    else if (result == L"createTorch")
     {
         StartFadeInOut();
         m_eState = eBattleState::CREATE_TORCH;
         leave = true;
     }
-    else if (result == Common::LoadString_(IDS_STRING192))
+    else if (result == L"lit")
     {
         // 松明の耐久値が０の場合、エラーメッセージを表示し点火しない。
         auto weapon = Common::Status()->GetEquipWeapon();
@@ -1407,13 +1407,13 @@ void SeqBattle::OperateCommand()
             }
         }
     }
-    else if (result == Common::LoadString_(IDS_STRING193))
+    else if (result == L"extinguish")
     {
         NSStarmanLib::WeaponManager::GetObj()->SetTorchLit(false);
         leave = true;
         m_eState = eBattleState::NORMAL;
     }
-    else if (result == Common::LoadString_(IDS_STRING194))
+    else if (result == L"craft")
     {
         m_eState = eBattleState::CRAFT;
 
@@ -1421,7 +1421,7 @@ void SeqBattle::OperateCommand()
         m_craft.Build();
         leave = true;
     }
-    else if (result == Common::LoadString_(IDS_STRING195))
+    else if (result == L"patchTest")
     {
         m_eState = eBattleState::PATCH_TEST;
 
@@ -1430,7 +1430,7 @@ void SeqBattle::OperateCommand()
         m_patchManager2.InitPatch();
         leave = true;
     }
-    else if (result == Common::LoadString_(IDS_STRING196))
+    else if (result == L"help")
     {
         // サンカクマンかシカクマンのどちらかと近くにいなくてはならない。
         // どちらも近くにいる場合、サンカクマンを優先する

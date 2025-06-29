@@ -193,7 +193,16 @@ void CommandManager::Init(const eType type)
 
     NSCommand::ISoundEffect* pSE = NEW NSCommand::SoundEffect();
 
-    m_commandLib->Init(pFont, pSE, sprCursor, SharedObj::IsEnglish());
+    if (SharedObj::IsEnglish())
+    {
+        m_commandLib->Init(pFont, pSE, sprCursor, SharedObj::IsEnglish(),
+                           L"res\\script\\origin\\commandName.en.csv");
+    }
+    else
+    {
+        m_commandLib->Init(pFont, pSE, sprCursor, SharedObj::IsEnglish(),
+                           L"res\\script\\origin\\commandName.csv");
+    }
 
     m_eType = type;
     if (type == eType::Title)
@@ -304,9 +313,9 @@ void CommandManager::Finalize()
     SAFE_DELETE(m_commandLib);
 }
 
-void CommandManager::Upsert(const std::wstring name, const bool visible)
+void CommandManager::Upsert(const std::wstring& id, const bool visible)
 {
-    m_commandLib->UpsertCommand(name, visible);
+    m_commandLib->UpsertCommand(id, visible);
 }
 
 void CommandManager::SetPreviousState(const eBattleState previousState)
@@ -345,11 +354,11 @@ void CommandManager::BuildCommand()
     {
         if (SharedObj::GetMap()->NearThinTree(ppos))
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING178), true);
+            m_commandLib->UpsertCommand(L"cutTree", true);
         }
         else
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING178), false);
+            m_commandLib->UpsertCommand(L"cutTree", false);
         }
     }
 
@@ -369,11 +378,11 @@ void CommandManager::BuildCommand()
             SharedObj::GetMap()->NearMinatoato(ppos)
             )
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), true);
+            m_commandLib->UpsertCommand(L"pickPlant", true);
         }
         else
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING179), false);
+            m_commandLib->UpsertCommand(L"pickPlant", false);
         }
     }
 
@@ -382,21 +391,21 @@ void CommandManager::BuildCommand()
 
 
     // 横になる・・・常に表示される
-    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING180), !bUnderwater);
+    m_commandLib->UpsertCommand(L"lieDown", !bUnderwater);
 
     // 座る・・・常に表示される
-    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING181), !bUnderwater);
+    m_commandLib->UpsertCommand(L"sit", !bUnderwater);
 
     // ３時間休憩する・・・常に表示される
-    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING203), !bUnderwater);
+    m_commandLib->UpsertCommand(L"rest3Hours", !bUnderwater);
 
     // 瞑想・・・常に表示される
-    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING182), true);
+    m_commandLib->UpsertCommand(L"meisou", true);
 
     // 脱出・・・20秒コマンドが表示されたら
     if (m_counter > (60 * 20))
     {
-        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING183), true);
+        m_commandLib->UpsertCommand(L"escape", true);
     }
 
     // 帆を張る・・・イカダモードの時
@@ -404,7 +413,7 @@ void CommandManager::BuildCommand()
     {
         if (!voyage->GetSail())
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING184), true);
+            m_commandLib->UpsertCommand(L"raiseSail", true);
         }
     }
 
@@ -413,7 +422,7 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetSail())
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING185), true);
+            m_commandLib->UpsertCommand(L"lowerSail", true);
         }
     }
 
@@ -422,18 +431,18 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetPosType() == NSStarmanLib::Raft::ePosType::Sea)
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING186), true);
+            m_commandLib->UpsertCommand(L"oar3Hours", true);
         }
         else
         {
-            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING186), false);
+            m_commandLib->UpsertCommand(L"oar3Hours", false);
         }
     }
 
     // 立ち上がる・・・イカダモードの時。イカダモードが解除される。
     if (raftMode)
     {
-        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING187), true);
+        m_commandLib->UpsertCommand(L"stand", true);
     }
 
     // イカダに乗る・・・イカダが近くにある時
@@ -445,17 +454,17 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetRaftCount() == 0)
         {
-            m_commandLib->RemoveCommand(Common::LoadString_(IDS_STRING188));
+            m_commandLib->RemoveCommand(L"rideRaft");
         }
         else
         {
             if (voyage->CheckNearRaft(ppos))
             {
-                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING188), true);
+                m_commandLib->UpsertCommand(L"rideRaft", true);
             }
             else
             {
-                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING188), false);
+                m_commandLib->UpsertCommand(L"rideRaft", false);
             }
         }
     }
@@ -469,17 +478,17 @@ void CommandManager::BuildCommand()
     {
         if (voyage->GetRaftCount() == 0)
         {
-            m_commandLib->RemoveCommand(Common::LoadString_(IDS_STRING189));
+            m_commandLib->RemoveCommand(L"checkRaftBag");
         }
         else
         {
             if (voyage->CheckNearRaft(ppos))
             {
-                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING189), true);
+                m_commandLib->UpsertCommand(L"checkRaftBag", true);
             }
             else
             {
-                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING189), false);
+                m_commandLib->UpsertCommand(L"checkRaftBag", false);
             }
         }
     }
@@ -498,17 +507,17 @@ void CommandManager::BuildCommand()
 
             if (weapon.GetId().size() >= 1)
             {
-                m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING190), false);
+                m_commandLib->UpsertCommand(L"createTorch", false);
             }
             else
             {
-                if (weapon.GetItemDef().GetName() == Common::LoadString_(IDS_STRING191))
+                if (weapon.GetItemDef().GetUnreinforcedId() == L"stick")
                 {
-                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING190), true);
+                    m_commandLib->UpsertCommand(L"createTorch", true);
                 }
                 else
                 {
-                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING190), false);
+                    m_commandLib->UpsertCommand(L"createTorch", false);
                 }
             }
         }
@@ -527,7 +536,7 @@ void CommandManager::BuildCommand()
         // 何かしらは装備している。
         if (weapon.GetId().size() >= 1)
         {
-            if (Common::Status()->GetEquipWeapon().GetItemDef().GetName() == Common::LoadString_(IDS_STRING133))
+            if (Common::Status()->GetEquipWeapon().GetItemDef().GetId() == L"torch")
             {
                 auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
                 if (!lit)
@@ -535,12 +544,12 @@ void CommandManager::BuildCommand()
                     auto enableMagic = NSStarmanLib::Rynen::GetObj()->GetContracted();
                     if (enableMagic)
                     {
-                        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING192), true);
+                        m_commandLib->UpsertCommand(L"lit", true);
                     }
                 }
                 else
                 {
-                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING193), true);
+                    m_commandLib->UpsertCommand(L"lit", true);
                 }
             }
         }
@@ -566,8 +575,8 @@ void CommandManager::BuildCommand()
 
                 if (_near)
                 {
-                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING194), true);
-                    m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING195), true);
+                    m_commandLib->UpsertCommand(L"craft", true);
+                    m_commandLib->UpsertCommand(L"patchTest", true);
                 }
             }
         }
@@ -589,7 +598,7 @@ void CommandManager::BuildCommand()
                     bool canReceive = NSStarmanLib::Help::Get()->CanReceive(_T("sankakuman"));
                     if (canReceive)
                     {
-                        m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
+                        m_commandLib->UpsertCommand(L"help", true);
                         bShowSankakuHelp = true;
                     }
                 }
@@ -614,7 +623,7 @@ void CommandManager::BuildCommand()
                         bool canReceive = NSStarmanLib::Help::Get()->CanReceive(_T("shikakuman"));
                         if (canReceive)
                         {
-                            m_commandLib->UpsertCommand(Common::LoadString_(IDS_STRING196), true);
+                            m_commandLib->UpsertCommand(L"help", true);
                             bShowSankakuHelp = true;
                         }
                     }
@@ -644,16 +653,16 @@ void CommandManager::BuildOpeningCommand()
     }
 
     m_commandLib->RemoveAll();
-    m_commandLib->UpsertCommand(_T("Start"), true);
-    m_commandLib->UpsertCommand(_T("Continue"), enable);
-    m_commandLib->UpsertCommand(_T("Language"), true);
+    m_commandLib->UpsertCommand(_T("start"), true);
+    m_commandLib->UpsertCommand(_T("continue"), enable);
+    m_commandLib->UpsertCommand(_T("language"), true);
 
     if (Common::DemoMode())
     {
-		m_commandLib->UpsertCommand(_T("Demo"), true);
+        m_commandLib->UpsertCommand(_T("demo"), true);
     }
 
-    m_commandLib->UpsertCommand(_T("Exit"), true);
+    m_commandLib->UpsertCommand(_T("exit"), true);
 }
 
 void CommandManager::BuildLangCommand()
@@ -665,8 +674,8 @@ void CommandManager::BuildLangCommand()
     //---------------------------------------------------
 
     m_commandLib->RemoveAll();
-    m_commandLib->UpsertCommand(_T("Japanese"), true);
-    m_commandLib->UpsertCommand(_T("English"), true);
-    m_commandLib->UpsertCommand(_T("Back"), true);
+    m_commandLib->UpsertCommand(_T("japanese"), true);
+    m_commandLib->UpsertCommand(_T("english"), true);
+    m_commandLib->UpsertCommand(_T("back"), true);
 }
 

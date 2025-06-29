@@ -1173,6 +1173,12 @@
                 <File Source="../starman/res/script/origin/BinToCsv.exe" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/commandName.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/commandName.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/craftDef.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1753,6 +1759,12 @@
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="BinToCsv.exe.demo" Source="../starman/res/script/demo/BinToCsv.exe" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="commandName.csv.demo" Source="../starman/res/script/demo/commandName.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="commandName.en.csv.demo" Source="../starman/res/script/demo/commandName.en.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="craftDef.csv.demo" Source="../starman/res/script/demo/craftDef.csv" />

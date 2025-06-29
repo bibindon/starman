@@ -18,7 +18,7 @@ public:
     std::wstring Operate();
     void Draw();
     void Finalize();
-    void Upsert(const std::wstring name, const bool visible);
+    void Upsert(const std::wstring& name, const bool visible);
     void SetPreviousState(const eBattleState previousState);
     eBattleState GetPreviousState() const;
 

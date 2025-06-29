@@ -149,7 +149,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
     {
         std::wstring result = m_titleCommand->Operate();
 
-        if (result == _T("Start"))
+        if (result == _T("start"))
         {
             // 即座にオープニングが始まるのではなく、
             // フェードアウトを描画し、
@@ -178,7 +178,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             Rain::Get()->SetShow(true);
         }
-        else if (result == _T("Continue"))
+        else if (result == _T("continue"))
         {
             m_eMenu = eTitleMenu::CONTINUE;
             m_bCameraFadeOut = true;
@@ -192,7 +192,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             Rain::Get()->SetShow(true);
         }
-        else if (result == _T("Demo"))
+        else if (result == _T("demo"))
         {
 
             // 即座にオープニングが始まるのではなく、
@@ -220,7 +220,7 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
 
             Rain::Get()->SetShow(true);
         }
-        else if (result == _T("Language"))
+        else if (result == _T("language"))
         {
             m_titleCommand->Finalize();
             SAFE_DELETE(m_titleCommand);
@@ -228,24 +228,24 @@ void Title::Update(eSequence* sequence, eBattleState* eState)
             m_titleCommand = NEW CommandManager();
             m_titleCommand->Init(CommandManager::eType::Title_Language);
         }
-        else if (result == _T("Exit"))
+        else if (result == _T("exit"))
         {
             m_eMenu = eTitleMenu::EXIT;
             *sequence = eSequence::EXIT;
         }
-        else if (result == _T("Japanese"))
+        else if (result == _T("japanese"))
         {
             PopUp2::Get()->SetText(_T("再起動時に有効になります。"));
 
             SaveManager::Get()->SetLangFile(_T("Japanese"));
         }
-        else if (result == _T("English"))
+        else if (result == _T("english"))
         {
             PopUp2::Get()->SetText(_T("This will take effect after a restart."));
 
             SaveManager::Get()->SetLangFile(_T("English"));
         }
-        else if (result == _T("Back"))
+        else if (result == _T("back"))
         {
             m_titleCommand->Finalize();
             SAFE_DELETE(m_titleCommand);
