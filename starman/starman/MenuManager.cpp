@@ -749,11 +749,11 @@ std::wstring MenuManager::OperateMenu()
                 Equip(id, subId);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == _T("Save and Exit"))
+        else if (vs.size() >= 1 && vs.at(0) == _T("Save"))
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
-            PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+            PopUp2::Get()->SetText(L"セーブが完了しました。");
         }
     }
 
@@ -830,11 +830,11 @@ std::wstring MenuManager::OperateMenu()
                 statusManager->SetEquipWeapon(itemInfo);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == _T("Save and Exit"))
+        else if (vs.size() >= 1 && vs.at(0) == _T("Save"))
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
-            PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+            PopUp2::Get()->SetText(L"セーブが完了しました。");
         }
     }
     else
@@ -959,11 +959,11 @@ std::wstring MenuManager::OperateMenu()
                 statusManager->SetEquipWeapon(itemInfo);
             }
         }
-        else if (vs.size() >= 1 && vs.at(0) == _T("Save and Exit"))
+        else if (vs.size() >= 1 && vs.at(0) == _T("Save"))
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
-            PostMessage(SharedObj::GetWindowHandle(), WM_CLOSE, 0, 0);
+            PopUp2::Get()->SetText(L"セーブが完了しました。");
         }
     }
 
