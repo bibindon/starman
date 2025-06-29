@@ -18,6 +18,9 @@ private:
 
     bool m_firstPage { true };
     bool m_bPlay { false };
-    bool bFinish { false };
+    bool m_bFinish { false };
+    bool m_bTrueEnding = false;
+
+    ::Sprite* m_spriteEnd = nullptr;
 };
 

@@ -176,6 +176,9 @@ class SoundEffect : public ISoundEffect
 
 SeqEnding::SeqEnding()
 {
+
+    m_spriteEnd = NEW ::Sprite(_T("res\\image\\ending11.png"));
+
     BGMManager::Get()->SetEnding(true);
     {
         ISoundEffect* pSE = NEW NSStoryTelling::SoundEffect();
@@ -188,19 +191,16 @@ SeqEnding::SeqEnding()
 
         IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
 
-        bool bTrueEnding = false;
+        auto finished = QuestManager::Get()->GetQuestFinished(L"Q8500");
 
-        auto finishQuest = QuestManager::Get()->GetFinishQuest();
-
-        auto it = std::find(finishQuest.begin(), finishQuest.end(), _T("Q8500"));
-        if (it != finishQuest.end())
+        if (finished)
         {
-            bTrueEnding = true;
+            m_bTrueEnding = true;
         }
 
         std::vector<Page> pageList;
 
-        if (bTrueEnding)
+        if (m_bTrueEnding)
         {
             if (!SharedObj::IsEnglish())
             {
@@ -1189,43 +1189,45 @@ void SeqEnding::Update(eSequence* sequence)
 {
     if (m_storyTelling != nullptr)
     {
-        if (GamePad::IsDown(eGamePadButtonType::A))
+        if (!m_bFinish)
         {
-            m_storyTelling->Next();
-            m_firstPage = false;
-        }
+            if (GamePad::IsDown(eGamePadButtonType::A))
+            {
+                m_storyTelling->Next();
+                m_firstPage = false;
+            }
 
-        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
-        {
-            m_storyTelling->Next();
-            m_firstPage = false;
-        }
+            if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
+            {
+                m_storyTelling->Next();
+                m_firstPage = false;
+            }
 
-        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
-        {
-            m_storyTelling->Next();
-            m_firstPage = false;
-        }
+            if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
+            {
+                m_storyTelling->Next();
+                m_firstPage = false;
+            }
 
-        if (Mouse::IsDownLeft())
-        {
-            m_storyTelling->Next();
-            m_firstPage = false;
-        }
+            if (Mouse::IsDownLeft())
+            {
+                m_storyTelling->Next();
+                m_firstPage = false;
+            }
 
-        if (m_firstPage == false && m_bPlay == false)
-        {
-            //BGM::get_ton()->play();
-            m_bPlay = true;
-        }
+            if (m_firstPage == false && m_bPlay == false)
+            {
+                m_bPlay = true;
+            }
 
-        bFinish = m_storyTelling->Update();
-        if (bFinish)
-        {
-            m_storyTelling->Finalize();
-            delete m_storyTelling;
-            m_storyTelling = nullptr;
-            *sequence = eSequence::BATTLE;
+            m_bFinish = m_storyTelling->Update();
+            if (m_bFinish && !m_bTrueEnding)
+            {
+                m_storyTelling->Finalize();
+                delete m_storyTelling;
+                m_storyTelling = nullptr;
+                *sequence = eSequence::BATTLE;
+            }
         }
     }
 }
@@ -1235,5 +1237,11 @@ void SeqEnding::Render()
     if (m_storyTelling != nullptr)
     {
         m_storyTelling->Render();
+
+        if (m_bFinish && m_bTrueEnding)
+        {
+            D3DXVECTOR3 pos(0.f, 0.f, 0.f);
+            m_spriteEnd->Render(pos);
+        }
     }
 }
