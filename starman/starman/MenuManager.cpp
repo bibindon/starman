@@ -820,7 +820,7 @@ std::wstring MenuManager::OperateMenu()
         {
             if (vs.at(4) == _T("Equip"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();

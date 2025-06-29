@@ -665,7 +665,6 @@ void Map::Init()
         m_NPC[_T("webnin")] = animMesh;
     }
     {
-        //D3DXVECTOR3 pos = D3DXVECTOR3(1116.6f, 158.3f, 647.4f);
         D3DXVECTOR3 pos = D3DXVECTOR3(0, 0, 0);
         D3DXVECTOR3 rot = D3DXVECTOR3(0, D3DX_PI, 0);
         AnimSetMap animSetMap;
