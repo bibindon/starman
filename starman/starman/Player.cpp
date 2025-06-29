@@ -1703,7 +1703,9 @@ void Player::SetDamaged()
     {
         Common::Status()->SetMuscleCurrent(100);
         Common::Status()->SetBodyStaminaCurrent(100);
+        Common::Status()->SetBodyStaminaMaxSub(100);
         Common::Status()->SetBrainStaminaCurrent(100);
+        Common::Status()->SetBrainStaminaMaxSub(100);
         Common::Status()->SetWaterCurrent(100);
     }
 

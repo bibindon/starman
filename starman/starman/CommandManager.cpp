@@ -505,7 +505,7 @@ void CommandManager::BuildCommand()
         {
             auto weapon = Common::Status()->GetEquipWeapon();
 
-            if (weapon.GetId().size() >= 1)
+            if (weapon.GetId().size() == 0)
             {
                 m_commandLib->UpsertCommand(L"createTorch", false);
             }

@@ -66,22 +66,26 @@ sampler mesh_texture_sampler = sampler_state {
     MagFilter = LINEAR;
 };
 
+// 多分、赤色成分が少ないテクスチャ画像を使うと、赤色部分の演算結果がオーバーフローして真っ白になる。
 void pixel_shader(
-    in  float4 in_diffuse  : COLOR0,
-    in  float2 in_texcood  : TEXCOORD0,
-    in float   fog : TEXCOORD1,
+    in float4 in_diffuse : COLOR0,
+    in float2 in_texcood : TEXCOORD0,
+    in float fog : TEXCOORD1,
     in float3 in_worldPos : TEXCOORD2,
     in float3 in_normal : TEXCOORD3,
     out float4 out_diffuse : COLOR0
     )
 {
-    float4 color_result = (float4)0;
+    float4 color_result = (float4) 0;
+
     color_result = tex2D(mesh_texture_sampler, in_texcood);
+
     out_diffuse = (in_diffuse * color_result);
-    if (out_diffuse.r == 0.0f && out_diffuse.r == 0.0f && out_diffuse.r == 0.0f)
-    {
-        out_diffuse = in_diffuse;
-    }
+
+//    if (out_diffuse.r == 0.0f && out_diffuse.r == 0.0f && out_diffuse.r == 0.0f)
+//    {
+//        out_diffuse = in_diffuse;
+//    }
 
     //------------------------------------------------------
     // 霧の描画
@@ -91,11 +95,10 @@ void pixel_shader(
     //------------------------------------------------------
     float4 fog_color2 = fog_color * g_light_brightness;
 
-
     out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
 
     // 夜空は青色にしたい
-    out_diffuse.rg *= (g_light_brightness*1.414f);
+    out_diffuse.rg *= (g_light_brightness * 1.414f);
     out_diffuse.b *= (2.f - g_light_brightness);
 
     //------------------------------------------------------
@@ -122,10 +125,10 @@ void pixel_shader(
         float3 N = normalize(in_normal);
 
         // ライト方向を計算
-        float3 L = normalize((float3)g_point_light_pos - in_worldPos);
+        float3 L = normalize((float3) g_point_light_pos - in_worldPos);
 
         // 距離減衰の計算
-        float distance = length((float3)g_point_light_pos - in_worldPos);
+        float distance = length((float3) g_point_light_pos - in_worldPos);
 
         // 適当に2乗減衰
         float attenuation = 50.0 / (distance * distance);
@@ -135,8 +138,9 @@ void pixel_shader(
         float NdotL = max(dot(N, L), 0);
 
         // 最終カラー
-        out_diffuse += light_color * NdotL * attenuation;
+        out_diffuse += color_result * light_color * NdotL * attenuation;
     }
+
 }
 
 technique technique_
