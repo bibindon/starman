@@ -449,17 +449,20 @@ void BGMModel::InvestigateCurrentStatus()
     // 廃墟の近くにいる
     //------------------------------------------
     {
-        auto ppos = SharedObj::GetPlayer()->GetPos();
+        if (SharedObj::GetPlayer() != nullptr)
+        {
+            auto ppos = SharedObj::GetPlayer()->GetPos();
 
-        D3DXVECTOR3 targetPos{ 10.6f, 491.5f, -564.f };
-        auto nearHaikyo = Common::HitByBoundingBox(ppos, targetPos, 100.f);
-        if (nearHaikyo)
-        {
-            m_bHaikyo = true;
-        }
-        else
-        {
-            m_bHaikyo = false;
+            D3DXVECTOR3 targetPos{ 10.6f, 491.5f, -564.f };
+            auto nearHaikyo = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+            if (nearHaikyo)
+            {
+                m_bHaikyo = true;
+            }
+            else
+            {
+                m_bHaikyo = false;
+            }
         }
     }
 
@@ -467,17 +470,20 @@ void BGMModel::InvestigateCurrentStatus()
     // 灯台の近くにいる
     //------------------------------------------
     {
-        auto ppos = SharedObj::GetPlayer()->GetPos();
+        if (SharedObj::GetPlayer() != nullptr)
+        {
+            auto ppos = SharedObj::GetPlayer()->GetPos();
 
-        D3DXVECTOR3 targetPos { -1321.f, 632.f, -1529.f };
-        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
-        if (nearTarget)
-        {
-            m_bToudai = true;
-        }
-        else
-        {
-            m_bToudai = false;
+            D3DXVECTOR3 targetPos{ -1321.f, 632.f, -1529.f };
+            auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+            if (nearTarget)
+            {
+                m_bToudai = true;
+            }
+            else
+            {
+                m_bToudai = false;
+            }
         }
     }
 
@@ -485,17 +491,20 @@ void BGMModel::InvestigateCurrentStatus()
     // 海岸洞窟の近くにいる
     //------------------------------------------
     {
-        auto ppos = SharedObj::GetPlayer()->GetPos();
+        if (SharedObj::GetPlayer() != nullptr)
+        {
+            auto ppos = SharedObj::GetPlayer()->GetPos();
 
-        D3DXVECTOR3 targetPos { 1234.0f, 16.8f, 530.1f };
-        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 300.f);
-        if (nearTarget)
-        {
-            m_bKaiganDoukutsu = true;
-        }
-        else
-        {
-            m_bKaiganDoukutsu = false;
+            D3DXVECTOR3 targetPos{ 1234.0f, 16.8f, 530.1f };
+            auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 300.f);
+            if (nearTarget)
+            {
+                m_bKaiganDoukutsu = true;
+            }
+            else
+            {
+                m_bKaiganDoukutsu = false;
+            }
         }
     }
 
@@ -503,17 +512,20 @@ void BGMModel::InvestigateCurrentStatus()
     // 神社の近くにいる
     //------------------------------------------
     {
-        auto ppos = SharedObj::GetPlayer()->GetPos();
+        if (SharedObj::GetPlayer() != nullptr)
+        {
+            auto ppos = SharedObj::GetPlayer()->GetPos();
 
-        D3DXVECTOR3 targetPos { 15.8f, 492.8f, -1221.2f };
-        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
-        if (nearTarget)
-        {
-            m_bJinja = true;
-        }
-        else
-        {
-            m_bJinja = false;
+            D3DXVECTOR3 targetPos{ 15.8f, 492.8f, -1221.2f };
+            auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+            if (nearTarget)
+            {
+                m_bJinja = true;
+            }
+            else
+            {
+                m_bJinja = false;
+            }
         }
     }
 
@@ -521,17 +533,20 @@ void BGMModel::InvestigateCurrentStatus()
     // 苔庭の近くにいる
     //------------------------------------------
     {
-        auto ppos = SharedObj::GetPlayer()->GetPos();
+        if (SharedObj::GetPlayer() != nullptr)
+        {
+            auto ppos = SharedObj::GetPlayer()->GetPos();
 
-        D3DXVECTOR3 targetPos { 629.f, 773.9f, -1861.8f };
-        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
-        if (nearTarget)
-        {
-            m_bJinja = true;
-        }
-        else
-        {
-            m_bJinja = false;
+            D3DXVECTOR3 targetPos{ 629.f, 773.9f, -1861.8f };
+            auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+            if (nearTarget)
+            {
+                m_bJinja = true;
+            }
+            else
+            {
+                m_bJinja = false;
+            }
         }
     }
 
@@ -539,33 +554,38 @@ void BGMModel::InvestigateCurrentStatus()
     // 港跡の近くにいる
     //------------------------------------------
     {
-        auto ppos = SharedObj::GetPlayer()->GetPos();
+        if (SharedObj::GetPlayer() != nullptr)
+        {
+            auto ppos = SharedObj::GetPlayer()->GetPos();
 
-        D3DXVECTOR3 targetPos { 1814.3f, 28.6f, -899.2f };
-        auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
-        if (nearTarget)
-        {
-            m_bJinja = true;
-        }
-        else
-        {
-            m_bJinja = false;
+            D3DXVECTOR3 targetPos{ 1814.3f, 28.6f, -899.2f };
+            auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
+            if (nearTarget)
+            {
+                m_bJinja = true;
+            }
+            else
+            {
+                m_bJinja = false;
+            }
         }
     }
 
     //------------------------------------------
     // 洞窟の近くにいる
     //------------------------------------------
-
     {
-        auto inCave = SharedObj::GetPlayer()->IsInCave();
-        if (inCave)
+        if (SharedObj::GetPlayer() != nullptr)
         {
-            m_bDoukutsu = true;
-        }
-        else
-        {
-            m_bDoukutsu = false;
+            auto inCave = SharedObj::GetPlayer()->IsInCave();
+            if (inCave)
+            {
+                m_bDoukutsu = true;
+            }
+            else
+            {
+                m_bDoukutsu = false;
+            }
         }
     }
 }
@@ -742,16 +762,19 @@ void BGMEnvModel::InvestigateBGMEnv()
 
     // 環境音は複数が同時になっていても問題ない。
 
-    auto ppos = SharedObj::GetPlayer()->GetPos();
-    if (ppos.y < 20.f)
+    if (SharedObj::GetPlayer() != nullptr)
     {
-        m_bSea = true;
-        m_bForest = false;
-    }
-    else
-    {
-        m_bSea = false;
-        m_bForest = true;
+        auto ppos = SharedObj::GetPlayer()->GetPos();
+        if (ppos.y < 20.f)
+        {
+            m_bSea = true;
+            m_bForest = false;
+        }
+        else
+        {
+            m_bSea = false;
+            m_bForest = true;
+        }
     }
 
     auto lit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();

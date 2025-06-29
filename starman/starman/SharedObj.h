@@ -38,7 +38,6 @@ private:
     static HWND m_hWnd;
     static std::mt19937 m_Engine;
     static Player* m_player;
-    static NSQuestSystem::QuestSystem* m_questSystem;
     static Map* m_map;
     static D3DXMATRIX m_rightHandMat;
 

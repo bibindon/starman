@@ -216,7 +216,7 @@ void SaveManager::Save()
     rynen->Save(CreateSaveFilePath(_T("rynen.csv")), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-	mgr->Save(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
+    mgr->Save(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Save(CreateSaveFilePath(_T("humanInfoSub.csv")), m_encrypt);
@@ -275,7 +275,7 @@ void SaveManager::Save()
     NSStarmanLib::CraftSystem::GetObj()->Save(CreateSaveFilePath(_T("craftsmanSkillSave.csv")),
                                               CreateSaveFilePath(_T("craftsmanQueueSave.csv")));
 
-	NSStarmanLib::Help::Get()->Save(CreateSaveFilePath(_T("helpSave.csv")));
+    NSStarmanLib::Help::Get()->Save(CreateSaveFilePath(_T("helpSave.csv")));
 }
 
 void SaveManager::LoadOrigin()
@@ -315,7 +315,7 @@ void SaveManager::LoadOrigin()
 
     m_progress.store(10);
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-	mgr->Init(CreateOriginFilePath(_T("npcStatus.csv")), m_encrypt);
+    mgr->Init(CreateOriginFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("humanInfo.csv"))),
@@ -400,11 +400,35 @@ void SaveManager::Load()
 {
     m_progress.store(0);
 
+    {
+        NSStarmanLib::Rynen::Destroy();
+        NSStarmanLib::NpcStatusManager::Destroy();
+        NSStarmanLib::HumanInfoManager::Destroy();
+        NSStarmanLib::MapInfoManager::Destroy();
+        NSStarmanLib::ItemManager::Destroy();
+        NSStarmanLib::Inventory::Destroy();
+        NSStarmanLib::StorehouseManager::Destroy();
+        NSStarmanLib::WeaponManager::Destroy();
+        NSStarmanLib::EnemyInfoManager::Destroy();
+        NSStarmanLib::SkillManager::Destroy();
+        NSStarmanLib::StatusManager::Destroy();
+        NSStarmanLib::Guide::Destroy();
+        NSStarmanLib::PowereggDateTime::Destroy();
+        NSStarmanLib::MapObjManager::Destroy();
+        NSStarmanLib::ActivityBase::Get()->Finalize();
+        NSStarmanLib::Voyage::Get()->Destroy();
+        NSStarmanLib::CraftInfoManager::Destroy();
+        NSStarmanLib::CraftSystem::Destroy();
+        NSStarmanLib::Help::Destroy();
+
+        QuestManager::Finalize();
+    }
+
     auto rynen = NSStarmanLib::Rynen::GetObj();
     rynen->Init(CreateSaveFilePath(_T("rynen.csv")), m_encrypt);
 
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-	mgr->Init(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
+    mgr->Init(CreateSaveFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("humanInfo.csv"))),
@@ -497,7 +521,7 @@ void SaveManager::Load()
     NSStarmanLib::CraftSystem::GetObj()->Init(CreateSaveFilePath(_T("craftsmanSkillSave.csv")),
                                               CreateSaveFilePath(_T("craftsmanQueueSave.csv")));
 
-	NSStarmanLib::Help::Get()->Init(CreateSaveFilePath(_T("helpSave.csv")));
+    NSStarmanLib::Help::Get()->Init(CreateSaveFilePath(_T("helpSave.csv")));
 
     m_savedataLoaded = true;
 
@@ -541,7 +565,7 @@ void SaveManager::LoadDemoData()
 
     m_progress.store(10);
     NSStarmanLib::NpcStatusManager* mgr = NSStarmanLib::NpcStatusManager::GetObj();
-	mgr->Init(CreateDemoFilePath(_T("npcStatus.csv")), m_encrypt);
+    mgr->Init(CreateDemoFilePath(_T("npcStatus.csv")), m_encrypt);
 
     NSStarmanLib::HumanInfoManager* him = NSStarmanLib::HumanInfoManager::GetObj();
     him->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("humanInfo.csv"))),
