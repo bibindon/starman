@@ -492,8 +492,11 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest39.csv
 Q6300,"クエストが完了していたら
 クエストが完了していないなら","Q6200
 Q6300",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest40.csv
-Q6400,"クエストが完了していたら
+Q6350,"クエストが完了していたら
 クエストが完了していないなら","Q6300
+Q6350",<hint>ホシマン（イカダを作ってみよう）,イカダの個数,1,,<talk>res\\script\\origin\\talkFinishQuest40-1.csv
+Q6400,"クエストが完了していたら
+クエストが完了していないなら","Q6350
 Q6400",<hint>ホシマン（地図上の灯台の位置に行ってみよう）,位置,-1361:626:-1523:20,,"<talk>res\\script\\origin\\talkFinishQuest41.csv
 <npc><gain><showMenu>y
 <npc><webnin><pos>-16.5:496.5:-1210.6"

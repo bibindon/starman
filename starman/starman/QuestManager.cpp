@@ -192,6 +192,12 @@ void QuestManager::Update()
         m_questSystem.SetNpcIsAlive(_T("shikakuman"), bAlive, false);
     }
 
+    // イカダの個数
+    {
+        auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
+        m_questSystem.SetRaftNum(raftList.size());
+    }
+
     m_questSystem.UpdateQuestStatus();
 }
 
