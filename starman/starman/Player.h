@@ -56,6 +56,7 @@ public:
 
     // 洞窟の中にいるか。
     bool IsInCave();
+    void SetIsInCave(const bool arg) { m_bInCave = arg; }
 
     bool IsUnderWater();
 

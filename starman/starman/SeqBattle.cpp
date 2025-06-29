@@ -701,7 +701,7 @@ void SeqBattle::OperateStorehouse()
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_UP))
     {
-		m_storehouse->Up();
+        m_storehouse->Up();
     }
 
     if (SharedObj::KeyBoard()->IsHold(DIK_UP))
@@ -709,13 +709,13 @@ void SeqBattle::OperateStorehouse()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_storehouse->Up();
+            m_storehouse->Up();
         }
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_DOWN))
     {
-		m_storehouse->Down();
+        m_storehouse->Down();
     }
 
     if (SharedObj::KeyBoard()->IsHold(DIK_DOWN))
@@ -723,7 +723,7 @@ void SeqBattle::OperateStorehouse()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_storehouse->Down();
+            m_storehouse->Down();
         }
     }
 
@@ -953,7 +953,7 @@ void SeqBattle::OperateStorehouse()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_storehouse->Up();
+            m_storehouse->Up();
         }
     }
 
@@ -962,7 +962,7 @@ void SeqBattle::OperateStorehouse()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_storehouse->Up();
+            m_storehouse->Up();
         }
     }
 
@@ -971,7 +971,7 @@ void SeqBattle::OperateStorehouse()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_storehouse->Down();
+            m_storehouse->Down();
         }
     }
 
@@ -980,7 +980,7 @@ void SeqBattle::OperateStorehouse()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_storehouse->Down();
+            m_storehouse->Down();
         }
     }
 
@@ -1263,6 +1263,7 @@ void SeqBattle::OperateCommand()
         D3DXVECTOR3 pos(-285.f, 16.f, 539.f);
         m_player->SetPos(pos);
         m_eState = eBattleState::NORMAL;
+        SharedObj::GetPlayer()->SetIsInCave(false);
     }
     else if (result == L"cutTree")
     {
@@ -2389,7 +2390,7 @@ void SeqBattle::OperatePickPlant()
         // 近くに死体があったらワードブレスを取得する
         else if (m_map->NearDead(SharedObj::GetPlayer()->GetPos()))
         {
-            pickId = L"workbress";
+            pickId = L"wordbress";
             m_map->SetDeadItem(m_player->GetPos());
         }
         // 近くにソテツの木があったらソテツを取得する
@@ -3292,6 +3293,9 @@ void SeqBattle::UpdatePerSecond()
                 PopUp2::Get()->SetText(IDS_STRING134);
             }
         }
+
+        SharedObj::GetPlayer()->SetIsInCave(false);
+
         return;
     }
 
@@ -3553,24 +3557,24 @@ void SeqBattle::OperateTitle(eSequence* sequence)
 
     if (m_eState == eBattleState::OPENING)
     {
-		bool bFirstTitleShow = m_title->GetFirst();
+        bool bFirstTitleShow = m_title->GetFirst();
 
         SAFE_DELETE(m_title);
         InitializeAfterLoad();
 
         FinalizeLoad();
 
-		bool saveExist = SaveManager::Get()->SaveFolderExists();
+        bool saveExist = SaveManager::Get()->SaveFolderExists();
 
-		// セーブデータがあったら初期データを読む。
-		// セーブデータがなくても、一度ゲームを開始してから
-		// タイトル画面に戻ってきたなら再読み込みをする。
+        // セーブデータがあったら初期データを読む。
+        // セーブデータがなくても、一度ゲームを開始してから
+        // タイトル画面に戻ってきたなら再読み込みをする。
         if (saveExist || !bFirstTitleShow)
         {
-			SAFE_DELETE(m_map);
-			m_map = NEW Map();
-			SharedObj::SetMap(m_map);
-			m_map->Init();
+            SAFE_DELETE(m_map);
+            m_map = NEW Map();
+            SharedObj::SetMap(m_map);
+            m_map->Init();
         }
 
         m_Opening = NEW Opening();
