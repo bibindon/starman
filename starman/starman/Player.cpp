@@ -745,7 +745,7 @@ void Player::Update(Map* map)
     {
         if (m_bUnderwater == false)
         {
-			float joyRadian = GamePad::GetLeftRadian();
+            float joyRadian = GamePad::GetLeftRadian();
             // 左、右、後ろが入力されているときにジャンプしようとしたらステップ移動
             // if (joyRadian < 1.f)
             if (GamePad::IsDown(eGamePadButtonType::LEFT))
@@ -1163,7 +1163,7 @@ void Player::Render()
     auto bagState = Common::Status()->GetBagState();
     for (auto it = bagState.begin(); it != bagState.end(); ++it)
     {
-		auto pos = m_loadingPos;
+        auto pos = m_loadingPos;
 
         if ((*it) == NSStarmanLib::eBagPos::Back1)
         {
@@ -1208,8 +1208,8 @@ void Player::Render()
             pos.y -= 1.0f;
         }
 
-		m_bagMesh[(*it)]->SetPos(pos);
-		m_bagMesh[(*it)]->SetRotY(m_rotate.y);
+        m_bagMesh[(*it)]->SetPos(pos);
+        m_bagMesh[(*it)]->SetRotY(m_rotate.y);
         m_bagMesh[(*it)]->Render();
     }
 
@@ -1225,10 +1225,10 @@ void Player::Render()
             }
             else
             {
-				pos.y += 1.0f;
+                pos.y += 1.0f;
             }
         }
-		else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::LYING_DOWN)
+        else if (Common::Status()->GetPlayerAction() == NSStarmanLib::StatusManager::PlayerState::LYING_DOWN)
         {
             pos.y += 0.2f;
         }

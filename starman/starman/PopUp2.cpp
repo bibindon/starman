@@ -139,14 +139,14 @@ PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
 
 void PopUpFont::Draw(const std::wstring& text, const int transparent)
 {
-	D3DXVECTOR3 pos(0.0f, 0.0f, 0.0f);
-	RECT rect;
-	rect.top = 700;
-	rect.bottom = 700 + 100;
-	rect.left = 0;
-	rect.right = 1600;
+    D3DXVECTOR3 pos(0.0f, 0.0f, 0.0f);
+    RECT rect;
+    rect.top = 700;
+    rect.bottom = 700 + 100;
+    rect.left = 0;
+    rect.right = 1600;
 
-	m_D3DFont->DrawText(NULL,
+    m_D3DFont->DrawText(NULL,
                         text.c_str(),
                         -1,
                         &rect,

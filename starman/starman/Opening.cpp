@@ -184,11 +184,11 @@ Opening::Opening()
             ISprite* sprite = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
             if (!SharedObj::IsEnglish())
             {
-				sprite->Load(_T("res\\image\\opening01.png"));
+                sprite->Load(_T("res\\image\\opening01.png"));
             }
             else
             {
-				sprite->Load(_T("res\\image\\opening01.en.png"));
+                sprite->Load(_T("res\\image\\opening01.en.png"));
             }
             page.SetSprite(sprite);
             std::vector<std::vector<std::wstring> > vvs;
@@ -264,17 +264,17 @@ Opening::Opening()
 
             if (!SharedObj::IsEnglish())
             {
-				vs.clear();
-				vs.push_back(_T("ホシマンはバイクでツーリングを楽しむため船で東のオプティプル島に移動中だった。"));
-				vs.push_back(_T("しかし、格安ツアーだったため台風でも強行された。"));
-				vs.push_back(_T("そして、元からボロボロだった船は亀裂から浸水が起こり、船が傾きやがて転覆してしまった。"));
-				vvs.push_back(vs);
-				vs.clear();
-				vs.push_back(_T("船が転覆したとき、船体は砕け、ホシマンは船の瓦礫に掴まった。そのあと寝ずに３０時間過ごした。"));
-				vs.push_back(_T("漂流して３０時間後、島の姿が近くに現れた。"));
-				vs.push_back(_T("ホシマンは無我夢中になり、瓦礫をオールにして島まで漕ぎ、島にたどり着くと浜辺に倒れこんだ。そして、そのまま意識を失った。"));
-				vvs.push_back(vs);
-			}
+                vs.clear();
+                vs.push_back(_T("ホシマンはバイクでツーリングを楽しむため船で東のオプティプル島に移動中だった。"));
+                vs.push_back(_T("しかし、格安ツアーだったため台風でも強行された。"));
+                vs.push_back(_T("そして、元からボロボロだった船は亀裂から浸水が起こり、船が傾きやがて転覆してしまった。"));
+                vvs.push_back(vs);
+                vs.clear();
+                vs.push_back(_T("船が転覆したとき、船体は砕け、ホシマンは船の瓦礫に掴まった。そのあと寝ずに３０時間過ごした。"));
+                vs.push_back(_T("漂流して３０時間後、島の姿が近くに現れた。"));
+                vs.push_back(_T("ホシマンは無我夢中になり、瓦礫をオールにして島まで漕ぎ、島にたどり着くと浜辺に倒れこんだ。そして、そのまま意識を失った。"));
+                vvs.push_back(vs);
+            }
             else
             {
                 vs.clear();

@@ -1142,11 +1142,11 @@ std::wstring MenuManager::OperateMenu()
             work += Common::ToStringWithPrecision(statusManager->GetAttackPower(), 2) + _T("\n");
 
             // 見づらい。ページを変えるとか右のほうに表示するとかしないとまずい。
-			if (statusManager->GetFractureArm())
+            if (statusManager->GetFractureArm())
             {
-				label = PadRightDisplayWidth(L"腕の骨折が治るまでの日数", 30);
-				_snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
-				work += buf;
+                label = PadRightDisplayWidth(L"腕の骨折が治るまでの日数", 30);
+                _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
+                work += buf;
                 work += Common::ToStringWithPrecision((float)statusManager->GetFractureArmCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
             }
 

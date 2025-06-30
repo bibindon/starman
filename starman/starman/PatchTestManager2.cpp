@@ -302,7 +302,7 @@ std::wstring PatchTestManager2::Operate()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_guiLib.Up();
+            m_guiLib.Up();
         }
     }
 
@@ -316,7 +316,7 @@ std::wstring PatchTestManager2::Operate()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_guiLib.Down();
+            m_guiLib.Down();
         }
     }
 
@@ -391,7 +391,7 @@ std::wstring PatchTestManager2::Operate()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_guiLib.Up();
+            m_guiLib.Up();
         }
     }
 
@@ -405,7 +405,7 @@ std::wstring PatchTestManager2::Operate()
         holdCounter++;
         if (holdCounter % 3 == 0)
         {
-			m_guiLib.Down();
+            m_guiLib.Down();
         }
     }
 
