@@ -413,17 +413,23 @@ std::wstring Common::AddEnIfEng(const std::wstring& filename)
         return filename;
     }
 
-	const std::wstring extension = L".csv";
-	size_t pos = filename.rfind(extension);
+    const std::wstring extension = L".csv";
+    size_t pos = filename.rfind(extension);
 
-	if (pos == std::wstring::npos ||
+    if (pos == std::wstring::npos ||
         pos + extension.length() != filename.length())
-	{
-		// 拡張子が .csv でない場合は何もしない
-		return filename;
-	}
+    {
+        // 拡張子が .csv でない場合は何もしない
+        return filename;
+    }
 
-	// "abc" + ".en" + ".csv"
-	return filename.substr(0, pos) + L".en" + extension;
+    // "abc" + ".en" + ".csv"
+    return filename.substr(0, pos) + L".en" + extension;
+}
+
+LPCWSTR Common::FontNameEng()
+{
+    //return L"Courier New";
+    return L"Calibri";
 }
 

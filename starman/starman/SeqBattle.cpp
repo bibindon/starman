@@ -148,7 +148,7 @@ namespace NSStorehouseLib
                                     OUT_TT_ONLY_PRECIS,
                                     CLEARTYPE_NATURAL_QUALITY,
                                     FF_DONTCARE,
-                                    _T("Courier New"),
+                                    Common::FontNameEng(),
                                     &m_pFont);
             }
 
@@ -368,7 +368,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                _T("Courier New"),
+                                Common::FontNameEng(),
                                 &m_pFont);
         }
 

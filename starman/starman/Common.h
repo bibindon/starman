@@ -128,7 +128,10 @@ public:
 
     static std::string WstringToUtf8(const std::wstring& wstr);
 
-	static std::wstring AddEnIfEng(const std::wstring& filename);
+    static std::wstring AddEnIfEng(const std::wstring& filename);
+
+    static LPCWSTR FontNameEng();
+
 private:
 
     static bool m_bDebugMode;

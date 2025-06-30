@@ -354,7 +354,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
                                  OUT_TT_ONLY_PRECIS,
                                  CLEARTYPE_NATURAL_QUALITY,
                                  FF_DONTCARE,
-                                 _T("Courier New"),
+                                 Common::FontNameEng(),
                                  &m_D3DFont);
 
         assert(hResult == S_OK);
