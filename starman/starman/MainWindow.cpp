@@ -141,7 +141,7 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
             }
         }
 
-        bJapan = false;
+//        bJapan = false;
 
         SharedObj::SetEnglish(!bJapan);
 
