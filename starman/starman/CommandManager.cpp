@@ -655,7 +655,9 @@ void CommandManager::BuildOpeningCommand()
     m_commandLib->RemoveAll();
     m_commandLib->UpsertCommand(_T("start"), true);
     m_commandLib->UpsertCommand(_T("continue"), enable);
-    m_commandLib->UpsertCommand(_T("language"), true);
+
+    // 英語対応が完了するまで非表示にする
+    //m_commandLib->UpsertCommand(_T("language"), true);
 
     if (Common::DemoMode())
     {
