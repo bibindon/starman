@@ -59,6 +59,7 @@ public:
     void SetChangeRequestComplete();
 
     void SetEnding(const bool arg);
+    void SetTrueEnd(const bool arg);
     void SetBattle(const bool arg);
 
 private:
@@ -91,6 +92,7 @@ private:
     bool m_bTitle = false;
     bool m_bOpening = false;
     bool m_bEnding = false;
+    bool m_bTrueEnd = false;
     bool m_bBattle = false;
     bool m_bDying = false;
     bool m_bWeak = false;
@@ -110,6 +112,7 @@ private:
     std::string m_strOpening = "res\\sound\\opening.wav";
 
     std::string m_strEnding = "res\\sound\\ending.wav";
+    std::string m_strTrueEnd = "res\\sound\\trueEnd.wav";
     std::string m_strBattle1 = "res\\sound\\battle1.wav";
     std::string m_strBattle2 = "res\\sound\\battle2.wav";
     std::string m_strDying = "res\\sound\\dying.wav";
@@ -199,6 +202,7 @@ public:
 
     // エンディング中、とバトル中はBGMManagerのほうで知ることができないので外部から渡す。
     void SetEnding(const bool arg);
+    void SetTrueEnd(const bool arg);
     void SetBattle(const bool arg);
 
 private:

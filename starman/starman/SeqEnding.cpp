@@ -1183,6 +1183,7 @@ SeqEnding::SeqEnding()
 SeqEnding::~SeqEnding()
 {
     BGMManager::Get()->SetEnding(false);
+    BGMManager::Get()->SetTrueEnd(false);
 }
 
 void SeqEnding::Update(eSequence* sequence)
@@ -1221,12 +1222,19 @@ void SeqEnding::Update(eSequence* sequence)
             }
 
             m_bFinish = m_storyTelling->Update();
-            if (m_bFinish && !m_bTrueEnding)
+            if (m_bFinish)
             {
-                m_storyTelling->Finalize();
-                delete m_storyTelling;
-                m_storyTelling = nullptr;
-                *sequence = eSequence::BATTLE;
+                if (!m_bTrueEnding)
+                {
+                    m_storyTelling->Finalize();
+                    delete m_storyTelling;
+                    m_storyTelling = nullptr;
+                    *sequence = eSequence::BATTLE;
+                }
+                else
+                {
+                    BGMManager::Get()->SetTrueEnd(true);
+                }
             }
         }
     }

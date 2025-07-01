@@ -216,6 +216,9 @@
                 <File Source="../starman/res/image/ending10.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/ending11.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/examine.en.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -1536,6 +1539,9 @@
                 <File Source="../starman/res/script/origin/talkFinishQuest4.en.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/talkFinishQuest40-1.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest40.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -2127,6 +2133,9 @@
                 <File Id="talkFinishQuest4.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest4.en.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest40_1.csv.demo" Source="../starman/res/script/demo/talkFinishQuest40-1.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="talkFinishQuest40.csv.demo" Source="../starman/res/script/demo/talkFinishQuest40.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
@@ -2346,6 +2355,12 @@
                 <File Id="weaponSave.csv.demo" Source="../starman/res/script/demo/weaponSave.csv" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
+                <File Source="../starman/res/sound/arrow.wav" />
+            </Component>
+            <Component Directory="SOUND" Guid="*" Win64="yes">
+                <File Source="../starman/res/sound/arrowMiss.wav" />
+            </Component>
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/attack01.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
@@ -2365,9 +2380,6 @@
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/cursor_move.wav" />
-            </Component>
-            <Component Directory="SOUND" Guid="*" Win64="yes">
-                <File Source="../starman/res/sound/Cyber_City90.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/damage01.wav" />
@@ -2448,9 +2460,6 @@
                 <File Source="../starman/res/sound/kokeniwa.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
-                <File Source="../starman/res/sound/letsgo.wav" />
-            </Component>
-            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/menu_cursor_cancel.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
@@ -2491,6 +2500,9 @@
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/toudai.wav" />
+            </Component>
+            <Component Directory="SOUND" Guid="*" Win64="yes">
+                <File Source="../starman/res/sound/trueEnd.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/voyage.wav" />

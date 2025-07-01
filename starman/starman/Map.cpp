@@ -727,6 +727,8 @@ void Map::Init()
     SoundEffect::get_ton()->load(_T("res\\sound\\fireHit.wav"));
     SoundEffect::get_ton()->load(_T("res\\sound\\iceHit.wav"));
     SoundEffect::get_ton()->load(_T("res\\sound\\darkHit.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\arrow.wav"));
+    SoundEffect::get_ton()->load(_T("res\\sound\\arrowMiss.wav"));
 
     MapLib()->ResetShow();
 
@@ -1101,6 +1103,12 @@ void Map::Update()
         if (Intersect(pos, it->m_move))
         {
             it->m_move = D3DXVECTOR3(0.f, 0.f, 0.f);
+
+            if (!it->m_bStop)
+            {
+                SoundEffect::get_ton()->play(_T("res\\sound\\arrowMiss.wav"), 80);
+            }
+
             it->m_bStop = true;
             continue;
         }
@@ -1120,6 +1128,7 @@ void Map::Update()
                     it->m_bHit = true;
 
                     BGMManager::Get()->SetBattle(true);
+                    SoundEffect::get_ton()->play(_T("res\\sound\\arrow.wav"));
                 }
             }
         }

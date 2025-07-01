@@ -541,11 +541,11 @@ void BGMModel::InvestigateCurrentStatus()
             auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
             if (nearTarget)
             {
-                m_bJinja = true;
+                m_bKokeniwa = true;
             }
             else
             {
-                m_bJinja = false;
+                m_bKokeniwa = false;
             }
         }
     }
@@ -562,11 +562,11 @@ void BGMModel::InvestigateCurrentStatus()
             auto nearTarget = Common::HitByBoundingBox(ppos, targetPos, 100.f);
             if (nearTarget)
             {
-                m_bJinja = true;
+                m_bMinatoAto = true;
             }
             else
             {
-                m_bJinja = false;
+                m_bMinatoAto = false;
             }
         }
     }
@@ -613,9 +613,9 @@ std::string BGMModel::SelectBGM()
     {
         newBGM = m_strEnding;
     }
-    else if (m_bEnding)
+    else if (m_bTrueEnd)
     {
-        newBGM = m_strEnding;
+        newBGM = m_strTrueEnd;
     }
     else if (m_bBattle)
     {
@@ -964,6 +964,11 @@ void BGMModel::SetEnding(const bool arg)
     m_bEnding = arg;
 }
 
+void BGMModel::SetTrueEnd(const bool arg)
+{
+    m_bTrueEnd = arg;
+}
+
 void BGMModel::SetBattle(const bool arg)
 {
     m_bBattle = arg;
@@ -977,6 +982,11 @@ void BGMModel::SetBattle(const bool arg)
 void BGMManager::SetEnding(const bool arg)
 {
     m_BGMModel.SetEnding(arg);
+}
+
+void BGMManager::SetTrueEnd(const bool arg)
+{
+    m_BGMModel.SetTrueEnd(arg);
 }
 
 // 攻撃が当たったらバトル開始
