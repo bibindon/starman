@@ -455,7 +455,8 @@ NPCのXが生存
 NPCのXが生存","10.6:491.5:-564:3
 daikeiman
 sankakuman
-shikakuman",,<talk>res\\script\\origin\\talkFinishQuest33.csv
+shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest33.csv
+<dateAdd>0:1:3:0:0:0"
 Q5700,"クエストが完了していたら
 クエストが完了していないなら","Q5600
 Q5700",<hint>ホシマン（もう一度洞窟に行ってみよう）,位置,115.6:590.5:-1484.2:30,,<talk>res\\script\\origin\\talkFinishQuest34.csv

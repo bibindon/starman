@@ -2237,6 +2237,18 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<showGuide>"));
                     NSStarmanLib::Guide::GetObj()->SetVisible(std::stoi(work2));
                 }
+                else if (vs2.at(j).find(_T("<dateTime>")) != std::wstring::npos)
+                {
+                    std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<dateTime>"));
+                    auto vs = Common::split(work2, L':');
+
+                    auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+                    dateTime->IncreaseDateTime(std::stoi(vs.at(1)),
+                                               std::stoi(vs.at(2)),
+                                               std::stoi(vs.at(3)),
+                                               std::stoi(vs.at(4)),
+                                               std::stoi(vs.at(5)));
+                }
                 else if (vs2.at(j).find(_T("<hanawa>")) != std::wstring::npos)
                 {
                     // 花輪があれば一つ減らす
