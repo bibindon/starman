@@ -458,7 +458,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest33.csv
 Q5700,"クエストが完了していたら
 クエストが完了していないなら","Q5600
-Q5700",<hint>ホシマン（地図上の洞窟の位置に行ってみよう）,位置,115.6:590.5:-1484.2:30,,<talk>res\\script\\origin\\talkFinishQuest34.csv
+Q5700",<hint>ホシマン（もう一度洞窟に行ってみよう）,位置,115.6:590.5:-1484.2:30,,<talk>res\\script\\origin\\talkFinishQuest34.csv
 Q5800,"クエストが完了していたら
 クエストが完了していないなら","Q5700
 Q5800",<hint>ホシマン（一度、廃墟に向かおう）,"位置
