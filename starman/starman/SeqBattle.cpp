@@ -2218,10 +2218,9 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find(_T("<showMap>")) != std::wstring::npos)
                 {
                     std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<showMap>"));
-                    int id = std::stoi(work2);
 
                     auto mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
-                    mapInfoManager->SetDiscovered(id);
+                    mapInfoManager->SetDiscovered(work2);
                 }
                 else if (vs2.at(j).find(_T("<activityBase>")) != std::wstring::npos)
                 {
