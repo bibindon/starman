@@ -210,7 +210,7 @@ private:
         NSStarmanLib::eMagicType m_eMagicType = NSStarmanLib::eMagicType::None;
         D3DXVECTOR3 m_move;
 
-        MeshNoShade* m_mesh;
+        MeshNoShade* m_mesh = nullptr;
 
         // 一度でも敵にヒットした
         bool m_bHit = false;
