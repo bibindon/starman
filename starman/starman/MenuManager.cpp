@@ -574,12 +574,12 @@ void MenuManager::InitMenu()
         {
             NSStarmanLib::MapInfoManager* mapInfoManager = NSStarmanLib::MapInfoManager::GetObj();
 
-            std::vector<std::wstring> mapNameList = mapInfoManager->GetNameList();
-            for (std::size_t i = 0; i < mapNameList.size(); ++i)
+            std::vector<std::wstring> mapIdList = mapInfoManager->GetIdList();
+            for (std::size_t i = 0; i < mapIdList.size(); ++i)
             {
-                std::wstring mapName = mapNameList.at(i);
+                std::wstring mapId = mapIdList.at(i);
 
-                bool visible = mapInfoManager->IsDiscovered(mapName);
+                bool visible = mapInfoManager->IsDiscovered(mapId);
 
                 if (visible == false)
                 {
@@ -587,11 +587,11 @@ void MenuManager::InitMenu()
                 }
 
                 MapInfo mapInfo;
-                mapInfo.SetName(mapName);
-                mapInfo.SetDetail(mapInfoManager->GetDetail(mapName));
+                mapInfo.SetName(mapInfoManager->GetName(mapId));
+                mapInfo.SetDetail(mapInfoManager->GetDetail(mapId));
 
                 NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
-                sprItem->Load(mapInfoManager->GetImagePath(mapName));
+                sprItem->Load(mapInfoManager->GetImagePath(mapId));
                 mapInfo.SetSprite(sprItem);
 
                 mapInfoList.push_back(mapInfo);

@@ -324,7 +324,9 @@ void SaveManager::LoadOrigin()
 
     m_progress.store(20);
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("mapInfo.csv"))), m_encrypt);
+    mapManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("mapInfoDef.csv"))),
+                     CreateOriginFilePath(_T("mapInfoOrigin.csv")),
+                     m_encrypt);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     itemManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("item.csv"))),
@@ -361,7 +363,9 @@ void SaveManager::LoadOrigin()
     statusManager->Init(CreateOriginFilePath(_T("status.csv")), m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
+    guide->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("guideDef.csv"))),
+                CreateOriginFilePath(_T("guideOrigin.csv")),
+                m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Init(CreateOriginFilePath(_T("datetime.csv")), m_encrypt);
@@ -437,7 +441,9 @@ void SaveManager::Load()
 
     m_progress.store(5);
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Init(CreateSaveFilePath(Common::AddEnIfEng(_T("mapInfo.csv"))), m_encrypt);
+    mapManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("mapInfoDef.csv"))),
+                     CreateSaveFilePath(_T("mapInfoSave.csv")),
+                     m_encrypt);
 
     m_progress.store(5);
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
@@ -482,7 +488,9 @@ void SaveManager::Load()
     m_progress.store(30);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateSaveFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
+    guide->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("guideDef.csv"))),
+                CreateSaveFilePath(_T("guideSave.csv")), 
+                m_encrypt);
 
     m_progress.store(35);
 
@@ -574,7 +582,9 @@ void SaveManager::LoadDemoData()
 
     m_progress.store(20);
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("mapInfo.csv"))), m_encrypt);
+    mapManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("mapInfoDef.csv"))),
+                     CreateDemoFilePath(_T("mapInfoOrigin.csv")),
+                     m_encrypt);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     itemManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("item.csv"))),
@@ -611,7 +621,9 @@ void SaveManager::LoadDemoData()
     statusManager->Init(CreateDemoFilePath(_T("status.csv")), m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
+    guide->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("guideDef.csv"))),
+                CreateDemoFilePath(_T("guideOrigin.csv")),
+                m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Init(CreateDemoFilePath(_T("datetime.csv")), m_encrypt);
