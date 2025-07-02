@@ -222,7 +222,7 @@ void SaveManager::Save()
     him->Save(CreateSaveFilePath(_T("humanInfoSub.csv")), m_encrypt);
 
     NSStarmanLib::MapInfoManager* mapManager = NSStarmanLib::MapInfoManager::GetObj();
-    mapManager->Save(CreateSaveFilePath(Common::AddEnIfEng(_T("mapInfo.csv"))), m_encrypt);
+    mapManager->Save(CreateSaveFilePath(Common::AddEnIfEng(_T("mapInfoSave.csv"))), m_encrypt);
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     itemManager->Save(CreateSaveFilePath(_T("item_pos.csv")), m_encrypt);
@@ -252,7 +252,7 @@ void SaveManager::Save()
                         m_encrypt);
 
     NSStarmanLib::Guide* guide = NSStarmanLib::Guide::GetObj();
-    guide->Save(CreateSaveFilePath(Common::AddEnIfEng(_T("guide.csv"))), m_encrypt);
+    guide->Save(CreateSaveFilePath(Common::AddEnIfEng(_T("guideSave.csv"))), m_encrypt);
 
     NSStarmanLib::PowereggDateTime* datetime = NSStarmanLib::PowereggDateTime::GetObj();
     datetime->Save(CreateSaveFilePath(_T("datetime.csv")), m_encrypt);
