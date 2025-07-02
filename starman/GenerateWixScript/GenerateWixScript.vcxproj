@@ -122,6 +122,11 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>..\x64\Debug\GenerateWixScript.exe
+MOVE /y ..\Installer\Product.wxs ..\Installer\Product.wxs.bak
+COPY /y Product.wxs ..\Installer</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -139,6 +144,11 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>..\x64\Release\GenerateWixScript.exe
+MOVE /y ..\Installer\Product.wxs ..\Installer\Product.wxs.bak
+COPY /y Product.wxs ..\Installer</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GenerateWixScript.cpp" />

@@ -1215,10 +1215,13 @@
                 <File Source="../starman/res/script/origin/enemyVisible.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/guide.csv" />
+                <File Source="../starman/res/script/origin/guideDef.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/guide.en.csv" />
+                <File Source="../starman/res/script/origin/guideDef.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/guideOrigin.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/help.csv" />
@@ -1245,10 +1248,10 @@
                 <File Source="../starman/res/script/origin/item_pos.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/mapInfo.csv" />
+                <File Source="../starman/res/script/origin/mapInfoDef.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/mapInfo.en.csv" />
+                <File Source="../starman/res/script/origin/mapInfoOrigin.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/map_obj.bin" />
@@ -1806,10 +1809,13 @@
                 <File Id="enemyVisible.csv.demo" Source="../starman/res/script/demo/enemyVisible.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="guide.csv.demo" Source="../starman/res/script/demo/guide.csv" />
+                <File Id="guideDef.csv.demo" Source="../starman/res/script/demo/guideDef.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="guide.en.csv.demo" Source="../starman/res/script/demo/guide.en.csv" />
+                <File Id="guideDef.en.csv.demo" Source="../starman/res/script/demo/guideDef.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="guideOrigin.csv.demo" Source="../starman/res/script/demo/guideOrigin.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="help.csv.demo" Source="../starman/res/script/demo/help.csv" />
@@ -1836,10 +1842,10 @@
                 <File Id="item_pos.csv.demo" Source="../starman/res/script/demo/item_pos.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="mapInfo.csv.demo" Source="../starman/res/script/demo/mapInfo.csv" />
+                <File Id="mapInfoDef.csv.demo" Source="../starman/res/script/demo/mapInfoDef.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="mapInfo.en.csv.demo" Source="../starman/res/script/demo/mapInfo.en.csv" />
+                <File Id="mapInfoOrigin.csv.demo" Source="../starman/res/script/demo/mapInfoOrigin.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="map_obj.bin.demo" Source="../starman/res/script/demo/map_obj.bin" />
