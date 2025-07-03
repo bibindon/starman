@@ -740,6 +740,11 @@ void SeqBattle::OperateStorehouse()
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_RETURN))
     {
         result = m_storehouse->Into();
+        if (result.empty())
+        {
+            return;
+        }
+
         std::vector<std::wstring> vs = Common::split(result, ':');
 
         std::wstring id_;
@@ -755,11 +760,6 @@ void SeqBattle::OperateStorehouse()
         float x_ = SharedObj::GetPlayer()->GetPos().x;
         float z_ = SharedObj::GetPlayer()->GetPos().z;
         auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
-
-        if (Common::DebugMode())
-        {
-            storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-        }
 
         if (storehouse != nullptr)
         {
@@ -853,11 +853,6 @@ void SeqBattle::OperateStorehouse()
             float x_ = SharedObj::GetPlayer()->GetPos().x;
             float z_ = SharedObj::GetPlayer()->GetPos().z;
             auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
-
-            if (Common::DebugMode())
-            {
-                storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-            }
 
             if (storehouse != nullptr)
             {
@@ -997,6 +992,11 @@ void SeqBattle::OperateStorehouse()
     if (GamePad::IsDown(eGamePadButtonType::A))
     {
         result = m_storehouse->Into();
+        if (result.empty())
+        {
+            return;
+        }
+
         std::vector<std::wstring> vs = Common::split(result, ':');
 
         std::wstring id_;
@@ -1012,11 +1012,6 @@ void SeqBattle::OperateStorehouse()
         float x_ = SharedObj::GetPlayer()->GetPos().x;
         float z_ = SharedObj::GetPlayer()->GetPos().z;
         auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetNearStorehouse(x_, z_);
-
-        if (Common::DebugMode())
-        {
-            storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
-        }
 
         if (storehouse != nullptr)
         {
@@ -3145,7 +3140,6 @@ void SeqBattle::UpdateDebug()
                 {
                     using namespace NSStarmanLib;
 
-                    // TODO 倉庫の複数化対応
                     auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
 
                     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
