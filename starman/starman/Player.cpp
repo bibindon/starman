@@ -1930,7 +1930,7 @@ void Player::SetIsInCave(const bool arg)
     Common::Status()->SetInCave(arg);
 }
 
-bool Player::IsUnderWater()
+bool Player::IsUnderWater() const
 {
     return m_bUnderwater;
 }

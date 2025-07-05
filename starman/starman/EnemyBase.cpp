@@ -294,18 +294,19 @@ eEnemyType EnemyBase::GetEnemyType()
     return m_eType;
 }
 
-void EnemyBase::SetShowMenu(const int id)
+void EnemyBase::SetShowMenu(const std::wstring& id)
 {
     auto enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-    auto enemyNameList = enemyInfoManager->GetEnemyNameList();
+    auto enemyIdList = enemyInfoManager->GetEnemyIdList();
+
     std::wstring enemyName_;
-    for (auto& enemyName : enemyNameList)
+    for (auto& enemyId: enemyIdList)
     {
-        auto enemyDef = enemyInfoManager->GetEnemyDef(enemyName);
-        int id_ = enemyDef.GetIDDef();
-        if (id == id_)
+        if (id == enemyId)
         {
-            enemyName_ = enemyName;
+            auto enemyDef = enemyInfoManager->GetEnemyDef(enemyId);
+            enemyName_ = enemyDef.GetName();
+            break;
         }
     }
 

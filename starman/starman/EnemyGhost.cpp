@@ -80,7 +80,7 @@ void EnemyGhost::Update()
         if (m_deadTimeCounter >= 60)
         {
             m_state = eEnemyState::DISABLE;
-            SetShowMenu(10);
+            SetShowMenu(L"ghost");
         }
     }
     else if (m_state == eEnemyState::IDLE)

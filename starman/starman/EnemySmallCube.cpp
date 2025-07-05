@@ -79,7 +79,7 @@ void EnemySmallCube::Update()
         if (m_deadTimeCounter >= 60)
         {
             m_state = eEnemyState::DISABLE;
-            SetShowMenu(6);
+            SetShowMenu(L"smallCube");
         }
     }
     else if (m_state == eEnemyState::IDLE)

@@ -55,7 +55,7 @@ public:
 
     eEnemyType GetEnemyType();
 
-    void SetShowMenu(const int id);
+    void SetShowMenu(const std::wstring& id);
 
 protected:
 

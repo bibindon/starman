@@ -501,14 +501,15 @@ void MenuManager::InitMenu()
     {
         std::vector<EnemyInfo> infoList;
         NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-        std::vector<std::wstring> nameList = enemyInfoManager->GetEnemyNameList();
-        for (std::size_t i = 0; i < nameList.size(); ++i)
+        auto idList = enemyInfoManager->GetEnemyIdList();
+        for (size_t i = 0; i < idList.size(); ++i)
         {
-            NSStarmanLib::EnemyDef enemyDef = enemyInfoManager->GetEnemyDef(nameList.at(i));
+            auto enemyDef = enemyInfoManager->GetEnemyDef(idList.at(i));
             if (enemyDef.GetVisible() == false)
             {
                 continue;
             }
+
             NSMenulib::EnemyInfo enemyInfo;
             enemyInfo.SetName(enemyDef.GetName());
             enemyInfo.SetDetail(enemyDef.GetDetail());

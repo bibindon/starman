@@ -58,7 +58,7 @@ public:
     bool IsInCave();
     void SetIsInCave(const bool arg);
 
-    bool IsUnderWater();
+    bool IsUnderWater() const;
 
     void PlayPullOarAnim();
 

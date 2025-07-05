@@ -840,75 +840,76 @@ void Map::Update()
             //------------------------------------------------------------------------------
             // 敵がXXメートル以内にいたら読み込んで表示
             //------------------------------------------------------------------------------
-            std::vector<NSStarmanLib::EnemyInfo> eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 30.f);
+            auto eneList = enemyInfoManager->GetEnemyInfo(pos.x, pos.y, pos.z, 30.f);
 
-            for (int i = 0; i < (int)eneList.size(); ++i)
+            for (size_t i = 0; i < eneList.size(); ++i)
             {
-                int id = eneList.at(i).GetID();
+                auto serialNumber = eneList.at(i).m_SerialNumber;
                 auto it = std::find_if(m_vecEnemy.begin(), m_vecEnemy.end(),
                                        [&](const EnemyBase* x)
                                        {
-                                           return x->GetIdSub() == id;
+                                           return x->GetIdSub() == serialNumber;
                                        });
+
                 if (it == m_vecEnemy.end())
                 {
-                    if (eneList.at(i).GetDefeated() == false)
+                    if (!eneList.at(i).m_bDefeated)
                     {
                         EnemyBase* enemy = nullptr;
-                        if (eneList.at(i).GetBreed() == _T("リッポウタイ"))
+                        if (eneList.at(i).m_id == L"cube")
                         {
                             enemy = NEW EnemyCube();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("キュウ"))
+                        else if (eneList.at(i).m_id == L"sphere")
                         {
                             enemy = NEW EnemySphere();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("エンバン"))
+                        else if (eneList.at(i).m_id == L"enban")
                         {
                             enemy = NEW EnemyDisk();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("エンチュウ"))
+                        else if (eneList.at(i).m_id == L"enchu")
                         {
                             enemy = NEW EnemyEnchu();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("ビッグリッポウタイ"))
+                        else if (eneList.at(i).m_id == L"bigCube")
                         {
                             enemy = NEW EnemyBigCube();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("スモールリッポウタイ"))
+                        else if (eneList.at(i).m_id == L"smallCube")
                         {
                             enemy = NEW EnemySmallCube();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("ハンエン"))
+                        else if (eneList.at(i).m_id == L"hanen")
                         {
                             enemy = NEW EnemyHanen();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("ハンキュウ"))
+                        else if (eneList.at(i).m_id == L"hankyu")
                         {
                             enemy = NEW EnemyHankyuu();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("オレンジリッポウタイ"))
+                        else if (eneList.at(i).m_id == L"orangeCube")
                         {
                             enemy = NEW EnemyOrangeCube();
                         }
-                        else if (eneList.at(i).GetBreed() == _T("島民の霊"))
+                        else if (eneList.at(i).m_id == L"ghost")
                         {
                             enemy = NEW EnemyGhost();
                         }
 
-                        enemy->SetIdSub(eneList.at(i).GetID());
+                        enemy->SetIdSub(eneList.at(i).m_SerialNumber);
                         D3DXVECTOR3 work;
-                        work.x = eneList.at(i).GetX();
-                        work.y = eneList.at(i).GetY();
-                        work.z = eneList.at(i).GetZ();
+                        work.x = eneList.at(i).m_x;
+                        work.y = eneList.at(i).m_y;
+                        work.z = eneList.at(i).m_z;
                         enemy->SetPos(work);
 
-                        work.x = eneList.at(i).GetRotX();
-                        work.y = eneList.at(i).GetRotY();
-                        work.z = eneList.at(i).GetRotZ();
+                        work.x = eneList.at(i).m_rotX;
+                        work.y = eneList.at(i).m_rotY;
+                        work.z = eneList.at(i).m_rotZ;
                         enemy->SetRotate(work);
 
-                        enemy->SetHP(eneList.at(i).GetHP());
+                        enemy->SetHP(eneList.at(i).m_HP);
 
                         m_vecEnemy.push_back(enemy);
 
