@@ -116,8 +116,9 @@ struct stEnemyInfo
 {
     stPos m_pos;
 
-    int m_id = 0;
-    std::string m_name;
+    // ここではstd::wstringではなくstd::stringを使う。
+    // csvファイルに出力するため
+    std::string m_id;
     int m_HP = 100;
 };
 
@@ -281,8 +282,7 @@ struct stMapDef
 
 struct stEnemyDef
 {
-    int m_id = 0;
-    std::string m_name;
+    std::string m_id;
 
     // このエリアには必ず現れてほしい、という位置情報
     std::vector<stPos> m_mustAreaList;
@@ -437,8 +437,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 1;
-        enemy.m_name = u8"リッポウタイ";
+        enemy.m_id = "cube";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
 
@@ -457,8 +456,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 2;
-        enemy.m_name = u8"キュウ";
+        enemy.m_id = "sphere";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -469,8 +467,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 3;
-        enemy.m_name = u8"エンバン";
+        enemy.m_id = "enban";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -481,8 +478,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 4;
-        enemy.m_name = u8"エンチュウ";
+        enemy.m_id = "enchu";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -493,8 +489,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 5;
-        enemy.m_name = u8"ビッグリッポウタイ";
+        enemy.m_id = "bigCube";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -505,8 +500,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 6;
-        enemy.m_name = u8"スモールリッポウタイ";
+        enemy.m_id = "smallCube";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -517,8 +511,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 7;
-        enemy.m_name = u8"ハンキュウ";
+        enemy.m_id = "hankyu";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -529,8 +522,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 8;
-        enemy.m_name = u8"ハンエン";
+        enemy.m_id = "hanen";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -541,8 +533,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 9;
-        enemy.m_name = u8"オレンジリッポウタイ";
+        enemy.m_id = "orangeCube";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -553,8 +544,7 @@ void AssignContent(const std::vector<stPos>& posList,
     //---------------------------------------------------------
     {
         stEnemyDef enemy;
-        enemy.m_id = 10;
-        enemy.m_name = u8"島民の霊";
+        enemy.m_id = "ghost";
         enemy.m_bCommon = true;
         enemy.m_rate = 10.f;
         enemyInfoList.push_back(enemy);
@@ -1124,27 +1114,24 @@ void AssignContent(const std::vector<stPos>& posList,
     {
         {
             stEnemyInfo _stEnemyInfo;
-            _stEnemyInfo.m_id = 10;
+            _stEnemyInfo.m_id = "ghost";
             _stEnemyInfo.m_pos = stPos(223, 226, -1399);
-            _stEnemyInfo.m_name = u8"島民の霊";
             _stEnemyInfo.m_HP = 40;
 
             enemyList->push_back(_stEnemyInfo);
         }
         {
             stEnemyInfo _stEnemyInfo;
-            _stEnemyInfo.m_id = 10;
+            _stEnemyInfo.m_id = "ghost";
             _stEnemyInfo.m_pos = stPos(509, 19, -1263);
-            _stEnemyInfo.m_name = u8"島民の霊";
             _stEnemyInfo.m_HP = 40;
 
             enemyList->push_back(_stEnemyInfo);
         }
         {
             stEnemyInfo _stEnemyInfo;
-            _stEnemyInfo.m_id = 10;
+            _stEnemyInfo.m_id = "ghost";
             _stEnemyInfo.m_pos = stPos(1112, 210, -1063);
-            _stEnemyInfo.m_name = u8"島民の霊";
             _stEnemyInfo.m_HP = 40;
 
             enemyList->push_back(_stEnemyInfo);
@@ -1203,6 +1190,8 @@ void AssignContent(const std::vector<stPos>& posList,
 
                 int m_id = 0;
 
+                std::string m_enemyId;
+
                 float m_distance = 0.f;
             };
 
@@ -1247,7 +1236,7 @@ void AssignContent(const std::vector<stPos>& posList,
                     {
                         stCandidate candidate;
                         candidate.m_isMapObj = false;
-                        candidate.m_id = enemyInfo.m_id;
+                        candidate.m_enemyId = enemyInfo.m_id;
                         candidate.m_distance = distance_;
 
                         candidateList.push_back(candidate);
@@ -1285,13 +1274,12 @@ void AssignContent(const std::vector<stPos>& posList,
                         auto it2 = std::find_if(enemyInfoList.begin(), enemyInfoList.end(),
                                                 [&](const stEnemyDef& enemyDef)
                                                 {
-                                                    return enemyDef.m_id == it->m_id;
+                                                    return enemyDef.m_id == it->m_enemyId;
                                                 });
 
                         stEnemyInfo _stEnemyInfo;
-                        _stEnemyInfo.m_id = it->m_id;
+                        _stEnemyInfo.m_id = it->m_enemyId;
                         _stEnemyInfo.m_pos = pos;
-                        _stEnemyInfo.m_name = it2->m_name;
                         _stEnemyInfo.m_HP = it2->m_HP;
 
                         enemyList->push_back(_stEnemyInfo);
@@ -1309,11 +1297,24 @@ void AssignContent(const std::vector<stPos>& posList,
             // 100メートルごとに違う種類の敵が現れることになる。
             //--------------------------------------------------------------
             {
-                int enemyId = 0;
-                enemyId += (int)pos.m_x / 100;
-                enemyId += (int)pos.m_z / 100;
-                enemyId = std::abs(enemyId);
-                enemyId = enemyId % 10 + 1;
+                int work_i = 0;
+                work_i += (int)pos.m_x / 100;
+                work_i += (int)pos.m_z / 100;
+                work_i = std::abs(work_i);
+                work_i = work_i % 10;
+
+                std::string enemyId;
+                if (work_i== 0) { enemyId = "cube"; }
+                else if (work_i== 1) { enemyId = "sphere"; }
+                else if (work_i== 2) { enemyId = "enban"; }
+                else if (work_i== 3) { enemyId = "enchu"; }
+                else if (work_i== 4) { enemyId = "bigCube"; }
+                else if (work_i== 5) { enemyId = "smallCube"; }
+                else if (work_i== 6) { enemyId = "hanen"; }
+                else if (work_i== 7) { enemyId = "hankyu"; }
+                else if (work_i== 8) { enemyId = "orangeCube"; }
+                else if (work_i== 9) { enemyId = "ghost"; }
+
 
                 auto it = std::find_if(enemyInfoList.begin(), enemyInfoList.end(),
                                        [&](const stEnemyDef& enemyDef)
@@ -1323,7 +1324,6 @@ void AssignContent(const std::vector<stPos>& posList,
 
                 stEnemyInfo enemyInfo;
                 enemyInfo.m_id = enemyId;
-                enemyInfo.m_name = it->m_name;
                 enemyInfo.m_pos = pos;
                 enemyInfo.m_HP = it->m_HP;
                 enemyList->push_back(enemyInfo);
@@ -1370,8 +1370,8 @@ void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEne
     {
         std::vector<std::vector<std::string>> vvs;
         std::vector<std::string> vs;
+        vs.push_back("SerialNumber");
         vs.push_back("ID");
-        vs.push_back(u8"タイプ");
         vs.push_back("PosX");
         vs.push_back("PosY");
         vs.push_back("PosZ");
@@ -1389,7 +1389,7 @@ void WriteToCsv(const std::vector<stMapObj>& mapObjList, const std::vector<stEne
             auto& enemyInfo = enemyList.at(i);
 
             vs.push_back(std::to_string(i + 1));
-            vs.push_back(enemyInfo.m_name);
+            vs.push_back(enemyInfo.m_id);
             vs.push_back(std::to_string(enemyInfo.m_pos.m_x));
             vs.push_back(std::to_string(enemyInfo.m_pos.m_y));
             vs.push_back(std::to_string(enemyInfo.m_pos.m_z));

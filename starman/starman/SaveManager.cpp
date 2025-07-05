@@ -348,9 +348,10 @@ void SaveManager::LoadOrigin()
     m_progress.store(30);
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("enemyDef.csv"))),
-                           CreateOriginFilePath(_T("enemy.csv")),
+                           CreateOriginFilePath(_T("enemy.bin")),
                            CreateOriginFilePath(_T("enemyVisible.csv")),
-                           m_encrypt);
+                           m_encrypt,
+                           true);
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
@@ -469,9 +470,10 @@ void SaveManager::Load()
     m_progress.store(15);
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Init(CreateOriginFilePath(Common::AddEnIfEng(_T("enemyDef.csv"))),
-                           CreateSaveFilePath(_T("enemy.csv")),
+                           CreateSaveFilePath(_T("enemy.bin")),
                            CreateSaveFilePath(_T("enemyVisible.csv")),
-                           m_encrypt);
+                           m_encrypt,
+                           true);
             
     m_progress.store(20);
         
@@ -606,9 +608,10 @@ void SaveManager::LoadDemoData()
     m_progress.store(30);
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
     enemyInfoManager->Init(CreateDemoFilePath(Common::AddEnIfEng(_T("enemyDef.csv"))),
-                           CreateDemoFilePath(_T("enemy.csv")),
+                           CreateDemoFilePath(_T("enemy.bin")),
                            CreateDemoFilePath(_T("enemyVisible.csv")),
-                           m_encrypt);
+                           m_encrypt,
+                           true);
             
         
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
