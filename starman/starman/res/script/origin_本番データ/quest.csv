@@ -345,7 +345,8 @@ NPCのXが生存
 NPCのXが生存","24:492:-569:2
 daikeiman
 sankakuman
-shikakuman",,<talk>res\\script\\origin\\talkFinishQuest23.csv
+shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest23.csv
+<move>20:492:-569"
 Q4400,"クエストが完了していたら
 クエストが完了していないなら","Q4300
 Q4400",,"調べたら
@@ -374,7 +375,8 @@ NPCのXが生存
 NPCのXが生存","10.6:491.5:-564:3
 daikeiman
 sankakuman
-shikakuman",,<talk>res\\script\\origin\\talkFinishQuest27.csv
+shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest27.csv
+<move>20:492:-569"
 Q4800,"クエストが完了していたら
 クエストが完了していないなら","Q4700
 Q4800",<hint>ホシマン（赤い実を１０個集めてから廃墟に行こう）,"位置
@@ -386,6 +388,7 @@ sotetsu:10
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest28.csv
+<move>20:492:-569
 <showGuide>36
 <showGuide>37
 <showGuide>38
@@ -457,7 +460,8 @@ NPCのXが生存","10.6:491.5:-564:3
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest33.csv
-<dateAdd>0:1:3:0:0:0"
+<dateAdd>0:1:3:0:0:0
+<move>20:492:-569"
 Q5700,"クエストが完了していたら
 クエストが完了していないなら","Q5600
 Q5700",<hint>ホシマン（もう一度洞窟に行ってみよう）,位置,115.6:590.5:-1484.2:30,,"<talk>res\\script\\origin\\talkFinishQuest34.csv
@@ -470,10 +474,12 @@ NPCのXが生存
 NPCのXが生存","10.6:491.5:-564:3
 daikeiman
 sankakuman
-shikakuman",,<talk>res\\script\\origin\\talkFinishQuest35.csv
+shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest35.csv
+<move>20:492:-569"
 Q5900,"クエストが完了していたら
 クエストが完了していないなら","Q5800
-Q5900",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest36.csv
+Q5900",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest36.csv
+<move>20:492:-569"
 Q6000,"クエストが完了していたら
 クエストが完了していないなら","Q5900
 Q6000",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest37.csv
@@ -540,7 +546,8 @@ NPCのXが生存
 NPCのXが生存","10.6:491.5:-564:3
 daikeiman
 sankakuman
-shikakuman",,<talk>res\\script\\origin\\talkFinishQuest46.csv
+shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest46.csv
+<move>20:492:-569"
 Q7000,"クエストが完了していたら
 クエストが完了していないなら","Q6900
 Q7000",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest47.csv
@@ -567,7 +574,7 @@ Q7300,"クエストが完了していたら
 Q7300",<hint>ホシマン（地図上の海岸洞窟の位置に行ってみよう）,"位置
 NPCのXが生存
 NPCのXが生存
-NPCのXが生存","1162:17:534:200
+NPCのXが生存","1162:17:534:50
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
