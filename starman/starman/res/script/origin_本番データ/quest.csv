@@ -570,7 +570,14 @@ NPCのXが生存","1162:17:534:200
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
-<activityBase>DirectNex"
+<activityBase>DirectNex
+<npc><daikeiman><pos>1164.5:19.5:539.0
+<npc><sankakuman><pos>1164.1:19.7:543.3
+<npc><shikakuman><pos>1161.7:20.3:549.9
+<npc><daikeiman><rot>0.785
+<npc><sankakuman><rot>1.57
+<npc><shikakuman><rot>0
+"
 Q7400,"クエストが完了していたら
 クエストが完了していないなら","Q7300
 Q7400",<hint>ホシマン（１か月間、ここで生活してみよう）,"時間が経過したら
