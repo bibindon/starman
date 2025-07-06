@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,The three of them gathered in Trapezoid Man’s room.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,The three of them gathered in Trapezoid Man’s room.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,
 2,"""…Today, I made a deal with a demon.""",res\\image\\hoshiman00.png,,,
 3,"""If I hadn’t, I would’ve died. I had no choice.
 The contract brought me back from death—but I’ll die one year from now.""",res\\image\\hoshiman00.png,,,

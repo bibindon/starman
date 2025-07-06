@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,Star Man returned to the ruins.,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man returned to the ruins.,res\\image\\hoshiman00.png,,
 2,"""A-Are you okay...!?""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 3,Trapezoid Man panicked when he saw Star Man’s wounds.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,"""I don’t know... I might die in my sleep tonight.

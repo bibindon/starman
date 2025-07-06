@@ -28,7 +28,7 @@ enum class eBGMStatus
 
 struct stBGM
 {
-    std::string m_filename;
+    std::wstring m_filename;
     eBGMStatus m_eBGMStatus = eBGMStatus::NONE;
     int m_volume = 0;
 
@@ -38,7 +38,7 @@ struct stBGM
 
 struct envBGM
 {
-    std::string m_filename;
+    std::wstring m_filename;
     eBGMStatus m_eBGMStatus = eBGMStatus::NONE;
     int m_volume = 0;
 
@@ -62,6 +62,11 @@ public:
     void SetTrueEnd(const bool arg);
     void SetBattle(const bool arg);
 
+    // 基本的にはBGMModelがBGMを選曲する。
+    // ただし、会話シーン中に特定のBGMを再生したいときは外から指定してもらう必要がある。
+    void SetTalkBGM(const std::wstring& filename);
+    void FinalizeTalkBGM();
+
 private:
 
     stBGM m_stBGM;
@@ -70,6 +75,7 @@ private:
     // BGMの選曲
     // 上のルールほど優先度が高い
     //
+    // 会話シーンで特定のBGMが指定されている場合はそのBGMを再生する。
     // 死亡していたら死亡時のBGM
     // タイトルだったらタイトルのBGM
     // オープニングだったらオープニングのBGM
@@ -84,9 +90,6 @@ private:
     //
     // 基本的にBGMModel内で判定をする。外からじゃないと設定できない時もある。
     // そのときはそのときだ。
-    // TODO クエストでこの会話中はこのBGMを流したい、というのがありそう。
-    // m_bQuest123、のように個別に変数を用意してしまったほうが楽かもしれない。
-    // 不細工ではあるが。
 
     bool m_bDead = false;
     bool m_bTitle = false;
@@ -106,35 +109,37 @@ private:
     bool m_bMinatoAto = false; // 港跡の近くにいる
     bool m_bDoukutsu = false; // 洞窟の中にいる
 
-    std::string m_strDead = "res\\sound\\dead.wav";
+    std::wstring m_strTalkBGM;
+    std::wstring m_strDead = L"res\\sound\\dead.wav";
 
-    std::string m_strTitle = "res\\sound\\title.wav";
-    std::string m_strOpening = "res\\sound\\opening.wav";
+    std::wstring m_strTitle = L"res\\sound\\title.wav";
+    std::wstring m_strOpening = L"res\\sound\\opening.wav";
 
-    std::string m_strEnding = "res\\sound\\ending.wav";
-    std::string m_strTrueEnd = "res\\sound\\trueEnd.wav";
-    std::string m_strBattle1 = "res\\sound\\battle1.wav";
-    std::string m_strBattle2 = "res\\sound\\battle2.wav";
-    std::string m_strDying = "res\\sound\\dying.wav";
-    std::string m_strWeak = "res\\sound\\weak.wav";
-    std::string m_strNight = "res\\sound\\night.wav";
-    std::string m_strVoyage = "res\\sound\\voyage.wav";
-    std::string m_strHaikyo = "res\\sound\\haikyo.wav";
-    std::string m_strToudai = "res\\sound\\toudai.wav";
-    std::string m_strKaiganDoukutsu = "res\\sound\\kaiganDoukutsu.wav";
-    std::string m_strJinja = "res\\sound\\jinja.wav";
-    std::string m_strKokeniwa = "res\\sound\\kokeniwa.wav";
-    std::string m_strMinatoAto = "res\\sound\\minatoato.wav";
-    std::string m_strDoukutsu = "res\\sound\\doukutsu.wav";
+    std::wstring m_strEnding = L"res\\sound\\ending.wav";
+    std::wstring m_strTrueEnd = L"res\\sound\\trueEnd.wav";
+    std::wstring m_strBattle1 = L"res\\sound\\battle1.wav";
+    std::wstring m_strBattle2 = L"res\\sound\\battle2.wav";
+    std::wstring m_strDying = L"res\\sound\\dying.wav";
+    std::wstring m_strWeak = L"res\\sound\\weak.wav";
+    std::wstring m_strNight = L"res\\sound\\night.wav";
+    std::wstring m_strVoyage = L"res\\sound\\voyage.wav";
+    std::wstring m_strHaikyo = L"res\\sound\\haikyo.wav";
+    std::wstring m_strToudai = L"res\\sound\\toudai.wav";
+    std::wstring m_strKaiganDoukutsu = L"res\\sound\\kaiganDoukutsu.wav";
+    std::wstring m_strJinja = L"res\\sound\\jinja.wav";
+    std::wstring m_strKokeniwa = L"res\\sound\\kokeniwa.wav";
+    std::wstring m_strMinatoAto = L"res\\sound\\minatoato.wav";
+    std::wstring m_strDoukutsu = L"res\\sound\\doukutsu.wav";
 
-    std::string m_strField1 = "res\\sound\\field1.wav";
-    std::string m_strField2 = "res\\sound\\field2.wav";
-    std::string m_strField3 = "res\\sound\\field3.wav";
+    std::wstring m_strField1 = L"res\\sound\\field1.wav";
+    std::wstring m_strField2 = L"res\\sound\\field2.wav";
+    std::wstring m_strField3 = L"res\\sound\\field3.wav";
 
     void InvestigateCurrentStatus();
-    std::string SelectBGM();
+    std::wstring SelectBGM();
 
     int m_battleCounter = 0;
+
 };
 
 // 環境音のモデル
@@ -150,17 +155,17 @@ public:
 
 private:
 
-    std::unordered_map<std::string, envBGM> m_envBgmMap;
+    std::unordered_map<std::wstring, envBGM> m_envBgmMap;
 
     bool m_bTorch = false;
     bool m_bSea = false;
     bool m_bForest = false;
     bool m_bRain = false;
 
-    std::string m_strTorch = "res\\sound\\torch.wav";
-    std::string m_strSea = "res\\sound\\sea.wav";
-    std::string m_strForest = "res\\sound\\forest.wav";
-    std::string m_strRain = "res\\sound\\rain.wav";
+    std::wstring m_strTorch = L"res\\sound\\torch.wav";
+    std::wstring m_strSea = L"res\\sound\\sea.wav";
+    std::wstring m_strForest = L"res\\sound\\forest.wav";
+    std::wstring m_strRain = L"res\\sound\\rain.wav";
 };
 
 class BGM
@@ -169,14 +174,14 @@ public:
     void Init(HWND hwnd);
     void Finalize(); // For memory leak check.
 
-    bool Load(const std::string& filename);
-    void Play(const std::string& filename, const int a_volume = 100, const bool fadeIn = false);
-    void Stop(const std::string& filename);
+    bool Load(const std::wstring& filename);
+    void Play(const std::wstring& filename, const int a_volume = 100, const bool fadeIn = false);
+    void Stop(const std::wstring& filename);
 
 private:
 
     bool OpenWave(
-        const std::string& filepath,
+        const std::wstring& filepath,
         WAVEFORMATEX& waveFormatEx,
         std::vector<char>* ppData,
         DWORD& dataSize);
@@ -184,7 +189,7 @@ private:
     int PerToDecimal(const int percent);
 
     LPDIRECTSOUND8 dx8sound_ { nullptr };
-    std::unordered_map<std::string, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
+    std::unordered_map<std::wstring, LPDIRECTSOUNDBUFFER8> dx8sound_buffers_ { };
 
 //    std::thread* m_th1 = nullptr;
 //    std::thread* m_th2 = nullptr;
@@ -204,6 +209,11 @@ public:
     void SetEnding(const bool arg);
     void SetTrueEnd(const bool arg);
     void SetBattle(const bool arg);
+
+    // 基本的にはBGMModelのほうでBGMを選曲する。
+    // ただし、会話シーン中に特定のBGMを再生したいときはここで指定する。
+    void SetTalkBGM(const std::wstring& filename);
+    void FinalizeTalkBGM();
 
 private:
     static BGMManager* m_obj;

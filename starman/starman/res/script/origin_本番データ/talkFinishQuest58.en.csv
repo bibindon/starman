@@ -1,9 +1,5 @@
 ﻿ID,Option 1,オプション2,オプション3,,
-1,"When Star Man returned to the sea‑cave, Square Man was crouched, groaning ""oo‑oo,"" while the other two watched.",res\\image\\sankakuman00.png,res\\image\\shikakuman02.png,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,"When Star Man returned to the sea‑cave, Square Man was crouched, groaning ""oo‑oo,"" while the other two watched.",res\\image\\sankakuman00.png,res\\image\\shikakuman02.png,
 2,"""What happened?""",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
 3,"""I showed him the red berries and he curled up. They're detoxified ones.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,"""Hmm...""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

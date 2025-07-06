@@ -412,6 +412,32 @@ class SoundEffect : public ISoundEffect
     }
 };
 
+class BGM : public IBGM
+{
+
+public:
+
+    void Init(const std::wstring& filepath) override
+    {
+        m_filepath = filepath;
+    }
+
+    void Finalize() override
+    {
+        BGMManager::Get()->FinalizeTalkBGM();
+    }
+
+    void Play() override
+    {
+        BGMManager::Get()->SetTalkBGM(m_filepath);
+    }
+
+private:
+
+    std::wstring m_filepath;
+
+};
+
 }
 
 SeqBattle::SeqBattle()
@@ -1908,13 +1934,19 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
                     NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                    NSTalkLib2::IBGM* pBGM = NEW NSTalkLib2::BGM();
                     NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
                     m_talk = NEW NSTalkLib2::Talk();
-                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                                 _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
+                    m_talk->Init(Common::ModExt(work),
+                                 pFont,
+                                 pSE,
+                                 sprite,
+                                 _T("res\\image\\textBack.png"),
+                                 _T("res\\image\\black.png"),
                                  Common::EncryptMode(),
-                                 SharedObj::IsEnglish());
+                                 SharedObj::IsEnglish(),
+                                 pBGM);
 
                     m_eState = eBattleState::TALK;
                 }
@@ -1971,13 +2003,19 @@ void SeqBattle::OperateQuest(eSequence* sequence)
 
                     NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
                     NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+                    NSTalkLib2::IBGM* pBGM = NEW NSTalkLib2::BGM();
                     NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
                     m_talk = NEW NSTalkLib2::Talk();
-                    m_talk->Init(Common::ModExt(work), pFont, pSE, sprite,
-                                 _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
+                    m_talk->Init(Common::ModExt(work),
+                                 pFont,
+                                 pSE,
+                                 sprite,
+                                 _T("res\\image\\textBack.png"),
+                                 _T("res\\image\\black.png"),
                                  Common::EncryptMode(),
-                                 SharedObj::IsEnglish());
+                                 SharedObj::IsEnglish(),
+                                 pBGM);
 
                     m_eState = eBattleState::TALK;
                 }
@@ -2847,13 +2885,19 @@ void SeqBattle::Confirm(eSequence* sequence)
 
             NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
             NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
+            NSTalkLib2::IBGM* pBGM = NEW NSTalkLib2::BGM();
             NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
 
             m_talk = NEW NSTalkLib2::Talk();
-            m_talk->Init(Common::ModExt(csvfile), pFont, pSE, sprite,
-                         _T("res\\image\\textBack.png"), _T("res\\image\\black.png"),
+            m_talk->Init(Common::ModExt(csvfile),
+                         pFont,
+                         pSE,
+                         sprite,
+                         _T("res\\image\\textBack.png"),
+                         _T("res\\image\\black.png"),
                          Common::EncryptMode(),
-                         SharedObj::IsEnglish());
+                         SharedObj::IsEnglish(),
+                         pBGM);
 
             m_eState = eBattleState::TALK;
 

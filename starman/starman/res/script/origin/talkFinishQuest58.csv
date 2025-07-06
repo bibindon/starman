@@ -1,11 +1,7 @@
 ﻿ID,オプション1,オプション2,オプション3,,
 1,"ホシマンが海岸洞窟へ帰るとシカクマンが
 うずくまっていて「うーうー」と言っていた。
-ほかの二人は座ってシカクマンを見ていた。",res\\image\\sankakuman00.png,res\\image\\shikakuman02.png,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+ほかの二人は座ってシカクマンを見ていた。",res\\image\\sankakuman00.png,res\\image\\shikakuman02.png,
 2,「どうした？」,res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
 3,「赤い実を見せたらうずくまってしまった。毒抜きしてある赤い実だ」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,「へぇ・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

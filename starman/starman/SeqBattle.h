@@ -91,7 +91,7 @@ private:
     // 会話
     // TalkManagerがあったほうがよい？
     //----------------------------------------------------------
-    NSTalkLib2::Talk* m_talk { nullptr };
+    NSTalkLib2::Talk* m_talk = nullptr;
     void OperateTalk();
 
     //----------------------------------------------------------

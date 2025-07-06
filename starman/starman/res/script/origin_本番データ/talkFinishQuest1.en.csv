@@ -1,10 +1,6 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
 1,"Star Man stumbled around in a daze, desperately searching for water.
-Fortunately, rain from the recent typhoon had collected in a hollow in the rocks.",,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+Fortunately, rain from the recent typhoon had collected in a hollow in the rocks.",,,
 2,(Is this... really safe?),res\\image\\hoshiman00.png,,,
 3,"Star Man had only ever drunk treated water, like tap water or bottled drinks.",,,,
 4,His smartphone was no longer turning on. Star Man looked around to survey his surroundings.,res\\image\\hoshiman00.png,,,

@@ -1,9 +1,5 @@
 ﻿ID,オプション1,オプション2,オプション3,,
-1,「希望が見えてきた気がする・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,「希望が見えてきた気がする・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,
 2,　ホシマンとダイケイマンは赤い実とドングリを食べながら話していた。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 3,「オプティプル島へは旅行だったのか？」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,　ダイケイマンは聞いた。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

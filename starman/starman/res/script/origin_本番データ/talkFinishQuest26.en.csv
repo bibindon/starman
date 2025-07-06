@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,"While walking, Star Man came across a tropical-looking tree bearing many red fruits.",,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,"While walking, Star Man came across a tropical-looking tree bearing many red fruits.",,,
 2,"(I’ve seen this tree before.
 Or maybe it’s more like a giant plant than a tree...
 The fruit smells kind of like something edible...)",res\\image\\hoshiman00.png,,,

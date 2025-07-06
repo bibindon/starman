@@ -1,10 +1,6 @@
 ﻿ID,Option 1,オプション2,オプション3,,
 1,"Star Man arrived at CentOZ Shrine.
-After searching the surroundings, he spotted the old woman.",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+After searching the surroundings, he spotted the old woman.",res\\image\\hoshiman00.png,,
 2,"""Hello, long time no see.""",res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
 3,"""Hello.""",res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
 4,"""There's something I'd like to ask.""",res\\image\\hoshiman00.png,res\\image\\rouba00.png,,

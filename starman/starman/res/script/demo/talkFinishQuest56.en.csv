@@ -1,10 +1,6 @@
 ﻿ID,Option 1,オプション2,オプション3,,
 1,"""I met Nes, but he said he didn't know.
-There was nothing around him that could be a clue to Square Man.""",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+There was nothing around him that could be a clue to Square Man.""",res\\image\\hoshiman00.png,,,
 2,Star Man told Trapezoid Man and Triangle Man.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 3,"""…""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,"""So that leaves Gain—or a monster…?""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

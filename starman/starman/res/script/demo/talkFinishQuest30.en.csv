@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,Star Man looked ahead and saw a cylindrical object approaching him.,res\\image\\enchuu00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man looked ahead and saw a cylindrical object approaching him.,res\\image\\enchuu00.png,,,
 2,"(Oh no. That’s a monster too, isn’t it?)",res\\image\\enchuu00.png,res\\image\\hoshiman00.png,,
 3,"Since the monsters usually remain completely still, they’re hard to spot. You only notice them once they start moving.",res\\image\\enchuu00.png,res\\image\\hoshiman00.png,,
 4,(This time it’s shaped like a cylinder...),res\\image\\enchuu00.png,res\\image\\hoshiman00.png,,

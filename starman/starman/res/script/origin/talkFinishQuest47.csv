@@ -1,9 +1,5 @@
 ﻿ID,オプション1,オプション2,オプション3,,
-1,ホシマンたちは紐と木の棒で即席の担架を作っていた。,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,ホシマンたちは紐と木の棒で即席の担架を作っていた。,res\\image\\hoshiman00.png,,
 2,「そういえば・・・、ここに来る前、シーポロポロでビムに会った」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 3,ホシマンは言った。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,「おう」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

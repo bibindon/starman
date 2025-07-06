@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,Star Man stood in front of Trapezoid Man’s room.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man stood in front of Trapezoid Man’s room.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 2,"""Hey. How are you feeling?""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 3,"No good... I’ve got a fever, and the pain... I can’t do anything...""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,"Seeing Trapezoid Man’s pained expression, Star Man furrowed his brow.",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

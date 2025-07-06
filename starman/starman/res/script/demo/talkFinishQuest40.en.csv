@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,Two months later. Two months had passed since the experimental subjects attacked.,,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Two months later. Two months had passed since the experimental subjects attacked.,,,,
 2,The four of them were building a raft in an open area in front of the ruins.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 3,"""The experimental subjects haven’t shown up again, huh?""",res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
 4,Rectangle Man said.,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,

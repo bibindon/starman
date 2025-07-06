@@ -1,9 +1,5 @@
 ﻿ID,Option 1,オプション2,オプション3,,
-1,Star Man arrived at the ruins of Virtualbex Port in the middle of the night.,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man arrived at the ruins of Virtualbex Port in the middle of the night.,res\\image\\hoshiman00.png,,
 2,(Should I wait until morning before seeing Nes...? It's not yet certain they did anything.),res\\image\\hoshiman00.png,,,
 3,(But...),res\\image\\hoshiman00.png,,,
 4,(If I weigh 'embarrassing myself by visiting someone in the middle of the night' against 'Square Man's safety'... the answer is obvious.),res\\image\\hoshiman00.png,,,

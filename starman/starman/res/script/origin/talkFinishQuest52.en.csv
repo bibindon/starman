@@ -1,9 +1,5 @@
 ﻿ID,Option 1,オプション2,オプション3,,
-1,Star Man arrived at Precision.,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man arrived at Precision.,res\\image\\hoshiman00.png,,
 2,"Before heading to the ruins, he went to the spot where they'd hidden their weapons and tools,
 and found them just the way they had left them.",res\\image\\hoshiman00.png,,,
 3,"The newly crafted weapons and tools had better performance,

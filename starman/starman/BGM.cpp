@@ -38,7 +38,7 @@ void BGM::Finalize()
 
 // Reference
 // http://marupeke296.com/DSSMP_No2_GetSoundFromWave.html
-bool BGM::Load(const std::string& filename)
+bool BGM::Load(const std::wstring& filename)
 {
     // Already loaded.
     if (dx8sound_buffers_.find(filename) != dx8sound_buffers_.end())
@@ -89,7 +89,7 @@ bool BGM::Load(const std::string& filename)
     return true;
 }
 
-void BGM::Play(const std::string& filename, const int a_volume, const bool fadeIn)
+void BGM::Play(const std::wstring& filename, const int a_volume, const bool fadeIn)
 {
     // Transform volume
     // 0 ~ 100 -> -10000 ~ 0
@@ -146,22 +146,20 @@ void BGM::Play(const std::string& filename, const int a_volume, const bool fadeI
     }
 }
 
-void BGM::Stop(const std::string& filename)
+void BGM::Stop(const std::wstring& filename)
 {
     dx8sound_buffers_.at(filename)->Stop();
 }
 
-bool BGM::OpenWave(const std::string& _filepath,
+bool BGM::OpenWave(const std::wstring& filepath,
                     WAVEFORMATEX& waveformatex,
                     std::vector<char>* buff,
                     DWORD& wave_size)
 {
-    if (_filepath.empty())
+    if (filepath.empty())
     {
         return false;
     }
-
-    std::wstring filepath = Common::Utf8ToWstring(_filepath);
 
     HMMIO _hmmio { nullptr };
 
@@ -281,19 +279,7 @@ void BGMModel::Update()
     InvestigateCurrentStatus();
 
     // BGMの選曲
-    // 上のルールほど優先度が高い
-    //
-    // 死亡していたら死亡時のBGM
-    // タイトルだったらタイトルのBGM
-    // オープニングだったらオープニングのBGM
-    // エンディングだったらエンディングのBGM
-    // 戦闘だったら戦闘のBGM
-    // 瀕死だったら瀕死のBGM
-    // 体力が少ないなら体力が少ないBGM
-    // 夜だったら夜のBGM
-    // 航海中だったら航海中のBGM
-    // 特定の地域なら特定のBGM
-    std::string newBGM =  SelectBGM();
+    std::wstring newBGM =  SelectBGM();
 
     if (newBGM.empty())
     {
@@ -591,13 +577,36 @@ void BGMModel::InvestigateCurrentStatus()
 }
 
 // 変更ナシなら空文字
-std::string BGMModel::SelectBGM()
+// 
+// bgmの選曲
+// 上のルールほど優先度が高い
+//
+// 会話シーンで特定のbgmが指定されている場合はそのbgmを再生する。
+// 死亡していたら死亡時のbgm
+// タイトルだったらタイトルのbgm
+// オープニングだったらオープニングのbgm
+// エンディングだったらエンディングのbgm
+// 戦闘だったら戦闘のbgm
+// 瀕死だったら瀕死のbgm
+// 体力が少ないなら体力が少ないbgm
+// 夜だったら夜のbgm
+// 航海中だったら航海中のbgm
+// 特定の地域なら特定のbgm
+// それ以外ならランダム再生
+//
+// 基本的にbgmmodel内で判定をする。外からじゃないと設定できない時もある。
+// そのときはそのときだ。
+std::wstring BGMModel::SelectBGM()
 {
-    std::string newBGM;
+    std::wstring newBGM;
 
     // 複数のフラグがONになることがあることに注意
 
-    if (m_bDead)
+    if (!m_strTalkBGM.empty())
+    {
+        newBGM = m_strTalkBGM;
+    }
+    else if (m_bDead)
     {
         newBGM = m_strDead;
     }
@@ -719,7 +728,7 @@ std::string BGMModel::SelectBGM()
 
     if (m_stBGM.m_filename == newBGM)
     {
-        return std::string();
+        return std::wstring();
     }
 
     return newBGM;
@@ -979,6 +988,16 @@ void BGMModel::SetBattle(const bool arg)
     }
 }
 
+void BGMModel::SetTalkBGM(const std::wstring& filename)
+{
+    m_strTalkBGM = filename;
+}
+
+void BGMModel::FinalizeTalkBGM()
+{
+    m_strTalkBGM.clear();
+}
+
 void BGMManager::SetEnding(const bool arg)
 {
     m_BGMModel.SetEnding(arg);
@@ -994,6 +1013,16 @@ void BGMManager::SetTrueEnd(const bool arg)
 void BGMManager::SetBattle(const bool arg)
 {
     m_BGMModel.SetBattle(arg);
+}
+
+void BGMManager::SetTalkBGM(const std::wstring& filename)
+{
+    m_BGMModel.SetTalkBGM(filename);
+}
+
+void BGMManager::FinalizeTalkBGM()
+{
+    m_BGMModel.FinalizeTalkBGM();
 }
 
 

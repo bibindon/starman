@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,"""Hold up. It's that Cube again,"" Star Man said to the children.",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,"""Hold up. It's that Cube again,"" Star Man said to the children.",res\\image\\hoshiman00.png,,
 2,"Because they were carrying a stretcher, there were moments when they couldn’t avoid the monsters. Star Man and the others gently set the stretcher down on the ground.",res\\image\\hoshiman00.png,,,
 3,"The Cube stood motionless. Without a face, it was impossible to tell if it had noticed them.",,res\\image\\rippoutai00.png,,
 4,"Star Man raised his hand toward the Cube. A massive block of ice formed above it and came crashing down. The Cube partially shattered, and the ice melted into mist.",res\\image\\hoshiman00.png,res\\image\\rippoutai00.png,,

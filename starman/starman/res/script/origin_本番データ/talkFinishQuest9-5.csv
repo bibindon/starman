@@ -1,10 +1,6 @@
 ﻿ID,オプション1,オプション2,オプション3,,
 1,"ホシマンは声のする方へ恐る恐る進んでいった。
-声のする方をのぞき込むと頭が台形の男が寝そべっていた。",,res\\image\\daikeiman00.png,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+声のする方をのぞき込むと頭が台形の男が寝そべっていた。",,res\\image\\daikeiman00.png,
 2,「助けてくれ・・・」,,res\\image\\daikeiman00.png,,
 3,男は今にも死にそうであった。ホシマンは重い体を引きずりながら近寄っていく。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 4,「大丈夫ですか」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

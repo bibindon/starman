@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,One month later.,,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,One month later.,,,
 2,A month had passed since they decided to build a boat.,,,,
 3,"Star Man spent his days gathering food and materials for the boat,
 while Trapezoid Man and the others focused on building it.",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,

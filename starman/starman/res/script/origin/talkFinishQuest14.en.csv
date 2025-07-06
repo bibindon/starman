@@ -1,11 +1,7 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
 1,"Star Man headed for the rock he had used as a marker to meet up with the children.
 The cube monsters were still everywhere, so he carefully avoided them as he moved.
-However, he couldn’t find the rock in the forest.",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+However, he couldn’t find the rock in the forest.",res\\image\\hoshiman00.png,,
 2,(That was stupid... There's no way I could find something like that in the forest...),res\\image\\hoshiman00.png,,,
 3,(...!?),res\\image\\hoshiman00.png,,,
 4,"A disk-shaped object was closing in on Star Man.

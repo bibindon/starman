@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,"As he ventured deeper into the cave, a lake came into view.",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,"As he ventured deeper into the cave, a lake came into view.",res\\image\\hoshiman00.png,,
 2,"(…This place gives me the creeps.)
 Star Man looked around cautiously.",res\\image\\hoshiman00.png,,,
 3,(I think I saw something red by the water’s edge...),res\\image\\hoshiman00.png,,,
