@@ -60,9 +60,6 @@ public:
     // 壁ずり処理
     D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit, bool* bInside);
 
-    void SetNpcPos(const std::wstring& name, const D3DXVECTOR3& pos);
-    void SetNpcRot(const std::wstring& name, const float yRot);
-
     //------------------------------------
     // もの投げ
     //------------------------------------

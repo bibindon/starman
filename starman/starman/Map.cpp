@@ -1061,26 +1061,38 @@ void Map::Update()
                 OutputDebugString(work.c_str());
             }
 
-            // NPCが死んでいたら、座標を(0, 0, 0)に移動
+            // NPCの座標を更新
             {
                 auto npcManager = NpcManager::Get();
-                if (npcManager->GetNpcStatus(_T("daikeiman")).GetDead())
+
                 {
-                    // TODO 全角カタカナ、直すべし
-                    SetNpcPos(_T("daikeiman"), D3DXVECTOR3(0.f, 0.f, 0.f));
-                    npcManager->SetPos(_T("daikeiman"), 0.f, 0.f, 0.f);
+                    auto x = npcManager->GetNpcStatus(L"daikeiman").GetX();
+                    auto y = npcManager->GetNpcStatus(L"daikeiman").GetY();
+                    auto z = npcManager->GetNpcStatus(L"daikeiman").GetZ();
+                    auto rotY = npcManager->GetNpcStatus(L"daikeiman").GetRotY();
+
+                    m_NPC[L"daikeiman"]->SetPos(D3DXVECTOR3(x, y, z));
+                    m_NPC[L"daikeiman"]->SetRotate(D3DXVECTOR3(0.f, rotY, 0.f));
                 }
 
-                if (npcManager->GetNpcStatus(_T("sankakuman")).GetDead())
                 {
-                    SetNpcPos(_T("sankakuman"), D3DXVECTOR3(0.f, 0.f, 0.f));
-                    npcManager->SetPos(_T("sankakuman"), 0.f, 0.f, 0.f);
+                    auto x = npcManager->GetNpcStatus(L"sankakuman").GetX();
+                    auto y = npcManager->GetNpcStatus(L"sankakuman").GetY();
+                    auto z = npcManager->GetNpcStatus(L"sankakuman").GetZ();
+                    auto rotY = npcManager->GetNpcStatus(L"sankakuman").GetRotY();
+
+                    m_NPC[L"sankakuman"]->SetPos(D3DXVECTOR3(x, y, z));
+                    m_NPC[L"sankakuman"]->SetRotate(D3DXVECTOR3(0.f, rotY, 0.f));
                 }
 
-                if (npcManager->GetNpcStatus(_T("shikakuman")).GetDead())
                 {
-                    SetNpcPos(_T("shikakuman"), D3DXVECTOR3(0.f, 0.f, 0.f));
-                    npcManager->SetPos(_T("shikakuman"), 0.f, 0.f, 0.f);
+                    auto x = npcManager->GetNpcStatus(L"shikakuman").GetX();
+                    auto y = npcManager->GetNpcStatus(L"shikakuman").GetY();
+                    auto z = npcManager->GetNpcStatus(L"shikakuman").GetZ();
+                    auto rotY = npcManager->GetNpcStatus(L"shikakuman").GetRotY();
+
+                    m_NPC[L"shikakuman"]->SetPos(D3DXVECTOR3(x, y, z));
+                    m_NPC[L"shikakuman"]->SetRotate(D3DXVECTOR3(0.f, rotY, 0.f));
                 }
             }
         }
@@ -1773,19 +1785,6 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
     }
 
     return result;
-}
-
-void Map::SetNpcPos(const std::wstring& name, const D3DXVECTOR3& pos)
-{
-    m_NPC.at(name)->SetPos(pos);
-}
-
-void Map::SetNpcRot(const std::wstring& name, const float yRot)
-{
-    D3DXVECTOR3 rot(0.f, 0.f, 0.f);
-    rot.y = yRot;
-
-    m_NPC.at(name)->SetRotate(rot);
 }
 
 void Map::AddThrownItem(const D3DXVECTOR3& pos,

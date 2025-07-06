@@ -78,8 +78,8 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_STRING112           "サンカクマン"
-    IDS_STRING113           "シカクマン"
+    IDS_STRING_SANKAKUMAN   "サンカクマン"
+    IDS_STRING_SHIKAKUMAN   "シカクマン"
     IDS_STRING114           "%s をもらった"
     IDS_STRING115           "炎魔法のレベルが上がった"
     IDS_STRING116           "氷魔法のレベルが上がった"
@@ -87,7 +87,7 @@ BEGIN
     IDS_STRING118           "炎魔法のレベルが下がった"
     IDS_STRING119           "氷魔法のレベルが下がった"
     IDS_STRING120           "闇魔法のレベルが下がった"
-    IDS_STRING121           "ダイケイマン"
+    IDS_STRING_DAIKEIMAN    "ダイケイマン"
     IDS_STRING122           "ビム"
     IDS_STRING123           "謎の草１"
     IDS_STRING124           "謎の草２"
@@ -190,6 +190,7 @@ BEGIN
     IDS_STRING201           "このゲームをクリアすることができなくなりました"
     IDS_STRING202           "袋を6個以上装備することはできない"
     IDS_STRING203           "３時間休憩する"
+    IDS_STRING_NPC_DIED     "%sが死亡した。"
 END
 
 STRINGTABLE
@@ -235,8 +236,8 @@ END
 
 STRINGTABLE
 BEGIN
-    IDS_STRING112           "Triangle Man"
-    IDS_STRING113           "Square Man"
+    IDS_STRING_SANKAKUMAN   "Triangle Man"
+    IDS_STRING_SHIKAKUMAN   "Square Man"
     IDS_STRING114           "Received %s"
     IDS_STRING115           "Fire Magic level increased."
     IDS_STRING116           "Ice Magic level increased."
@@ -244,7 +245,7 @@ BEGIN
     IDS_STRING118           "Fire Magic level decreased."
     IDS_STRING119           "Ice Magic level decreased."
     IDS_STRING120           "Dark Magic level decreased."
-    IDS_STRING121           "Round Man"
+    IDS_STRING_DAIKEIMAN    "Trapezoid Man"
     IDS_STRING122           "Vim"
     IDS_STRING123           "Unknown Grass 1"
     IDS_STRING124           "Unknown Grass 2"
@@ -347,6 +348,7 @@ BEGIN
     IDS_STRING201           "You can no longer complete this game."
     IDS_STRING202           "Starman cannot equip more than 6 bags."
     IDS_STRING203           "Rest 3 Hours"
+    IDS_STRING_NPC_DIED     "%s died."
 END
 
 STRINGTABLE

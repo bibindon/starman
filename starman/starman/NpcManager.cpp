@@ -1,7 +1,9 @@
 ﻿#include "NpcManager.h"
+
 #include "Common.h"
 #include "SharedObj.h"
 #include "PopUp2.h"
+#include "resource.h"
 
 NpcManager* NpcManager::m_ton = nullptr;
 
@@ -24,9 +26,6 @@ void NpcManager::SetPos(const std::wstring& npcName, const float fx, const float
     npcStatusMgr->SetNpcStatus(npcName, status);
 
     auto map = SharedObj::GetMap();
-
-    D3DXVECTOR3 vec(fx, fy, fz);
-    map->SetNpcPos(npcName, vec);
 }
 
 void NpcManager::SetRot(const std::wstring& npcName, const float fRot)
@@ -35,9 +34,6 @@ void NpcManager::SetRot(const std::wstring& npcName, const float fRot)
     auto status = npcStatusMgr->GetNpcStatus(npcName);
     status.SetRotY(fRot);
     npcStatusMgr->SetNpcStatus(npcName, status);
-
-    auto map = SharedObj::GetMap();
-    map->SetNpcRot(npcName, fRot);
 }
 
 void NpcManager::SetTalkEnable(const std::wstring& npcName, const bool arg)
@@ -134,16 +130,32 @@ void NpcManager::Update()
 
     if (daikei != daikei2 && daikei2)
     {
-        PopUp2::Get()->SetText(_T("ダイケイマンが死亡した"));
+        auto npcName = Common::LoadString_(IDS_STRING_DAIKEIMAN);
+        auto msg = Common::LoadStringWithArg(IDS_STRING_NPC_DIED, npcName);
+        PopUp2::Get()->SetText(msg);
+
+        // NPCが死んでいたら、座標を(0, 0, 0)に移動
+        SetPos(_T("daikeiman"), 0.f, 0.f, 0.f);
     }
 
     if (sankaku != sankaku2 && sankaku2)
     {
-        PopUp2::Get()->SetText(_T("サンカクマンが死亡した"));
+        auto npcName = Common::LoadString_(IDS_STRING_SANKAKUMAN);
+        auto msg = Common::LoadStringWithArg(IDS_STRING_NPC_DIED, npcName);
+        PopUp2::Get()->SetText(msg);
+
+        // NPCが死んでいたら、座標を(0, 0, 0)に移動
+        SetPos(_T("sankakuman"), 0.f, 0.f, 0.f);
     }
 
     if (shikaku != shikaku2 && shikaku2)
     {
-        PopUp2::Get()->SetText(_T("シカクマンが死亡した"));
+        auto npcName = Common::LoadString_(IDS_STRING_SHIKAKUMAN);
+        auto msg = Common::LoadStringWithArg(IDS_STRING_NPC_DIED, npcName);
+        PopUp2::Get()->SetText(msg);
+
+
+        // NPCが死んでいたら、座標を(0, 0, 0)に移動
+        SetPos(_T("shikakuman"), 0.f, 0.f, 0.f);
     }
 }

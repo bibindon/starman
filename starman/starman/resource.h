@@ -15,7 +15,9 @@
 #define IDS_STRING110                   110
 #define IDS_STRING111                   111
 #define IDS_STRING112                   112
+#define IDS_STRING_SANKAKUMAN           112
 #define IDS_STRING113                   113
+#define IDS_STRING_SHIKAKUMAN           113
 #define IDS_STRING114                   114
 #define IDS_STRING115                   115
 #define IDS_STRING116                   116
@@ -24,6 +26,7 @@
 #define IDS_STRING119                   119
 #define IDS_STRING120                   120
 #define IDS_STRING121                   121
+#define IDS_STRING_DAIKEIMAN            121
 #define IDS_STRING122                   122
 #define IDS_STRING123                   123
 #define IDS_STRING124                   124
@@ -106,6 +109,7 @@
 #define IDS_STRING201                   201
 #define IDS_STRING202                   202
 #define IDS_STRING203                   203
+#define IDS_STRING_NPC_DIED             204
 #define IDS_STRING209                   209
 #define IDS_STRING210                   210
 #define IDS_STRING211                   211
