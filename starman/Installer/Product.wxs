@@ -486,6 +486,36 @@
                 <File Source="../starman/res/image/sumaho.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkGip.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkKaigan.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkKaigan2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkKaigan3.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkKokeniwa.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkKokeniwa2.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkMinatoato.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkPrecision.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkPrecision3.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkRiver.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/tanpopo.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
