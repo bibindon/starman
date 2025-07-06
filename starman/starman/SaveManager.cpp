@@ -237,9 +237,10 @@ void SaveManager::Save()
     weaponManager->Save(CreateSaveFilePath(_T("weaponSave.csv")), m_encrypt);
 
     NSStarmanLib::EnemyInfoManager* enemyInfoManager = NSStarmanLib::EnemyInfoManager::GetObj();
-    enemyInfoManager->Save(CreateSaveFilePath(_T("enemy.csv")),
+    enemyInfoManager->Save(CreateSaveFilePath(_T("enemy.bin")),
                            CreateSaveFilePath(_T("enemyVisible.csv")),
-                           m_encrypt);
+                           m_encrypt,
+                           true);
 
     NSStarmanLib::SkillManager* skillManager = NSStarmanLib::SkillManager::GetObj();
     skillManager->Save(CreateSaveFilePath(_T("skillSub.csv")), m_encrypt);

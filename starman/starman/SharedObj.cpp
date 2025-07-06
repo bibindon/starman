@@ -1,11 +1,11 @@
 ﻿#include "SharedObj.h"
 #include "Common.h"
 
-HWND SharedObj::m_hWnd { nullptr };
-LPDIRECT3DDEVICE9 SharedObj::m_D3DDevice { nullptr };
-std::mt19937 SharedObj::m_Engine { };
-Player* SharedObj::m_player { nullptr };
-Map* SharedObj::m_map { nullptr };
+HWND SharedObj::m_hWnd = nullptr;
+LPDIRECT3DDEVICE9 SharedObj::m_D3DDevice = nullptr;
+std::mt19937 SharedObj::m_Engine;
+Player* SharedObj::m_player = nullptr;
+Map* SharedObj::m_map = nullptr;
 D3DXMATRIX SharedObj::m_rightHandMat;
 
 IKeyBoard* SharedObj::m_keyBoard = nullptr;

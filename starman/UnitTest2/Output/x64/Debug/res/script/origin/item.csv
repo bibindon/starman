@@ -91,6 +91,8 @@ stoneForAxe,いい形の石（斧）,"斧や槍に石を使うには、いい形
 stoneForSpear,いい形の石（槍）,"斧や槍に石を使うには、いい形の石を探す必要がある。
 ",res\\image\\stoneForSpear.png,0.8,400,素材,,,,,,,,,,,,,,,stoneForSpear
 wordbress,ワードブレス,"飲むと死んでも生き返れる薬が入った小瓶。
+効果が発動するにはある契約を行っている必要がある。
+
 一個で一回だけ。
 ",res\\image\\wordbress.png,0.4,200,その他,,,,,,,,,,,,,,,wordbress
 sugegasa,菅笠（すげがさ）,"頭にかぶる傘。

@@ -1173,9 +1173,6 @@
                 <File Source="../starman/res/script/origin/activityBase.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/BinToCsv.exe" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/commandName.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1191,9 +1188,6 @@
                 <File Source="../starman/res/script/origin/craftsmanSkill.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/CsvToBin.exe" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/datetime.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1203,7 +1197,7 @@
                 <File Source="../starman/res/script/origin/encrypt.exe" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/enemy.csv" />
+                <File Source="../starman/res/script/origin/enemy.bin" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/enemyDef.csv" />
@@ -1767,9 +1761,6 @@
                 <File Id="activityBase.csv.demo" Source="../starman/res/script/demo/activityBase.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="BinToCsv.exe.demo" Source="../starman/res/script/demo/BinToCsv.exe" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="commandName.csv.demo" Source="../starman/res/script/demo/commandName.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
@@ -1785,9 +1776,6 @@
                 <File Id="craftsmanSkill.csv.demo" Source="../starman/res/script/demo/craftsmanSkill.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="CsvToBin.exe.demo" Source="../starman/res/script/demo/CsvToBin.exe" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="datetime.csv.demo" Source="../starman/res/script/demo/datetime.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
@@ -1797,7 +1785,7 @@
                 <File Id="encrypt.exe.demo" Source="../starman/res/script/demo/encrypt.exe" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="enemy.csv.demo" Source="../starman/res/script/demo/enemy.csv" />
+                <File Id="enemy.bin.demo" Source="../starman/res/script/demo/enemy.bin" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="enemyDef.csv.demo" Source="../starman/res/script/demo/enemyDef.csv" />

@@ -1757,32 +1757,35 @@ D3DXVECTOR3 Player::GetAttackPos() const
 
     auto work = Common::Status()->GetEquipWeapon().GetId();
 
-    auto unreinforcedId = Common::ItemManager()->GetItemDef(work).GetUnreinforcedId();
+    if (!work.empty())
+    {
+        auto unreinforcedId = Common::ItemManager()->GetItemDef(work).GetUnreinforcedId();
 
-    // 木の棒
-    if (unreinforcedId == L"stick")
-    {
-        length = 1.5f;
-    }
-    // 石槍
-    else if (unreinforcedId == L"stoneSpear")
-    {
-        length = 2.0f;
-    }
-    // 鉄パイプ
-    else if (unreinforcedId == L"ironPipe")
-    {
-        length = 1.5f;
-    }
-    // 石付き鉄パイプ
-    else if (unreinforcedId == L"ironPipeEx")
-    {
-        length = 1.5f;
-    }
-    // 石斧
-    else if (unreinforcedId == L"stoneAxe")
-    {
-        length = 1.5f;
+        // 木の棒
+        if (unreinforcedId == L"stick")
+        {
+            length = 1.5f;
+        }
+        // 石槍
+        else if (unreinforcedId == L"stoneSpear")
+        {
+            length = 2.0f;
+        }
+        // 鉄パイプ
+        else if (unreinforcedId == L"ironPipe")
+        {
+            length = 1.5f;
+        }
+        // 石付き鉄パイプ
+        else if (unreinforcedId == L"ironPipeEx")
+        {
+            length = 1.5f;
+        }
+        // 石斧
+        else if (unreinforcedId == L"stoneAxe")
+        {
+            length = 1.5f;
+        }
     }
 
     D3DXVECTOR3 pos { m_loadingPos };

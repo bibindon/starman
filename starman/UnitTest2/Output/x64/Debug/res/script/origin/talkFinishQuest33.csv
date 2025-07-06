@@ -6,8 +6,7 @@
 ・オプション3は右に表示したい画像"
 2,「だ、大丈夫か・・・！？」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 3,ホシマンの傷を見てダイケイマンはうろたえた。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-4,"「わからない・・・。今日、寝てる間に死んでしまうかもしれない。
-　でもその場合は、生き返れるようになっている」",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+4,「かなり厳しいが、命に別状はない・・・と思う」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 5,「そ、そうか・・・」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 6,サンカクマンとシカクマンはホシマンの傷を見て絶句していた。,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
 7,ホシマンはダイケイマンたちに今日あったことを話した。,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
@@ -57,20 +56,11 @@
 矢を手で投げるよりはマシでそれなりに実用性はありそうだった。",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
 41,"子どもたちも欲しがったため、４つ作りそれぞれが持つことになった。
 すぐに的あてをして競うことがブームとなった。",res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,,
-42,"ホシマンは、魔法の訓練を毎日続けた。
-そして１メートルくらいの氷を地面から出現させたり、もしくは氷の雨を降らせたり、
-３０センチくらいの火の玉を出現させることができるようになっていた。",res\\image\\hoshiman00.png,,,
-43,"魔法は発動するまでに時間がかかり、発動した後もノロノロとしか飛んでいかなかった。
-そして相変わらず立っていられないほど疲れるため使いどころを考える必要があった。",res\\image\\hoshiman00.png,,,
-44,ホシマンは、氷の雨や火の玉を日常生活で使用していた。,res\\image\\hoshiman00.png,,,
-45,"氷の魔法によって水不足の解消を期待したが、魔法の氷は氷ではなく
-『氷のような物質』であったため水分確保というわけにはいかなかった。",res\\image\\hoshiman00.png,,,
-46,ホシマンは船の材料集めを始めることにした。,res\\image\\hoshiman00.png,,,
-47,"１か月経ってもホシマンのやけどは治っておらず動くたびに
+42,ホシマンは船の材料集めを始めることにした。,res\\image\\hoshiman00.png,,,
+43,"１か月経ってもホシマンのやけどは治っておらず動くたびに
 傷口が開き黄色い液体が傷口から漏れた。",res\\image\\hoshiman00.png,,,
-48,"不幸中の幸いで肘、膝は少ししか酸がかからなかったため
+44,"不幸中の幸いで肘、膝は少ししか酸がかからなかったため
 我慢すれば四肢を動かすことはできた。",res\\image\\hoshiman00.png,,,
-49,"死ねば全快して生き返れるし１年のタイムリミットがあるため、
-無理をして動く必要があった。",res\\image\\hoshiman00.png,,,
-50,"ホシマンは船の材料集めのついでで
-地図に載っていたウブントゥ洞窟に向かってみることにした。",res\\image\\hoshiman00.png,,,
+45,１年のタイムリミットがあるため、無理をして動く必要があった。,res\\image\\hoshiman00.png,,,
+46,"ホシマンは船の材料集めのついでで
+もう一度ウブントゥ洞窟に向かってみることにした。",res\\image\\hoshiman00.png,,,

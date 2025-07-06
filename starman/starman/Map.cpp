@@ -733,6 +733,8 @@ void Map::Init()
     MapLib()->ResetShow();
 
     m_progress.store(100);
+
+    m_bInitialized = true;
 }
 
 void Map::Update()
@@ -856,43 +858,44 @@ void Map::Update()
                     if (!eneList.at(i).m_bDefeated)
                     {
                         EnemyBase* enemy = nullptr;
-                        if (eneList.at(i).m_id == L"cube")
+                        auto id_str = std::wstring(eneList.at(i).m_id);
+                        if (id_str == L"cube")
                         {
                             enemy = NEW EnemyCube();
                         }
-                        else if (eneList.at(i).m_id == L"sphere")
+                        else if (id_str == L"sphere")
                         {
                             enemy = NEW EnemySphere();
                         }
-                        else if (eneList.at(i).m_id == L"enban")
+                        else if (id_str == L"enban")
                         {
                             enemy = NEW EnemyDisk();
                         }
-                        else if (eneList.at(i).m_id == L"enchu")
+                        else if (id_str == L"enchu")
                         {
                             enemy = NEW EnemyEnchu();
                         }
-                        else if (eneList.at(i).m_id == L"bigCube")
+                        else if (id_str == L"bigCube")
                         {
                             enemy = NEW EnemyBigCube();
                         }
-                        else if (eneList.at(i).m_id == L"smallCube")
+                        else if (id_str == L"smallCube")
                         {
                             enemy = NEW EnemySmallCube();
                         }
-                        else if (eneList.at(i).m_id == L"hanen")
+                        else if (id_str == L"hanen")
                         {
                             enemy = NEW EnemyHanen();
                         }
-                        else if (eneList.at(i).m_id == L"hankyu")
+                        else if (id_str == L"hankyu")
                         {
                             enemy = NEW EnemyHankyuu();
                         }
-                        else if (eneList.at(i).m_id == L"orangeCube")
+                        else if (id_str == L"orangeCube")
                         {
                             enemy = NEW EnemyOrangeCube();
                         }
-                        else if (eneList.at(i).m_id == L"ghost")
+                        else if (id_str == L"ghost")
                         {
                             enemy = NEW EnemyGhost();
                         }
@@ -2369,6 +2372,11 @@ int Map::GetProgress()
 bool Map::NearDead(const D3DXVECTOR3& pos)
 {
     if (this == nullptr)
+    {
+        return false;
+    }
+
+    if (!m_bInitialized)
     {
         return false;
     }
