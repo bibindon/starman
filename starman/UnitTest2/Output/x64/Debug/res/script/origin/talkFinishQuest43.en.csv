@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,Star Man was heading toward the VirtualBecks Port ruins.,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man was heading toward the VirtualBecks Port ruins.,res\\image\\hoshiman00.png,,,
 2,"It was too far for a day trip, so he had brought gear for an overnight stay.",res\\image\\hoshiman00.png,,,
 3,He saw the port ruins in the distance. There was no one around.,res\\image\\hoshiman00.png,,,
 4,(Hopefully I don’t run into that guy Nes...),res\\image\\hoshiman00.png,,,

@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,Star Man and the others arrived at the beach where the coconut trees grew.,,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man and the others arrived at the beach where the coconut trees grew.,,,,
 2,"""Here’s how you do it.""",res\\image\\hoshiman00.png,,,
 3,"Star Man picked up a coconut and smashed it against a rock.
 Liquid spilled out, and he showed them how to drink it.",res\\image\\hoshiman00.png,,,

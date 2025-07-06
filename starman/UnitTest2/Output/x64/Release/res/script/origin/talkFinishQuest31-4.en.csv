@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,The red object turned out to be a skeleton.,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,The red object turned out to be a skeleton.,res\\image\\hoshiman00.png,,,
 2,"(It’s probably one of the islanders...
 I’d like to examine the body, but...)",,,,
 3,"Even though it was just bones, touching a human corpse was terrifying.

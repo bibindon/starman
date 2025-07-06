@@ -1,10 +1,6 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
 1,"Star Man woke up.
-It seemed that several hours had passed.",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+It seemed that several hours had passed.",res\\image\\hoshiman00.png,,,
 2,"(Ah... right. I ended up on a deserted island...
 Is it evening? Or morning? My whole body hurts...)",res\\image\\hoshiman00.png,,,
 3,"Sunburned and sore, Star Man’s body was in terrible shape.

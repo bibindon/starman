@@ -1,11 +1,7 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
 1,"""There's this incredibly fat ghost and this bony human guy.
 The skinny one just kept laughing non-stop—he was creepy.
-He said he’d kill me and my parents because we’re mentally ill, and then laughed about it.""",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+He said he’d kill me and my parents because we’re mentally ill, and then laughed about it.""",res\\image\\hoshiman00.png,,,
 2,"""He laughed so hard he couldn’t even stand up,
 and eventually collapsed on the ground.""",res\\image\\hoshiman00.png,,,
 3,"""Haha, who *is* that guy? Sounds kinda funny.""",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,

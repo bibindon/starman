@@ -1,9 +1,5 @@
 ﻿ID,オプション1,オプション2,オプション3,,
-1,ホシマンは今日出会った実験体のことをダイケイマンたちに話した。,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,ホシマンは今日出会った実験体のことをダイケイマンたちに話した。,res\\image\\hoshiman00.png,,,
 2,「今度お礼にココナッツあげたい・・・」,res\\image\\hoshiman00.png,res\\image\\shikakuman00.png,,
 3,シカクマンが言った。,res\\image\\hoshiman00.png,res\\image\\shikakuman00.png,,
 4,「うーん・・・」,res\\image\\hoshiman00.png,res\\image\\shikakuman00.png,,

@@ -1,9 +1,5 @@
 ﻿ID,Option 1,オプション2,オプション3,,
-1,"In the evening, the four of them arrived at DirectNex Seaside Cave.",,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,"In the evening, the four of them arrived at DirectNex Seaside Cave.",,,,
 2,Star Man crafted a torch and explored inside the cave.,res\\image\\hoshiman00.png,,,
 3,"(There are three entrances.
 Seawater can't reach one of the areas, but it's piled with trash.

@@ -1,9 +1,5 @@
 ﻿ID,Option 1,オプション2,オプション3,,
-1,Star Man arrived at Gip Lighthouse.,res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,Star Man arrived at Gip Lighthouse.,res\\image\\hoshiman00.png,,,
 2,"(First, let's scout the area.)",res\\image\\hoshiman00.png,,,
 3,"Star Man gripped his weapon in both hands as he circled the base of Gip Lighthouse.
 He found spots strewn with food scraps and heaps of blue weeds—signs that someone was still living here.",res\\image\\hoshiman00.png,,,

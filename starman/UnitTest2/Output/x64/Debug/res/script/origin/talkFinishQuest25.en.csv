@@ -1,9 +1,5 @@
 ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,"The next day, Star Man went with the kids to the coast where the coconut trees grew.",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+1,"The next day, Star Man went with the kids to the coast where the coconut trees grew.",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
 2,(…Hmm.),res\\image\\hoshiman00.png,,,
 3,"Star Man looked out over the ocean, hoping to spot another island.
 But all he could see on the horizon was sky and sea—nothing more.",res\\image\\hoshiman00.png,,,

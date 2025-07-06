@@ -1,10 +1,6 @@
 ﻿ID,オプション1,オプション2,オプション3,,
 1,"ホシマンはセントオーズ神社に到着した。
-神社の周辺を探すと老婆の姿があった。",res\\image\\hoshiman00.png,,,"・オプション1は表示したいテキスト
-・半角英数字は使用禁止
-・３行まで
-・オプション2は左に表示したい画像
-・オプション3は右に表示したい画像"
+神社の周辺を探すと老婆の姿があった。",res\\image\\hoshiman00.png,,,
 2,「どうも、ひさしぶりです」,res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
 3,「どうも」,res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
 4,「教えてほしいことがある」,res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
