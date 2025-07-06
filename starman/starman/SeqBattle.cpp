@@ -2269,6 +2269,26 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<showGuide>"));
                     NSStarmanLib::Guide::GetObj()->SetVisible(std::stoi(work2));
                 }
+                else if (vs2.at(j).find(_T("<morning>")) != std::wstring::npos)
+                {
+                    auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+                    auto hour = dateTime->GetHour();
+                    // 午前6時にする
+                    auto work = 30 - hour;
+                    dateTime->IncreaseDateTime(0, 1, work, 0, 0);
+                }
+                else if (vs2.at(j).find(_T("<night>")) != std::wstring::npos)
+                {
+                    auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
+                    auto hour = dateTime->GetHour();
+                    // 午後6時にする
+                    auto work = 18 - hour;
+                    if (work < 0)
+                    {
+                        work += 24;
+                    }
+                    dateTime->IncreaseDateTime(0, 0, work, 0, 0);
+                }
                 else if (vs2.at(j).find(_T("<dateTime>")) != std::wstring::npos)
                 {
                     std::wstring work2 = Common::RemoveSubstring(vs2.at(j), _T("<dateTime>"));

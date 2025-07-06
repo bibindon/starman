@@ -313,7 +313,8 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest18.csv
 <npc><shikakuman><pos>39.7:491.5:-571.4"
 Q3900,"クエストが完了していたら
 クエストが完了していないなら","Q3800
-Q3900",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest19.csv
+Q3900",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest19.csv
+<morning>"
 Q4000,"クエストが完了していたら
 クエストが完了していないなら","Q3900
 Q4000",<hint>ホシマン（少し遠くまで行ってみよう）,位置が範囲外,11:492:-559:300,,"<talk>res\\script\\origin\\talkFinishQuest20.csv
@@ -576,8 +577,7 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
 <npc><shikakuman><pos>1161.7:20.3:549.9
 <npc><daikeiman><rot>0.785
 <npc><sankakuman><rot>1.57
-<npc><shikakuman><rot>0
-"
+<npc><shikakuman><rot>0"
 Q7400,"クエストが完了していたら
 クエストが完了していないなら","Q7300
 Q7400",<hint>ホシマン（１か月間、ここで生活してみよう）,"時間が経過したら
