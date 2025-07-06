@@ -29,6 +29,15 @@ static std::vector<std::string> ListFilesInFolder(const std::string& folder)
         FindClose(hFind);
     }
 
+    // 拡張子がcsv#のファイルは中間ファイルなので除外する
+    for (auto it = files.begin(); it != files.end(); ++it)
+    {
+        if (it->size() > 5 && it->substr(it->size() - 5) == ".csv#")
+        {
+            it = files.erase(it);
+        }
+    }
+
     return files;
 }
 
