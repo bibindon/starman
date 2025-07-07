@@ -241,6 +241,7 @@ Q3000,"クエストが完了していたら
 クエストが完了していないなら","Q2900
 Q3000",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:50,,"<talk>res\\script\\origin\\talkFinishQuest10.csv
 <showMap>thinkhat
+<item>coconut:-1:-1
 <item>coconut:-1:-1"
 Q3100,"クエストが完了していたら
 クエストが完了していないなら","Q3000
