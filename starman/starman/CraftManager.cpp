@@ -657,7 +657,8 @@ void CraftManager::Build()
 
             for (auto& info : allCraftList)
             {
-                auto unreinforcedId = Common::ItemManager()->GetItemDef(info.GetItemId()).GetUnreinforcedId();
+                auto id = info.GetItemId();
+                auto unreinforcedId = Common::ItemManager()->GetItemDef(id).GetUnreinforcedId();
                 auto skill = craftSys->GetCraftsmanSkill(unreinforcedId);
 
                 if (skill != info.GetLevel())
@@ -665,8 +666,6 @@ void CraftManager::Build()
                     continue;
                 }
 
-                auto id = info.GetItemId();
-                auto unreinforcedId = Common::ItemManager()->GetItemDef(id).GetUnreinforcedId();
                 auto name = Common::ItemManager()->GetItemDef(id).GetName();
                 work += Common::LoadString_(IDS_STRING172) + name + _T("\n");
                 work += Common::LoadString_(IDS_STRING173) + std::to_wstring(info.GetNumber()) + _T("\n");

@@ -444,11 +444,188 @@ namespace UnitTest2
         // イカダが拠点に配置されること
         TEST_METHOD(CraftTest_CraftRaftTest05)
         {
+            NSStarmanLib::CraftSystem::Destroy();
+            Util::InitWin_DX9_DI8();
 
+            SaveManager::Get()->LoadOrigin();
+            auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
+            for (int i = 0; i < 50; ++i)
+            {
+                storehouse->AddItem(_T("trunk"));
+                storehouse->AddItem(_T("tsuta"));
+            }
+
+            MockKeyBoard* keyboard = NEW MockKeyBoard();
+            SharedObj::SetKeyBoard(keyboard);
+
+            CraftManager craft;
+
+            craft.Init();
+
+            {
+                auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
+                Assert::AreEqual(true, reqList.empty());
+
+                auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
+                Assert::AreEqual(true, raftList.empty());
+            }
+
+            eBattleState state = eBattleState::CRAFT;
+
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
+
+            craft.Operate(&state);
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
+            craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
+
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
+
+            craft.Operate(&state);
+            craft.Draw();
+
+            {
+                auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
+                Assert::AreEqual(false, reqList.empty());
+            }
+
+            // Updateを60回実行しないと更新処理が走らないので60回呼ぶ
+            for (int i = 0; i < 60; ++i)
+            {
+                craft.Update();
+            }
+
+            auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
+            datetime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            // Updateを60回実行しないと更新処理が走らないので60回呼ぶ
+            for (int i = 0; i < 60; ++i)
+            {
+                craft.Update();
+            }
+
+            {
+                auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
+                Assert::AreEqual(true, reqList.empty());
+
+                auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
+                Assert::AreEqual(true, raftList.at(0).GetLevel() == -1);
+                Assert::AreEqual(true, raftList.at(0).GetDurability() == 100);
+            }
+
+            craft.Finalize();
+            Util::DestroyLibData();
+            Util::ReleaseWin_DX9_DI8();
         }
 
         // イカダをクラフト
-        // 強化値が熟練度によって自動で決まること？
+        // 強化値+1のイカダがクラフトできることが熟練度によって自動で決まること？
+        TEST_METHOD(CraftTest_CraftRaftTest06)
+        {
+            NSStarmanLib::CraftSystem::Destroy();
+            NSStarmanLib::Voyage::Destroy();
+            Util::InitWin_DX9_DI8();
+
+            SaveManager::Get()->LoadOrigin();
+            auto storehouse = NSStarmanLib::StorehouseManager::Get()->GetStorehouse(1);
+
+            for (int i = 0; i < 50; ++i)
+            {
+                storehouse->AddItem(_T("trunk"));
+                storehouse->AddItem(_T("tsuta"));
+                storehouse->AddItem(_T("bui"));
+            }
+
+            MockKeyBoard* keyboard = NEW MockKeyBoard();
+            SharedObj::SetKeyBoard(keyboard);
+
+            CraftManager craft;
+
+            craft.Init();
+            NSStarmanLib::CraftSystem::GetObj()->SetCraftsmanSkill(L"raft", 1);
+
+            {
+                auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
+                Assert::AreEqual(true, reqList.empty());
+
+                auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
+                Assert::AreEqual(true, raftList.empty());
+            }
+
+            eBattleState state = eBattleState::CRAFT;
+
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
+
+            craft.Operate(&state);
+            SharedObj::GetD3DDevice()->Clear(0,
+                                             NULL,
+                                             D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+                                             D3DCOLOR_XRGB(40, 40, 80),
+                                             1.0f,
+                                             0);
+
+            SharedObj::GetD3DDevice()->BeginScene();
+
+            // Target
+            craft.Draw();
+
+            SharedObj::GetD3DDevice()->EndScene();
+            SharedObj::GetD3DDevice()->Present(NULL, NULL, NULL, NULL);
+
+            keyboard->SetKeyDownFirst(DIK_RETURN);
+            keyboard->Update();
+
+            craft.Operate(&state);
+            craft.Draw();
+
+            {
+                auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
+                Assert::AreEqual(false, reqList.empty());
+            }
+
+            // Updateを60回実行しないと更新処理が走らないので60回呼ぶ
+            for (int i = 0; i < 60; ++i)
+            {
+                craft.Update();
+            }
+
+            auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
+            datetime->IncreaseDateTime(0, 1, 1, 0, 0);
+
+            // Updateを60回実行しないと更新処理が走らないので60回呼ぶ
+            for (int i = 0; i < 60; ++i)
+            {
+                craft.Update();
+            }
+
+            {
+                auto reqList = NSStarmanLib::CraftSystem::GetObj()->GetCraftRequestList();
+                Assert::AreEqual(true, reqList.empty());
+
+                auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
+                Assert::AreEqual(true, raftList.at(0).GetLevel() == 1);
+                Assert::AreEqual(true, raftList.at(0).GetDurability() == 200);
+            }
+
+            craft.Finalize();
+            Util::DestroyLibData();
+            Util::ReleaseWin_DX9_DI8();
+        }
 
         // 武器をクラフト
         // 強化値が熟練度によって自動で決まること？
