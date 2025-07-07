@@ -445,6 +445,7 @@ namespace UnitTest2
         TEST_METHOD(CraftTest_CraftRaftTest05)
         {
             NSStarmanLib::CraftSystem::Destroy();
+            NSStarmanLib::Voyage::Destroy();
             Util::InitWin_DX9_DI8();
 
             SaveManager::Get()->LoadOrigin();
@@ -523,8 +524,9 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
 
                 auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
-                Assert::AreEqual(true, raftList.at(0).GetLevel() == -1);
-                Assert::AreEqual(true, raftList.at(0).GetDurability() == 100);
+                Assert::AreEqual<size_t>(1, raftList.size());
+                Assert::AreEqual(-1, raftList.at(0).GetLevel());
+                Assert::AreEqual(100, raftList.at(0).GetDurability());
             }
 
             craft.Finalize();
@@ -618,8 +620,9 @@ namespace UnitTest2
                 Assert::AreEqual(true, reqList.empty());
 
                 auto raftList = NSStarmanLib::Voyage::Get()->GetRaftList();
-                Assert::AreEqual(true, raftList.at(0).GetLevel() == 1);
-                Assert::AreEqual(true, raftList.at(0).GetDurability() == 200);
+                Assert::AreEqual<size_t>(1, raftList.size());
+                Assert::AreEqual(1, raftList.at(0).GetLevel());
+                Assert::AreEqual(200, raftList.at(0).GetDurability());
             }
 
             craft.Finalize();
