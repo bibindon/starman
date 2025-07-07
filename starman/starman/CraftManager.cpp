@@ -657,7 +657,8 @@ void CraftManager::Build()
 
             for (auto& info : allCraftList)
             {
-                auto skill = craftSys->GetCraftsmanSkill(info.GetItemId());
+                auto unreinforcedId = Common::ItemManager()->GetItemDef(info.GetItemId()).GetUnreinforcedId();
+                auto skill = craftSys->GetCraftsmanSkill(unreinforcedId);
 
                 if (skill != info.GetLevel())
                 {
