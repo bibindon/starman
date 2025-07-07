@@ -138,8 +138,9 @@ void QuestManager::Update()
         for (auto it = allItem.begin(); it != allItem.end(); ++it)
         {
             NSQuestSystem::ItemInfo itemInfo;
+            itemInfo.m_itemId = it->GetId();
+
             auto itemDef = itemManager->GetItemDef(it->GetId());
-            itemInfo.m_itemName = itemDef.GetName();
             itemInfo.m_level = itemDef.GetLevel();
             itemList.push_back(itemInfo);
         }
@@ -162,8 +163,9 @@ void QuestManager::Update()
             for (auto it = allItem.begin(); it != allItem.end(); ++it)
             {
                 NSQuestSystem::ItemInfo itemInfo;
+                itemInfo.m_itemId = it->GetId();
+
                 auto itemDef = itemManager->GetItemDef(it->GetId());
-                itemInfo.m_itemName = itemDef.GetName();
                 itemInfo.m_level = itemDef.GetLevel();
                 itemList.push_back(itemInfo);
             }
