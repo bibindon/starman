@@ -1063,37 +1063,16 @@ void Map::Update()
 
             // NPCの座標を更新
             {
-                auto npcManager = NpcManager::Get();
-
-                {
-                    auto x = npcManager->GetNpcStatus(L"daikeiman").GetX();
-                    auto y = npcManager->GetNpcStatus(L"daikeiman").GetY();
-                    auto z = npcManager->GetNpcStatus(L"daikeiman").GetZ();
-                    auto rotY = npcManager->GetNpcStatus(L"daikeiman").GetRotY();
-
-                    m_NPC[L"daikeiman"]->SetPos(D3DXVECTOR3(x, y, z));
-                    m_NPC[L"daikeiman"]->SetRotate(D3DXVECTOR3(0.f, rotY, 0.f));
-                }
-
-                {
-                    auto x = npcManager->GetNpcStatus(L"sankakuman").GetX();
-                    auto y = npcManager->GetNpcStatus(L"sankakuman").GetY();
-                    auto z = npcManager->GetNpcStatus(L"sankakuman").GetZ();
-                    auto rotY = npcManager->GetNpcStatus(L"sankakuman").GetRotY();
-
-                    m_NPC[L"sankakuman"]->SetPos(D3DXVECTOR3(x, y, z));
-                    m_NPC[L"sankakuman"]->SetRotate(D3DXVECTOR3(0.f, rotY, 0.f));
-                }
-
-                {
-                    auto x = npcManager->GetNpcStatus(L"shikakuman").GetX();
-                    auto y = npcManager->GetNpcStatus(L"shikakuman").GetY();
-                    auto z = npcManager->GetNpcStatus(L"shikakuman").GetZ();
-                    auto rotY = npcManager->GetNpcStatus(L"shikakuman").GetRotY();
-
-                    m_NPC[L"shikakuman"]->SetPos(D3DXVECTOR3(x, y, z));
-                    m_NPC[L"shikakuman"]->SetRotate(D3DXVECTOR3(0.f, rotY, 0.f));
-                }
+                UpdateNpcPos(L"daikeiman");
+                UpdateNpcPos(L"sankakuman");
+                UpdateNpcPos(L"shikakuman");
+                UpdateNpcPos(L"vim");
+                UpdateNpcPos(L"vsco");
+                UpdateNpcPos(L"gain");
+                UpdateNpcPos(L"nes");
+                UpdateNpcPos(L"noble");
+                UpdateNpcPos(L"webnin");
+                UpdateNpcPos(L"xeoff");
             }
         }
     }
@@ -1256,6 +1235,19 @@ void Map::Update()
 
     // 雨の表示
     Rain::Get()->Update();
+}
+
+void Map::SetNpcPos(const std::wstring& npcId)
+{
+    auto npcManager= NSStarmanLib::NpcStatusManager::GetObj();
+
+    auto x = npcManager->GetNpcStatus(npcId).GetX();
+    auto y = npcManager->GetNpcStatus(npcId).GetY();
+    auto z = npcManager->GetNpcStatus(npcId).GetZ();
+    auto rotY = npcManager->GetNpcStatus(npcId).GetRotY();
+
+    m_NPC[npcId]->SetPos(D3DXVECTOR3(x, y, z));
+    m_NPC[npcId]->SetRotate(D3DXVECTOR3(0.f, rotY, 0.f));
 }
 
 void Map::Render()

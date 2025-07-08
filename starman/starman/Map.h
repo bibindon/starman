@@ -236,5 +236,7 @@ private:
     bool m_bDeadItem5Exist = true;
 
     bool m_bInitialized = false;
+
+    void UpdateNpcPos(const std::wstring& npcId);
 };
 

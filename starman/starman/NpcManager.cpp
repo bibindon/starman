@@ -24,8 +24,6 @@ void NpcManager::SetPos(const std::wstring& npcName, const float fx, const float
     status.SetY(fy);
     status.SetZ(fz);
     npcStatusMgr->SetNpcStatus(npcName, status);
-
-    auto map = SharedObj::GetMap();
 }
 
 void NpcManager::SetRot(const std::wstring& npcName, const float fRot)
