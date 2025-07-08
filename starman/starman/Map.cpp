@@ -1237,7 +1237,7 @@ void Map::Update()
     Rain::Get()->Update();
 }
 
-void Map::SetNpcPos(const std::wstring& npcId)
+void Map::UpdateNpcPos(const std::wstring& npcId)
 {
     auto npcManager= NSStarmanLib::NpcStatusManager::GetObj();
 
