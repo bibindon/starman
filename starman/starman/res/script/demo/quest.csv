@@ -236,11 +236,11 @@ NPCのXが生存","10.6:491.5:-564:3
 daikeiman",,"<npc><daikeiman><pos>23.4:491.5:-561.0
 <npc><daikeiman><talkEnable>y
 <npc><daikeiman><talkScript>res\\script\\origin\\talkFinishQuest9-5.csv
-<talk>res\\script\\origin\\talkFinishQuest9-4.csv"
+<talk>res\\script\\origin\\talkFinishQuest9-4.csv
+<showMap>bitnabi"
 Q3000,"クエストが完了していたら
 クエストが完了していないなら","Q2900
 Q3000",<hint>ホシマン（ヤシの木は海のほうにあるはずだ）,調べたら,-1365:12:-581:50,,"<talk>res\\script\\origin\\talkFinishQuest10.csv
-<showMap>thinkhat
 <item>coconut:-1:-1
 <item>coconut:-1:-1"
 Q3100,"クエストが完了していたら

@@ -14,9 +14,8 @@ ubuntu,ウブントゥ洞窟,"　
 ",648,898,res\\image\\narrowmap2.png
 redpat,レッドパット河畔,"　
 ",651,826,res\\image\\narrowmap8.png
-thinkhat,シンクハット海岸,"ヤシの木が生えている海岸。
-",220,909,res\\image\\narrowmap10.png
-bitnabi,ビットナビ森林,"　
+thinkhat,シンクハット海岸,,220,909,res\\image\\narrowmap10.png
+bitnabi,ビットナビ森林,"ヤシの木が生えている海岸。
 ",300,282,res\\image\\narrowmap9.png
 redmize,レッドマイズ山,"
 ",110,115,res\\image\\narrowmap12.png
