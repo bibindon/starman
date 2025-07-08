@@ -1,5 +1,5 @@
 ﻿ID,オプション1,オプション2,オプション3,BackGround,BGM
-1,（頭が痛い・・・。鼻も痛い・・・。足の裏が痛い・・・）,res\\image\\hoshiman00.png,,res\\image\\talkPrecision.png,res\\sound\\dying.wav
+1,（頭が痛い・・・。鼻も痛い・・・。足の裏が痛い・・・）,res\\image\\hoshiman00.png,,,res\\sound\\dying.wav
 2,何度も座って歩いてを繰り返していた。,res\\image\\hoshiman00.png,,,
 3,ホシマンは座って左腕を見てみた。腕は赤黒くなっていた。,res\\image\\hoshiman00.png,,,
 4,（見た目ほどは痛くないな）,res\\image\\hoshiman00.png,,,
@@ -13,8 +13,8 @@
 　ドングリの消費期限はどれくらいだろう。保存がききそうではある）",res\\image\\hoshiman00.png,,,
 10,（！！）,res\\image\\hoshiman00.png,,,
 11,"ホシマンは「ドン！」という衝撃を受けた。
-急いで見渡すとホシマンの体が燃えていた。",res\\image\\hoshiman00.png,res\\image\\xeoff00.png,,
-12,「うっ・・・！」,res\\image\\hoshiman00.png,res\\image\\ghost00.png,,
+急いで見渡すとホシマンの体が燃えていた。",res\\image\\hoshiman00.png,,,
+12,「うっ・・・！」,res\\image\\hoshiman00.png,,,
 13,"ホシマンは訳も分からず地面を転がりまわった。
 しかし転がっても土をかけても炎はなかなか消えなかった。やがてひとりでに炎は消えた。",res\\image\\hoshiman00.png,,,
 14,"重度のやけどを負ってしまった。体から煙が上がっている。
