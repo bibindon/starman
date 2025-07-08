@@ -427,10 +427,10 @@ void Player::Update(Map* map)
 
     if (Common::DebugMode())
     {
-        float magni = 200.f;
-
         if (SharedObj::KeyBoard()->IsDown(DIK_G))
         {
+            float magni = 200.f;
+
             // デバッグ目的でGキーだけ移動速度アップ
             move.x += -std::sin(radian + (D3DX_PI / 2)) * magni;
             move.z += std::sin(radian + D3DX_PI) * magni;
@@ -556,7 +556,7 @@ void Player::Update(Map* map)
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_J))
         {
             m_bJump = true;
-            m_move.y = JUMP_INITIAL_VELOCITY*5;
+            m_move.y = JUMP_INITIAL_VELOCITY * 5;
             m_AnimMesh2->SetAnim(_T("Jump"), 0.f);
         }
 
@@ -862,65 +862,45 @@ void Player::Update(Map* map)
 
     auto action = Common::Status()->GetPlayerAction();
 
-    if (Common::DebugMode())
+    if (m_bUnderwater)
     {
-        if (!m_bUnderwater)
-        {
-            if (Common::FasterMode())
-            {
-                MAX_XZ_MOVE = 5.0f;
-            }
-            else
-            {
-                if (!m_bStep)
-                {
-                    MAX_XZ_MOVE = 0.5f;
-                }
-                else
-                {
-                    MAX_XZ_MOVE = 1.f;
-                }
-            }
-        }
-        else
-        {
-            if (Common::FasterMode())
-            {
-                MAX_XZ_MOVE = 50000.f;
-            }
-            else
-            {
-                MAX_XZ_MOVE = 0.1f;
-            }
-        }
+        MAX_XZ_MOVE = 0.1f;
     }
     else
     {
-        if (!m_bUnderwater)
+        if (m_bStep)
         {
-            if (!m_bStep)
-            {
-                if (action == NSStarmanLib::StatusManager::PlayerState::WALK)
-                {
-                    MAX_XZ_MOVE = 0.05f;
-                }
-                else if (action == NSStarmanLib::StatusManager::PlayerState::JOGGING)
-                {
-                    MAX_XZ_MOVE = 0.25f;
-                }
-                else if (action == NSStarmanLib::StatusManager::PlayerState::SPRINTING)
-                {
-                    MAX_XZ_MOVE = 0.5f;
-                }
-            }
-            else
-            {
-                MAX_XZ_MOVE = 1.f;
-            }
+            MAX_XZ_MOVE = 1.f;
         }
         else
         {
-            MAX_XZ_MOVE = 0.1f;
+            if (action == NSStarmanLib::StatusManager::PlayerState::WALK)
+            {
+                MAX_XZ_MOVE = 0.05f;
+            }
+            else if (action == NSStarmanLib::StatusManager::PlayerState::JOGGING)
+            {
+                MAX_XZ_MOVE = 0.25f;
+            }
+            else if (action == NSStarmanLib::StatusManager::PlayerState::SPRINTING)
+            {
+                MAX_XZ_MOVE = 0.5f;
+            }
+        }
+    }
+
+    if (Common::DebugMode())
+    {
+        if (SharedObj::KeyBoard()->IsDown(DIK_G))
+        {
+            if (m_bUnderwater)
+            {
+                MAX_XZ_MOVE *= 50000.f;
+            }
+            else
+            {
+                MAX_XZ_MOVE *= 10.f;
+            }
         }
     }
 
