@@ -2413,15 +2413,15 @@ void SeqBattle::OperatePickPlant()
             unsigned int rand = SharedObj::GetRandom();
             auto rand_ = rand % 100;
 
-            if (rand_ < 50)
+            if (rand_ < 70)
             {
                 pickId = L"branch";
             }
-            else if (rand_ < 70)
+            else if (rand_ < 80)
             {
                 pickId = L"papaiya";
             }
-            else if (rand_ < 85)
+            else if (rand_ < 90)
             {
                 pickId = L"mango";
             }
