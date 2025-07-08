@@ -516,6 +516,9 @@
                 <File Source="../starman/res/image/talkRiver.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
+                <File Source="../starman/res/image/talkSunahama.png" />
+            </Component>
+            <Component Directory="IMAGE" Guid="*" Win64="yes">
                 <File Source="../starman/res/image/tanpopo.png" />
             </Component>
             <Component Directory="IMAGE" Guid="*" Win64="yes">
@@ -1200,6 +1203,9 @@
                 <File Source="../starman/res/model/ZKWawel_1558_Skrzynia.png" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/.~lock.talkFinishQuest60.csv#" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/activityBase.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1774,9 +1780,6 @@
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/voyageOrigin.csv" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/weapon.back.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/weapon.csv" />
@@ -2365,9 +2368,6 @@
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="voyageOrigin.csv.demo" Source="../starman/res/script/demo/voyageOrigin.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="weapon.back.csv.demo" Source="../starman/res/script/demo/weapon.back.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="weapon.csv.demo" Source="../starman/res/script/demo/weapon.csv" />
