@@ -2981,6 +2981,11 @@ void SeqBattle::UpdateCommon()
         return;
     }
 
+    if (m_eState == eBattleState::STORY)
+    {
+        return;
+    }
+
     m_map->Update();
 
     PopUp2::Get()->Update();
