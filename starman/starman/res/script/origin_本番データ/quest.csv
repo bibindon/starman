@@ -247,7 +247,7 @@ Q3100,"クエストが完了していたら
 クエストが完了していないなら","Q3000
 Q3100",<hint>ホシマン（ココナッツを彼のもとに持っていこう）,"位置
 インベントリにXがY個あったら
-NPCのXが生存","10.6:491.5:-564:3
+NPCのXが生存","23:492:-561:3
 coconut:2
 daikeiman",,"<talk>res\\script\\origin\\talkFinishQuest11.csv
 <npc><sankakuman><pos>2:0:0
@@ -257,13 +257,13 @@ daikeiman",,"<talk>res\\script\\origin\\talkFinishQuest11.csv
 <itemDel>coconut"
 Q3200,"クエストが完了していたら
 クエストが完了していないなら","Q3100
-Q3200",<hint>ホシマン（ココナッツを彼のもとに持っていこう）,"倉庫AにXがY個あったら
+Q3200",<hint>ホシマン（ココナッツを倉庫に４つ入れよう）,"倉庫AにXがY個あったら
 NPCのXが生存","1:coconut:4
 daikeiman",,"<npc><daikeiman><talkEnable>y
 <npc><daikeiman><talkScript>res\\script\\origin\\talkFinishQuest13.csv"
 Q3300,"クエストが完了していたら
 クエストが完了していないなら","Q3200
-Q3300",<hint>ホシマン（ココナッツを彼のもとに持っていこう）,"人と話したら
+Q3300",<hint>ホシマン（ダイケイマンに伝えよう）,"人と話したら
 NPCのXが生存","daikeiman
 daikeiman",,<npc><daikeiman><showMenu>y
 Q3400,"クエストが完了していたら
