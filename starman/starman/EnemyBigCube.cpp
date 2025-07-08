@@ -53,7 +53,11 @@ bool EnemyBigCube::Init()
                 animSetMap[_T("Attack")] = animSetting;
             }
             m_AnimMesh = NEW AnimMesh(_T("res\\model\\enemyBigCube.x"),
-                m_loadingPos, m_rotate, 0.5f, animSetMap);
+                                      m_loadingPos,
+                                      m_rotate,
+                                      1.0f,
+                                      animSetMap);
+
             SoundEffect::get_ton()->load(_T("res\\sound\\damage01.wav"));
             
             m_spriteHP = NEW Sprite(_T("res\\image\\hp_green.png"));

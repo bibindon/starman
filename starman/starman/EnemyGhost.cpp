@@ -54,7 +54,11 @@ bool EnemyGhost::Init()
                 animSetMap[_T("Attack")] = animSetting;
             }
             m_AnimMesh = NEW AnimMesh(_T("res\\model\\enemyGhost.x"),
-                m_loadingPos, m_rotate, 1.f, animSetMap);
+                                      m_loadingPos,
+                                      m_rotate,
+                                      1.f,
+                                      animSetMap);
+
             SoundEffect::get_ton()->load(_T("res\\sound\\damage01.wav"));
             
             m_spriteHP = NEW Sprite(_T("res\\image\\hp_green.png"));
