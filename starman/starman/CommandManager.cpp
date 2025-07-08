@@ -549,7 +549,7 @@ void CommandManager::BuildCommand()
                 }
                 else
                 {
-                    m_commandLib->UpsertCommand(L"lit", true);
+                    m_commandLib->UpsertCommand(L"extinguish", true);
                 }
             }
         }

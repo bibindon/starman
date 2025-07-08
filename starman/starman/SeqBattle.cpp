@@ -1,5 +1,4 @@
-﻿// F7キーでサンプルテキスト
-
+﻿
 #include "SeqBattle.h"
 #include <fstream>
 #include "Common.h"
