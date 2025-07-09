@@ -579,7 +579,7 @@ void MainWindow::ShowDebugInfo(const int fps)
     {
         SetRect(&rect, 0, 0, 50, 50);
 
-        work = _T("fps:") + std::to_wstring(fps);
+        work = _T(" fps : ") + std::to_wstring(fps);
         m_D3DFont->DrawText(NULL,
                             work.c_str(),
                             -1,
@@ -601,7 +601,7 @@ void MainWindow::ShowDebugInfo(const int fps)
 
         // X座標の表示
         SetRect(&rect, 0, 25, 100, 100);
-        work = _T("x:") + std::to_wstring(pos.x);
+        work = _T(" x : ") + std::to_wstring(pos.x);
 
         m_D3DFont->DrawText(NULL,
                             work.c_str(),
@@ -612,7 +612,7 @@ void MainWindow::ShowDebugInfo(const int fps)
 
         // Y座標の表示
         SetRect(&rect, 0, 50, 100, 100);
-        work = _T("y:") + std::to_wstring(pos.y);
+        work = _T(" y : ") + std::to_wstring(pos.y);
 
         m_D3DFont->DrawText(NULL,
                             work.c_str(),
@@ -623,7 +623,7 @@ void MainWindow::ShowDebugInfo(const int fps)
 
         // Z座標の表示
         SetRect(&rect, 0, 75, 100, 100);
-        work = _T("z:") + std::to_wstring(pos.z);
+        work = _T(" z : ") + std::to_wstring(pos.z);
 
         m_D3DFont->DrawText(NULL,
                             work.c_str(),
