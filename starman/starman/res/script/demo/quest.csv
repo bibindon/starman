@@ -491,7 +491,8 @@ Q6000",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest37.csv
 Q6100,"クエストが完了していたら
 クエストが完了していないなら","Q6000
 Q6100",<hint>ホシマン（地図上のシーポロポロの位置に行ってみよう）,位置,673.4:772.7:-1898.7:3.0,,"<talk>res\\script\\origin\\talkFinishQuest38.csv
-<npc><vim><showMenu>y"
+<npc><vim><showMenu>y
+<move>587.8:893.5:-1773"
 Q6200,"クエストが完了していたら
 クエストが完了していないなら","Q6100
 Q6200",<hint>ホシマン（一度、廃墟に向かおう）,"位置
