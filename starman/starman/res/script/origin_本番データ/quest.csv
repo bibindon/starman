@@ -433,7 +433,7 @@ NPCのXが生存","10.6:491.5:-564:3
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest31.csv
-<npc>webnin><pos>10:10:10"
+<npc><webnin><pos>10:10:10"
 Q5200,"クエストが完了していたら
 クエストが完了していないなら","Q5100
 Q5200",<hint>ホシマン（神社に行ってみよう）,位置,15.8:492.8:-1221.2:30,,<talk>res\\script\\origin\\talkFinishQuest31-2.csv
