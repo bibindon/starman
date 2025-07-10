@@ -513,7 +513,8 @@ Q6400,"クエストが完了していたら
 クエストが完了していないなら","Q6350
 Q6400",<hint>ホシマン（地図上の灯台の位置に行ってみよう）,位置,-1361:626:-1523:20,,"<talk>res\\script\\origin\\talkFinishQuest41.csv
 <npc><gain><showMenu>y
-<npc><webnin><pos>-16.5:496.5:-1210.6"
+<npc><webnin><pos>-16.5:496.5:-1210.6
+<move>-1289:620:-1482"
 Q6500,"クエストが完了していたら
 クエストが完了していないなら","Q6400
 Q6500",<hint>ホシマン（一度、廃墟に向かおう）,"位置
@@ -592,10 +593,10 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
 <npc><shikakuman><rot>0"
 Q7400,"クエストが完了していたら
 クエストが完了していないなら","Q7300
-Q7400",<hint>ホシマン（１か月間、ここで生活してみよう）,"時間が経過したら
+Q7400",<hint>ホシマン（１週間、ここで生活してみよう）,"時間が経過したら
 NPCのXが生存
 NPCのXが生存
-NPCのXが生存","0:1:0:0:0:0
+NPCのXが生存","0:0:1:0:0:0
 daikeiman
 sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest51.csv

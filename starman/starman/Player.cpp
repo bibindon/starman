@@ -603,6 +603,13 @@ void Player::Update(Map* map)
         {
             SharedObj::GetMap()->ResetShow();
         }
+
+        // 骨折を治す
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F9))
+        {
+            Common::Status()->SetFractureArm(false);
+            Common::Status()->SetFractureLeg(false);
+        }
     }
 
     // Shift + F → もの投げ
@@ -876,15 +883,15 @@ void Player::Update(Map* map)
         {
             if (action == NSStarmanLib::StatusManager::PlayerState::WALK)
             {
-                MAX_XZ_MOVE = 0.05f;
+                MAX_XZ_MOVE = 0.025f;
             }
             else if (action == NSStarmanLib::StatusManager::PlayerState::JOGGING)
             {
-                MAX_XZ_MOVE = 0.25f;
+                MAX_XZ_MOVE = 0.125f;
             }
             else if (action == NSStarmanLib::StatusManager::PlayerState::SPRINTING)
             {
-                MAX_XZ_MOVE = 0.5f;
+                MAX_XZ_MOVE = 0.25f;
             }
         }
     }
@@ -899,7 +906,7 @@ void Player::Update(Map* map)
             }
             else
             {
-                MAX_XZ_MOVE *= 10.f;
+                MAX_XZ_MOVE *= 100.f;
             }
         }
     }
