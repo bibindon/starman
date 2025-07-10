@@ -1,6 +1,6 @@
-﻿ID,オプション1,オプション2,オプション3,,
+﻿ID,オプション1,オプション2,オプション3,background,bgm
 1,"ホシマンはセントオーズ神社に到着した。
-神社の周辺を探すと老婆の姿があった。",res\\image\\hoshiman00.png,,
+神社の周辺を探すと老婆の姿があった。",res\\image\\hoshiman00.png,,,
 2,「どうも、ひさしぶりです」,res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
 3,「どうも」,res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
 4,「教えてほしいことがある」,res\\image\\hoshiman00.png,res\\image\\rouba00.png,,
