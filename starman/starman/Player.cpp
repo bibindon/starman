@@ -849,6 +849,13 @@ void Player::Update(Map* map)
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
     if (m_bJump || m_bStep || statusManager->GetDead())
     {
+        move = D3DXVECTOR3(0.f, 0.f, 0.f);
+    }
+
+    // 落下速度がある程度以上になったら移動できないようにする
+    if (m_move.y <= -0.1f)
+    {
+        if (!Common::FasterMode())
         {
             move = D3DXVECTOR3(0.f, 0.f, 0.f);
         }
@@ -1030,6 +1037,8 @@ void Player::Update(Map* map)
     float _y1 = m_move.y;
     float _y2 = 0.f;
     m_move = map->WallSlide(m_loadingPos, m_move, &bHit, &bInside);
+
+    m_bGround = bHit;
     _y2 = m_move.y;
 
     if (_y1 <= -1.f && _y2 > -1.f)

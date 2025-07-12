@@ -135,4 +135,8 @@ private:
 
     // WASDや左スティックを操作したフラグ
     bool m_bTryMove = false;
+
+    // 地面にいるか
+    bool m_bGround = false;
+
 };
