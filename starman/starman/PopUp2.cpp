@@ -2,6 +2,7 @@
 
 #include "PopUp2.h"
 #include "SharedObj.h"
+#include "SoundEffect.h"
 
 PopUp2* PopUp2::m_singleTonObj = nullptr;
 
@@ -36,6 +37,8 @@ void PopUp2::Init(IPopUpFont* font)
     m_singleTonObj = NEW PopUp2();
 
     m_singleTonObj->m_font = font;
+
+    SoundEffect::get_ton()->load(_T("res\\sound\\popup.wav"));
 }
 
 bool PopUp2::IsShow()
@@ -92,6 +95,11 @@ void PopUp2::Update()
 
 void PopUp2::Render()
 {
+    if (m_counter == 1)
+    {
+        SoundEffect::get_ton()->play(_T("res\\sound\\popup.wav"));
+    }
+
     if (m_textQ.size() >= 1)
     {
         m_font->Draw(m_textQ.front(), m_transparent);
