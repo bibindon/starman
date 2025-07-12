@@ -543,7 +543,7 @@ sankakuman
 shikakuman",,<talk>res\\script\\origin\\talkFinishQuest44.csv
 Q6800,"クエストが完了していたら
 クエストが完了していないなら","Q6700
-Q6800",<hint>ホシマン（地図上のシーポロポロの位置に行ってみよう）,位置,673.4:772.7:-1898.7:3.0,,<talk>res\\script\\origin\\talkFinishQuest45.csv
+Q6800",<hint>ホシマン（シーポロポロに行ってみよう）,位置,673.4:772.7:-1898.7:3.0,,<talk>res\\script\\origin\\talkFinishQuest45.csv
 Q6900,"クエストが完了していたら
 クエストが完了していないなら","Q6800
 Q6900",<hint>ホシマン（一度、廃墟に向かおう）,"位置
