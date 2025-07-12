@@ -58,7 +58,11 @@ public:
     bool CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, MeshClone* mesh);
 
     // 壁ずり処理
-    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit, bool* bInside);
+    D3DXVECTOR3 WallSlide(const D3DXVECTOR3& pos,
+                          const D3DXVECTOR3& move,
+                          bool* bHit,
+                          bool* bInside,
+                          bool friction = true);
 
     //------------------------------------
     // もの投げ

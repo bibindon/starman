@@ -1036,7 +1036,14 @@ void Player::Update(Map* map)
     // y方向に大きく移動していて、y方向の移動がなくなったら骨折
     float _y1 = m_move.y;
     float _y2 = 0.f;
-    m_move = map->WallSlide(m_loadingPos, m_move, &bHit, &bInside);
+
+    bool friction = false;
+    if (m_bTryMove)
+    {
+        friction = false;
+    }
+
+    m_move = map->WallSlide(m_loadingPos, m_move, &bHit, &bInside, friction);
 
     m_bGround = bHit;
     _y2 = m_move.y;

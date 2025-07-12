@@ -1680,7 +1680,11 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
     return bIsHit;
 }
 
-D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool* bHit, bool* bInside)
+D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos,
+                           const D3DXVECTOR3& move,
+                           bool* bHit,
+                           bool* bInside,
+                           bool friction)
 {
     D3DXVECTOR3 result { move };
 
@@ -1768,12 +1772,15 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos, const D3DXVECTOR3& move, bool
 
     // 摩擦
     // result.xとresult.zが小さいなら0にする
-    if (-0.02f <= result.x && result.x <= 0.02f)
+    if (friction)
     {
-        if (-0.02f <= result.z && result.z <= 0.02f)
+        if (-0.02f <= result.x && result.x <= 0.02f)
         {
-            result.x = 0.f;
-            result.z = 0.f;
+            if (-0.02f <= result.z && result.z <= 0.02f)
+            {
+                result.x = 0.f;
+                result.z = 0.f;
+            }
         }
     }
 
