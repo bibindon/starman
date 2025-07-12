@@ -1233,7 +1233,9 @@ void SeqEnding::Update(eSequence* sequence)
                 }
                 else
                 {
+                    BGMManager::Get()->SetEnding(false);
                     BGMManager::Get()->SetTrueEnd(true);
+                    Common::SetCursorVisibility(true);
                 }
             }
         }
