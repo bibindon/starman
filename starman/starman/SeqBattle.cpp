@@ -1375,6 +1375,7 @@ void SeqBattle::OperateCommand()
     }
     else if (result == L"stand")
     {
+        leave = true;
         SharedObj::Voyage()->SetRaftMode(false);
         m_eState = eBattleState::NORMAL;
         SharedObj::GetPlayer()->SetIdle();
@@ -2727,6 +2728,8 @@ void SeqBattle::OperateVoyage()
     SharedObj::Voyage()->Operate(&m_eState);
     if (m_eState == eBattleState::COMMAND)
     {
+        Camera::SetCameraMode(eCameraMode::SLEEP);
+        Common::SetCursorVisibility(true);
         m_commandManager.SetPreviousState(eBattleState::VOYAGE);
     }
 }
