@@ -279,6 +279,7 @@ void CraftManager::Operate(eBattleState* state)
     if (counter == 1)
     {
         Common::SetCursorVisibility(true);
+        Camera::SetCameraMode(eCameraMode::SLEEP);
     }
 
     // 1秒に一回

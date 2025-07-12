@@ -17,6 +17,7 @@
 #include "PatchTestManager2.h"
 #include "PopUp2.h"
 #include "resource.h"
+#include "Camera.h"
 
 namespace NSPatchTestLib
 {
@@ -256,17 +257,17 @@ void PatchTestManager2::InitPatch()
 
 std::wstring PatchTestManager2::Operate()
 {
-    // 一秒に一回くらいの処理
+    static long long counter = 0;
     {
-        static int work = 0;
-        ++work;
+        ++counter;
 
-        if (work >= 60)
+        if (counter == 1)
         {
-            work = 0;
+            Camera::SetCameraMode(eCameraMode::SLEEP);
         }
 
-        if (work == 0)
+        // 一秒に一回くらいの処理
+        if (counter % 60 == 0)
         {
             auto datetime = NSStarmanLib::PowereggDateTime::GetObj();
             m_guiLib.UpdateDateTime(datetime->GetYear(),
@@ -340,11 +341,13 @@ std::wstring PatchTestManager2::Operate()
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_ESCAPE))
     {
         result = m_guiLib.Back();
+        counter = 0;
     }
 
     if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_BACK))
     {
         result = m_guiLib.Back();
+        counter = 0;
     }
 
     if (Mouse::IsDownLeft())
@@ -428,6 +431,7 @@ std::wstring PatchTestManager2::Operate()
     if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         result = m_guiLib.Back();
+        counter = 0;
     }
 
     return result;
