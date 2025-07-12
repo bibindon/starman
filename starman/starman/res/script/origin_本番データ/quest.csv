@@ -421,7 +421,7 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest29.csv
 <item>stoneSpear:1:999"
 Q5000,"クエストが完了していたら
 クエストが完了していないなら","Q4900
-Q5000",<hint>ホシマン（川の近くに建物が見える）,位置,15.8:492.8:-1221.2:30,,"<talk>res\\script\\origin\\talkFinishQuest30.csv
+Q5000",<hint>ホシマン（川の近くに建物が見える）,位置,16.5:496.5:-1210.2:3,,"<talk>res\\script\\origin\\talkFinishQuest30.csv
 <showMap>centoz
 <npc><webnin><showMenu>y"
 Q5100,"クエストが完了していたら
