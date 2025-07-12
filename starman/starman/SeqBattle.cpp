@@ -1162,6 +1162,11 @@ void SeqBattle::ShowStorehouse()
                     itemInfoG.SetName(itemDef.GetName());
                     itemInfoG.SetId(itemDef.GetId());
                     itemInfoG.SetSubId(subIdList.at(j));
+                    itemInfoG.SetLevel(itemDef.GetLevel());
+
+                    auto itemInfo = inventory->GetItemInfo(idList.at(i), subIdList.at(j));
+                    itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
+
                     itemInfoList.push_back(itemInfoG);
                 }
             }
@@ -1188,6 +1193,10 @@ void SeqBattle::ShowStorehouse()
                     itemInfoG.SetName(itemDef.GetName());
                     itemInfoG.SetId(itemDef.GetId());
                     itemInfoG.SetSubId(subIdList.at(j));
+                    itemInfoG.SetLevel(itemDef.GetLevel());
+
+                    auto itemInfo = storehouse->GetItemInfo(idList.at(i), subIdList.at(j));
+                    itemInfoG.SetDurability(itemInfo.GetDurabilityCurrent());
                     itemInfoList.push_back(itemInfoG);
                 }
             }
@@ -3155,7 +3164,6 @@ void SeqBattle::UpdateDebug()
                 Camera::SetCameraMode(eCameraMode::SLEEP);
                 Common::SetCursorVisibility(true);
 
-                // TODO 倉庫を表示する度に倉庫画面を作るのをやめる
                 m_storehouse = NEW NSStorehouseLib::StorehouseLib();
 
                 NSStorehouseLib::Sprite* sprCursor = NEW NSStorehouseLib::Sprite(SharedObj::GetD3DDevice());
