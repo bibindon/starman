@@ -1682,7 +1682,7 @@ bool Map::CollisionGroundSub(const D3DXVECTOR3& pos, const D3DXVECTOR3& rot, Mes
 
 D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos,
                            const D3DXVECTOR3& move,
-                           bool* bHit,
+                           bool* pHit,
                            bool* bInside,
                            bool friction)
 {
@@ -1723,7 +1723,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos,
             result = WallSlideSub(pos, pair.second, result, &bIsHit, &bInside1, bEnableWallWalk);
             if (bIsHit)
             {
-                *bHit = true;
+                *pHit = true;
             }
         }
     }
@@ -1734,7 +1734,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos,
         result = WallSlideSub(pos, pair.second, result, &bIsHit, &bInside2);
         if (bIsHit)
         {
-            *bHit = true;
+            *pHit = true;
             break;
         }
     }
@@ -1758,7 +1758,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos,
     // move.yが-0.01以下で、result.yが-0.001以上だったら
     // 落下速度が10分の1以下になったということなので平らな地面に足がついているとする。
     // move.yを0にする
-    if (*bHit && (-0.03f <= result.y && result.y <= 0.f))
+    if (*pHit && (-0.03f <= result.y && result.y <= 0.f))
     {
         result.y = 0.f;
     }
@@ -1774,12 +1774,16 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos,
     // result.xとresult.zが小さいなら0にする
     if (friction)
     {
-        if (-0.02f <= result.x && result.x <= 0.02f)
+        if (-0.05f <= result.x && result.x <= 0.05f)
         {
-            if (-0.02f <= result.z && result.z <= 0.02f)
+            if (-0.05f <= result.z && result.z <= 0.05f)
             {
                 result.x = 0.f;
                 result.z = 0.f;
+                if (*pHit)
+                {
+                    result.y = 0.f;
+                }
             }
         }
     }

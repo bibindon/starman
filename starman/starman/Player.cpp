@@ -894,14 +894,16 @@ void Player::Update(Map* map)
             }
             else if (action == NSStarmanLib::StatusManager::PlayerState::JOGGING)
             {
-                MAX_XZ_MOVE = 0.125f;
+                MAX_XZ_MOVE = 0.075f;
             }
             else if (action == NSStarmanLib::StatusManager::PlayerState::SPRINTING)
             {
-                MAX_XZ_MOVE = 0.25f;
+                MAX_XZ_MOVE = 0.125f;
             }
         }
     }
+
+    MAX_XZ_MOVE *= Common::Status()->GetExplosivePower();
 
     if (Common::DebugMode())
     {
@@ -1037,8 +1039,8 @@ void Player::Update(Map* map)
     float _y1 = m_move.y;
     float _y2 = 0.f;
 
-    bool friction = false;
-    if (m_bTryMove)
+    bool friction = true;
+    if (m_bTryMove || m_bJump)
     {
         friction = false;
     }
@@ -1107,7 +1109,8 @@ void Player::Update(Map* map)
         m_attachCount++;
 
         // 0.1秒?張り付き状態を維持したら再度ジャンプ可能になる
-        if (m_attachCount >= 6)
+        // 緩やかな傾斜でbHitがtrue/falseを繰り返すことがある。うまくいかない。
+//        if (m_attachCount >= 6)
         {
             m_bJumpEnable = true;
             m_bJump = false;
@@ -1139,10 +1142,10 @@ void Player::Update(Map* map)
     // 頭から地面までの距離が1.5メートル以下だったら地面にめり込んでいる？
     D3DXVECTOR3 tmp2 = m_loadingPos;
     tmp2.y += 1.6f;
-    bool bHit4 = map->Intersect(tmp2, D3DXVECTOR3(0.f, -1.5f, 0.f));
+    bool bHit4 = map->Intersect(tmp2, D3DXVECTOR3(0.f, -1.3f, 0.f));
     if (bHit4)
     {
-        m_loadingPos.y = tmp2.y;
+        m_loadingPos.y += 0.5f;
     }
 
     if (statusManager->GetDead())
