@@ -332,8 +332,8 @@ D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
 
         // ----- キャラY座標補正 -----
         // 当たったインデックスバッファ取得
-        WORD dwHitVertexNo[3] = {};
-        WORD* pIndex = nullptr;
+        DWORD dwHitVertexNo[3] = {};
+        DWORD* pIndex = nullptr;
         HRESULT hr = d3dmesh->LockIndexBuffer(0, (void**)&pIndex);
 
         for (int nIdxIdx = 0; nIdxIdx < 3; nIdxIdx++)
