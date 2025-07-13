@@ -413,66 +413,24 @@ void Map::Init()
         AnimSetMap animSetMap;
         {
             AnimSetting animSetting { };
-            animSetting.m_startPos = 0.f;
-            animSetting.m_duration = 0.5f;
+            animSetting.m_startPos = 0.5f;
+            animSetting.m_duration = 1.97f;
             animSetting.m_loop = true;
             animSetMap[_T("0_Idle")] = animSetting;
         }
         {
             AnimSetting animSetting { };
-            animSetting.m_startPos = 1.f;
-            animSetting.m_duration = 1.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Walk")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 2.f;
-            animSetting.m_duration = 1.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Attack")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 3.f;
-            animSetting.m_duration = 0.5f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Damaged")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 3.5f;
-            animSetting.m_duration = 1.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Dead")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 5.f;
-            animSetting.m_duration = 2.f;
-            animSetting.m_loop = false;
-            animSetMap[_T("Jump")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 7.1f;
-            animSetting.m_duration = 0.5f;
+            animSetting.m_startPos = 2.5f;
+            animSetting.m_duration = 1.97f;
             animSetting.m_loop = true;
-            animSetMap[_T("Sit")] = animSetting;
-        }
-        {
-            AnimSetting animSetting { };
-            animSetting.m_startPos = 7.7f;
-            animSetting.m_duration = 0.6f;
-            animSetting.m_loop = true;
-            animSetMap[_T("LieDown")] = animSetting;
+            animSetMap[_T("Crafting")] = animSetting;
         }
         AnimMesh* daikeiman = NEW AnimMesh(_T("res\\model\\daikeiman.x"),
                                            pos,
                                            rot,
                                            1.f,
                                            animSetMap);
-        daikeiman->SetAnim(_T("LieDown"));
+        daikeiman->SetAnim(_T("0_Idle"));
         m_NPC[_T("daikeiman")] = daikeiman;
     }
 
@@ -1077,6 +1035,26 @@ void Map::Update()
                 UpdateNpcPos(L"noble");
                 UpdateNpcPos(L"webnin");
                 UpdateNpcPos(L"xeoff");
+
+                // ダイケイマンがクラフトできるようになっていたらモーションを変える
+                auto npcManager= NSStarmanLib::NpcStatusManager::GetObj();
+                auto craftman = npcManager->GetNpcStatus(L"daikeiman").GetFeatureEnable();
+                if (craftman)
+                {
+                    auto it = m_NPC.find(_T("daikeiman"));
+                    if (it != m_NPC.end())
+                    {
+                        it->second->SetAnim(_T("Crafting"));
+                    }
+                }
+                else
+                {
+                    auto it = m_NPC.find(_T("daikeiman"));
+                    if (it != m_NPC.end())
+                    {
+                        it->second->SetAnim(_T("0_Idle"));
+                    }
+                }
             }
         }
     }
