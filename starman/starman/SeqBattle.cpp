@@ -2372,6 +2372,18 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         status->SetMuscleCurrent(20.f);
                     }
                 }
+                else if (vs2.at(j).find(_T("<ryusan>")) != std::wstring::npos)
+                {
+                    auto status = Common::Status();
+                    PopUp2::Get()->SetText(_T("錯乱状態になった。"));
+                    PopUp2::Get()->SetText(_T("肉体の修復度が減少した。"));
+                    status->SetSuperStress();
+
+                    if (status->GetMuscleCurrent() > 20.f)
+                    {
+                        status->SetMuscleCurrent(20.f);
+                    }
+                }
             }
         }
     }
