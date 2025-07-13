@@ -3,10 +3,10 @@
      xmlns:bal="http://schemas.microsoft.com/wix/BalExtension">
 
     <Bundle Name="Star Man"
-            Version="1.0.0.0"
+            Version="0.0.0.1"
             Manufacturer="Bibindon"
             IconSourceFile="starman.ico"
-            UpgradeCode="221E6CB4-03F7-4ED9-89EF-31EF107A8EF0">
+            UpgradeCode="221E6CB4-03F7-4ED9-89EF-31EF107A8EF1">
 
         <BootstrapperApplicationRef Id="WixStandardBootstrapperApplication.RtfLicense">
             <bal:WixStandardBootstrapperApplication
