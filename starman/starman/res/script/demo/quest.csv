@@ -454,7 +454,8 @@ Q5400",<hint>ホシマン（水辺の赤いものを見てみよう）,調べた
 <showMap>seeporoporo"
 Q5500,"クエストが完了していたら
 クエストが完了していないなら","Q5400
-Q5500",<hint>ホシマン（一度、廃墟に向かおう）,位置,10.6:491.5:-564:100,,<talk>res\\script\\origin\\talkFinishQuest32.csv
+Q5500",<hint>ホシマン（一度、廃墟に向かおう）,位置,10.6:491.5:-564:100,,"<talk>res\\script\\origin\\talkFinishQuest32.csv
+<ryusan>"
 Q5600,"クエストが完了していたら
 クエストが完了していないなら","Q5500
 Q5600",<hint>ホシマン（一度、廃墟に向かおう）,"位置
