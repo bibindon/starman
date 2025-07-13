@@ -829,8 +829,8 @@ void Raft2::PullOarRight()
 void Raft2::Pull3Hours()
 {
     // TODO 適切な値に
-    m_pos.x += std::sin(m_rotate.y) * -10000.f;
-    m_pos.z += std::cos(m_rotate.y) * -10000.f;
+    m_pos.x += std::sin(m_rotate.y) * -5000.f;
+    m_pos.z += std::cos(m_rotate.y) * -5000.f;
 }
 
 D3DXVECTOR3 Raft2::GetPos() const

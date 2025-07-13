@@ -585,7 +585,8 @@ void SeqBattle::Update(eSequence* sequence)
     }
     else if (m_eState == eBattleState::VOYAGE)
     {
-        OperateVoyage();
+        OperateVoyage(sequence);
+        m_hudManager.Update();
     }
     else if (m_eState == eBattleState::VOYAGE3HOURS)
     {
@@ -2744,7 +2745,7 @@ void SeqBattle::RenderCutTree()
 {
 }
 
-void SeqBattle::OperateVoyage()
+void SeqBattle::OperateVoyage(eSequence* sequence)
 {
     SharedObj::Voyage()->Operate(&m_eState);
     if (m_eState == eBattleState::COMMAND)
@@ -2752,6 +2753,20 @@ void SeqBattle::OperateVoyage()
         Camera::SetCameraMode(eCameraMode::SLEEP);
         Common::SetCursorVisibility(true);
         m_commandManager.SetPreviousState(eBattleState::VOYAGE);
+    }
+
+    // 0.5秒に一回くらいの処理
+    {
+        static int work = 0;
+        ++work;
+
+        if (work % 30 == 0)
+        {
+            // クエスト処理
+            {
+                OperateQuest(sequence);
+            }
+        }
     }
 }
 
@@ -2864,7 +2879,8 @@ void SeqBattle::Render()
     else if (m_eState == eBattleState::VOYAGE)
     {
         // イカダは乗っていても乗っていなくても常に表示するべきものなので
-        // ここでは何もしない。
+        // ここではHUDの表示だけ行う。
+        m_hudManager.Draw();
     }
     else if (m_eState == eBattleState::POPUP)
     {

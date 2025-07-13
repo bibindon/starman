@@ -230,7 +230,7 @@ private:
     //----------------------------------------------------
     // 航海機能
     //----------------------------------------------------
-    void OperateVoyage();
+    void OperateVoyage(eSequence* sequence);
 
     // 3時間航海
     void OperateVoyage3Hours();
