@@ -903,7 +903,7 @@ void Player::Update(Map* map)
         }
     }
 
-    MAX_XZ_MOVE *= Common::Status()->GetExplosivePower();
+    MAX_XZ_MOVE *= Common::Status()->GetExplosivePower() / 100;
 
     if (Common::DebugMode())
     {
