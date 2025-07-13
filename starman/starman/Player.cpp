@@ -1192,8 +1192,8 @@ void Player::Render()
         else if ((*it) == NSStarmanLib::eBagPos::Front)
         {
             pos.y += 0.5f;
-            pos.x += std::sin(m_rotate.y + D3DX_PI) * 0.1f;
-            pos.z += std::cos(m_rotate.y + D3DX_PI) * 0.1f;
+            pos.x += std::sin(m_rotate.y + D3DX_PI) * 0.5f;
+            pos.z += std::cos(m_rotate.y + D3DX_PI) * 0.5f;
         }
         else if ((*it) == NSStarmanLib::eBagPos::Left)
         {
