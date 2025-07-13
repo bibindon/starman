@@ -2502,6 +2502,9 @@
                 <File Source="../starman/res/sound/opening.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
+                <File Source="../starman/res/sound/popup.wav" />
+            </Component>
+            <Component Directory="SOUND" Guid="*" Win64="yes">
                 <File Source="../starman/res/sound/pullOar.wav" />
             </Component>
             <Component Directory="SOUND" Guid="*" Win64="yes">
