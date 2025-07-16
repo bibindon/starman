@@ -46,7 +46,7 @@ int main()
     std::string text = R"Gene(<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
      xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
-    <Product Id="*" Name="starman" Language="1041" Version="1.0.0.0" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
+    <Product Id="*" Name="starman" Language="1041" Version="0.0.0.1" Manufacturer="bibindon" UpgradeCode="cea4510f-a56d-42cd-a38c-a03f64ae6630">
         <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" Platform="x64" />
 
         <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
