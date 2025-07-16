@@ -100,6 +100,9 @@ public:
 
     bool Can3HoursAuto();
 
+    // 風の向きと強さ、潮の向きをリセット
+    void ResetWindAndTide();
+
 private:
 
     D3DXVECTOR3 WallSlideSub(const D3DXVECTOR3& pos,

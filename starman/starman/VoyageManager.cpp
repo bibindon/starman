@@ -284,9 +284,31 @@ bool VoyageManager::Can3HoursAuto()
     D3DXVECTOR3 rotate = m_raftMap[id].GetRotate();
     D3DXVECTOR3 move(0.f, 0.f, 0.f);
 
-    // TODO いい感じに
-    move.x = std::sin(rotate.y) * -10000.f;
-    move.z = std::cos(rotate.y) * -10000.f;
+    move.x = std::sin(rotate.y) * -5000.f;
+    move.z = std::cos(rotate.y) * -5000.f;
+
+    D3DXVECTOR3 wind(0.f, 0.f, 0.f);
+    D3DXVECTOR3 tide(0.f, 0.f, 0.f);
+
+    // 風
+    Voyage()->GetWindXZ(&wind.x, &wind.z);
+    wind *= 50.f;
+
+    // 帆
+    // 帆が張っていたら3倍影響を受ける
+    if (Voyage()->GetSailCurrentRaft())
+    {
+        wind *= 3.f;
+    }
+
+    move += wind;
+
+    // 潮
+    Voyage()->GetTideXZ(&tide.x, &tide.z);
+    tide *= 200.f;
+
+    move += tide;
+
     bool bHit = SharedObj::GetMap()->Intersect(SharedObj::GetPlayer()->GetPos(), move);
     if (bHit)
     {
@@ -296,6 +318,10 @@ bool VoyageManager::Can3HoursAuto()
     {
         return true;
     }
+}
+
+void VoyageManager::ResetWindAndTide()
+{
 }
 
 D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
@@ -506,7 +532,7 @@ void Raft2::Update()
 
     // 移動が徐々に遅くなるようにする
     // これがないと等速直線運動になってしまうため
-    _move *= 0.99f;
+    _move *= 0.97f;
     m_moveRot *= 0.97f;
 
     //--------------------------------------------
@@ -671,7 +697,9 @@ void Raft2::Update()
     // 重力
     _move.y += -0.01f;
 
+    //------------------------------------------------------
     // 衝突判定
+    //------------------------------------------------------
 
     // 川を上れるようにする
 
@@ -688,7 +716,7 @@ void Raft2::Update()
 
     if (!isHit2)
     {
-        _move = SharedObj::GetMap()->WallSlide(_pos, _move, &bHit, &bInside);
+        _move = SharedObj::GetMap()->WallSlide(_pos, _move, &bHit, &bInside, false);
 
         m_move = _move;
         m_pos += m_move;
@@ -727,6 +755,12 @@ void Raft2::Update()
     else
     {
         Voyage()->SetPosTypeCurrentRaft(NSStarmanLib::Raft::ePosType::River);
+    }
+
+    // もし海の下にいるならば、海の上に戻す
+    if (m_pos.y < 10.1f)
+    {
+        m_pos.y = 10.3f;
     }
 }
 
@@ -828,9 +862,35 @@ void Raft2::PullOarRight()
 
 void Raft2::Pull3Hours()
 {
-    // TODO 適切な値に
-    m_pos.x += std::sin(m_rotate.y) * -5000.f;
-    m_pos.z += std::cos(m_rotate.y) * -5000.f;
+    D3DXVECTOR3 move { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 wind { 0.f, 0.f, 0.f };
+    D3DXVECTOR3 tide { 0.f, 0.f, 0.f };
+
+    // 基本の移動量
+    move.x = std::sin(m_rotate.y) * -5000.f;
+    move.z = std::cos(m_rotate.y) * -5000.f;
+
+    // 風
+    Voyage()->GetWindXZ(&wind.x, &wind.z);
+    wind *= 50.f;
+
+    // 帆
+    // 帆が張っていたら3倍影響を受ける
+    if (Voyage()->GetSailCurrentRaft())
+    {
+        wind *= 3.f;
+    }
+
+    move += wind;
+
+    // 潮
+    Voyage()->GetTideXZ(&tide.x, &tide.z);
+    tide *= 200.f;
+
+    move += tide;
+
+    m_pos.x += move.x;
+    m_pos.z += move.z;
 }
 
 D3DXVECTOR3 Raft2::GetPos() const
