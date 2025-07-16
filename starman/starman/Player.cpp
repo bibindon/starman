@@ -352,6 +352,16 @@ void Player::Update(Map* map)
             {
                 Common::Status()->SetSleep(false);
             }
+
+            // 水中で脳のスタミナが0になったらおぼれて死ぬ
+            if (status->GetBrainStaminaCurrent() <= 0.f)
+            {
+                if (!Common::Status()->GetDead())
+                {
+                    Common::Status()->SetDead(true);
+                    Common::Status()->SetDeadReason(NSStarmanLib::eDeadReason::DROWNING);
+                }
+            }
         }
     }
 
@@ -609,6 +619,22 @@ void Player::Update(Map* map)
         {
             Common::Status()->SetFractureArm(false);
             Common::Status()->SetFractureLeg(false);
+        }
+
+        // 進み続ける
+        {
+            static bool bMove = false;
+            if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F8))
+            {
+                bMove = !bMove;
+            }
+
+            if (bMove)
+            {
+                move.x += -std::sin(radian + D3DX_PI / 2) * 0.5f;
+                move.z += std::sin(radian + D3DX_PI) * 0.5f;
+                SetJogging();
+            }
         }
     }
 
@@ -902,8 +928,6 @@ void Player::Update(Map* map)
             }
         }
     }
-
-    MAX_XZ_MOVE *= Common::Status()->GetExplosivePower() / 100;
 
     if (Common::DebugMode())
     {
