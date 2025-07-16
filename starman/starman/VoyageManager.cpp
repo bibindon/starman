@@ -320,10 +320,6 @@ bool VoyageManager::Can3HoursAuto()
     }
 }
 
-void VoyageManager::ResetWindAndTide()
-{
-}
-
 D3DXVECTOR3 VoyageManager::WallSlideSub(const D3DXVECTOR3& pos,
                                         Mesh* mesh,
                                         const D3DXVECTOR3& move,
