@@ -147,11 +147,11 @@ yakizakana,焼き魚,"焼いた魚。
 最近高い。
 ",res\\image\\yakizakana.png,0.2,200,食材,10,10,10,10,10,0,0,0,0,,,,,,yakizakana
 papaiya,パパイヤ,"果物に毒が含まれていることは稀である。
-",res\\image\\papaiya.png,0.2,400,食材,10,10,10,10,10,1,0,0,0,,,,,,papaiya
+",res\\image\\papaiya.png,0.2,400,食材,10,10,10,10,10,2,0,0,0,,,,,,papaiya
 mango,マンゴー,"果物に毒が含まれていることは稀である。
-",res\\image\\mango.png,0.2,400,食材,10,10,10,10,10,1,0,0,0,,,,,,mango
+",res\\image\\mango.png,0.2,400,食材,10,10,10,10,10,2,0,0,0,,,,,,mango
 banana,バナナ,"果物に毒が含まれていることは稀である。
-",res\\image\\banana.png,0.2,300,食材,10,10,10,10,10,0,0,0,0,,,,,,banana
+",res\\image\\banana.png,0.2,300,食材,10,10,10,10,10,1,0,0,0,,,,,,banana
 longstone,縦長の石,"木を切るのに使える。使えないことはない。 
 ",res\\image\\longstone.png,1,500,その他,,,,,,,,,,,,,,,longstone
 mu-rugai,黒い貝,"ムール貝のように見える。
