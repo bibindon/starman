@@ -397,7 +397,7 @@ void Map::Init()
     m_pSun = NEW MeshNoShade(_T("res\\model\\sun.x"),
                              D3DXVECTOR3(0.f, -10000.f, 0.f),
                              D3DXVECTOR3(0.f, 0.f, 0.f),
-                             15000.0f);
+                             1500.0f);
     m_pSun->Init();
 
     m_progress.store(20);
@@ -911,7 +911,7 @@ void Map::Update()
                 auto ppos = player->GetPos();
 
                 D3DXVECTOR3 sunPos(vec);
-                sunPos *= 100000;
+                sunPos *= 10000;
                 sunPos += ppos;
                 m_pSun->SetPos(sunPos);
             }
