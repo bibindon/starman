@@ -558,7 +558,11 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest46.csv
 <move>20:492:-569"
 Q7000,"クエストが完了していたら
 クエストが完了していないなら","Q6900
-Q7000",,自動完了,,,<talk>res\\script\\origin\\talkFinishQuest47.csv
+Q7000",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest47.csv
+<move>37.9:491.9:-628.2
+<npc><daikeiman><pos>1:2:3
+<npc><sankakuman><pos>4:5:6
+<npc><shikakuman><pos>7:8:9"
 Q7100,"クエストが完了していたら
 クエストが完了していないなら","Q7000
 Q7100",<hint>ホシマン（地図上の海岸洞窟の位置に行ってみよう）,"時間が経過したら
