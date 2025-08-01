@@ -587,10 +587,10 @@ daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
 <activityBase>DirectNex
-<npc><daikeiman><pos>1164.5:19.5:539.0
+<npc><daikeiman><pos>1164.5:19.0:539.0
 <npc><sankakuman><pos>1164.1:19.7:543.3
 <npc><shikakuman><pos>1161.7:20.3:549.9
-<npc><daikeiman><rot>0.785
+<npc><daikeiman><rot>2.35
 <npc><sankakuman><rot>1.57
 <npc><shikakuman><rot>0"
 Q7400,"クエストが完了していたら
