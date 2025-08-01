@@ -1363,6 +1363,34 @@ void Map::Render()
         }
     }
 
+    // ソテツ
+    // 遠いほうから順番に表示してみる
+    {
+        std::vector<MeshClone*> workMeshes;
+
+        for (auto& pair : m_meshCloneMap)
+        {
+            if (pair.second->GetMeshType() == MeshClone::eMeshType::SOTETSU)
+            {
+                workMeshes.push_back(pair.second);
+            }
+        }
+
+        auto eyePos = Camera::GetEyePos();
+        std::sort(workMeshes.begin(), workMeshes.end(),
+                  [&](MeshClone* mesh1, MeshClone* mesh2)
+                  {
+                      auto work1 = eyePos - mesh1->GetPos();
+                      auto work2 = eyePos - mesh2->GetPos();
+                      return D3DXVec3Length(&work1) > D3DXVec3Length(&work2) ;
+                  });
+
+        for (auto& mesh : workMeshes)
+        {
+            mesh->Render();
+        }
+    }
+
     for (std::size_t i = 0; i < m_vecEnemy.size(); i++)
     {
         m_vecEnemy.at(i)->Render();

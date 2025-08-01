@@ -148,6 +148,9 @@ technique technique_
     pass pass_
     {
         CullMode = None;
+        AlphaBlendEnable = TRUE;
+        SrcBlend = SRCALPHA;
+        DestBlend = INVSRCALPHA;
         VertexShader = compile vs_2_0 vertex_shader();
         PixelShader  = compile ps_2_0 pixel_shader();
     }

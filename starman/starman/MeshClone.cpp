@@ -26,6 +26,10 @@ MeshClone::MeshClone(
     , m_scale { scale }
     , m_radius { radius }
 {
+    if (ContainMeshName(_T("sotetsu.x")))
+    {
+        m_shaderFilename = _T("res\\shader\\mesh_shader_cull_none.fx");
+    }
 }
 
 MeshClone::~MeshClone()
@@ -79,7 +83,7 @@ void MeshClone::Init()
     if (it == m_D3DEffectMap.end())
     {
         D3DXCreateEffectFromFile(SharedObj::GetD3DDevice(),
-                                 SHADER_FILENAME.c_str(),
+                                 m_shaderFilename.c_str(),
                                  nullptr,
                                  nullptr,
                                  D3DXSHADER_OPTIMIZATION_LEVEL3,
@@ -238,10 +242,9 @@ void MeshClone::Init()
                 std::wstring texPath = xFileDir;
                 texPath += Common::Utf8ToWstring(materials[i].pTextureFilename);
                 LPDIRECT3DTEXTURE9 tempTexture { nullptr };
-                if (FAILED(D3DXCreateTextureFromFile(
-                    SharedObj::GetD3DDevice(),
-                    texPath.c_str(),
-                    &tempTexture)))
+                if (FAILED(D3DXCreateTextureFromFile(SharedObj::GetD3DDevice(),
+                                                     texPath.c_str(),
+                                                     &tempTexture)))
                 {
                     throw std::exception("texture file is not found.");
                 }
@@ -272,6 +275,10 @@ void MeshClone::Init()
     else if (ContainMeshName(_T("sea.x")))
     {
         m_eMeshType = eMeshType::SEA;
+    }
+    else if (ContainMeshName(_T("sotetsu.x")))
+    {
+        m_eMeshType = eMeshType::SOTETSU;
     }
     else
     {
@@ -421,7 +428,7 @@ void MeshClone::Render()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
             assert(hResult == S_OK);
@@ -437,7 +444,7 @@ void MeshClone::Render()
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
             assert(hResult == S_OK);
@@ -456,30 +463,56 @@ void MeshClone::Render()
         throw std::exception("Failed 'BeginPass' function.");
     }
 
-    // マテリアルが二つ以上あることなんてあるのか？
-//    for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
-//    {
-//        // TODO この辺は毎回やる必要はない気がする
-//        m_D3DEffect->SetVector(_T("g_diffuse"), &m_vecColorMap[m_meshName].at(i));
-//        m_D3DEffect->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
-//        m_D3DEffect->CommitChanges();
-//        m_D3DMeshMap[m_meshName]->DrawSubset(i);
-//    }
-
-    if (!m_bFirstMap.at(m_meshName))
+    if (m_materialCountMap[m_meshName] == 1)
     {
-        m_bFirstMap.at(m_meshName) = true;
+        // 木を大量に表示したい場合、マテリアルが一つしかないならテクスチャのセットは一回だけでいい
+        if (!m_bFirstMap.at(m_meshName))
+        {
+            m_bFirstMap.at(m_meshName) = true;
 
-        m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
+            m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(0));
+            m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
+        }
 
-        m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(0));
+        m_D3DEffectMap.at(m_meshName)->CommitChanges();
+        m_D3DMeshMap[m_meshName]->DrawSubset(0);
+    }
+    else
+    {
+        if (ContainMeshName(_T("sotetsu.x")))
+        {
+            // 逆順に表示。葉っぱを先に表示する
+            for (int i = static_cast<int>(m_materialCountMap[m_meshName]) - 1; i >= 0; --i)
+            {
+                if (i == 1)
+                {
+                    SharedObj::GetD3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+                }
+
+                m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
+                m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
+                m_D3DEffectMap.at(m_meshName)->CommitChanges();
+                m_D3DMeshMap[m_meshName]->DrawSubset(i);
+            }
+        }
+        else
+        {
+            for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
+            {
+                m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
+                m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
+                m_D3DEffectMap.at(m_meshName)->CommitChanges();
+                m_D3DMeshMap[m_meshName]->DrawSubset(i);
+            }
+        }
     }
 
-    m_D3DEffectMap.at(m_meshName)->CommitChanges();
-    m_D3DMeshMap[m_meshName]->DrawSubset(0);
 
     m_D3DEffectMap.at(m_meshName)->EndPass();
     m_D3DEffectMap.at(m_meshName)->End();
+
+    SharedObj::GetD3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+
 }
 
 void MeshClone::Begin()
@@ -554,7 +587,7 @@ void MeshClone::Begin()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 1.0f);
             assert(hResult == S_OK);
@@ -570,7 +603,7 @@ void MeshClone::Begin()
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\mesh_shader.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fog_strength", 100.0f);
             assert(hResult == S_OK);

@@ -18,17 +18,18 @@ public:
     {
         TREE,
         GRASS,
+        SOTETSU,
         WATER,
         SEA,
         OTHER,
     };
 
-    MeshClone(
-        const std::wstring&,
-        const D3DXVECTOR3&,
-        const D3DXVECTOR3&,
-        const float scale,
-        const float radius = 20.f);
+    MeshClone(const std::wstring&,
+              const D3DXVECTOR3&,
+              const D3DXVECTOR3&,
+              const float scale,
+              const float radius = 20.f);
+
     ~MeshClone();
 
     void Init();
@@ -54,9 +55,8 @@ public:
     static void ForceRelease();
 
 private:
-    const std::wstring SHADER_FILENAME { _T("res\\shader\\mesh_shader.fx") };
+    std::wstring m_shaderFilename { _T("res\\shader\\mesh_shader.fx") };
 
-    // TODO エフェクトファイルはメッシュの数だけ用意するべき
     static std::unordered_map<std::wstring, LPD3DXEFFECT> m_D3DEffectMap;
     static std::unordered_map<std::wstring, LPD3DXMESH> m_D3DMeshMap;
     static std::unordered_map<std::wstring, std::vector<LPDIRECT3DTEXTURE9>> m_vecTextureMap;
