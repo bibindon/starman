@@ -805,6 +805,14 @@ void BGMEnvModel::InvestigateBGMEnv()
         m_bRain = false;
     }
 
+    if (m_bTrueEnd)
+    {
+        m_bSea = false;
+        m_bForest = false;
+        m_bTorch = false;
+        m_bRain = false;
+    }
+
     // 松明の環境音
     // 松明ついてるのに、松明の環境音が鳴っていなかったら再生リクエスト
     if (m_bTorch &&
@@ -889,7 +897,11 @@ void BGMEnvModel::SetChangeRequestComplete()
             BGMEnv.second.m_eBGMStatus = eBGMStatus::STOPPED;
         }
     }
+}
 
+void BGMEnvModel::SetTrueEnd(const bool arg)
+{
+    m_bTrueEnd = arg;
 }
 
 BGMManager* BGMManager::Get()
@@ -1006,6 +1018,7 @@ void BGMManager::SetEnding(const bool arg)
 void BGMManager::SetTrueEnd(const bool arg)
 {
     m_BGMModel.SetTrueEnd(arg);
+    m_BGMEnvModel.SetTrueEnd(arg);
 }
 
 // 攻撃が当たったらバトル開始

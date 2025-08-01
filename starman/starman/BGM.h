@@ -153,6 +153,8 @@ public:
     std::vector<envBGM> GetChangeRequest();
     void SetChangeRequestComplete();
 
+    void SetTrueEnd(const bool arg);
+
 private:
 
     std::unordered_map<std::wstring, envBGM> m_envBgmMap;
@@ -161,6 +163,7 @@ private:
     bool m_bSea = false;
     bool m_bForest = false;
     bool m_bRain = false;
+    bool m_bTrueEnd = false;
 
     std::wstring m_strTorch = L"res\\sound\\torch.wav";
     std::wstring m_strSea = L"res\\sound\\sea.wav";
