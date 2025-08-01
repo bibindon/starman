@@ -2685,16 +2685,22 @@ void SeqBattle::OperateCutTree()
 
         auto status = NSStarmanLib::StatusManager::GetObj();
         auto itemInfo = status->GetEquipWeapon();
-        auto itemId = itemInfo.GetItemDef().GetUnreinforcedId();
-        auto level = itemInfo.GetItemDef().GetLevel();
 
+        // 細長の石は装備できないが、
+        // 細長の石で伐採することもできることに注意
+        // 武器を装備していないなら細長の石を使ったということにする
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
 
-        if (itemId == L"longStone")
+        std::wstring itemId;
+        int level = -1;
+
+        if (!itemInfo.GetId().empty())
         {
-            dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
+            itemId = itemInfo.GetItemDef().GetUnreinforcedId();
+            level = itemInfo.GetItemDef().GetLevel();
         }
-        else if (itemId == L"stoneAxe")
+
+        if (itemId == L"stoneAxe")
         {
             auto durability = itemInfo.GetDurabilityCurrent();
 
@@ -2738,6 +2744,12 @@ void SeqBattle::OperateCutTree()
             Common::Inventory()->SetItemDurability(itemInfo.GetId(),
                                                    itemInfo.GetSubId(),
                                                    durability);
+        }
+        else 
+        {
+            itemId = L"longstone";
+            level = -1;
+            dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
         }
 
         // 体力を消費
