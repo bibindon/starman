@@ -2615,8 +2615,20 @@ void SeqBattle::OperatePickPlant()
                 D3DXVECTOR3 pos = D3DXVECTOR3(1216.f, 10.8f, 582.1f);
                 if (Common::HitByBoundingBox(ppos, pos, 100.f))
                 {
-                    // 黒い貝
-                    pickId = L"mu-rugai";
+                    unsigned int rand = SharedObj::GetRandom();
+
+                    // 0~99
+                    auto rand_ = rand % 100;
+
+                    if (rand_ < 20)
+                    {
+                        // 黒い貝
+                        pickId = L"mu-rugai";
+                    }
+                    else
+                    {
+                        pickId = L"stone";
+                    }
                 }
             }
 
