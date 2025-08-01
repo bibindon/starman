@@ -252,7 +252,7 @@ coconut:2
 daikeiman",,"<talk>res\\script\\origin\\talkFinishQuest11.csv
 <npc><sankakuman><pos>2:0:0
 <npc><shikakuman><pos>4:0:0
-<item>bag:1:999
+<item>bag:1:100
 <itemDel>coconut
 <itemDel>coconut"
 Q3200,"クエストが完了していたら
@@ -327,7 +327,7 @@ Q4000",<hint>ホシマン（少し遠くまで行ってみよう）,位置が範
 Q4100,"クエストが完了していたら
 クエストが完了していないなら","Q4000
 Q4100",<hint>ホシマン（廃墟に戻ろう）,位置,11:492:-559:100,,"<talk>res\\script\\origin\\talkFinishQuest21.csv
-<item>torch:-1:999
+<item>torch:-1:100
 <equip>torch"
 Q4200,"クエストが完了していたら
 クエストが完了していないなら","Q4100
@@ -418,7 +418,7 @@ NPCのXが生存","1:bagForDetox:1
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest29.csv
-<item>stoneSpear:1:999
+<item>stoneSpear:1:100
 <npc><webnin><pos>-16.5:496.5:-1210.2"
 Q5000,"クエストが完了していたら
 クエストが完了していないなら","Q4900
