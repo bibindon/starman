@@ -2697,7 +2697,20 @@ void SeqBattle::OperateCutTree()
         if (!itemInfo.GetId().empty())
         {
             itemId = itemInfo.GetItemDef().GetUnreinforcedId();
-            level = itemInfo.GetItemDef().GetLevel();
+            if (itemId == L"stoneAxe")
+            {
+                level = itemInfo.GetItemDef().GetLevel();
+            }
+            else
+            {
+                itemId = L"longstone";
+                level = -1;
+            }
+        }
+        else
+        {
+            itemId = L"longstone";
+            level = -1;
         }
 
         if (itemId == L"stoneAxe")
@@ -2747,8 +2760,6 @@ void SeqBattle::OperateCutTree()
         }
         else 
         {
-            itemId = L"longstone";
-            level = -1;
             dateTime->IncreaseDateTime(0, 0, 6, 0, 0);
         }
 
