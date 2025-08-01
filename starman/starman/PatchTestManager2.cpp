@@ -236,6 +236,9 @@ void PatchTestManager2::Finalize()
 
 void PatchTestManager2::InitPatch()
 {
+    Camera::SetCameraMode(eCameraMode::SLEEP);
+    Common::SetCursorVisibility(true);
+
     using namespace NSPatchTestLib;
     NSPatchTestLib::Sprite* sprCursor = NEW NSPatchTestLib::Sprite(SharedObj::GetD3DDevice());
     sprCursor->Load(_T("res\\image\\menu_cursor.png"));
@@ -529,17 +532,13 @@ void PatchTestManager2::QueueTest(const std::wstring& result)
 
     std::vector<std::wstring> vs = Common::split(result, ':');
 
-    std::wstring name = vs.at(1);
+    std::wstring id = vs.at(2);
 
     // パッチテストをキューイングする
-
-    auto itemDef = Common::ItemManager()->GetItemDef(name);
-
-    bool result2 = GetPatchLib()->QueuePatchTest(itemDef.GetId());
+    bool result2 = GetPatchLib()->QueuePatchTest(id);
 
     if (result2)
     {
-        auto& id = vs.at(2);
         int subId = std::stoi(vs.at(3));
 
         Common::Inventory()->RemoveItem(id, subId);

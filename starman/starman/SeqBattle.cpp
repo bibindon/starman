@@ -2409,7 +2409,7 @@ void SeqBattle::OperatePatch()
     if (bFirst)
     {
         bFirst = false;
-        Common::SetCursorVisibility(false);
+        Common::SetCursorVisibility(true);
     }
 
     std::wstring result = m_patchManager2.Operate();
@@ -3330,8 +3330,6 @@ void SeqBattle::UpdateDebug()
             if (m_eState == eBattleState::NORMAL)
             {
                 m_eState = eBattleState::PATCH_TEST;
-                Camera::SetCameraMode(eCameraMode::SLEEP);
-                Common::SetCursorVisibility(true);
                 m_patchManager2.Finalize();
                 m_patchManager2.InitPatch();
 
