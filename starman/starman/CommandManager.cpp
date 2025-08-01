@@ -356,10 +356,6 @@ void CommandManager::BuildCommand()
         {
             m_commandLib->UpsertCommand(L"cutTree", true);
         }
-        else
-        {
-            m_commandLib->UpsertCommand(L"cutTree", false);
-        }
     }
 
     // 採取・・・近くに草があるときに表示される。イカダモードの時は表示されない。
@@ -380,24 +376,22 @@ void CommandManager::BuildCommand()
         {
             m_commandLib->UpsertCommand(L"pickPlant", true);
         }
-        else
-        {
-            m_commandLib->UpsertCommand(L"pickPlant", false);
-        }
     }
 
     // 水中か否か
     bool bUnderwater = SharedObj::GetPlayer()->IsUnderWater();
 
+    if (!bUnderwater)
+    {
+        // 横になる・・・常に表示される
+        m_commandLib->UpsertCommand(L"lieDown", true);
 
-    // 横になる・・・常に表示される
-    m_commandLib->UpsertCommand(L"lieDown", !bUnderwater);
+        // 座る・・・常に表示される
+        m_commandLib->UpsertCommand(L"sit", true);
 
-    // 座る・・・常に表示される
-    m_commandLib->UpsertCommand(L"sit", !bUnderwater);
-
-    // ３時間休憩する・・・常に表示される
-    m_commandLib->UpsertCommand(L"rest3Hours", !bUnderwater);
+        // ３時間休憩する・・・常に表示される
+        m_commandLib->UpsertCommand(L"rest3Hours", true);
+    }
 
     // 瞑想・・・常に表示される
     m_commandLib->UpsertCommand(L"meisou", true);
@@ -462,10 +456,6 @@ void CommandManager::BuildCommand()
             {
                 m_commandLib->UpsertCommand(L"rideRaft", true);
             }
-            else
-            {
-                m_commandLib->UpsertCommand(L"rideRaft", false);
-            }
         }
     }
 
@@ -486,10 +476,6 @@ void CommandManager::BuildCommand()
             {
                 m_commandLib->UpsertCommand(L"checkRaftBag", true);
             }
-            else
-            {
-                m_commandLib->UpsertCommand(L"checkRaftBag", false);
-            }
         }
     }
 
@@ -505,19 +491,11 @@ void CommandManager::BuildCommand()
         {
             auto weapon = Common::Status()->GetEquipWeapon();
 
-            if (weapon.GetId().size() == 0)
-            {
-                m_commandLib->UpsertCommand(L"createTorch", false);
-            }
-            else
+            if (weapon.GetId().size() != 0)
             {
                 if (weapon.GetItemDef().GetUnreinforcedId() == L"stick")
                 {
                     m_commandLib->UpsertCommand(L"createTorch", true);
-                }
-                else
-                {
-                    m_commandLib->UpsertCommand(L"createTorch", false);
                 }
             }
         }
