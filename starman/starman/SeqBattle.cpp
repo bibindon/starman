@@ -2436,7 +2436,11 @@ void SeqBattle::OperatePickPlant()
             unsigned int rand = SharedObj::GetRandom();
             auto rand_ = rand % 100;
 
-            if (rand_ < 70)
+            if (rand_ < 40)
+            {
+                pickId = L"tsuta";
+            }
+            else if (rand_ < 70)
             {
                 pickId = L"branch";
             }

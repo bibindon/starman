@@ -9,7 +9,7 @@ sotetsu,赤い実,"猛毒。
 
 ",res\\image\\sotetsu_.png,0.05,50,食材,10,10,5,10,10,1,50,50,50,○,○,,,,sotetsu
 sotetsuDetox,毒抜きした赤い実,"赤い実をあく抜きをしたもの。
-",res\\image\\sotetsu2.png,0.2,500,食材,100,100,50,10,10,-1,0,0,0,,,,,,sotetsuDetox
+",res\\image\\sotetsu2.png,0.2,500,食材,100,100,50,30,30,-1,0,0,0,,,,,,sotetsuDetox
 coconut,ココナッツの実,"水分ミネラル糖分を得られ、
 果肉からは脂質を得られる。
 果肉を煮ると油を取得できる。
@@ -36,7 +36,7 @@ donguri3,大きいどんぐり,"猛烈に苦い。食べられそうにない。
 ",res\\image\\donguri3.png,0.008,13,素材,30,10,10,1,1,-1,10,5,5,○,○,,,,donguri3
 donguriDetox,あく抜きをした大きいどんぐり,"あく抜きをした大きいどんぐり。
 そのままポリポリする。
-",res\\image\\donguri4.png,0.5,300,食材,30,10,10,1,1,0,0,0,0,,,,,,donguriDetox
+",res\\image\\donguri4.png,0.5,300,食材,100,100,50,30,30,0,0,0,0,,,,,,donguriDetox
 flower,ハイビスカス,"花。サバイバルでは何の役にも立たない。
 ",res\\image\\flower.png,0.001,300,素材,,,,,,,,,,,,,,,flower
 kakan,花輪,"花を集めて作った輪っか。
