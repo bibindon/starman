@@ -1995,19 +1995,35 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     work = Common::AddEnIfEng(work);
 
                     // 花輪が飾られていたら会話を少し変える。
-                    if (work == L"res\\script\\origin\\talkFinishQuest59.csv")
+                    if (work == L"res\\\\script\\\\origin\\\\talkFinishQuest59.csv")
                     {
                         if (NSStarmanLib::ActivityBase::Get()->GetHanawa())
                         {
-                            work = L"res\\script\\origin\\talkFinishQuest59-2.csv";
+                            work = L"res\\\\script\\\\origin\\\\talkFinishQuest59-2.csv";
                         }
                     }
 
-                    if (work == L"res\\script\\origin\\talkFinishQuest61.csv")
+                    if (work == L"res\\\\script\\\\origin\\\\talkFinishQuest61.csv")
                     {
                         if (NSStarmanLib::ActivityBase::Get()->GetHanawa())
                         {
-                            work = L"res\\script\\origin\\talkFinishQuest61-2.csv";
+                            work = L"res\\\\script\\\\origin\\\\talkFinishQuest61-2.csv";
+                        }
+                    }
+
+                    if (work == L"res\\\\script\\\\origin\\\\talkFinishQuest59.en.csv")
+                    {
+                        if (NSStarmanLib::ActivityBase::Get()->GetHanawa())
+                        {
+                            work = L"res\\\\script\\\\origin\\\\talkFinishQuest59-2.en.csv";
+                        }
+                    }
+
+                    if (work == L"res\\\\script\\\\origin\\\\talkFinishQuest61.en.csv")
+                    {
+                        if (NSStarmanLib::ActivityBase::Get()->GetHanawa())
+                        {
+                            work = L"res\\\\script\\\\origin\\\\talkFinishQuest61-2.en.csv";
                         }
                     }
 
@@ -2318,7 +2334,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     if (!subIdList.empty())
                     {
                         Common::Inventory()->RemoveItem(L"kakan", subIdList.at(0));
-                        NSStarmanLib::ActivityBase::Get()->SetHanaw(true);
+                        NSStarmanLib::ActivityBase::Get()->SetHanawa(true);
                         PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
                     }
                     // インベントリになければ倉庫を見る
@@ -2332,7 +2348,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         if (!subIdList2.empty())
                         {
                             storehouse->RemoveItem(L"kakan", subIdList2.at(0));
-                            NSStarmanLib::ActivityBase::Get()->SetHanaw(true);
+                            NSStarmanLib::ActivityBase::Get()->SetHanawa(true);
                             PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
                         }
                     }
