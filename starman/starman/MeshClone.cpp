@@ -479,39 +479,18 @@ void MeshClone::Render()
     }
     else
     {
-        if (ContainMeshName(_T("sotetsu.x")))
+        for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
         {
-            // 逆順に表示。葉っぱを先に表示する
-            for (int i = static_cast<int>(m_materialCountMap[m_meshName]) - 1; i >= 0; --i)
-            {
-                if (i == 1)
-                {
-                    SharedObj::GetD3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-                }
-
-                m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
-                m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
-                m_D3DEffectMap.at(m_meshName)->CommitChanges();
-                m_D3DMeshMap[m_meshName]->DrawSubset(i);
-            }
-        }
-        else
-        {
-            for (DWORD i = 0; i < m_materialCountMap[m_meshName]; ++i)
-            {
-                m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
-                m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
-                m_D3DEffectMap.at(m_meshName)->CommitChanges();
-                m_D3DMeshMap[m_meshName]->DrawSubset(i);
-            }
+            m_D3DEffectMap.at(m_meshName)->SetVector("g_diffuse", &m_vecColorMap[m_meshName].at(i));
+            m_D3DEffectMap.at(m_meshName)->SetTexture("g_mesh_texture", m_vecTextureMap[m_meshName].at(i));
+            m_D3DEffectMap.at(m_meshName)->CommitChanges();
+            m_D3DMeshMap[m_meshName]->DrawSubset(i);
         }
     }
 
 
     m_D3DEffectMap.at(m_meshName)->EndPass();
     m_D3DEffectMap.at(m_meshName)->End();
-
-    SharedObj::GetD3DDevice()->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
 }
 

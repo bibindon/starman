@@ -124,9 +124,10 @@ technique technique_
     pass pass_
     {
         CullMode = None;
-        AlphaBlendEnable = TRUE;
-        SrcBlend = SRCALPHA;
-        DestBlend = INVSRCALPHA;
+        AlphaTestEnable = TRUE;
+        AlphaFunc = GreaterEqual;
+        AlphaRef = 128;
+
         VertexShader = compile vs_2_0 vertex_shader();
         PixelShader  = compile ps_2_0 pixel_shader();
     }

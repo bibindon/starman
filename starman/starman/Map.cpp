@@ -1387,22 +1387,8 @@ void Map::Render()
         {
             if (pair.second->GetMeshType() == MeshClone::eMeshType::SOTETSU)
             {
-                workMeshes.push_back(pair.second);
+                pair.second->Render();
             }
-        }
-
-        auto eyePos = Camera::GetEyePos();
-        std::sort(workMeshes.begin(), workMeshes.end(),
-                  [&](MeshClone* mesh1, MeshClone* mesh2)
-                  {
-                      auto work1 = eyePos - mesh1->GetPos();
-                      auto work2 = eyePos - mesh2->GetPos();
-                      return D3DXVec3Length(&work1) > D3DXVec3Length(&work2) ;
-                  });
-
-        for (auto& mesh : workMeshes)
-        {
-            mesh->Render();
         }
     }
 
