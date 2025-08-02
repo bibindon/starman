@@ -148,8 +148,9 @@ class Font : public IFont
 {
 public:
 
-    Font(LPDIRECT3DDEVICE9 pD3DDevice)
+    Font(LPDIRECT3DDEVICE9 pD3DDevice, const int fontSize)
         : m_pD3DDevice(pD3DDevice)
+        , m_fontSize(fontSize)
     {
     }
 
@@ -160,7 +161,7 @@ public:
         if (!bEnglish)
         {
             hr = D3DXCreateFont(m_pD3DDevice,
-                                20,
+                                m_fontSize,
                                 0,
                                 FW_NORMAL,
                                 1,
@@ -175,7 +176,7 @@ public:
         else
         {
             hr = D3DXCreateFont(m_pD3DDevice,
-                                20,
+                                m_fontSize,
                                 0,
                                 FW_NORMAL,
                                 1,
@@ -226,6 +227,7 @@ private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
     LPD3DXFONT m_pFont = NULL;
+    const int m_fontSize = 0;
 };
 
 
@@ -270,11 +272,12 @@ void MenuManager::InitMenu()
     NSMenulib::ISprite* sprBackground = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load(_T("res\\image\\menu_back.png"));
 
-    NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice());
+    NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 20);
+    NSMenulib::IFont* pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 16);
 
     NSMenulib::ISoundEffect* pSE = NEW NSMenulib::SoundEffect();
 
-    m_menu.Init(_T(""), pFont, pSE, sprCursor, sprBackground, SharedObj::IsEnglish());
+    m_menu.Init(_T(""), pFont, pFontStatus, pSE, sprCursor, sprBackground, SharedObj::IsEnglish());
 
     NSStarmanLib::ItemManager* itemManager = NSStarmanLib::ItemManager::GetObj();
     NSStarmanLib::WeaponManager* weaponManager = NSStarmanLib::WeaponManager::GetObj();

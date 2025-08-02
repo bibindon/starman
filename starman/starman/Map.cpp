@@ -6,7 +6,6 @@
 #include "EnemyDisk.h"
 #include "EnemySphere.h"
 #include "EnemyBigCube.h"
-#include "EnemyDisk.h"
 #include "EnemyEnchu.h"
 #include "EnemyGhost.h"
 #include "EnemyHanen.h"
