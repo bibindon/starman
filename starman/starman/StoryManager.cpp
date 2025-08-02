@@ -25,18 +25,14 @@ public:
     {
         D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
         m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-        RECT rect = {
-            0,
-            0,
-            static_cast<LONG>(m_width),
-            static_cast<LONG>(m_height) };
+        RECT rect = { 0, 0, static_cast<LONG>(m_width), static_cast<LONG>(m_height) };
         D3DXVECTOR3 center { 0, 0, 0 };
-        m_D3DSprite->Draw(
-            m_pD3DTexture,
-            &rect,
-            &center,
-            &pos,
-            D3DCOLOR_ARGB(transparency, 255, 255, 255));
+        m_D3DSprite->Draw(m_pD3DTexture,
+                          &rect,
+                          &center,
+                          &pos,
+                          D3DCOLOR_ARGB(transparency, 255, 255, 255));
+
         m_D3DSprite->End();
 
     }
@@ -49,10 +45,9 @@ public:
             throw std::exception("Failed to create a sprite.");
         }
 
-        if (FAILED(D3DXCreateTextureFromFile(
-            m_pD3DDevice,
-            filepath.c_str(),
-            &m_pD3DTexture)))
+        if (FAILED(D3DXCreateTextureFromFile(m_pD3DDevice,
+                                             filepath.c_str(),
+                                             &m_pD3DTexture)))
         {
             throw std::exception("Failed to create a texture.");
         }
@@ -221,6 +216,12 @@ void StoryManager::Update()
         }
 
         if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_SPACE))
+        {
+            m_storyTelling->Next();
+            m_firstPage = false;
+        }
+
+        if (Mouse::IsDownLeft())
         {
             m_storyTelling->Next();
             m_firstPage = false;
