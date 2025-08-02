@@ -991,27 +991,43 @@ void Map::Update()
             // プレイヤーが廃墟に近づいたらカメラモードを変える
             // 雨が降っていたら、雨を非表示にする。
             {
-                float work = 0.f;
-                work = pos.x - m_meshMap[_T("precision")]->GetPos().x;
-                work = std::abs(work);
-                if (work < 50.f)
+                float workX = 0.f;
+                float workZ = 0.f;
+
+                bool near50 = false;
+                bool near20 = false;
+
+                workX = pos.x - m_meshMap[_T("precision")]->GetPos().x;
+                workX = std::abs(workX);
+
+                workZ = pos.z - m_meshMap[_T("precision")]->GetPos().z;
+                workZ = std::abs(workZ);
+
+                if (workX < 50.f && workZ < 50.f)
                 {
-                    work = pos.z - m_meshMap[_T("precision")]->GetPos().z;
-                    work = std::abs(work);
-                    if (work < 50.f)
-                    {
-                        Camera::SetHouseMode(true);
-                        Rain::Get()->SetShow(false);
-                    }
-                    else
-                    {
-                        Camera::SetHouseMode(false);
-                        Rain::Get()->SetShow(true);
-                    }
+                    near50 = true;
+                }
+
+                if (workX < 20.f && workZ < 20.f)
+                {
+                    near20 = true;
+                }
+
+                if (near50)
+                {
+                    Camera::SetHouseMode(true);
                 }
                 else
                 {
                     Camera::SetHouseMode(false);
+                }
+
+                if (near20)
+                {
+                    Rain::Get()->SetShow(false);
+                }
+                else
+                {
                     Rain::Get()->SetShow(true);
                 }
             }
