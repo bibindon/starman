@@ -3121,6 +3121,7 @@ void SeqBattle::RenderCommon2D()
         // m_eState != eBattleState::TITLE && // タイトル画面でもポップアップが必要
         // m_eState != eBattleState::MENU && // メニュー画面でもポップアップが必要
         m_eState != eBattleState::OPENING &&
+        m_eState != eBattleState::STORY &&
         m_eState != eBattleState::TALK)
     {
         PopUp2::Get()->Render();
