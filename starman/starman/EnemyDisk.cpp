@@ -117,7 +117,7 @@ void EnemyDisk::Update()
             D3DXVECTOR3 move = norm / 40;
             bool bHit = false;
             bool bInside = false;
-            move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
+            move = map->WallSlide(m_loadingPos, move, &bHit, &bInside, false);
             m_loadingPos += move;
             m_rotate.y = atan2(-enemyVector.x, -enemyVector.z);
         }

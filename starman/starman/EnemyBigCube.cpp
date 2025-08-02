@@ -126,7 +126,7 @@ void EnemyBigCube::Update()
             D3DXVECTOR3 move = norm * 0.02f;
             bool bHit = false;
             bool bInside = false;
-            move = map->WallSlide(m_loadingPos, move, &bHit, &bInside);
+            move = map->WallSlide(m_loadingPos, move, &bHit, &bInside, false);
             m_loadingPos += move;
             m_rotate.y = atan2(-enemyVector.x, -enemyVector.z);
         }
@@ -167,7 +167,7 @@ void EnemyBigCube::Update()
             std::wstring msg;
             msg = _T("distance: ") + std::to_wstring(distance) + _T("\n");
 
-            if (distance <= 1.0f)
+            if (distance <= 3.0f)
             {
                 player->SetDamaged();
                 auto status = NSStarmanLib::StatusManager::GetObj();
