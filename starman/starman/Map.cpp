@@ -149,7 +149,7 @@ void Map::Init()
         m_meshMap[_T("sky")] = mesh;
     }
     {
-        D3DXVECTOR3 pos = D3DXVECTOR3(11.f, 491.5f, -572.f);
+        D3DXVECTOR3 pos = D3DXVECTOR3(23.f, 490.3f, -565.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader_cull_none.fx"),
                               _T("res\\model\\precision.x"),
