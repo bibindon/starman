@@ -103,42 +103,18 @@ void pixel_shader(
 
     //------------------------------------------------------
     // ポイントライト
-    //
-    // 霧の描画の逆をやればよい
     //------------------------------------------------------
     if (pointLightEnable)
     {
-        /*
-        if (fog <= 0.0016f)
-        {
-            float work = fog * 625.f;
-            if (work >= 0.f)
-            {
-                // 自分の周りを黄色くする
-                out_diffuse.r += (1 - (work*work))/2;
-                out_diffuse.g += (1 - (work*work))/4.f;
-            }
-        }
-        */
-
-        // 法線を正規化
-        float3 N = normalize(in_normal);
-
-        // ライト方向を計算
-        float3 L = normalize((float3) g_point_light_pos - in_worldPos);
-
         // 距離減衰の計算
-        float distance = length((float3) g_point_light_pos - in_worldPos);
+        float distance = length((float3)g_point_light_pos - in_worldPos);
 
         // 適当に2乗減衰
         float attenuation = 50.0 / (distance * distance);
         attenuation = min(attenuation, 1.0);
 
-        // ライトの強さ（ランバート反射）
-        float NdotL = max(dot(N, L), 0);
-
         // 最終カラー
-        out_diffuse += color_result * light_color * NdotL * attenuation;
+        out_diffuse += color_result * light_color * attenuation;
     }
 
 }

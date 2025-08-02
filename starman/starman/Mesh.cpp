@@ -272,7 +272,7 @@ void Mesh::Render()
         D3DXVECTOR3 ppos = SharedObj::GetPlayer()->GetPos();
         D3DXVECTOR4 ppos2;
         ppos2.x = ppos.x;
-        ppos2.y = ppos.y+2;
+        ppos2.y = ppos.y;
         ppos2.z = ppos.z;
         ppos2.w = 0;
 
