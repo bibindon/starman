@@ -100,7 +100,7 @@ void EnemyHankyuu::Update()
         D3DXVECTOR3 pos = player->GetPos();
         D3DXVECTOR3 enemyVector = pos - m_loadingPos;
         FLOAT distance = D3DXVec3Length(&enemyVector);
-        if (distance < 3.f)
+        if (distance < 2.f)
         {
             int randNum = SharedObj::GetRandom() % 100;
 
@@ -115,7 +115,7 @@ void EnemyHankyuu::Update()
                 SoundEffect::get_ton()->stop(_T("res\\sound\\enemyStep.wav"));
             }
         }
-        else if (3.f <= distance && distance < 20.f)
+        else if (2.f <= distance && distance < 20.f)
         {
             D3DXVECTOR3 norm { 0.f, 0.f, 0.f };
             D3DXVec3Normalize(&norm, &enemyVector);
