@@ -86,13 +86,13 @@ sampler mesh_texture_sampler = sampler_state {
 
 // 多分、赤色成分が少ないテクスチャ画像を使うと、赤色部分の演算結果がオーバーフローして真っ白になる。
 void pixel_shader(
-    in float4 in_diffuse  : COLOR0,
-    in float2 in_texcood  : TEXCOORD0,
-    in float   fog : TEXCOORD1,
-    in float3 in_worldPos : TEXCOORD2,
-    in float3 in_normal : TEXCOORD3,
-    out float4 out_diffuse : COLOR0
-    )
+                  in float4 in_diffuse   : COLOR0,
+                  in float2 in_texcood   : TEXCOORD0,
+                  in float  fog          : TEXCOORD1,
+                  in float3 in_worldPos  : TEXCOORD2,
+                  in float3 in_normal    : TEXCOORD3,
+                  out float4 out_diffuse : COLOR0
+                  )
 {
     float4 color_result = (float4)0;
 
