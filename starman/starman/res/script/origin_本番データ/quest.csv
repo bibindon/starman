@@ -562,7 +562,8 @@ Q7000",,自動完了,,,"<talk>res\\script\\origin\\talkFinishQuest47.csv
 <move>37.9:491.9:-628.2
 <npc><daikeiman><pos>1:2:3
 <npc><sankakuman><pos>4:5:6
-<npc><shikakuman><pos>7:8:9"
+<npc><shikakuman><pos>7:8:9
+<tanka>y"
 Q7100,"クエストが完了していたら
 クエストが完了していないなら","Q7000
 Q7100",<hint>ホシマン（地図上の海岸洞窟の位置に行ってみよう）,"時間が経過したら
@@ -596,7 +597,8 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest50.csv
 <npc><shikakuman><pos>1161.7:20.3:549.9
 <npc><daikeiman><rot>2.35
 <npc><sankakuman><rot>1.57
-<npc><shikakuman><rot>0"
+<npc><shikakuman><rot>0
+<tanka>n"
 Q7400,"クエストが完了していたら
 クエストが完了していないなら","Q7300
 Q7400",<hint>ホシマン（１週間、ここで生活してみよう）,"時間が経過したら

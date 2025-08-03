@@ -2401,6 +2401,22 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         status->SetMuscleCurrent(20.f);
                     }
                 }
+                else if (vs2.at(j).find(_T("<tanka>")) != std::wstring::npos)
+                {
+                    std::wstring work2;
+                    work2 = Common::RemoveSubstring(vs2.at(j), _T("<tanka>"));
+
+                    auto status = Common::Status();
+
+                    if (work2 == _T("y"))
+                    {
+                        status->SetStretcherMode(true);
+                    }
+                    else
+                    {
+                        status->SetStretcherMode(false);
+                    }
+                }
             }
         }
     }
