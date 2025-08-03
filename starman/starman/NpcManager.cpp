@@ -4,6 +4,7 @@
 #include "SharedObj.h"
 #include "PopUp2.h"
 #include "resource.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/Rynen.h"
 
 NpcManager* NpcManager::m_ton = nullptr;
 
@@ -115,6 +116,13 @@ bool NpcManager::GetNpcTalkable(const D3DXVECTOR3& pos, std::wstring* npcName)
 
 void NpcManager::Update()
 {
+    // ライネンの契約をするまではNpcのステータスを消費させない
+    auto rynen = NSStarmanLib::Rynen::GetObj();
+    if (!rynen->GetContracted())
+    {
+        return;
+    }
+
     // 死亡していない→死亡しているに変わったらポップアップを表示
     auto daikei = GetNpcStatus(_T("daikeiman")).GetDead();
     auto sankaku = GetNpcStatus(_T("sankakuman")).GetDead();

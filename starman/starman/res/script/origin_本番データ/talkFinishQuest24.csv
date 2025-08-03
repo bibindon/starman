@@ -31,3 +31,7 @@
 26,「くれぐれも気をつけること」,res\\image\\hoshiman00.png,,res\\image\\talkPrecision.png
 27,「よく頭に当たるんでしょ（笑）」,res\\image\\sankakuman00.png,res\\image\\shikakuman00.png,res\\image\\talkPrecision.png
 28,「・・・」,res\\image\\hoshiman00.png,,res\\image\\talkPrecision.png
+29,【NPCのステータスを確認しよう】,,,res\\image\\talkPrecision.png
+30,"【ステータスのどれか一つでも０になるとNPCは死亡する】
+【水分は残り９０となったら死亡する】",,,res\\image\\talkPrecision.png
+31,【倉庫に食材を入れておくと必要に応じて消費するようになる】,,,res\\image\\talkPrecision.png
