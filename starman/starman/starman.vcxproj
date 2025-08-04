@@ -531,7 +531,11 @@
     <Image Include="res\image\starman.ico" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="res\shader\mesh_shader_2Texture.fx" />
+    <CustomBuild Include="res\shader\mesh_shader_2Texture.fx">
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)tool\fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</Outputs>
+    </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -353,10 +353,8 @@
     <CustomBuild Include="res\shader\mesh_shader_no_shade.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="res\shader\mesh_shader_2Texture.fx">
+    <CustomBuild Include="res\shader\mesh_shader_2Texture.fx">
       <Filter>リソース ファイル</Filter>
-    </FxCompile>
+    </CustomBuild>
   </ItemGroup>
 </Project>
