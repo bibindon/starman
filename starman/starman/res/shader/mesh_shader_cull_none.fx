@@ -128,7 +128,7 @@ technique technique_
         AlphaFunc = GreaterEqual;
         AlphaRef = 128;
 
-        VertexShader = compile vs_2_0 vertex_shader();
-        PixelShader  = compile ps_2_0 pixel_shader();
+        VertexShader = compile vs_3_0 vertex_shader();
+        PixelShader  = compile ps_3_0 pixel_shader();
     }
 }
