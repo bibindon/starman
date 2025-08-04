@@ -131,8 +131,7 @@ Player::Player()
         AnimSetting animSetting { };
         animSetting.m_startPos = 17.0f;
         animSetting.m_duration = 0.97f;
-        animSetting.m_loop = false;
-        animSetting.m_stopEnd = true;
+        animSetting.m_loop = true;
         animSetMap[_T("TankaIdle")] = animSetting;
     }
     {
@@ -140,15 +139,13 @@ Player::Player()
         animSetting.m_startPos = 18.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = false;
-        animSetting.m_stopEnd = true;
         animSetMap[_T("TankaWalk")] = animSetting;
     }
     {
         AnimSetting animSetting { };
         animSetting.m_startPos = 19.0f;
         animSetting.m_duration = 0.97f;
-        animSetting.m_loop = false;
-        animSetting.m_stopEnd = true;
+        animSetting.m_loop = true;
         animSetMap[_T("TankaRest")] = animSetting;
     }
     m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
@@ -365,8 +362,6 @@ void Player::Update(Map* map)
         m_bUnderwater = map->IntersectWater(pos, down);
         if (m_bUnderwater)
         {
-            // 担架モードで水に触れたらNPC死亡？
-
             m_AnimMesh2->SetAnim(_T("IdleWater"));
             auto status = NSStarmanLib::StatusManager::GetObj();
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::IDLE_WATER);
@@ -388,6 +383,14 @@ void Player::Update(Map* map)
                     Common::Status()->SetDeadReason(NSStarmanLib::eDeadReason::DROWNING);
                 }
             }
+        }
+    }
+
+    // 担架モードか
+    {
+        if (Common::Status()->IsStretcherMode())
+        {
+            m_AnimMesh2->SetAnim(_T("TankaIdle"));
         }
     }
 
@@ -1676,6 +1679,7 @@ bool Player::SetAttackAtlatl()
         auto statusManager = NSStarmanLib::StatusManager::GetObj();
         statusManager->ConsumeAttackCost();
     }
+
     return true;
 }
 
@@ -1687,15 +1691,22 @@ void Player::SetWalk()
         !status->GetDead() &&
         !m_bAttack)
     {
-        if (m_bUnderwater == false)
-        {
-            m_AnimMesh2->SetAnim(_T("Walk"));
-            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::WALK);
-        }
-        else
+        if (m_bUnderwater)
         {
             m_AnimMesh2->SetAnim(_T("Swim"));
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
+        }
+        else
+        {
+            if (Common::Status()->IsStretcherMode())
+            {
+                m_AnimMesh2->SetAnim(_T("TankaWalk"));
+            }
+            else
+            {
+                m_AnimMesh2->SetAnim(_T("Walk"));
+            }
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::WALK);
         }
     }
 
@@ -1710,15 +1721,22 @@ void Player::SetJogging()
         !status->GetDead() &&
         !m_bAttack)
     {
-        if (m_bUnderwater == false)
-        {
-            m_AnimMesh2->SetAnim(_T("Walk"));
-            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::JOGGING);
-        }
-        else
+        if (m_bUnderwater)
         {
             m_AnimMesh2->SetAnim(_T("Swim"));
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
+        }
+        else
+        {
+            if (Common::Status()->IsStretcherMode())
+            {
+                m_AnimMesh2->SetAnim(_T("TankaWalk"));
+            }
+            else
+            {
+                m_AnimMesh2->SetAnim(_T("Walk"));
+            }
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::JOGGING);
         }
     }
 
@@ -1733,15 +1751,22 @@ void Player::SetDash()
         !status->GetDead() &&
         !m_bAttack)
     {
-        if (m_bUnderwater == false)
-        {
-            m_AnimMesh2->SetAnim(_T("Walk"));
-            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SPRINTING);
-        }
-        else
+        if (m_bUnderwater)
         {
             m_AnimMesh2->SetAnim(_T("Swim"));
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SWIM);
+        }
+        else
+        {
+            if (Common::Status()->IsStretcherMode())
+            {
+                m_AnimMesh2->SetAnim(_T("TankaWalk"));
+            }
+            else
+            {
+                m_AnimMesh2->SetAnim(_T("Walk"));
+            }
+            status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SPRINTING);
         }
     }
 
@@ -1906,7 +1931,14 @@ void Player::SetJump()
 
 void Player::SetSit()
 {
-    m_AnimMesh2->SetAnim(_T("Sit"), 0.f);
+    if (Common::Status()->IsStretcherMode())
+    {
+        m_AnimMesh2->SetAnim(_T("TankaRest"), 0.f);
+    }
+    else
+    {
+        m_AnimMesh2->SetAnim(_T("Sit"), 0.f);
+    }
 
     auto status = NSStarmanLib::StatusManager::GetObj();
     status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::SIT);

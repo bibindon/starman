@@ -488,10 +488,8 @@ void MeshClone::Render()
         }
     }
 
-
     m_D3DEffectMap.at(m_meshName)->EndPass();
     m_D3DEffectMap.at(m_meshName)->End();
-
 }
 
 void MeshClone::Begin()
