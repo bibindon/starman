@@ -1393,6 +1393,11 @@ bool Player::SetAttack()
         return false;
     }
 
+    if (Common::Status()->IsStretcherMode())
+    {
+        return false;
+    }
+
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
 
     // 右手にバッグを持っているときは攻撃できない。
@@ -1853,6 +1858,11 @@ D3DXVECTOR3 Player::GetAttackPos() const
 
 void Player::SetJump()
 {
+    if (Common::Status()->IsStretcherMode())
+    {
+        return;
+    }
+
     if (m_bJumpEnable && NSStarmanLib::StatusManager::GetObj()->GetDead() == false)
     {
         m_bJump = true;
@@ -1912,6 +1922,12 @@ void Player::SetLieDown()
 
 void Player::SetStep(const eDir dir)
 {
+    // 担架モードなら何もしない
+    if (Common::Status()->IsStretcherMode())
+    {
+        return;
+    }
+
     auto stamina = Common::Status()->GetBodyStaminaCurrent();
     if (stamina <= 30.f)
     {
@@ -2014,6 +2030,12 @@ void Player::Throw()
 
     auto statusManager = NSStarmanLib::StatusManager::GetObj();
 
+    // 担架モードなら何もしない
+    if (Common::Status()->IsStretcherMode())
+    {
+        return;
+    }
+
     // 素手だったら何もしない。
     auto itemInfo = statusManager->GetEquipWeapon();
     if (itemInfo.GetId().empty())
@@ -2090,6 +2112,12 @@ void Player::SetMagic()
 
     auto magicType = statusManager->GetMagicType();
     if (magicType == NSStarmanLib::eMagicType::None)
+    {
+        return;
+    }
+
+    // 担架モードなら何もしない
+    if (Common::Status()->IsStretcherMode())
     {
         return;
     }
