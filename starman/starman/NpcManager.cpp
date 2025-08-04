@@ -142,6 +142,30 @@ void NpcManager::Update()
 
         // NPCが死んでいたら、座標を(0, 0, 0)に移動
         SetPos(_T("daikeiman"), 0.f, 0.f, 0.f);
+
+        // 担架モードだったら、担架モードを終了。死んでいないNPCはその場に座る
+        if (Common::Status()->IsStretcherMode())
+        {
+            Common::Status()->SetStretcherMode(false);
+
+            // もし水中だったら全員死亡
+            if (SharedObj::GetPlayer()->IsUnderWater())
+            {
+                auto npcStatus = GetNpcStatus(L"sankakuman");
+                npcStatus.SetDead();
+                SetNpcStatus(L"sankakuman", npcStatus);
+
+                npcStatus = GetNpcStatus(L"shikakuman");
+                npcStatus.SetDead();
+                SetNpcStatus(L"shikakuman", npcStatus);
+            }
+            else
+            {
+                auto ppos = SharedObj::GetPlayer()->GetPos();
+                SetPos(L"sankakuman", ppos.x, ppos.y, ppos.z + 0.5f);
+                SetPos(L"shikakuman", ppos.x, ppos.y, ppos.z - 0.5f);
+            }
+        }
     }
 
     if (sankaku != sankaku2 && sankaku2)
@@ -152,6 +176,30 @@ void NpcManager::Update()
 
         // NPCが死んでいたら、座標を(0, 0, 0)に移動
         SetPos(_T("sankakuman"), 0.f, 0.f, 0.f);
+
+        // 担架モードだったら、担架モードを終了。死んでいないNPCはその場に座る
+        if (Common::Status()->IsStretcherMode())
+        {
+            Common::Status()->SetStretcherMode(false);
+
+            // もし水中だったら全員死亡
+            if (SharedObj::GetPlayer()->IsUnderWater())
+            {
+                auto npcStatus = GetNpcStatus(L"daikeiman");
+                npcStatus.SetDead();
+                SetNpcStatus(L"daikeiman", npcStatus);
+
+                npcStatus = GetNpcStatus(L"shikakuman");
+                npcStatus.SetDead();
+                SetNpcStatus(L"shikakuman", npcStatus);
+            }
+            else
+            {
+                auto ppos = SharedObj::GetPlayer()->GetPos();
+                SetPos(L"daikeiman", ppos.x, ppos.y, ppos.z + 0.5f);
+                SetPos(L"shikakuman", ppos.x, ppos.y, ppos.z - 0.5f);
+            }
+        }
     }
 
     if (shikaku != shikaku2 && shikaku2)
@@ -163,5 +211,29 @@ void NpcManager::Update()
 
         // NPCが死んでいたら、座標を(0, 0, 0)に移動
         SetPos(_T("shikakuman"), 0.f, 0.f, 0.f);
+
+        // 担架モードだったら、担架モードを終了。死んでいないNPCはその場に座る
+        if (Common::Status()->IsStretcherMode())
+        {
+            Common::Status()->SetStretcherMode(false);
+
+            // もし水中だったら全員死亡
+            if (SharedObj::GetPlayer()->IsUnderWater())
+            {
+                auto npcStatus = GetNpcStatus(L"daikeiman");
+                npcStatus.SetDead();
+                SetNpcStatus(L"daikeiman", npcStatus);
+
+                npcStatus = GetNpcStatus(L"sankakuman");
+                npcStatus.SetDead();
+                SetNpcStatus(L"sankakuman", npcStatus);
+            }
+            else
+            {
+                auto ppos = SharedObj::GetPlayer()->GetPos();
+                SetPos(L"daikeiman", ppos.x, ppos.y, ppos.z + 0.5f);
+                SetPos(L"sankakuman", ppos.x, ppos.y, ppos.z - 0.5f);
+            }
+        }
     }
 }
