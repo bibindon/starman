@@ -521,6 +521,7 @@
   <ItemGroup>
     <None Include="..\..\.gitignore" />
     <None Include="..\..\README.md" />
+    <None Include="cpp.hint" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -88,7 +88,8 @@ void Mesh::Init()
     //--------------------------------------------------------
     // 法線情報をもつメッシュファイルに変換
     //--------------------------------------------------------
-    D3DVERTEXELEMENT9 decl[4];
+    D3DVERTEXELEMENT9 decl[4] { };
+
     {
         decl[0].Stream = 0;
         decl[0].Offset = 0;
@@ -208,12 +209,12 @@ void Mesh::SetRotY(const float rotY)
     m_rotate.y = rotY;
 }
 
-D3DXVECTOR3 Mesh::GetPos()
+D3DXVECTOR3 Mesh::GetPos() const
 {
     return m_pos;
 }
 
-float Mesh::GetScale()
+float Mesh::GetScale() const
 {
     return m_scale;
 }

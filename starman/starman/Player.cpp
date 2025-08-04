@@ -127,6 +127,30 @@ Player::Player()
         animSetting.m_stopEnd = true;
         animSetMap[_T("PullOar")] = animSetting;
     }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 17.0f;
+        animSetting.m_duration = 0.97f;
+        animSetting.m_loop = false;
+        animSetting.m_stopEnd = true;
+        animSetMap[_T("TankaIdle")] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 18.0f;
+        animSetting.m_duration = 0.97f;
+        animSetting.m_loop = false;
+        animSetting.m_stopEnd = true;
+        animSetMap[_T("TankaWalk")] = animSetting;
+    }
+    {
+        AnimSetting animSetting { };
+        animSetting.m_startPos = 19.0f;
+        animSetting.m_duration = 0.97f;
+        animSetting.m_loop = false;
+        animSetting.m_stopEnd = true;
+        animSetMap[_T("TankaRest")] = animSetting;
+    }
     m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
     m_AnimMesh2->SetAnim(_T("0_Idle"));
     SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
@@ -341,6 +365,8 @@ void Player::Update(Map* map)
         m_bUnderwater = map->IntersectWater(pos, down);
         if (m_bUnderwater)
         {
+            // 担架モードで水に触れたらNPC死亡？
+
             m_AnimMesh2->SetAnim(_T("IdleWater"));
             auto status = NSStarmanLib::StatusManager::GetObj();
             status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::IDLE_WATER);
@@ -621,19 +647,17 @@ void Player::Update(Map* map)
             Common::Status()->SetFractureLeg(false);
         }
 
-        // 進み続ける
+        // 担架モード
+        if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F6))
         {
-            static bool bMove = false;
-            if (SharedObj::KeyBoard()->IsDownFirstFrame(DIK_F8))
+            auto tanka = Common::Status()->IsStretcherMode();
+            if (tanka)
             {
-                bMove = !bMove;
+                Common::Status()->SetStretcherMode(false);
             }
-
-            if (bMove)
+            else
             {
-                move.x += -std::sin(radian + D3DX_PI / 2) * 0.5f;
-                move.z += std::sin(radian + D3DX_PI) * 0.5f;
-                SetJogging();
+                Common::Status()->SetStretcherMode(true);
             }
         }
     }

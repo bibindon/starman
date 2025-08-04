@@ -328,6 +328,7 @@
     <None Include="..\..\README.md" />
     <None Include="..\..\.gitignore" />
     <None Include="packages.config" />
+    <None Include="cpp.hint" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="starman.rc">
