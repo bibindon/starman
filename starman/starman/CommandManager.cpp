@@ -383,11 +383,14 @@ void CommandManager::BuildCommand()
 
     if (!bUnderwater)
     {
-        // 横になる・・・常に表示される
-        m_commandLib->UpsertCommand(L"lieDown", true);
+        if (!Common::Status()->IsStretcherMode())
+        {
+            // 横になる・・・常に表示される
+            m_commandLib->UpsertCommand(L"lieDown", true);
 
-        // 座る・・・常に表示される
-        m_commandLib->UpsertCommand(L"sit", true);
+            // 座る・・・常に表示される
+            m_commandLib->UpsertCommand(L"sit", true);
+        }
 
         // ３時間休憩する・・・常に表示される
         m_commandLib->UpsertCommand(L"rest3Hours", true);
