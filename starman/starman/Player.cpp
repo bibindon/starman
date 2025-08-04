@@ -13,6 +13,7 @@
 #include "PopUp2.h"
 #include "resource.h"
 #include "BGM.h"
+#include "NpcManager.h"
 
 Player::Player()
 {
@@ -1810,6 +1811,44 @@ void Player::SetDamaged()
 void Player::SetDead()
 {
     m_AnimMesh2->SetAnim(_T("Dead"), 0.f);
+
+    if (Common::Status()->IsStretcherMode())
+    {
+        // 担架モードで水中だったら、NPCが全員死亡
+        if (IsUnderWater())
+        {
+            Common::Status()->SetStretcherMode(false);
+
+            auto npcStatus = NpcManager::Get()->GetNpcStatus(L"daikeiman");
+            npcStatus.SetDead();
+            NpcManager::Get()->SetNpcStatus(L"daikeiman", npcStatus);
+
+            npcStatus = NpcManager::Get()->GetNpcStatus(L"sankakuman");
+            npcStatus.SetDead();
+            NpcManager::Get()->SetNpcStatus(L"sankakuman", npcStatus);
+
+            npcStatus = NpcManager::Get()->GetNpcStatus(L"shikakuman");
+            npcStatus.SetDead();
+            NpcManager::Get()->SetNpcStatus(L"shikakuman", npcStatus);
+        }
+        // 水中じゃなくても、NPCが全員死亡
+        else
+        {
+            Common::Status()->SetStretcherMode(false);
+
+            auto npcStatus = NpcManager::Get()->GetNpcStatus(L"daikeiman");
+            npcStatus.SetDead();
+            NpcManager::Get()->SetNpcStatus(L"daikeiman", npcStatus);
+
+            npcStatus = NpcManager::Get()->GetNpcStatus(L"sankakuman");
+            npcStatus.SetDead();
+            NpcManager::Get()->SetNpcStatus(L"sankakuman", npcStatus);
+
+            npcStatus = NpcManager::Get()->GetNpcStatus(L"shikakuman");
+            npcStatus.SetDead();
+            NpcManager::Get()->SetNpcStatus(L"shikakuman", npcStatus);
+        }
+    }
 }
 
 bool Player::GetDead() const
@@ -1821,7 +1860,14 @@ void Player::SetSleep(const bool arg)
 {
     if (arg)
     {
-        m_AnimMesh2->SetAnim(_T("LieDown"), 0.f);
+        if (Common::Status()->IsStretcherMode())
+        {
+            m_AnimMesh2->SetAnim(_T("TankaRest"), 0.f);
+        }
+        else
+        {
+            m_AnimMesh2->SetAnim(_T("LieDown"), 0.f);
+        }
         auto status = NSStarmanLib::StatusManager::GetObj();
         status->SetPlayerAction(NSStarmanLib::StatusManager::PlayerState::LYING_DOWN);
         status->SetSleep(true);
