@@ -130,21 +130,21 @@ Player::Player()
     }
     {
         AnimSetting animSetting { };
-        animSetting.m_startPos = 17.0f;
+        animSetting.m_startPos = 19.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = true;
         animSetMap[_T("TankaIdle")] = animSetting;
     }
     {
         AnimSetting animSetting { };
-        animSetting.m_startPos = 18.0f;
+        animSetting.m_startPos = 20.0f;
         animSetting.m_duration = 0.97f;
-        animSetting.m_loop = false;
+        animSetting.m_loop = true;
         animSetMap[_T("TankaWalk")] = animSetting;
     }
     {
         AnimSetting animSetting { };
-        animSetting.m_startPos = 19.0f;
+        animSetting.m_startPos = 21.0f;
         animSetting.m_duration = 0.97f;
         animSetting.m_loop = true;
         animSetMap[_T("TankaRest")] = animSetting;
@@ -391,7 +391,14 @@ void Player::Update(Map* map)
     {
         if (Common::Status()->IsStretcherMode())
         {
-            m_AnimMesh2->SetAnim(_T("TankaIdle"));
+            if (Common::Status()->IsUnderwater())
+            {
+                m_AnimMesh2->SetAnim(_T("IdleWater"));
+            }
+            else
+            {
+                m_AnimMesh2->SetAnim(_T("TankaIdle"));
+            }
         }
     }
 

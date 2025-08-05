@@ -339,7 +339,7 @@ void MenuManager::InitMenu()
                     itemInfoG.SetSubId(itemInfo.GetSubId());
                     itemInfoG.SetDetail(work_str);
 
-                    // ID : 27 ~ 32 == 袋
+                    // 袋
                     if (itemInfo.GetItemDef().GetUnreinforcedId() == L"bag")
                     {
                         itemInfoG.SetEquipEnable(true);
