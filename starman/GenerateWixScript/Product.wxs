@@ -1065,6 +1065,9 @@
                 <File Source="../starman/res/model/sun.x" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tanka.png" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/tex.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
