@@ -585,19 +585,19 @@
                 <File Source="../starman/res/image/yakizakana.png" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
-                <File Source="../starman/res/shader/animation_mesh_shader.fx" />
+                <File Source="../starman/res/shader/AnimationMeshShader.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
-                <File Source="../starman/res/shader/mesh_shader.fx" />
+                <File Source="../starman/res/shader/MeshShader.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
-                <File Source="../starman/res/shader/mesh_shader_2Texture.fx" />
+                <File Source="../starman/res/shader/MeshShader2Texture.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
-                <File Source="../starman/res/shader/mesh_shader_cull_none.fx" />
+                <File Source="../starman/res/shader/MeshShaderCullNone.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
-                <File Source="../starman/res/shader/mesh_shader_no_shade.fx" />
+                <File Source="../starman/res/shader/MeshShaderNoShade.fx" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/aerial_rocks_02_diff_4k.dds" />
@@ -1063,6 +1063,9 @@
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/sun.x" />
+            </Component>
+            <Component Directory="MODEL" Guid="*" Win64="yes">
+                <File Source="../starman/res/model/tanka.png" />
             </Component>
             <Component Directory="MODEL" Guid="*" Win64="yes">
                 <File Source="../starman/res/model/tex.png" />
