@@ -149,7 +149,7 @@ Player::Player()
         animSetting.m_loop = true;
         animSetMap[_T("TankaRest")] = animSetting;
     }
-    m_AnimMesh2 = NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap);
+    m_AnimMesh2 = Ptr<AnimMesh>(NEW AnimMesh(_T("res\\model\\hoshiman.x"), pos, rot, 1.f, animSetMap));
     m_AnimMesh2->SetAnim(_T("0_Idle"));
     SoundEffect::get_ton()->load(_T("res\\sound\\attack01.wav"));
 
@@ -176,7 +176,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\rock1.x"), pos, rot, 0.1f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w1")] = mesh;
+        m_weaponMesh[_T("w1")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -184,7 +184,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\stick.x"), pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w2")] = mesh;
+        m_weaponMesh[_T("w2")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -192,7 +192,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\ax.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w7")] = mesh;
+        m_weaponMesh[_T("w7")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -200,7 +200,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\atlatl.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w9")] = mesh;
+        m_weaponMesh[_T("w9")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -208,7 +208,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\arrow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w10")] = mesh;
+        m_weaponMesh[_T("w10")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -216,7 +216,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\ironPipe.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w5")] = mesh;
+        m_weaponMesh[_T("w5")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -224,7 +224,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\ironPipeEx.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w6")] = mesh;
+        m_weaponMesh[_T("w6")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -232,7 +232,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\spear.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w3")] = mesh;
+        m_weaponMesh[_T("w3")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -240,7 +240,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\bow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w4")] = mesh;
+        m_weaponMesh[_T("w4")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, -0.3f);
@@ -248,7 +248,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\arrow.x"), pos, rot, 1.0f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w8")] = mesh;
+        m_weaponMesh[_T("w8")] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -256,7 +256,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(_T("res\\model\\torch.x"), pos, rot, 1.f);
         mesh->Init();
         mesh->SetWeapon(true);
-        m_weaponMesh[_T("w11")] = mesh;
+        m_weaponMesh[_T("w11")] = Ptr<Mesh>(mesh);
     }
     
     // 袋
@@ -266,7 +266,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
-        m_bagMesh[NSStarmanLib::eBagPos::Back1] = mesh;
+        m_bagMesh[NSStarmanLib::eBagPos::Back1] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -274,7 +274,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
-        m_bagMesh[NSStarmanLib::eBagPos::Back2] = mesh;
+        m_bagMesh[NSStarmanLib::eBagPos::Back2] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -282,7 +282,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
-        m_bagMesh[NSStarmanLib::eBagPos::Front] = mesh;
+        m_bagMesh[NSStarmanLib::eBagPos::Front] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -290,7 +290,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
-        m_bagMesh[NSStarmanLib::eBagPos::Left] = mesh;
+        m_bagMesh[NSStarmanLib::eBagPos::Left] = Ptr<Mesh>(mesh);
     }
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
@@ -298,7 +298,7 @@ Player::Player()
         Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
-        m_bagMesh[NSStarmanLib::eBagPos::Right] = mesh;
+        m_bagMesh[NSStarmanLib::eBagPos::Right] = Ptr<Mesh>(mesh);
     }
 
     // 菅笠
@@ -307,7 +307,7 @@ Player::Player()
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
         Mesh * mesh = NEW Mesh(_T("res\\model\\sugegasa.blend.x"), pos, rot, 1.0f);
         mesh->Init();
-        m_sugegasaMesh = mesh;
+        m_sugegasaMesh = Ptr<Mesh>(mesh);
     }
 
     float x = 0.f;
@@ -338,15 +338,6 @@ Player::Player()
 
 Player::~Player()
 {
-    SAFE_DELETE(m_AnimMesh2);
-    for (auto it = m_weaponMesh.begin(); it != m_weaponMesh.end(); ++it)
-    {
-        SAFE_DELETE(it->second);
-    }
-
-    // TODO 袋の解放
-
-    // TODO 菅笠の解放
 }
 
 void Player::Update(Map* map)

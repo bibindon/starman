@@ -189,7 +189,7 @@ SeqEnding::SeqEnding()
         ISprite* sprFade = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprFade->Load(_T("res\\image\\black.png"));
 
-        IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
+        NSStoryTelling::IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
 
         auto finished = QuestManager::Get()->GetQuestFinished(L"Q8500");
 

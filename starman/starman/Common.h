@@ -172,3 +172,6 @@ inline void SAFE_DELETE_ARRAY(T*& p)
     p = nullptr;
 }
 
+template<typename T>
+using Ptr = std::shared_ptr<T>;
+

@@ -63,12 +63,12 @@ public:
     void PlayPullOarAnim();
 
 private:
-    AnimMesh* m_AnimMesh2 = nullptr;
-    std::unordered_map<std::wstring, Mesh*> m_weaponMesh;
-    std::unordered_map<NSStarmanLib::eBagPos, Mesh*> m_bagMesh;
+    Ptr<AnimMesh> m_AnimMesh2 = nullptr;
+    std::unordered_map<std::wstring, Ptr<Mesh>> m_weaponMesh;
+    std::unordered_map<NSStarmanLib::eBagPos, Ptr<Mesh>> m_bagMesh;
 
     // 菅笠の3Dモデル
-    Mesh* m_sugegasaMesh;
+    Ptr<Mesh> m_sugegasaMesh;
 
     // なぜloadingPosという名前なのか謎
     D3DXVECTOR3 m_loadingPos = D3DXVECTOR3(0.f, 0.f, 0.f);

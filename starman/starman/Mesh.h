@@ -6,6 +6,7 @@
 #include <vector>
 #include <memory>
 #include <tchar.h>
+#include <atlbase.h>
 
 class Mesh
 {
@@ -44,12 +45,12 @@ private:
     const std::wstring SHADER_FILENAME = _T("res\\shader\\MeshShader.fx");
     std::wstring m_meshName;
 
-    LPD3DXEFFECT m_D3DEffect = nullptr;
-    LPD3DXMESH m_D3DMesh = nullptr;
+    CComPtr<ID3DXEffect> m_D3DEffect = nullptr;
+    CComPtr<ID3DXMesh> m_D3DMesh = nullptr;
 
     DWORD m_materialCount = 0;
     std::vector<D3DXVECTOR4> m_vecDiffuse;
-    std::vector<LPDIRECT3DTEXTURE9> m_vecTexture;
+    std::vector<CComPtr<IDirect3DTexture9> > m_vecTexture;
 
     D3DXVECTOR3 m_pos = { 0.f, 0.f, 0.f };
     D3DXVECTOR3 m_rotate = { 0.f, 0.f, 0.f };

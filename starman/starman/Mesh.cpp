@@ -41,13 +41,6 @@ Mesh::Mesh(const std::wstring& shaderName,
 
 Mesh::~Mesh()
 {
-    for (size_t i = 0; i < m_vecTexture.size(); ++i)
-    {
-        SAFE_RELEASE(m_vecTexture.at(i));
-    }
-
-    SAFE_RELEASE(m_D3DMesh);
-    SAFE_RELEASE(m_D3DEffect);
 }
 
 void Mesh::Init()
@@ -124,7 +117,6 @@ void Mesh::Init()
 
     assert(hResult == S_OK);
 
-    SAFE_RELEASE(m_D3DMesh);
     m_D3DMesh = tempMesh;
 
     DWORD* adjacencyList = (DWORD*)adjacencyBuffer->GetBufferPointer();

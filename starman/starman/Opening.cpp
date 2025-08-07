@@ -176,7 +176,7 @@ Opening::Opening()
         ISprite* sprFade = NEW NSStoryTelling::Sprite(SharedObj::GetD3DDevice());
         sprFade->Load(_T("res\\image\\black.png"));
 
-        IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
+        NSStoryTelling::IFont* pFont = NEW NSStoryTelling::Font(SharedObj::GetD3DDevice());
 
         std::vector<Page> pageList;
         {
