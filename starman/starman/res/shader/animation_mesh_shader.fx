@@ -17,10 +17,14 @@ void vertex_shader(
     out float4 out_texture  : TEXCOORD0)
 {
     out_position  = mul(in_position, g_world_view_projection);
-    //in_normal = mul(in_normal, g_world); // spot light source
     in_normal = normalize(in_normal);
 
-    float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
+    // ハーフランバート
+    float dot_ = dot(in_normal, g_light_normal);
+    dot_ += 1.f;
+    dot_ *= 0.5f;
+
+    float light_intensity = g_light_brightness * dot_;
     out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
     out_diffuse.r *= 0.7f; // 暗くしてみる
     out_diffuse.gb *= 0.5f; // 暗くしてみる

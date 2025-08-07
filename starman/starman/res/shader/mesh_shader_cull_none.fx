@@ -27,7 +27,12 @@ void vertex_shader(
 {
     out_position  = mul(in_position, g_world_view_projection);
 
-    float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
+    // ハーフランバート
+    float dot_ = dot(in_normal, g_light_normal);
+    dot_ += 1.f;
+    dot_ *= 0.5f;
+
+    float light_intensity = g_light_brightness * dot_;
     out_diffuse = g_diffuse * max(0, light_intensity) + g_ambient;
     out_diffuse.r *= 0.9f; // 暗くしてみる
     out_diffuse.gb *= 0.6f; // 暗くしてみる

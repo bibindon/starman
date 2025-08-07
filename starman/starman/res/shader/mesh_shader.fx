@@ -34,7 +34,12 @@ void vertex_shader(
 {
     out_position  = mul(in_position, g_world_view_projection);
 
-    float light_intensity = g_light_brightness * dot(in_normal, g_light_normal);
+    // ハーフランバート
+    float dot_ = dot(in_normal, g_light_normal);
+    dot_ += 1.f;
+    dot_ *= 0.5f;
+
+    float light_intensity = g_light_brightness * dot_;
 
     float4 _ambient = g_ambient;
     if (g_inCaveFadeFinish)
