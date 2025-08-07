@@ -122,8 +122,6 @@ void AnimMesh::Render()
 
     m_D3DEffect->SetVector(m_lightNormalHandle, &dirToLight);
 
-    // m_D3DEffect->SetVector(m_lightNormalHandle, &lightNormal);
-    // m_D3DEffect->SetVector(m_lightNormalHandle, &modelDir);
     m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
 
     m_viewMatrix = Camera::GetViewMatrix();
