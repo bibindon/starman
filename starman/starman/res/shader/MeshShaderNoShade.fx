@@ -1,8 +1,11 @@
-// BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
-
+//--------------------------------------------
 // 陰を表示しないシェーダー
+//
+// BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
+//--------------------------------------------
+
 float4x4 g_matWorldViewProj;
-float4 g_vecDiffuse = { 0.1f, 0.1f,0.1f, 0.5f };
+float4 g_vecDiffuse = { 0.0f, 0.0f,0.0f, 0.0f };
 
 void vertex_shader(in  float4 inPos  : POSITION,
                    out float4 outPos : POSITION)

@@ -417,14 +417,14 @@ void MeshClone::Render()
     //--------------------------------------------------------
     // 雨だったら霧を濃くする
     //--------------------------------------------------------
-    D3DXVECTOR4 fog_color;
+    D3DXVECTOR4 g_vecFogColor;
 
     if (!Rain::Get()->IsRain())
     {
-        fog_color.x = 0.5f;
-        fog_color.y = 0.3f;
-        fog_color.z = 0.2f;
-        fog_color.w = 1.0f;
+        g_vecFogColor.x = 0.5f;
+        g_vecFogColor.y = 0.3f;
+        g_vecFogColor.z = 0.2f;
+        g_vecFogColor.w = 1.0f;
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
@@ -436,10 +436,10 @@ void MeshClone::Render()
     }
     else
     {
-        fog_color.x = 0.3f;
-        fog_color.y = 0.3f;
-        fog_color.z = 0.5f;
-        fog_color.w = 1.0f;
+        g_vecFogColor.x = 0.3f;
+        g_vecFogColor.y = 0.3f;
+        g_vecFogColor.z = 0.5f;
+        g_vecFogColor.w = 1.0f;
 
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
@@ -451,7 +451,7 @@ void MeshClone::Render()
         }
     }
 
-    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("fog_color", &fog_color);
+    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("g_vecFogColor", &g_vecFogColor);
     assert(hResult == S_OK);
 
     m_D3DEffectMap.at(m_meshName)->Begin(nullptr, 0);
@@ -553,14 +553,14 @@ void MeshClone::Begin()
     //--------------------------------------------------------
     // 雨だったら霧を濃くする
     //--------------------------------------------------------
-    D3DXVECTOR4 fog_color;
+    D3DXVECTOR4 g_vecFogColor;
 
     if (!Rain::Get()->IsRain())
     {
-        fog_color.x = 0.5f;
-        fog_color.y = 0.3f;
-        fog_color.z = 0.2f;
-        fog_color.w = 1.0f;
+        g_vecFogColor.x = 0.5f;
+        g_vecFogColor.y = 0.3f;
+        g_vecFogColor.z = 0.2f;
+        g_vecFogColor.w = 1.0f;
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
@@ -572,10 +572,10 @@ void MeshClone::Begin()
     }
     else
     {
-        fog_color.x = 0.3f;
-        fog_color.y = 0.3f;
-        fog_color.z = 0.5f;
-        fog_color.w = 1.0f;
+        g_vecFogColor.x = 0.3f;
+        g_vecFogColor.y = 0.3f;
+        g_vecFogColor.z = 0.5f;
+        g_vecFogColor.w = 1.0f;
 
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
@@ -587,7 +587,7 @@ void MeshClone::Begin()
         }
     }
 
-    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("fog_color", &fog_color);
+    hResult = m_D3DEffectMap.at(m_meshName)->SetVector("g_vecFogColor", &g_vecFogColor);
     assert(hResult == S_OK);
 
     if (!m_bFirstMap.at(m_meshName))

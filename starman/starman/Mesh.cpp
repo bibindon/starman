@@ -294,7 +294,7 @@ void Mesh::Render()
     {
         if (SharedObj::GetMap()->IsFinishCaveInFade())
         {
-            hResult = m_D3DEffect->SetBool("g_inCaveFadeFinish", SharedObj::GetPlayer()->IsInCave());
+            hResult = m_D3DEffect->SetBool("g_bCaveFadeFinish", SharedObj::GetPlayer()->IsInCave());
             assert(hResult == S_OK);
         }
     }
@@ -302,14 +302,14 @@ void Mesh::Render()
     //--------------------------------------------------------
     // 雨だったら霧を濃くする
     //--------------------------------------------------------
-    D3DXVECTOR4 fog_color;
+    D3DXVECTOR4 g_vecFogColor;
 
     if (!Rain::Get()->IsRain())
     {
-        fog_color.x = 0.5f;
-        fog_color.y = 0.3f;
-        fog_color.z = 0.2f;
-        fog_color.w = 1.0f;
+        g_vecFogColor.x = 0.5f;
+        g_vecFogColor.y = 0.3f;
+        g_vecFogColor.z = 0.2f;
+        g_vecFogColor.w = 1.0f;
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
@@ -331,10 +331,10 @@ void Mesh::Render()
     }
     else
     {
-        fog_color.x = 0.3f;
-        fog_color.y = 0.3f;
-        fog_color.z = 0.5f;
-        fog_color.w = 1.0f;
+        g_vecFogColor.x = 0.3f;
+        g_vecFogColor.y = 0.3f;
+        g_vecFogColor.z = 0.5f;
+        g_vecFogColor.w = 1.0f;
 
         // 雨だったら霧を3倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
@@ -356,7 +356,7 @@ void Mesh::Render()
         }
     }
 
-    hResult = m_D3DEffect->SetVector("fog_color", &fog_color);
+    hResult = m_D3DEffect->SetVector("g_vecFogColor", &g_vecFogColor);
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
