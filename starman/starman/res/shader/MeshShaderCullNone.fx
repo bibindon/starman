@@ -4,7 +4,6 @@ float4x4 g_matWorldViewProj;
 float4 g_vecLightNormal;
 float g_fLightBrigntness;
 float4 g_vecDiffuse;
-//float4 g_vecAmbient = { 0.45f, 0.4f, 0.3f, 0.0f };
 float4 g_vecAmbient = { 0.1f, 0.1f, 0.1f, 0.0f };
 float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 texture g_texture;
@@ -64,7 +63,7 @@ void vertex_shader(
 float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
 float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 
-sampler mesh_texture_sampler = sampler_state {
+sampler g_samplerMeshTexture = sampler_state {
     Texture   = (g_texture);
     MipFilter = LINEAR;
     MinFilter = LINEAR;
@@ -83,14 +82,9 @@ void pixel_shader(
 {
     float4 color_result = (float4) 0;
 
-    color_result = tex2D(mesh_texture_sampler, inTexCoord);
+    color_result = tex2D(g_samplerMeshTexture, inTexCoord);
 
     outDiffuse = (inDiffuse * color_result);
-
-//    if (outDiffuse.r == 0.0f && outDiffuse.r == 0.0f && outDiffuse.r == 0.0f)
-//    {
-//        outDiffuse = inDiffuse;
-//    }
 
     //------------------------------------------------------
     // 霧の描画
@@ -121,7 +115,6 @@ void pixel_shader(
         // 最終カラー
         outDiffuse += color_result * g_vecLightColor * attenuation;
     }
-
 }
 
 technique Technique1

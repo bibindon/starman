@@ -15,13 +15,13 @@ float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 float g_fFogDensity;
 float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
 
-float4 g_vecPointLightPos = { 1, 1, 1, 0};
+float4 g_vecPointLightPos = { 0, 0, 0, 0};
 bool g_bPointLightEnable;
 
 bool g_bCaveFadeFinish = false;
 
 texture g_texture;
-sampler mesh_texture_sampler = sampler_state
+sampler g_samplerMeshTexture = sampler_state
 {
     Texture   = (g_texture);
     MipFilter = LINEAR;
@@ -30,20 +30,28 @@ sampler mesh_texture_sampler = sampler_state
     MaxAnisotropy = 8;
 };
 
-
+//==================================================================
+// 頂点シェーダー
+//==================================================================
 void vertex_shader(in  float4 inPos          : POSITION,
                    in  float4 inNormal       : NORMAL0,
                    in  float4 inTexCoord     : TEXCOORD0,
 
                    out float4 outPos         : POSITION,
-                   out float4 outDiffuse     : COLOR0,
+                   out float4 outVecColor     : COLOR0,
                    out float4 outTexCoord    : TEXCOORD0,
                    out float  outFogStrength : TEXCOORD1,
                    out float3 outWorldPos    : TEXCOORD2,
                    out float3 outNormal      : TEXCOORD3)
 {
+    //==================================================================
+    // outPos
+    //==================================================================
     outPos  = mul(inPos, g_matWorldViewProj);
 
+    //==================================================================
+    // outVecColor
+    //==================================================================
     // ハーフランバート
     float dot_ = 0.f;
     {
@@ -60,17 +68,23 @@ void vertex_shader(in  float4 inPos          : POSITION,
         _ambient = 0.f;
     }
 
-    outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
+    outVecColor = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
 
     // 暗くする
     {
-        outDiffuse.r *= 0.7f; 
-        outDiffuse.gb *= 0.5f;
-        outDiffuse.a = 1.0f;
+        outVecColor.r *= 0.7f; 
+        outVecColor.gb *= 0.5f;
+        outVecColor.a = 1.0f;
     }
 
+    //==================================================================
+    // outTexCoord
+    //==================================================================
     outTexCoord = inTexCoord;
 
+    //==================================================================
+    // outFogStrength
+    //==================================================================
     //----------------------------------
     // 霧の描画
     //----------------------------------
@@ -91,24 +105,34 @@ void vertex_shader(in  float4 inPos          : POSITION,
 
     outFogStrength = work;
 
+    //==================================================================
+    // outWorldPos
+    //==================================================================
     outWorldPos = mul(inPos, g_matWorld).xyz;
+
+    //==================================================================
+    // outNormal
+    //==================================================================
     outNormal = mul(inNormal, g_matWorld).xyz;
 }
 
-// 多分、赤色成分が少ないテクスチャ画像を使うと、
-// 赤色部分の演算結果がオーバーフローして真っ白になる。
+//==================================================================
+// ピクセルシェーダー
+//==================================================================
 void pixel_shader(in float4 inDiffuse    : COLOR0,
                   in float2 inTexCoord   : TEXCOORD0,
                   in float  inFog        : TEXCOORD1,
                   in float3 inWorldPos   : TEXCOORD2,
                   in float3 inNormal     : TEXCOORD3,
-                  out float4 outDiffuse  : COLOR0)
+                  out float4 outVecColor : COLOR0)
 {
-    float4 color_result = (float4)0;
+    float4 vecColorWork = float4(0.f, 0.f, 0.f, 0.f);
 
-    color_result = tex2D(mesh_texture_sampler, inTexCoord);
+    // テクスチャ画像内の該当する位置の色を取得
+    vecColorWork = tex2D(g_samplerMeshTexture, inTexCoord);
 
-    outDiffuse = (inDiffuse * color_result);
+    // ディヒューズ色と合成
+    outVecColor = (inDiffuse * vecColorWork);
 
     //------------------------------------------------------
     // 霧の描画
@@ -116,29 +140,45 @@ void pixel_shader(in float4 inDiffuse    : COLOR0,
     // 霧はピクセルシェーダーでやらないと意味がない。
     // 頂点シェーダーでやると、遠いほど輝いて見えるようになってしまう
     //------------------------------------------------------
-    float4 fog_color2 = g_vecFogColor * g_fLightBrigntness;
+    float4 vecFogColor = g_vecFogColor * g_fLightBrigntness;
 
-    outDiffuse = (outDiffuse * (1.f - inFog)) + (fog_color2 * inFog);
+    // lerp関数は線形補間をする関数。
+    // 以下のように書くのと同じことであるが覚えるべき。
+    // outVecColor = (outVecColor * (1.f - inFog)) + (vecFogColor * inFog);
+    outVecColor = lerp(outVecColor, vecFogColor, inFog);
 
+    //------------------------------------------------------
     // 夜空は青色にしたい
-    outDiffuse.rg *= (g_fLightBrigntness * 1.414f);
-    outDiffuse.b *= (2.f - g_fLightBrigntness);
+    // 光源の明るさに応じて以下のように倍率をかける
+    // 光源の明るさ 0.0 ~ 1.0
+    // 赤・緑成分   0.0 ~ 1.414
+    // 青成分       2.0 ~ 1.0
+    //------------------------------------------------------
+    outVecColor.rg *= (g_fLightBrigntness * 1.414f);
+    outVecColor.b *= (2.f - g_fLightBrigntness);
 
     //------------------------------------------------------
     // ポイントライト
     //------------------------------------------------------
     if (g_bPointLightEnable)
     {
-        // 距離減衰の計算
+        // ポイントライトまでの距離
         float distance = length((float3)g_vecPointLightPos - inWorldPos);
 
-        // 適当に2乗減衰
-        float attenuation = 50.0 / (distance * distance);
-        attenuation = min(attenuation, 1.0);
+        // 遠いほど小さくなるようにする
+        // attenuation...減衰
+        float attenuation = 50.0f / (distance * distance);
 
-        // 最終カラー
-        outDiffuse += color_result * g_vecLightColor * attenuation;
+        if (attenuation > 2.0f)
+        {
+            attenuation = 2.0f;
+        }
+
+        outVecColor += vecColorWork * g_vecLightColor * attenuation;
     }
+
+    // 0.0から1.0の範囲に収める
+    outVecColor = saturate(outVecColor);
 }
 
 technique Technique1

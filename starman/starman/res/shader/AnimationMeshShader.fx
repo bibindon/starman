@@ -10,7 +10,7 @@ float4 g_vecDiffuse;
 float4 g_vecAmbient = { 0.3f, 0.3f, 0.3f, 0.0f };
 
 texture g_texture;
-sampler mesh_texture_sampler = sampler_state
+sampler g_samplerMeshTexture = sampler_state
 {
     Texture   = (g_texture);
     MipFilter = LINEAR;
@@ -73,7 +73,7 @@ void pixel_shader(in  float4 inDiffuse     : COLOR0,
                   out float4 outDiffuse    : COLOR0)
 {
     float4 color_result = (float4)0;
-    color_result = tex2D(mesh_texture_sampler, inTexCoord);
+    color_result = tex2D(g_samplerMeshTexture, inTexCoord);
     outDiffuse = (inDiffuse * color_result);
 }
 

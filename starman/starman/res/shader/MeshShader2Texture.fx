@@ -74,7 +74,7 @@ void vertex_shader(
 float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
 float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 
-sampler mesh_texture_sampler = sampler_state {
+sampler g_samplerMeshTexture = sampler_state {
     Texture   = (g_texture);
     MipFilter = LINEAR;
     MinFilter = ANISOTROPIC;
@@ -106,7 +106,7 @@ void pixel_shader(
     float2 in_texcood2 = inTexCoord;
     in_texcood2 *= 300.f;
 
-    color_result = tex2D(mesh_texture_sampler, inTexCoord);
+    color_result = tex2D(g_samplerMeshTexture, inTexCoord);
     color_result2 = tex2D(mesh_texture_sampler2, in_texcood2);
 
 //    outDiffuse = (inDiffuse * color_result);
