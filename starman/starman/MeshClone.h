@@ -55,7 +55,7 @@ public:
     static void ForceRelease();
 
 private:
-    std::wstring m_shaderFilename { _T("res\\shader\\mesh_shader.fx") };
+    std::wstring m_shaderFilename { _T("res\\shader\\MeshShader.fx") };
 
     static std::unordered_map<std::wstring, LPD3DXEFFECT> m_D3DEffectMap;
     static std::unordered_map<std::wstring, LPD3DXMESH> m_D3DMeshMap;

@@ -19,12 +19,12 @@ bool g_inCaveFadeFinish = false;
 bool g_tileMode = false;
 
 void vertex_shader(
-    in  float4 in_position  : POSITION,
-    in  float4 in_normal    : NORMAL0,
-    in  float4 in_texcood   : TEXCOORD0,
+    in  float4 inPos  : POSITION,
+    in  float4 inNormal    : NORMAL0,
+    in  float4 inTexCoord   : TEXCOORD0,
 
-    out float4 out_position : POSITION,
-    out float4 out_diffuse  : COLOR0,
+    out float4 outPos : POSITION,
+    out float4 outDiffuse  : COLOR0,
     out float4 out_texcood  : TEXCOORD0,
     out float fog_strength : TEXCOORD1,
     out float3 out_worldPos : TEXCOORD2,
@@ -32,14 +32,14 @@ void vertex_shader(
 
     )
 {
-    out_position  = mul(in_position, g_matWorldViewProj);
+    outPos  = mul(inPos, g_matWorldViewProj);
 
     // ハーフランバート
-    float dot_ = dot(in_normal, g_vecLightNormal);
+    float dot_ = dot(inNormal, g_vecLightNormal);
     dot_ += 1.f;
     dot_ *= 0.5f;
 
-    float light_intensity = g_fLightBrigntness * dot_;
+    float fLightIntensity = g_fLightBrigntness * dot_;
 
     float4 _ambient = g_vecAmbient;
     if (g_inCaveFadeFinish)
@@ -47,18 +47,18 @@ void vertex_shader(
         _ambient = 0.f;
     }
 
-    out_diffuse = g_vecDiffuse * max(0, light_intensity) + _ambient;
-    out_diffuse.r *= 0.7f; // 暗くしてみる
-    out_diffuse.gb *= 0.5f; // 暗くしてみる
-    out_diffuse.a = 1.0f;
+    outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
+    outDiffuse.r *= 0.7f; // 暗くしてみる
+    outDiffuse.gb *= 0.5f; // 暗くしてみる
+    outDiffuse.a = 1.0f;
 
-    out_texcood = in_texcood;
+    out_texcood = inTexCoord;
 
     //----------------------------------
     // 霧の描画
     //----------------------------------
     // ワールド座標に変換
-    float4 worldPos = mul(in_position, g_matWorld);
+    float4 worldPos = mul(inPos, g_matWorld);
 
     // カメラからの距離をワールド空間で計算
     float distance = length(worldPos.xyz - g_vecCameraPos.xyz);
@@ -74,8 +74,8 @@ void vertex_shader(
 
     fog_strength = work;
 
-    out_worldPos = mul(in_position, g_matWorld).xyz;
-    out_normal = mul(in_normal, g_matWorld).xyz;
+    out_worldPos = mul(inPos, g_matWorld).xyz;
+    out_normal = mul(inNormal, g_matWorld).xyz;
 }
 
 float4 fog_color = { 0.5f, 0.3f, 0.2f, 1.0f };
@@ -91,23 +91,23 @@ sampler mesh_texture_sampler = sampler_state {
 
 // 多分、赤色成分が少ないテクスチャ画像を使うと、赤色部分の演算結果がオーバーフローして真っ白になる。
 void pixel_shader(
-                  in float4 in_diffuse   : COLOR0,
-                  in float2 in_texcood   : TEXCOORD0,
+                  in float4 inDiffuse   : COLOR0,
+                  in float2 inTexCoord   : TEXCOORD0,
                   in float  fog          : TEXCOORD1,
                   in float3 in_worldPos  : TEXCOORD2,
-                  in float3 in_normal    : TEXCOORD3,
-                  out float4 out_diffuse : COLOR0
+                  in float3 inNormal    : TEXCOORD3,
+                  out float4 outDiffuse : COLOR0
                   )
 {
     float4 color_result = (float4)0;
 
-    color_result = tex2D(mesh_texture_sampler, in_texcood);
+    color_result = tex2D(mesh_texture_sampler, inTexCoord);
 
-    out_diffuse = (in_diffuse * color_result);
+    outDiffuse = (inDiffuse * color_result);
 
-//    if (out_diffuse.r == 0.0f && out_diffuse.r == 0.0f && out_diffuse.r == 0.0f)
+//    if (outDiffuse.r == 0.0f && outDiffuse.r == 0.0f && outDiffuse.r == 0.0f)
 //    {
-//        out_diffuse = in_diffuse;
+//        outDiffuse = inDiffuse;
 //    }
 
     //------------------------------------------------------
@@ -118,11 +118,11 @@ void pixel_shader(
     //------------------------------------------------------
     float4 fog_color2 = fog_color * g_fLightBrigntness;
 
-    out_diffuse = (out_diffuse * (1.f - fog)) + (fog_color2 * fog);
+    outDiffuse = (outDiffuse * (1.f - fog)) + (fog_color2 * fog);
 
     // 夜空は青色にしたい
-    out_diffuse.rg *= (g_fLightBrigntness * 1.414f);
-    out_diffuse.b *= (2.f - g_fLightBrigntness);
+    outDiffuse.rg *= (g_fLightBrigntness * 1.414f);
+    outDiffuse.b *= (2.f - g_fLightBrigntness);
 
     //------------------------------------------------------
     // ポイントライト
@@ -137,7 +137,7 @@ void pixel_shader(
         attenuation = min(attenuation, 1.0);
 
         // 最終カラー
-        out_diffuse += color_result * light_color * attenuation;
+        outDiffuse += color_result * light_color * attenuation;
     }
 
 }

@@ -45,7 +45,7 @@ private:
         void release_mesh_allocator(const LPD3DXFRAME);
     };
 
-    const std::wstring SHADER_FILENAME = _T("res\\shader\\animation_mesh_shader.fx");
+    const std::wstring SHADER_FILENAME = _T("res\\shader\\AnimationMeshShader.fx");
     std::shared_ptr<AnimMeshAllocator> m_allocator;
     std::unique_ptr<D3DXFRAME, frame_root_deleter_object> m_frameRoot;
     D3DXMATRIX m_rotationMatrix;

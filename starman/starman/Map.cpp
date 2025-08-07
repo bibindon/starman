@@ -65,7 +65,7 @@ void Map::Init()
     m_progress.store(0);
 
     {
-        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader_2Texture.fx"),
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\MeshShader2Texture.fx"),
                               _T("res\\model\\prolitan.x"),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
                               D3DXVECTOR3(0.f, 0.f, 0.f),
@@ -150,7 +150,7 @@ void Map::Init()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(23.f, 490.3f, -565.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader_cull_none.fx"),
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\MeshShaderCullNone.fx"),
                               _T("res\\model\\precision.x"),
                               pos,
                               rot,
@@ -161,7 +161,7 @@ void Map::Init()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(15.84f, 491.5f, -570.95f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader.fx"),
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\MeshShader.fx"),
                               _T("res\\model\\chest.x"),
                               pos,
                               rot,
@@ -172,7 +172,7 @@ void Map::Init()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(1163.2f, 17.1f, 529.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader.fx"),
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\MeshShader.fx"),
                               _T("res\\model\\chest.x"),
                               pos,
                               rot,
@@ -184,7 +184,7 @@ void Map::Init()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(37.1f, 491.5f, -569.9f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, D3DX_PI, 0.f);
-        Mesh* mesh = NEW Mesh(_T("res\\shader\\mesh_shader.fx"),
+        Mesh* mesh = NEW Mesh(_T("res\\shader\\MeshShader.fx"),
                               _T("res\\model\\garbage.blend.x"),
                               pos,
                               rot,

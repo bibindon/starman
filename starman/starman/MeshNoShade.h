@@ -25,7 +25,7 @@ public:
     LPD3DXMESH GetD3DMesh();
 
 private:
-    const std::wstring SHADER_FILENAME { _T("res\\shader\\mesh_shader_no_shade.fx") };
+    const std::wstring SHADER_FILENAME { _T("res\\shader\\MeshShaderNoShade.fx") };
     LPD3DXMESH m_D3DMesh { nullptr };
 
     LPD3DXEFFECT m_D3DEffect { nullptr };

@@ -290,7 +290,7 @@ void Mesh::Render()
     //--------------------------------------------------------
     // 洞窟
     //--------------------------------------------------------
-    if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx"))
+    if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx"))
     {
         if (SharedObj::GetMap()->IsFinishCaveInFade())
         {
@@ -312,9 +312,9 @@ void Mesh::Render()
         fog_color.w = 1.0f;
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
-        // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx")||
-            SHADER_FILENAME == _T("res\\shader\\mesh_shader_2Texture.fx"))
+        // MeshShader.fxの時だけ適用する
+        if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx")||
+            SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx"))
         {
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
@@ -338,9 +338,9 @@ void Mesh::Render()
 
         // 雨だったら霧を3倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
-        // mesh_shader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\mesh_shader.fx")||
-            SHADER_FILENAME == _T("res\\shader\\mesh_shader_2Texture.fx"))
+        // MeshShader.fxの時だけ適用する
+        if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx")||
+            SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx"))
         {
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)

@@ -341,19 +341,19 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="res\shader\animation_mesh_shader.fx">
+    <CustomBuild Include="res\shader\AnimationMeshShader.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
-    <CustomBuild Include="res\shader\mesh_shader.fx">
+    <CustomBuild Include="res\shader\MeshShader.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
-    <CustomBuild Include="res\shader\mesh_shader_cull_none.fx">
+    <CustomBuild Include="res\shader\MeshShaderCullNone.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
-    <CustomBuild Include="res\shader\mesh_shader_no_shade.fx">
+    <CustomBuild Include="res\shader\MeshShaderNoShade.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
-    <CustomBuild Include="res\shader\mesh_shader_2Texture.fx">
+    <CustomBuild Include="res\shader\MeshShader2Texture.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
   </ItemGroup>

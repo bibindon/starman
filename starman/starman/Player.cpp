@@ -263,7 +263,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh(L"res\\shader\\mesh_shader_cull_none.fx",
+        Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Back1] = mesh;
@@ -271,7 +271,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh(L"res\\shader\\mesh_shader_cull_none.fx",
+        Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Back2] = mesh;
@@ -279,7 +279,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh(L"res\\shader\\mesh_shader_cull_none.fx",
+        Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Front] = mesh;
@@ -287,7 +287,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh(L"res\\shader\\mesh_shader_cull_none.fx",
+        Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Left] = mesh;
@@ -295,7 +295,7 @@ Player::Player()
     {
         D3DXVECTOR3 pos = D3DXVECTOR3(0.f, 0.f, 0.f);
         D3DXVECTOR3 rot = D3DXVECTOR3(0.f, 0.f, 0.f);
-        Mesh * mesh = NEW Mesh(L"res\\shader\\mesh_shader_cull_none.fx",
+        Mesh * mesh = NEW Mesh(L"res\\shader\\MeshShaderCullNone.fx",
                                _T("res\\model\\bag.x"), pos, rot, 1.0f);
         mesh->Init();
         m_bagMesh[NSStarmanLib::eBagPos::Right] = mesh;

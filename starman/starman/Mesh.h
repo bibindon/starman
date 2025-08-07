@@ -41,7 +41,7 @@ public:
 
 private:
     const bool FLAT_SHADING = false;
-    const std::wstring SHADER_FILENAME = _T("res\\shader\\mesh_shader.fx");
+    const std::wstring SHADER_FILENAME = _T("res\\shader\\MeshShader.fx");
     std::wstring m_meshName;
 
     LPD3DXEFFECT m_D3DEffect = nullptr;
