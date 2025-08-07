@@ -101,24 +101,29 @@ AnimMesh::~AnimMesh()
 
 void AnimMesh::Render()
 {
-    //D3DXVECTOR4 normal = Light::GetLightNormal();
-    D3DXVECTOR4 normal = D3DXVECTOR4(0.f, 0.f, 0.f, 0.f);
+    D3DXVECTOR4 lightNormal = Light::GetLightNormal();
 
-    if (m_meshName.find(_T("hoshiman.x")) != std::wstring::npos)
-    {
-        int i = 0;
-        ++i;
-    }
+    // モデルが太陽のほうを向いているか
+    D3DXVECTOR4 dirToLight { 0.f,0.f,0.f,0.f };
 
-    normal.x = std::cos(-m_rotation.y);
-    normal.z = std::sin(-m_rotation.y);
+    // モデルの方向ベクトル
+    D3DXVECTOR4 modelDir { 0.f,0.f,0.f,0.f };
 
-    // なぞ
-    normal.y = std::sin(-m_rotation.y);
+    modelDir.x = std::sin(m_rotation.y);
+    modelDir.z = std::cos(m_rotation.y + D3DX_PI);
+    modelDir.y = 0.0f;
 
-    D3DXVec4Normalize(&normal, &normal);
+    // どういうわけか、zが上になっている
+    dirToLight.x = modelDir.x + lightNormal.x;
+    dirToLight.y = modelDir.z + lightNormal.z;
+    dirToLight.z = modelDir.y + lightNormal.y;
 
-    m_D3DEffect->SetVector(m_lightNormalHandle, &normal);
+    D3DXVec4Normalize(&dirToLight, &dirToLight);
+
+    m_D3DEffect->SetVector(m_lightNormalHandle, &dirToLight);
+
+    // m_D3DEffect->SetVector(m_lightNormalHandle, &lightNormal);
+    // m_D3DEffect->SetVector(m_lightNormalHandle, &modelDir);
     m_D3DEffect->SetFloat(m_brightnessHandle, Light::GetBrightness());
 
     m_viewMatrix = Camera::GetViewMatrix();

@@ -147,7 +147,7 @@ void pixel_shader(in float4 inDiffuse    : COLOR0,
     // 赤・緑成分   0.0 ~ 1.414
     // 青成分       2.0 ~ 1.0
     //------------------------------------------------------
-    if (false)
+    if (true)
     {
         outVecColor.rg *= (g_fLightBrigntness * 1.414f);
         outVecColor.b *= (2.f - g_fLightBrigntness);
