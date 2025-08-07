@@ -8,14 +8,14 @@ float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 float g_fLightBrigntness;
 
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.3f, 0.3f, 0.3f, 0.0f };
+float4 g_vecAmbient = { 0.3f, 0.1f, 0.1f, 0.0f };
 
 float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 
 float g_fFogDensity;
 float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
 
-float4 g_vecPointLightPos = { 0, 0, 0, 0};
+float4 g_vecPointLightPos = { 0.f, 0.f, 0.f, 0.f};
 bool g_bPointLightEnable;
 
 bool g_bCaveFadeFinish = false;
@@ -70,13 +70,6 @@ void vertex_shader(in  float4 inPos          : POSITION,
 
     outVecColor = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
 
-    // 暗くする
-    {
-        outVecColor.r *= 0.7f; 
-        outVecColor.gb *= 0.5f;
-        outVecColor.a = 1.0f;
-    }
-
     //==================================================================
     // outTexCoord
     //==================================================================
@@ -94,13 +87,13 @@ void vertex_shader(in  float4 inPos          : POSITION,
     // カメラからの距離をワールド空間で計算
     float distance = length(worldPos.xyz - g_vecCameraPos.xyz);
 
-    float work = 1.0f - ((10000 - distance) / 10000);
+    float work = 1.0f - ((1000 - distance) / 1000);
 
     work *= g_fFogDensity;
 
-    if (work >= 0.6f)
+    if (work >= 0.7f)
     {
-        work = 0.6f;
+        work = 0.7f;
     }
 
     outFogStrength = work;
@@ -154,8 +147,11 @@ void pixel_shader(in float4 inDiffuse    : COLOR0,
     // 赤・緑成分   0.0 ~ 1.414
     // 青成分       2.0 ~ 1.0
     //------------------------------------------------------
-    outVecColor.rg *= (g_fLightBrigntness * 1.414f);
-    outVecColor.b *= (2.f - g_fLightBrigntness);
+    if (false)
+    {
+        outVecColor.rg *= (g_fLightBrigntness * 1.414f);
+        outVecColor.b *= (2.f - g_fLightBrigntness);
+    }
 
     //------------------------------------------------------
     // ポイントライト
@@ -178,6 +174,7 @@ void pixel_shader(in float4 inDiffuse    : COLOR0,
     }
 
     // 0.0から1.0の範囲に収める
+    outVecColor.a = 1.f;
     outVecColor = saturate(outVecColor);
 }
 
@@ -215,3 +212,4 @@ technique Technique1
         PixelShader  = compile ps_3_0 pixel_shader();
     }
 }
+

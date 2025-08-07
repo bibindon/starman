@@ -232,10 +232,21 @@ void MeshClone::Init()
 
         for (DWORD i = 0; i < materialCount; ++i)
         {
-            m_vecColorMap[m_meshName].at(i).x = materials[i].MatD3D.Diffuse.r;
-            m_vecColorMap[m_meshName].at(i).y = materials[i].MatD3D.Diffuse.g;
-            m_vecColorMap[m_meshName].at(i).z = materials[i].MatD3D.Diffuse.b;
-            m_vecColorMap[m_meshName].at(i).w = materials[i].MatD3D.Diffuse.a;
+            if (false)
+            {
+                m_vecColorMap[m_meshName].at(i).x = 1.0f;
+                m_vecColorMap[m_meshName].at(i).y = 1.0f;
+                m_vecColorMap[m_meshName].at(i).z = 1.0f;
+                m_vecColorMap[m_meshName].at(i).w = 1.0f;
+            }
+            else
+            {
+                m_vecColorMap[m_meshName].at(i).x = materials[i].MatD3D.Diffuse.r;
+                m_vecColorMap[m_meshName].at(i).y = materials[i].MatD3D.Diffuse.g;
+                m_vecColorMap[m_meshName].at(i).z = materials[i].MatD3D.Diffuse.b;
+                m_vecColorMap[m_meshName].at(i).w = materials[i].MatD3D.Diffuse.a;
+            }
+
             if (materials[i].pTextureFilename != nullptr &&
                 strlen(materials[i].pTextureFilename) != 0)
             {

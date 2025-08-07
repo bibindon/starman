@@ -719,17 +719,29 @@ void Map::Update()
         //-------------------------------------
         // 太陽の明るさ
         //-------------------------------------
-        // 昼の12時が最も明るく、夜の0時が最も暗いこととする
+        // 昼の12時が最も明るく、
+        // 夜の8時から朝の4時までは真っ暗
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
         float hour = (float)dateTime->GetHour();
         float work1 = 0.f;
-        if (hour <= 12)
+
+        if (0 <= hour && hour <= 3)
         {
-            work1 = hour / 12;
+            work1 = 0.f;
         }
-        else
+        else if (20 <= hour && hour <= 23)
         {
-            work1 = (24 - hour) / 12;
+            work1 = 0.f;
+        }
+        else if (4 <= hour && hour <= 12)
+        {
+            work1 = hour - 4;
+            work1 /= 8;
+        }
+        else if (13 <= hour && hour <= 19)
+        {
+            work1 = 20 - hour;
+            work1 /= 8;
         }
 
         // プレイヤーが洞窟内にいたら明るさ0.0

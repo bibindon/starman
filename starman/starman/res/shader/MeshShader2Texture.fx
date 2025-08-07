@@ -4,7 +4,7 @@ float4x4 g_matWorldViewProj;
 float4 g_vecLightNormal;
 float g_fLightBrigntness;
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.3f, 0.3f, 0.3f, 0.0f };
+float4 g_vecAmbient = { 0.2f, 0.1f, 0.1f, 0.0f };
 float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 texture g_texture;
 texture g_mesh_texture2;
@@ -41,9 +41,6 @@ void vertex_shader(
     }
 
     outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
-    outDiffuse.r *= 0.7f; // 暗くしてみる
-    outDiffuse.gb *= 0.5f; // 暗くしてみる
-    outDiffuse.a = 1.0f;
 
     outTexCoord = inTexCoord;
 
@@ -56,13 +53,13 @@ void vertex_shader(
     // カメラからの距離をワールド空間で計算
     float distance = length(worldPos.xyz - g_vecCameraPos.xyz);
 
-    float work = 1.0f - ((10000 - distance) / 10000);
+    float work = 1.0f - ((1000 - distance) / 1000);
 
     work *= g_fFogDensity;
 
-    if (work >= 0.6f)
+    if (work >= 0.7f)
     {
-        work = 0.6f;
+        work = 0.7f;
     }
 
     outFogStrength = work;
@@ -109,14 +106,8 @@ void pixel_shader(
     color_result = tex2D(g_samplerMeshTexture, inTexCoord);
     color_result2 = tex2D(mesh_texture_sampler2, in_texcood2);
 
-//    outDiffuse = (inDiffuse * color_result);
     color_result = lerp(color_result2, color_result, color_result.a);
     outDiffuse = (inDiffuse * color_result);
-
-//    if (outDiffuse.r == 0.0f && outDiffuse.r == 0.0f && outDiffuse.r == 0.0f)
-//    {
-//        outDiffuse = inDiffuse;
-//    }
 
     //------------------------------------------------------
     // 霧の描画

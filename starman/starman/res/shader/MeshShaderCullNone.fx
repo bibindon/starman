@@ -4,7 +4,7 @@ float4x4 g_matWorldViewProj;
 float4 g_vecLightNormal;
 float g_fLightBrigntness;
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.1f, 0.1f, 0.1f, 0.0f };
+float4 g_vecAmbient = { 0.2f, 0.1f, 0.1f, 0.0f };
 float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 texture g_texture;
 
@@ -48,10 +48,10 @@ void vertex_shader(
     // カメラからの距離をワールド空間で計算
     float distance = length(worldPos.xyz - g_vecCameraPos.xyz);
 
-    float work = 1.0f - ((3000 - distance) / 3000);
-    if (work >= 0.6f)
+    float work = 1.0f - ((1000 - distance) / 1000);
+    if (work >= 0.7f)
     {
-        work = 0.6f;
+        work = 0.7f;
     }
 
     outFogStrength = work;

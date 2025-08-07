@@ -167,11 +167,22 @@ void Mesh::Init()
         //--------------------------------------------------------
         // 拡散反射色の読み込み
         //--------------------------------------------------------
-        D3DXVECTOR4 diffuce { };
-        diffuce.x = materialList[i].MatD3D.Diffuse.r;
-        diffuce.y = materialList[i].MatD3D.Diffuse.g;
-        diffuce.z = materialList[i].MatD3D.Diffuse.b;
-        diffuce.w = materialList[i].MatD3D.Diffuse.a;
+        D3DXVECTOR4 diffuce { 0.f, 0.f, 0.f, 0.f };
+
+        if (true)
+        {
+            diffuce.x = 1.0f;
+            diffuce.y = 1.0f;
+            diffuce.z = 1.0f;
+            diffuce.w = 1.0f;
+        }
+        else
+        {
+            diffuce.x = materialList[i].MatD3D.Diffuse.r;
+            diffuce.y = materialList[i].MatD3D.Diffuse.g;
+            diffuce.z = materialList[i].MatD3D.Diffuse.b;
+            diffuce.w = materialList[i].MatD3D.Diffuse.a;
+        }
 
         m_vecDiffuse.push_back(diffuce);
 

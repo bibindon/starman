@@ -7,7 +7,7 @@ float4 g_vecLightNormal;
 float g_fLightBrigntness;
 
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.3f, 0.3f, 0.3f, 0.0f };
+float4 g_vecAmbient = { 0.2f, 0.1f, 0.1f, 0.0f };
 
 texture g_texture;
 sampler g_samplerMeshTexture = sampler_state
@@ -55,12 +55,8 @@ void vertex_shader(in  float4 inPos        : POSITION,
     // 色 * 光の強さ + 環境光
     outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + g_vecAmbient;
 
-    // 暗くしてみる
-    {
-        outDiffuse.r *= 0.7f;
-        outDiffuse.gb *= 0.5f;
-        outDiffuse.a = 1.0f;
-    }
+    // 0.0 ~ 1.0の範囲に収まるようにする
+    outDiffuse = saturate(outDiffuse);
 
     outTexCoord = inTexCoord;
 }

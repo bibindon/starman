@@ -276,12 +276,24 @@ void AnimMesh::RenderMeshContainer(
 
     for (DWORD i = 0; i < meshContainer->NumMaterials; ++i)
     {
-        D3DXVECTOR4 color {
-            meshContainer->pMaterials[i].MatD3D.Diffuse.r,
-            meshContainer->pMaterials[i].MatD3D.Diffuse.g,
-            meshContainer->pMaterials[i].MatD3D.Diffuse.b,
-            meshContainer->pMaterials[i].MatD3D.Diffuse.a };
-        m_D3DEffect->SetVector(m_diffuseHandle, &color);
+        D3DXVECTOR4 vecDiffuse { 0.f, 0.f, 0.f, 0.f };
+
+        if (true)
+        {
+            vecDiffuse.x = 1.f;
+            vecDiffuse.y = 1.f;
+            vecDiffuse.z = 1.f;
+            vecDiffuse.w = 1.f;
+        }
+        else
+        {
+            vecDiffuse.x = meshContainer->pMaterials[i].MatD3D.Diffuse.r;
+            vecDiffuse.y = meshContainer->pMaterials[i].MatD3D.Diffuse.g;
+            vecDiffuse.z = meshContainer->pMaterials[i].MatD3D.Diffuse.b;
+            vecDiffuse.w = meshContainer->pMaterials[i].MatD3D.Diffuse.a;
+        }
+
+        m_D3DEffect->SetVector(m_diffuseHandle, &vecDiffuse);
         m_D3DEffect->SetTexture(m_meshTextureHandle, meshContainer->m_vecTexture.at(i));
 
         m_D3DEffect->CommitChanges();
