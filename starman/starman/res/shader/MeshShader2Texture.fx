@@ -128,14 +128,18 @@ void pixel_shader(
     //------------------------------------------------------
     if (g_bPointLightEnable)
     {
-        // 距離減衰の計算
+        // ポイントライトまでの距離
         float distance = length((float3)g_vecPointLightPos - inWorldPos);
 
-        // 適当に2乗減衰
-        float attenuation = 50.0 / (distance * distance);
-        attenuation = min(attenuation, 1.0);
+        // 遠いほど小さくなるようにする
+        // attenuation...減衰
+        float attenuation = 50.0f / (distance * distance);
 
-        // 最終カラー
+        if (attenuation > 2.0f)
+        {
+            attenuation = 2.0f;
+        }
+
         outDiffuse += color_result * g_vecLightColor * attenuation;
     }
 
