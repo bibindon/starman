@@ -171,7 +171,7 @@ void MeshNoShade::Render()
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
-    m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
+    m_D3DEffect->SetMatrix("g_matWorldViewProj", &worldViewProjMatrix);
 
     m_D3DEffect->Begin(nullptr, 0);
 
@@ -196,7 +196,7 @@ void MeshNoShade::Render()
 //        vec4Color.y = 0.2f;
 //        vec4Color.z = 0.2f;
 //        vec4Color.w = 1.f;
-        result = m_D3DEffect->SetVector("g_diffuse", &vec4Color);
+        result = m_D3DEffect->SetVector("g_vecDiffuse", &vec4Color);
         m_D3DEffect->CommitChanges();
         m_D3DMesh->DrawSubset(i);
     }

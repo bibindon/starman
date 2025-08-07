@@ -242,7 +242,7 @@ void Mesh::Render()
     normal.z = std::cos(work + D3DX_PI);
     D3DXVec4Normalize(&normal, &normal);
 
-    hResult = m_D3DEffect->SetVector("g_light_normal", &normal);
+    hResult = m_D3DEffect->SetVector("g_vecLightNormal", &normal);
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
@@ -256,12 +256,12 @@ void Mesh::Render()
     {
         if (isLit)
         {
-            hResult = m_D3DEffect->SetBool("pointLightEnable", TRUE);
+            hResult = m_D3DEffect->SetBool("g_bPointLightEnable", TRUE);
             assert(hResult == S_OK);
         }
         else
         {
-            hResult = m_D3DEffect->SetBool("pointLightEnable", FALSE);
+            hResult = m_D3DEffect->SetBool("g_bPointLightEnable", FALSE);
             assert(hResult == S_OK);
         }
     }
@@ -277,14 +277,14 @@ void Mesh::Render()
         ppos2.z = ppos.z;
         ppos2.w = 0;
 
-        hResult = m_D3DEffect->SetVector("g_point_light_pos", &ppos2);
+        hResult = m_D3DEffect->SetVector("g_vecPointLightPos", &ppos2);
         assert(hResult == S_OK);
     }
 
     //--------------------------------------------------------
     // 光源の明るさを設定
     //--------------------------------------------------------
-    hResult = m_D3DEffect->SetFloat("g_light_brightness", Light::GetBrightness());
+    hResult = m_D3DEffect->SetFloat("g_fLightBrigntness", Light::GetBrightness());
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
@@ -319,12 +319,12 @@ void Mesh::Render()
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
             {
-                hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
+                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
                 assert(hResult == S_OK);
             }
             else
             {
-                hResult = m_D3DEffect->SetFloat("g_fog_strength", 1.0f);
+                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
                 assert(hResult == S_OK);
             }
         }
@@ -345,12 +345,12 @@ void Mesh::Render()
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
             {
-                hResult = m_D3DEffect->SetFloat("g_fog_strength", 100.0f);
+                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 100.0f);
                 assert(hResult == S_OK);
             }
             else
             {
-                hResult = m_D3DEffect->SetFloat("g_fog_strength", 100.0f);
+                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 100.0f);
                 assert(hResult == S_OK);
             }
         }
@@ -391,7 +391,7 @@ void Mesh::Render()
         }
     }
 
-    hResult = m_D3DEffect->SetMatrix("g_world", &worldViewProjMatrix);
+    hResult = m_D3DEffect->SetMatrix("g_matWorld", &worldViewProjMatrix);
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
@@ -403,7 +403,7 @@ void Mesh::Render()
     cameraPos.z = Camera::GetEyePos().z;
     cameraPos.w = 0.f;
 
-    hResult = m_D3DEffect->SetVector("g_cameraPos", &cameraPos);
+    hResult = m_D3DEffect->SetVector("g_vecCameraPos", &cameraPos);
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
@@ -412,7 +412,7 @@ void Mesh::Render()
     worldViewProjMatrix *= Camera::GetViewMatrix();
     worldViewProjMatrix *= Camera::GetProjMatrix();
 
-    hResult = m_D3DEffect->SetMatrix("g_world_view_projection", &worldViewProjMatrix);
+    hResult = m_D3DEffect->SetMatrix("g_matWorldViewProj", &worldViewProjMatrix);
     assert(hResult == S_OK);
 
     //--------------------------------------------------------
@@ -429,12 +429,12 @@ void Mesh::Render()
     //--------------------------------------------------------
     for (DWORD i = 0; i < m_materialCount; ++i)
     {
-        hResult = m_D3DEffect->SetVector("g_diffuse", &m_vecDiffuse.at(i));
+        hResult = m_D3DEffect->SetVector("g_vecDiffuse", &m_vecDiffuse.at(i));
         assert(hResult == S_OK);
 
         if (i < m_vecTexture.size())
         {
-            hResult = m_D3DEffect->SetTexture("g_mesh_texture", m_vecTexture.at(i));
+            hResult = m_D3DEffect->SetTexture("g_texture", m_vecTexture.at(i));
             assert(hResult == S_OK);
         }
 

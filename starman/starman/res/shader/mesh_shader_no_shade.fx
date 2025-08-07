@@ -1,13 +1,13 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
 // 陰を表示しないシェーダー
-float4x4 g_world_view_projection;
-float4 g_diffuse = { 0.1f, 0.1f,0.1f, 0.5f };
+float4x4 g_matWorldViewProj;
+float4 g_vecDiffuse = { 0.1f, 0.1f,0.1f, 0.5f };
 
 void vertex_shader(
     in  float4 in_position  : POSITION,
     out float4 out_position : POSITION)
 {
-    out_position  = mul(in_position, g_world_view_projection);
+    out_position  = mul(in_position, g_matWorldViewProj);
 }
 
 void pixel_shader(
@@ -15,12 +15,12 @@ void pixel_shader(
     out float4 out_diffuse : COLOR0
     )
 {
-    out_diffuse = g_diffuse;
+    out_diffuse = g_vecDiffuse;
 }
 
-technique technique_
+technique Technique1
 {
-    pass pass_
+    pass Pass1
     {
         VertexShader = compile vs_3_0 vertex_shader();
         PixelShader  = compile ps_3_0 pixel_shader();

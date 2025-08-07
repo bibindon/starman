@@ -58,12 +58,12 @@ AnimMesh::AnimMesh(
         throw std::exception("Failed to create an effect file.");
     }
 
-    m_worldHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world");
-    m_worldViewProjHandle = m_D3DEffect->GetParameterByName(nullptr, "g_world_view_projection");
-    m_lightNormalHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_normal");
-    m_brightnessHandle = m_D3DEffect->GetParameterByName(nullptr, "g_light_brightness");
-    m_meshTextureHandle = m_D3DEffect->GetParameterByName(nullptr, "g_mesh_texture");
-    m_diffuseHandle = m_D3DEffect->GetParameterByName(nullptr, "g_diffuse");
+    m_worldHandle = m_D3DEffect->GetParameterByName(nullptr, "g_matWorld");
+    m_worldViewProjHandle = m_D3DEffect->GetParameterByName(nullptr, "g_matWorldViewProj");
+    m_lightNormalHandle = m_D3DEffect->GetParameterByName(nullptr, "g_vecLightNormal");
+    m_brightnessHandle = m_D3DEffect->GetParameterByName(nullptr, "g_fLightBrigntness");
+    m_meshTextureHandle = m_D3DEffect->GetParameterByName(nullptr, "g_texture");
+    m_diffuseHandle = m_D3DEffect->GetParameterByName(nullptr, "g_vecDiffuse");
 
     LPD3DXFRAME temp_root_frame { nullptr };
     LPD3DXANIMATIONCONTROLLER temp_animation_controller { nullptr };
