@@ -506,6 +506,9 @@
       <FileType>Document</FileType>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)tool\fxc.exe /Zi /Od /Fo $(OutDir)%(Filename).cso /T fx_2_0 /nologo %(FullPath)</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)%(Filename).cso</Outputs>
+      <RootFolder Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </RootFolder>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/LD tool\D3DCompiler_43.dll %(AdditionalOptions)</AdditionalOptions>
     </CustomBuild>
     <CustomBuild Include="res\shader\MeshShaderCullNone.fx">
       <FileType>Document</FileType>

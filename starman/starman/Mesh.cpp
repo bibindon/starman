@@ -444,7 +444,7 @@ void Mesh::Render()
         // prolitan.xの場合に限り、もう一枚テクスチャを使う
         if (m_meshName == L"res\\model\\prolitan.x")
         {
-            hResult = m_D3DEffect->SetTexture("g_mesh_texture2", m_vecTexture.at(1));
+            hResult = m_D3DEffect->SetTexture("g_texture2", m_vecTexture.at(1));
             assert(hResult == S_OK);
         }
 

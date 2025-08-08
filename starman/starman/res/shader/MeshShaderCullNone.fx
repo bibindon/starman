@@ -12,7 +12,7 @@ technique TechniqueCullNone
         AlphaFunc = GreaterEqual;
         AlphaRef = 128;
 
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
+        VertexShader = compile vs_3_0 VertexShader1();
+        PixelShader  = compile ps_3_0 PixelShader1();
     }
 }

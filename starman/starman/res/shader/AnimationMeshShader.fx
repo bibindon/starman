@@ -22,7 +22,7 @@ sampler g_samplerMeshTexture = sampler_state
 //-----------------------------------------------------
 // 頂点シェーダー
 //-----------------------------------------------------
-void vertex_shader(in  float4 inPos        : POSITION,
+void VertexShader1(in  float4 inPos        : POSITION,
                    in  float4 inNormal     : NORMAL0,
                    in  float4 inTexCoord   : TEXCOORD0,
                    out float4 outPos       : POSITION,
@@ -65,7 +65,7 @@ void vertex_shader(in  float4 inPos        : POSITION,
 //-----------------------------------------------------
 // ピクセルシェーダー
 //-----------------------------------------------------
-void pixel_shader(in  float4 inDiffuse     : COLOR0,
+void PixelShader1(in  float4 inDiffuse     : COLOR0,
                   in  float2 inTexCoord    : TEXCOORD0,
                   out float4 outDiffuse    : COLOR0)
 {
@@ -78,8 +78,8 @@ technique Technique1
 {
     pass Pass1
     {
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
+        VertexShader = compile vs_3_0 VertexShader1();
+        PixelShader  = compile ps_3_0 PixelShader1();
     }
 }
 

@@ -1,13 +1,19 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
+
+#include "Common.fx"
+
 float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
+
 float4 g_vecLightNormal;
 float g_fLightBrigntness;
+
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.2f, 0.1f, 0.1f, 0.0f };
+
 float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
+
 texture g_texture;
-texture g_mesh_texture2;
+texture g_texture2;
 
 float g_fFogDensity;
 
@@ -16,19 +22,37 @@ bool g_bPointLightEnable;
 
 bool g_bCaveFadeFinish = false;
 
-void vertex_shader(
-    in  float4 inPos  : POSITION,
-    in  float4 inNormal    : NORMAL0,
-    in  float4 inTexCoord   : TEXCOORD0,
+float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
+float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 
-    out float4 outPos : POSITION,
-    out float4 outDiffuse  : COLOR0,
-    out float4 outTexCoord  : TEXCOORD0,
-    out float outFogStrength : TEXCOORD1,
-    out float3 outWorldPos : TEXCOORD2,
-    out float3 outNormal : TEXCOORD3
+sampler g_samplerMeshTexture = sampler_state
+{
+    Texture   = (g_texture);
+    MipFilter = LINEAR;
+    MinFilter = ANISOTROPIC;
+    MagFilter = ANISOTROPIC;
+    MaxAnisotropy = 8;
+};
 
-    )
+sampler mesh_texture_sampler2 = sampler_state
+{
+    Texture   = (g_texture2);
+    MipFilter = LINEAR;
+    MinFilter = ANISOTROPIC;
+    MagFilter = ANISOTROPIC;
+    MaxAnisotropy = 8;
+};
+
+void VertexShader1(in  float4 inPos         : POSITION,
+                   in  float4 inNormal      : NORMAL0,
+                   in  float4 inTexCoord    : TEXCOORD0,
+
+                   out float4 outPos        : POSITION,
+                   out float4 outDiffuse    : COLOR0,
+                   out float4 outTexCoord   : TEXCOORD0,
+                   out float outFogStrength : TEXCOORD1,
+                   out float3 outWorldPos   : TEXCOORD2,
+                   out float3 outNormal     : TEXCOORD3)
 {
     outPos  = mul(inPos, g_matWorldViewProj);
 
@@ -68,46 +92,25 @@ void vertex_shader(
     outNormal = mul(inNormal, g_matWorld).xyz;
 }
 
-float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
-float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
-
-sampler g_samplerMeshTexture = sampler_state {
-    Texture   = (g_texture);
-    MipFilter = LINEAR;
-    MinFilter = ANISOTROPIC;
-    MagFilter = ANISOTROPIC;
-    MaxAnisotropy = 8;
-};
-
-sampler mesh_texture_sampler2 = sampler_state {
-    Texture   = (g_mesh_texture2);
-    MipFilter = LINEAR;
-    MinFilter = ANISOTROPIC;
-    MagFilter = ANISOTROPIC;
-    MaxAnisotropy = 8;
-};
-
 // 多分、赤色成分が少ないテクスチャ画像を使うと、赤色部分の演算結果がオーバーフローして真っ白になる。
-void pixel_shader(
-    in float4 inDiffuse  : COLOR0,
-    in float2 inTexCoord  : TEXCOORD0,
-    in float   fog : TEXCOORD1,
-    in float3 inWorldPos : TEXCOORD2,
-    in float3 inNormal : TEXCOORD3,
-    out float4 outDiffuse : COLOR0
-    )
+void PixelShader1(in float4 inDiffuse    : COLOR0,
+                  in float2 inTexCoord   : TEXCOORD0,
+                  in float  inFogDensity : TEXCOORD1,
+                  in float3 inWorldPos   : TEXCOORD2,
+                  in float3 inNormal     : TEXCOORD3,
+                  out float4 outDiffuse  : COLOR0)
 {
-    float4 color_result = (float4)0;
-    float4 color_result2 = (float4)0;
+    float4 vecResultColor = float4(0.f, 0.f, 0.f, 0.f);
+    float4 vecResultColor2 = float4(0.f, 0.f, 0.f, 0.f);
 
-    float2 in_texcood2 = inTexCoord;
-    in_texcood2 *= 300.f;
+    float2 inTexCoord2 = inTexCoord;
+    inTexCoord2 *= 300.f;
 
-    color_result = tex2D(g_samplerMeshTexture, inTexCoord);
-    color_result2 = tex2D(mesh_texture_sampler2, in_texcood2);
+    vecResultColor = tex2D(g_samplerMeshTexture, inTexCoord);
+    vecResultColor2 = tex2D(mesh_texture_sampler2, inTexCoord2);
 
-    color_result = lerp(color_result2, color_result, color_result.a);
-    outDiffuse = (inDiffuse * color_result);
+    vecResultColor = lerp(vecResultColor2, vecResultColor, vecResultColor.a);
+    outDiffuse = (inDiffuse * vecResultColor);
 
     //------------------------------------------------------
     // 霧の描画
@@ -117,7 +120,7 @@ void pixel_shader(
     //------------------------------------------------------
     float4 fog_color2 = g_vecFogColor * g_fLightBrigntness;
 
-    outDiffuse = (outDiffuse * (1.f - fog)) + (fog_color2 * fog);
+    outDiffuse = (outDiffuse * (1.f - inFogDensity)) + (fog_color2 * inFogDensity);
 
     // 夜空は青色にしたい
     outDiffuse.rg *= (g_fLightBrigntness * 1.414f);
@@ -140,21 +143,15 @@ void pixel_shader(
             attenuation = 2.0f;
         }
 
-        outDiffuse += color_result * g_vecLightColor * attenuation;
+        outDiffuse += vecResultColor * g_vecLightColor * attenuation;
     }
-
 }
 
 technique Technique1
 {
     pass Pass1
     {
-
-        //AlphaBlendEnable = TRUE;
-        //SrcBlend = SRCALPHA;
-        //DestBlend = INVSRCALPHA;
-
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
+        VertexShader = compile vs_3_0 VertexShader1();
+        PixelShader  = compile ps_3_0 PixelShader1();
     }
 }

@@ -344,9 +344,6 @@
     <CustomBuild Include="res\shader\AnimationMeshShader.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
-    <CustomBuild Include="res\shader\MeshShader.fx">
-      <Filter>リソース ファイル</Filter>
-    </CustomBuild>
     <CustomBuild Include="res\shader\MeshShaderCullNone.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
@@ -354,6 +351,9 @@
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
     <CustomBuild Include="res\shader\MeshShader2Texture.fx">
+      <Filter>リソース ファイル</Filter>
+    </CustomBuild>
+    <CustomBuild Include="res\shader\MeshShader.fx">
       <Filter>リソース ファイル</Filter>
     </CustomBuild>
   </ItemGroup>
