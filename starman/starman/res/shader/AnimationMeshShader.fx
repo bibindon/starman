@@ -1,5 +1,7 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
 
+#include "Common.fx"
+
 float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
 
@@ -7,7 +9,6 @@ float4 g_vecLightNormal;
 float g_fLightBrigntness;
 
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.2f, 0.1f, 0.1f, 0.0f };
 
 texture g_texture;
 sampler g_samplerMeshTexture = sampler_state

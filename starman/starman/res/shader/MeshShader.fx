@@ -1,5 +1,7 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
 
+#include "Common.fx"
+
 float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
 
@@ -8,7 +10,6 @@ float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 float g_fLightBrigntness;
 
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.3f, 0.1f, 0.1f, 0.0f };
 
 float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
 
@@ -185,28 +186,6 @@ technique Technique1
         AlphaBlendEnable = TRUE;
         SrcBlend = SRCALPHA;
         DestBlend = INVSRCALPHA;
-
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
-    }
-
-    pass PassCullNone
-    {
-        CullMode = None;
-
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
-    }
-
-    // 木の葉っぱのような、
-    // 反対側からも見える必要があり、
-    // 完全に透明な部分（葉っぱがない部分）が存在する3Dモデルのためのパス
-    pass PassLeaf
-    {
-        CullMode = None;
-        AlphaTestEnable = TRUE;
-        AlphaFunc = GreaterEqual;
-        AlphaRef = 128;
 
         VertexShader = compile vs_3_0 vertex_shader();
         PixelShader  = compile ps_3_0 pixel_shader();
