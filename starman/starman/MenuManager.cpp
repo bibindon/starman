@@ -44,13 +44,13 @@ public:
         }
 
         D3DXVECTOR3 pos { (float)x, (float)y, 0.f };
+
         m_D3DSprite->Begin(D3DXSPRITE_ALPHABLEND);
-        RECT rect = {
-            0,
-            0,
-            static_cast<LONG>(m_width),
-            static_cast<LONG>(m_height) };
-        D3DXVECTOR3 center { 0, 0, 0 };
+
+        RECT rect { 0, 0, static_cast<LONG>(m_width), static_cast<LONG>(m_height) };
+
+        D3DXVECTOR3 center { 0.f, 0.f, 0.f };
+
         m_D3DSprite->Draw(m_texMap.at(m_filepath),
                           &rect,
                           &center,
@@ -86,7 +86,6 @@ public:
             }
             m_width = desc.Width;
             m_height = desc.Height;
-            it->second->AddRef();
             return;
         }
 
@@ -114,16 +113,6 @@ public:
 
     ~Sprite()
     {
-        ULONG refCnt = m_texMap.at(m_filepath)->Release();
-        if (refCnt == 0)
-        {
-            m_texMap.erase(m_filepath);
-        }
-
-        if (m_texMap.empty())
-        {
-            SAFE_RELEASE(m_D3DSprite);
-        }
     }
 
 private:
@@ -131,18 +120,18 @@ private:
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
 
     // スプライトは一つを使いまわす
-    static LPD3DXSPRITE m_D3DSprite;
+    static CComPtr<ID3DXSprite> m_D3DSprite;
 
-    std::wstring m_filepath;
-    UINT m_width { 0 };
-    UINT m_height { 0 };
+    Wstr m_filepath;
+    UINT m_width = 0;
+    UINT m_height = 0;
 
     // 同じ名前の画像ファイルで作られたテクスチャは使いまわす
-    static std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> m_texMap;
+    static std::unordered_map<std::wstring, CComPtr<IDirect3DTexture9>> m_texMap;
 };
 
-LPD3DXSPRITE Sprite::m_D3DSprite = NULL;
-std::unordered_map<std::wstring, LPDIRECT3DTEXTURE9> Sprite::m_texMap;
+CComPtr<ID3DXSprite> Sprite::m_D3DSprite = NULL;
+std::unordered_map<std::wstring, CComPtr<IDirect3DTexture9>> Sprite::m_texMap;
 
 class Font : public IFont
 {
@@ -696,7 +685,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを使う
             if (vs.at(4) == _T("Use"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 if (UseItem(id, subId))
@@ -707,7 +696,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを捨てる
             else if (vs.at(4) == _T("Discard"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
@@ -722,7 +711,7 @@ std::wstring MenuManager::OperateMenu()
                 }
                 else
                 {
-                    auto id = vs.at(2);
+                    auto& id = vs.at(2);
                     int subId = std::stoi(vs.at(3));
                     Equip(id, subId);
                 }
@@ -737,7 +726,7 @@ std::wstring MenuManager::OperateMenu()
                 }
                 else
                 {
-                    auto id = vs.at(2);
+                    auto& id = vs.at(2);
                     int subId = std::stoi(vs.at(3));
                     Unequip(id, subId);
                 }
@@ -747,7 +736,7 @@ std::wstring MenuManager::OperateMenu()
         {
             if (vs.at(4) == _T("Equip"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 Equip(id, subId);
@@ -792,7 +781,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを使う
             if (vs.at(4) == _T("Use"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 if (UseItem(id, subId))
@@ -803,19 +792,19 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを捨てる
             else if (vs.at(4) == _T("Discard"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
             else if (vs.at(4) == _T("Equip"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
             else if (vs.at(4) == _T("Unequip"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
@@ -921,7 +910,7 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを使う
             if (vs.at(4) == _T("Use"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 if (UseItem(id, subId))
@@ -932,19 +921,19 @@ std::wstring MenuManager::OperateMenu()
             // アイテムを捨てる
             else if (vs.at(4) == _T("Discard"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 DeleteItem(id, subId);
             }
             else if (vs.at(4) == _T("Equip"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Equip(id, subId);
             }
             else if (vs.at(4) == _T("Unequip"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
                 Unequip(id, subId);
             }
@@ -953,7 +942,7 @@ std::wstring MenuManager::OperateMenu()
         {
             if (vs.at(4) == _T("Equip"))
             {
-                auto id = vs.at(2);
+                auto& id = vs.at(2);
                 int subId = std::stoi(vs.at(3));
 
                 NSStarmanLib::Inventory* inventory = NSStarmanLib::Inventory::GetObj();

@@ -175,3 +175,12 @@ inline void SAFE_DELETE_ARRAY(T*& p)
 template<typename T>
 using Ptr = std::shared_ptr<T>;
 
+template<typename T>
+using Vec = std::vector<T>;
+
+template<typename T1, typename T2>
+using Umap = std::unordered_map<T1, T2>;
+
+using Wstr = std::wstring;
+
+
