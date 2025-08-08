@@ -202,7 +202,7 @@ private:
     int m_fadeBlackCount = 0;
     int m_fadeInCount = 0;
 
-    Sprite* m_sprBlack = nullptr;
+    Ptr<Sprite> m_sprBlack = nullptr;
 
     //----------------------------------------------
     // クエスト関連処理

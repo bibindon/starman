@@ -461,10 +461,6 @@ SeqBattle::SeqBattle()
         m_spriteExamine = NEW Sprite(_T("res\\image\\examine.en.png"));
     }
 
-    NSTalkLib2::IFont* pFont = NEW NSTalkLib2::Font(SharedObj::GetD3DDevice());
-    NSTalkLib2::ISoundEffect* pSE = NEW NSTalkLib2::SoundEffect();
-    NSTalkLib2::ISprite* sprite = NEW NSTalkLib2::Sprite(SharedObj::GetD3DDevice());
-
     m_hudManager.Init();
 
     Common::SetCursorVisibility(false);
@@ -472,7 +468,7 @@ SeqBattle::SeqBattle()
     m_eState = eBattleState::LOAD;
     InitLoad();
 
-    m_sprBlack = NEW Sprite(_T("res\\image\\black.png"));
+    m_sprBlack = Ptr<Sprite>(NEW Sprite(_T("res\\image\\black.png")));
 
     if (Common::DebugMode())
     {

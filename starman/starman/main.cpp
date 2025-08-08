@@ -79,6 +79,11 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance
     // メモリリーク検出 一番最初に書かないと動作しない
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+    if (false)
+    {
+        _CrtSetBreakAlloc(184998);
+    }
+
     // 例外で終了したときに、例外発生時のスタックトレースを出力する
     _set_se_translator(se_translator);
 
@@ -94,8 +99,8 @@ int APIENTRY WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance
 
     try
     {
-        IKeyBoard* keyboard = NEW KeyBoard();
-        MainWindow window(hInstance, keyboard);
+        Ptr<IKeyBoard> keyboard ( NEW KeyBoard());
+        MainWindow window(hInstance, keyboard.get());
         window.MainLoop();
     }
     catch (...)

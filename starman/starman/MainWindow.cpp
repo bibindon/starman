@@ -37,6 +37,9 @@
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftInfoManager.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/CraftSystem.h"
 #include "../../StarmanLib/StarmanLib/StarmanLib/Help.h"
+#include "../../StarmanLib/StarmanLib/StarmanLib/ActivityBase.h"
+#include "NpcManager.h"
+#include "Rain.h"
 
 SeqBattle* MainWindow::m_seqBattle = nullptr;
 
@@ -430,7 +433,9 @@ MainWindow::~MainWindow()
     NSStarmanLib::RainModel::Get()->Destroy();
     NSStarmanLib::CraftInfoManager::Destroy();
     NSStarmanLib::CraftSystem::Destroy();
+    NSStarmanLib::NpcStatusManager::Destroy();
     NSStarmanLib::Help::Destroy();
+    NSStarmanLib::ActivityBase::Get()->Finalize();
 
     QuestManager::Finalize();
 
@@ -443,6 +448,10 @@ MainWindow::~MainWindow()
     Mouse::Finalize();
     SharedObj::KeyBoard()->Finalize();
     SharedObj::SetKeyBoard(nullptr);
+
+    NpcManager::Finalize();
+    Rain::Finalize();
+    VoyageManager::Destroy();
 
     SAFE_RELEASE(m_D3DFont);
     SAFE_RELEASE(m_directInput);

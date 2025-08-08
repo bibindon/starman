@@ -11,7 +11,7 @@ class Rain
 public:
 
     static Rain* Get();
-    void Finalize();
+    static void Finalize();
     void Update();
     void Draw();
     bool IsRain();

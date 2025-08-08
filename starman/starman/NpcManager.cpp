@@ -17,6 +17,12 @@ NpcManager* NpcManager::Get()
     return m_ton;
 }
 
+void NpcManager::Finalize()
+{
+    delete m_ton;
+    m_ton = nullptr;
+}
+
 void NpcManager::SetPos(const std::wstring& npcName, const float fx, const float fy, const float fz)
 {
     auto npcStatusMgr = NSStarmanLib::NpcStatusManager::GetObj();

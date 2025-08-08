@@ -7,6 +7,7 @@
 class NpcManager
 {
 public:
+
     static NpcManager* Get();
     void SetPos(const std::wstring& npcName,
                 const float fx,
@@ -33,7 +34,10 @@ public:
 
     void Update();
 
+    static void Finalize();
+
 private:
+
     static NpcManager* m_ton;
 
 };

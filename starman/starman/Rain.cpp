@@ -51,8 +51,8 @@ void Rain::Init()
 
 void Rain::Finalize()
 {
-    SAFE_RELEASE(m_texture);
-    SAFE_RELEASE(m_sprite);
+    SAFE_RELEASE(m_obj->m_texture);
+    SAFE_RELEASE(m_obj->m_sprite);
 
     delete m_obj;
     m_obj = nullptr;
