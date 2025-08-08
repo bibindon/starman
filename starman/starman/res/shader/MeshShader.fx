@@ -6,7 +6,7 @@ float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
 
 float4 g_vecLightNormal;
-float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
+float4 g_vecPointLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 float g_fLightBrigntness;
 
 float4 g_vecDiffuse;
@@ -22,7 +22,7 @@ bool g_bPointLightEnable;
 bool g_bCaveFadeFinish = false;
 
 texture g_texture;
-sampler g_samplerMeshTexture = sampler_state
+sampler g_textureSampler = sampler_state
 {
     Texture   = (g_texture);
     MipFilter = LINEAR;
@@ -123,7 +123,7 @@ void PixelShader1(in float4 inDiffuse    : COLOR0,
     float4 vecColorWork = float4(0.f, 0.f, 0.f, 0.f);
 
     // テクスチャ画像内の該当する位置の色を取得
-    vecColorWork = tex2D(g_samplerMeshTexture, inTexCoord);
+    vecColorWork = tex2D(g_textureSampler, inTexCoord);
 
     // ディヒューズ色と合成
     outVecColor = (inDiffuse * vecColorWork);
@@ -171,7 +171,7 @@ void PixelShader1(in float4 inDiffuse    : COLOR0,
             attenuation = 2.0f;
         }
 
-        outVecColor += vecColorWork * g_vecLightColor * attenuation;
+        outVecColor += vecColorWork * g_vecPointLightColor * attenuation;
     }
 
     // 0.0から1.0の範囲に収める

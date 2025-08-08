@@ -11,7 +11,7 @@ float g_fLightBrigntness;
 float4 g_vecDiffuse;
 
 texture g_texture;
-sampler g_samplerMeshTexture = sampler_state
+sampler g_textureSampler = sampler_state
 {
     Texture   = (g_texture);
     MipFilter = LINEAR;
@@ -70,7 +70,7 @@ void PixelShader1(in  float4 inDiffuse     : COLOR0,
                   out float4 outDiffuse    : COLOR0)
 {
     float4 color_result = (float4)0;
-    color_result = tex2D(g_samplerMeshTexture, inTexCoord);
+    color_result = tex2D(g_textureSampler, inTexCoord);
     outDiffuse = (inDiffuse * color_result);
 }
 

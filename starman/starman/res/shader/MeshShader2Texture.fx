@@ -5,27 +5,24 @@
 float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
 
-float4 g_vecLightNormal;
-float g_fLightBrigntness;
+float4 g_vecLightNormal = { 0.0f, 0.0f, 0.0f, 0.0f };
+float g_fLightBrigntness = 0.0f;
 
-float4 g_vecDiffuse;
+float4 g_vecDiffuse = { 0.0f, 0.0f, 0.0f, 0.0f };
 
 float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+float g_fFogDensity = 0.0f;
+float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
+
+bool g_bPointLightEnable = false;
+float4 g_vecPointLightPos = { 1, 1, 1, 0};
+float4 g_vecPointLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 
 texture g_texture;
 texture g_texture2;
 
-float g_fFogDensity;
-
-float4 g_vecPointLightPos = { 1, 1, 1, 0};
-bool g_bPointLightEnable;
-
-bool g_bCaveFadeFinish = false;
-
-float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
-float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
-
-sampler g_samplerMeshTexture = sampler_state
+sampler g_textureSampler = sampler_state
 {
     Texture   = (g_texture);
     MipFilter = LINEAR;
@@ -34,7 +31,7 @@ sampler g_samplerMeshTexture = sampler_state
     MaxAnisotropy = 8;
 };
 
-sampler mesh_texture_sampler2 = sampler_state
+sampler g_textureSampler2 = sampler_state
 {
     Texture   = (g_texture2);
     MipFilter = LINEAR;
@@ -43,12 +40,14 @@ sampler mesh_texture_sampler2 = sampler_state
     MaxAnisotropy = 8;
 };
 
+bool g_bCaveFadeFinish = false;
+
 void VertexShader1(in  float4 inPos         : POSITION,
                    in  float4 inNormal      : NORMAL0,
                    in  float4 inTexCoord    : TEXCOORD0,
 
                    out float4 outPos        : POSITION,
-                   out float4 outDiffuse    : COLOR0,
+                   out float4 outVecColor   : COLOR0,
                    out float4 outTexCoord   : TEXCOORD0,
                    out float outFogStrength : TEXCOORD1,
                    out float3 outWorldPos   : TEXCOORD2,
@@ -64,7 +63,7 @@ void VertexShader1(in  float4 inPos         : POSITION,
         _ambient = 0.f;
     }
 
-    outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
+    outVecColor = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
 
     outTexCoord = inTexCoord;
 
@@ -92,13 +91,12 @@ void VertexShader1(in  float4 inPos         : POSITION,
     outNormal = mul(inNormal, g_matWorld).xyz;
 }
 
-// 多分、赤色成分が少ないテクスチャ画像を使うと、赤色部分の演算結果がオーバーフローして真っ白になる。
-void PixelShader1(in float4 inDiffuse    : COLOR0,
-                  in float2 inTexCoord   : TEXCOORD0,
-                  in float  inFogDensity : TEXCOORD1,
-                  in float3 inWorldPos   : TEXCOORD2,
-                  in float3 inNormal     : TEXCOORD3,
-                  out float4 outDiffuse  : COLOR0)
+void PixelShader1(in float4  inDiffuse    : COLOR0,
+                  in float2  inTexCoord   : TEXCOORD0,
+                  in float   inFogDensity : TEXCOORD1,
+                  in float3  inWorldPos   : TEXCOORD2,
+                  in float3  inNormal     : TEXCOORD3,
+                  out float4 outVecColor   : COLOR0)
 {
     float4 vecResultColor = float4(0.f, 0.f, 0.f, 0.f);
     float4 vecResultColor2 = float4(0.f, 0.f, 0.f, 0.f);
@@ -106,11 +104,11 @@ void PixelShader1(in float4 inDiffuse    : COLOR0,
     float2 inTexCoord2 = inTexCoord;
     inTexCoord2 *= 300.f;
 
-    vecResultColor = tex2D(g_samplerMeshTexture, inTexCoord);
-    vecResultColor2 = tex2D(mesh_texture_sampler2, inTexCoord2);
+    vecResultColor = tex2D(g_textureSampler, inTexCoord);
+    vecResultColor2 = tex2D(g_textureSampler2, inTexCoord2);
 
     vecResultColor = lerp(vecResultColor2, vecResultColor, vecResultColor.a);
-    outDiffuse = (inDiffuse * vecResultColor);
+    outVecColor = (inDiffuse * vecResultColor);
 
     //------------------------------------------------------
     // 霧の描画
@@ -118,13 +116,13 @@ void PixelShader1(in float4 inDiffuse    : COLOR0,
     // 霧はピクセルシェーダーでやらないと意味がない。
     // 頂点シェーダーでやると、遠いほど輝いて見えるようになってしまう
     //------------------------------------------------------
-    float4 fog_color2 = g_vecFogColor * g_fLightBrigntness;
+    outVecColor = lerp(outVecColor, g_vecFogColor, inFogDensity);
 
-    outDiffuse = (outDiffuse * (1.f - inFogDensity)) + (fog_color2 * inFogDensity);
-
-    // 夜空は青色にしたい
-    outDiffuse.rg *= (g_fLightBrigntness * 1.414f);
-    outDiffuse.b *= (2.f - g_fLightBrigntness);
+    //------------------------------------------------------
+    // 夜空を青色にする
+    //------------------------------------------------------
+    outVecColor.rg *= (g_fLightBrigntness * 1.414f);
+    outVecColor.b *= (2.f - g_fLightBrigntness);
 
     //------------------------------------------------------
     // ポイントライト
@@ -143,8 +141,10 @@ void PixelShader1(in float4 inDiffuse    : COLOR0,
             attenuation = 2.0f;
         }
 
-        outDiffuse += vecResultColor * g_vecLightColor * attenuation;
+        outVecColor += vecResultColor * g_vecPointLightColor * attenuation;
     }
+
+    outVecColor = saturate(outVecColor);
 }
 
 technique Technique1
