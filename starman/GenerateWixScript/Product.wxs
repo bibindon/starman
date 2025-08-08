@@ -588,6 +588,9 @@
                 <File Source="../starman/res/shader/AnimationMeshShader.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
+                <File Source="../starman/res/shader/Common.fx" />
+            </Component>
+            <Component Directory="SHADER" Guid="*" Win64="yes">
                 <File Source="../starman/res/shader/MeshShader.fx" />
             </Component>
             <Component Directory="SHADER" Guid="*" Win64="yes">
