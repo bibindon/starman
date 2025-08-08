@@ -429,7 +429,13 @@ std::wstring Common::AddEnIfEng(const std::wstring& filename)
 
 LPCWSTR Common::FontNameEng()
 {
-    //return L"Courier New";
-    return L"Calibri";
+    if (true)
+    {
+        return L"Calibri";
+    }
+    else
+    {
+        return L"Courier New";
+    }
 }
 
