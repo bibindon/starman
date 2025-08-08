@@ -51,11 +51,6 @@ Map::~Map()
 
     for (auto& item : m_meshCloneMap)
     {
-        SAFE_DELETE(item.second);
-    }
-
-    for (auto& item : m_meshCloneMap)
-    {
         item.second->ForceRelease();
     }
 }
@@ -955,25 +950,12 @@ void Map::Update()
 
                     auto meshClone = NEW MeshClone(xName, pos, rot, needShow.at(i).m_scale);
                     meshClone->Init();
-                    m_meshCloneMap[needShow.at(i).m_id] = meshClone;
+                    m_meshCloneMap[needShow.at(i).m_id] = Ptr<MeshClone>(meshClone);
                     mapObjManager->SetShow(needShow.at(i).m_frameX,
                                            needShow.at(i).m_frameZ,
                                            needShow.at(i).m_id,
                                            true);
                 }
-
-                // ResetShow()で一度全部消してるのでこの処理がいらない。
-//                mapObjManager->GetMapObjListHide(player->GetPos().x, player->GetPos().z, &needHide);
-//                for (int i = 0; i < (int)needHide.size(); ++i)
-//                {
-//                    mapObjManager->SetShow(needHide.at(i).m_frameX,
-//                                           needHide.at(i).m_frameZ,
-//                                           needHide.at(i).m_id,
-//                                           false);
-//
-//                    delete m_meshCloneMap.at(needHide.at(i).m_id);
-//                    m_meshCloneMap.erase(needHide.at(i).m_id);
-//                }
             }
 
             // 100メートル以上離れた敵は消す
@@ -1350,13 +1332,13 @@ void Map::Render()
             {
                 if (_begin == nullptr)
                 {
-                    _begin = pair.second;
+                    _begin = pair.second.get();
                     _begin->Begin();
                 }
 
                 pair.second->Render2();
 
-                _end = pair.second;
+                _end = pair.second.get();
             }
         }
         
@@ -1375,13 +1357,13 @@ void Map::Render()
             {
                 if (_begin == nullptr)
                 {
-                    _begin = pair.second;
+                    _begin = pair.second.get();
                     _begin->Begin();
                 }
 
                 pair.second->Render2();
 
-                _end = pair.second;
+                _end = pair.second.get();
             }
         }
         if (_end != nullptr)
@@ -1625,7 +1607,7 @@ bool Map::Intersect(const D3DXVECTOR3& pos, const D3DXVECTOR3& move)
     BOOL  bIsHit2 = false;
     for (auto& pair : m_meshCloneMap)
     {
-        bIsHit2 = IntersectSub(pos, move, pair.second);
+        bIsHit2 = IntersectSub(pos, move, pair.second.get());
         if (bIsHit2)
         {
             break;
@@ -1750,7 +1732,7 @@ D3DXVECTOR3 Map::WallSlide(const D3DXVECTOR3& pos,
     for (auto& pair : m_meshCloneMap)
     {
         bool bIsHit = false;
-        result = WallSlideSub(pos, pair.second, result, &bIsHit, &bInside2);
+        result = WallSlideSub(pos, pair.second.get(), result, &bIsHit, &bInside2);
         if (bIsHit)
         {
             *pHit = true;

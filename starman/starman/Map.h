@@ -173,7 +173,7 @@ private:
     // NPC
     std::unordered_map<std::wstring, AnimMesh*> m_NPC;
 
-    std::unordered_map<int, MeshClone*> m_meshCloneMap;
+    std::unordered_map<int, Ptr<MeshClone>> m_meshCloneMap;
 
     //-------------------------------------------------------
     // 投げられたもの（武器）

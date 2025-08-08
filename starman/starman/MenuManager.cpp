@@ -115,6 +115,12 @@ public:
     {
     }
 
+    static void Finalize()
+    {
+        m_texMap.clear();
+        m_D3DSprite.Release();
+    }
+
 private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
@@ -250,6 +256,7 @@ MenuManager::MenuManager()
 MenuManager::~MenuManager()
 {
     m_menu.Finalize();
+    NSMenulib::Sprite::Finalize();
 }
 
 void MenuManager::InitMenu()
