@@ -2,10 +2,11 @@
 // 陰を表示しないシェーダー
 //
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
+// グローバル変数は何も指定しなければ0で初期化されるので不要
 //--------------------------------------------
 
 float4x4 g_matWorldViewProj;
-float4 g_vecDiffuse = { 0.0f, 0.0f,0.0f, 0.0f };
+float4 g_vecDiffuse;
 
 void VertexShader1(in  float4 inPos  : POSITION,
                    out float4 outPos : POSITION)

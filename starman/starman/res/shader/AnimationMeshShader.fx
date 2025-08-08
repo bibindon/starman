@@ -1,4 +1,5 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
+// グローバル変数は何も指定しなければ0で初期化されるので不要
 
 #include "Common.fx"
 
@@ -69,9 +70,9 @@ void PixelShader1(in  float4 inDiffuse     : COLOR0,
                   in  float2 inTexCoord    : TEXCOORD0,
                   out float4 outDiffuse    : COLOR0)
 {
-    float4 color_result = (float4)0;
-    color_result = tex2D(g_textureSampler, inTexCoord);
-    outDiffuse = (inDiffuse * color_result);
+    float4 outVecColor = (float4)0;
+    outVecColor = tex2D(g_textureSampler, inTexCoord);
+    outDiffuse = (inDiffuse * outVecColor);
 }
 
 technique Technique1

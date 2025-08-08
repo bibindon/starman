@@ -1,21 +1,22 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
+// グローバル変数は何も指定しなければ0で初期化されるので不要
 
 #include "Common.fx"
 
 float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
 
-float4 g_vecLightNormal = { 0.0f, 0.0f, 0.0f, 0.0f };
-float g_fLightBrigntness = 0.0f;
+float4 g_vecLightNormal;
+float g_fLightBrigntness;
 
-float4 g_vecDiffuse = { 0.0f, 0.0f, 0.0f, 0.0f };
+float4 g_vecDiffuse;
 
-float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
+float4 g_vecCameraPos;
 
-float g_fFogDensity = 0.0f;
+float g_fFogDensity;
 float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
 
-bool g_bPointLightEnable = false;
+bool g_bPointLightEnable;
 float4 g_vecPointLightPos = { 1, 1, 1, 0};
 float4 g_vecPointLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 
