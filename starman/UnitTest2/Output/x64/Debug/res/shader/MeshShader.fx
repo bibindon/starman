@@ -1,27 +1,28 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
 
+#include "Common.fx"
+
 float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
 
 float4 g_vecLightNormal;
-float4 g_vecLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
+float4 g_vecPointLightColor = { 0.5f, 0.25f, 0.0f, 1.0f };
 float g_fLightBrigntness;
 
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.3f, 0.1f, 0.1f, 0.0f };
 
-float4 g_vecCameraPos = { 0.0f, 0.0f, 0.0f, 0.0f };
+float4 g_vecCameraPos;
 
 float g_fFogDensity;
 float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
 
-float4 g_vecPointLightPos = { 0.f, 0.f, 0.f, 0.f};
+float4 g_vecPointLightPos;
 bool g_bPointLightEnable;
 
 bool g_bCaveFadeFinish = false;
 
 texture g_texture;
-sampler g_samplerMeshTexture = sampler_state
+sampler g_textureSampler = sampler_state
 {
     Texture   = (g_texture);
     MipFilter = LINEAR;
@@ -33,12 +34,12 @@ sampler g_samplerMeshTexture = sampler_state
 //==================================================================
 // 頂点シェーダー
 //==================================================================
-void vertex_shader(in  float4 inPos          : POSITION,
+void VertexShader1(in  float4 inPos          : POSITION,
                    in  float4 inNormal       : NORMAL0,
                    in  float4 inTexCoord     : TEXCOORD0,
 
                    out float4 outPos         : POSITION,
-                   out float4 outVecColor     : COLOR0,
+                   out float4 outVecColor    : COLOR0,
                    out float4 outTexCoord    : TEXCOORD0,
                    out float  outFogStrength : TEXCOORD1,
                    out float3 outWorldPos    : TEXCOORD2,
@@ -112,7 +113,7 @@ void vertex_shader(in  float4 inPos          : POSITION,
 //==================================================================
 // ピクセルシェーダー
 //==================================================================
-void pixel_shader(in float4 inDiffuse    : COLOR0,
+void PixelShader1(in float4 inDiffuse    : COLOR0,
                   in float2 inTexCoord   : TEXCOORD0,
                   in float  inFog        : TEXCOORD1,
                   in float3 inWorldPos   : TEXCOORD2,
@@ -122,7 +123,7 @@ void pixel_shader(in float4 inDiffuse    : COLOR0,
     float4 vecColorWork = float4(0.f, 0.f, 0.f, 0.f);
 
     // テクスチャ画像内の該当する位置の色を取得
-    vecColorWork = tex2D(g_samplerMeshTexture, inTexCoord);
+    vecColorWork = tex2D(g_textureSampler, inTexCoord);
 
     // ディヒューズ色と合成
     outVecColor = (inDiffuse * vecColorWork);
@@ -170,7 +171,7 @@ void pixel_shader(in float4 inDiffuse    : COLOR0,
             attenuation = 2.0f;
         }
 
-        outVecColor += vecColorWork * g_vecLightColor * attenuation;
+        outVecColor += vecColorWork * g_vecPointLightColor * attenuation;
     }
 
     // 0.0から1.0の範囲に収める
@@ -186,30 +187,8 @@ technique Technique1
         SrcBlend = SRCALPHA;
         DestBlend = INVSRCALPHA;
 
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
-    }
-
-    pass PassCullNone
-    {
-        CullMode = None;
-
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
-    }
-
-    // 木の葉っぱのような、
-    // 反対側からも見える必要があり、
-    // 完全に透明な部分（葉っぱがない部分）が存在する3Dモデルのためのパス
-    pass PassLeaf
-    {
-        CullMode = None;
-        AlphaTestEnable = TRUE;
-        AlphaFunc = GreaterEqual;
-        AlphaRef = 128;
-
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
+        VertexShader = compile vs_3_0 VertexShader1();
+        PixelShader  = compile ps_3_0 PixelShader1();
     }
 }
 

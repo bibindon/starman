@@ -1,4 +1,7 @@
 // BOMありのUTF8だとコンパイルできなくなる。そのため、シェーダーファイルだけはBOMなし
+// グローバル変数は何も指定しなければ0で初期化されるので不要
+
+#include "Common.fx"
 
 float4x4 g_matWorld;
 float4x4 g_matWorldViewProj;
@@ -7,10 +10,9 @@ float4 g_vecLightNormal;
 float g_fLightBrigntness;
 
 float4 g_vecDiffuse;
-float4 g_vecAmbient = { 0.2f, 0.1f, 0.1f, 0.0f };
 
 texture g_texture;
-sampler g_samplerMeshTexture = sampler_state
+sampler g_textureSampler = sampler_state
 {
     Texture   = (g_texture);
     MipFilter = LINEAR;
@@ -21,7 +23,7 @@ sampler g_samplerMeshTexture = sampler_state
 //-----------------------------------------------------
 // 頂点シェーダー
 //-----------------------------------------------------
-void vertex_shader(in  float4 inPos        : POSITION,
+void VertexShader1(in  float4 inPos        : POSITION,
                    in  float4 inNormal     : NORMAL0,
                    in  float4 inTexCoord   : TEXCOORD0,
                    out float4 outPos       : POSITION,
@@ -64,21 +66,21 @@ void vertex_shader(in  float4 inPos        : POSITION,
 //-----------------------------------------------------
 // ピクセルシェーダー
 //-----------------------------------------------------
-void pixel_shader(in  float4 inDiffuse     : COLOR0,
+void PixelShader1(in  float4 inDiffuse     : COLOR0,
                   in  float2 inTexCoord    : TEXCOORD0,
                   out float4 outDiffuse    : COLOR0)
 {
-    float4 color_result = (float4)0;
-    color_result = tex2D(g_samplerMeshTexture, inTexCoord);
-    outDiffuse = (inDiffuse * color_result);
+    float4 outVecColor = (float4)0;
+    outVecColor = tex2D(g_textureSampler, inTexCoord);
+    outDiffuse = (inDiffuse * outVecColor);
 }
 
 technique Technique1
 {
     pass Pass1
     {
-        VertexShader = compile vs_3_0 vertex_shader();
-        PixelShader  = compile ps_3_0 pixel_shader();
+        VertexShader = compile vs_3_0 VertexShader1();
+        PixelShader  = compile ps_3_0 PixelShader1();
     }
 }
 
