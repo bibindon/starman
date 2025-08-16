@@ -1135,9 +1135,9 @@ void AssignContent(const std::vector<stPos>& posList,
         auto _rand1 = rand() % 100; // 0 ~ 99
         auto _rand2 = rand() % 1000; // 0 ~ 999
 
-        // 85%の確率でCommonから1つ、15%の確率でUniqueから1つを選ぶ
+        // 90%の確率でCommonから1つ、10%の確率でUniqueから1つを選ぶ
         // 共通オブジェクト
-        if (_rand1 < 70)
+        if (_rand1 < 90)
         {
             for (size_t j = 0; j < mapInfoList.size(); ++j)
             {
