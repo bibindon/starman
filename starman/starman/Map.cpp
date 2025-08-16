@@ -769,6 +769,11 @@ void Map::Update()
                 brightness = work1;
             }
 
+            // 朝7時に太陽がかなり昇っていても不自然に暗いので
+            // brightnessの平方根を求めて、brightnessとする
+
+            brightness = std::sqrt(brightness);
+
             Light::SetBrightness(brightness);
 
             m_bInCaveFadeFinish = false;

@@ -423,6 +423,17 @@ void Mesh::Render()
     //--------------------------------------------------------
     // 描画開始
     //--------------------------------------------------------
+    if (SHADER_FILENAME == _T("res\\shader\\MeshShaderCullNone.fx"))
+    {
+        hResult = m_D3DEffect->SetTechnique("TechniqueCullNone");
+        assert(hResult == S_OK);
+    }
+    else
+    {
+        hResult = m_D3DEffect->SetTechnique("Technique1");
+        assert(hResult == S_OK);
+    }
+
     hResult = m_D3DEffect->Begin(nullptr, 0);
     assert(hResult == S_OK);
 
