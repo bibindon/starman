@@ -14,7 +14,6 @@ float4 g_vecDiffuse;
 float4 g_vecCameraPos;
 
 float g_fFogDensity;
-float4 g_vecFogColor = { 0.5f, 0.3f, 0.2f, 1.0f };
 
 bool g_bPointLightEnable;
 float4 g_vecPointLightPos = { 1, 1, 1, 0};
@@ -117,7 +116,8 @@ void PixelShader1(in float4  inDiffuse    : COLOR0,
     // 霧はピクセルシェーダーでやらないと意味がない。
     // 頂点シェーダーでやると、遠いほど輝いて見えるようになってしまう
     //------------------------------------------------------
-    outVecColor = lerp(outVecColor, g_vecFogColor, inFogDensity);
+    float4 vecFogColor = g_vecFogColor * g_fLightBrigntness;
+    outVecColor = lerp(outVecColor, vecFogColor, inFogDensity);
 
     //------------------------------------------------------
     // 夜空を青色にする
