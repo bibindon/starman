@@ -56,7 +56,7 @@ void VertexShader1(in  float4 inPos        : POSITION,
 
     // 夜に赤くなりすぎるのを抑制する
     float4 _vecAmbient = g_vecAmbient;
-    _vecAmbient.rg *= g_fLightBrigntness;
+    _vecAmbient.rg *= (g_fLightBrigntness + 1.f) / 2.f;
 
     // 色 * 光の強さ + 環境光
     outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + _vecAmbient;
