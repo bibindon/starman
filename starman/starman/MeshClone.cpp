@@ -33,42 +33,8 @@ MeshClone::MeshClone(const std::wstring& xFilename,
 
 MeshClone::~MeshClone()
 {
-    if (m_D3DEffectMap.empty())
-    {
-        return;
-    }
-
-    auto refcnt = m_D3DEffectMap.at(m_meshName)->Release();
-
-    if (refcnt <= 0)
-    {
-        m_D3DEffectMap.erase(m_meshName);
-    }
-
-    ULONG ulong = m_D3DMeshMap.at(m_meshName)->Release();
-
-    for (size_t i = 0; i < m_materialCountMap.at(m_meshName); ++i)
-    {
-        if (m_vecTextureMap.at(m_meshName).at(i) != nullptr)
-        {
-            m_vecTextureMap.at(m_meshName).at(i)->Release();
-        }
-    }
-
-    if (ulong <= 0)
-    {
-        m_D3DMeshMap.erase(m_meshName);
-    }
-
-    if (!_T("rockWithDepressions.xの解放"))
-    {
-        if (m_meshName.find(_T("rockWithDepressions.x")) != std::wstring::npos)
-        {
-            std::wstring work;
-            work = _T("m_vecTextureMap.at(") + m_meshName + _T(") ref count: ") + std::to_wstring(ulong) + _T("\n");
-            OutputDebugString(work.c_str());
-        }
-    }
+    // ここでは解放しない。
+    // ForceReleaseで解放する
 }
 
 void MeshClone::Init()

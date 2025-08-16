@@ -930,6 +930,7 @@ void Map::Update()
             //-------------------------------------
             {
                 ResetShow();
+                m_meshCloneMap.clear();
 
                 auto player = SharedObj::GetPlayer();
                 auto mapObjManager = NSStarmanLib::MapObjManager::GetObj();
