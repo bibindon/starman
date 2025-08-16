@@ -365,7 +365,7 @@ void AssignContent(const std::vector<stPos>& posList,
         stMapDef obj;
         obj.m_id = 7;
         obj.m_bCommon = true;
-        obj.m_rate = 4.f;
+        obj.m_rate = 8.f;
         mapInfoList.push_back(obj);
     }
 
@@ -1135,7 +1135,7 @@ void AssignContent(const std::vector<stPos>& posList,
         auto _rand1 = rand() % 100; // 0 ~ 99
         auto _rand2 = rand() % 1000; // 0 ~ 999
 
-        // 70%の確率でCommonから1つ、30%の確率でUniqueから1つを選ぶ
+        // 85%の確率でCommonから1つ、15%の確率でUniqueから1つを選ぶ
         // 共通オブジェクト
         if (_rand1 < 70)
         {
