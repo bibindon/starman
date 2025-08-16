@@ -54,8 +54,12 @@ void VertexShader1(in  float4 inPos        : POSITION,
     // 現在の頂点における、あてられている光の強さ
     float fLightIntensity = g_fLightBrigntness * dot_;
 
+    // 夜に赤くなりすぎるのを抑制する
+    float4 _vecAmbient = g_vecAmbient;
+    _vecAmbient.rg *= g_fLightBrigntness;
+
     // 色 * 光の強さ + 環境光
-    outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + g_vecAmbient;
+    outDiffuse = g_vecDiffuse * max(0, fLightIntensity) + _vecAmbient;
 
     // 0.0 ~ 1.0の範囲に収まるようにする
     outDiffuse = saturate(outDiffuse);
@@ -72,6 +76,7 @@ void PixelShader1(in  float4 inDiffuse     : COLOR0,
 {
     float4 outVecColor = (float4)0;
     outVecColor = tex2D(g_textureSampler, inTexCoord);
+
     outDiffuse = (inDiffuse * outVecColor);
 }
 
