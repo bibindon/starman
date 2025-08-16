@@ -14,12 +14,11 @@ std::unordered_map<std::wstring, DWORD> MeshClone::m_materialCountMap;
 std::unordered_map<std::wstring, std::vector<D3DXVECTOR4>> MeshClone::m_vecColorMap;
 std::unordered_map<std::wstring, bool> MeshClone::m_bFirstMap;
 
-MeshClone::MeshClone(
-    const std::wstring& xFilename,
-    const D3DXVECTOR3& position,
-    const D3DXVECTOR3& rotation,
-    const float scale,
-    const float radius)
+MeshClone::MeshClone(const std::wstring& xFilename,
+                     const D3DXVECTOR3& position,
+                     const D3DXVECTOR3& rotation,
+                     const float scale,
+                     const float radius)
     : m_meshName { xFilename }
     , m_loadingPos { position }
     , m_rotate { rotation }
@@ -725,12 +724,63 @@ bool MeshClone::ContainMeshName(const std::wstring& arg)
 
 void MeshClone::ForceRelease()
 {
-    m_D3DEffectMap.clear();
-    m_D3DMeshMap.clear();
-    m_vecTextureMap.clear();
-    m_materialCountMap.clear();
-    m_vecColorMap.clear();
     m_bFirstMap.clear();
+    m_vecColorMap.clear();
+    m_materialCountMap.clear();
+
+    for (auto it = m_vecTextureMap.begin(); it != m_vecTextureMap.end(); ++it)
+    {
+        for (int i = 0; i < it->second.size(); ++i)
+        {
+            if (it->second.at(i) != nullptr)
+            {
+                int refCnt = 0;
+                do
+                {
+                    refCnt = it->second.at(i)->Release();
+                }
+                while (refCnt != 0);
+            }
+
+            it->second.at(i) = nullptr;
+        }
+    }
+
+    m_vecTextureMap.clear();
+
+    for (auto it = m_D3DMeshMap.begin(); it != m_D3DMeshMap.end(); ++it)
+    {
+        if (it->second != nullptr)
+        {
+            int refCnt = 0;
+            do
+            {
+                refCnt = it->second->Release();
+            }
+            while (refCnt != 0);
+        }
+
+        it->second = nullptr;
+    }
+
+    m_D3DMeshMap.clear();
+
+    for (auto it = m_D3DEffectMap.begin(); it != m_D3DEffectMap.end(); ++it)
+    {
+        if (it->second != nullptr)
+        {
+            int refCnt = 0;
+            do
+            {
+                refCnt = it->second->Release();
+            }
+            while (refCnt != 0);
+        }
+
+        it->second = nullptr;
+    }
+
+    m_D3DEffectMap.clear();
 }
 
 

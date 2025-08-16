@@ -118,6 +118,7 @@ void Mesh::Init()
     assert(hResult == S_OK);
 
     m_D3DMesh = tempMesh;
+    tempMesh->Release();
 
     DWORD* adjacencyList = (DWORD*)adjacencyBuffer->GetBufferPointer();
 
@@ -194,6 +195,7 @@ void Mesh::Init()
             assert(hResult == S_OK);
 
             m_vecTexture.push_back(tempTexture);
+            tempTexture->Release();
         }
     }
 

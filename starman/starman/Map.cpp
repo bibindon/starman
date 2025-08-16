@@ -37,6 +37,8 @@ Map::~Map()
         SAFE_DELETE(pair.second);
     }
 
+    m_meshMap.clear();
+
     for (auto& item : m_vecEnemy)
     {
         SAFE_DELETE(item);
@@ -52,6 +54,7 @@ Map::~Map()
     for (auto& item : m_meshCloneMap)
     {
         item.second->ForceRelease();
+        item.second.reset();
     }
 }
 
@@ -2474,6 +2477,5 @@ void Map::SetDeadItem(const D3DXVECTOR3& pos)
 void Map::ResetShow()
 {
     MapLib()->ResetShow();
-    m_meshCloneMap.clear();
 }
 
