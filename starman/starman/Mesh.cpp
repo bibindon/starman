@@ -321,17 +321,8 @@ void Mesh::Render()
         if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx")||
             SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx"))
         {
-            // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
-            if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
-            {
-                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
-                assert(hResult == S_OK);
-            }
-            else
-            {
-                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
-                assert(hResult == S_OK);
-            }
+            hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
+            assert(hResult == S_OK);
         }
     }
     else
@@ -347,17 +338,8 @@ void Mesh::Render()
         if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx")||
             SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx"))
         {
-            // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
-            if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
-            {
-                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 10.0f * m_scale);
-                assert(hResult == S_OK);
-            }
-            else
-            {
-                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 10.0f * m_scale);
-                assert(hResult == S_OK);
-            }
+            hResult = m_D3DEffect->SetFloat("g_fFogDensity", 10.0f * m_scale);
+            assert(hResult == S_OK);
         }
     }
 
