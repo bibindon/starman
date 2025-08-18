@@ -422,7 +422,7 @@ void MeshClone::Render()
         // MeshShader.fxの時だけ適用する
         if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
         {
-            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
             assert(hResult == S_OK);
         }
     }
