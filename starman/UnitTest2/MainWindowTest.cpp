@@ -256,7 +256,7 @@ public:
 
                                 keyboard->SetKeyDownFirst(DIK_RETURN);
 
-                                Sleep(1000 * 10); 
+                                Sleep(1000 * 15); 
 
                                 keyboard->SetAltF4();
                             });
