@@ -80,9 +80,15 @@ void VertexShader1(in  float4 inPos         : POSITION,
 
     work *= g_fFogDensity;
 
-    if (work >= 0.7f)
+    // 霧の濃さが0.7以上にならないようにする。
+    // 霧が濃いなら、上限を0.7よりあげる
+    float fogLimit = 0.3f;
+    fogLimit /= g_fFogDensity;
+    fogLimit = 1.f - fogLimit;
+
+    if (work >= fogLimit)
     {
-        work = 0.7f;
+        work = fogLimit;
     }
 
     outFogStrength = work;
