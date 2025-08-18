@@ -336,9 +336,9 @@ void Mesh::Render()
     }
     else
     {
-        g_vecFogColor.x = 0.281f;
+        g_vecFogColor.x = 0.381f;
         g_vecFogColor.y = 0.401f;
-        g_vecFogColor.z = 0.486f;
+        g_vecFogColor.z = 0.586f;
         g_vecFogColor.w = 1.0f;
 
         // 雨だったら霧を3倍強くする。

@@ -412,9 +412,9 @@ void MeshClone::Render()
     }
     else
     {
-        g_vecFogColor.x = 0.281f;
+        g_vecFogColor.x = 0.381f;
         g_vecFogColor.y = 0.401f;
-        g_vecFogColor.z = 0.486f;
+        g_vecFogColor.z = 0.586f;
         g_vecFogColor.w = 1.0f;
 
         // 雨だったら霧を100倍強くする。
@@ -422,7 +422,7 @@ void MeshClone::Render()
         // MeshShader.fxの時だけ適用する
         if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
         {
-            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f);
             assert(hResult == S_OK);
         }
     }
