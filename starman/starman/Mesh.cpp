@@ -336,9 +336,9 @@ void Mesh::Render()
     }
     else
     {
-        g_vecFogColor.x = 0.3f;
-        g_vecFogColor.y = 0.3f;
-        g_vecFogColor.z = 0.5f;
+        g_vecFogColor.x = 0.835f;
+        g_vecFogColor.y = 0.925f;
+        g_vecFogColor.z = 0.965f;
         g_vecFogColor.w = 1.0f;
 
         // 雨だったら霧を3倍強くする。
@@ -350,12 +350,12 @@ void Mesh::Render()
             // 超巨大なオブジェクトに霧をかけると霧の色しか見えなくなってしまうので切りかけない。
             if (m_meshName.find(_T("continent.x")) != std::wstring::npos)
             {
-                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 100.0f);
+                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
                 assert(hResult == S_OK);
             }
             else
             {
-                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 100.0f);
+                hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
                 assert(hResult == S_OK);
             }
         }
