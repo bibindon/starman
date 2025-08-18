@@ -38,7 +38,7 @@ public:
     float GetScale() const;
     void Render();
     void Begin();
-    void Render2();
+    void Render2() const;
     void End();
 
     eMeshType GetMeshType() const;

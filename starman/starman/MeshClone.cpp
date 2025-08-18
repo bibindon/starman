@@ -422,13 +422,24 @@ void MeshClone::Render()
         // MeshShader.fxの時だけ適用する
         if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
         {
-            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
             assert(hResult == S_OK);
         }
     }
 
     hResult = m_D3DEffectMap.at(m_meshName)->SetVector("g_vecFogColor", &g_vecFogColor);
     assert(hResult == S_OK);
+
+    if (m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
+    {
+        hResult = m_D3DEffectMap.at(m_meshName)->SetTechnique("TechniqueCullNone");
+        assert(hResult == S_OK);
+    }
+    else
+    {
+        hResult = m_D3DEffectMap.at(m_meshName)->SetTechnique("Technique1");
+        assert(hResult == S_OK);
+    }
 
     m_D3DEffectMap.at(m_meshName)->Begin(nullptr, 0);
 
@@ -470,6 +481,19 @@ void MeshClone::Render()
 
 void MeshClone::Begin()
 {
+    HRESULT hResult = E_FAIL;
+
+    if (m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
+    {
+        hResult = m_D3DEffectMap.at(m_meshName)->SetTechnique("TechniqueCullNone");
+        assert(hResult == S_OK);
+    }
+    else
+    {
+        hResult = m_D3DEffectMap.at(m_meshName)->SetTechnique("Technique1");
+        assert(hResult == S_OK);
+    }
+
     m_D3DEffectMap.at(m_meshName)->Begin(nullptr, 0);
 
     HRESULT result { S_FALSE };
@@ -482,7 +506,6 @@ void MeshClone::Begin()
     //--------------------------------------------------------
     // ポイントライトの位置を設定
     //--------------------------------------------------------
-    HRESULT hResult = E_FAIL;
     bool isLit = NSStarmanLib::WeaponManager::GetObj()->IsTorchLit();
 
     // 松明の点灯状態が変わったらシェーダーにポイントライトのON/OFFを設定する
@@ -548,9 +571,9 @@ void MeshClone::Begin()
     }
     else
     {
-        g_vecFogColor.x = 0.3f;
-        g_vecFogColor.y = 0.3f;
-        g_vecFogColor.z = 0.5f;
+        g_vecFogColor.x = 0.381f;
+        g_vecFogColor.y = 0.401f;
+        g_vecFogColor.z = 0.586f;
         g_vecFogColor.w = 1.0f;
 
         // 雨だったら霧を100倍強くする。
@@ -558,7 +581,7 @@ void MeshClone::Begin()
         // MeshShader.fxの時だけ適用する
         if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
         {
-            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 100.0f);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
             assert(hResult == S_OK);
         }
     }
@@ -578,7 +601,7 @@ void MeshClone::Begin()
 
 }
 
-void MeshClone::Render2()
+void MeshClone::Render2() const
 {
     HRESULT hResult = E_FAIL;
     if (m_bIsInit == false)
