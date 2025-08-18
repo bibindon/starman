@@ -69,6 +69,7 @@ void VertexShader1(in  float4 inPos          : POSITION,
     }
 
     outVecColor = g_vecDiffuse * max(0, fLightIntensity) + _ambient;
+    outVecColor.a = 1.f;
 
     //==================================================================
     // outTexCoord
@@ -180,7 +181,6 @@ void PixelShader1(in float4 inDiffuse    : COLOR0,
     }
 
     // 0.0から1.0の範囲に収める
-    outVecColor.a = 1.f;
     outVecColor = saturate(outVecColor);
 }
 

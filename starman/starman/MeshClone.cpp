@@ -404,7 +404,8 @@ void MeshClone::Render()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
-        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx") ||
+            m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 1.0f);
             assert(hResult == S_OK);
@@ -420,7 +421,8 @@ void MeshClone::Render()
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
-        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx") ||
+            m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
             assert(hResult == S_OK);
@@ -563,7 +565,8 @@ void MeshClone::Begin()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
-        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx") ||
+            m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 1.0f);
             assert(hResult == S_OK);
@@ -579,7 +582,8 @@ void MeshClone::Begin()
         // 雨だったら霧を100倍強くする。
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
-        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx"))
+        if (m_shaderFilename == _T("res\\shader\\MeshShader.fx") ||
+            m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
             hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
             assert(hResult == S_OK);

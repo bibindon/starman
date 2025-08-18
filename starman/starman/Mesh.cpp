@@ -318,8 +318,9 @@ void Mesh::Render()
 
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
-        if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx")||
-            SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx"))
+        if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx") ||
+            SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx") ||
+            SHADER_FILENAME == _T("res\\shader\\MeshShaderCullNone.fx") )
         {
             hResult = m_D3DEffect->SetFloat("g_fFogDensity", 1.0f);
             assert(hResult == S_OK);
@@ -336,7 +337,8 @@ void Mesh::Render()
         // 霧をサポートしないシェーダーがセットされている可能性があるので
         // MeshShader.fxの時だけ適用する
         if (SHADER_FILENAME == _T("res\\shader\\MeshShader.fx")||
-            SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx"))
+            SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx") ||
+            SHADER_FILENAME == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
             hResult = m_D3DEffect->SetFloat("g_fFogDensity", 10.0f * m_scale);
             assert(hResult == S_OK);
