@@ -424,7 +424,7 @@ void MeshClone::Render()
         if (m_shaderFilename == _T("res\\shader\\MeshShader.fx") ||
             m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
-            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f);
             assert(hResult == S_OK);
         }
     }
@@ -585,7 +585,7 @@ void MeshClone::Begin()
         if (m_shaderFilename == _T("res\\shader\\MeshShader.fx") ||
             m_shaderFilename == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
-            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f * m_scale);
+            hResult = m_D3DEffectMap.at(m_meshName)->SetFloat("g_fFogDensity", 10.0f);
             assert(hResult == S_OK);
         }
     }

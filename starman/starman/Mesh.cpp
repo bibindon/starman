@@ -340,7 +340,7 @@ void Mesh::Render()
             SHADER_FILENAME == _T("res\\shader\\MeshShader2Texture.fx") ||
             SHADER_FILENAME == _T("res\\shader\\MeshShaderCullNone.fx"))
         {
-            hResult = m_D3DEffect->SetFloat("g_fFogDensity", 10.0f * m_scale);
+            hResult = m_D3DEffect->SetFloat("g_fFogDensity", 10.0f);
             assert(hResult == S_OK);
         }
     }
