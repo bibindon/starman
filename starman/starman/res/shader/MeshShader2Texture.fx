@@ -140,12 +140,13 @@ void PixelShader1(in float4  inDiffuse    : COLOR0,
         float distance = length((float3)g_vecPointLightPos - inWorldPos);
 
         // 遠いほど小さくなるようにする
+        // 10メートルで0, 0メートルで2
         // attenuation...減衰
-        float attenuation = 50.0f / (distance * distance);
+        float attenuation = 2.f - sqrt(distance * 0.2f);
 
-        if (attenuation > 2.0f)
+        if (attenuation < 0.0f)
         {
-            attenuation = 2.0f;
+            attenuation = 0.0f;
         }
 
         outVecColor += vecResultColor * g_vecPointLightColor * attenuation;
