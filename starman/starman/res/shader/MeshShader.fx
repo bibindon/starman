@@ -141,6 +141,7 @@ void PixelShader1(in float4 inDiffuse    : COLOR0,
     // 頂点シェーダーでやると、遠いほど輝いて見えるようになってしまう
     //------------------------------------------------------
     float4 vecFogColor = g_vecFogColor * g_fLightBrigntness;
+    vecFogColor.a = 1.f;
 
     // lerp関数は線形補間をする関数。
     // 以下のように書くのと同じことであるが覚えるべき。
