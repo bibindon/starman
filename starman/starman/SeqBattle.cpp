@@ -277,7 +277,6 @@ public:
 
         m_texMap[filepath] = pD3DTexture;
 
-
         D3DSURFACE_DESC desc{ };
         if (FAILED(pD3DTexture->GetLevelDesc(0, &desc)))
         {
@@ -1492,7 +1491,16 @@ void SeqBattle::OperateCommand()
 
                 for (auto& item : items)
                 {
-                    Common::Inventory()->AddItem(item.GetId());
+                    // 鉄パイプだったら耐久値をセット
+                    if (item.GetId() == L"ironPipe")
+                    {
+                        Common::Inventory()->AddItem(item.GetId(), 100);
+                    }
+                    else
+                    {
+                        Common::Inventory()->AddItem(item.GetId());
+                    }
+
                     auto name = item.GetName();
 
                     std::wstring work = Common::LoadStringWithArg(IDS_STRING114, name);
