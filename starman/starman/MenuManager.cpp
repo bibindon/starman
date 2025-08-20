@@ -1424,7 +1424,7 @@ std::wstring MenuManager::OperateMenu()
             if (humanInfo.GetVisible())
             {
                 NSMenulib::StatusInfo info;
-                info.SetName(Common::LoadString_(IDS_STRING112));
+                info.SetName(Common::LoadString_(IDS_STRING113));
 
                 NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
                 sprItem->Load(_T("res\\image\\shikakuman00.png"));
