@@ -1489,6 +1489,12 @@ void SeqBattle::OperateCommand()
 
                 auto items = help->ReceiveItems(npcName);
 
+                if (items.empty())
+                {
+                    std::wstring work = L"（今は分けてもらえないようだ）";
+                    PopUp2::Get()->SetText(work);
+                }
+
                 for (auto& item : items)
                 {
                     // 鉄パイプだったら耐久値をセット
