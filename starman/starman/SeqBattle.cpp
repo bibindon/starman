@@ -2874,10 +2874,11 @@ void SeqBattle::OperateCreateTorch()
 
         // 装備中の木の棒を削除
         auto weapon = Common::Status()->GetEquipWeapon();
+        auto dura = weapon.GetDurabilityCurrent();
         Common::Inventory()->RemoveItem(weapon.GetId(), weapon.GetSubId());
 
         auto itemDef = Common::ItemManager()->GetItemDef(L"torch");
-        auto newSubId = Common::Inventory()->AddItem(itemDef.GetId());
+        auto newSubId = Common::Inventory()->AddItem(itemDef.GetId(), dura + 100);
 
         auto itemInfo = Common::Inventory()->GetItemInfo(itemDef.GetId(), newSubId);
         Common::Status()->SetEquipWeapon(itemInfo);

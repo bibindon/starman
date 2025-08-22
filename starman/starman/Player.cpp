@@ -1455,7 +1455,7 @@ bool Player::SetAttack()
         // スモールリッポウタイだったら当たりにくくする
         if (vecEnemy.at(i)->GetEnemyType() == eEnemyType::SmallCube)
         {
-            range_ = 0.25f;
+            range_ = 0.5f;
         }
         else if (vecEnemy.at(i)->GetEnemyType() == eEnemyType::BigCube)
         {
