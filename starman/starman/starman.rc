@@ -228,6 +228,7 @@ BEGIN
     IDS_STRING_DEATH_REASON6 "死因：餓死"
     IDS_STRING_DEATH_REASON7 "死因：水中で寝た。"
     IDS_STRING_DEATH_REASON8 "死因：睡眠中に攻撃された。"
+    IDS_STRING_HELP_EMPTY   "（今は分けてもらえないようだ）"
 END
 
 #endif    // 日本語 (日本) resources
@@ -413,6 +414,7 @@ BEGIN
     IDS_STRING_DEATH_REASON6 "Cause of Death: Starvation"
     IDS_STRING_DEATH_REASON7 "Cause of Death: Slept underwater"
     IDS_STRING_DEATH_REASON8 "Cause of Death: Attacked while sleeping"
+    IDS_STRING_HELP_EMPTY   "(It seems I can’t get any right now.)"
 END
 
 #endif    // 英語 (米国) resources

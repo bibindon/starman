@@ -138,8 +138,8 @@
 #define IDS_STRING_DEATH_REASON5        230
 #define IDS_STRING_DEATH_REASON6        231
 #define IDS_STRING_DEATH_REASON7        232
-#define IDS_STRING233                   233
 #define IDS_STRING_DEATH_REASON8        233
+#define IDS_STRING_HELP_EMPTY           234
 
 // Next default values for new objects
 // 

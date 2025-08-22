@@ -1491,8 +1491,7 @@ void SeqBattle::OperateCommand()
 
                 if (items.empty())
                 {
-                    std::wstring work = L"（今は分けてもらえないようだ）";
-                    PopUp2::Get()->SetText(work);
+                    PopUp2::Get()->SetText(IDS_STRING_HELP_EMPTY);
                 }
 
                 for (auto& item : items)

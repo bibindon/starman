@@ -1965,7 +1965,7 @@ void Player::SetJump()
 
         if (brokenBagNum1 != brokenBagNum2)
         {
-            PopUp2::Get()->SetText(Common::LoadString_(IDS_STRING145));
+            PopUp2::Get()->SetText(IDS_STRING145);
         }
 
         SoundEffect::get_ton()->load(_T("res\\sound\\jump.wav"));
