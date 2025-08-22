@@ -2345,7 +2345,7 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                     {
                         Common::Inventory()->RemoveItem(L"kakan", subIdList.at(0));
                         NSStarmanLib::ActivityBase::Get()->SetHanawa(true);
-                        PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
+                        PopUp2::Get()->SetText(IDS_STRING_KAKAN);
                     }
                     // インベントリになければ倉庫を見る
                     else
@@ -2359,15 +2359,15 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                         {
                             storehouse->RemoveItem(L"kakan", subIdList2.at(0));
                             NSStarmanLib::ActivityBase::Get()->SetHanawa(true);
-                            PopUp2::Get()->SetText(_T("お墓に花輪を飾った。"));
+                            PopUp2::Get()->SetText(IDS_STRING_KAKAN);
                         }
                     }
                 }
                 else if (vs2.at(j).find(_T("<sotetsu>")) != std::wstring::npos)
                 {
                     auto status = Common::Status();
-                    PopUp2::Get()->SetText(_T("脱水症状・頭痛・腹痛・錯乱状態になった。"));
-                    PopUp2::Get()->SetText(_T("スタミナ・ミネラル・ビタミン・肉体の修復度が減少した。"));
+                    PopUp2::Get()->SetText(IDS_STRING_SOTETSU1);
+                    PopUp2::Get()->SetText(IDS_STRING_SOTETSU2);
                     status->SetDehydration(true);
                     status->SetHeadache(true);
                     status->SetStomachache(true);
@@ -2402,8 +2402,8 @@ void SeqBattle::OperateQuest(eSequence* sequence)
                 else if (vs2.at(j).find(_T("<ryusan>")) != std::wstring::npos)
                 {
                     auto status = Common::Status();
-                    PopUp2::Get()->SetText(_T("錯乱状態になった。"));
-                    PopUp2::Get()->SetText(_T("肉体の修復度が減少した。"));
+                    PopUp2::Get()->SetText(IDS_STRING_ACID1);
+                    PopUp2::Get()->SetText(IDS_STRING_ACID2);
                     status->SetSuperStress();
 
                     if (status->GetMuscleCurrent() > 20.f)
@@ -3445,35 +3445,35 @@ void SeqBattle::UpdatePerSecond()
 
             if (reason == NSStarmanLib::eDeadReason::NONE)
             {
-                PopUp2::Get()->SetText(_T("死因：不明"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON1);
             }
             else if (reason == NSStarmanLib::eDeadReason::MUSCLE_ZERO)
             {
-                PopUp2::Get()->SetText(_T("死因：肉体の修復度が０になった"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON2);
             }
             else if (reason == NSStarmanLib::eDeadReason::WATER_90)
             {
-                PopUp2::Get()->SetText(_T("死因：水分量が９０％以下になった"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON3);
             }
             else if (reason == NSStarmanLib::eDeadReason::KAROSHI)
             {
-                PopUp2::Get()->SetText(_T("死因：身体のスタミナが０％になった"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON4);
             }
             else if (reason == NSStarmanLib::eDeadReason::RYNEN_1_YEAR)
             {
-                PopUp2::Get()->SetText(_T("死因：ライネンの契約をして１年が経過した"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON5);
             }
             else if (reason == NSStarmanLib::eDeadReason::STARVATION)
             {
-                PopUp2::Get()->SetText(_T("死因：餓死"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON6);
             }
             else if (reason == NSStarmanLib::eDeadReason::DROWNING)
             {
-                PopUp2::Get()->SetText(_T("死因：水中で寝た。"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON7);
             }
             else if (reason == NSStarmanLib::eDeadReason::ATTACK_ON_SLEEP)
             {
-                PopUp2::Get()->SetText(_T("死因：睡眠中に攻撃された。"));
+                PopUp2::Get()->SetText(IDS_STRING_DEATH_REASON8);
             }
 
             m_eState = eBattleState::DEAD;

@@ -191,10 +191,14 @@ BEGIN
     IDS_STRING202           "袋を6個以上装備することはできない"
     IDS_STRING203           "３時間休憩する"
     IDS_STRING_NPC_DIED     "%sが死亡した。"
+    IDS_STRING_SAVE_COMPLETE "セーブが完了しました。"
+    IDS_STRING_CANNOT_EAT   "満腹なのでこれ以上食べられない。"
+    IDS_STRING_USE_MATERIAL "ホシマン（何かの素材として使えそうだ）"
 END
 
 STRINGTABLE
 BEGIN
+    IDS_STRING_USE_SUMAHO   "ホシマン（反応しない。海水で基盤がダメになったのだろう）"
     IDS_STRING209           "瞬発力"
     IDS_STRING210           "パラメータ          現在値/回復可能値/最大値"
     IDS_STRING211           "ホシマン"
@@ -202,6 +206,28 @@ BEGIN
     IDS_STRING213           "状態異常"
     IDS_STRING214           "装備武器"
     IDS_STRING215           "攻撃力"
+    IDS_STRING_USE_HOMEKEY  "ホシマン（まだ捨てないで取っておこう）"
+    IDS_STRING_USE_DEFAULT  "ホシマン（使い道が思いつかない）"
+    IDS_STRING_RIGHT_HAND   "右手がふさがっている"
+    IDS_STRING_ARM_BROKEN   "腕の骨が折れた"
+    IDS_STRING_LEG_BROKEN   "足の骨が折れた"
+    IDS_STRING_KAKAN        "お墓に花輪を飾った。"
+    IDS_STRING_SOTETSU1     "脱水症状・頭痛・腹痛・錯乱状態になった。"
+    IDS_STRING_SOTETSU2     "スタミナ・ミネラル・ビタミン・肉体の修復度が減少した。"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING_ACID1        "錯乱状態になった。"
+    IDS_STRING_ACID2        "肉体の修復度が減少した。"
+    IDS_STRING_DEATH_REASON1 "死因：不明"
+    IDS_STRING_DEATH_REASON2 "死因：肉体の修復度が０になった"
+    IDS_STRING_DEATH_REASON3 "死因：水分量が９０％以下になった"
+    IDS_STRING_DEATH_REASON4 "死因：身体のスタミナが０％になった"
+    IDS_STRING_DEATH_REASON5 "死因：ライネンの契約をして１年が経過した"
+    IDS_STRING_DEATH_REASON6 "死因：餓死"
+    IDS_STRING_DEATH_REASON7 "死因：水中で寝た。"
+    IDS_STRING_DEATH_REASON8 "死因：睡眠中に攻撃された。"
 END
 
 #endif    // 日本語 (日本) resources
@@ -349,10 +375,14 @@ BEGIN
     IDS_STRING202           "Starman cannot equip more than 6 bags."
     IDS_STRING203           "Rest 3 Hours"
     IDS_STRING_NPC_DIED     "%s died."
+    IDS_STRING_SAVE_COMPLETE "Save completed."
+    IDS_STRING_CANNOT_EAT   "Too full to eat more."
+    IDS_STRING_USE_MATERIAL "Star Man (Seems usable as material.)"
 END
 
 STRINGTABLE
 BEGIN
+    IDS_STRING_USE_SUMAHO   "Star Man (Unresponsive. The seawater must have corroded the board.)"
     IDS_STRING209           "Explosiveness"
     IDS_STRING210           "Parameter      Current/MaxSub/Max"
     IDS_STRING211           "Starman"
@@ -360,6 +390,29 @@ BEGIN
     IDS_STRING213           "Debuff"
     IDS_STRING214           "Equiped Weapon"
     IDS_STRING215           "Attack Power"
+    IDS_STRING_USE_HOMEKEY  "Star Man (I won’t throw it away yet. Better keep it for now.)"
+    IDS_STRING_USE_DEFAULT  "Star Man (I can’t think of any use for it.)"
+    IDS_STRING_RIGHT_HAND   "My right hand is full."
+    IDS_STRING_ARM_BROKEN   "Arm broken."
+    IDS_STRING_LEG_BROKEN   "Leg broken."
+    IDS_STRING_KAKAN        "I placed a wreath on the grave."
+    IDS_STRING_SOTETSU1     "Dehydration, Headache, Stomach Pain, Confusion."
+    IDS_STRING_SOTETSU2     "Stamina, minerals, vitamins, and body recovery decreased."
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING_ACID1        "Entered confusion."
+    IDS_STRING_ACID2        "Body recovery decreased."
+    IDS_STRING_DEATH_REASON1 "Cause of Death: Unknown"
+    IDS_STRING_DEATH_REASON2 "Cause of Death: Body recovery reached 0"
+    IDS_STRING_DEATH_REASON3 "Cause of Death: Hydration fell below 90%"
+    IDS_STRING_DEATH_REASON4 "Cause of Death: Stamina reached 0%"
+    IDS_STRING_DEATH_REASON5 
+                            "Cause of Death: One year after the contract with Rynen"
+    IDS_STRING_DEATH_REASON6 "Cause of Death: Starvation"
+    IDS_STRING_DEATH_REASON7 "Cause of Death: Slept underwater"
+    IDS_STRING_DEATH_REASON8 "Cause of Death: Attacked while sleeping"
 END
 
 #endif    // 英語 (米国) resources

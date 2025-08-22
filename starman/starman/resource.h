@@ -110,6 +110,10 @@
 #define IDS_STRING202                   202
 #define IDS_STRING203                   203
 #define IDS_STRING_NPC_DIED             204
+#define IDS_STRING_SAVE_COMPLETE        205
+#define IDS_STRING_CANNOT_EAT           206
+#define IDS_STRING_USE_MATERIAL         207
+#define IDS_STRING_USE_SUMAHO           208
 #define IDS_STRING209                   209
 #define IDS_STRING210                   210
 #define IDS_STRING211                   211
@@ -117,12 +121,31 @@
 #define IDS_STRING213                   213
 #define IDS_STRING214                   214
 #define IDS_STRING215                   215
+#define IDS_STRING_USE_HOMEKEY          216
+#define IDS_STRING_USE_DEFAULT          217
+#define IDS_STRING_RIGHT_HAND           218
+#define IDS_STRING_ARM_BROKEN           219
+#define IDS_STRING_LEG_BROKEN           220
+#define IDS_STRING_KAKAN                221
+#define IDS_STRING_SOTETSU1             222
+#define IDS_STRING_SOTETSU2             223
+#define IDS_STRING_ACID1                224
+#define IDS_STRING_ACID2                225
+#define IDS_STRING_DEATH_REASON1        226
+#define IDS_STRING_DEATH_REASON2        227
+#define IDS_STRING_DEATH_REASON3        228
+#define IDS_STRING_DEATH_REASON4        229
+#define IDS_STRING_DEATH_REASON5        230
+#define IDS_STRING_DEATH_REASON6        231
+#define IDS_STRING_DEATH_REASON7        232
+#define IDS_STRING233                   233
+#define IDS_STRING_DEATH_REASON8        233
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        129
+#define _APS_NEXT_RESOURCE_VALUE        207
 #define _APS_NEXT_COMMAND_VALUE         40001
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101

@@ -753,7 +753,7 @@ std::wstring MenuManager::OperateMenu()
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
-            PopUp2::Get()->SetText(L"セーブが完了しました。");
+            PopUp2::Get()->SetText(IDS_STRING_SAVE_COMPLETE);
         }
     }
 
@@ -834,7 +834,7 @@ std::wstring MenuManager::OperateMenu()
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
-            PopUp2::Get()->SetText(L"セーブが完了しました。");
+            PopUp2::Get()->SetText(IDS_STRING_SAVE_COMPLETE);
         }
     }
     else
@@ -963,7 +963,7 @@ std::wstring MenuManager::OperateMenu()
         {
             auto saveManager = SaveManager::Get();
             saveManager->Save();
-            PopUp2::Get()->SetText(L"セーブが完了しました。");
+            PopUp2::Get()->SetText(IDS_STRING_SAVE_COMPLETE);
         }
     }
 
@@ -1527,12 +1527,12 @@ bool MenuManager::UseItem(const std::wstring& id, const int subId)
         result = statusManager->Eat(itemDef);
         if (!result)
         {
-            PopUp2::Get()->SetText(_T("満腹なのでこれ以上食べられない。"));
+            PopUp2::Get()->SetText(IDS_STRING_CANNOT_EAT);
         }
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::MATERIAL)
     {
-        PopUp2::Get()->SetText(_T("ホシマン（何かの素材として使えそうだ）"));
+        PopUp2::Get()->SetText(IDS_STRING_USE_MATERIAL);
         result = false;
     }
     else if (itemDef.GetType() == NSStarmanLib::ItemDef::ItemType::VALUABLES)
@@ -1540,13 +1540,13 @@ bool MenuManager::UseItem(const std::wstring& id, const int subId)
         // スマホ
         if (itemDef.GetId() == L"sumaho")
         {
-            PopUp2::Get()->SetText(_T("ホシマン（反応しない。海水で基盤がダメになったのだろう）"));
+            PopUp2::Get()->SetText(IDS_STRING_USE_SUMAHO);
             result = false;
         }
         // 家の鍵
         else if (itemDef.GetId() == L"homeKey")
         {
-            PopUp2::Get()->SetText(_T("ホシマン（まだ捨てないで取っておこう）"));
+            PopUp2::Get()->SetText(IDS_STRING_USE_HOMEKEY);
             result = false;
         }
     }
@@ -1561,7 +1561,7 @@ bool MenuManager::UseItem(const std::wstring& id, const int subId)
         }
         else
         {
-            PopUp2::Get()->SetText(_T("ホシマン（使い道が思いつかない）"));
+            PopUp2::Get()->SetText(IDS_STRING_USE_DEFAULT);
             result = false;
         }
     }
@@ -1840,7 +1840,7 @@ void MenuManager::Equip(const std::wstring& id, const int subId)
 
             if (Common::Status()->GetBagState().size() >= 5)
             {
-                PopUp2::Get()->SetText(_T("右手がふさがっている。"));
+                PopUp2::Get()->SetText(IDS_STRING_RIGHT_HAND);
                 return;
             }
 

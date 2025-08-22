@@ -1113,20 +1113,20 @@ void Player::Update(Map* map)
             if (rand_ % 101 < 25)
             {
                 Common::Status()->SetFractureArm(true);
-                PopUp2::Get()->SetText(L"腕の骨が折れた。");
+                PopUp2::Get()->SetText(IDS_STRING_ARM_BROKEN);
             }
             else if (rand_ % 101 < 50)
             {
                 Common::Status()->SetFractureLeg(true);
-                PopUp2::Get()->SetText(L"足の骨が折れた。");
+                PopUp2::Get()->SetText(IDS_STRING_LEG_BROKEN);
             }
             else
             {
                 Common::Status()->SetFractureArm(true);
-                PopUp2::Get()->SetText(L"腕の骨が折れた。");
+                PopUp2::Get()->SetText(IDS_STRING_ARM_BROKEN);
 
                 Common::Status()->SetFractureLeg(true);
-                PopUp2::Get()->SetText(L"足の骨が折れた。");
+                PopUp2::Get()->SetText(IDS_STRING_LEG_BROKEN);
             }
         }
     }
