@@ -3430,7 +3430,13 @@ void SeqBattle::UpdatePerSecond()
     //-------------------------------------
     // NPCのステータスを更新
     //-------------------------------------
-    NpcManager::Get()->Update();
+
+    // 倉庫画面を開いていたらNPCの更新処理をしない。
+    // 倉庫の食材を食べられると面倒なので
+    if (m_eState != eBattleState::STOREHOUSE)
+    {
+        NpcManager::Get()->Update();
+    }
 
     //-------------------------------------
     // 死亡チェック
