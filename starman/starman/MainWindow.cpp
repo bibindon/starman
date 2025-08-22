@@ -280,8 +280,13 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
         d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
         d3dpp.BackBufferCount = 0;
 
-//        d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+        // マルチサンプリングをオフにする
+        // VirtualBoxだとサポートしていない
+#ifdef MULTI_SAMPLE_NONE
+        d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+#else
         d3dpp.MultiSampleType = D3DMULTISAMPLE_4_SAMPLES;
+#endif
         d3dpp.MultiSampleQuality = 0;
 
         d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
