@@ -28,7 +28,7 @@ public:
     void SetRotate(const D3DXVECTOR3& rot);
 
     Mesh* GetCollisionMesh();
-    int GetId();
+    int GetId() const;
 
 private:
 

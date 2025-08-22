@@ -7,7 +7,7 @@
 #include "BGM.h"
 #include "SoundEffect.h"
 
-NSStarmanLib::Voyage* Voyage()
+static NSStarmanLib::Voyage* Voyage()
 {
     return NSStarmanLib::Voyage::Get();
 }
@@ -34,6 +34,8 @@ void VoyageManager::Destroy()
 
 void VoyageManager::Init()
 {
+    m_raftMap.clear();
+
     auto raftList = Voyage()->GetRaftList();
 
     for (auto it = raftList.begin(); it != raftList.end(); ++it)
@@ -914,7 +916,7 @@ Mesh* Raft2::GetCollisionMesh()
     return m_meshRaftCollision;
 }
 
-int Raft2::GetId()
+int Raft2::GetId() const
 {
     return m_id;
 }
