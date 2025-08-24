@@ -221,10 +221,11 @@ void CommandManager::Init(const eType type)
 
 std::wstring CommandManager::Operate()
 {
+    ++m_counter;
+
     if (m_eType == eType::Main)
     {
         // 20秒経過したら脱出コマンドを追加
-        ++m_counter;
 
         // 0.3秒おきに更新
         // 20で割った余りが1であるとき、とすることで、
