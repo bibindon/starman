@@ -2691,7 +2691,16 @@ void SeqBattle::OperatePickPlant()
         auto itemDef = Common::ItemManager()->GetItemDef(pickId);
         std::wstring pick = itemDef.GetName();
 
-        PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
+        if (pickId == L"tsuta")
+        {
+            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
+            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
+            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
+        }
+        else
+        {
+            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
+        }
 
         // 30分経過させる処理
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
