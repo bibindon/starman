@@ -2702,7 +2702,18 @@ void SeqBattle::OperatePickPlant()
         Common::Status()->PickPlant();
 
         // アイテムをインベントリに追加
-        Common::Inventory()->AddItem(itemDef.GetId());
+        // 取得したのがツタだった場合は3個手に入るようにする
+
+        if (pickId == L"tsuta")
+        {
+            Common::Inventory()->AddItem(itemDef.GetId());
+            Common::Inventory()->AddItem(itemDef.GetId());
+            Common::Inventory()->AddItem(itemDef.GetId());
+        }
+        else
+        {
+            Common::Inventory()->AddItem(itemDef.GetId());
+        }
 
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
