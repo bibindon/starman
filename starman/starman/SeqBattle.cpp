@@ -1300,6 +1300,10 @@ void SeqBattle::OperateCommand()
         if (itemInfo.GetId().size() >= 1)
         {
             id = itemInfo.GetItemDef().GetUnreinforcedId();
+            if (itemInfo.GetDurabilityCurrent() <= 0)
+            {
+                id = L"";
+            }
         }
 
         bool bHaveAxe = false;
@@ -1854,6 +1858,10 @@ void SeqBattle::OperateSleep()
     {
         m_eState = eBattleState::NORMAL;
         m_player->SetSleep(false);
+
+        // 倉庫を開いているときに寝てしまうときがある。
+        // そのとき、自動で倉庫を閉じるのでカメラの追尾機能を復活させる
+        Camera::SetCameraMode(eCameraMode::BATTLE);
     }
 }
 
@@ -2691,16 +2699,7 @@ void SeqBattle::OperatePickPlant()
         auto itemDef = Common::ItemManager()->GetItemDef(pickId);
         std::wstring pick = itemDef.GetName();
 
-        if (pickId == L"tsuta")
-        {
-            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
-            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
-            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
-        }
-        else
-        {
-            PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
-        }
+        PopUp2::Get()->SetText(Common::LoadStringWithArg(IDS_STRING128, pick));
 
         // 30分経過させる処理
         auto dateTime = NSStarmanLib::PowereggDateTime::GetObj();
@@ -2711,18 +2710,7 @@ void SeqBattle::OperatePickPlant()
         Common::Status()->PickPlant();
 
         // アイテムをインベントリに追加
-        // 取得したのがツタだった場合は3個手に入るようにする
-
-        if (pickId == L"tsuta")
-        {
-            Common::Inventory()->AddItem(itemDef.GetId());
-            Common::Inventory()->AddItem(itemDef.GetId());
-            Common::Inventory()->AddItem(itemDef.GetId());
-        }
-        else
-        {
-            Common::Inventory()->AddItem(itemDef.GetId());
-        }
+        Common::Inventory()->AddItem(itemDef.GetId());
 
         m_eState = eBattleState::NORMAL;
         Camera::SetCameraMode(eCameraMode::BATTLE);
