@@ -304,7 +304,11 @@ std::wstring CommandManager::Operate()
 
 void CommandManager::Draw()
 {
-    m_commandLib->Draw();
+    // 表示時間のカウンターが0の時は表示しない
+    if (m_counter != 0)
+    {
+        m_commandLib->Draw();
+    }
 }
 
 void CommandManager::Finalize()
