@@ -3578,11 +3578,11 @@ void SeqBattle::UpdatePerSecond()
         {
             auto weapon = Common::Status()->GetEquipWeapon();
 
-            // 1秒に1減るとすぐに消えてしまう。1/3の確率で消費するようにする
+            // 1秒に1減るとすぐに消えてしまう。1/10の確率で消費するようにする
             auto dura = weapon.GetDurabilityCurrent();
 
             unsigned int rand = SharedObj::GetRandom();
-            if (rand % 3 == 0)
+            if (rand % 10 == 0)
             {
                 dura--;
             }
