@@ -805,7 +805,7 @@ void BGMEnvModel::InvestigateBGMEnv()
         m_bRain = false;
     }
 
-    if (m_bTrueEnd)
+    if (m_bTrueEnd || m_bEnding)
     {
         m_bSea = false;
         m_bForest = false;
@@ -902,6 +902,11 @@ void BGMEnvModel::SetChangeRequestComplete()
 void BGMEnvModel::SetTrueEnd(const bool arg)
 {
     m_bTrueEnd = arg;
+}
+
+void BGMEnvModel::SetEnding(const bool arg)
+{
+    m_bEnding = arg;
 }
 
 BGMManager* BGMManager::Get()
@@ -1013,6 +1018,7 @@ void BGMModel::FinalizeTalkBGM()
 void BGMManager::SetEnding(const bool arg)
 {
     m_BGMModel.SetEnding(arg);
+    m_BGMEnvModel.SetEnding(arg);
 }
 
 void BGMManager::SetTrueEnd(const bool arg)

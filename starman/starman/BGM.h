@@ -153,6 +153,7 @@ public:
     std::vector<envBGM> GetChangeRequest();
     void SetChangeRequestComplete();
 
+    void SetEnding(const bool arg);
     void SetTrueEnd(const bool arg);
 
 private:
@@ -163,6 +164,7 @@ private:
     bool m_bSea = false;
     bool m_bForest = false;
     bool m_bRain = false;
+    bool m_bEnding = false;
     bool m_bTrueEnd = false;
 
     std::wstring m_strTorch = L"res\\sound\\torch.wav";
