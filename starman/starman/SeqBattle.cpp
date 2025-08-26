@@ -954,10 +954,12 @@ void SeqBattle::OperateStorehouse()
     if (Mouse::GetZDelta() < 0)
     {
         m_storehouse->Next();
+        m_storehouse->UseWheel();
     }
     else if (Mouse::GetZDelta() > 0)
     {
         m_storehouse->Previous();
+        m_storehouse->UseWheel();
     }
 
     //---------------------------------------------------------
