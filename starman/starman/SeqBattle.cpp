@@ -1864,6 +1864,7 @@ void SeqBattle::OperateSleep()
         // 倉庫を開いているときに寝てしまうときがある。
         // そのとき、自動で倉庫を閉じるのでカメラの追尾機能を復活させる
         Camera::SetCameraMode(eCameraMode::BATTLE);
+        Common::SetCursorVisibility(false);
     }
 }
 
