@@ -1,6 +1,6 @@
 ﻿ID,オプション1,オプション2,オプション3,background,bgm
 1,"ホシマンが海岸洞窟へ帰るとシカクマンが
-うずくまっていて「うーうー」と言っていた。
+うずくまっていて、うめいていた。
 ほかの二人は座ってシカクマンを見ていた。",res\\image\\sankakuman00.png,res\\image\\shikakuman02.png,res\\image\\talkKaigan.png,res\\sound\\forest.wav
 2,「どうした？」,res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,res\\image\\talkKaigan.png,
 3,「赤い実を見せたらうずくまってしまった。毒抜きしてある赤い実だ」,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkKaigan.png,
