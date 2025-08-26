@@ -613,10 +613,10 @@ Q7500,"クエストが完了していたら
 Q7500",<hint>ホシマン（一度、廃墟に向かおう）,位置,10.6:491.5:-564:3,,<talk>res\\script\\origin\\talkFinishQuest52.csv
 Q7600,"クエストが完了していたら
 クエストが完了していないなら","Q7500
-Q7600",<hint>ホシマン（イカダ作りに挑戦しよう）,"時間が経過したら
+Q7600",<hint>ホシマン（イカダ作りに挑戦しよう）,"イカダの個数
 NPCのXが生存
 NPCのXが生存
-NPCのXが生存","0:0:3:0:0:0
+NPCのXが生存","2
 daikeiman
 sankakuman
 shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest53.csv
