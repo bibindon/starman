@@ -957,7 +957,8 @@ void Player::Update(Map* map)
 
     if (Common::DebugMode())
     {
-        if (SharedObj::KeyBoard()->IsDown(DIK_G))
+        if (SharedObj::KeyBoard()->IsDown(DIK_G) ||
+            GamePad::IsDown(eGamePadButtonType::X))
         {
             if (m_bUnderwater)
             {
