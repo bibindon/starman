@@ -643,7 +643,7 @@ void CommandManager::BuildOpeningCommand()
     m_commandLib->UpsertCommand(_T("continue"), enable);
 
     // 英語対応が完了するまで非表示にする
-    //m_commandLib->UpsertCommand(_T("language"), true);
+    m_commandLib->UpsertCommand(_T("language"), true);
 
     if (Common::DemoMode())
     {
