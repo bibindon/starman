@@ -268,8 +268,19 @@ void MenuManager::InitMenu()
     NSMenulib::ISprite* sprBackground = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load(_T("res\\image\\menu_back.png"));
 
-    NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng() - 4);
-    NSMenulib::IFont* pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng() - 8);
+    NSMenulib::IFont* pFont = nullptr;
+    NSMenulib::IFont* pFontStatus = nullptr;
+
+    if (SharedObj::IsEnglish())
+    {
+        pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng());
+        pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng() - 4);
+    }
+    else
+    {
+        pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 20);
+        pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 16);
+    }
 
     NSMenulib::ISoundEffect* pSE = NEW NSMenulib::SoundEffect();
 
