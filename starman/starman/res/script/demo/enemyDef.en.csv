@@ -1,26 +1,36 @@
-ID,タイプ,説明,画像
-1,Cube,"Approaches and rams with a head‑butt. It
-probably weighs several hundred kilos.
-Stays perfectly still like a rock until
-the player moves close.",res\image\rippoutai01.png
-2,Sphere,"Rushes in quickly; a small fry. Not as
-heavy as a Cube but still weighs
-hundreds of kilos. Moves faster than a
-Cube but has less HP.",res\image\sphere00.png
-3,Disc,"Fires projectiles. Appears to float, but
-a closer look reveals small legs.",res\image\enban01.png
-4,Cylinder,Charges at ultra‑high speed.,res\image\enchuu01.png
-5,Big Cube,"An oversized Cube with high HP and high
-attack power.",res\image\bigCube.png
-6,Small Cube,Low HP and low attack power.,res\image\smallCube.png
-7,Hemisphere,"Hemisphere‑shaped foe that tries to
-dodge your attacks.",res\image\hankyuu.png
-8,Half Disc,"Half‑disc enemy with wings that flies
-and sprays acid.",res\image\hanen01.png
-9,Orange Cube,"Orange‑colored Cube that attacks with a
-spinning charge.",res\image\orange.png
-10,Islander Ghost,"Island resident who died after making a
-pact with Xeoff. Drawn to the hero,
-seeking his vial—the urge lingers from
-life—but even if it gets one, it can do
-nothing with it.",res\image\ghost00.png
+﻿ID,タイプ,説明,画像
+cube,Cube,"Closes in and rams you with a
+headbutt. Judging by its size
+and movement, it likely weighs
+several hundred kilograms. It
+stays motionless like a rock
+until you get within a certain
+range.",res\image\rippoutai01.png
+sphere,Sphere,"Approaches quickly - a small
+fry. Not as heavy as a Cube,
+but probably still several
+hundred kilograms. Faster than
+a Cube, but it has less HP.",res\image\sphere00.png
+enban,Disk,"Fires projectiles. It looks
+like it's floating, but up
+close you can see it actually
+has legs.",res\image\enban01.png
+enchu,Cylinder,Attacks at extreme speed.,res\image\enchuu01.png
+bigCube,Big Cube,"A big Cube. High HP and high
+attack.",res\image\bigCube.png
+smallCube,Small Cube,Low HP and low attack.,res\image\smallCube.png
+hankyu,Hemisphere,"A hemisphere-shaped enemy.
+Tries to dodge incoming
+attacks.",res\image\hankyuu.png
+hanen,Semicircle,"A semicircular enemy. It has
+wings and flies, spraying
+acid.",res\image\hanen01.png
+orangeCube,Orange Cube,"An orange Cube. Uses a
+spinning attack.",res\image\orange.png
+ghost,Islander's Ghost,"An islander who died after
+making a contract with Xeoff.
+Drawn toward Star Man's vial,
+a desire lingering from life.
+Even if they obtain the vial,
+they can't do anything with
+it.",res\image\ghost00.png

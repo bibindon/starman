@@ -1,7 +1,9 @@
-﻿ID,Option 1,オプション2,オプション3,,
-1,One month later.,,,
-2,It had been a month since Star Man and his friends moved into the DirectNex Seaside Cave.,res\\image\\hoshiman00.png,,,
-3,"Drawing on everything they had learned so far, their lives quickly stabilized.
-Once they had a bit of breathing room, Star Man decided to visit the Precision Ruins.",res\\image\\hoshiman00.png,,,
-4,"His aim was to retrieve weapons and tools, but in truth they could simply make new ones, so there was no real need for a recovery mission.
-Star Man just wanted to see what had become of their old home.",res\\image\\hoshiman00.png,,,
+ID,オプション1,オプション2,オプション3,background,BGM
+1,One week later,,,,
+2,A week had passed since Star Man and the others moved to the DirectNex coastal cave.,res\\image\\hoshiman00.png,,,
+3,"Thanks to the knowledge they'd accumulated so far, their life quickly stabilized.
+Once they had a little breathing room,
+Star Man decided to go see the ruins of Precision.",res\\image\\hoshiman00.png,,,
+4,"The goal was to recover weapons and tools,
+but in truth those could be remade, so there was no need to retrieve them.
+What Star Man really wanted was to see what had become of their former home.",res\\image\\hoshiman00.png,,,

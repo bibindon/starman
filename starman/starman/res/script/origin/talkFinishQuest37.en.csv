@@ -1,50 +1,50 @@
-ID,オプション1,オプション2,オプション3,Unnamed: 4,Unnamed: 5
-1,"""I feel like there’s finally a glimmer of hope..."" ",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,
-2,Star Man and Trapezoid Man talked while eating red fruit and acorns. ,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-3,"""Was it a trip to Optipl Island?"" ",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-4,Trapezoid Man asked. ,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-5,"""..."" ",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
-6,"""I was working as a temp, and my contract ended at the end of July.
-So I thought I’d take some time off for myself.""",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,,
-7,"""Spending summer on Optipl Island? That sounds amazing.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-8,"""...Yeah.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-9,Star Man looked down and closed his eyes.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-10,"""What were you planning to do on Optipl Island?""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-11,"""...It was personal.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-12,"Star Man used to work at a port.
-He was responsible for checking cargo, entering data, and loading it onto ships.",,,,
-13,"Star Man was suffering from workplace harassment.
-There was nothing wrong with how he did his job—
-it was just the kind of company culture it was.",,,,
+﻿ID,オプション1,オプション2,オプション3,background
+1,"""I feel like I can finally see some hope...""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+2,Star Man and Trapezoid Man talked while eating red fruit and acorns.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+3,"""Was your trip to Optipul Island for vacation?""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+4,asked Trapezoid Man.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+5,"""...""",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,res\\image\\talkPrecision.png
+6,"""I was working on dispatch, and my assignment ended at the end of July,
+so I thought I'd spend some time free for a while.""",res\\image\\hoshiman00.png,res\\image\\sankakuman00.png,res\\image\\talkPrecision.png
+7,"""Summer break on Optipul Island sounds perfect.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+8,"""...Yeah.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+9,Star Man lowered his gaze and closed his eyes.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+10,"""What were you planning to do on Optipul Island?""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+11,"""... It's personal...""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+12,"Star Man had once worked at a port.
+He inspected cargo to be loaded on ships, entered the data,
+and had it loaded aboard—those were his duties.",,,res\\image\\black.png
+13,"Star Man suffered workplace harassment at his job.
+There was nothing wrong with his performance—
+it was simply that kind of company culture.",,,res\\image\\black.png
 14,"Even if you did nothing wrong,
-they had a habit of yelling and picking fights as a routine.",,,,
-15,"At the time, Star Man was dating a woman named Rhombus Woman,
-whom he met through a dating app.",,,,
-16,"The relationship wasn’t all fun;
-it also required a lot of patience.",,,,
-17,"In his case, that included being stood up, being used like a handyman,
-and covering her debts.",,,,
-18,"Still, he didn’t break up with her.
-It wasn’t all bad, and he believed no one is perfect—
-that’s what kept him going.",,,,
-19,"But already exhausted from work,
-Star Man found that patience increasingly difficult.",,,,
-20,"He decided to quit his job at the end of July
-and spend a few months unemployed starting in August.
-He wanted to spend that time with Rhombus Woman.",,,,
-21,"Star Man told her his plan,
-and they decided to go on a trip to Optipl Island in August.
-They made travel plans, booking a ferry and a hotel.",,,,
-22,"Then Rhombus Woman confessed
-that she wanted to date another man,
-and they broke up.",,,,
-23,"Star Man was now a jobless man with no girlfriend.
-He wasn’t sure whether to go to Optipl Island anymore.",,,,
-24,"He had originally wanted to visit the island anyway,
-but in the end, it was the cancellation fee that pushed him to go alone.",,,,
-25,"It was hard—but he never considered suicide.
-He just wanted to be alone for a while.",,,,
-26,"In his emotionally drained state,
-the current life-threatening situation actually brought him a strange sense of comfort.",,,,
-27,"""Just a solo tour.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
-28,Star Man muttered.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,,
+it was routine to pick fights and hurl abuse as a matter of habit.",,,res\\image\\black.png
+15,"At the time, Star Man was dating a woman he met on a matching app—
+Rhombus Woman.",,,res\\image\\black.png
+16,Dating wasn't all fun; there were times that demanded patience.,,,res\\image\\black.png
+17,"In Star Man's case there were last‑minute cancellations,
+being used like a handyman, even covering her debts.",,,res\\image\\black.png
+18,"Even so he didn't break up with her—
+because it wasn't only bad, and because no one is without flaws.
+That was how Star Man saw it.",,,res\\image\\black.png
+19,"But for Star Man, worn down by work,
+that patience became even harsher.",,,res\\image\\black.png
+20,"At the end of July Star Man quit his job and decided that, come August,
+he'd spend a few months unemployed.
+He planned to spend that time with Rhombus Woman.",,,res\\image\\black.png
+21,"Star Man told Rhombus Woman as much,
+and they decided the two of them would travel to Optipul Island in August.
+They made a plan and booked the ship and a hotel.",,,res\\image\\black.png
+22,"Then Rhombus Woman confessed she wanted to date another man,
+and they broke up.",,,res\\image\\black.png
+23,"Star Man became an unemployed man without a girlfriend.
+He hesitated over whether to go to Optipul Island.",,,res\\image\\black.png
+24,"He'd wanted to go to Optipul Island to begin with,
+but in the end the cancellation fee decided it—
+he chose to go alone.",,,res\\image\\black.png
+25,"It hurt, but suicide never crossed his mind.
+He just wanted to spend some time alone.",,,res\\image\\black.png
+26,"Listless and unable to feel like doing anything,
+a part of Star Man was a little glad to be facing danger now.",,,res\\image\\black.png
+27,"""It's just a road trip.""",res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png
+28,Star Man murmured.,res\\image\\hoshiman00.png,res\\image\\daikeiman00.png,res\\image\\talkPrecision.png

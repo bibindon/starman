@@ -1,19 +1,19 @@
-ID,Name
-cutTree,Chop
+﻿ID,Name
+cutTree,Chop Wood
 pickPlant,Gather
-rest3Hours,Rest For 3 Hours
+rest3Hours,Rest 3 Hours
 lieDown,Lie Down
-sit,Sit Down
+sit,Sit
 escape,Escape
 craft,Craft
 patchTest,Patch Test
 rideRaft,Board Raft
-checkRaftBag,Check Raft Bag
-oar3Hours,Row For 3 Hours
-lit,Light Torch
+checkRaftBag,Check Raft Bags
+oar3Hours,Row for 3 Hours
+lit,Ignite Torch
 extinguish,Extinguish Torch
-createTorch,Make Torch
-stand,Stand Up
+createTorch,Craft Torch
+stand,Stand
 raiseSail,Raise Sail
 lowerSail,Lower Sail
 meisou,Meditate
