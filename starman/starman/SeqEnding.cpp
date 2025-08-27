@@ -1214,7 +1214,7 @@ void SeqEnding::Update(eSequence* sequence)
     {
         if (!m_bFinish)
         {
-            if (GamePad::IsDown(eGamePadButtonType::A))
+            if (GamePad::IsDownFirst(eGamePadButtonType::A))
             {
                 m_storyTelling->Next();
                 m_firstPage = false;

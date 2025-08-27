@@ -693,7 +693,7 @@ void SeqBattle::OperateTalk()
         m_talk->Next();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         m_talk->Next();
     }
@@ -1002,17 +1002,17 @@ void SeqBattle::OperateStorehouse()
         }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::LEFT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::LEFT))
     {
         m_storehouse->Left();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::RIGHT))
+    if (GamePad::IsDownFirst(eGamePadButtonType::RIGHT))
     {
         m_storehouse->Right();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         result = m_storehouse->Into();
         if (result.empty())
@@ -1094,7 +1094,7 @@ void SeqBattle::OperateStorehouse()
         }
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+    if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         result = m_storehouse->Back();
         m_eState = eBattleState::NORMAL;
@@ -3670,7 +3670,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     //--------------------------------------
     // メニュー機能
     //--------------------------------------
-    if (GamePad::IsDown(eGamePadButtonType::START))
+    if (GamePad::IsDownFirst(eGamePadButtonType::START))
     {
         if (m_eState == eBattleState::NORMAL)
         {
@@ -3687,7 +3687,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     //--------------------------------------
     // コマンド機能
     //--------------------------------------
-    if (GamePad::IsDown(eGamePadButtonType::BACK))
+    if (GamePad::IsDownFirst(eGamePadButtonType::BACK))
     {
         if (m_eState == eBattleState::NORMAL)
         {
@@ -3701,7 +3701,7 @@ void SeqBattle::OperateNormal(eSequence* sequence)
     }
 
     // 確定操作
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         Confirm(sequence);
     }
@@ -3838,7 +3838,7 @@ void SeqBattle::OperateGameover(eSequence* sequence)
             }
 
             // 確定操作
-            if (GamePad::IsDown(eGamePadButtonType::A))
+            if (GamePad::IsDownFirst(eGamePadButtonType::A))
             {
                 if (m_nDeadCounter >= 120)
                 {
@@ -3926,7 +3926,7 @@ void SeqBattle::OperatePopUp()
         PopUp::Get()->Next();
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::A))
+    if (GamePad::IsDownFirst(eGamePadButtonType::A))
     {
         PopUp::Get()->Next();
     }

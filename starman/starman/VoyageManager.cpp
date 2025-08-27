@@ -130,12 +130,12 @@ void VoyageManager::Operate(eBattleState* state)
     // ゲームパッド操作
     //----------------------------------------------------
 
-    if (GamePad::IsDown(eGamePadButtonType::BACK))
+    if (GamePad::IsDownFirst(eGamePadButtonType::BACK))
     {
         *state = eBattleState::COMMAND;
     }
 
-    if (GamePad::IsDown(eGamePadButtonType::B))
+    if (GamePad::IsDownFirst(eGamePadButtonType::B))
     {
         *state = eBattleState::MENU;
         Camera::SetCameraMode(eCameraMode::SLEEP);
