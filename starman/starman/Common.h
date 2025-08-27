@@ -132,6 +132,10 @@ public:
 
     static LPCWSTR FontNameEng();
 
+    static int FontThicknessEng();
+
+    static int FontSizeEng();
+
 private:
 
     static bool m_bDebugMode;

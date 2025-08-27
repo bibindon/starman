@@ -37,9 +37,9 @@ Title::Title(const bool blackFadeIn, const bool bFirst)
     Common::SetCursorVisibility(true);
 
     HRESULT ret = D3DXCreateFont(SharedObj::GetD3DDevice(),
-                                 20,
+                                 Common::FontSizeEng() - 8,
                                  0,
-                                 FW_NORMAL,
+                                 Common::FontThicknessEng(),
                                  1,
                                  false,
                                  DEFAULT_CHARSET,

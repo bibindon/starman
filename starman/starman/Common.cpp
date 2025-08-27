@@ -431,11 +431,22 @@ LPCWSTR Common::FontNameEng()
 {
     if (true)
     {
-        return L"Calibri";
+        //return L"Calibri";
+        return L"Calibri Light";
     }
     else
     {
         return L"Courier New";
     }
+}
+
+int Common::FontThicknessEng()
+{
+    return FW_EXTRALIGHT;
+}
+
+int Common::FontSizeEng()
+{
+    return 24;
 }
 

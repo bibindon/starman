@@ -129,9 +129,9 @@ PopUpFont::PopUpFont(LPDIRECT3DDEVICE9 device, const bool bEnglish)
     else
     {
         hresult = D3DXCreateFont(D3DDevice,
-                                 26,
+                                 Common::FontSizeEng(),
                                  0,
-                                 FW_NORMAL,
+                                 Common::FontThicknessEng(),
                                  1,
                                  false,
                                  DEFAULT_CHARSET,

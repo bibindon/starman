@@ -355,9 +355,9 @@ MainWindow::MainWindow(const HINSTANCE& hInstance, IKeyBoard* keyboard)
     //-------------------------------------------------
     {
         hResult = D3DXCreateFont(SharedObj::GetD3DDevice(),
-                                 20,
+                                 Common::FontSizeEng() - 8,
                                  0,
-                                 FW_NORMAL,
+                                 Common::FontThicknessEng(),
                                  1,
                                  false,
                                  DEFAULT_CHARSET,

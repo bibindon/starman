@@ -138,9 +138,9 @@ namespace NSStorehouseLib
             else
             {
                 hr = D3DXCreateFont(m_pD3DDevice,
-                                    24,
+                                    Common::FontSizeEng(),
                                     0,
-                                    FW_NORMAL,
+                                    Common::FontThicknessEng(),
                                     1,
                                     false,
                                     DEFAULT_CHARSET,
@@ -357,9 +357,9 @@ public:
         else
         {
             hr = D3DXCreateFont(m_pD3DDevice,
-                                24,
+                                Common::FontSizeEng(),
                                 0,
-                                FW_NORMAL,
+                                Common::FontThicknessEng(),
                                 1,
                                 false,
                                 DEFAULT_CHARSET,

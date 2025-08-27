@@ -173,7 +173,7 @@ public:
             hr = D3DXCreateFont(m_pD3DDevice,
                                 m_fontSize,
                                 0,
-                                FW_NORMAL,
+                                Common::FontThicknessEng(),
                                 1,
                                 false,
                                 DEFAULT_CHARSET,
@@ -268,8 +268,8 @@ void MenuManager::InitMenu()
     NSMenulib::ISprite* sprBackground = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
     sprBackground->Load(_T("res\\image\\menu_back.png"));
 
-    NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 20);
-    NSMenulib::IFont* pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 16);
+    NSMenulib::IFont* pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng() - 4);
+    NSMenulib::IFont* pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng() - 8);
 
     NSMenulib::ISoundEffect* pSE = NEW NSMenulib::SoundEffect();
 

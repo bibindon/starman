@@ -166,9 +166,9 @@ public:
         else
         {
             hr = D3DXCreateFont(m_pD3DDevice,
-                                20,
+                                Common::FontSizeEng(),
                                 0,
-                                FW_NORMAL,
+                                Common::FontThicknessEng(),
                                 1,
                                 false,
                                 DEFAULT_CHARSET,
