@@ -147,8 +147,8 @@ papaiya,Papaya,"Fruit rarely contains poison.
 ",res\\image\\papaiya.png,0.2,400,食材,10,10,10,10,10,4,0,0,0,,,,,,papaiya
 mango,Mango,"Fruit rarely contains poison.
 ",res\\image\\mango.png,0.2,400,食材,20,10,10,10,10,3,0,0,0,,,,,,mango
-baa,Baa,"Fruit rarely contains poison.
-",res\\image\\baa.png,0.2,300,食材,30,10,10,10,10,2,0,0,0,,,,,,baa
+banana,Banana,"Fruit rarely contains poison.
+",res\\image\\banana.png,0.2,300,食材,30,10,10,10,10,2,0,0,0,,,,,,baa
 longstone,Tall Stone,"Can be used to cut wood. Not great, but usable.
 ",res\\image\\longstone.png,1,500,その他,,,,,,,,,,,,,,,longstone
 mu-rugai,Black Shell,"Looks like a mussel.
