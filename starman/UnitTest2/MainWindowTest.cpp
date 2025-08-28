@@ -135,7 +135,7 @@ public:
                             {
                                 // 1分エンターを押し続ける
 #ifdef _DEBUG
-                                for (int i = 0; i < 90; ++i)
+                                for (int i = 0; i < 180; ++i)
 #else
                                 for (int i = 0; i < 270; ++i)
 #endif
@@ -213,7 +213,7 @@ public:
                             {
                                 // 1分エンターを押し続ける
 #ifdef _DEBUG
-                                for (int i = 0; i < 90; ++i)
+                                for (int i = 0; i < 180; ++i)
 #else
                                 for (int i = 0; i < 270; ++i)
 #endif
