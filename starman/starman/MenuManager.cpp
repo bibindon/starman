@@ -1207,7 +1207,7 @@ std::wstring MenuManager::OperateMenu()
             auto rynen = NSStarmanLib::Rynen::GetObj();
             if (rynen->GetContracted())
             {
-                work += PadRightDisplayWidth(Common::LoadString_(IDS_STRING_WORDBRESS), 3);
+                work += PadRightDisplayWidth(Common::LoadString_(IDS_STRING_WORDBRESS), 20);
 
                 if (rynen->GetReviveEnable())
                 {

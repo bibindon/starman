@@ -404,7 +404,7 @@ STRINGTABLE
 BEGIN
     IDS_STRING_USE_SUMAHO   "Star Man (Unresponsive. The seawater must have corroded the board.)"
     IDS_STRING209           "Explosiveness"
-    IDS_STRING210           "Parameter      Current/MaxSub/Max"
+    IDS_STRING210           "Parameter           Current/MaxSub/Max"
     IDS_STRING211           "Starman"
     IDS_STRING212           "Bag"
     IDS_STRING213           "Debuff"
