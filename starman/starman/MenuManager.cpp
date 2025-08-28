@@ -643,7 +643,8 @@ static std::wstring PadRightDisplayWidth(const std::wstring& str, int targetWidt
 {
     int currentWidth = GetDisplayWidth(str);
     int padCount = targetWidth - currentWidth;
-    if (padCount > 0) {
+    if (padCount > 0)
+    {
         return str + std::wstring(padCount, L' ');
     }
     return str;
@@ -1070,7 +1071,7 @@ std::wstring MenuManager::OperateMenu()
             sprItem->Load(_T("res\\image\\hoshiman00.png"));
             info.SetSprite(sprItem);
 
-            wchar_t buf[4096];
+            wchar_t buf[256];
             std::wstring work;
             work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
@@ -1262,7 +1263,7 @@ std::wstring MenuManager::OperateMenu()
                 sprItem->Load(_T("res\\image\\daikeiman00.png"));
                 info.SetSprite(sprItem);
 
-                wchar_t buf[4096];
+                wchar_t buf[256];
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
@@ -1352,7 +1353,7 @@ std::wstring MenuManager::OperateMenu()
                 sprItem->Load(_T("res\\image\\sankakuman00.png"));
                 info.SetSprite(sprItem);
 
-                wchar_t buf[4096];
+                wchar_t buf[256];
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 
@@ -1443,7 +1444,7 @@ std::wstring MenuManager::OperateMenu()
                 sprItem->Load(_T("res\\image\\shikakuman00.png"));
                 info.SetSprite(sprItem);
 
-                wchar_t buf[4096];
+                wchar_t buf[256];
                 std::wstring work;
                 work =  Common::LoadString_(IDS_STRING210) + _T("\n");
 

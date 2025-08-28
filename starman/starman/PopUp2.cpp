@@ -41,7 +41,7 @@ void PopUp2::Init(IPopUpFont* font)
     SoundEffect::get_ton()->load(_T("res\\sound\\popup.wav"));
 }
 
-bool PopUp2::IsShow()
+bool PopUp2::IsShow() const
 {
     return m_isShow;
 }

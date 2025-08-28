@@ -34,7 +34,7 @@ public:
     static void Finalize();
     void SetText(const std::wstring& arg);
     void SetText(const UINT res);
-    bool IsShow();
+    bool IsShow() const;
     void Update();
     void Render();
     void Cancel();
