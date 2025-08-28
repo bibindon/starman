@@ -143,8 +143,9 @@ class Font : public IFont
 {
 public:
 
-    Font(LPDIRECT3DDEVICE9 pD3DDevice, const int fontSize)
+    Font(LPDIRECT3DDEVICE9 pD3DDevice, const std::wstring fontName, const int fontSize)
         : m_pD3DDevice(pD3DDevice)
+        , m_fontName(fontName)
         , m_fontSize(fontSize)
     {
     }
@@ -165,7 +166,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                _T("BIZ UDMincho"),
+                                m_fontName.c_str(),
                                 &m_pFont);
         }
         else
@@ -180,7 +181,7 @@ public:
                                 OUT_TT_ONLY_PRECIS,
                                 CLEARTYPE_NATURAL_QUALITY,
                                 FF_DONTCARE,
-                                Common::FontNameEng(),
+                                m_fontName.c_str(),
                                 &m_pFont);
         }
 
@@ -222,6 +223,7 @@ private:
 
     LPDIRECT3DDEVICE9 m_pD3DDevice = NULL;
     LPD3DXFONT m_pFont = NULL;
+    const std::wstring m_fontName;
     const int m_fontSize = 0;
 };
 
@@ -273,13 +275,13 @@ void MenuManager::InitMenu()
 
     if (SharedObj::IsEnglish())
     {
-        pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng());
-        pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontSizeEng() - 4);
+        pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), Common::FontNameEng(), Common::FontSizeEng());
+        pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), L"Courier New", Common::FontSizeEng() - 4);
     }
     else
     {
-        pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 20);
-        pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), 16);
+        pFont = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), L"BIZ UDMincho", 20);
+        pFontStatus = NEW NSMenulib::Font(SharedObj::GetD3DDevice(), L"BIZ UDMincho", 16);
     }
 
     NSMenulib::ISoundEffect* pSE = NEW NSMenulib::SoundEffect();
@@ -1155,7 +1157,7 @@ std::wstring MenuManager::OperateMenu()
             // 見づらい。ページを変えるとか右のほうに表示するとかしないとまずい。
             if (statusManager->GetFractureArm())
             {
-                label = PadRightDisplayWidth(L"腕の骨折が治るまでの日数", 30);
+                label = PadRightDisplayWidth(Common::LoadString_(IDS_STRING_CURE_TIME_ARM), 30);
                 _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision((float)statusManager->GetFractureArmCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
@@ -1163,7 +1165,7 @@ std::wstring MenuManager::OperateMenu()
 
             if (statusManager->GetFractureLeg())
             {
-                label = PadRightDisplayWidth(L"足の骨折が治るまでの日数", 30);
+                label = PadRightDisplayWidth(Common::LoadString_(IDS_STRING_CURE_TIME_LEG), 30);
                 _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision((float)statusManager->GetFractureLegCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
@@ -1171,7 +1173,7 @@ std::wstring MenuManager::OperateMenu()
 
             if (statusManager->GetHeadache())
             {
-                label = PadRightDisplayWidth(L"頭痛が治るまでの日数", 30);
+                label = PadRightDisplayWidth(Common::LoadString_(IDS_STRING_CURE_TIME_HEAD), 30);
                 _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision((float)statusManager->GetHeadacheCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
@@ -1179,7 +1181,7 @@ std::wstring MenuManager::OperateMenu()
 
             if (statusManager->GetCold())
             {
-                label = PadRightDisplayWidth(L"風邪が治るまでの日数", 30);
+                label = PadRightDisplayWidth(Common::LoadString_(IDS_STRING_CURE_TIME_COLD), 30);
                 _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision((float)statusManager->GetColdCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
@@ -1187,7 +1189,7 @@ std::wstring MenuManager::OperateMenu()
 
             if (statusManager->GetStomachache())
             {
-                label = PadRightDisplayWidth(L"腹痛が治るまでの日数", 30);
+                label = PadRightDisplayWidth(Common::LoadString_(IDS_STRING_CURE_TIME_STOMACH), 30);
                 _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision((float)statusManager->GetStomachacheCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
@@ -1195,7 +1197,7 @@ std::wstring MenuManager::OperateMenu()
 
             if (statusManager->GetStomachache())
             {
-                label = PadRightDisplayWidth(L"脱水症状が治るまでの日数", 30);
+                label = PadRightDisplayWidth(Common::LoadString_(IDS_STRING_CURE_TIME_WATER), 30);
                 _snwprintf_s(buf, sizeof(buf) / sizeof(buf[0]), _TRUNCATE, _T("%s"), label.c_str());
                 work += buf;
                 work += Common::ToStringWithPrecision((float)statusManager->GetDehydrationCureRemain() / 3600 / 24 * 12, 2) + _T("\n");
@@ -1204,15 +1206,15 @@ std::wstring MenuManager::OperateMenu()
             auto rynen = NSStarmanLib::Rynen::GetObj();
             if (rynen->GetContracted())
             {
-                work += _T("ワードブレス   ");
+                work += PadRightDisplayWidth(Common::LoadString_(IDS_STRING_WORDBRESS), 3);
 
                 if (rynen->GetReviveEnable())
                 {
-                    work += _T("復活可能\n");
+                    work += Common::LoadString_(IDS_STRING_REVIVE_OK) + L"\n";
                 }
                 else
                 {
-                    work += _T("復活済み\n");
+                    work += Common::LoadString_(IDS_STRING_REVIVED) + L"\n";
                 }
             }
 
@@ -1230,14 +1232,14 @@ std::wstring MenuManager::OperateMenu()
                 // ・耐久度
                 // ・強化値
                 NSMenulib::StatusInfo info;
-                info.SetName(_T("イカダ"));
+                info.SetName(Common::LoadString_(IDS_STRING169));
                 NSMenulib::Sprite* sprItem = NEW NSMenulib::Sprite(SharedObj::GetD3DDevice());
                 sprItem->Load(_T("res\\image\\raft.png"));
                 info.SetSprite(sprItem);
                 std::wstring work;
-                work += _T("現在の耐久値\n");
+                work += Common::LoadString_(IDS_STRING_CURRENT_DURA) + L"\n";
                 work += std::to_wstring(SharedObj::Voyage()->GetRaftDurability()) + _T("\n");
-                work += _T("現在の強化値\n");
+                work += Common::LoadString_(IDS_STRING_CURRENT_LEVEL) + L"\n";
                 work += std::to_wstring(SharedObj::Voyage()->GetRaftLevel()) + _T("\n");
 
                 info.SetDetail(work);
@@ -1309,25 +1311,25 @@ std::wstring MenuManager::OperateMenu()
 
                 if (status.GetRynenContract())
                 {
-                    work += _T("ワードブレス   ");
+                    work += PadRightDisplayWidth(Common::LoadString_(IDS_STRING_WORDBRESS), 20);
 
                     if (status.GetDrinkWordbress())
                     {
-                        work += _T("使用済み\n");
+                        work += Common::LoadString_(IDS_STRING_WORDBRESS_USED) + L"\n";
                     }
                     else
                     {
-                        work += _T("未使用\n");
+                        work += Common::LoadString_(IDS_STRING_WORDBRESS_UNUSED) + L"\n";
                     }
                 }
 
                 if (status.GetDead())
                 {
-                    work += _T("死亡\n");
+                    work += Common::LoadString_(IDS_STRING_NPC_DEAD) + L"\n";
                 }
                 else
                 {
-                    work += _T("生存\n");
+                    work += Common::LoadString_(IDS_STRING_NPC_ALIVE) + L"\n";
                 }
 
                 info.SetDetail(work);
@@ -1399,25 +1401,25 @@ std::wstring MenuManager::OperateMenu()
 
                 if (status.GetRynenContract())
                 {
-                    work += _T("ワードブレス   ");
+                    work += PadRightDisplayWidth(Common::LoadString_(IDS_STRING_WORDBRESS), 20);
 
                     if (status.GetDrinkWordbress())
                     {
-                        work += _T("使用済み\n");
+                        work += Common::LoadString_(IDS_STRING_WORDBRESS_USED) + L"\n";
                     }
                     else
                     {
-                        work += _T("未使用\n");
+                        work += Common::LoadString_(IDS_STRING_WORDBRESS_UNUSED) + L"\n";
                     }
                 }
 
                 if (status.GetDead())
                 {
-                    work += _T("死亡\n");
+                    work += Common::LoadString_(IDS_STRING_NPC_DEAD) + L"\n";
                 }
                 else
                 {
-                    work += _T("生存\n");
+                    work += Common::LoadString_(IDS_STRING_NPC_ALIVE) + L"\n";
                 }
 
 
@@ -1490,27 +1492,26 @@ std::wstring MenuManager::OperateMenu()
 
                 if (status.GetRynenContract())
                 {
-                    work += _T("ワードブレス   ");
+                    work += PadRightDisplayWidth(Common::LoadString_(IDS_STRING_WORDBRESS), 20);
 
                     if (status.GetDrinkWordbress())
                     {
-                        work += _T("使用済み\n");
+                        work += Common::LoadString_(IDS_STRING_WORDBRESS_USED) + L"\n";
                     }
                     else
                     {
-                        work += _T("未使用\n");
+                        work += Common::LoadString_(IDS_STRING_WORDBRESS_UNUSED) + L"\n";
                     }
                 }
 
                 if (status.GetDead())
                 {
-                    work += _T("死亡\n");
+                    work += Common::LoadString_(IDS_STRING_NPC_DEAD) + L"\n";
                 }
                 else
                 {
-                    work += _T("生存\n");
+                    work += Common::LoadString_(IDS_STRING_NPC_ALIVE) + L"\n";
                 }
-
 
                 info.SetDetail(work);
                 infoList.push_back(info);

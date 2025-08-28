@@ -140,6 +140,22 @@
 #define IDS_STRING_DEATH_REASON7        232
 #define IDS_STRING_DEATH_REASON8        233
 #define IDS_STRING_HELP_EMPTY           234
+#define IDS_STRING_CURE_TIME_ARM        235
+#define IDS_STRING_CURE_TIME_LEG        236
+#define IDS_STRING_CURE_TIME_HEAD       237
+#define IDS_STRING_CURE_TIME_COLD       238
+#define IDS_STRING_CURE_TIME_STOMACH    239
+#define IDS_STRING_CURE_TIME_WATER      240
+#define IDS_STRING_WORDBRESS            241
+#define IDS_STRING_REVIVE_OK            242
+#define IDS_STRING_REVIVED              243
+#define IDS_STRING_CURRENT_DURA         244
+#define IDS_STRING244                   244
+#define IDS_STRING_CURRENT_LEVEL        245
+#define IDS_STRING_WORDBRESS_USED       246
+#define IDS_STRING_WORDBRESS_UNUSED     247
+#define IDS_STRING_NPC_ALIVE            248
+#define IDS_STRING_NPC_DEAD             249
 
 // Next default values for new objects
 // 

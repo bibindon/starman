@@ -229,6 +229,25 @@ BEGIN
     IDS_STRING_DEATH_REASON7 "死因：水中で寝た。"
     IDS_STRING_DEATH_REASON8 "死因：睡眠中に攻撃された。"
     IDS_STRING_HELP_EMPTY   "（今は分けてもらえないようだ）"
+    IDS_STRING_CURE_TIME_ARM "腕の骨折が治るまでの日数"
+    IDS_STRING_CURE_TIME_LEG "足の骨折が治るまでの日数"
+    IDS_STRING_CURE_TIME_HEAD "頭痛が治るまでの日数"
+    IDS_STRING_CURE_TIME_COLD "風邪が治るまでの日数"
+    IDS_STRING_CURE_TIME_STOMACH "腹痛が治るまでの日数"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING_CURE_TIME_WATER "脱水症状が治るまでの日数"
+    IDS_STRING_WORDBRESS    "ワードブレス"
+    IDS_STRING_REVIVE_OK    "復活可能"
+    IDS_STRING_REVIVED      "復活済み"
+    IDS_STRING_CURRENT_DURA "現在の耐久値"
+    IDS_STRING_CURRENT_LEVEL "現在の強化値"
+    IDS_STRING_WORDBRESS_USED "使用済み"
+    IDS_STRING_WORDBRESS_UNUSED "未使用"
+    IDS_STRING_NPC_ALIVE    "生存"
+    IDS_STRING_NPC_DEAD     "死亡"
 END
 
 #endif    // 日本語 (日本) resources
@@ -415,6 +434,25 @@ BEGIN
     IDS_STRING_DEATH_REASON7 "Cause of Death: Slept underwater"
     IDS_STRING_DEATH_REASON8 "Cause of Death: Attacked while sleeping"
     IDS_STRING_HELP_EMPTY   "(It seems I can’t get any right now.)"
+    IDS_STRING_CURE_TIME_ARM "Broken Arm Heal Time"
+    IDS_STRING_CURE_TIME_LEG "Broken Leg Heal Time"
+    IDS_STRING_CURE_TIME_HEAD "Headache Heal Time"
+    IDS_STRING_CURE_TIME_COLD "Cold Heal Time"
+    IDS_STRING_CURE_TIME_STOMACH "Stomachache Heal Time"
+END
+
+STRINGTABLE
+BEGIN
+    IDS_STRING_CURE_TIME_WATER "Dehydration Heal Time"
+    IDS_STRING_WORDBRESS    "WordBress"
+    IDS_STRING_REVIVE_OK    "Revive Available"
+    IDS_STRING_REVIVED      "Revived"
+    IDS_STRING_CURRENT_DURA "Durability"
+    IDS_STRING_CURRENT_LEVEL "Level"
+    IDS_STRING_WORDBRESS_USED "Used"
+    IDS_STRING_WORDBRESS_UNUSED "Unused"
+    IDS_STRING_NPC_ALIVE    "Alive"
+    IDS_STRING_NPC_DEAD     "Dead"
 END
 
 #endif    // 英語 (米国) resources
