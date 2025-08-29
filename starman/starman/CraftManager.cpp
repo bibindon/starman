@@ -485,7 +485,7 @@ void CraftManager::Operate(eBattleState* state)
             bool started = false;
             if (itemId == L"sotetsuDetox")
             {
-                ++num;
+                num += 5;
                 started = craftSys->QueueCraftRequest(work, &errMsg, -1, num);
             }
             else if (itemId == L"donguriDetox")
