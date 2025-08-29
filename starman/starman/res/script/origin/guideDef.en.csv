@@ -229,17 +229,16 @@ Switch Magic — Mouse Wheel
 Confirm — ENTER / SPACE
 Throw — SHIFT + F
 "
-46,Controls,Gamepad Controls,"Gamepad Controls
-Menu — START button
-Walk — D‑pad
-Dash — ...
-Jump — × button
-Step — WASD + × button
+46,Controls,Gamepad Controls,"Menu — START button
+Walk — Left Stick
+Dash — L2 + Left Stick
+Jump — Cross (×) Button
+Step — Left Stick + Cross (×) Button
 Attack — R1
-Use Magic — ...
-Switch Magic — ...
-Confirm — ○ button
-Throw — ...
+Use Magic — Hold R2 and press R1
+Switch Magic — D-pad
+Confirm — Circle (○) Button
+Throw — L1
 "
 47,Controls,Attack,"Each swing consumes weapon durability and your own stamina.
 Status ailments such as colds and headaches worsen.
