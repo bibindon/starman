@@ -968,11 +968,7 @@ void SeqBattle::OperateStorehouse()
 
     if (GamePad::IsDownFirst(eGamePadButtonType::UP))
     {
-        holdCounter++;
-        if (holdCounter % 3 == 0)
-        {
-            m_storehouse->Up();
-        }
+        m_storehouse->Up();
     }
 
     if (GamePad::IsHold(eGamePadButtonType::UP))
@@ -986,11 +982,7 @@ void SeqBattle::OperateStorehouse()
 
     if (GamePad::IsDownFirst(eGamePadButtonType::DOWN))
     {
-        holdCounter++;
-        if (holdCounter % 3 == 0)
-        {
-            m_storehouse->Down();
-        }
+        m_storehouse->Down();
     }
 
     if (GamePad::IsHold(eGamePadButtonType::DOWN))
