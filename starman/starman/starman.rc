@@ -303,7 +303,7 @@ END
 STRINGTABLE
 BEGIN
     IDS_STRING128           "Get %s."
-    IDS_STRING129           "Starman got a slender tree trunk."
+    IDS_STRING129           "Starman got a thin tree trunk."
     IDS_STRING130           "Tall Stone"
     IDS_STRING131           "Stone Axe"
     IDS_STRING132           "Slender Tree Trunk"
