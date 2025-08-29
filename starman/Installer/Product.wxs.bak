@@ -1284,6 +1284,9 @@
                 <File Source="../starman/res/script/origin/mapInfoDef.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/mapInfoDef.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/mapInfoOrigin.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1345,12 +1348,6 @@
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talk2Sample.en.csv" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/talk2Sample2.csv" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/talk2Sample2.en.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest1.csv" />
@@ -1578,6 +1575,9 @@
                 <File Source="../starman/res/script/origin/talkFinishQuest40-1.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
+                <File Source="../starman/res/script/origin/talkFinishQuest40-1.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/talkFinishQuest40.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1776,12 +1776,6 @@
                 <File Source="../starman/res/script/origin/talkFinishQuest9-5.en.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/talkFinishQuest9-removed.csv" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
-                <File Source="../starman/res/script/origin/talkFinishQuest9.en.csv" />
-            </Component>
-            <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
                 <File Source="../starman/res/script/origin/voyageOrigin.csv" />
             </Component>
             <Component Directory="SCRIPT_ORIGIN" Guid="*" Win64="yes">
@@ -1869,6 +1863,9 @@
                 <File Id="mapInfoDef.csv.demo" Source="../starman/res/script/demo/mapInfoDef.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="mapInfoDef.en.csv.demo" Source="../starman/res/script/demo/mapInfoDef.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="mapInfoOrigin.csv.demo" Source="../starman/res/script/demo/mapInfoOrigin.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
@@ -1933,12 +1930,6 @@
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="talk2Sample.en.csv.demo" Source="../starman/res/script/demo/talk2Sample.en.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="talk2Sample2.csv.demo" Source="../starman/res/script/demo/talk2Sample2.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="talk2Sample2.en.csv.demo" Source="../starman/res/script/demo/talk2Sample2.en.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="talkFinishQuest1.csv.demo" Source="../starman/res/script/demo/talkFinishQuest1.csv" />
@@ -2166,6 +2157,9 @@
                 <File Id="talkFinishQuest40_1.csv.demo" Source="../starman/res/script/demo/talkFinishQuest40-1.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
+                <File Id="talkFinishQuest40_1.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest40-1.en.csv" />
+            </Component>
+            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="talkFinishQuest40.csv.demo" Source="../starman/res/script/demo/talkFinishQuest40.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
@@ -2362,12 +2356,6 @@
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="talkFinishQuest9_5.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-5.en.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="talkFinishQuest9_removed.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9-removed.csv" />
-            </Component>
-            <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
-                <File Id="talkFinishQuest9.en.csv.demo" Source="../starman/res/script/demo/talkFinishQuest9.en.csv" />
             </Component>
             <Component Directory="SCRIPT_DEMO" Guid="*" Win64="yes">
                 <File Id="voyageOrigin.csv.demo" Source="../starman/res/script/demo/voyageOrigin.csv" />
