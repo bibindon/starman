@@ -380,7 +380,7 @@ shikakuman",,"<talk>res\\script\\origin\\talkFinishQuest27.csv
 <move>20:492:-569"
 Q4800,"クエストが完了していたら
 クエストが完了していないなら","Q4700
-Q4800",<hint>Star Man (I'll gather 10 red berries and then go to the ruins.),"位置
+Q4800",<hint>Star Man (I'll gather 5 red berries and then go to the ruins.),"位置
 インベントリにXがY個あったら
 NPCのXが生存
 NPCのXが生存
