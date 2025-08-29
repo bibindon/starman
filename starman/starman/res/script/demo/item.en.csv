@@ -46,7 +46,8 @@ kakan,Flower Garland,"A garland made by gathering flowers.
 tsukushi,Horsetail,"Star Man (I think I heard as a kid
 that horsetail is edible.)
 
-Horsetail has a diuretic effect; eating it makes you lose water.",res\\image\\tsukushi.png,0.5,500,食材,0,0,0,35,35,-1,0,0,0,,,,,,tsukushi
+Horsetail has a diuretic effect; eating it makes you
+lose water.",res\\image\\tsukushi.png,0.5,500,食材,0,0,0,35,35,-1,0,0,0,,,,,,tsukushi
 unknownPlant1,Unknown Plant 1,"Wild plants
 Star Man knew nothing about wild plants.
 ",res\\image\\unknownPlant.png,0.5,500,食材,0,0,0,10,10,2,10,5,5,,○,,,,unknownPlant1
@@ -72,7 +73,8 @@ Dandelion is diuretic; eating it makes you lose water.",res\\image\\tanpopo.png,
 nira,Chives or Daffodil,"Chives and daffodils look very similar.
 If it's a daffodil, you will take damage.
 ",res\\image\\nira.png,0.5,500,食材,2,2,2,35,35,2,50,50,50,○,○,,,,nira
-kinoko,Mushroom,"Most mushrooms are poisonous and not very nutritious.
+kinoko,Mushroom,"Most mushrooms are poisonous and not very
+nutritious.
 Do not eat them.
 ",res\\image\\kinoko.png,0.02,100,食材,10,10,10,10,10,0,50,50,50,○,○,,,,kinoko
 copper,Copper Ore,"It takes 1500°C to melt iron,
@@ -83,44 +85,51 @@ raft_deprecated,Raft,"Breaks in 5 minutes.
 Can be upgraded up to +10,
 increasing durability and load capacity. 
 ",res\\image\\raft.png,100,500000,その他,,,,,,,,,,,,,,,raft_deprecated
-bui,Buoy,"Attaching it to the raft increases durability and load capacity.
+bui,Buoy,"Attaching it to the raft increases durability and load
+capacity.
 ",res\\image\\bui.png,1,2000,素材,,,,,,,,,,,,,,,bui
 cubeBody,Monster Body,"Monster body. Jelly‑like material.
 Smells like a gutter.",res\\image\\cubeBody.png,0.5,500,その他,,,,,,,,,,,,,,,cubeBody
 bag,Bag,"A bag woven from vines.
 No one had done any knitting, so
 it was made by feel.
-Stowing/withdrawing items or jumping reduces durability.
+Stowing/withdrawing items or jumping reduces
+durability.
 Can be upgraded up to +5.
 ",res\\image\\bag.png,0.7,1200,その他,,,,,,,,,,,,,100,,bag
 bag1,Bag,"A bag woven from vines.
 No one had done any knitting, so
 it was made by feel.
-Stowing/withdrawing items or jumping reduces durability.
+Stowing/withdrawing items or jumping reduces
+durability.
 Can be upgraded up to +5.
 ",res\\image\\bag.png,0.7,1200,その他,,,,,,,,,,,,1,200,,bag
 bag2,Bag,"A bag woven from vines.
 No one had done any knitting, so
 it was made by feel.
-Stowing/withdrawing items or jumping reduces durability.
+Stowing/withdrawing items or jumping reduces
+durability.
 Can be upgraded up to +5.
 ",res\\image\\bag.png,0.7,1200,その他,,,,,,,,,,,,2,300,,bag
 bag3,Bag,"A bag woven from vines.
 No one had done any knitting, so
 it was made by feel.
-Stowing/withdrawing items or jumping reduces durability.
+Stowing/withdrawing items or jumping reduces
+durability.
 Can be upgraded up to +5.
 ",res\\image\\bag.png,0.7,1200,その他,,,,,,,,,,,,3,400,,bag
 bag4,Bag,"A bag woven from vines.
 No one had done any knitting, so
 it was made by feel.
-Stowing/withdrawing items or jumping reduces durability.
+Stowing/withdrawing items or jumping reduces
+durability.
 Can be upgraded up to +5.
 ",res\\image\\bag.png,0.7,1200,その他,,,,,,,,,,,,4,500,,bag
 bag5,Bag,"A bag woven from vines.
 No one had done any knitting, so
 it was made by feel.
-Stowing/withdrawing items or jumping reduces durability.
+Stowing/withdrawing items or jumping reduces
+durability.
 Can be upgraded up to +5.
 ",res\\image\\bag.png,0.7,1200,その他,,,,,,,,,,,,5,600,,bag
 stoneForAxe,Properly Shaped Stone (Axe),"To use stone for axes or spears,
@@ -129,7 +138,8 @@ you need to find a well‑shaped stone.
 stoneForSpear,Properly Shaped Stone (Spear),"To use stone for axes or spears,
 you need to find a well‑shaped stone.
 ",res\\image\\stoneForSpear.png,0.8,400,素材,,,,,,,,,,,,,,,stoneForSpear
-wordbress,WordBress,"A vial containing medicine that revives you even after death.
+wordbress,WordBress,"A vial containing medicine that revives you even
+after death.
 For the effect to activate,
 you must have made a certain pact.
 
@@ -137,8 +147,9 @@ One bottle grants one revival.
 ",res\\image\\wordbress.png,0.4,200,その他,,,,,,,,,,,,,,,wordbress
 sugegasa,Sedge Hat,"A conical hat worn on the head.
 
-Wearing it during the day reduces stamina consumption,
-wearing it at night slightly increases stamina consumption.
+Wearing it during the day reduces stamina
+consumption, wearing it at night slightly increases
+stamina consumption.
 ",res\\image\\sugegasa.png,0.2,2000,その他,,,,,,,,,,,,,,,sugegasa
 yakizakana,Grilled Fish,"Grilled fish.
 Lately pricey.
@@ -241,46 +252,58 @@ spearForAtlatl2,Spear for Atlatl,,,0.6,2000,武器,,,,,,,,,,,,2,,w10,spearForAtl
 spearForAtlatl3,Spear for Atlatl,,,0.6,2000,武器,,,,,,,,,,,,3,,w10,spearForAtlatl
 spearForAtlatl4,Spear for Atlatl,,,0.6,2000,武器,,,,,,,,,,,,4,,w10,spearForAtlatl
 spearForAtlatl5,Spear for Atlatl,,,0.6,2000,武器,,,,,,,,,,,,5,,w10,spearForAtlatl
-bagForDetox,Bag for detox,"A bag woven from vines.Used to leach toxins from sago palm.
+bagForDetox,Bag for detox,"A bag woven from vines.Used to leach toxins from
+sago palm.
 No one had done any knitting, so
 it was made by feel.
 Breaks after one use.
-After crafting it twice, you can make a bag with a higher upgrade value.
+After crafting it twice, you can make a bag with a
+higher upgrade value.
 Can be upgraded up to +5.
 ",res\\image\\bag2.png,0.7,1200,その他,,,,,,,,,,,,,,,bagForDetox
-bagForDetox1,Bag for detox,"A bag woven from vines.Used to leach toxins from sago palm.
+bagForDetox1,Bag for detox,"A bag woven from vines.Used to leach toxins from
+sago palm.
 No one had done any knitting, so
 it was made by feel.
 Breaks after one use.
-After crafting it twice, you can make a bag with a higher upgrade value.
+After crafting it twice, you can make a bag with a
+higher upgrade value.
 Can be upgraded up to +5.
 ",res\\image\\bag2.png,0.7,1200,その他,,,,,,,,,,,,1,10,,bagForDetox
-bagForDetox2,Bag for detox,"A bag woven from vines.Used to leach toxins from sago palm.
+bagForDetox2,Bag for detox,"A bag woven from vines.Used to leach toxins from
+sago palm.
 No one had done any knitting, so
 it was made by feel.
 Breaks after one use.
-After crafting it twice, you can make a bag with a higher upgrade value.
+After crafting it twice, you can make a bag with a
+higher upgrade value.
 Can be upgraded up to +5.
 ",res\\image\\bag2.png,0.7,1200,その他,,,,,,,,,,,,2,20,,bagForDetox
-bagForDetox3,Bag for detox,"A bag woven from vines.Used to leach toxins from sago palm.
+bagForDetox3,Bag for detox,"A bag woven from vines.Used to leach toxins from
+sago palm.
 No one had done any knitting, so
 it was made by feel.
 Breaks after one use.
-After crafting it twice, you can make a bag with a higher upgrade value.
+After crafting it twice, you can make a bag with a
+higher upgrade value.
 Can be upgraded up to +5.
 ",res\\image\\bag2.png,0.7,1200,その他,,,,,,,,,,,,3,30,,bagForDetox
-bagForDetox4,Bag for detox,"A bag woven from vines.Used to leach toxins from sago palm.
+bagForDetox4,Bag for detox,"A bag woven from vines.Used to leach toxins from
+sago palm.
 No one had done any knitting, so
 it was made by feel.
 Breaks after one use.
-After crafting it twice, you can make a bag with a higher upgrade value.
+After crafting it twice, you can make a bag with a
+higher upgrade value.
 Can be upgraded up to +5.
 ",res\\image\\bag2.png,0.7,1200,その他,,,,,,,,,,,,4,40,,bagForDetox
-bagForDetox5,Bag for detox,"A bag woven from vines.Used to leach toxins from sago palm.
+bagForDetox5,Bag for detox,"A bag woven from vines.Used to leach toxins from
+sago palm.
 No one had done any knitting, so
 it was made by feel.
 Breaks after one use.
-After crafting it twice, you can make a bag with a higher upgrade value.
+After crafting it twice, you can make a bag with a
+higher upgrade value.
 Can be upgraded up to +5.
 ",res\\image\\bag2.png,0.7,1200,その他,,,,,,,,,,,,5,50,,bagForDetox
 torch,Torch,,,1,2000,武器,,,,,,,,,,,,,,w11,torch
