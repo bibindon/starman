@@ -91,7 +91,7 @@ public:
 #ifdef _DEBUG
                                 Sleep(40 * 1000);
 #else
-                                Sleep(20 * 1000);
+                                Sleep(40 * 1000);
 #endif
 
                                 keyboard->SetAltF4();
@@ -135,12 +135,12 @@ public:
                             {
                                 // 1分エンターを押し続ける
 #ifdef _DEBUG
-                                for (int i = 0; i < 180; ++i)
+                                for (int i = 0; i < 90; ++i)
 #else
-                                for (int i = 0; i < 270; ++i)
+                                for (int i = 0; i < 60; ++i)
 #endif
                                 {
-                                    Sleep(500 * 1);
+                                    Sleep(1000 * 1);
                                     keyboard->SetKeyDownFirst(DIK_RETURN);
                                 }
 
@@ -213,12 +213,12 @@ public:
                             {
                                 // 1分エンターを押し続ける
 #ifdef _DEBUG
-                                for (int i = 0; i < 180; ++i)
+                                for (int i = 0; i < 90; ++i)
 #else
-                                for (int i = 0; i < 270; ++i)
+                                for (int i = 0; i < 60; ++i)
 #endif
                                 {
-                                    Sleep(500 * 1); 
+                                    Sleep(1000 * 1); 
                                     keyboard->SetKeyDownFirst(DIK_RETURN);
                                 }
 

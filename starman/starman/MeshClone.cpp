@@ -61,7 +61,7 @@ void MeshClone::Init()
             throw std::exception("Failed to create an effect file.");
         }
 
-        m_D3DEffectMap[m_meshName] = _D3DEffect;;
+        m_D3DEffectMap[m_meshName] = _D3DEffect;
     }
     else
     {
@@ -721,6 +721,23 @@ void MeshClone::ForceRelease()
     m_vecColorMap.clear();
     m_materialCountMap.clear();
 
+    for (auto it = m_D3DEffectMap.begin(); it != m_D3DEffectMap.end(); ++it)
+    {
+        if (it->second != nullptr)
+        {
+            int refCnt = 0;
+            do
+            {
+                refCnt = it->second->Release();
+            }
+            while (refCnt != 0);
+        }
+
+        it->second = nullptr;
+    }
+
+    m_D3DEffectMap.clear();
+
     for (auto it = m_vecTextureMap.begin(); it != m_vecTextureMap.end(); ++it)
     {
         for (int i = 0; i < it->second.size(); ++i)
@@ -757,23 +774,6 @@ void MeshClone::ForceRelease()
     }
 
     m_D3DMeshMap.clear();
-
-    for (auto it = m_D3DEffectMap.begin(); it != m_D3DEffectMap.end(); ++it)
-    {
-        if (it->second != nullptr)
-        {
-            int refCnt = 0;
-            do
-            {
-                refCnt = it->second->Release();
-            }
-            while (refCnt != 0);
-        }
-
-        it->second = nullptr;
-    }
-
-    m_D3DEffectMap.clear();
 }
 
 
